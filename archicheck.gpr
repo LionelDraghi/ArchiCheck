@@ -2,32 +2,29 @@
 
 project Archicheck is
 
-   package Ide is
-      for Vcs_Kind use "Subversion";
-   end Ide;
-
-   for Source_Dirs use ("Src",
-                        "/home/lionel/Proj/ArchiCheck/OpenToken/",
-                        "/home/lionel/Proj/ArchiCheck/OpenToken/Language_Lexers/");
+   for Source_Dirs use ("Src", "OpenToken", "OpenToken/Language_Lexers");
    for Object_Dir use "Obj";
    for Exec_Dir use ".";
-   for Main use ("archicheck.adb");
-
-   package Builder is
-      for Executable ("archicheck.adb") use "";
-      for Default_Switches ("ada") use ("-s", "-m", "-j2", "-C");
-   end Builder;
-
-   package Compiler is
-   for Default_Switches ("ada") use ("-gnatQ", "-gnatf", "-gnato",
-                                     "-fstack-check", "-g", "-gnata",
-                                     "-gnat05", "-gnatwa",
-                                     "-gnaty");
-   end Compiler;
+   for Main use ("archicheck-main.adb");
 
    package Linker is
       -- for Default_Switches ("Ada") use (OpenToken.Ada_Switches);
    end Linker;
+
+   package Compiler is
+      for Default_Switches ("ada") use ("-gnatQ", "-gnatf", "-gnato",
+                                        "-fstack-check", "-g", "-gnata",
+                                        "-gnat05", "-gnatwa",
+                                        "-gnatyabefhiklmnprst");
+   end Compiler;
+
+   package Builder is
+      for Default_Switches ("ada") use ("-s", "-m", "-j2", "-C");
+      for Executable ("archicheck-main.adb") use "archicheck";
+   end Builder;
+
+   package Ide is
+   end Ide;
 
 end Archicheck;
 

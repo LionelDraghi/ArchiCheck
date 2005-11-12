@@ -3,8 +3,9 @@ with Ada.Command_Line;
 
 with OpenToken.Text_Feeder.Text_IO;
 with Ada_Lexer;                      use  Ada_Lexer;
+with Archicheck.Source_List;
 
-procedure Archicheck is
+procedure Archicheck.Main is
    -- Global text file for reading parse data
    File : Ada.Text_IO.File_Type;
 begin
@@ -28,4 +29,4 @@ begin
 
    end loop;
 
-end Archicheck;
+end Archicheck.Main;
