@@ -1,0 +1,95 @@
+V "GNAT Lib v4.0"
+A -fstack-check
+A -gnatQ
+A -gnatf
+A -gnato
+A -g
+A -gnata
+A -gnat05
+A -gnatwa
+A -gnatya
+A -gnatyb
+A -gnatye
+A -gnatyf
+A -gnatyh
+A -gnatyi
+A -gnatyk
+A -gnatyl
+A -gnatym
+A -gnatyn
+A -gnatyp
+A -gnatyr
+A -gnatys
+A -gnatyt
+A -gnatA
+P SS ZX
+R nnnnnnnnvnnnnnvnvnnnnvnnvnnnnnnnnnnnnvnnnnnnnnnnnnnnnvnvnnnnnnnnnnnnnnn
+
+U opentoken.token%s	opentoken-token.ads	ac38c392 EE PK
+W ada.finalization.list_controller%s  a-filico.adb  a-filico.ali
+W ada.streams%s		a-stream.ads		a-stream.ali
+W ada.tags%s		a-tags.adb		a-tags.ali
+W opentoken%s		opentoken.ads		opentoken.ali
+W system%s		system.ads		system.ali
+W system.exception_table%s  s-exctab.adb	s-exctab.ali
+W system.finalization_implementation%s  s-finimp.adb  s-finimp.ali
+W system.finalization_root%s  s-finroo.adb	s-finroo.ali
+W system.soft_links%s	s-soflin.adb		s-soflin.ali
+W system.standard_library%s  s-stalib.adb	s-stalib.ali
+W system.storage_elements%s  s-stoele.adb	s-stoele.ali
+
+D ada.ads		20030424175357 7cd43be2
+D a-charac.ads		20031021134153 b6f39c34
+D a-chlat1.ads		20030424175352 e2279e26
+D a-except.ads		20031021134153 69f30d44
+D a-finali.ads		20030424175353 ee64b9e9
+D a-filico.ads		20041027122919 74630936
+D a-stream.ads		20030424175354 66f7f9b0
+D a-string.ads		20050210135014 9ca7eb9f
+D a-strbou.ads		20050210135015 9bdb9eff
+D a-strmap.ads		20050210135139 d1d75a57
+D a-strsup.ads		20050210135015 7cb59489
+D a-tags.ads		20050210135043 6204e4c8
+D a-tags.adb		20050210135043 39886c94
+D interfac.ads		20041208114938 279b6d6d
+D opentoken.ads		20000127210734 84515f60
+D opentoken-token.ads	20000806235727 28699cf2
+D system.ads		20041004145116 4f66def4
+D s-exctab.ads		20031021134213 e14b1567
+D s-finimp.ads		20040715203441 af434eef
+D s-finroo.ads		20040305105858 dd60a64c
+D s-htable.ads		20031021134214 b7952fb1
+D s-secsta.ads		20040809122421 db466d0c
+D s-soflin.ads		20050210135723 ddd0a406
+D s-stache.ads		20040322140628 5ff85b87
+D s-stalib.ads		20040419152013 00c059cd
+D s-stoele.ads		20040419152014 72d7e8ed
+D s-stoele.adb		20040423105831 d6d2aebc
+D s-stratt.ads		20031021134214 d0a26af3
+D s-traent.ads		20031021134218 a2519bfe
+D s-unstyp.ads		20040611104739 e021fbde
+D unchconv.ads		20030424175420 34860a55
+X 15 opentoken.ads
+55K9*OpenToken 75e14 16|46r9 111r5
+X 16 opentoken-token.ads
+46K19*Token 15|55k9 16|111l15 111e20
+48H9*Instance 50r21 74p14 75r25 88p13 89r21 109c9 109e48
+50C12*Class<48R9> 52r30 106r47
+52P9*Handle(50C12)
+54H9*Source 56r28 100p14 100r45 106p13 106r32 110c9 110e48
+56C12*Source_Class<54R9> 58r37 76r25 90r21
+58P9*Source_Handle(56C12)
+61X4*Parse_Error
+74x14*Parse 75=7 76=7 77>7
+75r7 Match{48R9}
+76c7 Analyzer{56C12}
+77b7 Actively{boolean}
+88y13*Could_Parse_To{boolean} 89>7 90>7
+89r7 Match{48R9}
+90c7 Analyzer{56C12}
+100x14*Find_Next 100=25 101>25
+100r25 Analyzer{54R9}
+101b25 Look_Ahead{boolean}
+106y13*Get{50C12} 106>18
+106r18 Analyzer{54R9}
+

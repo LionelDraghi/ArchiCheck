@@ -1,0 +1,127 @@
+V "GNAT Lib v4.0"
+A -fstack-check
+A -gnatQ
+A -gnatf
+A -gnato
+A -g
+A -gnata
+A -gnat05
+A -gnatwa
+A -gnatya
+A -gnatyb
+A -gnatye
+A -gnatyf
+A -gnatyh
+A -gnatyi
+A -gnatyk
+A -gnatyl
+A -gnatym
+A -gnatyn
+A -gnatyp
+A -gnatyr
+A -gnatys
+A -gnatyt
+A -gnatA
+P SS ZX
+R nnnvnvnnnnnnnnnnnnnnvnnnnnvnnnnnnnnvnvnnnnnnnnnnnnnnnvnvnnnnnnnnnnnnnnn
+
+U archicheck.cmd_line%b	archicheck-cmd_line.adb	1101efd1 PK
+W ada%s			ada.ads			ada.ali
+W ada.command_line%s	a-comlin.adb		a-comlin.ali
+W ada.directories%s	a-direct.adb		a-direct.ali
+W ada.tags%s		a-tags.adb		a-tags.ali
+W ada.text_io%s		a-textio.adb		a-textio.ali
+W archicheck%s		archicheck.ads		archicheck.ali
+W system.finalization_implementation%s  s-finimp.adb  s-finimp.ali
+W system.finalization_root%s  s-finroo.adb	s-finroo.ali
+W system.secondary_stack%s  s-secsta.adb	s-secsta.ali
+W system.soft_links%s	s-soflin.adb		s-soflin.ali
+W system.standard_library%s  s-stalib.adb	s-stalib.ali
+W system.string_ops%s	s-strops.adb		s-strops.ali
+W system.string_ops_concat_3%s  s-sopco3.adb	s-sopco3.ali
+
+U archicheck.cmd_line%s	archicheck-cmd_line.ads	eacb9ef7 EE NE PK
+W archicheck%s		archicheck.ads		archicheck.ali
+W archicheck.source_list%s  archicheck-source_list.ads  archicheck-source_list.ali
+
+D ada.ads		20030424175357 7cd43be2
+D a-calend.ads		20040607141615 979f5d2f
+D a-charac.ads		20031021134153 b6f39c34
+D a-chlat1.ads		20030424175352 e2279e26
+D a-comlin.ads		20030424175352 e4860474
+D a-contai.ads		20050209111439 050b27b6
+D a-cdlili.ads		20050209111440 6bfe55d0
+D a-direct.ads		20040913101841 88095055
+D a-except.ads		20031021134153 69f30d44
+D a-finali.ads		20030424175353 ee64b9e9
+D a-filico.ads		20041027122919 74630936
+D a-ioexce.ads		20030424175353 a50c222b
+D a-stream.ads		20030424175354 66f7f9b0
+D a-string.ads		20050210135014 9ca7eb9f
+D a-strmap.ads		20050210135139 d1d75a57
+D a-strunb.ads		20050210135138 9883dfb1
+D a-tags.ads		20050210135043 6204e4c8
+D a-tags.adb		20050210135043 39886c94
+D a-textio.ads		20050210135139 53071d84
+D archicheck.ads	20051112220749 2aa246b9
+D archicheck-cmd_line.ads  20051113173143 7b59faa9
+D archicheck-cmd_line.adb  20051113173143 55d05cdd
+D archicheck-source_list.ads  20051112220749 bb3022e7
+D interfac.ads		20041208114938 279b6d6d
+D i-cstrea.ads		20031215115100 85085d90
+D system.ads		20041004145116 4f66def4
+D s-crtl.ads		20050210134915 aee152b1
+D s-exctab.ads		20031021134213 e14b1567
+D s-ficobl.ads		20040706135731 ed792749
+D s-finimp.ads		20040715203441 af434eef
+D s-finroo.ads		20040305105858 dd60a64c
+D s-htable.ads		20031021134214 b7952fb1
+D s-parame.ads		20031021134214 c4321b48
+D s-secsta.ads		20040809122421 db466d0c
+D s-soflin.ads		20050210135723 ddd0a406
+D s-stache.ads		20040322140628 5ff85b87
+D s-stalib.ads		20040419152013 00c059cd
+D s-stoele.ads		20040419152014 72d7e8ed
+D s-stoele.adb		20040423105831 d6d2aebc
+D s-stratt.ads		20031021134214 d0a26af3
+D s-strops.ads		20050210135017 87984372
+D s-sopco3.ads		20030424175413 e851a686
+D s-sopco4.ads		20030424175413 c9d7ac99
+D s-sopco5.ads		20030424175413 9898affe
+D s-traent.ads		20031021134218 a2519bfe
+D s-unstyp.ads		20040611104739 e021fbde
+D unchconv.ads		20030424175420 34860a55
+X 1 ada.ads
+16K9*Ada 19e8 22|1r6 2r6 3r6 12r11 19r17 29r25 31r25 36r22 44r16
+X 5 a-comlin.ads
+38K13*Command_Line 136e21 22|1w10 12r15
+41V13*Argument_Count{natural} 22|50r41
+48V13*Argument{string} 22|18r38 25r56
+X 7 a-cdlili.ads
+48R9*List 21|7r55[23|3] 22|8r44[23|3] 59r55[23|3]
+X 8 a-direct.ads
+78K13*Directories 416e20 22|2w10 19r21
+184V13*Full_Name{string} 22|25r45
+237n23*Directory{237E9} 22|28r39
+244V13*Exists{boolean} 22|27r22
+250V13*Kind{237E9} 22|28r25
+X 19 a-textio.ads
+49K13*Text_IO 451e16 22|3w10 29r29 31r29 36r26 44r20
+264U14*Put_Line 22|29r37 31r37 36r34 44r28
+X 20 archicheck.ads
+4K9*Archicheck 11e15 21|1r6 3r17 7r32 9r5 22|5r14 8r21 59r32 64r5
+X 21 archicheck-cmd_line.ads
+3K28*Cmd_Line 20|4k9 21|9l16 9e24 22|5b25 64l16 64t24
+5U14*Analyze_Cmd_Line 5<32 22|11b14 57l8 57t24
+5b32 Line_OK{boolean} 22|11b32 15m7 32m25 37m22 45m16
+7V13*Source_List{7|48R9[23|3]} 22|59b13 62l8 62t19
+X 22 archicheck-cmd_line.adb
+7K12 Internal 9l8 9e16 61r14
+8r7*Source_List{7|48R9[23|3]} 61r23
+13i7 I{positive} 18r48 23m16 23r21 25r66 50r37 51m10 51r15
+16l7 Options_Analysis 33r30 38r27 46r21 50r15 52l16 52e32
+18a13 Arg{string} 22r16 44r58
+25a19 Name{string} 27r30 28r31 29r72 31r47 36r52
+X 23 archicheck-source_list.ads
+3K28*Source_List 21|1w17 7r43 22|8r32 59r43
+

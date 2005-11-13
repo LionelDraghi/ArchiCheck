@@ -1,0 +1,139 @@
+V "GNAT Lib v4.0"
+A -fstack-check
+A -gnatQ
+A -gnatf
+A -gnato
+A -g
+A -gnata
+A -gnat05
+A -gnatwa
+A -gnatya
+A -gnatyb
+A -gnatye
+A -gnatyf
+A -gnatyh
+A -gnatyi
+A -gnatyk
+A -gnatyl
+A -gnatym
+A -gnatyn
+A -gnatyp
+A -gnatyr
+A -gnatys
+A -gnatyt
+A -gnatA
+P SS ZX
+R nnnnnnnvvnnnnnvnvnnnnvnnvnnnnnnnnnnvnvnnnnnnnnnnnnnnnvnvnnnnnnnnnnnnnnn
+
+U opentoken.recognizer.based_integer_ada_style%b  opentoken-recognizer-based_integer_ada_style.adb  61e9f438 NE PK
+W interfaces%s		interfac.ads		interfac.ali
+W opentoken.recognizer%s  opentoken-recognizer.ads  opentoken-recognizer.ali
+
+U opentoken.recognizer.based_integer_ada_style%s  opentoken-recognizer-based_integer_ada_style.ads  97f68084 EE PK
+W ada.streams%s		a-stream.ads		a-stream.ali
+W ada.tags%s		a-tags.adb		a-tags.ali
+W opentoken%s		opentoken.ads		opentoken.ali
+W opentoken.recognizer%s  opentoken-recognizer.ads  opentoken-recognizer.ali
+W opentoken.recognizer.extended_digits%s  opentoken-recognizer-extended_digits.adb  opentoken-recognizer-extended_digits.ali
+W system%s		system.ads		system.ali
+W system.secondary_stack%s  s-secsta.adb	s-secsta.ali
+W system.soft_links%s	s-soflin.adb		s-soflin.ali
+W system.storage_elements%s  s-stoele.adb	s-stoele.ali
+W system.stream_attributes%s  s-stratt.adb	s-stratt.ali
+
+D ada.ads		20030424175357 7cd43be2
+D a-charac.ads		20031021134153 b6f39c34
+D a-chlat1.ads		20030424175352 e2279e26
+D a-except.ads		20031021134153 69f30d44
+D a-finali.ads		20030424175353 ee64b9e9
+D a-filico.ads		20041027122919 74630936
+D a-ioexce.ads		20030424175353 a50c222b
+D a-stream.ads		20030424175354 66f7f9b0
+D a-string.ads		20050210135014 9ca7eb9f
+D a-strbou.ads		20050210135015 9bdb9eff
+D a-strmap.ads		20050210135139 d1d75a57
+D a-strsup.ads		20050210135015 7cb59489
+D a-tags.ads		20050210135043 6204e4c8
+D a-tags.adb		20050210135043 39886c94
+D a-textio.ads		20050210135139 53071d84
+D interfac.ads		20041208114938 279b6d6d
+D i-cstrea.ads		20031215115100 85085d90
+D opentoken.ads		20000127210734 84515f60
+D opentoken-recognizer.ads  19991227201316 4cd98d70
+D opentoken-recognizer-based_integer_ada_style.ads  20051112213622 7d967cf7
+D opentoken-recognizer-based_integer_ada_style.adb  20051112213622 1c7f88cf
+D opentoken-recognizer-extended_digits.ads  20051112213622 a6b97103
+D system.ads		20041004145116 4f66def4
+D s-crtl.ads		20050210134915 aee152b1
+D s-exctab.ads		20031021134213 e14b1567
+D s-ficobl.ads		20040706135731 ed792749
+D s-finimp.ads		20040715203441 af434eef
+D s-finroo.ads		20040305105858 dd60a64c
+D s-htable.ads		20031021134214 b7952fb1
+D s-parame.ads		20031021134214 c4321b48
+D s-secsta.ads		20040809122421 db466d0c
+D s-soflin.ads		20050210135723 ddd0a406
+D s-stache.ads		20040322140628 5ff85b87
+D s-stalib.ads		20040419152013 00c059cd
+D s-stoele.ads		20040419152014 72d7e8ed
+D s-stoele.adb		20040423105831 d6d2aebc
+D s-stratt.ads		20031021134214 d0a26af3
+D s-traent.ads		20031021134218 a2519bfe
+D s-unstyp.ads		20040611104739 e021fbde
+D unchconv.ads		20030424175420 34860a55
+X 15 a-textio.ads
+79I12*Number_Base{integer}
+X 18 opentoken.ads
+55K9*OpenToken 75e14 20|46r6 62r9 64r24 77r24 101r5 21|56r14 227r5
+X 19 opentoken-recognizer.ads
+57K19*Recognizer 18|55k9 19|92e25 20|46r16 62r19 64r34 77r34 101r15 21|56r24
+. 227r15
+60E9*Analysis_Verdict 63e14 20|81r24 99r40 21|79r41 81r23
+61n7*Matches{60E9} 21|95r18 112r47 135r18 138r47 139r41 176r36 177r38 194r18
+62n7*So_Far_So_Good{60E9} 21|94r21 103r36 108r33 118r41 134r21 136r30 155r35
+. 168r35 193r21
+63n7*Failed{60E9} 20|81r44 21|67r33 81r43 105r36 111r21 121r41 137r21 142r41
+. 158r35 180r38 196r21 197r38 204r24 221r36
+66H9*Instance 71e14 20|64r45 77r45
+70b7*Report{boolean} 21|219r15
+X 20 opentoken-recognizer-based_integer_ada_style.ads
+62K30*Based_Integer_Ada_Style 19|57k19 20|101l26 101e49 21|56b35 227l26 227t49
+64R8*Instance<19|66R9> 69p12 69r23 77c8 85e13 91P13 91r38 97P13 97r40 21|62r39
+. 77r41 215r24
+69V12*Get{64R8} 21|215b13 225l8 225t11
+73E8 State_ID 75e26 82r24
+73n21 Base{73E8} 82r44 21|68r33 87r15 222r36
+73n27 Numeral{73E8} 21|119r41 126r15
+74n21 Exponent_E{73E8} 21|140r41 147r15
+74n33 Exponent_Sign{73E8} 21|156r35 162r15
+74n48 Exponent{73E8} 21|169r35 178r38 186r15
+75n21 Done{73E8} 21|122r41 143r41 159r35 181r38 198r38 201r15
+80r5 Number_Recognizer{22|64R8} 21|65r17 91r79 115r32 131r79 150r23 174r82
+. 190r79 220r15
+81e5 Last_Verdict{19|60E9} 21|67r17 112r32 138r32 208r17 221r15
+82e5 State{73E8} 21|68r17 85r22 119r32 122r32 140r32 143r32 156r26 159r26
+. 169r26 178r29 181r29 198r29 222r15
+83i5 Base{natural} 21|69r17 99r32 99r51 102r35 117r56 223r15
+91U13 Clear 91=20 21|62b14 71l8 71t13
+91r20 The_Token{64R8} 21|62b21 65m7 67m7 68m7 69m7
+97U13 Analyze 97=22 98>22 99<22 21|77b14 210l8 210t15
+97r22 The_Token{64R8} 21|77b23 85r12 91m69 99m22 99r41 102r25 112r22 115m22
+. 117r46 119m22 122m22 131m69 138r22 140m22 143m22 150m13 156m16 159m16 169m16
+. 174m72 178m19 181m19 190m69 198m19 208m7
+98e22 Next_Char{character} 21|78b23 91r99 98r22 100r39 112r59 131r99 138r59
+. 154r16 154r35 166r16 174r102 190r99
+99e22 Verdict{19|60E9} 21|79b23 103m25 105m25 108m22 118m22 121m22 136m19
+. 139m22 142m22 155m16 158m16 168m16 177m19 180m19 195m19 197m19 204m13
+X 21 opentoken-recognizer-based_integer_ada_style.adb
+81e7 Digits_Verdict{19|60E9} 91m110 93r18 131m110 133r18 174m113 176r19 190m110
+. 192r18 195r30 208r33
+X 22 opentoken-recognizer-extended_digits.ads
+62K30*Extended_Digits 20|46w27 80r24 21|66r9 91r13 91r38 102r43 115r53 131r13
+. 131r38 150r44 174r16 174r41 190r13 190r38 220r36 22|109e41
+64R8*Instance<19|66R9> 20|80r40 21|91r54 131r54 174r57 190r54 22|93e13
+67N3*Maximum_Base 21|102r59
+76V12*Get{64R8} 21|66r25 115r69 150r60 220r52
+76i17 For_Base{15|79I12} 21|66r57 117r25 152r16 220r84
+77b17 Allow_Underscores{boolean} 21|66r30 116r25 151r16 220r57
+105U13 Analyze 21|91r29 131r29 174r32 190r29
+

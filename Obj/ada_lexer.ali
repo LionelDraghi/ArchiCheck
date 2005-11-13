@@ -1,0 +1,365 @@
+V "GNAT Lib v4.0"
+A -fstack-check
+A -gnatQ
+A -gnatf
+A -gnato
+A -g
+A -gnata
+A -gnat05
+A -gnatwa
+A -gnatya
+A -gnatyb
+A -gnatye
+A -gnatyf
+A -gnatyh
+A -gnatyi
+A -gnatyk
+A -gnatyl
+A -gnatym
+A -gnatyn
+A -gnatyp
+A -gnatyr
+A -gnatys
+A -gnatyt
+A -gnatA
+P SS ZX
+R nnnvnnnvvnnvnnvnvnnnnvnnvnvnvnnnnnnvnvnnnnnnnnnnnnnnnvnvnnnnnnnnnnnnnnn
+
+U ada_lexer%s		ada_lexer.ads		5b83fb9c EE PK
+W ada.exceptions%s	a-except.adb		a-except.ali
+W ada.finalization.list_controller%s  a-filico.adb  a-filico.ali
+W ada.streams%s		a-stream.ads		a-stream.ali
+W ada.tags%s		a-tags.adb		a-tags.ali
+W interfaces%s		interfac.ads		interfac.ali
+W opentoken%s		opentoken.ads		opentoken.ali
+W opentoken.recognizer%s  opentoken-recognizer.ads  opentoken-recognizer.ali
+W opentoken.recognizer.based_integer_ada_style%s  opentoken-recognizer-based_integer_ada_style.adb  opentoken-recognizer-based_integer_ada_style.ali  EA
+W opentoken.recognizer.based_real_ada_style%s  opentoken-recognizer-based_real_ada_style.adb  opentoken-recognizer-based_real_ada_style.ali  EA
+W opentoken.recognizer.character_set%s  opentoken-recognizer-character_set.adb  opentoken-recognizer-character_set.ali  EA
+W opentoken.recognizer.end_of_file%s  opentoken-recognizer-end_of_file.adb  opentoken-recognizer-end_of_file.ali  EA
+W opentoken.recognizer.graphic_character%s  opentoken-recognizer-graphic_character.adb  opentoken-recognizer-graphic_character.ali  EA
+W opentoken.recognizer.identifier%s  opentoken-recognizer-identifier.adb  opentoken-recognizer-identifier.ali  EA
+W opentoken.recognizer.integer%s  opentoken-recognizer-integer.adb  opentoken-recognizer-integer.ali  EA
+W opentoken.recognizer.keyword%s  opentoken-recognizer-keyword.adb  opentoken-recognizer-keyword.ali  EA
+W opentoken.recognizer.line_comment%s  opentoken-recognizer-line_comment.adb  opentoken-recognizer-line_comment.ali  EA
+W opentoken.recognizer.real%s  opentoken-recognizer-real.adb  opentoken-recognizer-real.ali  EA
+W opentoken.recognizer.separator%s  opentoken-recognizer-separator.adb  opentoken-recognizer-separator.ali  EA
+W opentoken.recognizer.string%s  opentoken-recognizer-string.adb  opentoken-recognizer-string.ali  EA
+W opentoken.token%s	opentoken-token.ads	opentoken-token.ali
+W opentoken.token.enumerated%s  opentoken-token-enumerated.adb  opentoken-token-enumerated.ali  EA
+W opentoken.token.enumerated.analyzer%s  opentoken-token-enumerated-analyzer.adb  opentoken-token-enumerated-analyzer.ali  EA
+W system%s		system.ads		system.ali
+W system.exception_table%s  s-exctab.adb	s-exctab.ali
+W system.finalization_implementation%s  s-finimp.adb  s-finimp.ali
+W system.finalization_root%s  s-finroo.adb	s-finroo.ali
+W system.img_enum%s	s-imgenu.adb		s-imgenu.ali
+W system.secondary_stack%s  s-secsta.adb	s-secsta.ali
+W system.soft_links%s	s-soflin.adb		s-soflin.ali
+W system.standard_library%s  s-stalib.adb	s-stalib.ali
+W system.storage_elements%s  s-stoele.adb	s-stoele.ali
+W system.stream_attributes%s  s-stratt.adb	s-stratt.ali
+W system.string_ops%s	s-strops.adb		s-strops.ali
+W system.string_ops_concat_3%s  s-sopco3.adb	s-sopco3.ali
+W system.string_ops_concat_4%s  s-sopco4.adb	s-sopco4.ali
+
+D ada.ads		20030424175357 7cd43be2
+D a-charac.ads		20031021134153 b6f39c34
+D a-chlat1.ads		20030424175352 e2279e26
+D a-except.ads		20031021134153 69f30d44
+D a-finali.ads		20030424175353 ee64b9e9
+D a-filico.ads		20041027122919 74630936
+D a-ioexce.ads		20030424175353 a50c222b
+D a-stream.ads		20030424175354 66f7f9b0
+D a-string.ads		20050210135014 9ca7eb9f
+D a-strbou.ads		20050210135015 9bdb9eff
+D a-strfix.ads		20050210135138 89300cdd
+D a-strmap.ads		20050210135139 d1d75a57
+D a-stmaco.ads		20041119105509 c6617c60
+D a-strsup.ads		20050210135015 7cb59489
+D a-tags.ads		20050210135043 6204e4c8
+D a-tags.adb		20050210135043 39886c94
+D a-textio.ads		20050210135139 53071d84
+D ada_lexer.ads		20000807001743 4148b927
+D interfac.ads		20041208114938 279b6d6d
+D i-cstrea.ads		20031215115100 85085d90
+D opentoken.ads		20000127210734 84515f60
+D opentoken-recognizer.ads  19991227201316 4cd98d70
+D opentoken-recognizer-based_integer_ada_style.ads  20051112213622 7d967cf7
+D opentoken-recognizer-based_real_ada_style.ads  20051112213622 2ad279ba
+D opentoken-recognizer-character_set.ads  20051112213622 f9c95483
+D opentoken-recognizer-end_of_file.ads  20051112213622 fea3addc
+D opentoken-recognizer-extended_digits.ads  20051112213622 a6b97103
+D opentoken-recognizer-graphic_character.ads  20051112213622 df647516
+D opentoken-recognizer-identifier.ads  20051112213622 064139c3
+D opentoken-recognizer-integer.ads  20051112213622 1e24e305
+D opentoken-recognizer-keyword.ads  20051112213622 2175f85e
+D opentoken-recognizer-line_comment.ads  20051112213622 00bd3ef1
+D opentoken-recognizer-real.ads  20051112213622 cdbb795d
+D opentoken-recognizer-separator.ads  20051112213622 c936ba8d
+D opentoken-recognizer-string.ads  20051112213622 31ac90f0
+D opentoken-text_feeder.ads  20000205040022 b74547d9
+D opentoken-text_feeder-text_io.ads  20000205040022 d514db94
+D opentoken-token.ads	20000806235727 28699cf2
+D opentoken-token-enumerated.ads  20051112213622 016b9a08
+D opentoken-token-enumerated.adb  20000812141113 6e2c29fc
+D opentoken-token-enumerated-analyzer.ads  20051112213622 98661efe
+D opentoken-token-enumerated-analyzer.adb  20051112213622 fae699bd
+D system.ads		20041004145116 4f66def4
+D s-bitops.ads		20041027133944 04e247f8
+D s-crtl.ads		20050210134915 aee152b1
+D s-exctab.ads		20031021134213 e14b1567
+D s-ficobl.ads		20040706135731 ed792749
+D s-finimp.ads		20040715203441 af434eef
+D s-finroo.ads		20040305105858 dd60a64c
+D s-htable.ads		20031021134214 b7952fb1
+D s-imgenu.ads		20030424175410 ff7e14c6
+D s-parame.ads		20031021134214 c4321b48
+D s-secsta.ads		20040809122421 db466d0c
+D s-soflin.ads		20050210135723 ddd0a406
+D s-stache.ads		20040322140628 5ff85b87
+D s-stalib.ads		20040419152013 00c059cd
+D s-stoele.ads		20040419152014 72d7e8ed
+D s-stoele.adb		20040423105831 d6d2aebc
+D s-stratt.ads		20031021134214 d0a26af3
+D s-strops.ads		20050210135017 87984372
+D s-sopco3.ads		20030424175413 e851a686
+D s-sopco4.ads		20030424175413 c9d7ac99
+D s-sopco5.ads		20030424175413 9898affe
+D s-traent.ads		20031021134218 a2519bfe
+D s-unstyp.ads		20040611104739 e021fbde
+D unchconv.ads		20030424175420 34860a55
+D unchdeal.ads		20030424175420 66b7fd29
+X 12 a-strmap.ads
+47A9*Character_Set
+X 18 ada_lexer.ads
+74K9*Ada_Lexer 245l5 245e14
+83E8*Ada_Token 130e20 132r63
+85n6*Abort_T{83E8} 136r6
+85n15*Abs_T{83E8} 137r6
+85n22*Abstract_T{83E8} 138r6
+85n34*Accept_T{83E8} 139r6
+85n44*Access_T{83E8} 140r6
+85n54*Aliased_T{83E8} 141r6
+85n65*All_T{83E8} 142r6
+85n72*And_T{83E8} 143r6
+85n79*Array_T{83E8} 144r6
+85n88*At_T{83E8} 145r6
+86n6*Begin_T{83E8} 146r6
+86n15*Body_T{83E8} 147r6
+87n6*Case_T{83E8} 148r6
+87n14*Constant_T{83E8} 149r6
+88n6*Declare_T{83E8} 150r6
+88n17*Delay_T{83E8} 151r6
+88n26*Delta_T{83E8} 152r6
+88n35*Digits_T{83E8} 153r6
+88n45*Do_T{83E8} 154r6
+89n6*Else_T{83E8} 155r6
+89n14*Elsif_T{83E8} 156r6
+89n23*End_T{83E8} 157r6
+89n30*Entry_T{83E8} 158r6
+89n39*Exception_T{83E8} 159r6
+89n52*Exit_T{83E8} 160r6
+90n6*For_T{83E8} 161r6
+90n13*Function_T{83E8} 162r6
+91n6*Generic_T{83E8} 163r6
+91n17*Goto_T{83E8} 164r6
+92n6*If_T{83E8} 165r6
+92n12*In_T{83E8} 166r6
+92n18*Is_T{83E8} 167r6
+93n6*Limited_T{83E8} 168r6
+93n17*Loop_T{83E8} 169r6
+94n6*Mod_T{83E8} 170r6
+95n6*New_T{83E8} 171r6
+95n13*Not_T{83E8} 172r6
+95n20*Null_T{83E8} 173r6
+96n6*Of_T{83E8} 174r6
+96n12*Or_T{83E8} 175r6
+96n18*Others_T{83E8} 176r6
+96n28*Out_T{83E8} 177r6
+97n6*Package_T{83E8} 178r6
+97n17*Pragma_T{83E8} 179r6
+97n27*Private_T{83E8} 180r6
+97n38*Procedure_T{83E8} 181r6
+97n51*Protected_T{83E8} 182r6
+98n6*Raise_T{83E8} 183r6
+98n15*Range_T{83E8} 184r6
+98n24*Record_T{83E8} 185r6
+98n34*Rem_T{83E8} 186r6
+98n41*Renames_T{83E8} 187r6
+98n52*Requeue_T{83E8} 188r6
+98n63*Return_T{83E8} 189r6
+98n73*Reverse_T{83E8} 190r6
+99n6*Select_T{83E8} 191r6
+99n16*Separate_T{83E8} 192r6
+99n28*Subtype_T{83E8} 193r6
+100n6*Tagged_T{83E8} 194r6
+100n16*Task_T{83E8} 195r6
+100n24*Terminate_T{83E8} 196r6
+100n37*Then_T{83E8} 197r6
+100n45*Type_T{83E8} 198r6
+101n6*Until_T{83E8} 199r6
+101n15*Use_T{83E8} 200r6
+102n6*When_T{83E8} 201r6
+102n14*While_T{83E8} 202r6
+102n23*With_T{83E8} 203r6
+103n6*Xor_T{83E8} 204r6
+108n6*Colon_T{83E8} 205r6
+108n15*Comma_T{83E8} 206r6
+108n24*Dot_T{83E8} 207r6
+108n31*Semicolon_T{83E8} 208r6
+108n44*Tick_T{83E8} 209r6
+109n6*Left_Parenthesis_T{83E8} 210r6
+109n26*Right_Parenthesis_T{83E8} 211r6
+110n6*Concatenate_T{83E8} 212r6
+111n6*Alternative_T{83E8} 213r6
+112n6*Equal_T{83E8} 214r6
+112n15*Not_Equal_T{83E8} 215r6
+112n28*Greater_Than_T{83E8} 216r6
+112n44*Less_Than_T{83E8} 217r6
+113n6*Greater_Equal_T{83E8} 218r6
+113n23*Less_Equal_T{83E8} 219r6
+114n6*Plus_T{83E8} 220r6
+114n14*Minus_T{83E8} 221r6
+114n23*Times_T{83E8} 222r6
+114n32*Divide_T{83E8} 223r6
+115n6*Arrow_T{83E8} 224r6
+115n15*Assignment_T{83E8} 225r6
+115n29*Double_Dot_T{83E8} 226r6
+115n43*Exponentiate_T{83E8} 227r6
+116n6*Left_Label_Bracket_T{83E8} 228r6
+116n28*Right_Label_Bracket_T{83E8} 229r6
+116n51*Box_T{83E8} 230r6
+118n6*Integer_T{83E8} 231r6
+119n6*Based_Integer_T{83E8} 232r6
+120n6*Real_T{83E8} 233r6
+121n6*Based_Real_T{83E8} 234r6
+122n6*Character_T{83E8} 235r6
+122n19*String_T{83E8} 236r6
+124n6*Identifier_T{83E8} 237r6
+125n6*Comment_T{83E8} 238r6
+126n6*Whitespace_T{83E8} 239r6
+130n6*End_of_File_T{83E8} 241r6
+132K11*Master_Ada_Token 133r28
+133K11*Tokenizer 135r21 136r21 137r21 138r21 139r21 140r21 141r21 142r21
+. 143r21 144r21 145r21 146r21 147r21 148r21 149r21 150r21 151r21 152r21 153r21
+. 154r21 155r21 156r21 157r21 158r21 159r21 160r21 161r21 162r21 163r21 164r21
+. 165r21 166r21 167r21 168r21 169r21 170r21 171r21 172r21 173r21 174r21 175r21
+. 176r21 177r21 178r21 179r21 180r21 181r21 182r21 183r21 184r21 185r21 186r21
+. 187r21 188r21 189r21 190r21 191r21 192r21 193r21 194r21 195r21 196r21 197r21
+. 198r21 199r21 200r21 201r21 202r21 203r21 204r21 205r31 206r31 207r31 208r31
+. 209r31 210r31 211r31 212r31 213r31 214r31 215r31 216r31 217r31 218r31 219r31
+. 220r31 221r31 222r31 223r31 224r31 225r31 226r31 227r31 228r31 229r31 230r31
+. 231r25 232r25 233r25 234r25 235r25 236r25 237r25 238r25 239r25 241r25 243r14
+. 243r36
+135a3*Syntax{41|102A9[133]} 243r58
+243r4*Analyzer{41|104R9[133]}
+X 21 opentoken.ads
+55K9*OpenToken 18|53r6 54r6 55r6 55r36 56r6 57r6 57r46 58r6 58r36 59r6 59r33
+. 60r6 61r6 62r6 132r35 136r35 137r35 138r35 139r35 140r35 141r35 142r35
+. 143r35 144r35 145r35 146r35 147r35 148r35 149r35 150r35 151r35 152r35 153r35
+. 154r35 155r35 156r35 157r35 158r35 159r35 160r35 161r35 162r35 163r35 164r35
+. 165r35 166r35 167r35 168r35 169r35 170r35 171r35 172r35 173r35 174r35 175r35
+. 176r35 177r35 178r35 179r35 180r35 181r35 182r35 183r35 184r35 185r35 186r35
+. 187r35 188r35 189r35 190r35 191r35 192r35 193r35 194r35 195r35 196r35 197r35
+. 198r35 199r35 200r35 201r35 202r35 203r35 204r35 205r45 206r45 207r45 208r45
+. 209r45 210r45 211r45 212r45 213r45 214r45 215r45 216r45 217r45 218r45 219r45
+. 220r45 221r45 222r45 223r45 224r45 225r45 226r45 227r45 228r45 229r45 230r45
+. 231r39 232r39 233r39 234r39 235r39 236r39 237r39 238r39 239r39 240r40 241r39
+. 21|75e14
+X 22 opentoken-recognizer.ads
+57K19*Recognizer 18|55r16 55r46 56r16 57r16 57r56 58r16 58r46 59r16 59r43
+. 60r16 61r16 62r16 136r45 137r45 138r45 139r45 140r45 141r45 142r45 143r45
+. 144r45 145r45 146r45 147r45 148r45 149r45 150r45 151r45 152r45 153r45 154r45
+. 155r45 156r45 157r45 158r45 159r45 160r45 161r45 162r45 163r45 164r45 165r45
+. 166r45 167r45 168r45 169r45 170r45 171r45 172r45 173r45 174r45 175r45 176r45
+. 177r45 178r45 179r45 180r45 181r45 182r45 183r45 184r45 185r45 186r45 187r45
+. 188r45 189r45 190r45 191r45 192r45 193r45 194r45 195r45 196r45 197r45 198r45
+. 199r45 200r45 201r45 202r45 203r45 204r45 205r55 206r55 207r55 208r55 209r55
+. 210r55 211r55 212r55 213r55 214r55 215r55 216r55 217r55 218r55 219r55 220r55
+. 221r55 222r55 223r55 224r55 225r55 226r55 227r55 228r55 229r55 230r55 231r49
+. 232r49 233r49 234r49 235r49 236r49 237r49 238r49 239r49 240r50 241r49 22|92e25
+X 23 opentoken-recognizer-based_integer_ada_style.ads
+62K30*Based_Integer_Ada_Style 18|58w57 232r60 23|101e49
+69V12*Get{64R8} 18|232r84
+X 24 opentoken-recognizer-based_real_ada_style.ads
+64K30*Based_Real_Ada_Style 18|59w54 234r60 24|103e46
+71V12*Get{66R8} 18|234r81
+X 25 opentoken-recognizer-character_set.ads
+55K30*Character_Set 18|60w27 239r60 240r61 25|108e39
+59a4*Standard_Whitespace{12|47A9} 18|240r75
+76V13*Get{64R9} 18|239r74
+X 26 opentoken-recognizer-end_of_file.ads
+51K30*End_Of_File 18|62w27 241r60 26|89e37
+60V13*Get{53R9} 18|241r72
+X 28 opentoken-recognizer-graphic_character.ads
+50K30*Graphic_Character 18|57w27 235r60 28|87e43
+57V12*Get{52R8} 18|235r78
+X 29 opentoken-recognizer-identifier.ads
+65K30*Identifier 18|56w27 237r60 29|116e36
+80V13*Get{67R9} 18|237r71
+X 30 opentoken-recognizer-integer.ads
+68K30*Integer 18|58w27 231r60 30|117e33
+79V12*Get{70R8} 18|231r68
+82b17 Allow_Signs{boolean} 18|231r73
+X 31 opentoken-recognizer-keyword.ads
+51K30*Keyword 18|55w27 136r56 137r56 138r56 139r56 140r56 141r56 142r56 143r56
+. 144r56 145r56 146r56 147r56 148r56 149r56 150r56 151r56 152r56 153r56 154r56
+. 155r56 156r56 157r56 158r56 159r56 160r56 161r56 162r56 163r56 164r56 165r56
+. 166r56 167r56 168r56 169r56 170r56 171r56 172r56 173r56 174r56 175r56 176r56
+. 177r56 178r56 179r56 180r56 181r56 182r56 183r56 184r56 185r56 186r56 187r56
+. 188r56 189r56 190r56 191r56 192r56 193r56 194r56 195r56 196r56 197r56 198r56
+. 199r56 200r56 201r56 202r56 203r56 204r56 31|100e33
+64V13*Get{57R9} 18|136r64 137r64 138r64 139r64 140r64 141r64 142r64 143r64
+. 144r64 145r64 146r64 147r64 148r64 149r64 150r64 151r64 152r64 153r64 154r64
+. 155r64 156r64 157r64 158r64 159r64 160r64 161r64 162r64 163r64 164r64 165r64
+. 166r64 167r64 168r64 169r64 170r64 171r64 172r64 173r64 174r64 175r64 176r64
+. 177r64 178r64 179r64 180r64 181r64 182r64 183r64 184r64 185r64 186r64 187r64
+. 188r64 189r64 190r64 191r64 192r64 193r64 194r64 195r64 196r64 197r64 198r64
+. 199r64 200r64 201r64 202r64 203r64 204r64
+X 32 opentoken-recognizer-line_comment.ads
+50K30*Line_Comment 18|61w27 238r60 32|94e38
+60V13*Get{54R9} 18|238r73
+X 33 opentoken-recognizer-real.ads
+70K30*Real 18|59w27 233r60 33|117e30
+81V12*Get{72R8} 18|233r65
+83b17 Allow_Signs{boolean} 18|233r70
+X 34 opentoken-recognizer-separator.ads
+48K30*Separator 18|55w57 205r66 206r66 207r66 208r66 209r66 210r66 211r66
+. 212r66 213r66 214r66 215r66 216r66 217r66 218r66 219r66 220r66 221r66 222r66
+. 223r66 224r66 225r66 226r66 227r66 228r66 229r66 230r66 34|87e35
+55V12*Get{50R8} 18|205r76 206r76 207r76 208r76 209r76 210r76 211r76 212r76
+. 213r76 214r76 215r76 216r76 217r76 218r76 219r76 220r76 221r76 222r76 223r76
+. 224r76 225r76 226r76 227r76 228r76 229r76 230r76
+X 35 opentoken-recognizer-string.ads
+54K30*String 18|57w67 236r60 35|149e32
+94V13*Get{79R9} 18|236r67
+X 38 opentoken-token.ads
+46K19*Token 18|53r16 54r16 132r45 38|111e20
+X 39 opentoken-token-enumerated.ads
+59k25*Enumerated 18|53w22 54r22 132r51 39|149e31
+132H9*Source<38|54R9>
+X 41 opentoken-token-enumerated-analyzer.ads
+86k36 Analyzer 18|54w33 41|277e40
+96R9*Recognizable_Token
+102A9*Syntax(96R9[18|133]) 18|135r31[133]
+104R9*Instance<39|132R9[18|132]> 18|243r24[133]
+123V13*Get{96R9[18|133]} 18|136r31[133] 137r31[133] 138r31[133] 139r31[133]
+. 140r31[133] 141r31[133] 142r31[133] 143r31[133] 144r31[133] 145r31[133]
+. 146r31[133] 147r31[133] 148r31[133] 149r31[133] 150r31[133] 151r31[133]
+. 152r31[133] 153r31[133] 154r31[133] 155r31[133] 156r31[133] 157r31[133]
+. 158r31[133] 159r31[133] 160r31[133] 161r31[133] 162r31[133] 163r31[133]
+. 164r31[133] 165r31[133] 166r31[133] 167r31[133] 168r31[133] 169r31[133]
+. 170r31[133] 171r31[133] 172r31[133] 173r31[133] 174r31[133] 175r31[133]
+. 176r31[133] 177r31[133] 178r31[133] 179r31[133] 180r31[133] 181r31[133]
+. 182r31[133] 183r31[133] 184r31[133] 185r31[133] 186r31[133] 187r31[133]
+. 188r31[133] 189r31[133] 190r31[133] 191r31[133] 192r31[133] 193r31[133]
+. 194r31[133] 195r31[133] 196r31[133] 197r31[133] 198r31[133] 199r31[133]
+. 200r31[133] 201r31[133] 202r31[133] 203r31[133] 204r31[133] 205r41[133]
+. 206r41[133] 207r41[133] 208r41[133] 209r41[133] 210r41[133] 211r41[133]
+. 212r41[133] 213r41[133] 214r41[133] 215r41[133] 216r41[133] 217r41[133]
+. 218r41[133] 219r41[133] 220r41[133] 221r41[133] 222r41[133] 223r41[133]
+. 224r41[133] 225r41[133] 226r41[133] 227r41[133] 228r41[133] 229r41[133]
+. 230r41[133] 231r35[133] 232r35[133] 233r35[133] 234r35[133] 235r35[133]
+. 236r35[133] 237r35[133] 238r35[133] 239r35[133] 241r35[133]
+131V13*Initialize{104R9[18|133]} 18|243r46[133]
+

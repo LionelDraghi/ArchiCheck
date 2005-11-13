@@ -1,0 +1,104 @@
+V "GNAT Lib v4.0"
+A -fstack-check
+A -gnatQ
+A -gnatf
+A -gnato
+A -g
+A -gnata
+A -gnat05
+A -gnatwa
+A -gnatya
+A -gnatyb
+A -gnatye
+A -gnatyf
+A -gnatyh
+A -gnatyi
+A -gnatyk
+A -gnatyl
+A -gnatym
+A -gnatyn
+A -gnatyp
+A -gnatyr
+A -gnatys
+A -gnatyt
+A -gnatA
+P SS ZX
+R nnnnnnnnnnnnnnvnvnnnnvnnvnnnnnnnnnnnnvnnnnnnnnnnnnnnnvnvnnnnnnnnnnnnnnn
+
+U opentoken.recognizer.end_of_file%b  opentoken-recognizer-end_of_file.adb  b276b6b7 NE PK
+W interfaces%s		interfac.ads		interfac.ali
+W opentoken.recognizer%s  opentoken-recognizer.ads  opentoken-recognizer.ali
+
+U opentoken.recognizer.end_of_file%s  opentoken-recognizer-end_of_file.ads  b27a20ac EE PK
+W ada.streams%s		a-stream.ads		a-stream.ali
+W ada.tags%s		a-tags.adb		a-tags.ali
+W opentoken%s		opentoken.ads		opentoken.ali
+W opentoken.recognizer%s  opentoken-recognizer.ads  opentoken-recognizer.ali
+W system%s		system.ads		system.ali
+W system.secondary_stack%s  s-secsta.adb	s-secsta.ali
+W system.soft_links%s	s-soflin.adb		s-soflin.ali
+W system.storage_elements%s  s-stoele.adb	s-stoele.ali
+W system.stream_attributes%s  s-stratt.adb	s-stratt.ali
+
+D ada.ads		20030424175357 7cd43be2
+D a-charac.ads		20031021134153 b6f39c34
+D a-chlat1.ads		20030424175352 e2279e26
+D a-except.ads		20031021134153 69f30d44
+D a-finali.ads		20030424175353 ee64b9e9
+D a-filico.ads		20041027122919 74630936
+D a-stream.ads		20030424175354 66f7f9b0
+D a-string.ads		20050210135014 9ca7eb9f
+D a-strbou.ads		20050210135015 9bdb9eff
+D a-strmap.ads		20050210135139 d1d75a57
+D a-strsup.ads		20050210135015 7cb59489
+D a-tags.ads		20050210135043 6204e4c8
+D a-tags.adb		20050210135043 39886c94
+D interfac.ads		20041208114938 279b6d6d
+D opentoken.ads		20000127210734 84515f60
+D opentoken-recognizer.ads  19991227201316 4cd98d70
+D opentoken-recognizer-end_of_file.ads  20051112213622 fea3addc
+D opentoken-recognizer-end_of_file.adb  20051112213622 4cd51b6b
+D system.ads		20041004145116 4f66def4
+D s-exctab.ads		20031021134213 e14b1567
+D s-finimp.ads		20040715203441 af434eef
+D s-finroo.ads		20040305105858 dd60a64c
+D s-htable.ads		20031021134214 b7952fb1
+D s-secsta.ads		20040809122421 db466d0c
+D s-soflin.ads		20050210135723 ddd0a406
+D s-stache.ads		20040322140628 5ff85b87
+D s-stalib.ads		20040419152013 00c059cd
+D s-stoele.ads		20040419152014 72d7e8ed
+D s-stoele.adb		20040423105831 d6d2aebc
+D s-stratt.ads		20031021134214 d0a26af3
+D s-traent.ads		20031021134218 a2519bfe
+D s-unstyp.ads		20040611104739 e021fbde
+D unchconv.ads		20030424175420 34860a55
+X 15 opentoken.ads
+55K9*OpenToken 75e14 17|51r9 53r25 67r25 89r5 18|49r14 105r5
+64e4*EOF_Character{character} 18|74r25
+X 16 opentoken-recognizer.ads
+57K19*Recognizer 15|55k9 16|92e25 17|51r19 53r35 67r35 89r15 18|49r24 105r15
+60E9*Analysis_Verdict 63e14 17|87r39 18|69r39
+61n7*Matches{60E9} 18|75r24
+63n7*Failed{60E9} 18|77r24 85r21
+66H9*Instance 71e14 17|53r46 67r46
+70b7*Report{boolean} 18|100r15
+X 17 opentoken-recognizer-end_of_file.ads
+51K30*End_Of_File 16|57k19 17|89l26 89e37 18|49b35 105l26 105t37
+53R9*Instance<16|66R9> 60p13 60r58 67c9 72e14 78P14 78r40 85P14 85r42 18|55r40
+. 67r42 95r58 97r19
+60V13*Get{53R9} 60>18 18|95b13 103l8 103t11
+60b18 Reportable{boolean} 18|95b18 100r25
+65E9 State_ID 65e32 70r15
+65n22 EOF{65E9} 70r27 18|58r26 73r12 101r25
+65n27 Done{65E9} 18|80r29 82r12
+70e7 State{65E9} 18|58r17 72r22 80r20 101r15
+78U14 Clear 78=21 18|55b14 60l8 60t13
+78r21 The_Token{53R9} 18|55b21 58m7
+85U14 Analyze 85=23 86>23 87<23 18|67b14 89l8 89t15
+85r23 The_Token{53R9} 18|67b23 72r12 80m10
+86e23 Next_Char{character} 18|68b23 74r13
+87e23 Verdict{16|60E9} 18|69b23 75m13 77m13 85m10
+X 18 opentoken-recognizer-end_of_file.adb
+97r7 New_Token{17|53R9}
+

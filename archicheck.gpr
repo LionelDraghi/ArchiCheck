@@ -4,7 +4,6 @@ project Archicheck is
 
    for Source_Dirs use ("Src", "OpenToken", "OpenToken/Language_Lexers");
    for Object_Dir use "Obj";
-   for Exec_Dir use ".";
    for Main use ("archicheck-main.adb");
 
    package Linker is

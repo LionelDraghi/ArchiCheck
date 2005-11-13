@@ -1,0 +1,143 @@
+V "GNAT Lib v4.0"
+A -fstack-check
+A -gnatQ
+A -gnatf
+A -gnato
+A -g
+A -gnata
+A -gnat05
+A -gnatwa
+A -gnatya
+A -gnatyb
+A -gnatye
+A -gnatyf
+A -gnatyh
+A -gnatyi
+A -gnatyk
+A -gnatyl
+A -gnatym
+A -gnatyn
+A -gnatyp
+A -gnatyr
+A -gnatys
+A -gnatyt
+A -gnatA
+P SS ZX
+R nnnnnnnvnnnnnnvnvnnnnvnnvnnnnnnnnnnnnvnnnnnnnnnnnnnnnvnvnnnnnnnnnnnnnnn
+
+U opentoken.recognizer.identifier%b  opentoken-recognizer-identifier.adb  5b6d54b6 NE PK
+W ada%s			ada.ads			ada.ali
+W ada.characters%s	a-charac.ads		a-charac.ali
+W ada.characters.handling%s  a-chahan.adb	a-chahan.ali
+W interfaces%s		interfac.ads		interfac.ali
+W opentoken.recognizer%s  opentoken-recognizer.ads  opentoken-recognizer.ali
+
+U opentoken.recognizer.identifier%s  opentoken-recognizer-identifier.ads  5d2e9284 EE PK
+W ada%s			ada.ads			ada.ali
+W ada.streams%s		a-stream.ads		a-stream.ali
+W ada.strings%s		a-string.ads		a-string.ali
+W ada.strings.maps%s	a-strmap.adb		a-strmap.ali
+W ada.strings.maps.constants%s  a-stmaco.ads	a-stmaco.ali
+W ada.tags%s		a-tags.adb		a-tags.ali
+W opentoken%s		opentoken.ads		opentoken.ali
+W opentoken.recognizer%s  opentoken-recognizer.ads  opentoken-recognizer.ali
+W system%s		system.ads		system.ali
+W system.bit_ops%s	s-bitops.adb		s-bitops.ali
+W system.secondary_stack%s  s-secsta.adb	s-secsta.ali
+W system.soft_links%s	s-soflin.adb		s-soflin.ali
+W system.storage_elements%s  s-stoele.adb	s-stoele.ali
+W system.stream_attributes%s  s-stratt.adb	s-stratt.ali
+
+D ada.ads		20030424175357 7cd43be2
+D a-charac.ads		20031021134153 b6f39c34
+D a-chahan.ads		20050210135014 f8dfc85d
+D a-chlat1.ads		20030424175352 e2279e26
+D a-except.ads		20031021134153 69f30d44
+D a-finali.ads		20030424175353 ee64b9e9
+D a-filico.ads		20041027122919 74630936
+D a-stream.ads		20030424175354 66f7f9b0
+D a-string.ads		20050210135014 9ca7eb9f
+D a-strbou.ads		20050210135015 9bdb9eff
+D a-strmap.ads		20050210135139 d1d75a57
+D a-stmaco.ads		20041119105509 c6617c60
+D a-strsup.ads		20050210135015 7cb59489
+D a-tags.ads		20050210135043 6204e4c8
+D a-tags.adb		20050210135043 39886c94
+D interfac.ads		20041208114938 279b6d6d
+D opentoken.ads		20000127210734 84515f60
+D opentoken-recognizer.ads  19991227201316 4cd98d70
+D opentoken-recognizer-identifier.ads  20051112213622 064139c3
+D opentoken-recognizer-identifier.adb  20051112213622 a5f3a528
+D system.ads		20041004145116 4f66def4
+D s-bitops.ads		20041027133944 04e247f8
+D s-exctab.ads		20031021134213 e14b1567
+D s-finimp.ads		20040715203441 af434eef
+D s-finroo.ads		20040305105858 dd60a64c
+D s-htable.ads		20031021134214 b7952fb1
+D s-secsta.ads		20040809122421 db466d0c
+D s-soflin.ads		20050210135723 ddd0a406
+D s-stache.ads		20040322140628 5ff85b87
+D s-stalib.ads		20040419152013 00c059cd
+D s-stoele.ads		20040419152014 72d7e8ed
+D s-stoele.adb		20040423105831 d6d2aebc
+D s-stratt.ads		20031021134214 d0a26af3
+D s-traent.ads		20031021134218 a2519bfe
+D s-unstyp.ads		20040611104739 e021fbde
+D unchconv.ads		20030424175420 34860a55
+X 1 ada.ads
+16K9*Ada 19e8 19|49r6 50r6 80r37 81r20 82r37 83r20 93r23 94r23 20|50r6 78r16
+. 91r15 106r15 128r37 129r20 130r37 131r20
+X 2 a-charac.ads
+16K13*Characters 19e19 20|50r10
+X 3 a-chahan.ads
+39K24*Handling 162e28 20|50w21
+X 9 a-string.ads
+16K13*Strings 35e16 19|49r10 50r10 80r41 81r24 82r41 83r24 93r27 94r27 20|78r20
+. 91r19 106r19 128r41 129r24 130r41 131r24
+X 11 a-strmap.ads
+40K21*Maps 410e21 19|49w18 50r18 80r49 81r32 82r49 83r32 93r35 94r35 20|78r28
+. 91r27 106r27 128r49 129r32 130r49 131r32
+47A9*Character_Set 19|80r54 82r54 93r40 94r40 20|128r54 130r54
+82V13*Is_In{boolean} 20|78r33 91r32 106r32
+83e7 Element{character} 20|79r16 92r16 107r16
+84a7 Set{47A9} 20|80r16 93r16 108r16
+X 12 a-stmaco.ads
+40K26*Constants 916e31 19|50w23 81r37 83r37 20|129r37 131r37
+45a4*Letter_Set{11|47A9} 19|81r47 20|129r47
+51a4*Alphanumeric_Set{11|47A9} 19|83r47 20|131r47
+X 17 opentoken.ads
+55K9*OpenToken 75e14 19|65r9 67r25 91r25 116r5 20|55r14 142r5
+X 18 opentoken-recognizer.ads
+57K19*Recognizer 17|55k9 18|92e25 19|65r19 67r35 91r35 116r15 20|55r24 142r15
+60E9*Analysis_Verdict 63e14 19|114r42 20|72r42
+61n7*Matches{60E9} 20|82r35 95r27 110r35
+62n7*So_Far_So_Good{60E9} 20|97r35
+63n7*Failed{60E9} 20|85r35 100r35 113r35 119r24
+66H9*Instance 71e14 19|67r46 91r46
+70b7*Report{boolean} 20|135r15
+X 19 opentoken-recognizer-identifier.ads
+65K30*Identifier 18|57k19 19|116l26 116e36 20|55b35 142l26 142t36
+67R9*Instance<18|66R9> 80p13 85r27 91c9 100e14 106P14 106r40 112P14 112r42
+. 20|61r40 70r42 133r27
+80V13*Get{67R9} 80>18 82>18 84>18 20|128b13 140l8 140t11
+80a18 Start_Chars{11|47A9} 20|128b18 136r32
+82a18 Body_Chars{11|47A9} 20|130b18 137r32
+84b18 Has_Separator{boolean} 20|132b18 138r32
+89E9 State_ID 89e57 98r15
+89n22 First_Char{89E9} 98r27 20|63r26 77r15 139r32
+89n34 Text{89E9} 20|83r35 89r15 111r35
+89n40 Underscore{89E9} 20|98r35 104r15
+89n52 Done{89E9} 20|86r35 101r35 114r35 117r15
+93a7 Start_Chars{11|47A9} 20|80r37 136r15
+94a7 Body_Chars{11|47A9} 20|93r37 108r37 137r15
+95b7 Has_Separator{boolean} 20|96r54 138r15
+98e7 State{89E9} 20|63r17 75r22 83r26 86r26 98r26 101r26 111r26 114r26 139r15
+106U14 Clear 106=21 20|61b14 64l8 64t13
+106r21 The_Token{67R9} 20|61b21 63m7
+112U14 Analyze 112=23 113>23 114<23 20|70b14 123l8 123t15
+112r23 The_Token{67R9} 20|70b23 75r12 80r27 83m16 86m16 93r27 96r44 98m16
+. 101m16 108r27 111m16 114m16
+113e23 Next_Char{character} 20|71b23 79r27 92r27 96r19 107r27
+114e23 Verdict{18|60E9} 20|72b23 82m16 85m16 95m16 97m16 100m16 110m16 113m16
+. 119m13
+

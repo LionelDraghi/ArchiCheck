@@ -1,0 +1,117 @@
+V "GNAT Lib v4.0"
+A -fstack-check
+A -gnatQ
+A -gnatf
+A -gnato
+A -g
+A -gnata
+A -gnat05
+A -gnatwa
+A -gnatya
+A -gnatyb
+A -gnatye
+A -gnatyf
+A -gnatyh
+A -gnatyi
+A -gnatyk
+A -gnatyl
+A -gnatym
+A -gnatyn
+A -gnatyp
+A -gnatyr
+A -gnatys
+A -gnatyt
+A -gnatA
+P SS ZX
+R nnnnnnnnnnnnnnvnvnnnnvnnvnnnnnnnnnnvnvnnnnnnnnnnnnnnnvnvnnnnnnnnnnnnnnn
+
+U opentoken.recognizer.separator%b  opentoken-recognizer-separator.adb  aca5172f NE PK
+W interfaces%s		interfac.ads		interfac.ali
+W opentoken.recognizer%s  opentoken-recognizer.ads  opentoken-recognizer.ali
+
+U opentoken.recognizer.separator%s  opentoken-recognizer-separator.ads  85ef37fd EE PK
+W ada.streams%s		a-stream.ads		a-stream.ali
+W ada.tags%s		a-tags.adb		a-tags.ali
+W opentoken%s		opentoken.ads		opentoken.ali
+W opentoken.recognizer%s  opentoken-recognizer.ads  opentoken-recognizer.ali
+W system%s		system.ads		system.ali
+W system.secondary_stack%s  s-secsta.adb	s-secsta.ali
+W system.soft_links%s	s-soflin.adb		s-soflin.ali
+W system.storage_elements%s  s-stoele.adb	s-stoele.ali
+W system.stream_attributes%s  s-stratt.adb	s-stratt.ali
+
+D ada.ads		20030424175357 7cd43be2
+D a-charac.ads		20031021134153 b6f39c34
+D a-chlat1.ads		20030424175352 e2279e26
+D a-except.ads		20031021134153 69f30d44
+D a-finali.ads		20030424175353 ee64b9e9
+D a-filico.ads		20041027122919 74630936
+D a-stream.ads		20030424175354 66f7f9b0
+D a-string.ads		20050210135014 9ca7eb9f
+D a-strbou.ads		20050210135015 9bdb9eff
+D a-strmap.ads		20050210135139 d1d75a57
+D a-strsup.ads		20050210135015 7cb59489
+D a-tags.ads		20050210135043 6204e4c8
+D a-tags.adb		20050210135043 39886c94
+D interfac.ads		20041208114938 279b6d6d
+D opentoken.ads		20000127210734 84515f60
+D opentoken-recognizer.ads  19991227201316 4cd98d70
+D opentoken-recognizer-separator.ads  20051112213622 c936ba8d
+D opentoken-recognizer-separator.adb  20051112213622 6593ada2
+D system.ads		20041004145116 4f66def4
+D s-exctab.ads		20031021134213 e14b1567
+D s-finimp.ads		20040715203441 af434eef
+D s-finroo.ads		20040305105858 dd60a64c
+D s-htable.ads		20031021134214 b7952fb1
+D s-secsta.ads		20040809122421 db466d0c
+D s-soflin.ads		20050210135723 ddd0a406
+D s-stache.ads		20040322140628 5ff85b87
+D s-stalib.ads		20040419152013 00c059cd
+D s-stoele.ads		20040419152014 72d7e8ed
+D s-stoele.adb		20040423105831 d6d2aebc
+D s-stratt.ads		20031021134214 d0a26af3
+D s-traent.ads		20031021134218 a2519bfe
+D s-unstyp.ads		20040611104739 e021fbde
+D unchconv.ads		20030424175420 34860a55
+X 9 a-strbou.ads
+52R12*Bounded_String 17|65r23[15|73]
+56I15*Length_Range{natural}
+58V16*Length{56I15[15|73]} 18|79r43[15|73]
+64V16*To_Bounded_String{52R12[15|73]} 18|116r34[15|73]
+136V16*Element{character} 18|73r32[15|73]
+137r10 Source{52R12[15|73]} 18|73r40[15|73]
+138i10 Index{positive} 18|74r40[15|73]
+X 15 opentoken.ads
+55K9*OpenToken 75e14 17|48r9 50r24 62r24 87r5 18|44r14 122r5
+73K12 Buffers 17|65r15 18|73r24 79r35 116r26
+X 16 opentoken-recognizer.ads
+57K19*Recognizer 15|55k9 16|92e25 17|48r19 50r34 62r34 87r15 18|44r24 122r15
+60E9*Analysis_Verdict 63e14 17|85r40 18|65r40
+61n7*Matches{60E9} 18|80r32
+62n7*So_Far_So_Good{60E9} 18|83r35
+63n7*Failed{60E9} 18|90r30 98r20
+66H9*Instance 71e14 17|50r45 62r45
+70b7*Report{boolean} 18|115r15
+X 17 opentoken-recognizer-separator.ads
+48K30*Separator 16|57k19 17|87l26 87e35 18|44b35 122l26 122t35
+50R8*Instance<16|66R9> 55p12 56r63 62c8 71e13 77P13 77r38 83P13 83r40 18|50r38
+. 63r40 109r63 111r17
+55V12*Get{50R8} 55>17 56>17 18|108b12 120l7 120t10
+55s17 Separator_Literal{string} 18|108b17 116r53
+56b17 Reportable{boolean} 18|109b17 115r26
+60E8 State_ID 60e32 68r15
+60n21 Text{60E8} 68r27 18|53r27 70r12
+60n27 Done{60E8} 18|81r32 91r30 95r12
+65r5 Literal{9|52R12[15|73]} 18|73r60 79r61 116r15
+68e5 State{60E8} 18|53r15 69r20 81r23 91r21
+69i5 Substate{positive} 18|54r15 74r60 79r24 84r23 84r45
+77U13 Clear 77=20 18|50b13 56l7 56t12
+77r20 The_Token{50R8} 18|50b20 53m5 54m5
+83U13 Analyze 83=22 84>22 85<22 18|63b13 102l7 102t14
+83r22 The_Token{50R8} 18|63b22 69r10 73r50 74r50 79r14 79r51 81m13 84m13
+. 84r35 91m11
+84e22 Next_Char{character} 18|64b22 73r12
+85e22 Verdict{16|60E9} 18|65b22 80m13 83m13 90m11 98m9
+X 18 opentoken-recognizer-separator.adb
+111r5 New_Token{17|50R8} 115m5 116m5 118r12
+

@@ -1,0 +1,122 @@
+V "GNAT Lib v4.0"
+A -fstack-check
+A -gnatQ
+A -gnatf
+A -gnato
+A -g
+A -gnata
+A -gnat05
+A -gnatwa
+A -gnatya
+A -gnatyb
+A -gnatye
+A -gnatyf
+A -gnatyh
+A -gnatyi
+A -gnatyk
+A -gnatyl
+A -gnatym
+A -gnatyn
+A -gnatyp
+A -gnatyr
+A -gnatys
+A -gnatyt
+A -gnatA
+P SS ZX
+R nnnnnnnvnnnnnnvnvnnnvvnnvnnnnnnnnnnnnvnnnnnnnnnnnnnnnvnvnnnnnnnnnnnnnnn
+
+U opentoken.text_feeder.text_io%b  opentoken-text_feeder-text_io.adb  bf475be7 NE PK
+W ada%s			ada.ads			ada.ali
+W ada.text_io%s		a-textio.adb		a-textio.ali
+W opentoken.text_feeder%s  opentoken-text_feeder.ads  opentoken-text_feeder.ali
+
+U opentoken.text_feeder.text_io%s  opentoken-text_feeder-text_io.ads  315681c9 EE PK
+W ada%s			ada.ads			ada.ali
+W ada.streams%s		a-stream.ads		a-stream.ali
+W ada.tags%s		a-tags.adb		a-tags.ali
+W ada.text_io%s		a-textio.adb		a-textio.ali
+W opentoken%s		opentoken.ads		opentoken.ali
+W opentoken.text_feeder%s  opentoken-text_feeder.ads  opentoken-text_feeder.ali
+W system%s		system.ads		system.ali
+W system.secondary_stack%s  s-secsta.adb	s-secsta.ali
+W system.soft_links%s	s-soflin.adb		s-soflin.ali
+W system.storage_elements%s  s-stoele.adb	s-stoele.ali
+W system.stream_attributes%s  s-stratt.adb	s-stratt.ali
+
+D ada.ads		20030424175357 7cd43be2
+D a-charac.ads		20031021134153 b6f39c34
+D a-chlat1.ads		20030424175352 e2279e26
+D a-except.ads		20031021134153 69f30d44
+D a-finali.ads		20030424175353 ee64b9e9
+D a-filico.ads		20041027122919 74630936
+D a-ioexce.ads		20030424175353 a50c222b
+D a-stream.ads		20030424175354 66f7f9b0
+D a-string.ads		20050210135014 9ca7eb9f
+D a-strbou.ads		20050210135015 9bdb9eff
+D a-strmap.ads		20050210135139 d1d75a57
+D a-strsup.ads		20050210135015 7cb59489
+D a-tags.ads		20050210135043 6204e4c8
+D a-tags.adb		20050210135043 39886c94
+D a-textio.ads		20050210135139 53071d84
+D interfac.ads		20041208114938 279b6d6d
+D i-cstrea.ads		20031215115100 85085d90
+D opentoken.ads		20000127210734 84515f60
+D opentoken-text_feeder.ads  20000205040022 b74547d9
+D opentoken-text_feeder-text_io.ads  20000205040022 d514db94
+D opentoken-text_feeder-text_io.adb  20000205040022 39549df7
+D system.ads		20041004145116 4f66def4
+D s-crtl.ads		20050210134915 aee152b1
+D s-exctab.ads		20031021134213 e14b1567
+D s-ficobl.ads		20040706135731 ed792749
+D s-finimp.ads		20040715203441 af434eef
+D s-finroo.ads		20040305105858 dd60a64c
+D s-htable.ads		20031021134214 b7952fb1
+D s-parame.ads		20031021134214 c4321b48
+D s-secsta.ads		20040809122421 db466d0c
+D s-soflin.ads		20050210135723 ddd0a406
+D s-stache.ads		20040322140628 5ff85b87
+D s-stalib.ads		20040419152013 00c059cd
+D s-stoele.ads		20040419152014 72d7e8ed
+D s-stoele.adb		20040423105831 d6d2aebc
+D s-stratt.ads		20031021134214 d0a26af3
+D s-traent.ads		20031021134218 a2519bfe
+D s-unstyp.ads		20040611104739 e021fbde
+D unchconv.ads		20030424175420 34860a55
+X 1 ada.ads
+16K9*Ada 19e8 20|37r6 59r32 59r59 82r18 82r45 21|37r6 48r32 48r59 65r7 73r13
+. 81r12 92r36
+X 15 a-textio.ads
+49K13*Text_IO 451e16 20|37w10 59r36 59r63 82r22 82r49 21|37w10 48r36 48r63
+. 65r11 73r17 81r16 92r40
+52P9*File_Type(339R9)
+126P9*File_Access(52P9) 20|59r44 82r30 21|48r44
+132V13*Current_Input{126P9} 20|59r71 82r57 21|48r71
+184V13*End_Of_File{boolean} 21|73r25 92r48
+245U14*Get_Line 21|65r19
+246p7 File{52P9} 21|65r29
+247s7 Item{string} 21|66r29
+248i7 Last{natural} 21|67r29
+298X4*End_Error 21|81r24
+X 18 opentoken.ads
+55K9*OpenToken 75e14 20|49r9 54r25 81r25 86r5 21|43r14 94r5
+61e4*EOL_Character{character} 21|77r35
+64e4*EOF_Character{character} 21|74r35 83r38
+X 19 opentoken-text_feeder.ads
+42K19*Text_Feeder 18|55k9 19|72e26 20|49r19 54r35 81r35 86r15 21|43r24 94r15
+44H9*Instance 44e48 20|54r47 81r47
+X 20 opentoken-text_feeder-text_io.ads
+49K31*Text_IO 19|42k19 20|86l27 86e34 21|43b36 94l27 94t34
+54R9*Instance<19|44R9> 59p13 60r13 68P14 68r37 76P13 76r35 81c9 84e14 21|49r13
+. 59r37 90r35
+59V13*Create{54R9} 59>21 21|48b13 53l8 53t14
+59p21 File_Ptr{15|126P9} 21|48b21 51r24
+68U14*Get 68=19 69<19 70<19 21|59b14 85l8 85t11
+68r19 Feeder{54R9} 21|59b19 65r37 69m7 73r38 75m13 84m10
+69s19 New_Text{string} 21|60b19 66m37 70r21 74m13 77m13 82r22 83m10 83r19
+70i19 Text_End{integer} 21|61b19 67m37 70r10 72m10 72r22 74r22 77r22 82m10
+76V13*End_Of_Text{boolean} 76>26 21|90b13 93l8 93t19
+76r26 Feeder{54R9} 21|90b26 92r14 92r61
+79e4 Nothing{character}
+82p7 File{15|126P9} 21|51r15 65r44 73r45 92r68
+83b7 Ended{boolean} 21|52r15 69r14 75r20 84r17 92r21
+
