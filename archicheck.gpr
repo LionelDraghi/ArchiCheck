@@ -6,24 +6,21 @@ project Archicheck is
    for Object_Dir use "Obj";
    for Main use ("archicheck-main.adb");
 
-   package Linker is
-      -- for Default_Switches ("Ada") use (OpenToken.Ada_Switches);
-   end Linker;
-
-   package Compiler is
-      for Default_Switches ("ada") use ("-gnatQ", "-gnatf", "-gnato",
-                                        "-fstack-check", "-g", "-gnata",
-                                        "-gnat05", "-gnatwa",
-                                        "-gnatyabefhiklmnprst");
-   end Compiler;
+   package Ide is
+   end Ide;
 
    package Builder is
       for Default_Switches ("ada") use ("-s", "-m", "-j2", "-C");
       for Executable ("archicheck-main.adb") use "archicheck";
    end Builder;
 
-   package Ide is
-   end Ide;
+   package Compiler is
+      for Default_Switches ("ada") use ("-gnatQ", "-gnatf", "-gnato", "-fstack-check", "-g", "-gnata", "-gnat05", "-gnatwa", "-gnatyabefhiklmnprt");
+   end Compiler;
+
+   package Linker is
+      -- for Default_Switches ("Ada") use (OpenToken.Ada_Switches);
+   end Linker;
 
 end Archicheck;
 

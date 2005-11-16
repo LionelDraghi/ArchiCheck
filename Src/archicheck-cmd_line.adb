@@ -1,64 +1,122 @@
 with Ada.Command_Line;
 with Ada.Directories;
+with Ada.Strings.Unbounded;
 with Ada.Text_IO;
+with Archicheck.Source_List;
 
 package body Archicheck.Cmd_Line is
 
-   package Internal is
-      Source_List : Archicheck.Source_List.List;
-   end Internal;
+   -- -------------------------------------------------------------------------
+   Arg_Counter : Positive := 1;
 
-   procedure Analyze_Cmd_Line (Line_OK : out Boolean) is
-      use Ada.Command_Line;
-      I : Positive := 1;
+   -- -------------------------------------------------------------------------
+   package Local is
+      Source_List : Archicheck.Source_List.List;
+   end Local;
+
+   -- -------------------------------------------------------------------------
+   procedure Process_Directory_Option (Line_OK : out Boolean) is
    begin
-      Line_OK := True;
-      Options_Analysis : loop
+      if Ada.Command_Line.Argument_Count < Arg_Counter + 1 then
+         Ada.Text_IO.Put_Line ("Argument missing after -I");
+         Line_OK := False;
+      else
          declare
-            Arg : constant String := Argument (I);
+            use Ada.Command_Line;
             use Ada.Directories;
+            Name : constant String := Full_Name (Argument (Arg_Counter + 1));
 
          begin
-            if Arg = "-I" then
-               I := I + 1; -- let's jump to directory name
-               declare
-                  Name : constant String := Full_Name (Argument (I));
-               begin
-                  if Exists (Name) then
-                     if Kind (Name) = Directory then
-                        Ada.Text_IO.Put_Line ("Analysing directory " & Name);
-                     else
-                        Ada.Text_IO.Put_Line (Name & " is not a directory");
-                        Line_OK := False;
-                        exit Options_Analysis;
-                     end if;
-                  else
-                     Ada.Text_IO.Put_Line ("No " & Name & " directory");
-                     Line_OK := False;
-                     exit Options_Analysis;
-                  end if;
+            if Exists (Name) then
+               if Kind (Name) = Directory then
+                  Ada.Text_IO.Put_Line ("Analysing directory " & Name);
+                  declare
+                     use Ada.Directories;
+                     use Ada.Strings.Unbounded;
+                     Search : Search_Type;
+                     Directory_Entry : Directory_Entry_Type;
+                  begin
+                     Start_Search
+                        (Search    => Search,
+                         Directory => Name,
+                         Pattern   => "*.ad[sb]",
+                          Filter    => (Directory => False,
+                                        others    => True));
+                           while More_Entries (Search) loop
+                              Get_Next_Entry (Search, Directory_Entry);
+                              Archicheck.Source_List.Append
+                                (Local.Source_List,
+                                 (Name     =>
+                                    To_Unbounded_String
+                                      (Full_Name (Directory_Entry)),
+                                  Time_Tag =>
+                                    Modification_Time (Directory_Entry)));
+                           end loop;
+                           End_Search (Search);
+                  end;
 
-               end;
-
+               else
+                 Ada.Text_IO.Put_Line (Name & " is not a directory");
+                 Line_OK := False;
+               end if;
             else
-               Ada.Text_IO.Put_Line ("Unknown option " & Arg);
+               Ada.Text_IO.Put_Line ("No " & Name & " directory");
                Line_OK := False;
-               exit Options_Analysis;
             end if;
          end;
+         Arg_Counter := Arg_Counter + 2;
+      end if;
 
-         exit Options_Analysis when I = Argument_Count;
-         I := I + 1;
-      end loop Options_Analysis;
+   end Process_Directory_Option;
 
---     exception
---        when others => Line_OK := False;
+   -- -------------------------------------------------------------------------
+   procedure Analyze_Cmd_Line (Line_OK : out Boolean) is
+   begin
+      Line_OK := True;
+
+      while Arg_Counter <= Ada.Command_Line.Argument_Count loop
+         declare
+            Opt : constant String := Ada.Command_Line.Argument (Arg_Counter);
+
+         begin
+            if Opt = "-I" then
+               Process_Directory_Option (Line_OK);
+
+            else
+               Ada.Text_IO.Put_Line ("Unknown option " & Opt);
+               Line_OK := False;
+               exit;
+
+            end if;
+         end;
+         --** mettre l'usage quand Line_OK = False
+         exit when Line_OK = False;
+      end loop;
 
    end Analyze_Cmd_Line;
 
+   -- -------------------------------------------------------------------------
    function Source_List return Archicheck.Source_List.List is
    begin
-      return Internal.Source_List;
+      return Local.Source_List;
    end Source_List;
+
+   -- -------------------------------------------------------------------------
+   function Tmp_Dir return String is
+   begin
+      return "/tmp";
+   end Tmp_Dir;
+
+   -- -------------------------------------------------------------------------
+   function Dump_Source_List return Boolean is
+   begin
+      return True;
+   end Dump_Source_List;
+
+   -- -------------------------------------------------------------------------
+   function Source_List_File_Name return String is
+   begin
+      return "file_list";
+   end Source_List_File_Name;
 
 end Archicheck.Cmd_Line;

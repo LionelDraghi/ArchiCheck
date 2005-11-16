@@ -1,0 +1,2 @@
+- filtrer les fichiers en doublon à l'entrée?
+- utiliser une structure autre qu'une liste pour les sources?
