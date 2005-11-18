@@ -6,7 +6,7 @@ private package Archicheck.Cmd_Line is
 
    function Source_List return Archicheck.Source_List.List;
    function Tmp_Dir     return String;
-   function Dump_Source_List return Boolean;
-   function Source_List_File_Name return String;
+   function List_Files            return Boolean;
+   function List_Dependencies     return Boolean;
 
 end Archicheck.Cmd_Line;

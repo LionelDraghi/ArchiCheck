@@ -12,6 +12,8 @@ package body Archicheck.Cmd_Line is
    -- -------------------------------------------------------------------------
    package Local is
       Source_List : Archicheck.Source_List.List;
+      List_Files     : Boolean := False;
+      List_Dependencies : Boolean := False;
    end Local;
 
    -- -------------------------------------------------------------------------
@@ -29,7 +31,7 @@ package body Archicheck.Cmd_Line is
          begin
             if Exists (Name) then
                if Kind (Name) = Directory then
-                  Ada.Text_IO.Put_Line ("Analysing directory " & Name);
+                  -- Ada.Text_IO.Put_Line ("Analysing directory " & Name);
                   declare
                      use Ada.Directories;
                      use Ada.Strings.Unbounded;
@@ -37,22 +39,22 @@ package body Archicheck.Cmd_Line is
                      Directory_Entry : Directory_Entry_Type;
                   begin
                      Start_Search
-                        (Search    => Search,
-                         Directory => Name,
-                         Pattern   => "*.ad[sb]",
-                          Filter    => (Directory => False,
-                                        others    => True));
-                           while More_Entries (Search) loop
-                              Get_Next_Entry (Search, Directory_Entry);
-                              Archicheck.Source_List.Append
-                                (Local.Source_List,
-                                 (Name     =>
-                                    To_Unbounded_String
-                                      (Full_Name (Directory_Entry)),
-                                  Time_Tag =>
-                                    Modification_Time (Directory_Entry)));
-                           end loop;
-                           End_Search (Search);
+                       (Search    => Search,
+                        Directory => Name,
+                        Pattern   => "*.ad[sb]",
+                        Filter    => (Directory => False,
+                                      others    => True));
+                     while More_Entries (Search) loop
+                        Get_Next_Entry (Search, Directory_Entry);
+                        Archicheck.Source_List.Append
+                          (Local.Source_List,
+                           (Name     =>
+                              To_Unbounded_String
+                                (Full_Name (Directory_Entry)),
+                            Time_Tag =>
+                              Modification_Time (Directory_Entry)));
+                     end loop;
+                     End_Search (Search);
                   end;
 
                else
@@ -70,9 +72,25 @@ package body Archicheck.Cmd_Line is
    end Process_Directory_Option;
 
    -- -------------------------------------------------------------------------
+   procedure Put_Help is
+      use Ada.Text_IO;
+   begin
+      Put_Line ("archicheck [-I directory] options");
+      Put_Line ("  options :");
+      Put_Line ("  --list_files        : list analyzed sources");
+      Put_Line ("  --list_dependencies : list identified dependencies");
+   end Put_Help;
+
+   -- -------------------------------------------------------------------------
    procedure Analyze_Cmd_Line (Line_OK : out Boolean) is
    begin
       Line_OK := True;
+
+      if Ada.Command_Line.Argument_Count < 1 then
+         Put_Help;
+         Line_OK := False;
+         return; --** pas glop
+      end if;
 
       while Arg_Counter <= Ada.Command_Line.Argument_Count loop
          declare
@@ -82,15 +100,22 @@ package body Archicheck.Cmd_Line is
             if Opt = "-I" then
                Process_Directory_Option (Line_OK);
 
+            elsif Opt = "--list_files" then
+               Local.List_Files := True;
+               Arg_Counter := Arg_Counter + 1;
+
+            elsif Opt = "--list_dependencies" then
+               Local.List_Dependencies := True;
+               Arg_Counter := Arg_Counter + 1;
+
             else
                Ada.Text_IO.Put_Line ("Unknown option " & Opt);
+               Put_Help;
                Line_OK := False;
-               exit;
 
             end if;
+            exit when not Line_OK;
          end;
-         --** mettre l'usage quand Line_OK = False
-         exit when Line_OK = False;
       end loop;
 
    end Analyze_Cmd_Line;
@@ -108,15 +133,15 @@ package body Archicheck.Cmd_Line is
    end Tmp_Dir;
 
    -- -------------------------------------------------------------------------
-   function Dump_Source_List return Boolean is
+   function List_Files return Boolean is
    begin
-      return True;
-   end Dump_Source_List;
+      return Local.List_Files;
+   end List_Files;
 
    -- -------------------------------------------------------------------------
-   function Source_List_File_Name return String is
+   function List_Dependencies return Boolean is
    begin
-      return "file_list";
-   end Source_List_File_Name;
+      return Local.List_Dependencies;
+   end List_Dependencies;
 
 end Archicheck.Cmd_Line;
