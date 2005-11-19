@@ -7,6 +7,8 @@ with Archicheck.Dependency_List;
 function Archicheck.Get_Dependencies
   (Source_Name  : String) return Archicheck.Dependency_List.List
 is
+   Debug : constant Boolean := False;
+
    -- Global text file for reading parse data
    File : Ada.Text_IO.File_Type;
    Dependencies : Dependency_List.List;
@@ -14,6 +16,32 @@ is
    use Dependency_List;
    use Ada.Strings.Unbounded;
 
+   function Get_Unit_Name return String is
+      Name : Unbounded_String := Null_Unbounded_String;
+   begin
+      Name := To_Unbounded_String (Tokenizer.Lexeme (Analyzer));
+      loop
+--           Ada.Text_IO.Put_Line
+--             ("look_Ahead = "
+--              & Ada_Lexer.Ada_Token'Image (Tokenizer.ID (Analyzer))
+--              & " -> " & Tokenizer.Lexeme (Analyzer));
+         Tokenizer.Find_Next (Analyzer, Look_Ahead => True);
+         if Tokenizer.ID (Analyzer) = Dot_T then
+            Tokenizer.Find_Next (Analyzer);
+            Name := Name & "." & Tokenizer.Lexeme (Analyzer);
+         else
+            exit;
+         end if;
+
+      end loop;
+
+      if Debug then Ada.Text_IO.Put_Line (To_String (Name)); end if;
+
+      return To_String (Name);
+   end Get_Unit_Name;
+
+   -- iterate trough a list to set the field Unit_Name,
+   -- and only this one.
    procedure Set_Unit_Name (List :  Dependency_List.List;
                             Unit_Name : in String)
    is
@@ -47,42 +75,39 @@ begin
       -- limitation : only packages are taken into account
 
       Tokenizer.Find_Next (Analyzer);
-      case Tokenizer.ID (Analyzer) is
+--        Ada.Text_IO.Put_Line
+--          (Ada_Lexer.Ada_Token'Image (Tokenizer.ID (Analyzer))
+--           & " -> " & Tokenizer.Lexeme (Analyzer));
+       case Tokenizer.ID (Analyzer) is
          when With_T =>
             Tokenizer.Find_Next (Analyzer);
-            -- Ada.Text_IO.Put_Line ("with " & Tokenizer.Lexeme (Analyzer));
+            if Debug then Ada.Text_IO.Put ("with "); end if;
             Append (Tmp,
-                    (Unit_Name       => Null_Unbounded_String,
-                     Depends_On_Unit => To_Unbounded_String
-                       (Tokenizer.Lexeme (Analyzer))));
+                       (Unit_Name       => Null_Unbounded_String,
+                        Depends_On_Unit => To_Unbounded_String
+                          (Get_Unit_Name)));
          when Package_T =>
             Tokenizer.Find_Next (Analyzer);
             if Tokenizer.ID (Analyzer) = Body_T then
                Tokenizer.Find_Next (Analyzer);
-               declare
-                  Name : constant String := Tokenizer.Lexeme (Analyzer);
-               begin
-                  -- Ada.Text_IO.Put_Line
-                  --  ("package body " & Tokenizer.Lexeme (Analyzer));
-                  Set_Unit_Name (Tmp, Name & " body         ");
---                    Append (Tmp,
---                            (Unit_Name       => To_Unbounded_String
---                               (Name & " body         "),
---                             Depends_On_Unit => To_Unbounded_String
---                               (Name & " specification")));
-               end;
+               if Debug then Ada.Text_IO.Put ("package body "); end if;
+               Set_Unit_Name (Tmp, Get_Unit_Name & " body         ");
+               -- Append (Tmp,
+               --  (Unit_Name       => To_Unbounded_String
+               --   (Name & " body         "),
+               --   Depends_On_Unit => To_Unbounded_String
+               --  (Name & " specification")));
 
             else
-               -- Ada.Text_IO.Put_Line
-               --  ("package " & Tokenizer.Lexeme (Analyzer));
+               if Debug then Ada.Text_IO.Put ("package "); end if;
                Set_Unit_Name (Tmp,
-                              Tokenizer.Lexeme (Analyzer) & " specification");
+                              Get_Unit_Name & " specification");
             end if;
             Move (Source => Tmp, Target => Dependencies);
 
             exit Source_Analysis;
          when others => null;
-      end case;
+       end case;
 
       exit Source_Analysis when Tokenizer.ID (Analyzer) = End_of_File_T;
 

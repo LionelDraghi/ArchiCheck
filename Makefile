@@ -9,4 +9,4 @@ check: Obj/archicheck
 .PHONY : clean
 clean:
 	gnat clean -Parchicheck.gpr
-	${RM} *.output
+	$(MAKE) --directory=Tests clean
