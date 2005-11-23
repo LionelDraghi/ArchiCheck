@@ -2,18 +2,18 @@ with Ada.Text_IO;
 
 with OpenToken.Text_Feeder.Text_IO;
 with Ada_Lexer;                      use  Ada_Lexer;
-with Archicheck.Dependency_List;
+with Archicheck.Dependency_Lists;
 
 function Archicheck.Get_Dependencies
-  (Source_Name  : String) return Archicheck.Dependency_List.List
+  (Source_Name  : String) return Archicheck.Dependency_Lists.List
 is
    Debug : constant Boolean := False;
 
    -- Global text file for reading parse data
    File : Ada.Text_IO.File_Type;
-   Dependencies : Dependency_List.List;
-   Tmp : Dependency_List.List;
-   use Dependency_List;
+   Dependencies : Dependency_Lists.List;
+   Tmp : Dependency_Lists.List;
+   use Dependency_Lists;
    use Ada.Strings.Unbounded;
 
    function Get_Unit_Name return String is
@@ -42,7 +42,7 @@ is
 
    -- iterate trough a list to set the field Unit_Name,
    -- and only this one.
-   procedure Set_Unit_Name (List :  Dependency_List.List;
+   procedure Set_Unit_Name (List :  Dependency_Lists.List;
                             Unit_Name : in String)
    is
       procedure Set (Dep : in out Dependency) is

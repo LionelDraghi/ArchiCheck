@@ -1,12 +1,14 @@
-with Archicheck.Source_List;
+with Archicheck.Source_Lists;
 
 private package Archicheck.Cmd_Line is
 
    procedure Analyze_Cmd_Line (Line_OK : out Boolean);
 
-   function Source_List return Archicheck.Source_List.List;
+   function Source_List return Archicheck.Source_Lists.List;
    function Tmp_Dir     return String;
-   function List_Files            return Boolean;
-   function List_Dependencies     return Boolean;
+   function Rules_File_Name return String;
+   function List_Files        return Boolean;
+   function List_Dependencies return Boolean;
+   function List_Components   return Boolean;
 
 end Archicheck.Cmd_Line;

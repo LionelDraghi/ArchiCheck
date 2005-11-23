@@ -2,18 +2,22 @@ with Ada.Command_Line;
 with Ada.Directories;
 with Ada.Strings.Unbounded;
 with Ada.Text_IO;
-with Archicheck.Source_List;
+with Archicheck.Source_Lists;
 
 package body Archicheck.Cmd_Line is
+
+   use Ada.Strings.Unbounded;
 
    -- -------------------------------------------------------------------------
    Arg_Counter : Positive := 1;
 
    -- -------------------------------------------------------------------------
    package Local is
-      Source_List : Archicheck.Source_List.List;
-      List_Files     : Boolean := False;
+      Source_List       : Archicheck.Source_Lists.List;
+      List_Files        : Boolean := False;
       List_Dependencies : Boolean := False;
+      List_Components   : Boolean := False;
+      Rules_File_Name   : Unbounded_String;
    end Local;
 
    -- -------------------------------------------------------------------------
@@ -46,7 +50,7 @@ package body Archicheck.Cmd_Line is
                                       others    => True));
                      while More_Entries (Search) loop
                         Get_Next_Entry (Search, Directory_Entry);
-                        Archicheck.Source_List.Append
+                        Archicheck.Source_Lists.Append
                           (Local.Source_List,
                            (Name     =>
                               To_Unbounded_String
@@ -75,10 +79,11 @@ package body Archicheck.Cmd_Line is
    procedure Put_Help is
       use Ada.Text_IO;
    begin
-      Put_Line ("archicheck [-I directory] options");
+      Put_Line ("archicheck [-I directory] options rules_file");
       Put_Line ("  options :");
       Put_Line ("  --list_files        : list analyzed sources");
       Put_Line ("  --list_dependencies : list identified dependencies");
+      Put_Line ("  --list_components   : list components identified in rules file");
    end Put_Help;
 
    -- -------------------------------------------------------------------------
@@ -108,6 +113,20 @@ package body Archicheck.Cmd_Line is
                Local.List_Dependencies := True;
                Arg_Counter := Arg_Counter + 1;
 
+            elsif Opt = "--list_components" then
+               Local.List_Components := True;
+               Arg_Counter := Arg_Counter + 1;
+
+            elsif Arg_Counter = Ada.Command_Line.Argument_Count then
+               if Ada.Directories.Exists (Opt) then
+                  Local.Rules_File_Name := To_Unbounded_String (Opt);
+                  Arg_Counter := Arg_Counter + 1;
+               else
+                  Ada.Text_IO.Put_Line ("Unknown rules file " & Opt);
+                  Put_Help;
+                  Line_OK := False;
+               end if;
+
             else
                Ada.Text_IO.Put_Line ("Unknown option " & Opt);
                Put_Help;
@@ -121,7 +140,7 @@ package body Archicheck.Cmd_Line is
    end Analyze_Cmd_Line;
 
    -- -------------------------------------------------------------------------
-   function Source_List return Archicheck.Source_List.List is
+   function Source_List return Archicheck.Source_Lists.List is
    begin
       return Local.Source_List;
    end Source_List;
@@ -131,6 +150,14 @@ package body Archicheck.Cmd_Line is
    begin
       return "/tmp";
    end Tmp_Dir;
+
+   -- -------------------------------------------------------------------------
+   function Rules_File_Name  return String is
+   begin
+      --** controler l'existance de ce fichier!!
+      return To_String (Local.Rules_File_Name);
+   end Rules_File_Name;
+
 
    -- -------------------------------------------------------------------------
    function List_Files return Boolean is
@@ -143,5 +170,11 @@ package body Archicheck.Cmd_Line is
    begin
       return Local.List_Dependencies;
    end List_Dependencies;
+
+   -- -------------------------------------------------------------------------
+   function List_Components return Boolean is
+   begin
+      return Local.List_Components;
+   end List_Components;
 
 end Archicheck.Cmd_Line;
