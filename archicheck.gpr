@@ -6,29 +6,29 @@ project Archicheck is
    for Object_Dir use "Obj";
    for Main use ("archicheck-main.adb");
 
-   package Linker is
-      -- for Default_Switches ("Ada") use (OpenToken.Ada_Switches);
-   end Linker;
+   package Pretty_Printer is
+      for Default_Switches ("ada") use ("-l2", "-A1", "-A2", "-A3", "-A4");
+   end Pretty_Printer;
 
-   package Compiler is
-      for Default_Switches ("ada") use ("-gnatQ", "-gnatf", "-gnato", "-fstack-check", "-g", "-gnata", "-gnat05", "-gnatwa", "-gnatyabefhiklmnprt");
-   end Compiler;
+   package Binder is
+      for Default_Switches ("ada") use ("-E");
+   end Binder;
+
+   package Ide is
+   end Ide;
 
    package Builder is
       for Default_Switches ("ada") use ("-m", "-j2", "-g");
       for Executable ("archicheck-main.adb") use "archicheck";
    end Builder;
 
-   package Ide is
-   end Ide;
+   package Compiler is
+      for Default_Switches ("ada") use ("-gnatQ", "-gnatf", "-gnato", "-fstack-check", "-g", "-gnata", "-gnat05", "-gnatwa", "-gnatyabefhiklnprtM80");
+   end Compiler;
 
-   package Binder is
-      for Default_Switches ("ada") use ("-E");
-   end Binder;
-
-   package Pretty_Printer is
-      for Default_Switches ("ada") use ("-l2", "-A1", "-A2", "-A3", "-A4");
-   end Pretty_Printer;
+   package Linker is
+      -- for Default_Switches ("Ada") use (OpenToken.Ada_Switches);
+   end Linker;
 
 end Archicheck;
 

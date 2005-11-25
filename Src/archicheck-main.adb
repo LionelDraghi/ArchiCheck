@@ -33,14 +33,18 @@ begin
          procedure Put_Dependency (Position : Dependency_Lists.Cursor) is
             use Ada.Strings.Unbounded;
             use Ada.Text_IO;
+            D : constant Dependency := Dependency_Lists.Element
+              (Position);
          begin
             if Cmd_Line.List_Dependencies then
-               Put_Line
-                 (To_String (Dependency_Lists.Element
-                               (Position).Unit_Name) &
-                  " depends on " &
-                  To_String (Dependency_Lists.Element
-                               (Position).Depends_On_Unit));
+               Put (To_String (D.Unit_Name));
+               if D.Specification then
+                  Put (" specification");
+               else
+                  Put (" body         ");
+               end if;
+               Put_Line (" depends on " &
+                         To_String (D.Depends_On_Unit));
             end if;
          end Put_Dependency;
 

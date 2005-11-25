@@ -42,12 +42,14 @@ is
 
    -- iterate trough a list to set the field Unit_Name,
    -- and only this one.
-   procedure Set_Unit_Name (List :  Dependency_Lists.List;
-                            Unit_Name : in String)
+   procedure Set_Unit_Name (List          : in Dependency_Lists.List;
+                            Unit_Name     : in String;
+                            Specification : in Boolean)
    is
       procedure Set (Dep : in out Dependency) is
       begin
-         Dep.Unit_Name := To_Unbounded_String (Unit_Name);
+         Dep.Unit_Name     := To_Unbounded_String (Unit_Name);
+         Dep.Specification := Specification;
       end Set;
 
       procedure Set_Name (Position : Cursor) is
@@ -82,16 +84,16 @@ begin
          when With_T =>
             Tokenizer.Find_Next (Analyzer);
             if Debug then Ada.Text_IO.Put ("with "); end if;
-            Append (Tmp,
-                       (Unit_Name       => Null_Unbounded_String,
-                        Depends_On_Unit => To_Unbounded_String
-                          (Get_Unit_Name)));
+            Append
+              (Tmp, (Unit_Name       => Null_Unbounded_String,
+                     Depends_On_Unit => To_Unbounded_String (Get_Unit_Name),
+                     Specification   => False));
          when Package_T =>
             Tokenizer.Find_Next (Analyzer);
             if Tokenizer.ID (Analyzer) = Body_T then
                Tokenizer.Find_Next (Analyzer);
                if Debug then Ada.Text_IO.Put ("package body "); end if;
-               Set_Unit_Name (Tmp, Get_Unit_Name & " body         ");
+               Set_Unit_Name (Tmp, Get_Unit_Name, Specification => False);
                -- Append (Tmp,
                --  (Unit_Name       => To_Unbounded_String
                --   (Name & " body         "),
@@ -101,7 +103,7 @@ begin
             else
                if Debug then Ada.Text_IO.Put ("package "); end if;
                Set_Unit_Name (Tmp,
-                              Get_Unit_Name & " specification");
+                              Get_Unit_Name, Specification => True);
             end if;
             Move (Source => Tmp, Target => Dependencies);
 

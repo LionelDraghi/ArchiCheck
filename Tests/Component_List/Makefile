@@ -36,10 +36,16 @@ check: archicheck
 	@ echo "DB contains DB.IO and DB.Query"		>> expected_component_list.3
 	@ echo "GUI contains Gtk and Glib and Pango"	>> expected_component_list.3
 	@ > rules.3
-	@ echo "App contains Main"		>> rules.3
-	@ echo "GUI contains Gtk, Glib"		>> rules.3
-	@ echo "GUI contains also Pango;"	>> rules.3
-	@ echo "DB contains DB.IO and DB.Query"	>> rules.3
+	@ echo ""						>> rules.3
+	@ echo "-- comment ..."					>> rules.3
+	@ echo "                          "			>> rules.3
+	@ echo "- App contains Main"				>> rules.3
+	@ echo "- GUI coNTains Gtk, Glib"			>> rules.3
+	@ echo "-- GUI contains Gtk, Glib *** COMMENT ***"	>> rules.3
+	@ echo ""						>> rules.3
+	@ echo "- GUI contains also Pango;"			>> rules.3
+	@ echo "- DB contains DB.IO and DB.Query"		>> rules.3
+	@ echo ""						>> rules.3
 
 	@ archicheck --list_components rules.3 > component_list.3
 	@ diff expected_component_list.3 component_list.3

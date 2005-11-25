@@ -13,6 +13,7 @@ package Archicheck is
 
    type Dependency is record
       Unit_Name       : Ada.Strings.Unbounded.Unbounded_String;
+      Specification   : Boolean;
       Depends_On_Unit : Ada.Strings.Unbounded.Unbounded_String;
    end record;
 

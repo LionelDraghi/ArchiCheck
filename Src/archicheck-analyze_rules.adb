@@ -1,6 +1,10 @@
 with Ada.Strings.Fixed;
 with Ada.Strings.Maps.Constants;
 with Ada.Text_IO;
+with Archicheck.Cmd_Line;
+with Archicheck.Dependency_Lists;
+with Archicheck.Get_Dependencies;
+with Archicheck.Source_Lists;
 
 procedure Archicheck.Analyze_Rules (From_File  : in  String;
                                     Components : out Component_Maps.Map)
@@ -11,36 +15,75 @@ is
    use Ada.Text_IO;
    Rules_File : File_Type;
 
-   Debug : constant Boolean := False;
+   Debug : constant Boolean := False; -- True; --
+   The_Delimiters : constant Ada.Strings.Maps.Character_Set :=
+     Ada.Strings.Maps.To_Set (" ,;-");
+
+   -- -------------------------------------------------------------------------
+   function Is_Unit_In_Component (Unit      : String;
+                                  Component : String) return Boolean
+   is
+      procedure Put_Unit (Position : Unit_Lists.Cursor) is
+      begin
+         Put (To_String (Unit_Lists.Element (Position)) & " ");
+      end Put_Unit;
+
+      Units : Unit_Lists.List;
+      Found : Boolean := False;
+
+   begin
+      if Component_Maps.Contains (Components, Component) then
+         Units := Component_Maps.Element (Components, Component);
+         Found := Unit_Lists.Contains (Units, To_Unbounded_String (Unit));
+--           if Debug then
+--              Put ("Is " & Unit & " in ");
+--              Unit_Lists.Iterate (Units, Put_Unit'Access);
+--              Put ("?");
+--              if Found then
+--                 Put_Line (" YES!");
+--              else
+--                 Put_Line (" NO!");
+--              end if;
+--           end if;
+
+         return Found;
+      else
+         Put_Line ("** erreur interne " & Component & "is not in component liste");
+         pragma Assert (False); -- Unknown component
+         return False;
+      end if;
+   end Is_Unit_In_Component;
 
    -- -------------------------------------------------------------------------
    function Get_Component_Name (From_Line : in String) return String is
-      Idx : Natural;
+      First : Positive;     -- Index of first character in token --***
+      Last : Natural := 0;  -- Index of last character in token (also used
+                            -- incremented by 1 as the starting point for next
+                            -- search).
    begin
-      Idx := Index (Source  => From_Line,
-                    Pattern => "contains",
-                    Going   => Forward,
-                    Mapping => Ada.Strings.Maps.Constants.Lower_Case_Map);
-      return Trim (From_Line (1 .. Idx - 1),
-                   Side => Both);
+      Find_Token (Source => From_Line,
+                  Set    => The_Delimiters,
+                  Test   => Ada.Strings.Outside,
+                  First  => First,
+                  Last   => Last);
+      return (From_Line (First .. Last));
    end Get_Component_Name;
 
    -- -------------------------------------------------------------------------
    function Get_Unit_List (From_Line : in String) return Unit_Lists.List is
-      Idx   : Natural;
       Units : Unit_Lists.List;
-      First : Positive;     -- Index of first character in token
-      Last : Natural := 0;  -- Index of last character in token (also used
-      -- incremented by 1 -- as the starting point for next search).
-      The_Delimiters : constant Ada.Strings.Maps.Character_Set :=
-                         Ada.Strings.Maps.To_Set (" ,;");
+      First : Positive;     -- Index of first character in token --**
+      Last  : Natural := From_Line'First;  -- Index of last character in token
+                                           -- (also used
+                                           -- incremented by 1 as the starting
+                                           -- point for next search).
+
    begin
-      Idx := Index (Source  => From_Line,
-                    Pattern => "contains",
-                    Going   => Forward,
-                    Mapping => Ada.Strings.Maps.Constants.Lower_Case_Map);
-      Last := Idx + 7;
+      -- limitation : unit name is case-sensitve
       loop
+         -- Put_Line ("Last =" & Natural'Image (Last));
+         -- Put_Line ("From_Line'Last =" & Natural'Image (From_Line'Last));
+         -- Put_Line ("Line = >" & From_Line & "<");
          Find_Token (Source => From_Line (Last + 1 .. From_Line'Last),
                      Set    => The_Delimiters,
                      Test   => Ada.Strings.Outside,
@@ -56,18 +99,20 @@ is
          end if;
       end loop;
 
---        Idx := Index_Non_Blank (Source => From_Line,
---                                From   => Idx + 8, --** pas élégant!!
---                                Going  => Forward);
---        Idx := Index (Source  => From_Line,
---                      Pattern => "also",
---                      Going   => Forward,
---                      Mapping => Ada.Strings.Maps.Constants.Lower_Case_Map);
---        Unit_Lists.Append (Units, To_Unbounded_String
---                             (Trim (From_Line (Idx .. From_Line'Last),
---                                    Side => Both)));
-    return Units;
+      --        Idx := Index_Non_Blank (Source => From_Line,
+      --                                From   => Idx + 8, --** pas élégant!!
+      --                                Going  => Forward);
+      --        Idx := Index (Source  => From_Line,
+      --                      Pattern => "also",
+      --                      Going   => Forward,
+      --          Mapping => Ada.Strings.Maps.Constants.Lower_Case_Map);
+      --        Unit_Lists.Append (Units, To_Unbounded_String
+      --                             (Trim (From_Line (Idx .. From_Line'Last),
+      --                                    Side => Both)));
+      return Units;
    end Get_Unit_List;
+
+   Idx        : Natural;
 
 begin
    Open (File => Rules_File,
@@ -76,48 +121,150 @@ begin
    while not End_Of_File (Rules_File) loop
       declare
          Line : constant String
-           := Get_Line (File => Rules_File);
-         Component_Name : constant String := Get_Component_Name (Line);
-         Unit_List      : Unit_Lists.List := Get_Unit_List (Line);
-         C              : Component_Maps.Cursor;
-         procedure Add_Units (Component : in     String;
-                              Units     : in out Unit_Lists.List) is
-            pragma Unreferenced (Component);
-            procedure Copy_Unit (Position : Unit_Lists.Cursor) is
-            begin
-               Unit_Lists.Append (Units, Unit_Lists.Element (Position));
-            end Copy_Unit;
-
-         begin
-            Unit_Lists.Iterate (Unit_List, Copy_Unit'Access);
-         end Add_Units;
-
-            procedure Put_Unit (Position : Unit_Lists.Cursor) is
-            begin
-               Put (To_String (Unit_Lists.Element (Position)) & " ");
-            end Put_Unit;
-
+           := Trim (Get_Line (File => Rules_File), Side => Both);
       begin
-         if Debug then
-            Put_Line ("Line           >" & Line & "<");
-            Put_Line ("Component_Name >" & Component_Name & "<");
-            Unit_Lists.Iterate (Unit_List, Put_Unit'Access);
-            New_Line;
-            New_Line;
-         end if;
+         if Head (Line, Count => 2) = "--" then
+            null; -- it's a comment line
 
-         C := Component_Maps.Find (Components, Component_Name);
-
-         if Component_Maps.Has_Element (C) then
-           Component_Maps.Update_Element (C, Add_Units'Access);
+         elsif Index_Non_Blank (Line) = 0 then
+            null; -- it's a blank line
 
          else
-            Component_Maps.Insert (Components,
-                                   Component_Name,
-                                   Unit_List);
-         end if;
-         Unit_Lists.Clear (Unit_List);
+            Idx := Index (Source  => Line,
+                          Pattern => " contains ",
+                          Going   => Forward,
+                          Mapping => Ada.Strings.Maps.Constants.Lower_Case_Map);
+            if Idx /= 0 then
+               --                 Put_Line ("Idx = " & Natural'Image (Idx));
+               --     Put_Line ("Line'Last = " & Natural'Image (Line'Last));
+               --                 Put_Line ("Line (Idx + 9 .. Line'Last) = >"
+               --                           & Line (Idx + 9 .. Line'Last)
+               --                           & "<");
+               declare
+                  Component_Name : constant String := Get_Component_Name (Line);
+                  Unit_List      : Unit_Lists.List
+                    := Get_Unit_List (Line (Idx + 9 .. Line'Last));
+                  C              : Component_Maps.Cursor;
 
+                  procedure Add_Units (Component : in     String;
+                                       Units     : in out Unit_Lists.List) is
+                     pragma Unreferenced (Component);
+                     procedure Copy_Unit (Position : Unit_Lists.Cursor) is
+                     begin
+                        Unit_Lists.Append (Units,
+                                           Unit_Lists.Element (Position));
+                     end Copy_Unit;
+
+                  begin
+                     Unit_Lists.Iterate (Unit_List, Copy_Unit'Access);
+                  end Add_Units;
+
+                  procedure Put_Unit (Position : Unit_Lists.Cursor) is
+                  begin
+                     Put (To_String (Unit_Lists.Element (Position)) & " ");
+                  end Put_Unit;
+
+               begin
+                  if Debug then
+                     Put_Line ("Line           >" & Line & "<");
+                     Put_Line ("Component_Name >" & Component_Name & "<");
+                     Put      ("Units          >");
+                     Unit_Lists.Iterate (Unit_List, Put_Unit'Access);
+                     Put_Line ("<");
+                     New_Line;
+                  end if;
+
+                  if Component_Name = "" then
+                     null; -- probaly an empty line
+
+                  else
+                     C := Component_Maps.Find (Components, Component_Name);
+
+                     if Component_Maps.Has_Element (C) then
+                        Component_Maps.Update_Element (C, Add_Units'Access);
+
+                     else
+                        Component_Maps.Insert (Components,
+                                               Component_Name,
+                                               Unit_List);
+                     end if;
+                     Unit_Lists.Clear (Unit_List);
+                  end if;
+
+               end;
+            else --** il faudrait vérifier, mais on suppose pour l'instant que
+                 -- c'est la description d'une couche
+               null;
+               Idx := Index (Source  => Line,
+                             Pattern => " is a layer over ",
+                             Going   => Forward,
+                             Mapping => Ada.Strings.Maps.Constants.Lower_Case_Map);
+               if Idx /= 0 then
+                  declare
+                     Client : constant String := Get_Component_Name (Line);
+                     Server : constant String
+                       := Get_Component_Name (Line (Idx + 16 .. Line'Last));
+                  begin
+                     -- =======================================================
+                     if Debug then Put_Line (Client & " utilise " & Server); end if;
+
+                     declare
+                        procedure Check_Dependency (Position : Dependency_Lists.Cursor) is
+                           use Ada.Strings.Unbounded;
+
+                           use Ada.Text_IO;
+                           X : constant String := To_String (Dependency_Lists.Element
+                                                             (Position).Unit_Name);
+                           Y : constant String := To_String (Dependency_Lists.Element
+                                                             (Position).Depends_On_Unit);
+                        begin
+                           if Debug then Put_Line (X & " depends on " & Y); end if;
+
+                           if Debug then Put_Line ("if " & Y & " is in " & server & " then " & X & " is     in " & client); end if;
+                           if Is_Unit_In_Component (Unit => Y, Component => Server) and not
+                             Is_Unit_In_Component (Unit => X, Component => Client)
+                           then
+                              Put_Line ("** " & X & " is not in " & Client & " layer, and so shall not directly use "
+                                        & Server & " layer");
+                           end if;
+
+                           if Debug then Put_Line ("if " & X & " is in " & server & " then " & Y & " is NOT in " & client); end if;
+                           if Is_Unit_In_Component (Unit => X, Component => Server) and
+                             Is_Unit_In_Component (Unit => Y, Component => Client)
+                           then
+                              Put_Line ("** " & X & " is in " & Server & " layer, and so shall not use the upper "
+                                        & Client & " layer");
+                           end if;
+                        end Check_Dependency;
+
+                        procedure Analyze_Source (Position : Source_Lists.Cursor) is
+                           use Ada.Strings.Unbounded;
+                           Source_Name : constant String :=
+                             To_String (Source_Lists.Element (Position).Name);
+                           Dependencies : Dependency_Lists.List;
+                        begin
+                           Dependencies := Get_Dependencies (Source_Name);
+                           Dependency_Lists.Iterate (Container => Dependencies,
+                                                     Process   => Check_Dependency'Access);
+                        end Analyze_Source;
+
+                        Sources : Source_Lists.List;
+
+                     begin
+                        Sources := Cmd_Line.Source_List;
+                        Source_Lists.Iterate (Container => Sources,
+                                              Process   => Analyze_Source'Access);
+                     end;
+
+                     -- =======================================================
+                  end;
+               else
+                  Put_Line ("Quezako : >" & Line & "<"); --**
+               end if;
+
+
+            end if;
+         end if; -- /= comment
       end;
    end loop;
    Close (Rules_File);
