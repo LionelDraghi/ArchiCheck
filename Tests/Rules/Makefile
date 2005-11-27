@@ -1,31 +1,16 @@
 all: check
 
+CREATE_PKG=../Tools/create_pkg
+
 .PHONY : clean
 
 check: archicheck
+
 	@ echo rules test
-	@ > dir1/p1.ads
-	@ echo "with P2;"	>> dir1/p1.ads
-	@ echo "package P1 is"	>> dir1/p1.ads
-	@ echo "   null;"	>> dir1/p1.ads
-	@ echo "end P1;"	>> dir1/p1.ads
-
-	@ > dir1/p2.ads
-	@ echo "with P3;"	>> dir1/p2.ads
-	@ echo "with P4;"	>> dir1/p2.ads
-	@ echo "package P2 is"	>> dir1/p2.ads
-	@ echo "   null;"	>> dir1/p2.ads
-	@ echo "end P2;"	>> dir1/p2.ads
-
-	@ > dir1/p3.ads
-	@ echo "package P3 is"	>> dir1/p3.ads
-	@ echo "   null;"	>> dir1/p3.ads
-	@ echo "end P3;"	>> dir1/p3.ads
-
-	@ > dir1/p4.ads
-	@ echo "package P4 is"	>> dir1/p4.ads
-	@ echo "   null;"	>> dir1/p4.ads
-	@ echo "end P4;"	>> dir1/p4.ads
+	@ ${CREATE_PKG} P1 spec  -in dir1
+	@ ${CREATE_PKG} P2 spec  -in dir1 -with P3 -with P4
+	@ ${CREATE_PKG} P3 spec  -in dir1
+	@ ${CREATE_PKG} P4 spec  -in dir1
 
 	@ > rules.1
 	@ echo "Layer_A contains P1, P2"		>> rules.1
@@ -39,45 +24,48 @@ check: archicheck
 
 	@ #---------------------------------------------------------------------
 	@ echo reverse dependency test
-	@ > dir1/p5.ads
-	@ echo "package P5 is"	>> dir1/p5.ads
-	@ echo "   null;"	>> dir1/p5.ads
-	@ echo "end P5;"	>> dir1/p5.ads
-
-	@ > dir1/p4.ads
-	@ echo "with P5;"	>> dir1/p4.ads
-	@ echo "package P4 is"	>> dir1/p4.ads
-	@ echo "   null;"	>> dir1/p4.ads
-	@ echo "end P4;"	>> dir1/p4.ads
+	@ ${CREATE_PKG} P1 spec  -in dir2
+	@ ${CREATE_PKG} P2 spec  -in dir2 -with P3 -with P4
+	@ ${CREATE_PKG} P3 spec  -in dir2
+	@ ${CREATE_PKG} P4 spec  -in dir2 -with P5
+	@ ${CREATE_PKG} P5 spec  -in dir2
 
 	@ > rules.2
 	@ echo "Layer_A contains P1, P2, P5"		>> rules.2
 	@ echo "Layer_B contains P3, P4"		>> rules.2
 	@ echo "Layer_A is a layer over Layer_B"	>> rules.2
 
-	@ echo "** P4 is in Layer_B layer, and so shall not use the upper Layer_A layer" > expected_output.2
-	@ archicheck -I dir1 rules.2 > output.2
+	@ echo "Error : P4 is in Layer_B layer, and so shall not use the upper Layer_A layer" > expected_output.2
+	@ archicheck -I dir2 rules.2 > output.2
 	@ diff -B expected_output.2 output.2
 	@ echo OK
 
 	@ #---------------------------------------------------------------------
 	@ echo layer bridging test
-	@ > dir2/p6.ads
-	@ echo "with P4;"	>> dir2/p6.ads
-	@ echo "package P6 is"	>> dir2/p6.ads
-	@ echo "   null;"	>> dir2/p6.ads
-	@ echo "end P6;"	>> dir2/p6.ads
+	@ ${CREATE_PKG} P1 spec  -in dir3a
+	@ ${CREATE_PKG} P2 spec  -in dir3a -with P3 -with P4
+	@ ${CREATE_PKG} P3 spec  -in dir3b
+	@ ${CREATE_PKG} P4 spec  -in dir3b
+	@ ${CREATE_PKG} P6 spec  -in dir3c -with P4
 
-	@ > dir1/p4.ads
-	@ echo "package P4 is"	>> dir1/p4.ads
-	@ echo "   null;"	>> dir1/p4.ads
-	@ echo "end P4;"	>> dir1/p4.ads
-
-	@ echo "** P6 is not in Layer_A layer, and so shall not directly use Layer_B layer" > expected_output.3
-	@ archicheck -I dir1 -I dir2 rules.2 > output.3
+	@ echo "Error : P6 is not in Layer_A layer, and so shall not directly use Layer_B layer" > expected_output.3
+	@ archicheck -I dir3a -I dir3b -I dir3c rules.1 > output.3
 	@ diff -B expected_output.3 output.3
 	@ echo OK
 
+	@ #---------------------------------------------------------------------
+	@ echo undescribed dependency test
+	@ ${CREATE_PKG} P1 spec  -in dir4
+	@ ${CREATE_PKG} P2 spec  -in dir4 -with P3 -with P4 -with P7
+	@ ${CREATE_PKG} P3 spec  -in dir4
+	@ ${CREATE_PKG} P4 spec  -in dir4
+	@ ${CREATE_PKG} P7 spec  -in dir4
+
+	@ echo "Warning : P2 (in Layer_A layer) uses P7 that is neither in the same layer, nor in the lower Layer_B layer" > expected_output.4
+	@ archicheck -I dir1 -I dir4 rules.1 > output.4
+	@ diff -B expected_output.4 output.4
+	@ echo OK
+
 clean:
-	@ ${RM} -rf expected_dependency_list dependency_list dir1/*
+	@ ${RM} -rf expected_output.* output.* rules.? dir? dir??
 

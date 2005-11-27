@@ -224,7 +224,7 @@ begin
                            if Is_Unit_In_Component (Unit => Y, Component => Server) and not
                              Is_Unit_In_Component (Unit => X, Component => Client)
                            then
-                              Put_Line ("** " & X & " is not in " & Client & " layer, and so shall not directly use "
+                              Put_Line ("Error : " & X & " is not in " & Client & " layer, and so shall not directly use "
                                         & Server & " layer");
                            end if;
 
@@ -232,9 +232,20 @@ begin
                            if Is_Unit_In_Component (Unit => X, Component => Server) and
                              Is_Unit_In_Component (Unit => Y, Component => Client)
                            then
-                              Put_Line ("** " & X & " is in " & Server & " layer, and so shall not use the upper "
+                              Put_Line ("Error : " & X & " is in " & Server & " layer, and so shall not use the upper "
                                         & Client & " layer");
                            end if;
+
+                           if Debug then Put_Line ("if " & X & " is in " & Client & " then " & Y & " should be in either " & Client & "or " & Server); end if;
+                           if Is_Unit_In_Component (Unit => X, Component => Client) and not
+                             (Is_Unit_In_Component (Unit => Y, Component => Client) or
+                              Is_Unit_In_Component (Unit => Y, Component => Server))
+                           then
+                              Put_Line ("Warning : " & X & " (in " & Client & " layer) uses " & Y &
+                                        " that is neither in the same layer, nor in the lower " & Server
+                                       & " layer");
+                           end if;
+
                         end Check_Dependency;
 
                         procedure Analyze_Source (Position : Source_Lists.Cursor) is

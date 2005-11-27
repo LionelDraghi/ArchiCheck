@@ -2,8 +2,9 @@ all: check
 
 .PHONY : clean
 
-check: archicheck
+check: archicheck clean
 	@ echo source list test
+	@ mkdir dir1
 	@ > dir1/a.ads
 	@ > dir1/a.adb
 	@ > dir1/b.ads
@@ -22,5 +23,5 @@ check: archicheck
 	@ echo OK
 
 clean:
-	@ ${RM} -rf expected_file_list file_list dir1/*
+	@ ${RM} -rf expected_file_list file_list dir1
 

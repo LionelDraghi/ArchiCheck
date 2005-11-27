@@ -1,0 +1,22 @@
+project Create_Pkg is
+
+   for Source_Dirs use ("Src");
+   for Object_Dir use "Obj";
+   for Exec_Dir use ".";
+   for Main use ("create_pkg.adb");
+
+   package Builder is
+      for Executable ("create_pkg.adb") use "";
+      for Default_Switches ("ada") use ("-s", "-m", "-g");
+   end Builder;
+
+   package Compiler is
+      for Default_Switches ("ada") use ("-g", "-gnat05", "-gnatwa", "-gnatVcfimorst");
+   end Compiler;
+
+   package Binder is
+      for Default_Switches ("ada") use ("-E");
+   end Binder;
+
+end Create_Pkg;
+

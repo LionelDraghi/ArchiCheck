@@ -1,3 +1,4 @@
 - filtrer les fichiers en doublon à l'entrée?
 - utiliser une structure autre qu'une liste pour les sources?
 - ajouter un test sur la présence multiple d'un meme fichier
+- mettre des erreurs au format gnu, avec ligne colonne dans le src original.
