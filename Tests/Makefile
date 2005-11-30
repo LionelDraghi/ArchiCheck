@@ -11,6 +11,7 @@ check: archicheck Tools/create_pkg
 	@ $(MAKE) check --directory=Dependency_List
 	@ $(MAKE) check --directory=Component_List
 	@ $(MAKE) check --directory=Rules
+	@ $(MAKE) check --directory=Child_Packages
 
 clean:
 	@ $(MAKE) clean --directory=Return_Code
@@ -18,5 +19,6 @@ clean:
 	@ $(MAKE) clean --directory=Dependency_List
 	@ $(MAKE) clean --directory=Component_List
 	@ $(MAKE) clean --directory=Rules
+	@ $(MAKE) clean --directory=Child_Packages
 	@ $(MAKE) clean --directory=Tools
 

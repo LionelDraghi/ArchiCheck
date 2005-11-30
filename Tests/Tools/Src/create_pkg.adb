@@ -40,7 +40,6 @@ procedure Create_Pkg is
    Create_Body  : Boolean := False;
 
    Unit_Name : Unbounded_String;
-   File_Name : Unbounded_String;
    Dir_Name  : Unbounded_String;
 
    Version : constant String := "v1.0";

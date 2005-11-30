@@ -7,7 +7,7 @@ CREATE_PKG=../Tools/create_pkg
 check: archicheck
 
 	@ echo rules test
-	@ ${CREATE_PKG} P1 spec  -in dir1
+	@ ${CREATE_PKG} P1 spec  -in dir1 -with P2
 	@ ${CREATE_PKG} P2 spec  -in dir1 -with P3 -with P4
 	@ ${CREATE_PKG} P3 spec  -in dir1
 	@ ${CREATE_PKG} P4 spec  -in dir1
@@ -24,7 +24,7 @@ check: archicheck
 
 	@ #---------------------------------------------------------------------
 	@ echo reverse dependency test
-	@ ${CREATE_PKG} P1 spec  -in dir2
+	@ ${CREATE_PKG} P1 spec  -in dir2 -with P2
 	@ ${CREATE_PKG} P2 spec  -in dir2 -with P3 -with P4
 	@ ${CREATE_PKG} P3 spec  -in dir2
 	@ ${CREATE_PKG} P4 spec  -in dir2 -with P5
@@ -42,7 +42,7 @@ check: archicheck
 
 	@ #---------------------------------------------------------------------
 	@ echo layer bridging test
-	@ ${CREATE_PKG} P1 spec  -in dir3a
+	@ ${CREATE_PKG} P1 spec  -in dir3a -with P2
 	@ ${CREATE_PKG} P2 spec  -in dir3a -with P3 -with P4
 	@ ${CREATE_PKG} P3 spec  -in dir3b
 	@ ${CREATE_PKG} P4 spec  -in dir3b
@@ -55,7 +55,7 @@ check: archicheck
 
 	@ #---------------------------------------------------------------------
 	@ echo undescribed dependency test
-	@ ${CREATE_PKG} P1 spec  -in dir4
+	@ ${CREATE_PKG} P1 spec  -in dir4 -with P2
 	@ ${CREATE_PKG} P2 spec  -in dir4 -with P3 -with P4 -with P7
 	@ ${CREATE_PKG} P3 spec  -in dir4
 	@ ${CREATE_PKG} P4 spec  -in dir4

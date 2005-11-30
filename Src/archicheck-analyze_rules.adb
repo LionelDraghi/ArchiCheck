@@ -19,6 +19,13 @@ is
    The_Delimiters : constant Ada.Strings.Maps.Character_Set :=
      Ada.Strings.Maps.To_Set (" ,;-");
 
+   function To_Lower (Source  : String) return String is
+   begin
+      return Translate
+        (Source,
+         Mapping => Ada.Strings.Maps.Constants.Lower_Case_Map);
+   end To_Lower;
+
    -- -------------------------------------------------------------------------
    function Is_Unit_In_Component (Unit      : String;
                                   Component : String) return Boolean
@@ -32,25 +39,36 @@ is
       Found : Boolean := False;
 
    begin
+      if Debug then Put ("Is " & Unit & " in " & Component & "? "); end if;
       if Component_Maps.Contains (Components, Component) then
+         -- the component was described by one or more declarations
          Units := Component_Maps.Element (Components, Component);
          Found := Unit_Lists.Contains (Units, To_Unbounded_String (Unit));
---           if Debug then
---              Put ("Is " & Unit & " in ");
---              Unit_Lists.Iterate (Units, Put_Unit'Access);
---              Put ("?");
---              if Found then
---                 Put_Line (" YES!");
---              else
---                 Put_Line (" NO!");
---              end if;
---           end if;
+         if Debug then
+            Put ("Is " & Unit & " in ");
+            Unit_Lists.Iterate (Units, Put_Unit'Access);
+            Put ("?");
+            if Found then
+               Put_Line (" YES!");
+            else
+               Put_Line (" NO!");
+            end if;
+         end if;
+         if Debug then Put_Line (Boolean'Image (Found)); end if;
 
          return Found;
+
+      elsif To_Lower (Head (Unit, Count => Component'Length)) =
+        To_Lower (Component)
+      then
+         -- The Unit is a child pkg of the component
+         if Debug then Put_Line ("YES"); end if;
+         return True;
+
       else
-         Put_Line ("** erreur interne " & Component & "is not in component liste");
-         pragma Assert (False); -- Unknown component
+         if Debug then Put_Line ("NO"); end if;
          return False;
+
       end if;
    end Is_Unit_In_Component;
 
@@ -220,7 +238,7 @@ begin
                         begin
                            if Debug then Put_Line (X & " depends on " & Y); end if;
 
-                           if Debug then Put_Line ("if " & Y & " is in " & server & " then " & X & " is     in " & client); end if;
+                           if Debug then Put_Line ("if " & Y & " is in " & Server & " then " & X & " is     in " & Client); end if;
                            if Is_Unit_In_Component (Unit => Y, Component => Server) and not
                              Is_Unit_In_Component (Unit => X, Component => Client)
                            then
@@ -228,7 +246,7 @@ begin
                                         & Server & " layer");
                            end if;
 
-                           if Debug then Put_Line ("if " & X & " is in " & server & " then " & Y & " is NOT in " & client); end if;
+                           if Debug then Put_Line ("if " & X & " is in " & Server & " then " & Y & " is NOT in " & Client); end if;
                            if Is_Unit_In_Component (Unit => X, Component => Server) and
                              Is_Unit_In_Component (Unit => Y, Component => Client)
                            then
@@ -236,7 +254,7 @@ begin
                                         & Client & " layer");
                            end if;
 
-                           if Debug then Put_Line ("if " & X & " is in " & Client & " then " & Y & " should be in either " & Client & "or " & Server); end if;
+                           if Debug then Put_Line ("if " & X & " is in " & Client & " then " & Y & " should be in either " & Client & " or " & Server); end if;
                            if Is_Unit_In_Component (Unit => X, Component => Client) and not
                              (Is_Unit_In_Component (Unit => Y, Component => Client) or
                               Is_Unit_In_Component (Unit => Y, Component => Server))
