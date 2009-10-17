@@ -70,7 +70,8 @@ package OpenToken is
 
 private
 
-   package Buffers is new Ada.Strings.Bounded.Generic_Bounded_Length(Max_String_Length);
+   package Buffers is new
+     Ada.Strings.Bounded.Generic_Bounded_Length (Max_String_Length);
 
 end OpenToken;
 

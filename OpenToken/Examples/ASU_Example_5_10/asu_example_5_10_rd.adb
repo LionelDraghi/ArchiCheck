@@ -101,7 +101,8 @@ package body ASU_Example_5_10_RD is
    -- the second one.
    --------------------------------------------------------------------------
    procedure Build (Match : in out Expression_Sequence) is
-      Iterator : OpenToken.Token.Linked_List.List_Iterator := OpenToken.Token.Linked_List.Initial_Iterator (Match.Members);
+      Iterator : OpenToken.Token.Linked_List.List_Iterator
+        := OpenToken.Token.Linked_List.Initial_Iterator (Match.Members);
    begin
       OpenToken.Token.Linked_List.Next_Token (Iterator);
       Match.Value := Integer_Token_Handle(OpenToken.Token.Linked_List.Token_Handle (Iterator)).Value;

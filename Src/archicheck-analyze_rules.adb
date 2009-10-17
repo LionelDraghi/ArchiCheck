@@ -1,10 +1,10 @@
+-- Procedure: Archicheck.Analyze_Rules body
+
 with Ada.Strings.Fixed;
 with Ada.Strings.Maps.Constants;
 with Ada.Text_IO;
 with Archicheck.Cmd_Line;
-with Archicheck.Dependency_Lists;
 with Archicheck.Get_Dependencies;
-with Archicheck.Source_Lists;
 
 procedure Archicheck.Analyze_Rules (From_File  : in  String;
                                     Components : out Component_Maps.Map)
@@ -88,6 +88,7 @@ is
    end Get_Component_Name;
 
    -- -------------------------------------------------------------------------
+   -- Function: Get_Unit_List
    function Get_Unit_List (From_Line : in String) return Unit_Lists.List is
       Units : Unit_Lists.List;
       First : Positive;     -- Index of first character in token --**
@@ -97,7 +98,7 @@ is
                                            -- point for next search).
 
    begin
-      -- limitation : unit name is case-sensitve
+      -- Limitation: unit name is case-sensitve
       loop
          -- Put_Line ("Last =" & Natural'Image (Last));
          -- Put_Line ("From_Line'Last =" & Natural'Image (From_Line'Last));
@@ -130,12 +131,14 @@ is
       return Units;
    end Get_Unit_List;
 
-   Idx        : Natural;
+   Idx : Natural;
+   -- OK  : Boolean;
 
 begin
    Open (File => Rules_File,
          Mode => In_File,
          Name => From_File);
+
    while not End_Of_File (Rules_File) loop
       declare
          Line : constant String
@@ -199,7 +202,7 @@ begin
                      C := Component_Maps.Find (Components, Component_Name);
 
                      if Component_Maps.Has_Element (C) then
-                        Component_Maps.Update_Element (C, Add_Units'Access);
+                        Component_Maps.Update_Element (Components, C, Add_Units'Access);
 
                      else
                         Component_Maps.Insert (Components,
@@ -228,9 +231,9 @@ begin
 
                      declare
                         procedure Check_Dependency (Position : Dependency_Lists.Cursor) is
-                           use Ada.Strings.Unbounded;
+                           --use Ada.Strings.Unbounded;
 
-                           use Ada.Text_IO;
+                           --use Ada.Text_IO;
                            X : constant String := To_String (Dependency_Lists.Element
                                                              (Position).Unit_Name);
                            Y : constant String := To_String (Dependency_Lists.Element
@@ -238,36 +241,52 @@ begin
                         begin
                            if Debug then Put_Line (X & " depends on " & Y); end if;
 
-                           if Debug then Put_Line ("if " & Y & " is in " & Server & " then " & X & " is     in " & Client); end if;
-                           if Is_Unit_In_Component (Unit => Y, Component => Server) and not
+                           if Debug then Put_Line ("if " & Y & " is in "
+                                                   & Server & " then " & X
+                                                   & " is     in " & Client);
+                           end if;
+                           if Is_Unit_In_Component (Unit      => Y,
+                                                    Component => Server) and not
                              Is_Unit_In_Component (Unit => X, Component => Client)
                            then
-                              Put_Line ("Error : " & X & " is not in " & Client & " layer, and so shall not directly use "
-                                        & Server & " layer");
+                              Put_Line
+                                ("Error : " & X & " is not in "
+                                 & Client & " layer, and so shall not directly use "
+                                 & Server & " layer");
                            end if;
 
-                           if Debug then Put_Line ("if " & X & " is in " & Server & " then " & Y & " is NOT in " & Client); end if;
+                           if Debug then Put_Line ("if " & X & " is in "
+                                                   & Server & " then " & Y
+                                                   & " is NOT in " & Client);
+                           end if;
                            if Is_Unit_In_Component (Unit => X, Component => Server) and
                              Is_Unit_In_Component (Unit => Y, Component => Client)
                            then
-                              Put_Line ("Error : " & X & " is in " & Server & " layer, and so shall not use the upper "
+                              Put_Line ("Error : " & X & " is in " & Server
+                                        & " layer, and so shall not use the upper "
                                         & Client & " layer");
                            end if;
 
-                           if Debug then Put_Line ("if " & X & " is in " & Client & " then " & Y & " should be in either " & Client & " or " & Server); end if;
+                           if Debug then Put_Line ("if " & X & " is in "
+                                                   & Client & " then " & Y
+                                                   & " should be in either "
+                                                   & Client & " or " & Server);
+                           end if;
                            if Is_Unit_In_Component (Unit => X, Component => Client) and not
                              (Is_Unit_In_Component (Unit => Y, Component => Client) or
                               Is_Unit_In_Component (Unit => Y, Component => Server))
                            then
-                              Put_Line ("Warning : " & X & " (in " & Client & " layer) uses " & Y &
-                                        " that is neither in the same layer, nor in the lower " & Server
-                                       & " layer");
+                              Put_Line
+                                ("Warning : " & X & " (in " & Client & " layer) uses "
+                                 & Y &
+                                 " that is neither in the same layer, nor in the lower "
+                                 & Server & " layer");
                            end if;
 
                         end Check_Dependency;
 
                         procedure Analyze_Source (Position : Source_Lists.Cursor) is
-                           use Ada.Strings.Unbounded;
+                           --use Ada.Strings.Unbounded;
                            Source_Name : constant String :=
                              To_String (Source_Lists.Element (Position).Name);
                            Dependencies : Dependency_Lists.List;

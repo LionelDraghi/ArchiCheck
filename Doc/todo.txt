@@ -1,6 +1,14 @@
+File: TODO list
+
 - filtrer les fichiers en doublon à l'entrée?
 - utiliser une structure autre qu'une liste pour les sources?
 - ajouter un test sur la présence multiple d'un meme fichier
 - mettre des erreurs au format gnu, avec ligne colonne dans le src original.
 - exclure "limited with" des dépendances
-- "only Porting_Kit may depend on C_Files"
+
+
+
+
+syntaxe :
+- only Porting_Kit may depends on C_Files /= Porting_Kit is a layer over C_Files
+- GLU may depends on GL

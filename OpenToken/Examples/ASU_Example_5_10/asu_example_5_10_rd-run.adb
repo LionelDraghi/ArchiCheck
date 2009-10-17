@@ -71,12 +71,12 @@ begin
    -- the first token isn't a self-reference. But in this particular case
    -- one of the canned tokens, the List token, will do the job.
    L.all := E & EOF;
-   E.all := Operation_List.Get (T, Plus);
-   T.all := Operation_List.Get (F, Times);
-   F.all := Int_Literal or Parenthesized_Expression'Unchecked_Access;
+   E.all := Operation_List.class (Operation_List.Get (T, Plus));
+   T.all := Integer_Token'class (Operation_List.Get (F, Times));
+--   F.all := Int_Literal or Parenthesized_Expression'Unchecked_Access;
    -- Note the following line should probably work, but won't w/ gnat 3.12p. Try it on your system and see if
    -- it compiles:
-   --   F.all := Int_Literal or new Expression_Sequence'(Left_Paren & E & Right_Paren);
+   F.all := Int_Literal or new Expression_Sequence'(Left_Paren & E & Right_Paren);
 
    Ada.Text_IO.Put_Line ("A simple calculator, as specified in example 5.10 in Aho, Sethi, and Ullman's");
    Ada.Text_IO.Put_Line ("""Compilers Principles, Techniques and Tools""");

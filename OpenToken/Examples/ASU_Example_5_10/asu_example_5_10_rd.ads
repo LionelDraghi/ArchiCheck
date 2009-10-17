@@ -92,7 +92,8 @@ package ASU_Example_5_10_RD is
 
    -- Create a custom selection token which has integers for components and returns
    -- an integer with the value of the selected component from a parse.
-   package Integer_Selection_Token is new OpenToken.Token.Selection_Mixin (Integer_Token, OpenToken.Token.Instance);
+   package Integer_Selection_Token is new OpenToken.Token.Selection_Mixin
+     (Integer_Token, OpenToken.Token.Instance);
    type Integer_Selection is new Integer_Selection_Token.Instance with null record;
    procedure Build (Match : in out Integer_Selection;
                     From  : in     OpenToken.Token.Instance'Class);

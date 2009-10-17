@@ -1,8 +1,9 @@
+-- Package: Archicheck.Cmd_Line body
+
 with Ada.Command_Line;
 with Ada.Directories;
 with Ada.Strings.Unbounded;
 with Ada.Text_IO;
-with Archicheck.Source_Lists;
 
 package body Archicheck.Cmd_Line is
 
@@ -37,8 +38,8 @@ package body Archicheck.Cmd_Line is
                if Kind (Name) = Directory then
                   -- Ada.Text_IO.Put_Line ("Analysing directory " & Name);
                   declare
-                     use Ada.Directories;
-                     use Ada.Strings.Unbounded;
+                     --use Ada.Directories;
+                     --use Ada.Strings.Unbounded;
                      Search : Search_Type;
                      Directory_Entry : Directory_Entry_Type;
                   begin
@@ -140,7 +141,7 @@ package body Archicheck.Cmd_Line is
    end Analyze_Cmd_Line;
 
    -- -------------------------------------------------------------------------
-   function Source_List return Archicheck.Source_Lists.List is
+   function Source_List return Source_Lists.List is
    begin
       return Local.Source_List;
    end Source_List;

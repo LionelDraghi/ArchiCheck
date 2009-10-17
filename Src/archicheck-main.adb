@@ -1,17 +1,19 @@
+-- Procedure: Archicheck.Main body
+
 with Ada.Command_Line;
 with Ada.Text_IO;
 -- with Ada.Directories;
 with Archicheck.Analyze_Rules;
+-- with Archicheck.Analyze_Rules_File;
 with Archicheck.Cmd_Line;
-with Archicheck.Dependency_Lists;
 with Archicheck.Get_Dependencies;
-with Archicheck.Source_Lists;
 with Archicheck.Source_Lists_IO;
 
 procedure Archicheck.Main is
    Cmd_Line_OK   : Boolean;
    Sources       : Source_Lists.List;
    Component_Map : Component_Maps.Map;
+   -- OK            : Boolean;
 
 begin
    Cmd_Line.Analyze_Cmd_Line (Cmd_Line_OK);
@@ -66,13 +68,19 @@ begin
 
       -- 3 - is there some rules file to analyze?
       if Cmd_Line.Rules_File_Name /= "" then
+         -- Version qui marche :
          Analyze_Rules (From_File  => Cmd_Line.Rules_File_Name,
                         Components => Component_Map);
+         -- Version voulue plus puissante mais qui ne marche pas :
+         -- Analyze_Rules_File (File_Name  => Cmd_Line.Rules_File_Name,
+         --                     Components => Component_Map,
+         --                     -- Rules : in out ***;
+         --                     OK         => OK);
       end if;
 
       if Cmd_Line.List_Components then
-         declare
 
+         declare
             procedure Put_Component (Position : Component_Maps.Cursor) is
                First_Unit : Boolean := True;
                use Ada.Text_IO;
@@ -103,6 +111,7 @@ begin
 
    else
       Ada.Command_Line.Set_Exit_Status (Ada.Command_Line.Failure);
+
    end if;
 
 end Archicheck.Main;

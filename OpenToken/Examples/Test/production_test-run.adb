@@ -80,7 +80,8 @@ begin
         Expression <= Int & Keyword & Int +
         Nonterminal.Synthesize'(Nonterminal.Synthesize_Self);
 
-      STR_Key_Production : constant Production.Instance := Literal <= String & Keyword + Nonterminal.Synthesize_Self;
+      STR_Key_Production : constant Production.Instance :=
+        Literal <= String & Keyword + Nonterminal.Synthesize_Self;
 
       Passed : Boolean := True;
 

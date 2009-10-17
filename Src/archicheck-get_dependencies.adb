@@ -1,8 +1,11 @@
+-- Function: Archicheck.Get_Dependencies body
+
+with Ada.Exceptions;
 with Ada.Text_IO;
 
 with OpenToken.Text_Feeder.Text_IO;
+with OpenToken.Token;
 with Ada_Lexer;                      use  Ada_Lexer;
-with Archicheck.Dependency_Lists;
 
 function Archicheck.Get_Dependencies
   (Source_Name  : String) return Archicheck.Dependency_Lists.List
@@ -42,7 +45,7 @@ is
 
    -- iterate trough a list to set the field Unit_Name,
    -- and only this one.
-   procedure Set_Unit_Name (List          : in Dependency_Lists.List;
+   procedure Set_Unit_Name (List          : in out	Dependency_Lists.List;
                             Unit_Name     : in String;
                             Specification : in Boolean)
    is
@@ -54,7 +57,7 @@ is
 
       procedure Set_Name (Position : Cursor) is
       begin
-         Update_Element (Position, Set'Access);
+         Update_Element (List, Position, Set'Access);
       end Set_Name;
 
    begin
@@ -66,17 +69,18 @@ begin
                      Mode => Ada.Text_IO.In_File,
                      Name => Source_Name);
    Ada.Text_IO.Set_Input (File);
-   Tokenizer.Input_Feeder := OpenToken.Text_Feeder.Text_IO.Create;
+   Tokenizer.Input_Feeder := OpenToken.Text_Feeder.Text_IO.Create; --** incohérence avec Rules
 
    Source_Analysis : loop
+      begin
       -- The withed units are first stored in
       -- a Tmp dependency list, with the Unit_Name left blank,
       -- When the package name is meet, the Tmp list is modified to
       -- set the Unit_Name, then moved to the returned dependency list.
-      -- limitation : only the fist Ada unit per source
-      -- limitation : only packages are taken into account
+      -- Limitation: only the fist Ada unit per source
+      -- Limitation: only packages are taken into account
 
-      Tokenizer.Find_Next (Analyzer);
+         Tokenizer.Find_Next (Analyzer);
 --        Ada.Text_IO.Put_Line
 --          (Ada_Lexer.Ada_Token'Image (Tokenizer.ID (Analyzer))
 --           & " -> " & Tokenizer.Lexeme (Analyzer));
@@ -111,7 +115,15 @@ begin
          when others => null;
        end case;
 
-      exit Source_Analysis when Tokenizer.ID (Analyzer) = End_of_File_T;
+         exit Source_Analysis when Tokenizer.ID (Analyzer) = End_of_File_T;
+            exception
+               when Error : OpenToken.Token.Parse_Error =>
+                  Ada.Text_IO.Put_Line
+                    ("failed at line" & Integer'Image (Tokenizer.Line (Analyzer)) &
+                     ", column" & Integer'Image (Tokenizer.Column (Analyzer)) &
+                     " due to parse exception:");
+                  Ada.Text_IO.Put_Line (Ada.Exceptions.Exception_Information (Error));
+      end;
 
    end loop Source_Analysis;
 

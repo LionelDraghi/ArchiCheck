@@ -4,7 +4,7 @@ CREATE_PKG=../Tools/create_pkg
 
 .PHONY : clean
 
-check: archicheck
+check: ./archicheck
 	@ echo dependency list test
 	@ ${CREATE_PKG} A spec -in dir1 -with B
 	@ ${CREATE_PKG} A body -in dir1 -with C
@@ -24,7 +24,7 @@ check: archicheck
 	@ echo "C specification depends on F"		>> expected_dependency_list
 	@ echo "C.D specification depends on E.G.H"	>> expected_dependency_list
 
-	@ archicheck -I dir1 --list_dependencies > dependency_list
+	@ ./archicheck -I dir1 --list_dependencies > dependency_list
 	@ diff expected_dependency_list dependency_list
 	@ echo OK
 
