@@ -10,7 +10,7 @@ check: archicheck Tools/create_pkg
 	@ $(MAKE) check --directory=Source_List
 	@ $(MAKE) check --directory=Dependency_List
 	@ $(MAKE) check --directory=Component_List
-	@ $(MAKE) check --directory=Rules
+	@ $(MAKE) check --directory=Layers
 	@ $(MAKE) check --directory=Child_Packages
 
 clean:
@@ -18,7 +18,7 @@ clean:
 	@ $(MAKE) clean --directory=Source_List
 	@ $(MAKE) clean --directory=Dependency_List
 	@ $(MAKE) clean --directory=Component_List
-	@ $(MAKE) clean --directory=Rules
+	@ $(MAKE) clean --directory=Layers
 	@ $(MAKE) clean --directory=Child_Packages
 	@ $(MAKE) clean --directory=Tools
 

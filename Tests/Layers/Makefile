@@ -67,5 +67,5 @@ check: ./archicheck
 	@ echo OK
 
 clean:
-	@ ${RM} -rf expected_output.* output.* rules.? dir? dir??
+	@ ${RM} -rf expected_output.* output.* rules.? dir? dir?? *.dia~
 
