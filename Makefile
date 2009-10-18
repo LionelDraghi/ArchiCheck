@@ -15,7 +15,7 @@ dashboard:
              -png -o Doc/répartition_sloc.png
 
 doc: dashboard
-	/home/lionel/NaturalDocs-1.34/NaturalDocs \
+	NaturalDocs-1.4/NaturalDocs \
 		-i Doc \
 		-i Src \
 		-i Tests \
