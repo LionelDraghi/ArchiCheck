@@ -12,8 +12,6 @@
 with Ada.Exceptions;
 with Ada.Text_IO;
 
-with OpenToken.Text_Feeder.Text_IO;
-with OpenToken.Token;
 with Ada_Lexer;                      use  Ada_Lexer;
 
 function Archicheck.Get_Dependencies
@@ -31,16 +29,21 @@ is
    function Get_Unit_Name return String is
       Name : Unbounded_String := Null_Unbounded_String;
    begin
-      Name := To_Unbounded_String (Tokenizer.Lexeme (Analyzer));
+      Name := To_Unbounded_String (--Tokenizer.
+                                   Lexeme); -- (Analyzer));
       loop
 --           Ada.Text_IO.Put_Line
 --             ("look_Ahead = "
 --              & Ada_Lexer.Ada_Token'Image (Tokenizer.ID (Analyzer))
 --              & " -> " & Tokenizer.Lexeme (Analyzer));
-         Tokenizer.Find_Next (Analyzer, Look_Ahead => True);
-         if Tokenizer.ID (Analyzer) = Dot_T then
-            Tokenizer.Find_Next (Analyzer);
-            Name := Name & "." & Tokenizer.Lexeme (Analyzer);
+--Tokenizer.
+         Find_Next; -- (Analyzer, Look_Ahead => True);
+         if Token_ID
+         --Tokenizer.ID (Analyzer)
+           = Dot_T then
+            Find_Next;
+            --Tokenizer.Find_Next (Analyzer);
+            Name := Name & "." & Lexeme; --Tokenizer.Lexeme (Analyzer);
          else
             exit;
          end if;
@@ -54,7 +57,7 @@ is
 
    -- iterate trough a list to set the field Unit_Name,
    -- and only this one.
-   procedure Set_Unit_Name (List          : in out	Dependency_Lists.List;
+   procedure Set_Unit_Name (List          : in out Dependency_Lists.List;
                             Unit_Name     : in String;
                             Specification : in Boolean)
    is
@@ -77,8 +80,9 @@ begin
    Ada.Text_IO.Open (File => File,
                      Mode => Ada.Text_IO.In_File,
                      Name => Source_Name);
-   Ada.Text_IO.Set_Input (File);
-   Tokenizer.Input_Feeder := OpenToken.Text_Feeder.Text_IO.Create; --** incohérence avec Rules
+   Set_Input_Feeder (File);
+   --Ada.Text_IO.Set_Input (File);
+   --Tokenizer.Input_Feeder := OpenToken.Text_Feeder.Text_IO.Create; --** incohérence avec Rules
 
    Source_Analysis : loop
       begin
@@ -89,22 +93,24 @@ begin
       -- Limitation: only the fist Ada unit per source
       -- Limitation: only packages are taken into account
 
-         Tokenizer.Find_Next (Analyzer);
+         --Tokenizer.Find_Next (Analyzer);
+         Find_Next;
 --        Ada.Text_IO.Put_Line
 --          (Ada_Lexer.Ada_Token'Image (Tokenizer.ID (Analyzer))
 --           & " -> " & Tokenizer.Lexeme (Analyzer));
-       case Tokenizer.ID (Analyzer) is
+       --case Tokenizer.ID (Analyzer) is
+       case Token_ID is
          when With_T =>
-            Tokenizer.Find_Next (Analyzer);
+            Find_Next;
             if Debug then Ada.Text_IO.Put ("with "); end if;
             Append
               (Tmp, (Unit_Name       => Null_Unbounded_String,
                      Depends_On_Unit => To_Unbounded_String (Get_Unit_Name),
                      Specification   => False));
          when Package_T =>
-            Tokenizer.Find_Next (Analyzer);
-            if Tokenizer.ID (Analyzer) = Body_T then
-               Tokenizer.Find_Next (Analyzer);
+            Find_Next;
+            if Token_ID = Body_T then
+               Find_Next;
                if Debug then Ada.Text_IO.Put ("package body "); end if;
                Set_Unit_Name (Tmp, Get_Unit_Name, Specification => False);
                -- Append (Tmp,
@@ -124,12 +130,12 @@ begin
          when others => null;
        end case;
 
-         exit Source_Analysis when Tokenizer.ID (Analyzer) = End_of_File_T;
+         exit Source_Analysis when Token_ID = End_of_File_T;
             exception
-               when Error : OpenToken.Token.Parse_Error =>
+               when Error : others => --Error : OpenToken.Token.Parse_Error =>
                   Ada.Text_IO.Put_Line
-                    ("failed at line" & Integer'Image (Tokenizer.Line (Analyzer)) &
-                     ", column" & Integer'Image (Tokenizer.Column (Analyzer)) &
+                    ("failed at line" & Integer'Image (Line) &
+                     ", column" & Integer'Image (Column) &
                      " due to parse exception:");
                   Ada.Text_IO.Put_Line (Ada.Exceptions.Exception_Information (Error));
       end;

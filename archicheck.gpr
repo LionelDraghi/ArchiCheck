@@ -1,8 +1,8 @@
--- with "/usr/local/share/ada/adainclude/opentoken";
+with "opentoken/Build/linux_debug/opentoken.gpr";
 
 project Archicheck is
 
-   for Source_Dirs use ("Src", "OpenToken", "OpenToken/Language_Lexers");
+   for Source_Dirs use ("Src");
    for Object_Dir use "Obj";
    for Main use ("archicheck-main.adb");
 

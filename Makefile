@@ -3,7 +3,7 @@
 all: check doc
 
 build Obj/archicheck:
-	@ gnat make -q -Parchicheck.gpr
+	gnat make -q -Parchicheck.gpr
 
 check: Obj/archicheck
 	$(MAKE) --directory=Tests
@@ -23,5 +23,5 @@ doc: dashboard
 
 .PHONY : clean
 clean:
-	gnat clean -Parchicheck.gpr
+	gnat clean -q -Parchicheck.gpr
 	$(MAKE) --directory=Tests clean
