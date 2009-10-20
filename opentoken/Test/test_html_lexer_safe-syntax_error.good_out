@@ -1,0 +1,41 @@
+../../Test/test_html_scan-syntax_error.html:1:1: DOCUMENT_TYPE: <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+../../Test/test_html_scan-syntax_error.html:2:2: START_TAG_OPENER: <
+../../Test/test_html_scan-syntax_error.html:2:3: HTML: html
+../../Test/test_html_scan-syntax_error.html:2:7: TAG_CLOSER: >
+../../Test/test_html_scan-syntax_error.html:2:9: START_TAG_OPENER: <
+../../Test/test_html_scan-syntax_error.html:2:10: HEAD: head
+../../Test/test_html_scan-syntax_error.html:2:14: TAG_CLOSER: >
+../../Test/test_html_scan-syntax_error.html:3:2: START_TAG_OPENER: <
+../../Test/test_html_scan-syntax_error.html:3:3: META: meta
+../../Test/test_html_scan-syntax_error.html:3:8: VALUE: http-equiv
+../../Test/test_html_scan-syntax_error.html:3:18: ASSIGNMENT: =
+../../Test/test_html_scan-syntax_error.html:3:19: STRING: "Content-Type"
+../../Test/test_html_scan-syntax_error.html:3:34: CONTENT: content
+../../Test/test_html_scan-syntax_error.html:3:41: ASSIGNMENT: =
+../../Test/test_html_scan-syntax_error.html:3:42: STRING: "text/html; charset=iso-8859-1"
+../../Test/test_html_scan-syntax_error.html:3:73: TAG_CLOSER: >
+../../Test/test_html_scan-syntax_error.html:4:2: START_TAG_OPENER: <
+../../Test/test_html_scan-syntax_error.html:4:3: TITLE: title
+../../Test/test_html_scan-syntax_error.html:4:8: TAG_CLOSER: >
+../../Test/test_html_scan-syntax_error.html:4:9: TEXT: Test of HTML href scanner; syntax error
+../../Test/test_html_scan-syntax_error.html:4:48: END_TAG_OPENER: </
+../../Test/test_html_scan-syntax_error.html:4:50: TITLE: title
+../../Test/test_html_scan-syntax_error.html:4:55: TAG_CLOSER: >
+../../Test/test_html_scan-syntax_error.html:5:2: END_TAG_OPENER: </
+../../Test/test_html_scan-syntax_error.html:5:4: HEAD: head
+../../Test/test_html_scan-syntax_error.html:5:8: TAG_CLOSER: >
+../../Test/test_html_scan-syntax_error.html:6:2: START_TAG_OPENER: <
+../../Test/test_html_scan-syntax_error.html:6:3: HTML_BODY: body
+../../Test/test_html_scan-syntax_error.html:6:7: TAG_CLOSER: >
+../../Test/test_html_scan-syntax_error.html:7:2: START_TAG_OPENER: <
+../../Test/test_html_scan-syntax_error.html:7:3: VALUE: p
+../../Test/test_html_scan-syntax_error.html:7:4: TAG_CLOSER: >
+../../Test/test_html_scan-syntax_error.html:7:5: TEXT: syntax error
+../../Test/test_html_scan-syntax_error.html:7:17: START_TAG_OPENER: <
+../../Test/test_html_scan-syntax_error.html:8:2: BAD_TOKEN: <
+../../Test/test_html_scan-syntax_error.html:8:3: VALUE: /body
+../../Test/test_html_scan-syntax_error.html:8:8: TAG_CLOSER: >
+../../Test/test_html_scan-syntax_error.html:8:10: END_TAG_OPENER: </
+../../Test/test_html_scan-syntax_error.html:8:12: HTML: html
+../../Test/test_html_scan-syntax_error.html:8:16: TAG_CLOSER: >
+../../Test/test_html_scan-syntax_error.html:8:17: END_OF_FILE: 

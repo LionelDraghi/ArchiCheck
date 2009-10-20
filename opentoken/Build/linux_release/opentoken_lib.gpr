@@ -1,0 +1,32 @@
+with "../common";
+project Opentoken_Lib is
+
+   --  Version must change for each user-visible change; it does not
+   --  have to match the source package version.
+   --
+   --  gnat-4.3.2 and earlier only use the first digit for the library file name
+   --  gnat-4.4 will use all the digits
+   Version := "5.0.0";
+
+   for Languages use ("Ada");
+   for Source_Dirs use ("../..", "../../Language_Lexers");
+   for Object_Dir use "obj";
+   for Library_Name use "opentoken";
+   for Library_Dir use "lib";
+   for Library_Kind use Common.Libtype;
+
+   --  Library_Version is not used when Library_Kind is "static"
+   for Library_Version use "libopentoken.so." & Version;
+
+   package Compiler is
+      for Default_Switches ("Ada") use
+        ("-g",
+         "-O2",
+         "-gnat05",
+         "-gnatfnoqQ",
+         "-fstack-check",
+         "-FPIC");
+
+   end Compiler;
+
+end Opentoken_Lib;

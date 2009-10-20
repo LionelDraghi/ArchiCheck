@@ -1,0 +1,396 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <meta name="Author" content="Ted Dennison">
+   <meta name="Author" content="Stephen Leake">
+   <title>OpenToken</title>
+</head>
+<body>
+
+<h1> OpenToken</h1>
+
+<h1> current version: 3.1a</h1>
+
+<p>The OpenToken package is a facility for performing token analysis
+and parsing within the Ada language. It is designed to provide all the
+functionality of a traditional lexical analyzer/parser generator, such
+as lex/yacc. But due to the magic of inheritance and runtime polymorphism
+it is implemented entirely in Ada as withed-in code. No precompilation
+step is required, and no messy tool-generated source code is created.
+
+<p>For example, here is an OpenToken specification of a subset of Ada
+aggregate syntax (no 'others'):
+<pre>
+   Grammar : constant Production_List.Instance :=
+     Value            <= Aggregate + Promote_Action and
+     Aggregate        <= Tokens.Paren_Left & Association_List &
+        Tokens.Paren_Right + Paren_Action and
+     Association_List <= Tokens.Association & Tokens.Comma &
+        Association_List + Append_Action and
+     Association_List <= Tokens.Association + Append_Action and
+
+     Association <= Tokens.Identifier & Tokens.Equals_Greater &
+        Tokens.Value + Associate_Action and
+     Association <= Tokens.Integer & Tokens.Equals_Greater &
+        Tokens.Value + Associate_Action and
+     Association <= Tokens.Value + Associate_Action;
+</pre>
+
+<p>This grammar is processed at runtime into a state machine data
+structure, then used to parse input text.
+
+<p>Additionally, the technique of using classes of recognizers promises
+to make most token specifications as simple as making an easy to read procedure
+call. The most error prone part of generating analyzers, the token pattern
+matching, has been taken from the typical user's hands and placed into
+reusable classes. Over time I hope to see the addition of enough reusable
+recognizer classes that very few users will ever need to write a custom
+one. Parse tokens themselves also use this technique, so they ought to
+be just as reusable in principle, athough there currently aren't a lot
+of predefined parse tokens included in OpenToken.
+
+<p>Ada's type safety features should also make misbehaving analyzers and
+parsers easier to debug. All this will hopefully add up to token analyzers
+and parsers that are much simpler and faster to create, easier to get working
+properly, and easier to understand.
+
+<p>OpenToken is distributed under <a
+href="http://www.gnu.org/licenses/licenses.html#GPL">GPL version
+3</a>, with the GNAT modification that allows use in non-GPL
+projects.
+
+<p>OpenToken was originally written by Ted Dennison. Contributions were
+also made by Christoph Grein and Stephen Leake.
+
+<p>OpenToken is currently maintained by <a
+href="mailto:stephen_leake@stephe-leake.org">Stephen Leake</a>. Submit
+bugs via the <a href="http://www.debian.org/Bugs/">Debian Bug
+system</a>, against the opentoken source package. Discussion about
+OpenToken is on the newsgroup comp.lang.ada.
+
+<p>OpenToken may be obtained in several ways:
+<ul>
+  <li><a href="opentoken-3.1a.tar.gz">source Gnu tar gzip opentoken-3.1a.tar.gz</a>
+  <li><a href="opentoken-3.1a.zip">source zip opentoken-3.1a.zip</a>
+  <li>Debian package
+  <li><a href="http://www.monotone.ca/">monotone</a> server www.ada-france.org, branch org.opentoken. Maintained by <a href="mailto:ludovic@ludovic-brenta.org">Ludovic Brenta</a>
+</ul>
+
+<p>OpenToken has been tested on the following operating systems/compilers:
+<ul>
+  <li>Debian 5.0 GNAT 3.4.2
+  <li>Windows XP 32 bit GNAT 6.2.1
+  <li>Windows XP 32 bit GNAT GPL-2009
+</ul>
+
+<p>The simplest way to use the source distribution is to install it in
+the standard GNAT directories, where the compiler will find it by
+default. Then just put 'with "OpenToken";' in your project file. To
+install it on Windows, using a DOS shell, and assuming GNAT and 'make'
+are in your PATH:
+
+<pre>
+cd opentoken/Build/windows_release
+make -f Makefile.install install
+</pre>
+
+<p>On GNU/Linux, use 'linux_release' instead of 'windows_release'.
+This assumes you have write permission in the GNAT directory tree.
+
+<p>See <a href="opentoken_developer_tools.html">developer
+instructions</a> if you want to run the tests or work on OpenToken.
+
+<p>Ted's <a
+href="http://www.telepath.com/~dennison/Ted/OpenToken/OpenToken.html">original
+OpenToken web page</a> is no longer being maintained. The AdaPower
+mailing list and discussion board are no longer used.
+
+<p>There is a <a href="UsersGuide.html">User's Guide</a> that
+describes how to create a simple application using OpenToken. There
+are also several examples in the source; see the Examples directory.
+The Test directory also has useful examples, although oriented towards
+testing OpenToken itself.
+
+<p>OpenToken uses <a href="test_html_scan.html">this test page</a> to
+verify that the HTML lexer handles valid HTML 4.01.
+
+<h2> History</h2>
+
+<h3>Version 3.1 August 4, 2009</h3>
+<ul>
+  <li>bugs fixed
+      <ul>
+        <li>opentoken-production-parser-lalr.adb Add_Action<br>
+            Don't put duplicate action in twice. Tested in association_token_test.
+
+        <li>opentoken-production-parser-lrk_item.adb Closure<br>
+            Delete premature loop exit. Tested in name_token_test.
+
+        <li>opentoken-production-parser-lrk_item.adb Goto_Transitions<br>
+            Handle duplicate goto set. Tested in test_lr0_kernels.
+
+        <li>opentoken-recognizer-integer.adb Analyze<br>
+            Set verdict when Allow_Signs. Tested in recognizer_integer_test. Debian bug 536359.
+
+        <li>opentoken-recognizer-string.adb<br>
+            Set C_Style_Escape_Code_Map properly. Test in string_test-run.adb fixed.
+
+        <li>Language_Lexers/ada_lexer.ads, .adb<br>
+            Handle Character'('x'). Debian bug 498945.
+
+      </ul>
+  <li>significant changes
+      <ul>
+
+        <li>Add trace feature; shows sequence of states followed by
+            the parser. Very useful for debugging a grammar.
+
+        <li>Generate reports shift/reduce conflicts.
+
+        <li>Parse uses Gnu syntax to report syntax errors.
+
+        <li>Support line, column for error messages
+
+        <li>Allow setting the parser's text feeder.
+
+        <li>Add a new version of HTML_Lexer that is task safe.
+
+        <li>HTML_Lexer allows '"' and '>' in paragraphs; not clear why
+            they were disallowed. It also allows more characters in
+            tags.
+
+        <li>New procedure opentoken-token-enumerated-analyzer.ads Discard_Buffered_Text<br>
+            For calling parser in a loop while handling exceptions.
+
+        <li>New recognizer
+            opentoken-recognizer-based_integer.adb. Recognizes Ada
+            integer literal with optional base. See
+            recognizer_based_integer_test.adb for examples.
+
+        <li>New token opentoken-token-enumerated-identifier.adb. Tested in test_token_identifier_real_string.
+            Useful for user symbol names.
+
+        <li>New tokens
+            opentoken-token-enumerated-real_literal.adb,
+            opentoken-token-enumerated-string_literal.adb. Tested in
+            test_token_identifier_real_string
+
+        <li>Makefiles build GNAT libraries, and install in GNAT tree.
+
+      </ul>
+  <li>New tests
+      <ul>
+        <li>association_token_test
+        <li>name_token_test
+        <li>based_integer_test
+        <li>recognizer_integer_test
+        <li>string_token_test
+        <li>test_html_lexer (there is now a known good result for one input file)
+        <li>test_lr0_kernels
+        <li>test_token_identifier_real_string
+      </ul>
+  <li>Other changes
+      <ul>
+        <li>change to unix line ending
+        <li>update to GPL 3
+        <li>delete all CVS logs
+        <li>Enforce style via -gnaty3abcefhiklM120nprtx, and
+            -gnatyO ('overriding') in gnat gpl-2009, 6.2.1. This
+            enforces capitalization of OpenToken, ID, HTML, etc.
+        <li>Ada 2005 syntax for some 'raise exception', 'is null'
+        <li>Add GNAT pragma Unreferenced where needed
+        <li>Merge all Makefiles into one, in a separate Build directory
+        <li>In opentoken-production-parser-lrk_item.adb Generate
+            and opentoken-production-parser-lalr.adb
+            LR0_Kernels; optimize computation of
+            First_Derivations (was done twice).
+        <li>print Ada.Tags.Expanded name in productions
+        <li>generally improve readability of dump
+        <li>only one Parse_Error exception declared
+        <li>In Opentoken.Recognizer.Graphic_Character; add Redefine
+        <li>delete gnat 3.13 workarounds
+        <li>delete commented out code
+      </ul>
+</ul>
+
+<h3> Version 3.0b 13 August 2000</h3>
+<p>This version contains another code reorganization to go with another new
+parsing facility. This time it is recursive decent parsing. The new method
+has the following advantages over table-driven parsers:
+<ul>
+  <li>It's simpler to implement.
+  <li>It provides many more opportunities for reuse.
+  <li>Its parsers are debugable.
+  <li>There's no expensive parser-generation phase.
+</ul>
+
+<p>The disadvantages are:
+<ul>
+<li>Its parsers are most likely a bit slower.
+</ul>
+
+<p>Given the above balance, I do intend to make this the standard
+supported parsing facility for future versions of OpenToken. The "b"
+designation is there to indicate that some things might not be in
+quite their permanent form yet, and that there isn't yet the full set
+of reusable tokens to support it that I would like to see in a
+release. I'm hoping for feedback both in the form of
+criticisms/suggestions, and reusable tokens in order to help finalize
+this facility.
+
+<p>A general list of the changes is below:
+<ul>
+  <li>Renamed <i>OpenToken.Token</i> tree to <i>OpenToken.Token.Enumerated</i>.
+  <li>Created a new (non-enumerated) base token type and base analyzer type in <i>OpenToken.Token.</i>
+  <li>Made a Parse routine and a Could_Parse_To routine primitives of the base token type.
+  <li>Created the following predefined nonterminal tokens (both as straight types, and as mixins).
+      <ul>
+        <li> List
+        <li> Selection
+        <li> Sequence
+      </ul>
+  <li> Fixed a bug in the bracketed comment recognizer.
+  <li> Implemented a (hopefully temporary) work-around for a bug in Gnat version 3.13p.
+  <li> Fixed a bug in the string recognizer where it was mishandling octal and hex escape sequences.
+  <li> Changed the analyzer and the text feeders to support analyzing binary files.
+  <li> The HTML lexer has been improved to be a bit faster and more flexible.
+</ul>
+
+<h3> Version 2.0 27 January 2000</h3>
+
+<p>This is the first version to include parsing capability. The
+existing packages underwent a major reorganization to accommodate the
+new functionality. As some of the restructuring that was done is
+incompatible with old code, the major revision has been bumped up to
+2. A partial list of changes is below:
+
+<ul>
+  <li> Renamed the top level of the hierarchy from Token to <i>OpenToken.</i>
+  <li> Moved the analyzer underneath the new <i>OpenToken.Token </i>hierarchy.
+
+  <li> Renamed the Token recognizers from <i>Token.*</i> to <i>OpenToken.Recognizer.*</i>
+
+  <li> Changed the text feeder procedure pointer into a text feeder
+      object. This will allow full re-entrancy in analyzers that was
+      thwarted by those global text feeders previously.
+
+  <li> Updated the SLOC counter to read a list of files to process from
+      a file. It also handles files with errors in them a bit better.
+
+  <li> Added lalr(1) parsing capability and numerous packages to support
+      it. A structure is in place to build other parsers as well.
+
+  <li> Created a package hierarchy to support parse tokens. The word
+      "Token" in OpenToken now refers to objects of this type, rather than
+      to token recognizers.
+
+  <li> An HTML lexer has been added to the language lexers.
+
+  <li> <i>.Recognizer.Bracketed_Comment</i> now works properly with single-character terminators.
+</ul>
+
+<h3> Version 1.3.6</h3>
+
+<p>This version fixes a rare bug in the Ada style based numeric
+recognizers. The SLOC counter can now successfully count all the
+source files in Gnat's adainclude directory.
+
+<h3> Version 1.3.5</h3>
+
+<p>This version adds a simple Ada SLOC counting program into the
+examples. A bug with the Real token recognizer that caused
+constraint_errors has been fixed. Also bugs causing constraint errors
+in the ada-style based integer and real recognizers on long non-based
+numbers have been fixed.
+
+<h3> Version 1.3</h3>
+
+<p>This version adds the <i>default token</i> capability to the
+Analyzer package. This allows a more flexible (if somewhat
+inefficient) means of error handling to the analyzer. The default
+token can be used as an error token, or it can be made into a
+non-reportable token to ignore unknown elements entirely.
+
+<p>Identifier tokens were generalized a bit to allow user-defined
+character sets for the first and subsequent characters. This not only
+gives it the ability to handle syntaxes that don't exacly match Ada's,
+but it allows one to define identifiers for languages that aren't
+latin-1 based. Also, the ability to turn off non-repeatable
+underscores was added.
+
+<p>Integer and Real tokens had an option added to support signed
+literals. This option is set <b>on</b> by default (which causes a
+minor backward incompatibility). Syntaxes that have addition or
+subtraction operators will need to turn this option off.
+
+<p>A test to verify proper handling of default parameters was added to
+the Test directory. A makefile was also added to the same directory to
+facilitate automatic compiling and running of the tests. This makefile
+will not work in a non-Gnat/NT environment without some
+modification.
+
+<p>New recognizers were added for enclosed comments (eg: C's /* */
+comments)and&nbsp; single character escape sequences. Also a "null"
+recognizer was added for use as a default token.
+
+<h3> Version 1.2.1</h3>
+
+<p>This version adds the CSV field token recognizer that was
+inadvertently left out of 1.2. This recognizer was designed to match
+fields in comma-separated value (CSV) files, which is a somewhat
+standard file format for databases and spreadsheets. Also, the
+extraneous CVS directories in the zip version of the distribution were
+removed.
+
+<h3> Version 1.2</h3>
+
+<p>The long-awaited string recognizer has been added. It is capable of recognizing
+both C and Ada-style strings. In addition, there are a great many submissions
+by Christoph Grein in this release. He contributed mostly complete lexical
+analyzers for both Java and Ada, along with all the extra token recognizers
+he needed to accomplish this feat. He didn't need as many extra recognizers
+as I would have thought he'd need. But even so, slightly less than 1/2
+of the recognizers in this release were contributed by Chris (with a broken
+arm, no less!)
+
+<h3> Version 1.1</h3>
+
+<p>The main code change to this version is a default text feeder
+function that has been added to the analyzer. It reads its input from
+Ada.Text_IO.Current_Input, so you can change the file to whatever you
+want fairly easily. The capability to create and use your own feeder
+function still exists, but it should not be necessary in most cases.
+If you already have code that does this, it should still compile and
+work properly.
+
+<p>The other addition is the first version of the OpenToken user's
+guide. All it contains right now is a user manual walking through the
+steps needed to make a simple token analyzer. Feedback and/or ideas on
+this are welcome.
+
+<h3> Version 1.0</h3>
+
+<p>This is the very first publicly released version. This package is
+based on work I did while working on the JPATS trainer for
+FlightSafety International. The germ of this idea came while I was
+trying to port a fairly ambitious, but fatally buggy Ada 83 token
+recognition package written for a previous simulator. But once I was
+done, I was rather suprised at the flexibility of the final product.
+Seeing the possible benefit to the community, and to the company
+through user-submitted enhancement and debugging, I suggested that
+this code be released as Open Source. They were open-minded enough to
+agree. Bravo!
+
+<HR>
+<p><a href="../index.html">my home page</a>
+<a href="mailto:stephen_leake@stephe-leake.org">Author : Stephen Leake</a>
+<a href="http://validator.w3.org/check?uri=referer">
+<img src="../images/valid-html401.png" alt="Valid HTML 4.01!" height=31 width=88></a>
+<a href="http://www.gnu.org/software/emacs/windows/ntemacs.html">
+<img src="../images/emacs.png" alt="Created with Emacs" width="100" height="30"></a>
+<a href="http://www.adaic.org/">
+<img src="../images/adapowered2.png" alt="powered by Ada" width="200" height="50"></a>
+<!-- hhmts start --> Last modified: Fri Jul 31 02:15:50 -0400 2009 <!-- hhmts end -->
+</body>
+</html>

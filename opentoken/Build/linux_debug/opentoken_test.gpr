@@ -1,0 +1,37 @@
+--  For running OpenToken tests.
+with "aunit";
+with "common";
+project OpenToken_Test is
+
+   for Source_Dirs use
+     ("../..",
+      "../../Examples/ASU_Example_3_6",
+      "../../Examples/ASU_Example_4_46",
+      "../../Examples/ASU_Example_5_10",
+      "../../Examples/Language_Lexer_Examples",
+      "../../Language_Lexers",
+      "../../Test");
+
+   for Object_Dir use "obj";
+   for Exec_Dir use ".";
+
+   package Compiler is
+      for Default_Switches ("Ada") use
+        Common.Compiler.Debug_Switches &
+        Common.Compiler.Style_Checks &
+        Common.Compiler'Default_Switches ("Ada");
+
+   end Compiler;
+
+   package Builder is
+      for Default_Switches ("Ada") use Common.Builder'Default_Switches ("Ada");
+
+      --  We use ".exe" extension even on non-Windows, to simplify the makefiles.
+      for Executable_Suffix use ".exe";
+   end Builder;
+
+   package Binder is
+      for Default_Switches ("Ada") use Common.Binder'Default_Switches ("Ada");
+   end Binder;
+
+end OpenToken_Test;

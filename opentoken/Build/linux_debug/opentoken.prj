@@ -1,0 +1,4 @@
+ada_project_path=../
+gpr_file=opentoken_test.gpr
+
+casing=../emacs_case_exceptions

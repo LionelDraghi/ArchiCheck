@@ -1,0 +1,24 @@
+--  For using OpenToken in other projects
+--
+--  This is not in Build because the object and executable paths are
+--  relative to this file.
+--
+--  (ediff "../windows_release/opentoken.gpr" "../linux_release/opentoken.gpr")
+
+with "../common";
+project OpenToken is
+
+   for Source_Dirs use
+     ("../..",
+      "../../Language_Lexers");
+
+   for Object_Dir use "obj";
+
+   package Compiler is
+      for Default_Switches ("Ada") use
+        Common.Compiler.Release_Switches &
+        Common.Compiler.Style_Checks &
+        Common.Compiler'Default_Switches ("Ada");
+   end Compiler;
+
+end OpenToken;

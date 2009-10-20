@@ -1,0 +1,20 @@
+project Opentoken_Lib is
+
+   for Languages use ("Ada");
+   for Source_Dirs use ("../..", "../../Language_Lexers");
+   for Object_Dir use "obj";
+   for Library_Name use "opentoken";
+   for Library_Dir use "lib";
+   for Library_Kind use "static";
+
+   package Compiler is
+      for Default_Switches ("Ada") use
+        ("-g",
+         "-O2",
+         "-gnat05",
+         "-gnatfnoqQ",
+         "-fstack-check");
+
+   end Compiler;
+
+end Opentoken_Lib;

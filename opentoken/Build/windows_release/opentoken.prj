@@ -1,0 +1,5 @@
+ada_project_path=../
+ada_project_path=../../../GDS/main/makerules
+gpr_file=opentoken_test.gpr
+
+casing=../emacs_case_exceptions

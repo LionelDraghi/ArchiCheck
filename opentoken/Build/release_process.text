@@ -1,0 +1,92 @@
+sync with gds, ada-france
+    ~/bin/mtn_sync_ada_france_gds.sh
+    ~/bin/mtn_sync_ada_france.sh
+
+(dvc-status ".")
+
+bump version, doc changes
+    ../Docs/opentoken.html
+        current version
+        opentoken-*.tar.gz
+
+    ../Build/Makefile
+        ZIP_VERSION
+
+    ~/Web/Makefile
+        OPENTOKEN_ZIP_VERSION
+
+    if user-visible changes, bump Debian library version number
+        linux_release/opentoken_lib.gpr
+            Version
+
+review Debian bugs
+    http://packages.qa.debian.org/o/opentoken.html
+
+    tests implemented, fixed?
+
+loop until no changes:
+    Windows:
+        mtn_sync_ada_france.sh
+
+        windows_release/Makefile
+            distclean
+            all
+            install
+
+        ../../webcheck/build/windows_release/Makefile
+            maintainer-clean
+            all BUILD=User
+
+        (dvc-status ".")
+
+        mtn sync
+
+    Debian:
+
+        mtn sync --ticker=count
+
+        ; sal-standard uses GNAT GPL 2009; it provides an incompatible
+        ; version of AUnit. Could put in a choice to use SAL AUnit,
+        ; but it's not worth it.
+        ;
+        ; However, webcheck needs the GPL 2009 version installed
+
+        (sal-standard)
+        linux_release/Makefile
+            distclean
+            install
+
+
+        (sal-debian)
+        linux_release/Makefile
+            distclean
+            all
+
+        (sal-standard)
+        Makefile
+            zip
+
+        ~/Web/Makefile
+            opentoken sync check
+
+        (dvc-status ".")
+
+        mtn sync --ticker=count
+
+end loop
+
+Makefile
+    zip
+    tag
+
+publish:
+    ~/Web/Makefile
+        opentoken
+
+announce:
+    comp.lang.ada
+    Reto Buerki (Debian maintainer) reet@codelabs.ch
+
+Debian bugs updated by Reto or someone else
+
+(end of file)
