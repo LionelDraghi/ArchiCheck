@@ -1,0 +1,5 @@
+A specification depends on B
+A body          depends on C
+C specification depends on B
+C specification depends on F
+C.D specification depends on E.G.H
