@@ -1,0 +1,10 @@
+File: Dashboard
+
+_NB : This is to be considered more like a place holder than like a real dashboard at this stage_
+
+Ada code repartition:
+(see repartition_sloc.png)
+
+Actually, the main indicators I need here is :
+- a green light meaning that all tests are OK
+- a coverage of the source code during the test, that obviously must be at leat 100%! 

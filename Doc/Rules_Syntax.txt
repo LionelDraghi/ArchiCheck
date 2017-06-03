@@ -1,0 +1,8 @@
+File: Rules Syntax
+
+Rules exemple :
+
+> Layer_A contains P1, P2, P5
+
+> GUI is a layer over DB
+
