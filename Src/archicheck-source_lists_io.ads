@@ -6,6 +6,7 @@
 -- Public License Versions 3, refer to the COPYING file.
 -- -----------------------------------------------------------------------------
 
+-- Package: Archicheck.Source_Lists_IO specification
 
 private package Archicheck.Source_Lists_IO is
 

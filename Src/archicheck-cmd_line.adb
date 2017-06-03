@@ -47,15 +47,13 @@ package body Archicheck.Cmd_Line is
                if Kind (Name) = Directory then
                   -- Ada.Text_IO.Put_Line ("Analysing directory " & Name);
                   declare
-                     --use Ada.Directories;
-                     --use Ada.Strings.Unbounded;
                      Search : Search_Type;
                      Directory_Entry : Directory_Entry_Type;
                   begin
                      Start_Search
                        (Search    => Search,
                         Directory => Name,
-                        Pattern   => "*.ad[sb]",
+                        Pattern   => "*.ad[sb]", --** hard coded for usual Ada convention
                         Filter    => (Directory => False,
                                       others    => True));
                      while More_Entries (Search) loop
@@ -67,8 +65,10 @@ package body Archicheck.Cmd_Line is
                                 (Full_Name (Directory_Entry)),
                             Time_Tag =>
                               Modification_Time (Directory_Entry)));
+                        -- Ada.Text_IO.Put_Line ("trouvé : " & Full_Name (Directory_Entry));
                      end loop;
                      End_Search (Search);
+                     Line_OK := True;
                   end;
 
                else
@@ -89,11 +89,19 @@ package body Archicheck.Cmd_Line is
    procedure Put_Help is
       use Ada.Text_IO;
    begin
-      Put_Line ("archicheck [-I directory] options rules_file");
-      Put_Line ("  options :");
-      Put_Line ("  --list_files        : list analyzed sources");
-      Put_Line ("  --list_dependencies : list identified dependencies");
-      Put_Line ("  --list_components   : list components identified in rules file");
+      Put_Line ("Normal use :");
+      Put_Line ("   archicheck rules_file [-I directory]*");
+      Put_Line ("Debug use :");
+      Put_Line ("   archicheck rules_file --list_components");
+      Put_Line ("   archicheck [--list_files|--list_dependencies] [-I directory]* ");
+
+      -- previous cmd line format :
+      --        Put_Line ("archicheck [-I directory]* options rules_file");
+      --        Put_Line ("  options :");
+      --        Put_Line ("  --list_files        : list analyzed sources");
+      --        Put_Line ("  --list_dependencies : list identified dependencies");
+      --        Put_Line ("  --list_components   : list components identified in rules file");
+
    end Put_Help;
 
    -- -------------------------------------------------------------------------
@@ -127,22 +135,22 @@ package body Archicheck.Cmd_Line is
                Local.List_Components := True;
                Arg_Counter := Arg_Counter + 1;
 
-            elsif Arg_Counter = Ada.Command_Line.Argument_Count then
-               if Ada.Directories.Exists (Opt) then
-                  Local.Rules_File_Name := To_Unbounded_String (Opt);
-                  Arg_Counter := Arg_Counter + 1;
-               else
-                  Ada.Text_IO.Put_Line ("Unknown rules file " & Opt);
-                  Put_Help;
-                  Line_OK := False;
-               end if;
-
+            -- elsif Arg_Counter = Ada.Command_Line.Argument_Count then
+            elsif Ada.Directories.Exists (Opt) then
+               Local.Rules_File_Name := To_Unbounded_String (Opt);
+               Arg_Counter := Arg_Counter + 1;
             else
-               Ada.Text_IO.Put_Line ("Unknown option " & Opt);
+               Ada.Text_IO.Put_Line ("Unknown rules file or unknow option " & Opt);
                Put_Help;
                Line_OK := False;
-
             end if;
+
+--              else
+--                 Ada.Text_IO.Put_Line ("Unknown option " & Opt);
+--                 Put_Help;
+--                 Line_OK := False;
+
+--            end if;
             exit when not Line_OK;
          end;
       end loop;

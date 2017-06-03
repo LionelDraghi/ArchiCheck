@@ -1,5 +1,5 @@
 -- -----------------------------------------------------------------------------
--- ArchiCheck, the software architecture compliance verifier
+-- ArchiCheck: the software architecture compliance verifier
 -- Copyright (C) 2005, 2006, 2009 - Lionel Draghi
 -- This program is free software;
 -- you can redistribute it and/or modify it under the terms of the GNU General
@@ -11,26 +11,21 @@
 
 with Ada.Command_Line;
 with Ada.Text_IO;
--- with Ada.Directories;
-with Archicheck.Analyze_Rules;
 -- with Archicheck.Analyze_Rules_File;
 with Archicheck.Cmd_Line;
 with Archicheck.Get_Dependencies;
 with Archicheck.Source_Lists_IO;
+with Archicheck.Analyze_Rules; -- first version
 
 procedure Archicheck.Main is
    Cmd_Line_OK   : Boolean;
    Sources       : Source_Lists.List;
    Component_Map : Component_Maps.Map;
-   -- OK            : Boolean;
 
 begin
    Cmd_Line.Analyze_Cmd_Line (Cmd_Line_OK);
 
    if Cmd_Line_OK then
---        if not Ada.Directories.Exists (Cmd_Line.Tmp_Dir) then
---           Ada.Directories.Create (Cmd_Line.Tmp_Dir);
---        end if;
 
       -- 1 - let's get sources
       Sources := Cmd_Line.Source_List;
@@ -77,14 +72,13 @@ begin
 
       -- 3 - is there some rules file to analyze?
       if Cmd_Line.Rules_File_Name /= "" then
-         -- Version qui marche :
+         -- Simply coded initial version
          Analyze_Rules (From_File  => Cmd_Line.Rules_File_Name,
                         Components => Component_Map);
-         -- Version voulue plus puissante mais qui ne marche pas :
-         -- Analyze_Rules_File (File_Name  => Cmd_Line.Rules_File_Name,
-         --                     Components => Component_Map,
-         --                     -- Rules : in out ***;
-         --                     OK         => OK);
+--           -- OpenToken verion :
+--           Analyze_Rules_File (File_Name  => Cmd_Line.Rules_File_Name,
+--                               Components => Component_Map);
+
       end if;
 
       if Cmd_Line.List_Components then
@@ -117,6 +111,7 @@ begin
 
          end;
       end if;
+
 
    else
       Ada.Command_Line.Set_Exit_Status (Ada.Command_Line.Failure);

@@ -6,8 +6,8 @@
 -- Public License Versions 3, refer to the COPYING file.
 -- -----------------------------------------------------------------------------
 
-
 -- Procedure: Archicheck.Analyze_Rules body
+-- This first version of the analyser is based on predefined Ada string packages.
 
 with Ada.Strings.Fixed;
 with Ada.Strings.Maps.Constants;
@@ -24,7 +24,7 @@ is
    use Ada.Text_IO;
    Rules_File : File_Type;
 
-   Debug : constant Boolean := False; -- True; --
+   Debug : constant Boolean := False;
    The_Delimiters : constant Ada.Strings.Maps.Character_Set :=
      Ada.Strings.Maps.To_Set (" ,;-");
 
@@ -127,21 +127,10 @@ is
          end if;
       end loop;
 
-      --        Idx := Index_Non_Blank (Source => From_Line,
-      --                                From   => Idx + 8, --** pas élégant!!
-      --                                Going  => Forward);
-      --        Idx := Index (Source  => From_Line,
-      --                      Pattern => "also",
-      --                      Going   => Forward,
-      --          Mapping => Ada.Strings.Maps.Constants.Lower_Case_Map);
-      --        Unit_Lists.Append (Units, To_Unbounded_String
-      --                             (Trim (From_Line (Idx .. From_Line'Last),
-      --                                    Side => Both)));
       return Units;
    end Get_Unit_List;
 
    Idx : Natural;
-   -- OK  : Boolean;
 
 begin
    Open (File => Rules_File,
@@ -240,9 +229,6 @@ begin
 
                      declare
                         procedure Check_Dependency (Position : Dependency_Lists.Cursor) is
-                           --use Ada.Strings.Unbounded;
-
-                           --use Ada.Text_IO;
                            X : constant String := To_String (Dependency_Lists.Element
                                                              (Position).Unit_Name);
                            Y : constant String := To_String (Dependency_Lists.Element
@@ -295,7 +281,6 @@ begin
                         end Check_Dependency;
 
                         procedure Analyze_Source (Position : Source_Lists.Cursor) is
-                           --use Ada.Strings.Unbounded;
                            Source_Name : constant String :=
                              To_String (Source_Lists.Element (Position).Name);
                            Dependencies : Dependency_Lists.List;

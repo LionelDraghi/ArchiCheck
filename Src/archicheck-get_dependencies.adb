@@ -29,21 +29,12 @@ is
    function Get_Unit_Name return String is
       Name : Unbounded_String := Null_Unbounded_String;
    begin
-      Name := To_Unbounded_String (--Tokenizer.
-                                   Lexeme); -- (Analyzer));
+      Name := To_Unbounded_String (Lexeme);
       loop
---           Ada.Text_IO.Put_Line
---             ("look_Ahead = "
---              & Ada_Lexer.Ada_Token'Image (Tokenizer.ID (Analyzer))
---              & " -> " & Tokenizer.Lexeme (Analyzer));
---Tokenizer.
-         Find_Next; -- (Analyzer, Look_Ahead => True);
-         if Token_ID
-         --Tokenizer.ID (Analyzer)
-           = Dot_T then
+         Find_Next;
+         if Token_ID = Dot_T then
             Find_Next;
-            --Tokenizer.Find_Next (Analyzer);
-            Name := Name & "." & Lexeme; --Tokenizer.Lexeme (Analyzer);
+            Name := Name & "." & Lexeme;
          else
             exit;
          end if;
@@ -81,25 +72,18 @@ begin
                      Mode => Ada.Text_IO.In_File,
                      Name => Source_Name);
    Set_Input_Feeder (File);
-   --Ada.Text_IO.Set_Input (File);
-   --Tokenizer.Input_Feeder := OpenToken.Text_Feeder.Text_IO.Create; --** incohérence avec Rules
 
    Source_Analysis : loop
       begin
-      -- The withed units are first stored in
-      -- a Tmp dependency list, with the Unit_Name left blank,
-      -- When the package name is meet, the Tmp list is modified to
-      -- set the Unit_Name, then moved to the returned dependency list.
-      -- Limitation: only the fist Ada unit per source
-      -- Limitation: only packages are taken into account
+         -- The withed units are first stored in
+         -- a Tmp dependency list, with the Unit_Name left blank,
+         -- When the package name is meet, the Tmp list is modified to
+         -- set the Unit_Name, then moved to the returned dependency list.
+         -- Limitation: only the fist Ada unit per source
+         -- Limitation: only packages are taken into account
 
-         --Tokenizer.Find_Next (Analyzer);
          Find_Next;
---        Ada.Text_IO.Put_Line
---          (Ada_Lexer.Ada_Token'Image (Tokenizer.ID (Analyzer))
---           & " -> " & Tokenizer.Lexeme (Analyzer));
-       --case Tokenizer.ID (Analyzer) is
-       case Token_ID is
+         case Token_ID is
          when With_T =>
             Find_Next;
             if Debug then Ada.Text_IO.Put ("with "); end if;
@@ -113,11 +97,6 @@ begin
                Find_Next;
                if Debug then Ada.Text_IO.Put ("package body "); end if;
                Set_Unit_Name (Tmp, Get_Unit_Name, Specification => False);
-               -- Append (Tmp,
-               --  (Unit_Name       => To_Unbounded_String
-               --   (Name & " body         "),
-               --   Depends_On_Unit => To_Unbounded_String
-               --  (Name & " specification")));
 
             else
                if Debug then Ada.Text_IO.Put ("package "); end if;
@@ -127,17 +106,17 @@ begin
             Move (Source => Tmp, Target => Dependencies);
 
             exit Source_Analysis;
-         when others => null;
-       end case;
+            when others => null;
+         end case;
 
          exit Source_Analysis when Token_ID = End_of_File_T;
-            exception
-               when Error : others => --Error : OpenToken.Token.Parse_Error =>
-                  Ada.Text_IO.Put_Line
-                    ("failed at line" & Integer'Image (Line) &
-                     ", column" & Integer'Image (Column) &
-                     " due to parse exception:");
-                  Ada.Text_IO.Put_Line (Ada.Exceptions.Exception_Information (Error));
+      exception
+         when Error : others =>
+            Ada.Text_IO.Put_Line
+              ("failed at line" & Integer'Image (Line) &
+               ", column" & Integer'Image (Column) &
+               " due to parse exception:");
+            Ada.Text_IO.Put_Line (Ada.Exceptions.Exception_Information (Error));
       end;
 
    end loop Source_Analysis;
