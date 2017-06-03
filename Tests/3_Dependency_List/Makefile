@@ -12,12 +12,12 @@ check: ../../Obj/archicheck
 	@ ${CREATE_PKG} C spec -in dir1 -with B -with F
 
 	@ > dir1/c-d.ads
-	@ echo "with E. G.H ;"		>> dir1/c-d.ads
+	@ echo "with E. G.H ;"	>> dir1/c-d.ads
 	@ echo "package C .D is"	>> dir1/c-d.ads
 	@ echo "   null;"		>> dir1/c-d.ads
 	@ echo "end C . D ;"		>> dir1/c-d.ads
 
-	@ ../../Obj/archicheck -I dir1 --list_dependencies > dependency_list
+	@ ../../Obj/archicheck -I dir1 --list_dependencies | sort > dependency_list
 	@ diff expected_dependency_list dependency_list
 	@ echo OK
 
