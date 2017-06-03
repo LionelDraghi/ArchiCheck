@@ -17,17 +17,10 @@ check: ./archicheck
 	@ echo "   null;"		>> dir1/c-d.ads
 	@ echo "end C . D ;"		>> dir1/c-d.ads
 
-	@ > expected_dependency_list
-	@ echo "A specification depends on B"		>> expected_dependency_list
-	@ echo "A body          depends on C"		>> expected_dependency_list
-	@ echo "C specification depends on B"		>> expected_dependency_list
-	@ echo "C specification depends on F"		>> expected_dependency_list
-	@ echo "C.D specification depends on E.G.H"	>> expected_dependency_list
-
 	@ ./archicheck -I dir1 --list_dependencies > dependency_list
 	@ diff expected_dependency_list dependency_list
 	@ echo OK
 
 clean:
-	@ ${RM} -rf expected_dependency_list dependency_list dir1
+	@ ${RM} -rf dependency_list dir1
 

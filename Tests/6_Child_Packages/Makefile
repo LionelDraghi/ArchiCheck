@@ -6,7 +6,8 @@ CREATE_PKG=../Tools/create_pkg
 
 check: ./archicheck
 
-	@ echo rules test
+	@ #---------------------------------------------------------------------
+	@ echo rules OK test, no output expected
 	@ ${CREATE_PKG} GuI.P1 spec  -in dir1 -with GUI.P2
 	@ ${CREATE_PKG} GUI.P2 spec  -in dir1 -with DB.p3 -with dB.P4
 	@ ${CREATE_PKG} Db.P3  spec  -in dir1

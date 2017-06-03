@@ -1,7 +1,0 @@
-project OpenToken is
-
-   for Source_Dirs use
-     ("opentoken",
-      "opentoken/Language_Lexers");
-
-end OpenToken;

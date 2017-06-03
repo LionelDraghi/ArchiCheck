@@ -15,10 +15,8 @@ dashboard:
              -png -o Doc/répartition_sloc.png
 
 doc: dashboard
-	NaturalDocs-1.4/NaturalDocs \
-		-i Doc \
-		-i Src \
-		-i Tests \
+#	NaturalDocs-1.4/Naturaldocs \
+	naturaldocs -i Doc -i Src -i Tests \
 		-o FramedHTML Doc/Generated -p Doc/Natural_Docs
 
 .PHONY : clean

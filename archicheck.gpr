@@ -1,4 +1,4 @@
-with "opentoken/Build/linux_debug/opentoken.gpr";
+with "opentoken";
 
 project Archicheck is
 
