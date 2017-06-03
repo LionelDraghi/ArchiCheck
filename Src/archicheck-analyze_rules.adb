@@ -82,6 +82,7 @@ is
    end Is_Unit_In_Component;
 
    -- -------------------------------------------------------------------------
+   -- Function: Get_Component_Name
    function Get_Component_Name (From_Line : in String) return String is
       First : Positive;     -- Index of first character in token --***
       Last : Natural := 0;  -- Index of last character in token (also used

@@ -166,7 +166,7 @@ package body Archicheck.Cmd_Line is
    -- -------------------------------------------------------------------------
    function Tmp_Dir return String is
    begin
-      return "/tmp";
+      return "/tmp"; --** OS specific
    end Tmp_Dir;
 
    -- -------------------------------------------------------------------------

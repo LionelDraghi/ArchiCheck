@@ -1,0 +1,106 @@
+Format: 1.51
+
+
+Title: ArchiCheck
+SubTitle: Describe and Enforce your architecture
+
+Footer: copyright (c) Lionel Draghi, 2005, 2009
+Timestamp: Updated month day, year
+#   m     - One or two digit month.  January is "1"
+#   mm    - Always two digit month.  January is "01"
+#   mon   - Short month word.  January is "Jan"
+#   month - Long month word.  January is "January"
+#   d     - One or two digit day.  1 is "1"
+#   dd    - Always two digit day.  1 is "01"
+#   day   - Day with letter extension.  1 is "1st"
+#   yy    - Two digit year.  2006 is "06"
+#   yyyy  - Four digit year.  2006 is "2006"
+#   year  - Four digit year.  2006 is "2006"
+
+# These are indexes you deleted, so Natural Docs will not add them again
+# unless you remove them from this line.
+
+Don't Index: Constants, Types, Variables
+
+
+# --------------------------------------------------------------------------
+# 
+# Cut and paste the lines below to change the order in which your files
+# appear on the menu.  Don't worry about adding or removing files, Natural
+# Docs will take care of that.
+# 
+# You can further organize the menu by grouping the entries.  Add a
+# "Group: [name] {" line to start a group, and add a "}" to end it.
+# 
+# You can add text and web links to the menu by adding "Text: [text]" and
+# "Link: [name] ([URL])" lines, respectively.
+# 
+# The formatting and comments are auto-generated, so don't worry about
+# neatness when editing the file.  Natural Docs will clean it up the next
+# time it is run.  When working with groups, just deal with the braces and
+# forget about the indentation and comments.
+# 
+# You can use this file on other computers even if they use different
+# directories.  As long as the command line points to the same source files,
+# Natural Docs will be able to correct the locations automatically.
+# 
+# --------------------------------------------------------------------------
+
+
+File: ArchiChech Readme  (/home/lionel/Proj/ArchiCheck/Doc/README.txt)
+
+Group: Src  {
+
+   File: Archicheck specification  (/home/lionel/Proj/ArchiCheck/Src/archicheck.ads)
+   File: archicheck-analyze_rules.adb  (/home/lionel/Proj/ArchiCheck/Src/archicheck-analyze_rules.adb)
+   File: Archicheck.Analyze_Rules specification  (/home/lionel/Proj/ArchiCheck/Src/archicheck-analyze_rules.ads)
+   File: Archicheck.Analyze_Rules_File body  (/home/lionel/Proj/ArchiCheck/Src/archicheck-analyze_rules_file.adb)
+   File: Archicheck.Analyze_Rules_File specification  (/home/lionel/Proj/ArchiCheck/Src/archicheck-analyze_rules_file.ads)
+   File: Archicheck.Cmd_Line body  (/home/lionel/Proj/ArchiCheck/Src/archicheck-cmd_line.adb)
+   File: Archicheck.Cmd_Line specification  (/home/lionel/Proj/ArchiCheck/Src/archicheck-cmd_line.ads)
+   File: Archicheck.Get_Dependencies body  (/home/lionel/Proj/ArchiCheck/Src/archicheck-get_dependencies.adb)
+   File: Archicheck.Get_Dependencies specification  (/home/lionel/Proj/ArchiCheck/Src/archicheck-get_dependencies.ads)
+   File: Archicheck.Main body  (/home/lionel/Proj/ArchiCheck/Src/archicheck-main.adb)
+   File: Archicheck.Main specification  (/home/lionel/Proj/ArchiCheck/Src/archicheck-main.ads)
+   File: Archicheck.Rules_Lexer specification  (/home/lionel/Proj/ArchiCheck/Src/backup/archicheck-rules_lexer.ads)
+   File: Archicheck.Rules_Lexer specification  (/home/lionel/Proj/ArchiCheck/Src/backup/archicheck-rules_lexer.adb)
+   File: Archicheck.Rules_Parser specification  (/home/lionel/Proj/ArchiCheck/Src/archicheck-rules_parser.ads)
+   File: Archicheck.Rules_Parser specification  (/home/lionel/Proj/ArchiCheck/Src/archicheck-rules_parser.adb)
+   File: Archicheck.Source_Lists_IO body  (/home/lionel/Proj/ArchiCheck/Src/archicheck-source_lists_io.adb)
+   File: Archicheck.Source_Lists_IO specification  (/home/lionel/Proj/ArchiCheck/Src/archicheck-source_lists_io.ads)
+   }  # Group: Src
+
+Group: Tests  {
+
+   File: Layer rules tests  (/home/lionel/Proj/ArchiCheck/Tests/5_Layers/Readme.txt)
+   File: Child packages tests  (/home/lionel/Proj/ArchiCheck/Tests/6_Child_Packages/Readme.txt)
+   File: Globbing Characters tests  (/home/lionel/Proj/ArchiCheck/Tests/7_Globbing_Characters/Readme.txt)
+
+   Group: Query Function Tests  {
+
+      File: --list_components option tests  (/home/lionel/Proj/ArchiCheck/Tests/4_Component_List/Readme.txt)
+      File: --list_dependencies option test  (/home/lionel/Proj/ArchiCheck/Tests/3_Dependency_List/Readme.txt)
+      File: --list_files option test  (/home/lionel/Proj/ArchiCheck/Tests/2_Source_List/Readme.txt)
+      }  # Group: Query Function Tests
+
+   File: command line tests  (/home/lionel/Proj/ArchiCheck/Tests/1_Command_Line/Readme.txt)
+   }  # Group: Tests
+
+File: Dashboard  (/home/lionel/Proj/ArchiCheck/Doc/Dashboard.txt)
+File: TODO list  (/home/lionel/Proj/ArchiCheck/Doc/todo.txt)
+File: Rules Syntax  (/home/lionel/Proj/ArchiCheck/Doc/Rules_Syntax.txt)
+
+Group: Index  {
+
+   Index: Everything
+   Class Index: Classes
+   File Index: Files
+   Function Index: Functions
+   }  # Group: Index
+
+
+
+##### Do not change or remove these lines. #####
+Data: 1(D3333RuEG3o8u\Go3gHul3KH9R80RG9A3Bu9)
+Data: 1(h3333RuEG3o8u\Go3gHul3KH9R80RG9A3rH9)
+Data: 1(T3333RuEG3o8u\Go3gHul3KH9R80RG9A3LG6t6)
