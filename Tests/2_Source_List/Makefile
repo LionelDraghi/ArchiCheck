@@ -16,8 +16,7 @@ check: ../../Obj/archicheck clean
 	@ > dir3/c-d.ads
 
 	> expected_file_list
-
-	@ echo $(dir)"/dir1/a.ads" 	>> expected_file_list
+	@ echo $(CURDIR)"/dir1/a.ads" 	>> expected_file_list
 	@ echo $(dir)"/dir1/a.adb" 	>> expected_file_list
 	@ echo $(dir)"/dir2/b.ads" 	>> expected_file_list
 	@ echo $(dir)"/dir3/c-d.ads" 	>> expected_file_list
