@@ -1,5 +1,3 @@
-# dir := $(shell pwd)
-
 all: check
 
 .PHONY : clean
