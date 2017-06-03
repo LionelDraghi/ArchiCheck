@@ -143,9 +143,11 @@ begin
          Line : constant String
            := Trim (Get_Line (File => Rules_File), Side => Both);
       begin
+         -- let's avoid comment line
          if Head (Line, Count => 2) = "--" then
             null; -- it's a comment line
 
+         -- and empty line
          elsif Index_Non_Blank (Line) = 0 then
             null; -- it's a blank line
 
@@ -154,6 +156,7 @@ begin
                           Pattern => " contains ",
                           Going   => Forward,
                           Mapping => Ada.Strings.Maps.Constants.Lower_Case_Map);
+            -- it's a "contains" line, so let's get
             if Idx /= 0 then
                --                 Put_Line ("Idx = " & Natural'Image (Idx));
                --     Put_Line ("Line'Last = " & Natural'Image (Line'Last));

@@ -5,7 +5,7 @@ all: check
 Tools/create_pkg:
 	@ $(MAKE) --directory=Tools
 
-check: archicheck Tools/create_pkg
+check: ../Obj/archicheck Tools/create_pkg
 	@ $(MAKE) check --directory=1_Command_Line
 	@ $(MAKE) check --directory=2_Source_List
 	@ $(MAKE) check --directory=3_Dependency_List

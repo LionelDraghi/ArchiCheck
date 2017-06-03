@@ -4,7 +4,7 @@ CREATE_PKG=../Tools/create_pkg
 
 .PHONY : clean
 
-check: ./archicheck
+check: ../../Obj/archicheck
 	@ echo dependency list test
 	@ ${CREATE_PKG} A spec -in dir1 -with B
 	@ ${CREATE_PKG} A body -in dir1 -with C
@@ -17,7 +17,7 @@ check: ./archicheck
 	@ echo "   null;"		>> dir1/c-d.ads
 	@ echo "end C . D ;"		>> dir1/c-d.ads
 
-	@ ./archicheck -I dir1 --list_dependencies > dependency_list
+	@ ../../Obj/archicheck -I dir1 --list_dependencies > dependency_list
 	@ diff expected_dependency_list dependency_list
 	@ echo OK
 
