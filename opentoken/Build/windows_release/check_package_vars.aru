@@ -1,2 +1,0 @@
--- AdaControl rules to find package level object declarations (which violate task safety)
-check declarations (own variable);
