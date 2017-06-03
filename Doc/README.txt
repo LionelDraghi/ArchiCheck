@@ -29,6 +29,10 @@ Note that this is a draft, incomplete, and with an especially sober style :-)
 
 About: Installing 
 
+Portability:
+Note that the Ada should be pretty platform independant, but I tested it only on my Linux/Intel platform.
+Makefile are clearly not protable, and probably need heavy refactoring to run on non Unix like system.
+
 Downloading:
 If your're an (happy) darcs user :
 > darcs get http://lionel.draghi.free.fr/ArchiCheck
@@ -55,7 +59,7 @@ On Debian Linux family :
 To contribute: 
 The easiest way to contribute (at this stage) is to use darcs, and to submit darcs patches, whatever is changed or added in the code, tests, text file, etc.
 
-Getting started with darcs :  <http://darcs.net/manual/Getting_started.html>.
+Getting started with darcs :  <http://darcs.net/QuickStart>.
 
 But anyway, any idea, feedback or contribution is welcome <here at lionel.draghi@free.fr>.
 
