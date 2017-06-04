@@ -65,15 +65,15 @@ The easiest way to contribute (at this stage) is to use darcs, and to submit dar
 
 The shortest tuto: 
 > darcs clone --lazy https://hub.darcs.net/LioD/ArchiCheck  # should be already done
-> *hack code*
+hack code / tests / doc!
 > darcs record -a -m "what my patch does"
-> darcs send 
-> *send the generated patch file to lionel.draghi at gmail.com *
+> darcs send -o patch_file
+send the generated patch_file <to ArchiCheck maintener at lionel.draghi@free.fr>
 
 More on working with darcs:
-Getting started with darcs :  <http://darcs.net/QuickStart>.
+Getting started with darcs : <http://darcs.net/QuickStart>.
 
-But anyway, any idea, feedback or contribution is welcome <here at lionel.draghi@free.fr>.
+Any idea or feedback is also welcome <here at lionel.draghi@free.fr>.
 
 About: Status Quo:
 Archicheck is a mockup, with only few functionnality (but essential one), and not really tested on real, big software.
