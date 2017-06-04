@@ -35,18 +35,22 @@ Makefile are clearly not protable, and probably need heavy refactoring to run on
 
 Downloading:
 If your're an (happy) darcs user :
-> darcs get http://lionel.draghi.free.fr/ArchiCheck
+> darcs clone --lazy https://hub.darcs.net/LioD/ArchiCheck
 
-Otherwise, use a recursive ftp or whater at the same adress  
+An Archicheck directory will be created.
+
+Otherwise, use the ~download .zip~ button on the right of the screen.   
 
 Building :
 To build ArchiCheck and the tests, just type 
 > make 
-in the root directory.
+in the ArchiCheck root directory.
 
-Needed external software : libopentoken. 
+Needed external software : libopentoken, and gnat gcc Ada compiler. 
 On Debian Linux family :
-> apt install libopentoken6-dev
+> apt install libopentoken6-dev gnat make 
+
+archicheck exe will in the Obj directory.
 
 To update this documentation:
 > make doc
@@ -59,13 +63,21 @@ On Debian Linux family :
 To contribute: 
 The easiest way to contribute (at this stage) is to use darcs, and to submit darcs patches, whatever is changed or added in the code, tests, text file, etc.
 
+The shortest tuto: 
+> darcs clone --lazy https://hub.darcs.net/LioD/ArchiCheck  # should be already done
+> *hack code*
+> darcs record -a -m "what my patch does"
+> darcs send 
+> *send the generated patch file to lionel.draghi at gmail.com *
+
+More on working with darcs:
 Getting started with darcs :  <http://darcs.net/QuickStart>.
 
 But anyway, any idea, feedback or contribution is welcome <here at lionel.draghi@free.fr>.
 
 About: Status Quo:
 Archicheck is a mockup, with only few functionnality (but essential one), and not really tested on real, big software.
-
+ 
 It currently process only Ada sources, but is designed to accept other languages, and multi-languages projet.
 
 (This objective resulted for exemple in the OpenToken package adoption).
