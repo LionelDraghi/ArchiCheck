@@ -1,14 +1,58 @@
 File: TODO list
 
-- filtrer les fichiers en doublon à l'entrée?
-- utiliser une structure autre qu'une liste pour les sources?
-- ajouter un test sur la présence multiple d'un meme fichier
-- mettre des erreurs au format gnu, avec ligne colonne dans le src original.
-- exclure "limited with" des dépendances
+Rules file:
+-       Regroup test on Syntaxic sugar in the rule files, that is to show insensitivity to casing, "," ";" "." Separators, comments, etc.
+-       Update the Rules syntax text file to show all syntaxic sugar possibilities (use of "." / ";" / "," / "and", etc.), and to show how to comment
+-       Exclude "limited with" from dependencies
+-       Implement the _only X can use Y_ rule
+-       Implement the _only X can use pragma import_ rule
+-       Implement globbing characters, for example _only *.Porting_Kit can use X_
+-       Is it useful to have a semantic difference between _only Porting_Kit may depends on C_Files_ and _Porting_Kit is a layer over C_Files_ ?
+-       Is it useful to have a _may_ semantics : _GLU may depends on GL_ ?
 
 
+Development environment:
+-       Implement a darcs connected version id in the source and helper
+-       Update the use of gnat (compiler option, gnatmake replacement))
+-       Have the tests OS agnostic (test depending on the path of Ada file analyzed, that fail if run on Windows)
+-       Consider replacement of the documentation tools (Dia for UML diagrams, NaturalDocs, etc.)
+        For NaturalDocs : https://daringfireball.net/projects/markdown/, reST/sphinx http://www.sphinx-doc.org/en/stable/, http://pandoc.org/index.html
+-       Use Livecoding? :-) (https://www.livecoding.tv/livestreams/)
 
+Bug:
+-       Implement an error return code when the rules are broken, to allow a normal use in Makefiles, unless -no-error
 
-syntaxe :
-- only Porting_Kit may depends on C_Files /= Porting_Kit is a layer over C_Files
-- GLU may depends on GL
+Features:
+-       Change/Simplify the various options to know what the tool understand from the rules file, and from analyzed sources :
+	(start code)
+      -- Command line comply with GNU coding standards : refer to http://www.gnu.org/prep/standards/html_node/Command_002dLine-Interfaces.html
+      -- (and http://www.gnu.org/prep/standards/html_node/Option-Table.html#Option-Table for option name inspiration)
+      Put_Line ("Normal use :");
+      Put_Line ("   archicheck rules_file -I directory [-I directory]*");
+      New_Line;
+      Put_Line ("General form :");
+      Put_Line ("   archicheck [Options] [rules_file] [-I directory]*");
+      New_Line;
+      Put_Line ("Options :");
+      Put_Line ("   -lf | --list_files        : list sources files analyzed");
+      Put_Line ("   -ld | --list_dependencies : list identified dependencies in analyzed sources files");
+      Put_Line ("   -lc | --list_components   : list components described in a rules file");
+      Put_Line ("   -v  | --version           : archicheck version"); --version, copyright and disclaimer
+      Put_Line ("   -h  | --help              : this message");
+      New_Line;
+      Put_Line ("Examples:");
+      Put_Line ("   archicheck rules.txt -I ./src");
+      Put_Line ("   archicheck -lf -I ./src");
+      Put_Line ("   archicheck -lc rules.txt");
+      (end)
+-       Implement a command line way to pass simple rules
+-       Use <gnu error messages format at https://www.gnu.org/prep/standards/html_node/Errors.html> ( _sourcefile:lineno: message_ ) when identifying a rule that breaks
+
+Documentation:
+-       Auto add -help output to the doc thanks to Makefile
+-       Restructure the home page, to have a short intro and a "quick run" section that summarize "Installing' and "Getting started", and split the rest in other text files.
+-       Complete the 2004 slides! :-)
+
+ 
+
+ 

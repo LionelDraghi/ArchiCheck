@@ -23,7 +23,7 @@ and it will for example checks that pkg_3 (in the lower layer) is not using pkg_
 *And that's it!*
 
 About: Philosophy
-What I had in mind when I created this tools is briefly (and partly) explained on those slides <http://lionel.draghi.free.fr/ArchiCheck/Doc/Archicheck Overview.pdf>
+What I had in mind when I created this tools is briefly (and partly) explained on those slides <http://lionel.draghi.free.fr/ArchiCheck/Doc/Archicheck_Overview.pdf>
 
 Note that this is a draft, incomplete, and with an especially sober style :-)
 
@@ -39,7 +39,7 @@ If your're an (happy) darcs user :
 
 An Archicheck directory will be created.
 
-Otherwise, use the ~download .zip~ button on the right of the screen.   
+Otherwise, use the _download .zip_ button on the right of the screen.   
 
 Building :
 To build ArchiCheck and the tests, just type 
@@ -104,7 +104,7 @@ Version :
 TBD
 
 License:
-ArchiCheck is distributed under GPL version 3, refer to the COPYING file.
+ArchiCheck is distributed under GPL version 3, refer to the <COPYING at file://home/lionel/Proj/ArchiCheck/COPYING> file.
 
 Author & contact:
 ArchiCheck was created by Lionel Draghi (<email at mailto:lionel.draghi@free.fr>).

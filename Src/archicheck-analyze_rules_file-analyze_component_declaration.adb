@@ -6,6 +6,7 @@
 -- Public License Versions 3, refer to the COPYING file.
 -- -----------------------------------------------------------------------------
 
+-- Procedure: Archicheck.Analyze_Rules_File.Analyze_Component_Declaration
 
 -- with OpenToken.Text_Feeder.String;
 --with Archicheck.Rules_Parser; use Archicheck.Rules_Parser;

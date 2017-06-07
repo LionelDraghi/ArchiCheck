@@ -3,7 +3,7 @@ File: Dashboard
 _NB : This is to be considered more like a place holder than like a real dashboard at this stage_
 
 Ada code repartition:
-(see repartition_sloc.png)
+(see sloc.png)
 
 Actually, the main indicators I need here is :
 - a green light meaning that all tests are OK

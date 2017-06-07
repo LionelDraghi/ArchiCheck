@@ -6,7 +6,6 @@
 -- Public License Versions 3, refer to the COPYING file.
 -- -----------------------------------------------------------------------------
 
-
 -- Procedure: Archicheck.Analyze_Rules specification
 
 private procedure Archicheck.Analyze_Rules
