@@ -20,7 +20,7 @@ Timestamp: Updated month day, year
 # These are indexes you deleted, so Natural Docs will not add them again
 # unless you remove them from this line.
 
-Don't Index: Types, Constants, Variables
+Don't Index: Variables, Types, Constants
 
 
 # --------------------------------------------------------------------------
@@ -62,7 +62,7 @@ Group: Tests  {
       File: --list_files option test  (/home/lionel/Proj/ArchiCheck/Tests/2_Source_List/Readme.txt)
       }  # Group: Query Function Tests
 
-   File: command line tests  (/home/lionel/Proj/ArchiCheck/Tests/1_Command_Line/Readme.txt)
+   File: command line tests  (no auto-title, /home/lionel/Proj/ArchiCheck/Tests/1_Command_Line/Readme.txt)
    }  # Group: Tests
 
 Group: Documentation  {
@@ -101,6 +101,8 @@ Group: Index  {
    Class Index: Classes
    File Index: Files
    Function Index: Functions
+   Test Suite Index: Test Suites
+   Test Index: Tests
    }  # Group: Index
 
 

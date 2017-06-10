@@ -24,27 +24,6 @@ Bug:
 
 Features:
 -       Change/Simplify the various options to know what the tool understand from the rules file, and from analyzed sources :
-	(start code)
-      -- Command line comply with GNU coding standards : refer to http://www.gnu.org/prep/standards/html_node/Command_002dLine-Interfaces.html
-      -- (and http://www.gnu.org/prep/standards/html_node/Option-Table.html#Option-Table for option name inspiration)
-      Put_Line ("Normal use :");
-      Put_Line ("   archicheck rules_file -I directory [-I directory]*");
-      New_Line;
-      Put_Line ("General form :");
-      Put_Line ("   archicheck [Options] [rules_file] [-I directory]*");
-      New_Line;
-      Put_Line ("Options :");
-      Put_Line ("   -lf | --list_files        : list sources files analyzed");
-      Put_Line ("   -ld | --list_dependencies : list identified dependencies in analyzed sources files");
-      Put_Line ("   -lc | --list_components   : list components described in a rules file");
-      Put_Line ("   -v  | --version           : archicheck version"); --version, copyright and disclaimer
-      Put_Line ("   -h  | --help              : this message");
-      New_Line;
-      Put_Line ("Examples:");
-      Put_Line ("   archicheck rules.txt -I ./src");
-      Put_Line ("   archicheck -lf -I ./src");
-      Put_Line ("   archicheck -lc rules.txt");
-      (end)
 -       Implement a command line way to pass simple rules
 -       Use <gnu error messages format at https://www.gnu.org/prep/standards/html_node/Errors.html> ( _sourcefile:lineno: message_ ) when identifying a rule that breaks
 

@@ -14,10 +14,10 @@ check: ../../Obj/archicheck clean
 	@ > dir3/c-d.ads
 
 	> expected_file_list
-	@ echo $(CURDIR)"/dir1/a.adb" 	>> expected_file_list
-	@ echo $(CURDIR)"/dir1/a.ads" 	>> expected_file_list
-	@ echo $(CURDIR)"/dir2/b.ads" 	>> expected_file_list
-	@ echo $(CURDIR)"/dir3/c.ads" 	>> expected_file_list
+	@ echo $(CURDIR)"/dir1/a.adb" 		>> expected_file_list
+	@ echo $(CURDIR)"/dir1/a.ads" 		>> expected_file_list
+	@ echo $(CURDIR)"/dir2/b.ads" 		>> expected_file_list
+	@ echo $(CURDIR)"/dir3/c.ads" 		>> expected_file_list
 	@ echo $(CURDIR)"/dir3/c-d.ads" 	>> expected_file_list
 	
 	@ ../../Obj/archicheck -I dir1 -I dir2 -I dir3 --list_files | sort > file_list
