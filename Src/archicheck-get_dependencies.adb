@@ -50,21 +50,12 @@ is
    -- and only this one.
    procedure Set_Unit_Name (List          : in out Dependency_Lists.List;
                             Unit_Name     : in String;
-                            Specification : in Boolean)
-   is
-      procedure Set (Dep : in out Dependency) is
-      begin
+                            Specification : in Boolean) is
+   begin
+      for Dep of List loop
          Dep.Unit_Name     := To_Unbounded_String (Unit_Name);
          Dep.Specification := Specification;
-      end Set;
-
-      procedure Set_Name (Position : Cursor) is
-      begin
-         Update_Element (List, Position, Set'Access);
-      end Set_Name;
-
-   begin
-      Iterate (List, Set_Name'Access);
+      end loop;
    end Set_Unit_Name;
 
 begin

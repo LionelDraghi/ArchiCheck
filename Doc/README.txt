@@ -23,7 +23,7 @@ and it will for example checks that pkg_3 (in the lower layer) is not using pkg_
 *And that's it!*
 
 About: Philosophy
-What I had in mind when I created this tools is briefly (and partly) explained on those slides <http://lionel.draghi.free.fr/ArchiCheck/Doc/Archicheck_Overview.pdf>
+What I had in mind when I created this tools is briefly (and partly) explained on <those slides at http://lionel.draghi.free.fr/ArchiCheck/Archicheck_Overview.pdf>
 
 Note that this is a draft, incomplete, and with an especially sober style :-)
 

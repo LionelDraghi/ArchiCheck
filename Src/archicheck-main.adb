@@ -6,16 +6,15 @@
 -- Public License Versions 3, refer to the COPYING file.
 -- -----------------------------------------------------------------------------
 
-
 -- Procedure: Archicheck.Main body
 
 with Ada.Command_Line;
 with Ada.Text_IO;
--- with Archicheck.Analyze_Rules_File;
 with Archicheck.Cmd_Line;
 with Archicheck.Get_Dependencies;
 with Archicheck.Source_Lists_IO;
 with Archicheck.Analyze_Rules; -- first version
+-- with Archicheck.Analyze_Rules_File;
 
 procedure Archicheck.Main is
    Cmd_Line_OK   : Boolean;
@@ -36,38 +35,31 @@ begin
 
       -- 2 - let's extract dependencies from sources
       declare
-         procedure Put_Dependency (Position : Dependency_Lists.Cursor) is
+         procedure Analyze_Source (Sources : Source) is
             use Ada.Strings.Unbounded;
-            use Ada.Text_IO;
-            D : constant Dependency := Dependency_Lists.Element
-              (Position);
-         begin
-            if Cmd_Line.List_Dependencies then
-               Put (To_String (D.Unit_Name));
-               if D.Specification then
-                  Put (" specification");
-               else
-                  Put (" body         ");
-               end if;
-               Put_Line (" depends on " &
-                         To_String (D.Depends_On_Unit));
-            end if;
-         end Put_Dependency;
-
-         procedure Analyze_Source (Position : Source_Lists.Cursor) is
-            use Ada.Strings.Unbounded;
-            Source_Name : constant String :=
-                            To_String (Source_Lists.Element (Position).Name);
+            Source_Name : constant String := To_String (Sources.Name);
             Dependencies : Dependency_Lists.List;
+            use Ada.Text_IO;
          begin
             Dependencies := Get_Dependencies (Source_Name);
-            Dependency_Lists.Iterate (Container => Dependencies,
-                                      Process   => Put_Dependency'Access);
+            for Dependence of Dependencies loop
+               if Cmd_Line.List_Dependencies then
+                  Put (To_String (Dependence.Unit_Name));
+                  if Dependence.Specification then
+                     Put (" specification");
+                  else
+                     Put (" body         ");
+                  end if;
+                  Put_Line (" depends on " & To_String (Dependence.Depends_On_Unit));
+               end if;
+            end loop;
+
          end Analyze_Source;
 
       begin
-         Source_Lists.Iterate (Container => Sources,
-                               Process   => Analyze_Source'Access);
+         for Src of Sources loop
+            Analyze_Source (Src);
+         end loop;
       end;
 
       -- 3 - is there some rules file to analyze?
@@ -75,39 +67,37 @@ begin
          -- Simply coded initial version
          Analyze_Rules (From_File  => Cmd_Line.Rules_File_Name,
                         Components => Component_Map);
---           -- OpenToken verion :
---           Analyze_Rules_File (File_Name  => Cmd_Line.Rules_File_Name,
---                               Components => Component_Map);
+         --           -- OpenToken verion :
+         --           Analyze_Rules_File (File_Name  => Cmd_Line.Rules_File_Name,
+         --                               Components => Component_Map);
 
       end if;
 
       if Cmd_Line.List_Components then
 
          declare
-            procedure Put_Component (Position : Component_Maps.Cursor) is
+            use Ada.Text_IO;
+            use Ada.Strings.Unbounded;
+
+            procedure Put_Unit_List (UL : Unit_Lists.List) is
                First_Unit : Boolean := True;
-               use Ada.Text_IO;
-               procedure Put_Unit (Position : Unit_Lists.Cursor) is
-                  use Ada.Strings.Unbounded;
-               begin
+            begin
+               for U of UL loop
                   if First_Unit then
-                     Put (To_String (Unit_Lists.Element (Position)));
+                     Put (To_String (U));
                      First_Unit := False;
                   else
-                     Put (" and " & To_String (Unit_Lists.Element (Position)));
+                     Put (" and " & To_String (U));
                   end if;
-
-               end Put_Unit;
-            begin
-               Put (Component_Maps.Key (Position) & " contains ");
-               Unit_Lists.Iterate
-                 (Container => Component_Maps.Element (Position),
-                  Process   => Put_Unit'Access);
+               end loop;
                New_Line;
-            end Put_Component;
+            end Put_Unit_List;
+
          begin
-            Component_Maps.Iterate (Container => Component_Map,
-                                    Process   => Put_Component'Access);
+            for C in Component_Map.Iterate loop
+               Put (Component_Maps.Key (C) & " contains ");
+               Put_Unit_List (Component_Map (C));
+            end loop;
 
          end;
       end if;

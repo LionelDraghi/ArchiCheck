@@ -35,15 +35,15 @@ package Archicheck is
       Name     : Ada.Strings.Unbounded.Unbounded_String;
       Time_Tag : Ada.Calendar.Time;
    end record;
-   package Source_Lists is new Ada.Containers.Doubly_Linked_Lists (Source);
 
    type Dependency is record
       Unit_Name       : Ada.Strings.Unbounded.Unbounded_String;
       Specification   : Boolean;
       Depends_On_Unit : Ada.Strings.Unbounded.Unbounded_String;
    end record;
-   package Dependency_Lists is
-     new Ada.Containers.Doubly_Linked_Lists (Dependency);
+
+   package Source_Lists     is new Ada.Containers.Doubly_Linked_Lists (Source);
+   package Dependency_Lists is new Ada.Containers.Doubly_Linked_Lists (Dependency);
 
    package Unit_Lists is new Ada.Containers.Doubly_Linked_Lists
      (Ada.Strings.Unbounded.Unbounded_String,

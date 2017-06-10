@@ -17,7 +17,10 @@ dashboard:
 doc: dashboard
 	naturaldocs -i Doc -i Src -i Tests 						\
 		-s Default archicheck							\
+		-xi _darcs										\
+		-xi Obj										\
 		-o FramedHTML Doc/Generated -p Doc/Natural_Docs
+	cp -p Doc/Archicheck_Overview.pdf Doc/Generated
 
 .PHONY : clean
 clean:

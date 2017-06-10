@@ -21,7 +21,7 @@ check: ../../Obj/archicheck clean
 	@ echo $(CURDIR)"/dir3/c-d.ads" 	>> expected_file_list
 	
 	@ ../../Obj/archicheck -I dir1 -I dir2 -I dir3 --list_files | sort > file_list
-	@ diff expected_file_list file_list
+	@ sdiff -s expected_file_list file_list
 	@ echo OK
 
 clean:

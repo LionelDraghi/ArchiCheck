@@ -11,7 +11,7 @@ project Archicheck is
    end Linker;
 
    package Compiler is
-      for Default_Switches ("ada") use ("-gnatQ", "-gnatf", "-gnato", "-fstack-check", "-g", "-gnata", "-gnat05", "-gnatwa", "-gnatyabefhiklnprtM100");
+      for Default_Switches ("ada") use ("-gnatQ", "-gnatf", "-gnato", "-fstack-check", "-g", "-gnata", "-gnat12", "-gnatwa", "-gnatyabefhiklnprtM100");
    end Compiler;
 
    package Builder is
