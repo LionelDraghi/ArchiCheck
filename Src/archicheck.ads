@@ -31,7 +31,7 @@ with Ada.Strings.Hash;
 
 package Archicheck is
 
-   ArchiCheck_Version : constant String := "0.1";
+   ArchiCheck_Version : constant String := "0.2";
 
    type Source is record
       Name     : Ada.Strings.Unbounded.Unbounded_String;

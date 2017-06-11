@@ -1,4 +1,12 @@
-** Unknown rules file or unknow option -xzy
+File: Archicheck command line
+
+About: Archicheck command line
+
+(start code)
+> archicheck -h
+(end)
+
+(start code)
 
 ArchiCheck normal use :
    archicheck rules_file -I directory [-I directory]*
@@ -18,3 +26,15 @@ Examples:
    archicheck -lf -I ./src
    archicheck -lc rules.txt
 
+(end)
+
+About: Archicheck current version
+
+(start code)
+> archicheck -v
+(end)
+
+(start code)
+ArchiCheck version 0.2
+
+(end)

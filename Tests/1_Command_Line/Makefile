@@ -15,7 +15,7 @@ check: ../../Obj/archicheck clean
 	echo "Note that normal use is overly tested in other tests," 		>> Readme.txt
 	echo "so here mainly error situations are tested."			>> Readme.txt
 
-	@ echo
+	@ echo Cmd line test
 	echo "" 							>> Readme.txt
 	echo "Test: Help options" 					>> Readme.txt
 	echo "Test that the -h, --help or no command line will put :" 	>> Readme.txt
@@ -26,15 +26,12 @@ check: ../../Obj/archicheck clean
 	../../Obj/archicheck -h 			> help1.txt
 	sdiff -s help1.txt expected_help.txt
 
-	@ echo
 	../../Obj/archicheck --help			> help2.txt
 	sdiff -s help2.txt expected_help.txt
 
-	@ echo
 	../../Obj/archicheck  				> help3.txt
 	sdiff -s help3.txt expected_help.txt
 
-	@ echo
 	echo "" 							>> Readme.txt
 	echo "Test: Version options" 					>> Readme.txt
 	echo "Test that the -v or --version will put :" 		>> Readme.txt
@@ -46,7 +43,6 @@ check: ../../Obj/archicheck clean
 	sdiff -s version1.txt expected_version.txt
 	sdiff -s version2.txt expected_version.txt
 
-	@ echo
 	echo "" 							>> Readme.txt
 	echo "Test: -I option without src dir" 				>> Readme.txt
 	echo "(start code)" 						>> Readme.txt
@@ -60,7 +56,6 @@ check: ../../Obj/archicheck clean
 	echo "(start code)" 						>> Readme.txt
 	cat expected_err2.txt						>> Readme.txt
 	echo "(end)" 							>> Readme.txt
-	@ echo
 	test ! `../../Obj/archicheck -I qsdqjh		> err2.txt  2>&1`
 	sdiff -s expected_err2.txt err2.txt
 
@@ -69,7 +64,6 @@ check: ../../Obj/archicheck clean
 	echo "(start code)" 						>> Readme.txt
 	cat expected_err3.txt						>> Readme.txt
 	echo "(end)" 							>> Readme.txt
-	@ echo
 	test ! `../../Obj/archicheck -xzy		> err3.txt  2>&1`
 	sdiff -s expected_err3.txt err3.txt
 
@@ -79,7 +73,6 @@ check: ../../Obj/archicheck clean
 	echo "(start code)" 						>> Readme.txt
 	cat expected_err4.txt						>> Readme.txt
 	echo "(end)" 							>> Readme.txt
-	@ echo
 	@ mkdir dir1
 	test ! `../../Obj/archicheck -I dir1		> err4.txt 2>&1`
 	sdiff -s expected_err4.txt err4.txt
@@ -89,7 +82,6 @@ check: ../../Obj/archicheck clean
 	echo "(start code)" 						>> Readme.txt
 	cat expected_err5.txt						>> Readme.txt
 	echo "(end)" 							>> Readme.txt
-	@ echo
 	test ! `../../Obj/archicheck -I dir2		> err5.txt 2>&1`
 	sdiff -s expected_err5.txt err5.txt
 
@@ -98,7 +90,6 @@ check: ../../Obj/archicheck clean
 	echo "(start code)" 						>> Readme.txt
 	cat expected_err6.txt						>> Readme.txt
 	echo "(end)" 							>> Readme.txt
-	@ echo
 	test ! `../../Obj/archicheck -lc -I dir1 	> err6.txt 2>&1`
 	sdiff -s expected_err6.txt err6.txt
 
@@ -107,7 +98,6 @@ check: ../../Obj/archicheck clean
 	echo "(start code)" 						>> Readme.txt
 	cat expected_err7.txt						>> Readme.txt
 	echo "(end)" 							>> Readme.txt
-	@ echo
 	test ! `../../Obj/archicheck -lf -I dir1 	> err7.txt 2>&1`
 	sdiff -s expected_err7.txt err7.txt
 

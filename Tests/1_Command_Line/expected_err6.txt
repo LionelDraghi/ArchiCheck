@@ -1,6 +1,6 @@
 ** Cannot list components, no rules file given
 
-ArchiCheck  normal use :
+ArchiCheck normal use :
    archicheck rules_file -I directory [-I directory]*
 
 General form :

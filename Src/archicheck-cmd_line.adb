@@ -62,7 +62,7 @@ package body Archicheck.Cmd_Line is
       use Ada.Text_IO;
    begin
       New_Line;
-      Put_Line ("ArchiCheck  normal use :");
+      Put_Line ("ArchiCheck normal use :");
       Put_Line ("   archicheck rules_file -I directory [-I directory]*");
       New_Line;
       Put_Line ("General form :");

@@ -2,22 +2,44 @@ with "opentoken";
 
 project Archicheck is
 
+   type Mode_Type is ("debug", "release");
+   Mode : Mode_Type := external ("mode", "debug");
+
    for Source_Dirs use ("Src");
    for Object_Dir use "Obj";
    for Main use ("archicheck-main.adb");
 
-   package Linker is
-      -- for Default_Switches ("Ada") use (OpenToken.Ada_Switches);
-   end Linker;
-
-   package Compiler is
-      for Default_Switches ("ada") use ("-gnatQ", "-gnatf", "-gnato", "-fstack-check", "-g", "-gnata", "-gnat12", "-gnatwa", "-gnatyabefhiklnprtM100");
-   end Compiler;
-
    package Builder is
-      for Default_Switches ("ada") use ("-m", "-j2", "-g");
+      -- for Default_Switches ("ada") use ("-m", "-j2", "-g");
       for Executable ("archicheck-main.adb") use "archicheck";
    end Builder;
+
+   package Compiler is
+      Common_Switches := ("-gnat2012");
+      Common_Debug_Switches := Common_Switches & ("-g", "-O0");
+
+      case Mode is
+         when "debug"   =>
+            for Switches ("ada") use Common_Debug_Switches;
+
+            -- coverage only for archicheck src files :
+            for Switches ("archicheck*") use Common_Debug_Switches & "--coverage";
+            -- --coverage = -fprofile-arcs and -ftest-coverage
+
+         when "release" =>
+            for Switches ("ada") use Common_Switches & ("-O3");
+
+      end case;
+      -- previously : for Default_Switches ("ada") use ("-gnatQ", "-gnatf", "-gnato", "-fstack-check", "-g", "-gnata", "-gnat12", "-gnatwa", "-gnatyabefhiklnprtM100");
+
+   end Compiler;
+
+   package Linker is
+      case Mode is
+         when "debug"   => for Switches ("ada") use ("-g", "-lgcov");
+            -- lgcov = -fprofile-arcs for coverage
+      end case;
+   end Linker;
 
    package Ide is
    end Ide;

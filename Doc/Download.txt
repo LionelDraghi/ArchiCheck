@@ -1,0 +1,19 @@
+File: Download
+
+You should'nt do that, but if you trust me,
+<here at http://lionel.draghi.free.fr/Archicheck/archicheck> is an exe build on my Debian amd64,
+with -O3 option.
+
+About: Dependencies:
+
+(start code)
+readelf -d Linux_amd64_release/archicheck | grep 'NEEDED'
+(end)
+
+(start code)
+ 0x0000000000000001 (NEEDED)             Bibliothèque partagée: [libopentoken.so.9]
+ 0x0000000000000001 (NEEDED)             Bibliothèque partagée: [libgnat-6.so.1]
+ 0x0000000000000001 (NEEDED)             Bibliothèque partagée: [libgcc_s.so.1]
+ 0x0000000000000001 (NEEDED)             Bibliothèque partagée: [libc.so.6]
+(end)
+

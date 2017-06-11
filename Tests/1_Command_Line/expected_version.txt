@@ -1,2 +1,2 @@
-ArchiCheck version 0.1
+ArchiCheck version 0.2
 

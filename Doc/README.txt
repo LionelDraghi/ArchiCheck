@@ -55,10 +55,10 @@ archicheck exe will in the Obj directory.
 To update this documentation:
 > make doc
 
-Needed external software : ploticus, NaturalDocs and sloccount. 
+Needed external software : ploticus, NaturalDocs, sloccount and lcov. 
 
 On Debian Linux family :
-> apt install ploticus naturaldocs sloccount 
+> apt install ploticus naturaldocs sloccount lcov
 
 To contribute: 
 The easiest way to contribute (at this stage) is to use darcs, and to submit darcs patches, whatever is changed or added in the code, tests, text file, etc.

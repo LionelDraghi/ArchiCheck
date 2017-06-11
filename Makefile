@@ -1,28 +1,103 @@
 .SILENT:
 
-all: check 
+all: clean build check doc
+
+release: clean build_release check
+	cp -p Obj/archicheck Linux_amd64_release/
+	> Doc/Download.txt
+	echo "File: Download"			 				>> Doc/Download.txt
+	echo "" 								>> Doc/Download.txt
+	echo "You should'nt do that, but if you trust me,"			>> Doc/Download.txt
+	echo "<here at http://lionel.draghi.free.fr/Archicheck/archicheck> is an exe build on my Debian amd64,"	>> Doc/Download.txt
+	echo "with -O3 option." 						>> Doc/Download.txt
+	echo "" 								>> Doc/Download.txt
+	echo "About: Dependencies:" 						>> Doc/Download.txt
+	echo "" 								>> Doc/Download.txt
+	echo "(start code)" 							>> Doc/Download.txt
+	echo "readelf -d Linux_amd64_release/archicheck | grep 'NEEDED'" 	>> Doc/Download.txt
+	echo "(end)" 								>> Doc/Download.txt
+	echo "" 								>> Doc/Download.txt
+	echo "(start code)" 							>> Doc/Download.txt
+	readelf -d Linux_amd64_release/archicheck | grep 'NEEDED'		>> Doc/Download.txt
+	echo "(end)" 								>> Doc/Download.txt
+	echo "" 								>> Doc/Download.txt
 
 build Obj/archicheck:
-	gnat make -q -Parchicheck.gpr
+	echo
+	echo Make debug build
+	gnat make -Xmode=debug -s -Parchicheck.gpr
+	# -s : recompile if compiler switches have changed
+	# -q : quiet
+	# -d : progress
+
+build_release:
+	echo
+	echo Make release build
+	gnat make -Xmode=release -s -Parchicheck.gpr
+	# -s : recompile if compiler switches have changed
+
+release: clean build_release check
 
 check: Obj/archicheck
+	# depend on the exe, may be either build or build_release, test have to pass with both
+	echo
+	echo Make Tests
 	$(MAKE) --directory=Tests
 
-dashboard:
-	sloccount Src Tests |grep "ada=" |  ploticus  -prefab pie 		\
+dashboard: build
+	echo
+	echo Make dashboard
+	sloccount Src Tests |grep "ada=" |  ploticus  -prefab pie 	\
 		data=stdin labels=2 colors="blue red green orange"	\
-		explode=0.1 values=1 title="Ada sloc `date +%x`"		\
+		explode=0.1 values=1 title="Ada sloc `date +%x`"	\
 		-png -o Doc/sloc.png
+	echo
+	echo Make Code coverage
+	# rm Obj/b__archicheck-main.gc*
+	lcov -q -c -d Obj -o Obj/tests.info
+	lcov -q --remove Obj/tests.info -o Obj/tests.info "/usr*" "b__*.adb" # remove output for Ada lib, and the "false" main
+	genhtml -q Obj/tests.info -o Doc/lcov -t "ArchiCheck tests coverage" -p "/home/lionel/Proj/ArchiCheck"
 
-doc: dashboard
-	naturaldocs -i Doc -i Src -i Tests 						\
-		-s Default archicheck							\
-		-xi _darcs										\
-		-xi Obj										\
+doc: check dashboard
+	echo
+	echo Make Doc
+	> Doc/Cmd_Line.txt
+	echo "File: Archicheck command line"		>> Doc/Cmd_Line.txt
+	echo ""						>> Doc/Cmd_Line.txt
+	echo "About: Archicheck command line"		>> Doc/Cmd_Line.txt
+	echo ""						>> Doc/Cmd_Line.txt
+	echo "(start code)"				>> Doc/Cmd_Line.txt
+	echo "> archicheck -h" 				>> Doc/Cmd_Line.txt
+	echo "(end)"					>> Doc/Cmd_Line.txt
+	echo ""						>> Doc/Cmd_Line.txt
+	echo "(start code)"				>> Doc/Cmd_Line.txt
+	Obj/archicheck -h 				>> Doc/Cmd_Line.txt
+	echo "(end)"					>> Doc/Cmd_Line.txt
+
+	echo ""						>> Doc/Cmd_Line.txt
+	echo "About: Archicheck current version"	>> Doc/Cmd_Line.txt
+	echo ""						>> Doc/Cmd_Line.txt
+	echo "(start code)"				>> Doc/Cmd_Line.txt
+	echo "> archicheck -v" 				>> Doc/Cmd_Line.txt
+	echo "(end)"					>> Doc/Cmd_Line.txt
+	echo ""						>> Doc/Cmd_Line.txt
+	echo "(start code)"				>> Doc/Cmd_Line.txt
+	Obj/archicheck -v 				>> Doc/Cmd_Line.txt
+	echo "(end)"					>> Doc/Cmd_Line.txt
+
+	naturaldocs -q -i Doc -i Src -i Tests 				\
+		-s Default archicheck					\
+		-xi _darcs						\
+		-xi Obj							\
 		-o FramedHTML Doc/Generated -p Doc/Natural_Docs
 	cp -p Doc/Archicheck_Overview.pdf Doc/Generated
+	cp -rp Doc/lcov Doc/Generated
+	cp -rp Linux_amd64_release/archicheck Doc/Generated
 
 .PHONY : clean
 clean:
+	echo
+	echo Make clean:
 	gnat clean -q -Parchicheck.gpr
+	rm  -rf Obj/* Doc/Generated/*
 	$(MAKE) --directory=Tests clean

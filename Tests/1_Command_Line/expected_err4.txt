@@ -1,6 +1,6 @@
 ** No src found in those directories
 
-ArchiCheck  normal use :
+ArchiCheck normal use :
    archicheck rules_file -I directory [-I directory]*
 
 General form :

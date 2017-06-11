@@ -11,7 +11,7 @@ Test: Help options
 Test that the -h, --help or no command line will put :
 (start code)
 
-ArchiCheck  normal use :
+ArchiCheck normal use :
    archicheck rules_file -I directory [-I directory]*
 
 General form :
@@ -34,7 +34,7 @@ Examples:
 Test: Version options
 Test that the -v or --version will put :
 (start code)
-ArchiCheck version 0.1
+ArchiCheck version 0.2
 
 (end)
 
@@ -52,7 +52,7 @@ Test: unknown -xyz option
 (start code)
 ** Unknown rules file or unknow option -xzy
 
-ArchiCheck  normal use :
+ArchiCheck normal use :
    archicheck rules_file -I directory [-I directory]*
 
 General form :
@@ -77,7 +77,7 @@ Test: I option with... nothing do do
 (start code)
 ** No src found in those directories
 
-ArchiCheck  normal use :
+ArchiCheck normal use :
    archicheck rules_file -I directory [-I directory]*
 
 General form :
@@ -106,7 +106,7 @@ Test: -lc option without rules file
 (start code)
 ** Cannot list components, no rules file given
 
-ArchiCheck  normal use :
+ArchiCheck normal use :
    archicheck rules_file -I directory [-I directory]*
 
 General form :
