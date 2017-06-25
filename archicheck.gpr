@@ -10,14 +10,39 @@ project Archicheck is
    for Main use ("archicheck-main.adb");
 
    package Builder is
-      -- for Default_Switches ("ada") use ("-m", "-j2", "-g");
+      for Default_Switches ("ada") use ("-j2", "-g");
       for Executable ("archicheck-main.adb") use "archicheck";
    end Builder;
 
    package Compiler is
       Common_Switches := ("-gnat2012");
-      Common_Debug_Switches := Common_Switches & ("-g", "-O0");
-
+      Common_Debug_Switches := Common_Switches & 
+      ("-g", "-O0",  "-gnatQ", "-gnatf",  "-gnato", "-fstack-check", "-gnata", "-gnateE", "-gnatVa", "-gnatwa", "-gnatyabefhiklnprtx");
+      -- -gnatQ : Don't quit
+      -- -gnatf : Full errors
+      -- -gnato : Intermediate overflows to be handled in strict mode.
+      -- -fstack-check : stack checking
+      -- -gnata : assertions
+      -- -gnateE : extra infos in exception messages
+      -- -gnatVa : all validity checks
+      -- -gnatwa : activate most optional warning messages
+      --
+      -- Style checking : 
+      -- a : Check attribute casing
+      -- b : Blanks not allowed at statement end
+      -- e : Check end/exit labels
+      -- f : No form feeds or vertical tabs
+      -- h : No horizontal tabs
+      -- i : Check if-then layout
+      -- k : Check keyword casing
+      -- l : Check layout
+      -- n : Check casing of entities in Standard
+      -- p : Check pragma casing
+      -- r : Check references
+      -- t : Check token spacing
+      --removed  M100 : Set maximum line length
+      -- x : Check extra parentheses.
+     
       case Mode is
          when "debug"   =>
             for Switches ("ada") use Common_Debug_Switches;
@@ -27,10 +52,10 @@ project Archicheck is
             -- --coverage = -fprofile-arcs and -ftest-coverage
 
          when "release" =>
-            for Switches ("ada") use Common_Switches & ("-O3");
+            for Switches ("ada") use Common_Switches & ("-O3", "-flto2");
+            -- -flto2 : link time optimization level 2
 
       end case;
-      -- previously : for Default_Switches ("ada") use ("-gnatQ", "-gnatf", "-gnato", "-fstack-check", "-g", "-gnata", "-gnat12", "-gnatwa", "-gnatyabefhiklnprtM100");
 
    end Compiler;
 
@@ -38,6 +63,8 @@ project Archicheck is
       case Mode is
          when "debug"   => for Switches ("ada") use ("-g", "-lgcov");
             -- lgcov = -fprofile-arcs for coverage
+         when "release" =>  for Switches ("ada") use ("-flto2");
+            -- -flto2 : link time optimization level 2
       end case;
    end Linker;
 
@@ -45,11 +72,12 @@ project Archicheck is
    end Ide;
 
    package Binder is
-      for Default_Switches ("ada") use ("-E");
+      for Switches ("ada") use ("-Es");
+      -- -Es : store symbolic tracebacks
    end Binder;
 
    package Pretty_Printer is
-      for Default_Switches ("ada") use ("-M100", "-l2", "-A1", "-A2", "-A3", "-A4");
+      for Switches ("ada") use ("-M100", "-l2", "-A1", "-A2", "-A3", "-A4");
    end Pretty_Printer;
 
 end Archicheck;
