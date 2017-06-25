@@ -1,4 +1,4 @@
-** Cannot list components, no rules file given
+Error : Cannot list components, no rules file given
 
 ArchiCheck normal use :
    archicheck rules_file -I directory [-I directory]*
@@ -10,7 +10,9 @@ Options :
    -lf | --list_files        : list sources files analyzed
    -ld | --list_dependencies : list identified dependencies in analyzed sources files
    -lc | --list_components   : list components described in a rules file
-   -v  | --version           : archicheck version
+         --version           : archicheck version
+   -q  | --quiet             : no message unless error. Warning are also ignored.
+   -v  | --verbose
    -h  | --help              : this message
 
 Examples:

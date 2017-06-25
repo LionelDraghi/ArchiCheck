@@ -1,1 +1,1 @@
-** No dir2 directory
+Error : No dir2 directory

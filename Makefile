@@ -53,9 +53,9 @@ dashboard: build
 		-png -o Doc/sloc.png
 	echo
 	echo Make Code coverage
-	# rm Obj/b__archicheck-main.gc*
 	lcov -q -c -d Obj -o Obj/tests.info
-	lcov -q --remove Obj/tests.info -o Obj/tests.info "/usr*" "b__*.adb" # remove output for Ada lib, and the "false" main
+	# remove lcov output for Ada lib,and the "false" main :
+	lcov -q --remove Obj/tests.info -o Obj/tests.info "/usr/*" "*/Obj/b__archicheck-main.adb"
 	genhtml -q Obj/tests.info -o Doc/lcov -t "ArchiCheck tests coverage" -p "/home/lionel/Proj/ArchiCheck"
 
 doc: check dashboard

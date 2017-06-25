@@ -6,6 +6,8 @@ This test check that illegal command lines cause archicheck to
 exit with a non null return code.
 Note that normal use is overly tested in other tests,
 so here mainly error situations are tested.
+Note also that quiet and verbose mode (-q / -v) are also tested
+in other test.
 
 Test: Help options
 Test that the -h, --help or no command line will put :
@@ -21,7 +23,9 @@ Options :
    -lf | --list_files        : list sources files analyzed
    -ld | --list_dependencies : list identified dependencies in analyzed sources files
    -lc | --list_components   : list components described in a rules file
-   -v  | --version           : archicheck version
+         --version           : archicheck version
+   -q  | --quiet             : no message unless error. Warning are also ignored.
+   -v  | --verbose
    -h  | --help              : this message
 
 Examples:
@@ -31,8 +35,8 @@ Examples:
 
 (end)
 
-Test: Version options
-Test that the -v or --version will put :
+Test: Version option
+Test that the --version will put :
 (start code)
 ArchiCheck version 0.2
 
@@ -40,17 +44,17 @@ ArchiCheck version 0.2
 
 Test: -I option without src dir
 (start code)
-** Sources directory expected after -I
+Error : Sources directory expected after -I
 (end)
 
 Test: -I option with an unknow dir
 (start code)
-** No qsdqjh directory
+Error : No qsdqjh directory
 (end)
 
 Test: unknown -xyz option
 (start code)
-** Unknown rules file or unknow option -xzy
+Error : Unknown rules file or unknow option -xzy
 
 ArchiCheck normal use :
    archicheck rules_file -I directory [-I directory]*
@@ -62,7 +66,9 @@ Options :
    -lf | --list_files        : list sources files analyzed
    -ld | --list_dependencies : list identified dependencies in analyzed sources files
    -lc | --list_components   : list components described in a rules file
-   -v  | --version           : archicheck version
+         --version           : archicheck version
+   -q  | --quiet             : no message unless error. Warning are also ignored.
+   -v  | --verbose
    -h  | --help              : this message
 
 Examples:
@@ -75,7 +81,7 @@ Examples:
 Test: I option with... nothing do do
       (no rules file, no -ld or -lf, etc.)
 (start code)
-** No src found in those directories
+Error : No src found in those directories
 
 ArchiCheck normal use :
    archicheck rules_file -I directory [-I directory]*
@@ -87,7 +93,9 @@ Options :
    -lf | --list_files        : list sources files analyzed
    -ld | --list_dependencies : list identified dependencies in analyzed sources files
    -lc | --list_components   : list components described in a rules file
-   -v  | --version           : archicheck version
+         --version           : archicheck version
+   -q  | --quiet             : no message unless error. Warning are also ignored.
+   -v  | --verbose
    -h  | --help              : this message
 
 Examples:
@@ -99,12 +107,12 @@ Examples:
 
 Test: I option with... nothing do do and an unknown directory
 (start code)
-** No dir2 directory
+Error : No dir2 directory
 (end)
 
 Test: -lc option without rules file
 (start code)
-** Cannot list components, no rules file given
+Error : Cannot list components, no rules file given
 
 ArchiCheck normal use :
    archicheck rules_file -I directory [-I directory]*
@@ -116,7 +124,9 @@ Options :
    -lf | --list_files        : list sources files analyzed
    -ld | --list_dependencies : list identified dependencies in analyzed sources files
    -lc | --list_components   : list components described in a rules file
-   -v  | --version           : archicheck version
+         --version           : archicheck version
+   -q  | --quiet             : no message unless error. Warning are also ignored.
+   -v  | --verbose
    -h  | --help              : this message
 
 Examples:
@@ -128,5 +138,87 @@ Examples:
 
 Test: Legal line, but no src file in the given (existing) directory
 (start code)
-** Cannot list files, no sources found to analyze
+Error : Cannot list files, no sources found to analyze
+(end)
+
+Test: file given to -I, instead of a directory
+(start code)
+Error : src.adb is not a directory
+(end)
+
+Test: -ld given, but no source found
+(start code)
+Error : Cannot list dependencies, no sources found
+
+ArchiCheck normal use :
+   archicheck rules_file -I directory [-I directory]*
+
+General form :
+   archicheck [Options] [rules_file] [-I directory]*
+
+Options :
+   -lf | --list_files        : list sources files analyzed
+   -ld | --list_dependencies : list identified dependencies in analyzed sources files
+   -lc | --list_components   : list components described in a rules file
+         --version           : archicheck version
+   -q  | --quiet             : no message unless error. Warning are also ignored.
+   -v  | --verbose
+   -h  | --help              : this message
+
+Examples:
+   archicheck rules.txt -I ./src
+   archicheck -lf -I ./src
+   archicheck -lc rules.txt
+
+(end)
+
+Test: src found, but nothing to do whith it
+(start code)
+Error : Nothing to do with those sources
+
+ArchiCheck normal use :
+   archicheck rules_file -I directory [-I directory]*
+
+General form :
+   archicheck [Options] [rules_file] [-I directory]*
+
+Options :
+   -lf | --list_files        : list sources files analyzed
+   -ld | --list_dependencies : list identified dependencies in analyzed sources files
+   -lc | --list_components   : list components described in a rules file
+         --version           : archicheck version
+   -q  | --quiet             : no message unless error. Warning are also ignored.
+   -v  | --verbose
+   -h  | --help              : this message
+
+Examples:
+   archicheck rules.txt -I ./src
+   archicheck -lf -I ./src
+   archicheck -lc rules.txt
+
+(end)
+Test: rules file found, but nothing to do whith it
+(start code)
+Error : Nothing to do with this rules file
+
+ArchiCheck normal use :
+   archicheck rules_file -I directory [-I directory]*
+
+General form :
+   archicheck [Options] [rules_file] [-I directory]*
+
+Options :
+   -lf | --list_files        : list sources files analyzed
+   -ld | --list_dependencies : list identified dependencies in analyzed sources files
+   -lc | --list_components   : list components described in a rules file
+         --version           : archicheck version
+   -q  | --quiet             : no message unless error. Warning are also ignored.
+   -v  | --verbose
+   -h  | --help              : this message
+
+Examples:
+   archicheck rules.txt -I ./src
+   archicheck -lf -I ./src
+   archicheck -lc rules.txt
+
 (end)

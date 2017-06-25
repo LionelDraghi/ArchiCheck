@@ -20,7 +20,7 @@ Timestamp: Updated month day, year
 # These are indexes you deleted, so Natural Docs will not add them again
 # unless you remove them from this line.
 
-Don't Index: Constants, Types, Variables
+Don't Index: Variables, Types, Constants
 
 
 # --------------------------------------------------------------------------
@@ -53,7 +53,6 @@ Group: Tests  {
 
    File: Layer rules tests  (/home/lionel/Proj/Archicheck/Tests/5_Layers/Readme.txt)
    File: Child packages tests  (/home/lionel/Proj/Archicheck/Tests/6_Child_Packages/Readme.txt)
-   File: Globbing Characters tests  (/home/lionel/Proj/Archicheck/Tests/7_Globbing_Characters/Readme.txt)
 
    Group: Query Function Tests  {
 
@@ -62,7 +61,9 @@ Group: Tests  {
       File: --list_files option test  (/home/lionel/Proj/Archicheck/Tests/2_Source_List/Readme.txt)
       }  # Group: Query Function Tests
 
+   File: Rules file syntax  (/home/lionel/Proj/Archicheck/Tests/7_Rules_Files_Syntax/Readme.txt)
    File: command line tests  (no auto-title, /home/lionel/Proj/Archicheck/Tests/1_Command_Line/Readme.txt)
+   File: Globbing Characters tests  (/home/lionel/Proj/Archicheck/Tests/Globbing_Characters/Readme.txt)
    Link: Code coverage  (http://lionel.draghi.free.fr/Archicheck/lcov/index.html)
    }  # Group: Tests
 
@@ -73,12 +74,14 @@ Group: Documentation  {
    File: TODO list  (/home/lionel/Proj/Archicheck/Doc/todo.txt)
    File: Rules Syntax  (/home/lionel/Proj/Archicheck/Doc/Rules_Syntax.txt)
    File: Archicheck command line  (/home/lionel/Proj/Archicheck/Doc/Cmd_Line.txt)
+   File: License  (/home/lionel/Proj/Archicheck/Doc/COPYING.txt)
    }  # Group: Documentation
 
-File: Exe download  (/home/lionel/Proj/Archicheck/Doc/Download.txt)
+File: Download  (/home/lionel/Proj/Archicheck/Doc/Download.txt)
 
 Group: Src  {
 
+   File: Archicheck body  (/home/lionel/Proj/Archicheck/Src/archicheck-io.adb)
    File: Archicheck specification  (/home/lionel/Proj/Archicheck/Src/archicheck.ads)
    File: archicheck-analyze_rules.adb  (/home/lionel/Proj/Archicheck/Src/archicheck-analyze_rules.adb)
    File: Archicheck.Analyze_Rules specification  (/home/lionel/Proj/Archicheck/Src/archicheck-analyze_rules.ads)
@@ -89,12 +92,14 @@ Group: Src  {
    File: Archicheck.Cmd_Line specification  (/home/lionel/Proj/Archicheck/Src/archicheck-cmd_line.ads)
    File: Archicheck.Get_Dependencies body  (/home/lionel/Proj/Archicheck/Src/archicheck-get_dependencies.adb)
    File: Archicheck.Get_Dependencies specification  (/home/lionel/Proj/Archicheck/Src/archicheck-get_dependencies.ads)
+   File: Archicheck.IO specification  (/home/lionel/Proj/Archicheck/Src/archicheck-io.ads)
    File: Archicheck.Main body  (/home/lionel/Proj/Archicheck/Src/archicheck-main.adb)
    File: Archicheck.Main specification  (/home/lionel/Proj/Archicheck/Src/archicheck-main.ads)
    File: Archicheck.Rules_Lexer specification  (/home/lionel/Proj/Archicheck/Src/backup/archicheck-rules_lexer.adb)
    File: Archicheck.Rules_Lexer specification  (/home/lionel/Proj/Archicheck/Src/backup/archicheck-rules_lexer.ads)
    File: Archicheck.Rules_Parser specification  (/home/lionel/Proj/Archicheck/Src/archicheck-rules_parser.ads)
-   File: Archicheck.Rules_Parser specification  (/home/lionel/Proj/Archicheck/Src/archicheck-rules_parser.adb)
+   File: Archicheck.Settings body  (/home/lionel/Proj/Archicheck/Src/archicheck-settings.adb)
+   File: Archicheck.Settings specification  (/home/lionel/Proj/Archicheck/Src/archicheck-settings.ads)
    File: Archicheck.Source_Lists_IO body  (/home/lionel/Proj/Archicheck/Src/archicheck-source_lists_io.adb)
    File: Archicheck.Source_Lists_IO specification  (/home/lionel/Proj/Archicheck/Src/archicheck-source_lists_io.ads)
    }  # Group: Src

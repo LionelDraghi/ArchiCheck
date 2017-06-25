@@ -8,20 +8,25 @@
 
 -- Package: Archicheck specification
 --
--- This package contains some global declarations and data structures, like :
+-- This package contains some global declarations and data structures, like:
 -- - Source_Lists
 -- - Dependency_Lists
 -- - Unit_Lists
 -- - Component_Maps
 --
--- Child units do the real job :
+-- Child units do the real job:
 --
--- procedure <Archicheck> <Archicheck.Main body> - is in charge of controlling the execution flow according to the command line
--- package <Archicheck.Cmd_Line> - do the command line analysys
+-- procedure <Archicheck> <Archicheck.Main body> - is in charge of controlling the execution
+-- flow according to the command line
+-- package <Archicheck.Cmd_Line> - do the command line analysis
+-- package <Archicheck.Settings> - global settings, resulting mainly from cmd line analysis (and env. variables in the future)
 -- procedure <Archicheck.Analyze_Rules> - analyze the rules file and run the verifications
--- Procedure <Archicheck.Analyze_Rules_File> and childs - is the next generation Analyze_Rules, using OpenToken for rules file analisys. *Work in progress, not used in current code*
--- Function < Archicheck.Get_Dependencies> - is in charge of reading sources files, and populating the Dependency_Lists
--- package <Archicheck.Source_Lists_IO> - is in charge of dumping the Source_List, and will be in charge of loading such a list from a file when implemented
+-- Procedure <Archicheck.Analyze_Rules_File> and childs - is the next generation Analyze_Rules,
+-- using OpenToken for rules file analisys. * Work in progress, not used in current code *
+-- Function < Archicheck.Get_Dependencies> - is in charge of reading sources files, and
+-- populating the Dependency_Lists
+-- package <Archicheck.Source_Lists_IO> - is in charge of dumping the Source_List, and
+-- will be in charge of loading such a list from a file when implemented
 
 with Ada.Calendar;
 with Ada.Strings.Unbounded;
@@ -30,8 +35,6 @@ with Ada.Containers.Indefinite_Hashed_Maps;
 with Ada.Strings.Hash;
 
 package Archicheck is
-
-   ArchiCheck_Version : constant String := "0.2";
 
    type Source is record
       Name     : Ada.Strings.Unbounded.Unbounded_String;

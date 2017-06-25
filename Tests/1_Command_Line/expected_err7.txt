@@ -1,1 +1,1 @@
-** Cannot list files, no sources found to analyze
+Error : Cannot list files, no sources found to analyze

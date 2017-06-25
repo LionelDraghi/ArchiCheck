@@ -12,8 +12,9 @@
 with Ada.Strings.Fixed;
 with Ada.Strings.Maps.Constants;
 with Ada.Text_IO;
-with Archicheck.Cmd_Line;
+with Archicheck.Settings;
 with Archicheck.Get_Dependencies;
+with Archicheck.IO;
 
 procedure Archicheck.Analyze_Rules (From_File  : in  String;
                                     Components : out Component_Maps.Map)
@@ -21,18 +22,23 @@ is
    use Ada.Strings;
    use Ada.Strings.Fixed;
    use Ada.Strings.Unbounded;
-   use Ada.Text_IO;
-   Rules_File : File_Type;
 
-   Debug : constant Boolean := False;
-   The_Delimiters : constant Ada.Strings.Maps.Character_Set :=
-     Ada.Strings.Maps.To_Set (" ,;-");
+   -- Change default Debug parameter value to enable/disable Debug messages in this package
+   -- -------------------------------------------------------------------------
+   procedure Put_Debug_Line (Msg    : in String  := "";
+                             Debug  : in Boolean := False;
+                             Prefix : in String  := "Analyses_Rules") renames Archicheck.IO.Put_Debug_Line;
+   procedure Put_Debug (Msg    : in String  := "";
+                        Debug  : in Boolean := False;
+                        Prefix : in String  := "Analyses_Rules") renames Archicheck.IO.Put_Debug;
 
+   The_Delimiters : constant Ada.Strings.Maps.Character_Set := Ada.Strings.Maps.To_Set (" ,;-");
+
+   -- -------------------------------------------------------------------------
    function To_Lower (Source  : String) return String is
    begin
-      return Translate
-        (Source,
-         Mapping => Ada.Strings.Maps.Constants.Lower_Case_Map);
+      return Translate (Source,
+                        Mapping => Ada.Strings.Maps.Constants.Lower_Case_Map);
    end To_Lower;
 
    -- -------------------------------------------------------------------------
@@ -41,29 +47,29 @@ is
    is
       procedure Put_Unit (Position : Unit_Lists.Cursor) is
       begin
-         Put (To_String (Unit_Lists.Element (Position)) & " ");
+         Put_Debug (To_String (Unit_Lists.Element (Position)) & " ");
       end Put_Unit;
 
       Units : Unit_Lists.List;
       Found : Boolean := False;
 
    begin
-      if Debug then Put ("Is " & Unit & " in " & Component & "? "); end if;
+      Put_Debug_Line ("Is " & Unit & " in " & Component & "? ");
+
       if Component_Maps.Contains (Components, Component) then
          -- the component was described by one or more declarations
          Units := Component_Maps.Element (Components, Component);
          Found := Unit_Lists.Contains (Units, To_Unbounded_String (Unit));
-         if Debug then
-            Put ("Is " & Unit & " in ");
-            Unit_Lists.Iterate (Units, Put_Unit'Access);
-            Put ("?");
-            if Found then
-               Put_Line (" YES!");
-            else
-               Put_Line (" NO!");
-            end if;
+
+         Put_Debug ("Is " & Unit & " in ");
+         Unit_Lists.Iterate (Units, Put_Unit'Access);
+         Put_Debug ("?");
+         if Found then
+            Put_Debug_Line (" YES!");
+         else
+            Put_Debug_Line (" NO!");
          end if;
-         if Debug then Put_Line (Boolean'Image (Found)); end if;
+         Put_Debug_Line (Boolean'Image (Found));
 
          return Found;
 
@@ -71,11 +77,11 @@ is
         To_Lower (Component)
       then
          -- The Unit is a child pkg of the component
-         if Debug then Put_Line ("YES"); end if;
+         Put_Debug_Line ("YES");
          return True;
 
       else
-         if Debug then Put_Line ("NO"); end if;
+         Put_Debug_Line ("NO");
          return False;
 
       end if;
@@ -110,9 +116,9 @@ is
    begin
       -- Limitation: unit name is case-sensitve
       loop
-         -- Put_Line ("Last =" & Natural'Image (Last));
-         -- Put_Line ("From_Line'Last =" & Natural'Image (From_Line'Last));
-         -- Put_Line ("Line = >" & From_Line & "<");
+         -- Put_Debug_Line ("Last =" & Natural'Image (Last));
+         -- Put_Debug_Line ("From_Line'Last =" & Natural'Image (From_Line'Last));
+         -- Put_Debug_Line ("Line = >" & From_Line & "<");
          Find_Token (Source => From_Line (Last + 1 .. From_Line'Last),
                      Set    => The_Delimiters,
                      Test   => Ada.Strings.Outside,
@@ -133,15 +139,17 @@ is
 
    Idx : Natural;
 
-begin
-   Open (File => Rules_File,
-         Mode => In_File,
-         Name => From_File);
+   Rules_File : Ada.Text_IO.File_Type;
 
-   while not End_Of_File (Rules_File) loop
+begin
+   Ada.Text_IO.Open (File => Rules_File,
+                     Mode => Ada.Text_IO.In_File,
+                     Name => From_File);
+
+   while not Ada.Text_IO.End_Of_File (Rules_File) loop
       declare
          Line : constant String
-           := Trim (Get_Line (File => Rules_File), Side => Both);
+           := Trim (Ada.Text_IO.Get_Line (File => Rules_File), Side => Both);
       begin
          -- let's avoid comment line
          if Head (Line, Count => 2) = "--" then
@@ -158,9 +166,9 @@ begin
                           Mapping => Ada.Strings.Maps.Constants.Lower_Case_Map);
             -- it's a "contains" line, so let's get
             if Idx /= 0 then
-               --                 Put_Line ("Idx = " & Natural'Image (Idx));
-               --     Put_Line ("Line'Last = " & Natural'Image (Line'Last));
-               --                 Put_Line ("Line (Idx + 9 .. Line'Last) = >"
+               --                 Put_Debug_Line ("Idx = " & Natural'Image (Idx));
+               --     Put_Debug_Line ("Line'Last = " & Natural'Image (Line'Last));
+               --                 Put_Debug_Line ("Line (Idx + 9 .. Line'Last) = >"
                --                           & Line (Idx + 9 .. Line'Last)
                --                           & "<");
                declare
@@ -184,18 +192,16 @@ begin
 
                   procedure Put_Unit (Position : Unit_Lists.Cursor) is
                   begin
-                     Put (To_String (Unit_Lists.Element (Position)) & " ");
+                     Put_Debug (To_String (Unit_Lists.Element (Position)) & " ");
                   end Put_Unit;
 
                begin
-                  if Debug then
-                     Put_Line ("Line           >" & Line & "<");
-                     Put_Line ("Component_Name >" & Component_Name & "<");
-                     Put      ("Units          >");
+                     Put_Debug_Line ("Line           >" & Line & "<");
+                     Put_Debug_Line ("Component_Name >" & Component_Name & "<");
+                     Put_Debug      ("Units          >");
                      Unit_Lists.Iterate (Unit_List, Put_Unit'Access);
-                     Put_Line ("<");
-                     New_Line;
-                  end if;
+                     Put_Debug_Line ("<");
+                     Put_Debug_Line;
 
                   if Component_Name = "" then
                      null; -- probaly an empty line
@@ -229,7 +235,7 @@ begin
                        := Get_Component_Name (Line (Idx + 16 .. Line'Last));
                   begin
                      -- =======================================================
-                     if Debug then Put_Line (Client & " utilise " & Server); end if;
+                     Put_Debug_Line (Client & " utilise " & Server);
 
                      declare
                         procedure Check_Dependency (Position : Dependency_Lists.Cursor) is
@@ -238,48 +244,46 @@ begin
                            Y : constant String := To_String (Dependency_Lists.Element
                                                              (Position).Depends_On_Unit);
                         begin
-                           if Debug then Put_Line (X & " depends on " & Y); end if;
+                           Put_Debug_Line (X & " depends on " & Y);
+                           Put_Debug_Line ("if " & Y & " is in "
+                                           & Server & " then " & X
+                                           & " is     in " & Client);
 
-                           if Debug then Put_Line ("if " & Y & " is in "
-                                                   & Server & " then " & X
-                                                   & " is     in " & Client);
-                           end if;
                            if Is_Unit_In_Component (Unit      => Y,
                                                     Component => Server) and not
                              Is_Unit_In_Component (Unit => X, Component => Client)
                            then
-                              Put_Line
-                                ("Error : " & X & " is not in "
+                              IO.Put_Error
+                                (X & " is not in "
                                  & Client & " layer, and so shall not directly use "
                                  & Server & " layer");
                            end if;
 
-                           if Debug then Put_Line ("if " & X & " is in "
-                                                   & Server & " then " & Y
-                                                   & " is NOT in " & Client);
-                           end if;
+                           Put_Debug_Line ("if " & X & " is in "
+                                            & Server & " then " & Y
+                                            & " is NOT in " & Client);
+
                            if Is_Unit_In_Component (Unit => X, Component => Server) and
                              Is_Unit_In_Component (Unit => Y, Component => Client)
                            then
-                              Put_Line ("Error : " & X & " is in " & Server
-                                        & " layer, and so shall not use the upper "
-                                        & Client & " layer");
+                              IO.Put_Error (X & " is in " & Server
+                                            & " layer, and so shall not use the upper "
+                                            & Client & " layer");
                            end if;
 
-                           if Debug then Put_Line ("if " & X & " is in "
-                                                   & Client & " then " & Y
-                                                   & " should be in either "
-                                                   & Client & " or " & Server);
-                           end if;
+                           Put_Debug_Line ("if " & X & " is in "
+                                           & Client & " then " & Y
+                                           & " should be in either "
+                                           & Client & " or " & Server);
+
                            if Is_Unit_In_Component (Unit => X, Component => Client) and not
                              (Is_Unit_In_Component (Unit => Y, Component => Client) or
                               Is_Unit_In_Component (Unit => Y, Component => Server))
                            then
-                              Put_Line
-                                ("Warning : " & X & " (in " & Client & " layer) uses "
-                                 & Y &
-                                 " that is neither in the same layer, nor in the lower "
-                                 & Server & " layer");
+                              IO.Put_Warning (X & " (in " & Client & " layer) uses "
+                                              & Y &
+                                                " that is neither in the same layer, nor in the lower "
+                                              & Server & " layer");
                            end if;
 
                         end Check_Dependency;
@@ -297,7 +301,7 @@ begin
                         Sources : Source_Lists.List;
 
                      begin
-                        Sources := Cmd_Line.Source_List;
+                        Sources := Settings.Source_List;
                         Source_Lists.Iterate (Container => Sources,
                                               Process   => Analyze_Source'Access);
                      end;
@@ -305,7 +309,7 @@ begin
                      -- =======================================================
                   end;
                else
-                  Put_Line ("Quezako : >" & Line & "<"); --**
+                  IO.Put_Error ("Quezako : >" & Line & "<"); --**
                end if;
 
 
@@ -313,6 +317,6 @@ begin
          end if; -- /= comment
       end;
    end loop;
-   Close (Rules_File);
+   Ada.Text_IO.Close (Rules_File);
 
 end Archicheck.Analyze_Rules;

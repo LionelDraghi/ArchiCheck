@@ -6,18 +6,27 @@
 -- Public License Versions 3, refer to the COPYING file.
 -- -----------------------------------------------------------------------------
 
-
 -- Function: Archicheck.Get_Dependencies body
 
 with Ada.Exceptions;
+with Archicheck.IO;
+
 with Ada.Text_IO;
 
-with Ada_Lexer;                      use  Ada_Lexer;
+with Ada_Lexer; use  Ada_Lexer;
 
 function Archicheck.Get_Dependencies
   (Source_Name  : String) return Archicheck.Dependency_Lists.List
 is
-   Debug : constant Boolean := False;
+
+   -- Change default Debug parameter value to enable/disable Debug messages in this package
+   -- -------------------------------------------------------------------------
+   procedure Put_Debug_Line (Msg    : in String  := "";
+                             Debug  : in Boolean := False;
+                             Prefix : in String  := "Get_Dependencies") renames Archicheck.IO.Put_Debug_Line;
+   procedure Put_Debug (Msg    : in String  := "";
+                        Debug  : in Boolean := False;
+                        Prefix : in String  := "Get_Dependencies") renames Archicheck.IO.Put_Debug;
 
    -- Global text file for reading parse data
    File : Ada.Text_IO.File_Type;
@@ -41,13 +50,12 @@ is
 
       end loop;
 
-      if Debug then Ada.Text_IO.Put_Line (To_String (Name)); end if;
+      Put_Debug_Line (To_String (Name));
 
       return To_String (Name);
    end Get_Unit_Name;
 
-   -- iterate trough a list to set the field Unit_Name,
-   -- and only this one.
+   -- Iterate trough a list to set the field Unit_Name, and only this one.
    procedure Set_Unit_Name (List          : in out Dependency_Lists.List;
                             Unit_Name     : in String;
                             Specification : in Boolean) is
@@ -77,7 +85,7 @@ begin
          case Token_ID is
          when With_T =>
             Find_Next;
-            if Debug then Ada.Text_IO.Put ("with "); end if;
+            Put_Debug ("with ");
             Append
               (Tmp, (Unit_Name       => Null_Unbounded_String,
                      Depends_On_Unit => To_Unbounded_String (Get_Unit_Name),
@@ -86,11 +94,11 @@ begin
             Find_Next;
             if Token_ID = Body_T then
                Find_Next;
-               if Debug then Ada.Text_IO.Put ("package body "); end if;
+               Put_Debug ("package body ");
                Set_Unit_Name (Tmp, Get_Unit_Name, Specification => False);
 
             else
-               if Debug then Ada.Text_IO.Put ("package "); end if;
+               Put_Debug ("package ");
                Set_Unit_Name (Tmp,
                               Get_Unit_Name, Specification => True);
             end if;
@@ -103,11 +111,11 @@ begin
          exit Source_Analysis when Token_ID = End_of_File_T;
       exception
          when Error : others =>
-            Ada.Text_IO.Put_Line
+            IO.Put_Error
               ("failed at line" & Integer'Image (Line) &
-               ", column" & Integer'Image (Column) &
-               " due to parse exception:");
-            Ada.Text_IO.Put_Line (Ada.Exceptions.Exception_Information (Error));
+                 ", column" & Integer'Image (Column) &
+                 " due to parse exception:");
+            IO.Put_Error (Ada.Exceptions.Exception_Information (Error));
       end;
 
    end loop Source_Analysis;

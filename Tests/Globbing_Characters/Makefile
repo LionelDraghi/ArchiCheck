@@ -19,7 +19,7 @@ check: ../../Obj/archicheck
 
 	@ > expected_output.1
 	@ ../../Obj/archicheck -I dir1 rules.1 > output.1
-	@ diff -B expected_output.1 output.1
+	@ sdiff -s expected_output.1 output.1
 	@ echo OK
 
 	@ #---------------------------------------------------------------------
@@ -36,7 +36,7 @@ check: ../../Obj/archicheck
 
 	@ echo "Error : P4 is not in Support_Layer layer, and so shall not use Interfaces.* packages" > expected_output.2
 	@ ../../Obj/archicheck -I dir2 rules.2 > output.2
-	@ diff -B expected_output.2 output.2
+	@ sdiff -s expected_output.2 output.2
 	@ echo OK
 
 clean:

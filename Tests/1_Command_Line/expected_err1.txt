@@ -1,1 +1,1 @@
-** Sources directory expected after -I
+Error : Sources directory expected after -I

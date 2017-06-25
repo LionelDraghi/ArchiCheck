@@ -9,17 +9,28 @@
 -- Procedure: Archicheck.Main body
 
 with Ada.Command_Line;
-with Ada.Text_IO;
+--with Ada.Text_IO;
 with Archicheck.Cmd_Line;
+with Archicheck.Settings;
 with Archicheck.Get_Dependencies;
 with Archicheck.Source_Lists_IO;
 with Archicheck.Analyze_Rules; -- first version
--- with Archicheck.Analyze_Rules_File;
+-- with Archicheck.Rules_Parser;
+with Archicheck.IO;
 
 procedure Archicheck.Main is
    Cmd_Line_OK   : Boolean;
    Sources       : Source_Lists.List;
    Component_Map : Component_Maps.Map;
+
+   -- Change default Debug parameter value to enable/disable Debug messages in this package
+   -- -------------------------------------------------------------------------
+   --     procedure Put_Debug_Line (Msg    : in String  := "";
+   --                               Debug  : in Boolean := True;
+   --                               Prefix : in String  := "Main") renames Archicheck.IO.Put_Debug_Line;
+   --     procedure Put_Debug (Msg    : in String  := "";
+   --                          Debug  : in Boolean := True;
+   --                          Prefix : in String  := "Main") renames Archicheck.IO.Put_Debug;
 
 begin
    Cmd_Line.Analyze_Cmd_Line (Cmd_Line_OK);
@@ -27,9 +38,9 @@ begin
    if Cmd_Line_OK then
 
       -- 1 - let's get sources
-      Sources := Cmd_Line.Source_List;
+      Sources := Settings.Source_List;
 
-      if Cmd_Line.List_Files then
+      if Settings.List_Files then
          Source_Lists_IO.Dump_Sources (Sources);
       end if;
 
@@ -39,11 +50,11 @@ begin
             use Ada.Strings.Unbounded;
             Source_Name : constant String := To_String (Sources.Name);
             Dependencies : Dependency_Lists.List;
-            use Ada.Text_IO;
+            use IO;
          begin
             Dependencies := Get_Dependencies (Source_Name);
             for Dependence of Dependencies loop
-               if Cmd_Line.List_Dependencies then
+               if Settings.List_Dependencies then
                   Put (To_String (Dependence.Unit_Name));
                   if Dependence.Specification then
                      Put (" specification");
@@ -63,20 +74,22 @@ begin
       end;
 
       -- 3 - is there some rules file to analyze?
-      if Cmd_Line.Rules_File_Name /= "" then
-         -- Simply coded initial version
-         Analyze_Rules (From_File  => Cmd_Line.Rules_File_Name,
+      if Settings.Rules_File_Name /= "" then
+
+--           -- Rules file parsing :
+--           Rules_Parser.Parse (Settings.Rules_File_Name);
+--           -- Components => Component_Map);
+
+         -- Simply coded initial version integrating parsing + analyze
+         Analyze_Rules (From_File  => Settings.Rules_File_Name,
                         Components => Component_Map);
-         --           -- OpenToken verion :
-         --           Analyze_Rules_File (File_Name  => Cmd_Line.Rules_File_Name,
-         --                               Components => Component_Map);
 
       end if;
 
-      if Cmd_Line.List_Components then
+      if Settings.List_Components then
 
          declare
-            use Ada.Text_IO;
+            use IO;
             use Ada.Strings.Unbounded;
 
             procedure Put_Unit_List (UL : Unit_Lists.List) is

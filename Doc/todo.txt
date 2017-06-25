@@ -16,7 +16,7 @@ Development environment:
 -       Update the use of gnat (compiler option, gnatmake replacement))
 -       Have the tests OS agnostic (test depending on the path of Ada file analyzed, that fail if run on Windows)
 -       Consider replacement of the documentation tools (Dia for UML diagrams, NaturalDocs, etc.)
-        For NaturalDocs : https://daringfireball.net/projects/markdown/, reST/sphinx http://www.sphinx-doc.org/en/stable/, http://pandoc.org/index.html
+        for NaturalDocs : https://daringfireball.net/projects/markdown/, reST/sphinx http://www.sphinx-doc.org/en/stable/, http://pandoc.org/index.html
 -       Use Livecoding? :-) (https://www.livecoding.tv/livestreams/)
 
 Bug:

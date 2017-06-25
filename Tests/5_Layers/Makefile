@@ -13,8 +13,8 @@ check: ../../Obj/archicheck
 	@ ${CREATE_PKG} P3 spec  -in dir1
 	@ ${CREATE_PKG} P4 spec  -in dir1
 
-	@ ../../Obj/archicheck -I dir1 rules.1 > output.1
-	@ diff -B expected_output.1 output.1
+	@ ../../Obj/archicheck -q -I dir1 rules.1 > output.1
+	@ sdiff -s expected_output.1 output.1
 	@ echo OK
 
 	@ #---------------------------------------------------------------------
@@ -25,8 +25,8 @@ check: ../../Obj/archicheck
 	@ ${CREATE_PKG} P4 spec  -in dir2 -with P5
 	@ ${CREATE_PKG} P5 spec  -in dir2
 
-	@ ../../Obj/archicheck -I dir2 rules.2 > output.2
-	@ diff -B expected_output.2 output.2
+	@ ../../Obj/archicheck --quiet -I dir2 rules.2 > output.2
+	@ sdiff -s expected_output.2 output.2
 	@ echo OK
 
 	@ #---------------------------------------------------------------------
@@ -38,7 +38,7 @@ check: ../../Obj/archicheck
 	@ ${CREATE_PKG} P6 spec  -in dir3c -with P4
 
 	@ ../../Obj/archicheck -I dir3a -I dir3b -I dir3c rules.1 > output.3
-	@ diff -B expected_output.3 output.3
+	@ sdiff -s expected_output.3 output.3
 	@ echo OK
 
 	@ #---------------------------------------------------------------------
@@ -50,7 +50,7 @@ check: ../../Obj/archicheck
 	@ ${CREATE_PKG} P7 spec  -in dir4
 
 	@ ../../Obj/archicheck -I dir1 -I dir4 rules.1 > output.4
-	@ diff -B expected_output.4 output.4
+	@ sdiff -s expected_output.4 output.4
 	@ echo OK
 
 clean:

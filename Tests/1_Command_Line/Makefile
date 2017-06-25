@@ -3,8 +3,9 @@ all: check
 
 .PHONY : clean
 
-check: ../../Obj/archicheck clean
+check: ../../Obj/archicheck test1 test2 test3 test4 test5 test6 test7 test8 test9 test10 test11 test12 test13 clean
 
+test1:
 	> Readme.txt
 	echo "Test Suite: Command line tests " 					>> Readme.txt
 	echo "" 								>> Readme.txt
@@ -14,35 +15,35 @@ check: ../../Obj/archicheck clean
 	echo "exit with a non null return code." 				>> Readme.txt
 	echo "Note that normal use is overly tested in other tests," 		>> Readme.txt
 	echo "so here mainly error situations are tested."			>> Readme.txt
+	echo "Note also that quiet and verbose mode (-q / -v) are also tested"	>> Readme.txt
+	echo "in other test."							>> Readme.txt
 
-	@ echo Cmd line test
+	echo Cmd line test
 	echo "" 							>> Readme.txt
 	echo "Test: Help options" 					>> Readme.txt
 	echo "Test that the -h, --help or no command line will put :" 	>> Readme.txt
 	echo "(start code)" 						>> Readme.txt
+	../../Obj/archicheck -h > expected_help.txt
 	cat expected_help.txt 						>> Readme.txt
 	echo "(end)" 							>> Readme.txt
 
-	../../Obj/archicheck -h 			> help1.txt
+	../../Obj/archicheck --help			> help1.txt
 	sdiff -s help1.txt expected_help.txt
 
-	../../Obj/archicheck --help			> help2.txt
+	../../Obj/archicheck  				> help2.txt
 	sdiff -s help2.txt expected_help.txt
 
-	../../Obj/archicheck  				> help3.txt
-	sdiff -s help3.txt expected_help.txt
-
+test2:
 	echo "" 							>> Readme.txt
-	echo "Test: Version options" 					>> Readme.txt
-	echo "Test that the -v or --version will put :" 		>> Readme.txt
+	echo "Test: Version option" 					>> Readme.txt
+	echo "Test that the --version will put :" 			>> Readme.txt
 	echo "(start code)" 						>> Readme.txt
 	cat expected_version.txt 					>> Readme.txt
 	echo "(end)" 							>> Readme.txt
-	../../Obj/archicheck -v 			> version1.txt
-	../../Obj/archicheck --version			> version2.txt
+	../../Obj/archicheck --version			> version1.txt
 	sdiff -s version1.txt expected_version.txt
-	sdiff -s version2.txt expected_version.txt
-
+	
+test3:
 	echo "" 							>> Readme.txt
 	echo "Test: -I option without src dir" 				>> Readme.txt
 	echo "(start code)" 						>> Readme.txt
@@ -51,6 +52,7 @@ check: ../../Obj/archicheck clean
 	test ! `../../Obj/archicheck -I			> err1.txt  2>&1`
 	sdiff -s expected_err1.txt err1.txt
 
+test4:
 	echo "" 							>> Readme.txt
 	echo "Test: -I option with an unknow dir" 			>> Readme.txt
 	echo "(start code)" 						>> Readme.txt
@@ -59,24 +61,35 @@ check: ../../Obj/archicheck clean
 	test ! `../../Obj/archicheck -I qsdqjh		> err2.txt  2>&1`
 	sdiff -s expected_err2.txt err2.txt
 
+test5:
 	echo "" 							>> Readme.txt
 	echo "Test: unknown -xyz option" 				>> Readme.txt
 	echo "(start code)" 						>> Readme.txt
+
+	echo "Error : Unknown rules file or unknow option -xzy"	>  expected_err3.txt
+	cat expected_help.txt 					>> expected_err3.txt
+	
 	cat expected_err3.txt						>> Readme.txt
 	echo "(end)" 							>> Readme.txt
 	test ! `../../Obj/archicheck -xzy		> err3.txt  2>&1`
 	sdiff -s expected_err3.txt err3.txt
 
+test6:
 	echo "" 							>> Readme.txt
 	echo "Test: I option with... nothing do do" 			>> Readme.txt
 	echo '      (no rules file, no -ld or -lf, etc.)' 		>> Readme.txt
 	echo "(start code)" 						>> Readme.txt
+
+	echo "Error : No src found in those directories"	>  expected_err4.txt
+	cat expected_help.txt 					>> expected_err4.txt
+	
 	cat expected_err4.txt						>> Readme.txt
 	echo "(end)" 							>> Readme.txt
-	@ mkdir dir1
+	mkdir dir1
 	test ! `../../Obj/archicheck -I dir1		> err4.txt 2>&1`
 	sdiff -s expected_err4.txt err4.txt
 
+test7:
 	echo "" 							>> Readme.txt
 	echo "Test: I option with... nothing do do and an unknown directory"	>> Readme.txt
 	echo "(start code)" 						>> Readme.txt
@@ -85,14 +98,20 @@ check: ../../Obj/archicheck clean
 	test ! `../../Obj/archicheck -I dir2		> err5.txt 2>&1`
 	sdiff -s expected_err5.txt err5.txt
 
+test8:
 	echo "" 							>> Readme.txt
 	echo "Test: -lc option without rules file" 			>> Readme.txt
 	echo "(start code)" 						>> Readme.txt
+
+	echo "Error : Cannot list components, no rules file given"	>  expected_err6.txt
+	cat expected_help.txt 						>> expected_err6.txt
+	
 	cat expected_err6.txt						>> Readme.txt
 	echo "(end)" 							>> Readme.txt
 	test ! `../../Obj/archicheck -lc -I dir1 	> err6.txt 2>&1`
 	sdiff -s expected_err6.txt err6.txt
 
+test9:
 	echo "" 							>> Readme.txt
 	echo 'Test: Legal line, but no src file in the given (existing) directory' >> Readme.txt
 	echo "(start code)" 						>> Readme.txt
@@ -100,6 +119,56 @@ check: ../../Obj/archicheck clean
 	echo "(end)" 							>> Readme.txt
 	test ! `../../Obj/archicheck -lf -I dir1 	> err7.txt 2>&1`
 	sdiff -s expected_err7.txt err7.txt
+
+test10:
+	echo "" 							>> Readme.txt
+	echo 'Test: file given to -I, instead of a directory' 		>> Readme.txt
+	echo "(start code)" 						>> Readme.txt
+	cat expected_err8.txt						>> Readme.txt
+	echo "(end)" 							>> Readme.txt
+	touch rules.txt src.adb
+	test ! `../../Obj/archicheck rules.txt -I src.adb 	> err8.txt 2>&1`
+	sdiff -s expected_err8.txt err8.txt
+
+test11:
+	echo "" 							>> Readme.txt
+	echo 'Test: -ld given, but no source found'	 		>> Readme.txt
+	echo "(start code)" 						>> Readme.txt
+	
+	echo "Error : Cannot list dependencies, no sources found"	>  expected_err9.txt
+	cat expected_help.txt 						>> expected_err9.txt
+	
+	cat expected_err9.txt						>> Readme.txt
+	echo "(end)" 							>> Readme.txt
+	touch rules.txt src.adb
+	test ! `../../Obj/archicheck -ld -I dir1		> err9.txt 2>&1`
+	sdiff -s expected_err9.txt err9.txt
+
+test12:
+	echo "" 							>> Readme.txt
+	echo 'Test: src found, but nothing to do whith it'		>> Readme.txt
+	echo "(start code)" 						>> Readme.txt
+	
+	echo "Error : Nothing to do with those sources"		>  expected_err10.txt
+	cat expected_help.txt 					>> expected_err10.txt
+	
+	cat expected_err10.txt						>> Readme.txt
+	echo "(end)" 							>> Readme.txt
+	touch dir1/src.adb
+	test ! `../../Obj/archicheck -I dir1			> err10.txt 2>&1`
+	sdiff -s expected_err10.txt err10.txt
+
+test13:
+	echo 'Test: rules file found, but nothing to do whith it'	>> Readme.txt
+	echo "(start code)" 						>> Readme.txt
+	
+	echo "Error : Nothing to do with this rules file"	>  expected_err11.txt
+	cat expected_help.txt 					>> expected_err11.txt
+	
+	cat expected_err11.txt						>> Readme.txt
+	echo "(end)" 							>> Readme.txt
+	test ! `../../Obj/archicheck rules.txt				> err11.txt 2>&1`
+	sdiff -s expected_err11.txt err11.txt
 
 	@ echo OK
 

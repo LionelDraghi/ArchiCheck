@@ -18,7 +18,7 @@ check: ../../Obj/archicheck
 
 	@ > expected_output.1
 	@ ../../Obj/archicheck -I dir1 rules.1 > output.1
-	@ diff -B expected_output.1 output.1
+	@ sdiff -s expected_output.1 output.1
 	@ echo OK
 
 	@ #---------------------------------------------------------------------
@@ -35,7 +35,7 @@ check: ../../Obj/archicheck
 
 	@ echo "Error : DB.P4 is in DB layer, and so shall not use the upper GUI layer" > expected_output.2
 	@ ../../Obj/archicheck -I dir2 rules.2 > output.2
-	@ diff -B expected_output.2 output.2
+	@ sdiff -s expected_output.2 output.2
 	@ echo OK
 
 	@ #---------------------------------------------------------------------
@@ -48,7 +48,7 @@ check: ../../Obj/archicheck
 
 	@ echo "Error : P6 is not in GUI layer, and so shall not directly use DB layer" > expected_output.3
 	@ ../../Obj/archicheck -I dir3 rules.2 > output.3
-	@ diff -B expected_output.3 output.3
+	@ sdiff -s expected_output.3 output.3
 	@ echo OK
 
 	@ #---------------------------------------------------------------------
@@ -61,7 +61,7 @@ check: ../../Obj/archicheck
 
 	@ echo "Warning : GUI.P2 (in GUI layer) uses P7 that is neither in the same layer, nor in the lower DB layer" > expected_output.4
 	@ ../../Obj/archicheck -I dir1 -I dir4 rules.2 > output.4
-	@ diff -B expected_output.4 output.4
+	@ sdiff -s expected_output.4 output.4
 	@ echo OK
 
 clean:
