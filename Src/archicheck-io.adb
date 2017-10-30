@@ -6,40 +6,41 @@
 -- Public License Versions 3, refer to the COPYING file.
 -- -----------------------------------------------------------------------------
 
--- Package: Archicheck body
+-- Package: Archicheck.IO body
 
 with Archicheck.Settings;
+with Ada.Strings.Fixed;
+with Ada.Directories;
 
 package body Archicheck.IO is
 
    -- -------------------------------------------------------------------------
    procedure Put_Help is
-      use Ada.Text_IO;
    begin
-      New_Line;
-      Put_Line ("ArchiCheck normal use :");
-      Put_Line ("   archicheck rules_file -I directory [-I directory]*");
-      New_Line;
-      Put_Line ("General form :");
-      Put_Line ("   archicheck [Options] [rules_file] [-I directory]*");
-      New_Line;
-      Put_Line ("Options :");
-      Put_Line ("   -lf | --list_files        : list sources files analyzed");
-      Put_Line ("   -ld | --list_dependencies : list identified dependencies"
+      Ada.Text_IO.New_Line;
+      Ada.Text_IO.Put_Line ("ArchiCheck normal use :");
+      Ada.Text_IO.Put_Line ("   archicheck rules_file -I directory [-I directory]*");
+      Ada.Text_IO.New_Line;
+      Ada.Text_IO.Put_Line ("General form :");
+      Ada.Text_IO.Put_Line ("   archicheck [Options] [rules_file] [-I directory]*");
+      Ada.Text_IO.New_Line;
+      Ada.Text_IO.Put_Line ("Options :");
+      Ada.Text_IO.Put_Line ("   -lf | --list_files        : list sources files analyzed");
+      Ada.Text_IO.Put_Line ("   -ld | --list_dependencies : list identified dependencies"
                 & " in analyzed sources files");
-      Put_Line ("   -lc | --list_components   : list components described in"
-                & " a rules file");
-      Put_Line ("         --version           : archicheck version");
+      Ada.Text_IO.Put_Line ("   -lr | --list_rules        : list rules in a rules file");
+      Ada.Text_IO.Put_Line ("   NB : when one of the list options above is used, checks are NOT performed");
       --** copyright and disclaimer to be added?
-      Put_Line ("   -q  | --quiet             : no message unless error. Warning are also ignored.");
-      Put_Line ("   -v  | --verbose");
-      Put_Line ("   -h  | --help              : this message");
-      New_Line;
-      Put_Line ("Examples:");
-      Put_Line ("   archicheck rules.txt -I ./src");
-      Put_Line ("   archicheck -lf -I ./src");
-      Put_Line ("   archicheck -lc rules.txt");
-      New_Line;
+      Ada.Text_IO.Put_Line ("   -q  | --quiet             : no message unless error. Warning are also ignored.");
+      Ada.Text_IO.Put_Line ("   -v  | --verbose");
+      Ada.Text_IO.Put_Line ("         --version           : archicheck version");
+      Ada.Text_IO.Put_Line ("   -h  | --help              : this message");
+      Ada.Text_IO.New_Line;
+      Ada.Text_IO.Put_Line ("Examples:");
+      Ada.Text_IO.Put_Line ("   archicheck rules.txt -I ./src");
+      Ada.Text_IO.Put_Line ("   archicheck -lf -I ./src");
+      Ada.Text_IO.Put_Line ("   archicheck -lr rules.txt");
+      Ada.Text_IO.New_Line;
    end Put_Help;
 
    -- -------------------------------------------------------------------------
@@ -74,31 +75,78 @@ package body Archicheck.IO is
                         Prefix : in String) is
    begin
       if Debug then
-         Ada.Text_IO.Put (Prefix & " | " & Msg);
+         if Prefix = "" then
+            Ada.Text_IO.Put (Msg);
+         else
+            Ada.Text_IO.Put (Prefix & " | " & Msg);
+         end if;
       end if;
    end Put_Debug;
 
    -- -------------------------------------------------------------------------
-   procedure Put_Line (Item : String) is
+   procedure New_Debug_Line (Debug  : in Boolean) is
    begin
-      if not Settings.Quiet_Mode then
+      if Debug then
+         Ada.Text_IO.New_Line;
+      end if;
+   end New_Debug_Line;
+
+   -- -------------------------------------------------------------------------
+   procedure Put_Line (Item : String; Only_When_Verbose : Boolean := False) is
+   begin
+      if Settings.Quiet_Mode then return; end if;
+      if Settings.Verbose_Mode or not Only_When_Verbose then
          Ada.Text_IO.Put_Line (Item);
       end if;
    end Put_Line;
 
-   procedure Put (Item : String) is
+   -- -------------------------------------------------------------------------
+   procedure Put (Item : String; Only_When_Verbose : Boolean := False) is
    begin
-      if not Settings.Quiet_Mode then
+      if Settings.Quiet_Mode then return; end if;
+      if Settings.Verbose_Mode or not Only_When_Verbose then
          Ada.Text_IO.Put (Item);
       end if;
    end Put;
 
-   procedure New_Line (Spacing : Ada.Text_IO.Positive_Count := 1) is
+   -- -------------------------------------------------------------------------
+   procedure New_Line (Spacing           : Ada.Text_IO.Positive_Count := 1;
+                       Only_When_Verbose : Boolean := False) is
    begin
-      if not Settings.Quiet_Mode then
+      if Settings.Quiet_Mode then return; end if;
+      if Settings.Verbose_Mode or not Only_When_Verbose then
          Ada.Text_IO.New_Line (Spacing);
       end if;
    end New_Line;
+
+   -- -------------------------------------------------------------------------
+   -- Function: GNU_Prefix body
+   -- -------------------------------------------------------------------------
+   function GNU_Prefix (File   : in String;
+                        Line   : in Positive;
+                        Column : in Integer := 0) return String is
+      use Ada.Strings;
+      use Ada.Strings.Fixed;
+      Trimed_File   : constant String := Trim (File, Side => Both);
+      Trimed_Line   : constant String := Trim (Positive'Image (Line), Side => Both);
+      Trimed_Column : constant String := Trim (Integer'Image (Column), Side => Both);
+   begin
+      if Column = 0 then
+         return Trimed_File & ":" & Trimed_Line & ": ";
+      else
+         return Trimed_File & ":" & Trimed_Line & "." & Trimed_Column & ": ";
+      end if;
+   end GNU_Prefix;
+
+   -- -------------------------------------------------------------------------
+   function GNU_Prefix (File   : in Ada.Text_IO.File_Type;
+                        Line   : in Positive;
+                        Column : in Integer := 0) return String is
+   begin
+      return GNU_Prefix (File   => Ada.Directories.Full_Name (Ada.Text_IO.Name (File)),
+                         Line   => Line,
+                         Column => Column);
+   end GNU_Prefix;
 
 end Archicheck.IO;
 

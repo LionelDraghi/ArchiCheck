@@ -7,21 +7,26 @@ release: clean build_release check
 	> Doc/Download.txt
 	echo "File: Download"			 				>> Doc/Download.txt
 	echo "" 								>> Doc/Download.txt
-	echo "You should'nt do that, but if you trust me,"			>> Doc/Download.txt
-	echo "<here at http://lionel.draghi.free.fr/Archicheck/archicheck> is an exe build on my Debian amd64,"	>> Doc/Download.txt
+	echo "<Here at http://lionel.draghi.free.fr/Archicheck/archicheck> is an exe build on my Debian amd64,"	>> Doc/Download.txt
 	echo "with -O3 option." 						>> Doc/Download.txt
 	echo "" 								>> Doc/Download.txt
-	echo "About: Dependencies:" 						>> Doc/Download.txt
+	echo "Build:" 							>> Doc/Download.txt
 	echo "" 								>> Doc/Download.txt
 	echo "(start code)" 							>> Doc/Download.txt
-	echo "readelf -d Linux_amd64_release/archicheck | grep 'NEEDED'" 	>> Doc/Download.txt
+	echo "date -r archicheck --iso-8601=seconds" 				>> Doc/Download.txt
+	echo "" 								>> Doc/Download.txt
+	date -r Linux_amd64_release/archicheck --iso-8601=seconds 		>> Doc/Download.txt
 	echo "(end)" 								>> Doc/Download.txt
 	echo "" 								>> Doc/Download.txt
+	echo "Dependencies:" 						>> Doc/Download.txt
+	echo "" 								>> Doc/Download.txt
 	echo "(start code)" 							>> Doc/Download.txt
+	echo "readelf -d archicheck | grep 'NEEDED'" 				>> Doc/Download.txt
+	echo "" 								>> Doc/Download.txt
 	readelf -d Linux_amd64_release/archicheck | grep 'NEEDED'		>> Doc/Download.txt
 	echo "(end)" 								>> Doc/Download.txt
 	echo "" 								>> Doc/Download.txt
-
+	
 build Obj/archicheck:
 	echo
 	echo Make debug build
@@ -35,8 +40,6 @@ build_release:
 	echo Make release build
 	gnat make -Xmode=release -s -Parchicheck.gpr
 	# -s : recompile if compiler switches have changed
-
-release: clean build_release check
 
 check: Obj/archicheck
 	# depend on the exe, may be either build or build_release, test have to pass with both
@@ -58,7 +61,7 @@ dashboard: build
 	lcov -q --remove Obj/tests.info -o Obj/tests.info "/usr/*" "*/Obj/b__archicheck-main.adb"
 	genhtml -q Obj/tests.info -o Doc/lcov -t "ArchiCheck tests coverage" -p "/home/lionel/Proj/ArchiCheck"
 
-doc: check dashboard
+doc: dashboard
 	echo
 	echo Make Doc
 	> Doc/Cmd_Line.txt
@@ -78,11 +81,11 @@ doc: check dashboard
 	echo "About: Archicheck current version"	>> Doc/Cmd_Line.txt
 	echo ""						>> Doc/Cmd_Line.txt
 	echo "(start code)"				>> Doc/Cmd_Line.txt
-	echo "> archicheck -v" 				>> Doc/Cmd_Line.txt
+	echo "> archicheck --version"			>> Doc/Cmd_Line.txt
 	echo "(end)"					>> Doc/Cmd_Line.txt
 	echo ""						>> Doc/Cmd_Line.txt
 	echo "(start code)"				>> Doc/Cmd_Line.txt
-	Obj/archicheck -v 				>> Doc/Cmd_Line.txt
+	Obj/archicheck --version			>> Doc/Cmd_Line.txt
 	echo "(end)"					>> Doc/Cmd_Line.txt
 
 	naturaldocs -q -i Doc -i Src -i Tests 				\
@@ -99,5 +102,6 @@ clean:
 	echo
 	echo Make clean:
 	gnat clean -q -Parchicheck.gpr
-	rm  -rf Obj/* Doc/Generated/*
+	rm  -rf Obj/* Doc/Generated/* Doc/lcov/*
 	$(MAKE) --directory=Tests clean
+

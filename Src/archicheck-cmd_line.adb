@@ -6,7 +6,6 @@
 -- Public License Versions 3, refer to the COPYING file.
 -- -----------------------------------------------------------------------------
 
-
 -- Package: Archicheck.Cmd_Line body
 
 with Ada.Command_Line;
@@ -14,6 +13,7 @@ with Ada.Directories;
 with Ada.Strings.Unbounded;
 with Archicheck.IO;
 with Archicheck.Settings;
+with Archicheck.Sources;
 
 package body Archicheck.Cmd_Line is
 
@@ -65,8 +65,8 @@ package body Archicheck.Cmd_Line is
                                       others    => True));
                      while More_Entries (Search) loop
                         Get_Next_Entry (Search, Directory_Entry);
-                        Archicheck.Source_Lists.Append
-                          (Settings.Source_List,
+                        Archicheck.Sources.Source_Lists.Append
+                          (Sources.Source_List,
                            (Name     => To_Unbounded_String
                                 (Ada.Directories.Full_Name (Directory_Entry)),
                             Time_Tag => Modification_Time (Directory_Entry)));
@@ -90,11 +90,11 @@ package body Archicheck.Cmd_Line is
 
    end Process_Directory_Option;
 
-
+   -- Procedure: Options_Coherency_Tests
    -- -------------------------------------------------------------------------
-   -- Procedure Options_Coherency_Tests:
    -- This procedure checks various pathologic situations, for example an option
    -- implying source files, but no -I option is given, or no sourc files found.
+   -- -------------------------------------------------------------------------
    procedure Options_Coherency_Tests (Line_OK : in out Boolean) is
       use Archicheck.IO;
 
@@ -102,39 +102,38 @@ package body Archicheck.Cmd_Line is
       -- Put_Error ("Settings.Src_Needed  : " & Boolean'Image (Settings.Src_Needed));
       -- Put_Error ("Rules_File_Needed : " & Boolean'Image (Settings.Rules_File_Needed));
       -- Put_Error ("Src List is empty : "
-      -- & Boolean'Image (Source_Lists.Is_Empty (Settings.Source_List)));
+      -- & Boolean'Image (Source_Lists.Is_Empty (Sources.Source_List)));
 
       -- first, let's eliminate the normal situation :
       -- there is a rules file, and there are sources to analyze
-      if Settings.Rules_File_Name = "" or Settings.Source_List.Is_Empty then
+      if Settings.Rules_File_Name = "" or Sources.Source_List.Is_Empty then
 
          -- Note that those tests are not all mutually exclusive. More specific
          -- case are tested first, to let more general messages at the end.
 
-         if Settings.Rules_File_Name = "" and Settings.List_Components then
-            Put_Error ("Cannot list components, no rules file given", With_Help => True);
+         if Settings.Rules_File_Name = "" and Settings.List_Rules then
+            Put_Error ("No rules file given", With_Help => True);
             Line_OK := False;
 
-         elsif Settings.Source_List.Is_Empty and Settings.List_Dependencies then
+         elsif not Sources.Source_List.Is_Empty and not Settings.Src_Needed then
+            Put_Error ("Nothing to do with those sources", With_Help => True);
+            Line_OK := False;
+
+         elsif Sources.Source_List.Is_Empty and Settings.List_Dependencies then
             Put_Error ("Cannot list dependencies, no sources found", With_Help => True);
             Line_OK := False;
 
-         elsif Settings.Source_List.Is_Empty and Settings.List_Files and Src_Dir_Given then
+         elsif Sources.Source_List.Is_Empty and Settings.List_Files and Src_Dir_Given then
             Put_Error ("Cannot list files, no sources found to analyze");
             Line_OK := False;
 
-         elsif Settings.Source_List.Is_Empty and Src_Dir_Given then
+         elsif Sources.Source_List.Is_Empty and Src_Dir_Given then
             Put_Error ("No src found in those directories", With_Help => True);
-            Line_OK := False;
-
-         elsif not Settings.Source_List.Is_Empty and not Settings.Src_Needed then
-            Put_Error ("Nothing to do with those sources", With_Help => True);
             Line_OK := False;
 
          elsif Settings.Rules_File_Name /= "" and not Settings.Rules_File_Needed then
             Put_Error ("Nothing to do with this rules file", With_Help => True);
             Line_OK := False;
-
 
          end if;
 
@@ -170,8 +169,8 @@ package body Archicheck.Cmd_Line is
                Settings.List_Dependencies := True;
                Arg_Counter := Arg_Counter + 1;
 
-            elsif Opt = "-lc" or Opt = "--list_components" then
-               Settings.List_Components := True;
+            elsif Opt = "-lr" or Opt = "--list_rules" then
+               Settings.List_Rules := True;
                Arg_Counter := Arg_Counter + 1;
 
             elsif Opt = "--version" then
@@ -188,6 +187,11 @@ package body Archicheck.Cmd_Line is
 
             elsif Opt = "-v" or Opt = "--verbose" then
                Settings.Verbose_Mode := True;
+               Arg_Counter := Arg_Counter + 1;
+
+            elsif Opt = "-d" then
+               -- undocumented option
+               Settings.Debug_Mode := True;
                Arg_Counter := Arg_Counter + 1;
 
                -- elsif Arg_Counter = Ada.Command_Line.Argument_Count then

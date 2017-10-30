@@ -8,16 +8,18 @@
 
 -- Package: Archicheck.Settings specification
 
-package Archicheck.Settings is
+private package Archicheck.Settings is
 
    ArchiCheck_Version : constant String := "0.2";
 
-   Source_List       : Archicheck.Source_Lists.List := Archicheck.Source_Lists.Empty_List;
    List_Files        : Boolean := False;
    List_Dependencies : Boolean := False;
-   List_Components   : Boolean := False;
+   List_Rules        : Boolean := False;
    Quiet_Mode        : Boolean := False;
    Verbose_Mode      : Boolean := False;
+
+   -- Undocumented option :
+   Debug_Mode : Boolean := False;
 
    -- -------------------------------------------------------------------------
    procedure Set_Rules_File_Name (Name : in String);

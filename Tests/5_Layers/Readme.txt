@@ -1,4 +1,4 @@
-File: Layer rules tests
+Test Suite: Layer rules tests
 
 Test 1:
 

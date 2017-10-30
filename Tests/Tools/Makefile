@@ -1,8 +1,113 @@
-all: create_pkg
+all: create_pkg testrec check_suite check_test run_test check_clean
 
 create_pkg:
-	@ gnat make -q -Pcreate_pkg.gpr
+	gnat make -q -Pcreate_pkg.gpr
+
+testrec:
+	gnat make -q -Ptestrec.gpr
+
+check_suite: ./testrec
+	./testrec clean
+	./testrec state > state.ref
+
+	@ # Test Suite creation :
+	./testrec cmt "Before any Suite or test creation, comments should start in column 0"
+	./testrec create Suite_1
+	./testrec cmt "After Create, comments should start in column 4"
+	./testrec cmt "This is an empty suite..."
+	./testrec state > state.1
+	test ! `sdiff -sB state.ref state.1 > diff.1`
+	sdiff -sB diff.1 expected.1
+
+	@ # Another Test Suite creation :
+	./testrec state > state.ref
+	./testrec create Suite_2
+	./testrec state > state.2
+	test ! `sdiff -sB state.ref state.2 > diff.2`
+	sdiff -sB diff.2 expected.2
+
+
+check_test: ./testrec
+	./testrec start "assert test"
+	./testrec cmt "Simple assertion test..."
+	./testrec state > state.3
+	sdiff -sB state.3 expected.3
+
+	./testrec state > state.ref
+	echo x > file1
+	echo y > file2
+	./testrec assert false /usr/bin/diff "file1 file2" > /dev/null
+	./testrec state > state.4
+	test ! `sdiff -sB state.ref state.4 > diff.4`
+	sdiff -sB diff.4 expected.4
+
+	./testrec state > state.ref
+	./testrec end
+	./testrec state > state.5
+	test ! `sdiff -sB state.ref state.5 > diff.5`
+	sdiff -sB diff.5 expected.5
+
+	./testrec start "another test"
+	./testrec cmt "More assertions OK and NOK..."
+	./testrec state > state.6
+	sdiff -sB state.6 expected.6
+
+	# Two assert OK
+	./testrec state > state.ref
+	./testrec assert false /usr/bin/diff "file1 file2" > /dev/null
+	./testrec assert true  /usr/bin/diff "file1 file1"
+	./testrec state > state.7
+	test ! `sdiff -sB state.ref state.7 > diff.7`
+	sdiff -sB diff.7 expected.7
+
+	# One assert failed
+	./testrec state > state.ref
+	test ! `./testrec assert true /usr/bin/diff "file1 file2" > /dev/null`
+	./testrec state > state.8
+	test ! `sdiff -sB state.ref state.8 > diff.8`
+	sdiff -sB diff.8 expected.8
+
+	./testrec state > state.ref
+	./testrec end
+	./testrec state > state.9
+	test ! `sdiff -sB state.ref state.9 > diff.9`
+	sdiff -sB diff.9 expected.9
+
+run_test: ./testrec
+	./testrec clean
+	./testrec create "run test suite"
+
+	./testrec state > state.ref
+	./testrec run "diff return false test" false /usr/bin/diff "file1 file2" > /dev/null
+	./testrec state > state.10
+	test ! `sdiff -sB state.ref state.10 > diff.10`
+	sdiff -sB diff.10 expected.10
+
+	./testrec state > state.ref
+	./testrec run "diff return true test" true /usr/bin/diff "file1 file1" > /dev/null
+	./testrec state > state.11
+	test ! `sdiff -sB state.ref state.11 > diff.11`
+	sdiff -sB diff.11 expected.11
+
+
+check_clean: ./testrec
+	rm .testrec
+	./testrec state > state.ref
+
+	./testrec create Suite_X
+	./testrec create Suite_Y
+	./testrec start Test_Z
+	./testrec assert true  /bin/ls "-lt" > /dev/null
+	./testrec assert false cmd ""
+	./testrec end
+
+	./testrec clean
+	./testrec state > state.12
+	sdiff -sB state.ref state.12
+
 
 .PHONY : clean
 clean:
 	gnat clean -Pcreate_pkg.gpr
+	rm .testrec state.? state.?? testrec.txt diff.? diff.?? file? state.ref
+

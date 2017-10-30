@@ -1,15 +1,17 @@
 -- -----------------------------------------------------------------------------
--- ArchiCheck, the software architecture compliance verifier
--- Copyright (C) 2005, 2006, 2009 - Lionel Draghi
+-- Testrec, the Makefile test utility
+-- Copyright (C) 2017 - Lionel Draghi
 -- This program is free software;
 -- you can redistribute it and/or modify it under the terms of the GNU General
 -- Public License Versions 3, refer to the COPYING file.
 -- -----------------------------------------------------------------------------
 
--- Package: Archicheck.Source_Lists_IO specification
+private package Testrec.Settings is
 
-private package Archicheck.Source_Lists_IO is
+   Verbose : Boolean := False;
+   Quiet   : Boolean := False;
 
-   procedure Dump_Sources (Sources : in Source_Lists.List);
+   Log_File_Name   : constant String := "testrec.txt";
+   State_File_Name : constant String := ".testrec";
 
-end Archicheck.Source_Lists_IO;
+end Testrec.Settings;

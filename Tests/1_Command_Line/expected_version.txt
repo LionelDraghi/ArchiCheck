@@ -1,2 +1,0 @@
-ArchiCheck version 0.2
-

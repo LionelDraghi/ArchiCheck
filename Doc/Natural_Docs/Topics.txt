@@ -81,13 +81,6 @@ Format: 1.51
 # topics [at] naturaldocs [dot] org.
 
 
-Topic Type: Limitation
-
-   Plural: Limitations
-   Index: Yes
-   Scope: Always global
-
-
 Topic Type: Test Suite
 
    Plural: Test Suites
@@ -107,3 +100,20 @@ Topic Type: Test
 
    Keywords:
       test, tests
+
+
+Topic Type: Limitation
+
+   Plural: Limitations
+   Index: Yes
+   Scope: Always global
+
+
+Topic Type: Requirement
+
+   Plural: Requirements
+   Index: Yes
+   Scope: Always global
+
+   Keywords:
+      requirement, requirements

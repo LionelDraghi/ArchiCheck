@@ -9,7 +9,9 @@ Rules file:
 -       Implement globbing characters, for example _only *.Porting_Kit can use X_
 -       Is it useful to have a semantic difference between _only Porting_Kit may depends on C_Files_ and _Porting_Kit is a layer over C_Files_ ?
 -       Is it useful to have a _may_ semantics : _GLU may depends on GL_ ?
-
+-       Processing Import pragma as a dependency. e.g. 
+        > pragma Import (C, Get_File_Names_Case_Sensitive,
+        >                "__gnat_get_file_names_case_sensitive");   
 
 Development environment:
 -       Implement a darcs connected version id in the source and helper
@@ -28,9 +30,12 @@ Features:
 -       Use <gnu error messages format at https://www.gnu.org/prep/standards/html_node/Errors.html> ( _sourcefile:lineno: message_ ) when identifying a rule that breaks
 
 Documentation:
--       Auto add -help output to the doc thanks to Makefile
 -       Restructure the home page, to have a short intro and a "quick run" section that summarize "Installing' and "Getting started", and split the rest in other text files.
 -       Complete the 2004 slides! :-)
+-       Complete the link between NaturalDocs and Tests result, by adding a Result keyword 
+
+Done:
+-       Auto add -help output to the doc thanks to Makefile
 
  
 

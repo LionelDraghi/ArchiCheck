@@ -46,8 +46,7 @@ begin
 
    Analysis : while not End_Of_File (Rules_File) loop
       declare
-         Line : constant String
-           := Trim (Get_Line (Rules_File), Side => Both);
+         Line : constant String := Trim (Get_Line (Rules_File), Side => Both);
       begin
          -- Put_Line ("Line : >" & Line & "<"); --**
          if Is_A_Comment (Line) then

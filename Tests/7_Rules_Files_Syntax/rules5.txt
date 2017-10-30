@@ -1,0 +1,3 @@
+App contains Main;
+GUI contains Gtk, Glib and Pango.
+

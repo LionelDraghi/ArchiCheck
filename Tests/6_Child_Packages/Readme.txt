@@ -1,4 +1,4 @@
-File: Child packages tests
+Test Suite: Child packages tests
 
 The tests hereafter are similar to those in <Layer rules tests>, except that child packages allows to simplify rules file.
 

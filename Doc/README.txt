@@ -31,7 +31,7 @@ About: Installing
 
 Portability:
 Note that the Ada should be pretty platform independant, but I tested it only on my Linux/Intel platform.
-Makefile are clearly not protable, and probably need heavy refactoring to run on non Unix like system.
+Makefile are clearly not portable, and probably need heavy refactoring to run on non Unix like system.
 
 Downloading:
 If your're an (happy) darcs user :
@@ -41,15 +41,15 @@ An Archicheck directory will be created.
 
 Otherwise, use the _download .zip_ button on the right of the screen.   
 
-Building :
+Building:
 To build ArchiCheck and the tests, just type 
 > make 
 in the ArchiCheck root directory.
 
 Needed external software : libopentoken, and gnat gcc Ada compiler. 
+
 On Debian Linux family :
 > apt install libopentoken6-dev gnat make 
-
 archicheck exe will in the Obj directory.
 
 To update this documentation:
@@ -62,41 +62,32 @@ On Debian Linux family :
 
 To contribute: 
 The easiest way to contribute (at this stage) is to use darcs, and to submit darcs patches, whatever is changed or added in the code, tests, text file, etc.
+Anyway, ideas or feedback are welcome <here at lionel.draghi@free.fr>.
 
 The shortest tuto: 
 > darcs clone --lazy https://hub.darcs.net/LioD/ArchiCheck  # should be already done
-hack code / tests / doc!
+*hack the code / tests and doc!*
 > darcs record -a -m "what my patch does"
 > darcs send -o patch_file
-send the generated patch_file <to ArchiCheck maintener at lionel.draghi@free.fr>
+send the generated patch_file <to ArchiCheck maintainer at lionel.draghi@free.fr>
 
 More on working with darcs:
 Getting started with darcs : <http://darcs.net/QuickStart>.
 
-Any idea or feedback is also welcome <here at lionel.draghi@free.fr>.
-
-About: Status Quo:
+About: Status Quo
 Archicheck is a mockup, with only few functionnality (but essential one), and not really tested on real, big software.
  
 It currently process only Ada sources, but is designed to accept other languages, and multi-languages projet.
-
 (This objective resulted for exemple in the OpenToken package adoption).
-
 
 I stopped all software developpement related activities in december 2005, just after having kind of announced my tool on comp.lang.ada, <in this thread at http://groups.google.com/group/comp.lang.ada/browse_thread/thread/4a195a443fce793e/41bb2cb527464bab?q=comp.lang.ada+example+of+layered+software#41bb2cb527464bab>.
 
-
 Since then, I just updated the various software involved (gnat, NaturalDocs, OpenToken, etc.), added licence (GPL) and a README.
-
 I also commented out my tentative to use OpenToken for the rules file analysis (OpenToken is still used Ada sources analysis). 
-
 (Current implementation is in the Analyze_Rules separate procedure, OpenToken version is in the Analyze_Rules_File.* separate procedures). 
 
 As I was not able to complete this when I was daily involved in programming, I probably won't do it now without help!
-
-
 More generally speaking, I won't be that much available for extending this tool, but I'll try to support anyone interested in. 
-
 
 About: About
 
@@ -113,13 +104,13 @@ Ada:
 ArchiCheck is proudly written in Ada.
 <http://getadanow.com>
 
-
 Special thanks to:
 - <Ludovic and all the Ada in Debian team at https://people.debian.org/~lbrenta/debian-ada-policy.html#Introduction>. 
 - <darcs at http://darcs.net/>
 - <NaturalDocs at http://www.naturaldocs.org/>
 - <OpenToken at http://stephe-leake.org/ada/opentoken.html>
 - <GNAT & GPS at http://libre.adacore.com/tools/gps/>
+- <Rolf Ebert & Gautier de Montmollin for IniFile at https://sourceforge.net/projects/ini-files/>
 
 
 

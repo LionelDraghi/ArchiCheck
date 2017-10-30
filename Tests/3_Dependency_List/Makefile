@@ -1,11 +1,13 @@
 all: check
 
 CREATE_PKG=../Tools/create_pkg
+TR=../Tools/Obj/testrec
 
 .PHONY : clean
 
 check: ../../Obj/archicheck
-	@ echo dependency list test
+	${TR} create "Dependency list test"
+
 	@ ${CREATE_PKG} A spec -in dir1 -with B
 	@ ${CREATE_PKG} A body -in dir1 -with C
 	@ ${CREATE_PKG} B body -in dir1
@@ -18,9 +20,11 @@ check: ../../Obj/archicheck
 	@ echo "end C . D ;"		>> dir1/c-d.ads
 
 	@ ../../Obj/archicheck -I dir1 --list_dependencies | sort > dependency_list
-	@ diff expected_dependency_list dependency_list
-	@ echo OK
+	${TR} run "Dependency list test" true /usr/bin/sdiff "-s expected_dependency_list dependency_list"
+
+	${TR} end
 
 clean:
-	@ ${RM} -rf dependency_list dir1
+	${RM} -rf dependency_list dir1 
+	${TR} clean
 

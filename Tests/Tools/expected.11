@@ -1,0 +1,5 @@
+   Successful_Test_Count= 1				      |	   Successful_Test_Count= 2
+   Successful_Assertion_Count= 1			      |	   Successful_Assertion_Count= 2
+   Successful_Test_Count= 1				      |	   Successful_Test_Count= 2
+   Successful_Assertion_Count= 1			      |	   Successful_Assertion_Count= 2
+   Current_Test_Name= diff return false test		      |	   Current_Test_Name= diff return true test

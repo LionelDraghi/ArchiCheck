@@ -1,0 +1,5 @@
+App contains Main
+GUI CONTAINS Gtk
+GUI coNTains Glib
+GUI Contains Pango
+

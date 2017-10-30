@@ -1,5 +1,6 @@
-File: --list_files option test
+Test Suite: --list_files option test
 
+Test 1:
 This test check the file list extraction from simple Ada sources.
 
 The command line is :

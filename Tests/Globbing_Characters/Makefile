@@ -1,11 +1,13 @@
 all: check
 
 CREATE_PKG=../Tools/create_pkg
+TR=../Tools/Obj/testrec
 
 .PHONY : clean
 
-check: ../../Obj/archicheck
+check: ../../Obj/archicheck test1 test2
 
+test1:
 	@ echo rules test
 	@ ${CREATE_PKG} P1 spec  -in dir1 -with P2
 	@ ${CREATE_PKG} P2 spec  -in dir1 -with P3 -with P4
@@ -22,6 +24,7 @@ check: ../../Obj/archicheck
 	@ sdiff -s expected_output.1 output.1
 	@ echo OK
 
+test2:
 	@ #---------------------------------------------------------------------
 	@ echo illegal use of Interfaces from Application_Layer
 	@ ${CREATE_PKG} P1 spec  -in dir1 -with P2 -with Interfaces.C
@@ -40,5 +43,6 @@ check: ../../Obj/archicheck
 	@ echo OK
 
 clean:
-	@ ${RM} -rf expected_output.* output.* rules.? dir? dir?? *.~
+	${RM} -rf expected_output.* output.* rules.? dir? dir?? *.~
+	${TR} clean
 

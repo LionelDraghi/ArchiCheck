@@ -1,11 +1,13 @@
 all: check
 
 CREATE_PKG=../Tools/create_pkg
+TR=../Tools/Obj/testrec
 
 .PHONY : clean
 
-check: ../../Obj/archicheck
+check: ../../Obj/archicheck test1 test2 test3 test4 
 
+test1:
 	@ #---------------------------------------------------------------------
 	@ echo rules OK test, no output expected
 	@ ${CREATE_PKG} GuI.P1 spec  -in dir1 -with GUI.P2
@@ -21,6 +23,7 @@ check: ../../Obj/archicheck
 	@ sdiff -s expected_output.1 output.1
 	@ echo OK
 
+test2:
 	@ #---------------------------------------------------------------------
 	@ echo reverse dependency test
 	@ ${CREATE_PKG} GUI.P1 spec  -in dir2 -with GUI.P2
@@ -38,6 +41,7 @@ check: ../../Obj/archicheck
 	@ sdiff -s expected_output.2 output.2
 	@ echo OK
 
+test3:
 	@ #---------------------------------------------------------------------
 	@ echo layer bridging test
 	@ ${CREATE_PKG} GUI.P1 spec  -in dir3 -with GUI.P2
@@ -51,6 +55,7 @@ check: ../../Obj/archicheck
 	@ sdiff -s expected_output.3 output.3
 	@ echo OK
 
+test4:
 	@ #---------------------------------------------------------------------
 	@ echo undescribed dependency test
 	@ ${CREATE_PKG} GUI.P1 spec  -in dir4 -with GUI.P2
@@ -65,5 +70,6 @@ check: ../../Obj/archicheck
 	@ echo OK
 
 clean:
-	@ ${RM} -rf expected_output.* output.* rules.? dir? dir??
+	${RM} -rf expected_output.* output.* rules.? dir? dir??  
+	${TR} clean
 

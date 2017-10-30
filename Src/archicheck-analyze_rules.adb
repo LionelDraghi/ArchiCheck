@@ -90,10 +90,10 @@ is
    -- -------------------------------------------------------------------------
    -- Function: Get_Component_Name
    function Get_Component_Name (From_Line : in String) return String is
-      First : Positive;     -- Index of first character in token --***
-      Last : Natural := 0;  -- Index of last character in token (also used
-                            -- incremented by 1 as the starting point for next
-                            -- search).
+      First : Positive;      -- Index of first character in token --***
+      Last  : Natural := 0;  -- Index of last character in token (also used
+                             -- incremented by 1 as the starting point for next
+                             -- search).
    begin
       Find_Token (Source => From_Line,
                   Set    => The_Delimiters,

@@ -35,7 +35,7 @@ package body Archicheck.Settings is
    -- -------------------------------------------------------------------------
    function Rules_File_Needed return Boolean is
    begin
-      return List_Components;
+      return List_Rules;
    end Rules_File_Needed;
 
 end Archicheck.Settings;

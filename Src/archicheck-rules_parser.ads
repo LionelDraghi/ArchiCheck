@@ -10,6 +10,6 @@
 
 private package Archicheck.Rules_Parser is
 
-   procedure Parse (File_Name : in String);
+   procedure Parse (File_Name  : in  String);
 
 end Archicheck.Rules_Parser;

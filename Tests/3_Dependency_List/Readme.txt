@@ -1,5 +1,6 @@
-File: --list_dependencies option test
+Test Suite: --list_dependencies option test
 
+Test 1:
 This test check the dependency list extraction from simple Ada sources.
 
 The command line is :

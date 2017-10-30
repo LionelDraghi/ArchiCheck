@@ -17,24 +17,27 @@ General form :
 Options :
    -lf | --list_files        : list sources files analyzed
    -ld | --list_dependencies : list identified dependencies in analyzed sources files
-   -lc | --list_components   : list components described in a rules file
-         --version           : archicheck version
+   -lr | --list_rules        : list rules in a rules file
+   NB : when one of the list options above is used, checks are NOT performed
    -q  | --quiet             : no message unless error. Warning are also ignored.
    -v  | --verbose
+         --version           : archicheck version
    -h  | --help              : this message
 
 Examples:
    archicheck rules.txt -I ./src
    archicheck -lf -I ./src
-   archicheck -lc rules.txt
+   archicheck -lr rules.txt
 
 (end)
 
 About: Archicheck current version
 
 (start code)
-> archicheck -v
+> archicheck --version
 (end)
 
 (start code)
+ArchiCheck version 0.2
+
 (end)

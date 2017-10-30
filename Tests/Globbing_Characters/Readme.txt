@@ -1,4 +1,4 @@
-File: Globbing Characters tests
+Test Suite: Globbing Characters tests
 
 Test 1:
 

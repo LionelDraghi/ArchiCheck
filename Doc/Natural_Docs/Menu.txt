@@ -20,7 +20,7 @@ Timestamp: Updated month day, year
 # These are indexes you deleted, so Natural Docs will not add them again
 # unless you remove them from this line.
 
-Don't Index: Variables, Types, Constants
+Don't Index: Constants, Variables, Types
 
 
 # --------------------------------------------------------------------------
@@ -49,60 +49,75 @@ Don't Index: Variables, Types, Constants
 
 File: ArchiChech Readme  (/home/lionel/Proj/Archicheck/Doc/README.txt)
 
-Group: Tests  {
-
-   File: Layer rules tests  (/home/lionel/Proj/Archicheck/Tests/5_Layers/Readme.txt)
-   File: Child packages tests  (/home/lionel/Proj/Archicheck/Tests/6_Child_Packages/Readme.txt)
-
-   Group: Query Function Tests  {
-
-      File: --list_components option tests  (/home/lionel/Proj/Archicheck/Tests/4_Component_List/Readme.txt)
-      File: --list_dependencies option test  (/home/lionel/Proj/Archicheck/Tests/3_Dependency_List/Readme.txt)
-      File: --list_files option test  (/home/lionel/Proj/Archicheck/Tests/2_Source_List/Readme.txt)
-      }  # Group: Query Function Tests
-
-   File: Rules file syntax  (/home/lionel/Proj/Archicheck/Tests/7_Rules_Files_Syntax/Readme.txt)
-   File: command line tests  (no auto-title, /home/lionel/Proj/Archicheck/Tests/1_Command_Line/Readme.txt)
-   File: Globbing Characters tests  (/home/lionel/Proj/Archicheck/Tests/Globbing_Characters/Readme.txt)
-   Link: Code coverage  (http://lionel.draghi.free.fr/Archicheck/lcov/index.html)
-   }  # Group: Tests
-
-Group: Documentation  {
-
-   Link: ArchiCheck overview  (http://lionel.draghi.free.fr/Archicheck/Archicheck_Overview.pdf)
-   File: Dashboard  (/home/lionel/Proj/Archicheck/Doc/Dashboard.txt)
-   File: TODO list  (/home/lionel/Proj/Archicheck/Doc/todo.txt)
-   File: Rules Syntax  (/home/lionel/Proj/Archicheck/Doc/Rules_Syntax.txt)
-   File: Archicheck command line  (/home/lionel/Proj/Archicheck/Doc/Cmd_Line.txt)
-   File: License  (/home/lionel/Proj/Archicheck/Doc/COPYING.txt)
-   }  # Group: Documentation
-
-File: Download  (/home/lionel/Proj/Archicheck/Doc/Download.txt)
-
 Group: Src  {
 
-   File: Archicheck body  (/home/lionel/Proj/Archicheck/Src/archicheck-io.adb)
    File: Archicheck specification  (/home/lionel/Proj/Archicheck/Src/archicheck.ads)
+   File: Archicheck.Main specification  (/home/lionel/Proj/Archicheck/Src/archicheck-main.ads)
+   File: Archicheck.Cmd_Line specification  (/home/lionel/Proj/Archicheck/Src/archicheck-cmd_line.ads)
+   File: Archicheck.IO specification  (/home/lionel/Proj/Archicheck/Src/archicheck-io.ads)
+   File: Archicheck.Settings specification  (/home/lionel/Proj/Archicheck/Src/archicheck-settings.ads)
+   File: Archicheck.Rules_Parser specification  (/home/lionel/Proj/Archicheck/Src/archicheck-rules_parser.ads)
    File: archicheck-analyze_rules.adb  (/home/lionel/Proj/Archicheck/Src/archicheck-analyze_rules.adb)
    File: Archicheck.Analyze_Rules specification  (/home/lionel/Proj/Archicheck/Src/archicheck-analyze_rules.ads)
    File: Archicheck.Analyze_Rules_File body  (/home/lionel/Proj/Archicheck/Src/archicheck-analyze_rules_file.adb)
    File: Archicheck.Analyze_Rules_File specification  (/home/lionel/Proj/Archicheck/Src/archicheck-analyze_rules_file.ads)
    File: Archicheck.Analyze_Rules_File.Analyze_Component_Declaration  (/home/lionel/Proj/Archicheck/Src/archicheck-analyze_rules_file-analyze_component_declaration.adb)
+   File: Archicheck.IO body  (/home/lionel/Proj/Archicheck/Src/archicheck-io.adb)
    File: Archicheck.Cmd_Line body  (/home/lionel/Proj/Archicheck/Src/archicheck-cmd_line.adb)
-   File: Archicheck.Cmd_Line specification  (/home/lionel/Proj/Archicheck/Src/archicheck-cmd_line.ads)
-   File: Archicheck.Get_Dependencies body  (/home/lionel/Proj/Archicheck/Src/archicheck-get_dependencies.adb)
-   File: Archicheck.Get_Dependencies specification  (/home/lionel/Proj/Archicheck/Src/archicheck-get_dependencies.ads)
-   File: Archicheck.IO specification  (/home/lionel/Proj/Archicheck/Src/archicheck-io.ads)
    File: Archicheck.Main body  (/home/lionel/Proj/Archicheck/Src/archicheck-main.adb)
-   File: Archicheck.Main specification  (/home/lionel/Proj/Archicheck/Src/archicheck-main.ads)
    File: Archicheck.Rules_Lexer specification  (/home/lionel/Proj/Archicheck/Src/backup/archicheck-rules_lexer.adb)
    File: Archicheck.Rules_Lexer specification  (/home/lionel/Proj/Archicheck/Src/backup/archicheck-rules_lexer.ads)
-   File: Archicheck.Rules_Parser specification  (/home/lionel/Proj/Archicheck/Src/archicheck-rules_parser.ads)
    File: Archicheck.Settings body  (/home/lionel/Proj/Archicheck/Src/archicheck-settings.adb)
-   File: Archicheck.Settings specification  (/home/lionel/Proj/Archicheck/Src/archicheck-settings.ads)
-   File: Archicheck.Source_Lists_IO body  (/home/lionel/Proj/Archicheck/Src/archicheck-source_lists_io.adb)
-   File: Archicheck.Source_Lists_IO specification  (/home/lionel/Proj/Archicheck/Src/archicheck-source_lists_io.ads)
+   File: Archicheck.Check_Layer_Rules body  (/home/lionel/Proj/Archicheck/Src/archicheck-check_layer_rules.adb)
+   File: Archicheck.Check_Layer_Rules specification  (/home/lionel/Proj/Archicheck/Src/archicheck-check_layer_rules.ads)
+   File: Archicheck.Sources specification  (/home/lionel/Proj/Archicheck/Src/archicheck-sources.ads)
+   File: Archicheck.Components body  (/home/lionel/Proj/Archicheck/Src/archicheck-components.adb)
+   File: Archicheck.Components specification  (/home/lionel/Proj/Archicheck/Src/archicheck-components.ads)
+   File: Archicheck.Dependencies body  (/home/lionel/Proj/Archicheck/Src/archicheck-dependencies.adb)
+   File: Archicheck.Dependencies specification  (/home/lionel/Proj/Archicheck/Src/archicheck-dependencies.ads)
+   File: Archicheck.Sources body  (/home/lionel/Proj/Archicheck/Src/archicheck-sources.adb)
    }  # Group: Src
+
+Group: Tools Src  {
+
+   File: Testrec  (/home/lionel/Proj/Archicheck/Tests/Tools/Src/testrec.ads)
+   File: Testrec.Main  (/home/lionel/Proj/Archicheck/Tests/Tools/Src/testrec-main.adb)
+   File: Testrec.Main specification  (/home/lionel/Proj/Archicheck/Tests/Tools/Src/testrec-main.ads)
+   }  # Group: Tools Src
+
+Group: Tests  {
+
+   File: Command line test  (/home/lionel/Proj/Archicheck/Tests/1_Command_Line/testrec.txt)
+   File: Layer rules tests  (/home/lionel/Proj/Archicheck/Tests/5_Layers/Readme.txt)
+   File: Child packages tests  (/home/lionel/Proj/Archicheck/Tests/6_Child_Packages/Readme.txt)
+
+   Group: Query Function Tests  {
+
+      File: --list_dependencies option test  (/home/lionel/Proj/Archicheck/Tests/3_Dependency_List/Readme.txt)
+      File: --list_files option test  (/home/lionel/Proj/Archicheck/Tests/2_Source_List/Readme.txt)
+      File: --list_rules option tests  (/home/lionel/Proj/Archicheck/Tests/4_Component_List/Readme.txt)
+      File: Component list test  (/home/lionel/Proj/Archicheck/Tests/4_Component_List/testrec.txt)
+      File: Dependency list test  (/home/lionel/Proj/Archicheck/Tests/3_Dependency_List/testrec.txt)
+      File: Sources list test  (/home/lionel/Proj/Archicheck/Tests/2_Source_List/testrec.txt)
+      }  # Group: Query Function Tests
+
+   File: Rules file syntax  (/home/lionel/Proj/Archicheck/Tests/7_Rules_Files_Syntax/Readme.txt)
+   File: Globbing Characters tests  (/home/lionel/Proj/Archicheck/Tests/Globbing_Characters/Readme.txt)
+   Link: Code coverage  (http://lionel.draghi.free.fr/Archicheck/lcov/index.html)
+   File: Layer test  (/home/lionel/Proj/Archicheck/Tests/5_Layers/testrec.txt)
+   }  # Group: Tests
+
+Group: Documentation  {
+
+   Link: ArchiCheck overview  (http://lionel.draghi.free.fr/Archicheck/Archicheck_Overview.pdf)
+   File: Archicheck command line  (/home/lionel/Proj/Archicheck/Doc/Cmd_Line.txt)
+   File: Rules Syntax  (/home/lionel/Proj/Archicheck/Doc/Rules_Syntax.txt)
+   File: Dashboard  (/home/lionel/Proj/Archicheck/Doc/Dashboard.txt)
+   File: TODO list  (/home/lionel/Proj/Archicheck/Doc/todo.txt)
+   File: License  (/home/lionel/Proj/Archicheck/Doc/COPYING.txt)
+   }  # Group: Documentation
+
+File: Download  (/home/lionel/Proj/Archicheck/Doc/Download.txt)
 
 Group: Index  {
 
