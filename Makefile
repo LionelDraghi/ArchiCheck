@@ -1,6 +1,6 @@
 .SILENT:
 
-all: clean build check doc
+all: build check doc
 
 release: clean build_release check
 	cp -p Obj/archicheck Linux_amd64_release/
