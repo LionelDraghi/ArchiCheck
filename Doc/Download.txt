@@ -8,7 +8,7 @@ Build:
 (start code)
 date -r archicheck --iso-8601=seconds
 
-2017-10-29T21:09:26+01:00
+2017-10-30T23:28:13+01:00
 (end)
 
 Dependencies:

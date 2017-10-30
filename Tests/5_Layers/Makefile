@@ -64,6 +64,6 @@ test4:
 	${TR} end
 
 clean:
-	${RM} -rf output.* dir? dir?? *.~
+	- ${RM} -rf output.* dir? dir?? *.~
 	${TR} clean
 

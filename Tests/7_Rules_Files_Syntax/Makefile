@@ -91,6 +91,6 @@ test5:
 	@ echo OK
 
 clean:
-	${RM} -rf lc?.txt 
+	- ${RM} -rf lc?.txt 
 	${TR} clean
 

@@ -204,5 +204,5 @@ test13:
   
 
 clean:
-	${RM} -rf dir? dir?? err*.txt expected_*.txt src.adb rules.txt version1.txt help?.txt expected_*.txt 
+	- ${RM} -rf dir? dir?? err*.txt expected_*.txt src.adb rules.txt version1.txt help?.txt expected_*.txt 
 	${TR} clean

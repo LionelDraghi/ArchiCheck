@@ -38,6 +38,6 @@ test4:
 	${TR} end
 
 clean:
-	${RM} -rf component_list.? 
+	- ${RM} -rf component_list.? 
 	${TR} clean
 

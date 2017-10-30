@@ -102,6 +102,6 @@ clean:
 	echo
 	echo Make clean:
 	gnat clean -q -Parchicheck.gpr
-	rm  -rf Obj/* Doc/Generated/* Doc/lcov/*
+	- ${RM} -rf Obj/* Doc/Generated/* Doc/lcov/*
 	$(MAKE) --directory=Tests clean
 

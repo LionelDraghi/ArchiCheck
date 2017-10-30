@@ -25,6 +25,6 @@ check: ../../Obj/archicheck
 	${TR} end
 
 clean:
-	${RM} -rf dependency_list dir1 
+	- ${RM} -rf dependency_list dir1 
 	${TR} clean
 

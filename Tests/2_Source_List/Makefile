@@ -28,6 +28,6 @@ check: ../../Obj/archicheck
 
 
 clean:
-	${RM} -rf expected_file_list file_list dir[123]
+	- ${RM} -rf expected_file_list file_list dir[123]
 	${TR} clean
 
