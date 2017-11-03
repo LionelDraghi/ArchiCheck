@@ -6,7 +6,17 @@
 -- Public License Versions 3, refer to the COPYING file.
 -- -----------------------------------------------------------------------------
 
+-- -----------------------------------------------------------------------------
 -- Package: Archicheck.Cmd_Line specification
+--
+-- Purpose:
+--
+-- Effects:
+--
+-- Limitations:
+--
+-- Performance:
+-- -----------------------------------------------------------------------------
 
 private package Archicheck.Cmd_Line is
 

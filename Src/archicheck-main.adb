@@ -6,7 +6,15 @@
 -- Public License Versions 3, refer to the COPYING file.
 -- -----------------------------------------------------------------------------
 
+-- -----------------------------------------------------------------------------
 -- Procedure: Archicheck.Main body
+--
+-- Implementation Notes:
+--
+-- Portability Issues:
+--
+-- Anticipated Changes:
+-- -----------------------------------------------------------------------------
 
 with Ada.Command_Line;
 with Archicheck.Cmd_Line;
@@ -28,12 +36,12 @@ begin
       -- 1 - wanna see the sources? (Source_List is build during command_line analysis)
       -- -----------------------------------------------------------------------
       if Settings.List_Files then
-         Sources.Dump_Sources (Sources.Source_List);
+         Sources.Dump_Sources (Sources.Get_List);
       end if;
 
       -- 2 - let's extract dependencies from sources
       -- -----------------------------------------------------------------------
-      for Src of Sources.Source_List loop
+      for Src of Sources.Get_List loop
          Dependencies.Add_Dependencies (From_Source => Src.Name);
       end loop;
 

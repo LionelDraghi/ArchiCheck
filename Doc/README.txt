@@ -1,6 +1,6 @@
-File: ArchiChech Readme
+File: START HERE
 
-About: Archicheck Overview
+About: Archicheck Overview & Quick Start
 
 Archicheck is a simple tool to describe and enforce architecture/design decision that are not easily checked by languages and compilers.
 
@@ -33,13 +33,13 @@ Portability:
 Note that the Ada should be pretty platform independant, but I tested it only on my Linux/Intel platform.
 Makefile are clearly not portable, and probably need heavy refactoring to run on non Unix like system.
 
-Downloading:
+Downloading sources:
 If your're an (happy) darcs user :
 > darcs clone --lazy https://hub.darcs.net/LioD/ArchiCheck
 
 An Archicheck directory will be created.
 
-Otherwise, use the _download .zip_ button on the right of the screen.   
+Otherwise, <go there at https://hub.darcs.net/LioD/ArchiCheck/dist> to download a zip archive..   
 
 Building:
 To build ArchiCheck and the tests, just type 
@@ -50,13 +50,10 @@ Needed external software : libopentoken, and gnat gcc Ada compiler.
 
 On Debian Linux family :
 > apt install libopentoken6-dev gnat make 
-archicheck exe will in the Obj directory.
+archicheck exe will be in the Obj directory.
 
-To update this documentation:
-> make doc
-
+And to build this documentation / web pages:
 Needed external software : ploticus, NaturalDocs, sloccount and lcov. 
-
 On Debian Linux family :
 > apt install ploticus naturaldocs sloccount lcov
 
@@ -101,8 +98,7 @@ Author & contact:
 ArchiCheck was created by Lionel Draghi (<email at mailto:lionel.draghi@free.fr>).
 
 Ada:
-ArchiCheck is proudly written in Ada.
-<http://getadanow.com>
+ArchiCheck is proudly written in Ada. <http://getadanow.com/>
 
 Special thanks to:
 - <Ludovic and all the Ada in Debian team at https://people.debian.org/~lbrenta/debian-ada-policy.html#Introduction>. 
@@ -112,5 +108,5 @@ Special thanks to:
 - <GNAT & GPS at http://libre.adacore.com/tools/gps/>
 - <Rolf Ebert & Gautier de Montmollin for IniFile at https://sourceforge.net/projects/ini-files/>
 
-
+<https://www.openhub.net/stacks/147583/widgets/stack_normal?icon_width=24&icon_height=24&title=Ada%20dev%20stack&width=158&projects_shown=10&noclear=true'>
 

@@ -6,10 +6,28 @@
 -- Public License Versions 3, refer to the COPYING file.
 -- -----------------------------------------------------------------------------
 
+-- -----------------------------------------------------------------------------
 -- Package: Archicheck.Rules_Parser specification
+--
+-- Purpose:
+--   This package encapsulate the rules parser and the rules file grammar.
+--   Short description, but big OpenToken mess inside.
+--
+-- Effects:
+--
+-- Performance:
+-- -----------------------------------------------------------------------------
 
 private package Archicheck.Rules_Parser is
 
+   -- -------------------------------------------------------------------------
+   -- Procedure: Parse
+   --
+   -- Purpose:
+   --    This procedure open and analyze the _File_Name_ rules file.
+   --    Components description are stored in the Components package,
+   --    Layers description in  Layers package, and so on.
+   -- -------------------------------------------------------------------------
    procedure Parse (File_Name  : in  String);
 
 end Archicheck.Rules_Parser;

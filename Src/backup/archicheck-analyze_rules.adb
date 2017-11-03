@@ -6,8 +6,10 @@
 -- Public License Versions 3, refer to the COPYING file.
 -- -----------------------------------------------------------------------------
 
+-- -----------------------------------------------------------------------------
 -- Procedure: Archicheck.Analyze_Rules body
 -- This first version of the analyser is based on predefined Ada string packages.
+-- -----------------------------------------------------------------------------
 
 with Ada.Strings.Fixed;
 with Ada.Strings.Maps.Constants;

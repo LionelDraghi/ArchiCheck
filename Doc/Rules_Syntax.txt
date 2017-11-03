@@ -1,8 +1,12 @@
 File: Rules Syntax
 
-Rules exemple :
+(start code)
+Presentation_Layer contains Pkg_1
+Presentation_Layer contains Pkg_1;
+Presentation_Layer contains Pkg_1.
 
-> Layer_A contains P1, P2, P5
+Presentation_Layer contains Pkg_1, Pkg_2, Pkg_3
+Persistence_Layer  contains Pkg_4, Pkg_5 and Pkg_6.
 
-> GUI is a layer over DB
-
+Presentation_Layer is a layer over Persistence_Layer
+(end)

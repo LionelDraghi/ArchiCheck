@@ -18,7 +18,6 @@ Options :
    -lf | --list_files        : list sources files analyzed
    -ld | --list_dependencies : list identified dependencies in analyzed sources files
    -lr | --list_rules        : list rules in a rules file
-   NB : when one of the list options above is used, checks are NOT performed
    -q  | --quiet             : no message unless error. Warning are also ignored.
    -v  | --verbose
          --version           : archicheck version
@@ -41,3 +40,4 @@ About: Archicheck current version
 ArchiCheck version 0.2
 
 (end)
+

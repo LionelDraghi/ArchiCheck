@@ -1,3 +1,8 @@
+
+
+
+
+
 App contains Main -- final comment
 
 -- comment
@@ -6,9 +11,6 @@ App contains Main -- final comment
 			GUI       contains 	Gtk
 			
 GUI contains Glib
-
--- Not a comment, should be taken into account :
-- GUI contains Pango
 
 -- comment, should not be taken into account :
 -- DB contains DB.Query  *********************

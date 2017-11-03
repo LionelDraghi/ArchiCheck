@@ -2,12 +2,12 @@ all: check
 
 .PHONY : clean
 
-TR=../Tools/Obj/testrec
+TR=../Tools/testrec
 
-check: ../../Obj/archicheck test1 test2 test3 test4
+check: ../../Obj/archicheck test1 test2 test3 test4 test5	
 
 test1:
-	${TR} create "Component list test"
+	${TR} create "Component list suite"
 
 	@ #---------------------------------------------------------------------
 	@ ../../Obj/archicheck --list_rules rules.1 > component_list.1
@@ -34,6 +34,14 @@ test4:
 	${TR} start "Comments and case insensitivity test" 
 	## pas encore assez robuste pour ce test!!      @ ../../Obj/archicheck --list_rules rules.4 > component_list.4
 	## pas encore assez robuste pour ce test!!      ${TR} run "Comments and case insensitivity test" true /usr/bin/sdiff "-s expected_component_list.3 component_list.4"
+
+	${TR} end
+
+test5:
+	@ #---------------------------------------------------------------------
+	${TR} start "Almost natural english rules!" 
+	## pas encore assez robuste pour ce test!!	@ ../../Obj/archicheck -lr rules.5 > component_list.5
+	## pas encore assez robuste pour ce test!!	${TR} run "Rules using syntaxic sugar, such as comma, semicolon, and, dot" true /usr/bin/sdiff "-s expected_component_list.5 component_list.5"
 
 	${TR} end
 

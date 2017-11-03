@@ -8,8 +8,8 @@
 
 -- -----------------------------------------------------------------------------
 -- Package: Archicheck.Dependencies body
+--
 -- Implementation Notes:
---   -
 --
 -- Portability Issues:
 --   None
@@ -19,7 +19,6 @@
 --   - Multi language pattern TBD
 --
 -- -----------------------------------------------------------------------------
-
 
 with Archicheck.IO;
 with Archicheck.Settings;
@@ -31,17 +30,13 @@ with Ada_Lexer; use Ada_Lexer;
 
 package body Archicheck.Dependencies is
 
-
    -- --------------------------------------------------------------------------
    Dependency_List : Dependency_Lists.List := Dependency_Lists.Empty_List;
 
    -- --------------------------------------------------------------------------
-   -- Function: Get
+   -- Function: Get_List
    -- --------------------------------------------------------------------------
-   function Get return Dependency_Lists.List is
-   begin
-      return Dependency_List;
-   end Get;
+   function Get_List return Dependency_Lists.List is (Dependency_List);
 
    -- --------------------------------------------------------------------------
    -- Procedure: Add_Dependencies
@@ -65,6 +60,8 @@ package body Archicheck.Dependencies is
       File : Ada.Text_IO.File_Type;
       Tmp  : Dependency_Lists.List := Dependency_Lists.Empty_List;
       use Dependency_Lists;
+      -- With_Found,
+      Unit_Type_Identified : Boolean := False;
 
       -- -----------------------------------------------------------------------
       -- Procedure: Get_Unit_Name
@@ -81,9 +78,7 @@ package body Archicheck.Dependencies is
             else
                exit;
             end if;
-
          end loop;
-
          return To_String (Name);
       end Get_Unit_Name;
 
@@ -103,7 +98,7 @@ package body Archicheck.Dependencies is
 
    begin
       -- New_Debug_Line;
-      Put_Debug_Line ("Looking for dependencies in " & To_String (From_Source));
+      IO.Put_Line ("Looking for dependencies in " & To_String (From_Source) & " :", Only_When_Verbose => True);
 
       Ada.Text_IO.Open (File => File,
                         Mode => Ada.Text_IO.In_File,
@@ -119,23 +114,28 @@ package body Archicheck.Dependencies is
             -- Limitation: only the fist Ada unit per source file is taken into account
             -- Limitation: only packages are taken into account
 
-            Find_Next;
             case Token_ID is
             when With_T =>
                -- processing a "with"
-               Find_Next;
-               declare
-                  Unit : constant String := Get_Unit_Name;
-               begin
-                  Put_Debug ("with on " &  Unit & " ");
-                  Append (Tmp, (Unit_Name       => Null_Unbounded_String,
-                                Depends_On_Unit => To_Unbounded_String (Unit),
-                                Specification   => False));
-               end;
+               Unit_List : loop
+                  Find_Next;
+                  declare
+                     Unit : constant String := Get_Unit_Name;
+                  begin
+                     IO.Put_Line ("   - " & Unit, Only_When_Verbose => True);
+                     Append (Tmp, (Unit_Name       => Null_Unbounded_String,
+                                   Depends_On_Unit => To_Unbounded_String (Unit),
+                                   Specification   => False));
+                     -- With_Found := True;
+                     exit Unit_List when Token_ID /= Comma_T;
+                     -- otherwise, loop to continue in the list of comma separated withed unit
+                  end;
+               end loop Unit_List;
 
             when Package_T =>
                -- processing the package declaration
                Find_Next;
+               Put_Debug_Line ("5 :" &  Ada_Token'Image (Token_ID));
                if Is_Empty (Tmp) then
                   -- we reach the package name without meeting any "with"
                   Put_Debug ("No with ");
@@ -146,19 +146,22 @@ package body Archicheck.Dependencies is
                   declare
                      Unit : constant String := Get_Unit_Name;
                   begin
-                     Put_Debug ("in package body " & Unit, Prefix => "");
+                     Put_Debug_Line ("in package body " & Unit, Prefix => "");
                      Set_Unit_Name (Tmp, Unit, Specification => False);
+                     Unit_Type_Identified := True;
                   end;
 
                else
                   declare
                      Unit : constant String := Get_Unit_Name;
                   begin
-                     Put_Debug ("in package spec " & Unit, Prefix => "");
+                     Put_Debug_Line ("in package spec " & Unit, Prefix => "");
                      Set_Unit_Name (Tmp, Unit, Specification => True);
+                     Unit_Type_Identified := True;
                   end;
 
                end if;
+
                for D of Tmp loop
                   Dependency_List.Prepend (D);
                -- let's reset the tmp list. This should be usefull only when processing
@@ -167,10 +170,13 @@ package body Archicheck.Dependencies is
                end loop;
                Clear (Tmp);
 
-               --** optimization that prevent multiple pkg per file processing
-               --** exit Source_Analysis;
+               exit Source_Analysis;
+               -- This optimization (exiting before end of file) prevents multiple pkg per file processing.
+               -- On the other hand, GtkAda analysis drop from 8s to 0.7s when uncommenting this line.
+               -- Chechekd with :
+               -- > time ../../Obj/archicheck -lf -I gtkada
 
-               when others => null;
+               when others => Find_Next;
 
             end case;
 
@@ -186,6 +192,8 @@ package body Archicheck.Dependencies is
       end loop Source_Analysis;
 
       Ada.Text_IO.Close (File => File);
+
+      if not Unit_Type_Identified then IO.Put_Warning ("Unknown Ada Unit in " & To_String (From_Source)); end if;
 
    end Add_Dependencies;
 

@@ -6,8 +6,17 @@
 -- Public License Versions 3, refer to the COPYING file.
 -- -----------------------------------------------------------------------------
 
--- Package: Archicheck.Sources specification
+-- -----------------------------------------------------------------------------
+-- Package: Archicheck.Sources
 --
+-- Purpose:
+--   This package defines Source, manage the Source list, and provides utilities
+--   to print this list.
+--
+-- Effects:
+--
+-- Performance:
+-- -----------------------------------------------------------------------------
 
 with Ada.Calendar;
 with Ada.Strings.Unbounded;
@@ -22,11 +31,24 @@ private package Archicheck.Sources is
    end record;
    package Source_Lists is new Ada.Containers.Doubly_Linked_Lists (Source);
 
-   --**
-   Source_List : Source_Lists.List := Source_Lists.Empty_List;
+   -- --------------------------------------------------------------------------
+   -- Function: Get_List
+   -- --------------------------------------------------------------------------
+   function Get_List return Source_Lists.List;
+
+   -- --------------------------------------------------------------------------
+   -- Function: Add_Source
+   -- --------------------------------------------------------------------------
+   procedure Add_Source (Src : in Source);
 
    -- -------------------------------------------------------------------------
+   -- Function: Source_List_Image
+   -- -------------------------------------------------------------------------
    function Source_List_Image (Sources : in Archicheck.Sources.Source_Lists.List) return String;
+
+   -- -------------------------------------------------------------------------
+   -- Procedure: Dump_Sources
+   -- -------------------------------------------------------------------------
    procedure Dump_Sources (Sources : in Archicheck.Sources.Source_Lists.List);
 
 

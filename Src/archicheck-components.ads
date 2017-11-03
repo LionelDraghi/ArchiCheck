@@ -8,6 +8,7 @@
 
 -- -----------------------------------------------------------------------------
 -- Package: Archicheck.Components specification
+--
 -- Purpose:
 --    Define a Component, the Unit_List each Component contains, and the global
 --    Component Map.
@@ -17,7 +18,6 @@
 -- Limitations:
 --
 -- Performance:
---
 -- -----------------------------------------------------------------------------
 
 with Ada.Strings.Unbounded;
@@ -25,7 +25,7 @@ with Ada.Containers.Doubly_Linked_Lists;
 with Ada.Containers.Indefinite_Hashed_Maps;
 with Ada.Strings.Hash;
 
-package Archicheck.Components is
+private package Archicheck.Components is
 
    -- --------------------------------------------------------------------------
    package Unit_Lists is new Ada.Containers.Doubly_Linked_Lists
@@ -39,11 +39,15 @@ package Archicheck.Components is
       Hash            => Ada.Strings.Hash,
       Equivalent_Keys => "=",
       "="             => Unit_Lists."=");
-   Component_Map : Component_Maps.Map;
+   Component_Map : Component_Maps.Map; --** à déplacer dans le body
 
+   -- --------------------------------------------------------------------------
+   -- Function: Unit_List_Image
    -- -------------------------------------------------------------------------
    function Unit_List_Image (UL : Unit_Lists.List) return String;
 
+   -- --------------------------------------------------------------------------
+   -- Function: Component_List_Image
    -- -------------------------------------------------------------------------
    function Component_List_Image return String;
 

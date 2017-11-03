@@ -5,6 +5,7 @@ project Testrec is
 
    for Source_Dirs use ("Src");
    for Object_Dir use "Obj";
+   for Exec_Dir use ".";
    for Main use ("testrec-main.adb");
 
    package Builder is

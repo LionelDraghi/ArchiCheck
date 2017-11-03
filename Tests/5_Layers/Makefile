@@ -1,14 +1,14 @@
 all: check
 
 CREATE_PKG=../Tools/create_pkg
-TR=../Tools/Obj/testrec
+TR=../Tools/testrec
 
 .PHONY : clean
 
 check: ../../Obj/archicheck test1 test2 test3 test4
 
 test1:
-	${TR} create "Layer test"
+	${TR} create "Layer suite"
 
 	@ #---------------------------------------------------------------------
 	${TR} start "Code is compliant with rules file, no output expected"
@@ -20,6 +20,7 @@ test1:
 
 	@ ../../Obj/archicheck -q -I dir1 rules.1 > output.1
 	${TR} assert true /usr/bin/sdiff "-s expected_output.1 output.1"
+
 	${TR} end
 
 test2:
@@ -33,6 +34,7 @@ test2:
 
 	@ ../../Obj/archicheck --quiet -I dir2 rules.2 > output.2
 	${TR} assert true /usr/bin/sdiff "-s expected_output.2 output.2"
+
 	${TR} end
 
 test3:
@@ -48,6 +50,7 @@ test3:
 
 	@ ../../Obj/archicheck -I dir3a -I dir3b -I dir3c rules.1 > output.3
 	${TR} assert true /usr/bin/sdiff "-s expected_output.3 output.3"
+
 	${TR} end
 
 test4:
@@ -61,6 +64,7 @@ test4:
 
 	@ ../../Obj/archicheck -I dir4 rules.1 > output.4
 	${TR} assert true /usr/bin/sdiff "-s expected_output.4 output.4"
+
 	${TR} end
 
 clean:

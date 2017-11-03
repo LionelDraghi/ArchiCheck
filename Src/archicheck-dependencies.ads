@@ -15,7 +15,8 @@
 --
 -- Limitations:
 --   Note that current implementation is limited to Ada files, and is limited
---   to package processing. Dependencies in separate procedure are ignored.
+--   to package processing.
+--   Dependencies in separate procedure are ignored.
 --
 -- Performance:
 --
@@ -45,14 +46,14 @@ private package Archicheck.Dependencies is
    procedure Add_Dependencies (From_Source : Unbounded_String);
 
    -- --------------------------------------------------------------------------
-   -- Function: Get
+   -- Function: Get_List
    -- Purpose:
    --   Returns the whole list of dependencies known at that time.
    --
    -- Exceptions:
    --   None
    -- --------------------------------------------------------------------------
-   function Get return Dependency_Lists.List;
+   function Get_List return Dependency_Lists.List;
 
    -- --------------------------------------------------------------------------
    -- Procedure: Dump

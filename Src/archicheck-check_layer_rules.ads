@@ -6,6 +6,16 @@
 -- Public License Versions 3, refer to the COPYING file.
 -- -----------------------------------------------------------------------------
 
+-- -----------------------------------------------------------------------------
 -- Procedure: Archicheck.Check_Layer_Rules specification
+--
+-- Purpose:
+--
+-- Effects:
+--
+-- Limitations:
+--
+-- Performance:
+-- -----------------------------------------------------------------------------
 
 private procedure Archicheck.Check_Layer_Rules;

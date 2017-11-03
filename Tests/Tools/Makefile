@@ -1,6 +1,6 @@
 all: create_pkg testrec check_suite check_test run_test check_clean
 
-TR=./Obj/testrec
+TR=./testrec
 
 create_pkg:
 	gnat make -q -Pcreate_pkg.gpr
@@ -110,6 +110,7 @@ check_clean: ${TR}
 
 .PHONY : clean
 clean:
-	gnat clean -Pcreate_pkg.gpr
+	gnat clean -q -Pcreate_pkg.gpr
+	gnat clean -q -Ptestrec.gpr
 	- ${RM} .testrec state.? state.?? testrec.txt diff.? diff.?? file? state.ref
 

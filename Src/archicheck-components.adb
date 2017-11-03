@@ -8,6 +8,7 @@
 
 -- -----------------------------------------------------------------------------
 -- Package: Archicheck.Components body
+--
 -- Purpose:
 --    Define a Component, the Unit_List each Component contains, and the global
 --    Component Map.
@@ -17,9 +18,7 @@
 -- Limitations:
 --
 -- Performance:
---
 -- -----------------------------------------------------------------------------
-
 
 package body Archicheck.Components is
 
@@ -55,22 +54,5 @@ package body Archicheck.Components is
       end loop;
       return (To_String (Tmp));
    end Component_List_Image;
-
-   --     -- -------------------------------------------------------------------------
-   --     function Put_Unit_List (UL : Unit_Lists.List) is
-   --        First_Unit : Boolean := True;
-   --        use Ada.Strings.Unbounded;
-   --     begin
-   --        for U of UL loop
-   --           if First_Unit then
-   --              Put (To_String (U));
-   --              First_Unit := False;
-   --           else
-   --              Put (" and " & To_String (U));
-   --           end if;
-   --        end loop;
-   --        New_Line;
-   --     end Put_Unit_List;
-
 
 end Archicheck.Components;

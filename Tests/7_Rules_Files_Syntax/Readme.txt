@@ -28,7 +28,6 @@ reference_rules.txt:4.1: Component GUI contains Unit Glib
 reference_rules.txt:4.19: Component GUI contains Unit Pango
 (end)
 
-Test: Casing
 
 (start code)
 App contains Main
@@ -38,7 +37,6 @@ GUI Contains Pango
 
 (end)
 
-Test: Spacing and comments
 
 (start code)
 App contains Main -- final comment
@@ -58,30 +56,5 @@ GUI contains Glib
 
 -- comment : 
 --DB contains DB.IO 
-(end)
-
-Test: NaturalDocs format
-
-(start code)
--- File: My Rules
--- 
--- My Comments.................
--- ............................
--- 
-App contains Main
-
--- GUI list of component:
-- GUI contains Gtk
-- GUI contains Glib
-- GUI contains Pango
-
-(end)
-
-Test: Punctuation and syntaxic sugar
-
-(start code)
-App contains Main;
-GUI contains Gtk, Glib and Pango.
-
 (end)
 

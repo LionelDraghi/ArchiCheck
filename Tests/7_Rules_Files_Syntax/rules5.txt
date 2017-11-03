@@ -1,3 +1,5 @@
+
+
 App contains Main;
-GUI contains Gtk, Glib and Pango.
+GUI contains ATK GIO Gtk, Glib and Pango.
 

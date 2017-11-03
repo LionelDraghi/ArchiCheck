@@ -102,6 +102,16 @@ Topic Type: Test
       test, tests
 
 
+Topic Type: Result
+
+   Plural: Results
+   Index: Yes
+   Scope: Always global
+
+   Keywords:
+      result, results
+
+
 Topic Type: Limitation
 
    Plural: Limitations

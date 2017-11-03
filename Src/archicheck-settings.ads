@@ -6,7 +6,18 @@
 -- Public License Versions 3, refer to the COPYING file.
 -- -----------------------------------------------------------------------------
 
+-- -----------------------------------------------------------------------------
 -- Package: Archicheck.Settings specification
+--
+-- Purpose:
+--   This package defines Source, manage the Source list, and provides utilities
+--   to print this list.
+--
+-- Effects:
+--
+-- Performance:
+--
+-- -----------------------------------------------------------------------------
 
 private package Archicheck.Settings is
 
@@ -22,17 +33,31 @@ private package Archicheck.Settings is
    Debug_Mode : Boolean := False;
 
    -- -------------------------------------------------------------------------
+   -- Procedure: Set_Rules_File_Name
+   -- -------------------------------------------------------------------------
    procedure Set_Rules_File_Name (Name : in String);
+
+   -- -------------------------------------------------------------------------
+   -- Function: Rules_File_Name
+   -- -------------------------------------------------------------------------
    function Rules_File_Name return String;
 
    -- -------------------------------------------------------------------------
    -- Function: Src_Needed
-   -- return True if some of the analyzed _at this stage_ options are dependent of -I options
+   --
+   -- Purpose:
+   --   return True if some of the analyzed _at this stage_ options are
+   --   dependent of -I options
+   -- -------------------------------------------------------------------------
    function Src_Needed return Boolean;
 
    -- -------------------------------------------------------------------------
    -- Function: Rules_File_Needed
-   -- return True if some of the analyzed _at this stage_ options are dependent of the rules file
+   --
+   -- Purpose:
+   --    return True if some of the analyzed _at this stage_ options are
+   --    dependent of the rules file
+   -- -------------------------------------------------------------------------
    function Rules_File_Needed return Boolean;
 
 end Archicheck.Settings;

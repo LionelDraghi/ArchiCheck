@@ -6,7 +6,16 @@
 -- Public License Versions 3, refer to the COPYING file.
 -- -----------------------------------------------------------------------------
 
+-- -----------------------------------------------------------------------------
 -- Package: Archicheck.Cmd_Line body
+--
+-- Implementation Notes:
+--
+-- Portability Issues:
+--
+-- Anticipated Changes:
+--
+-- -----------------------------------------------------------------------------
 
 with Ada.Command_Line;
 with Ada.Directories;
@@ -24,6 +33,8 @@ package body Archicheck.Cmd_Line is
    Src_Dir_Given : Boolean := False;
 
    -- -------------------------------------------------------------------------
+   -- Procedure: Put_Version
+   -- -------------------------------------------------------------------------
    procedure Put_Version is
       use Archicheck.IO;
    begin
@@ -31,6 +42,8 @@ package body Archicheck.Cmd_Line is
       New_Line;
    end Put_Version;
 
+   -- -------------------------------------------------------------------------
+   -- Procedure: Process_Directory_Option
    -- -------------------------------------------------------------------------
    procedure Process_Directory_Option (Line_OK : out Boolean) is
       use Archicheck.IO;
@@ -65,11 +78,9 @@ package body Archicheck.Cmd_Line is
                                       others    => True));
                      while More_Entries (Search) loop
                         Get_Next_Entry (Search, Directory_Entry);
-                        Archicheck.Sources.Source_Lists.Append
-                          (Sources.Source_List,
-                           (Name     => To_Unbounded_String
-                                (Ada.Directories.Full_Name (Directory_Entry)),
-                            Time_Tag => Modification_Time (Directory_Entry)));
+                        Sources.Add_Source (Src => (Name     => To_Unbounded_String
+                                                    (Ada.Directories.Full_Name (Directory_Entry)),
+                                                    Time_Tag => Modification_Time (Directory_Entry)));
                         -- Put_Debug_Line ("trouvé : " & Full_Name (Directory_Entry));
                      end loop;
                      End_Search (Search);
@@ -90,10 +101,13 @@ package body Archicheck.Cmd_Line is
 
    end Process_Directory_Option;
 
-   -- Procedure: Options_Coherency_Tests
    -- -------------------------------------------------------------------------
-   -- This procedure checks various pathologic situations, for example an option
-   -- implying source files, but no -I option is given, or no sourc files found.
+   -- Procedure: Options_Coherency_Tests
+   --
+   -- Purpose:
+   --    This procedure checks various pathologic situations, for example an
+   --    option implying source files, but no -I option is given, or no source
+   --    files found.
    -- -------------------------------------------------------------------------
    procedure Options_Coherency_Tests (Line_OK : in out Boolean) is
       use Archicheck.IO;
@@ -102,11 +116,11 @@ package body Archicheck.Cmd_Line is
       -- Put_Error ("Settings.Src_Needed  : " & Boolean'Image (Settings.Src_Needed));
       -- Put_Error ("Rules_File_Needed : " & Boolean'Image (Settings.Rules_File_Needed));
       -- Put_Error ("Src List is empty : "
-      -- & Boolean'Image (Source_Lists.Is_Empty (Sources.Source_List)));
+      -- & Boolean'Image (Source_Lists.Is_Empty (Sources.Get_List)));
 
       -- first, let's eliminate the normal situation :
       -- there is a rules file, and there are sources to analyze
-      if Settings.Rules_File_Name = "" or Sources.Source_List.Is_Empty then
+      if Settings.Rules_File_Name = "" or Sources.Get_List.Is_Empty then
 
          -- Note that those tests are not all mutually exclusive. More specific
          -- case are tested first, to let more general messages at the end.
@@ -115,19 +129,19 @@ package body Archicheck.Cmd_Line is
             Put_Error ("No rules file given", With_Help => True);
             Line_OK := False;
 
-         elsif not Sources.Source_List.Is_Empty and not Settings.Src_Needed then
+         elsif not Sources.Get_List.Is_Empty and not Settings.Src_Needed then
             Put_Error ("Nothing to do with those sources", With_Help => True);
             Line_OK := False;
 
-         elsif Sources.Source_List.Is_Empty and Settings.List_Dependencies then
+         elsif Sources.Get_List.Is_Empty and Settings.List_Dependencies then
             Put_Error ("Cannot list dependencies, no sources found", With_Help => True);
             Line_OK := False;
 
-         elsif Sources.Source_List.Is_Empty and Settings.List_Files and Src_Dir_Given then
+         elsif Sources.Get_List.Is_Empty and Settings.List_Files and Src_Dir_Given then
             Put_Error ("Cannot list files, no sources found to analyze");
             Line_OK := False;
 
-         elsif Sources.Source_List.Is_Empty and Src_Dir_Given then
+         elsif Sources.Get_List.Is_Empty and Src_Dir_Given then
             Put_Error ("No src found in those directories", With_Help => True);
             Line_OK := False;
 
@@ -140,6 +154,8 @@ package body Archicheck.Cmd_Line is
       end if;
    end Options_Coherency_Tests;
 
+   -- -------------------------------------------------------------------------
+   -- Procedure: Analyze_Cmd_Line
    -- -------------------------------------------------------------------------
    procedure Analyze_Cmd_Line (Line_OK : out Boolean) is
       use Archicheck.IO;

@@ -1,10 +1,22 @@
 File: Dashboard
 
-_NB : This is to be considered more like a place holder than like a real dashboard at this stage_
+About: Test results
+(start code)
+Successful  33
+Failed      0
+Empty       8
+(end)
+(see tests.png)
 
-Ada code repartition:
-(see sloc.png)
+About: Lines coverage rate
+(start code)
+  lines......: 90.7% (450 of 496 lines)
+(end)
+(see lines_coverage.png)
 
-Actually, the main indicators I need here is :
-- a green light meaning that all tests are OK
-- a coverage of the source code during the test, that obviously must be at leat 100%! 
+About: Function coverage rate
+(start code)
+  functions..: 77.5% (100 of 129 functions)
+(end)
+(see functions_coverage.png)
+

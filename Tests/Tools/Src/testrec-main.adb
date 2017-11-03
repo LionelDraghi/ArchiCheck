@@ -156,7 +156,8 @@ procedure Testrec.Main is
       Current_Indent := 0;
 
       -- Std output:
-      New_Line (Verbose);
+      New_Line;
+
       Put_Line (Indent & "Starting test suite : " & Name, Verbose);
       New_Line (Verbose);
 
@@ -271,8 +272,16 @@ procedure Testrec.Main is
 
    -- -------------------------------------------------------------------------
    procedure Start (Test_Name : in String) is
+      use Ada.Strings.Unbounded;
+      Common_Text : Unbounded_String;
    begin
       Current_Indent := 1;
+
+      if Current_State.Suite.Suite_Name = Null_Unbounded_String then
+         Common_Text := Indent &                                          To_Unbounded_String (Test_Name);
+      else
+         Common_Text := Indent & Current_State.Suite.Suite_Name & " / " & To_Unbounded_String (Test_Name);
+      end if;
 
       -- Std output:
       Put_Line (Indent & "Starting test " & Test_Name, Verbose);
@@ -285,7 +294,7 @@ procedure Testrec.Main is
          use Ada.Text_IO;
       begin
          New_Line (Log_File);
-         Put_Line (Log_File, Item => Indent & "Test: " & Test_Name);
+         Put_Line (Log_File, Item => Indent & "Test: " & To_String (Common_Text));
       end;
 
       Current_Indent := 2;
@@ -304,9 +313,9 @@ procedure Testrec.Main is
       -- Test conclusion is at the same level than Test title
 
       if Current_State.Suite.Suite_Name = Null_Unbounded_String then
-         Common_Text := Indent &                                        Current_State.Test.Test_Name & " ";
+         Common_Text := Indent &                                          Current_State.Test.Test_Name & " ";
       else
-         Common_Text := Indent & Current_State.Suite.Suite_Name & "/" & Current_State.Test.Test_Name & " ";
+         Common_Text := Indent & Current_State.Suite.Suite_Name & " / " & Current_State.Test.Test_Name & " ";
       end if;
 
 
@@ -371,7 +380,7 @@ procedure Testrec.Main is
    end Open_Log_File;
 
    -- -------------------------------------------------------------------------
-   procedure   Set_Indent_Level is
+   procedure Set_Indent_Level is
       use Current_State;
       use Ada.Strings.Unbounded;
    begin

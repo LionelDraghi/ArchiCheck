@@ -2,19 +2,17 @@ all: check
 
 .PHONY : clean
 
-TR=../Tools/Obj/testrec
+CREATE_PKG=../Tools/create_pkg
+TR=../Tools/testrec
 
 check: ../../Obj/archicheck 
-	${TR} create "Sources list test"
+	${TR} create "Sources list suite"
 
-	@ mkdir -p dir1
-	@ mkdir -p dir2
-	@ mkdir -p dir3
-	@ > dir1/a.ads
-	@ > dir1/a.adb
-	@ > dir2/b.ads
-	@ > dir3/c.ads
-	@ > dir3/c-d.ads
+	@ ${CREATE_PKG} A spec -in dir1 -with B
+	@ ${CREATE_PKG} A body -in dir1 -with C
+	@ ${CREATE_PKG} B spec -in dir2 -with K
+	@ ${CREATE_PKG} C spec -in dir3 -with A
+	@ ${CREATE_PKG} C.D spec -in dir3 -with B
 
 	> expected_file_list
 	@ echo $(CURDIR)"/dir1/a.adb" 		>> expected_file_list

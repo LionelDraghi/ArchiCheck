@@ -6,7 +6,16 @@
 -- Public License Versions 3, refer to the COPYING file.
 -- -----------------------------------------------------------------------------
 
+-- -----------------------------------------------------------------------------
 -- Package: Archicheck.IO body
+--
+-- Implementation Notes:
+--
+-- Portability Issues:
+--
+-- Anticipated Changes:
+--
+-- -----------------------------------------------------------------------------
 
 with Archicheck.Settings;
 with Ada.Strings.Fixed;
@@ -14,6 +23,8 @@ with Ada.Directories;
 
 package body Archicheck.IO is
 
+   -- -------------------------------------------------------------------------
+   -- Procedure: Put_Help
    -- -------------------------------------------------------------------------
    procedure Put_Help is
    begin
@@ -29,7 +40,7 @@ package body Archicheck.IO is
       Ada.Text_IO.Put_Line ("   -ld | --list_dependencies : list identified dependencies"
                 & " in analyzed sources files");
       Ada.Text_IO.Put_Line ("   -lr | --list_rules        : list rules in a rules file");
-      Ada.Text_IO.Put_Line ("   NB : when one of the list options above is used, checks are NOT performed");
+      -- Ada.Text_IO.Put_Line ("   NB : when one of the list options above is used, checks are NOT performed");
       --** copyright and disclaimer to be added?
       Ada.Text_IO.Put_Line ("   -q  | --quiet             : no message unless error. Warning are also ignored.");
       Ada.Text_IO.Put_Line ("   -v  | --verbose");
@@ -44,6 +55,8 @@ package body Archicheck.IO is
    end Put_Help;
 
    -- -------------------------------------------------------------------------
+   -- Procedure: Put_Warning
+   -- -------------------------------------------------------------------------
    procedure Put_Warning (Msg : in String := "") is
    begin
       Put_Line ("Warning : " & Msg);
@@ -52,6 +65,8 @@ package body Archicheck.IO is
    end Put_Warning;
 
    -- -------------------------------------------------------------------------
+   -- Procedure: Put_Error
+   -- -------------------------------------------------------------------------
    procedure Put_Error (Msg       : in String  := "";
                         With_Help : in Boolean := False) is
    begin
@@ -59,6 +74,8 @@ package body Archicheck.IO is
       if With_Help then Put_Help; end if;
    end Put_Error;
 
+   -- -------------------------------------------------------------------------
+   -- Procedure: Put_Debug_Line
    -- -------------------------------------------------------------------------
    procedure Put_Debug_Line (Msg    : in String := "";
                              Debug  : in Boolean;
@@ -69,6 +86,8 @@ package body Archicheck.IO is
       end if;
    end Put_Debug_Line;
 
+   -- --------------------------------------------------------------------------
+   -- Procedure: Put_Debug
    -- -------------------------------------------------------------------------
    procedure Put_Debug (Msg    : in String := "";
                         Debug  : in Boolean;
@@ -84,6 +103,8 @@ package body Archicheck.IO is
    end Put_Debug;
 
    -- -------------------------------------------------------------------------
+   -- Procedure: New_Debug_Line
+   -- -------------------------------------------------------------------------
    procedure New_Debug_Line (Debug  : in Boolean) is
    begin
       if Debug then
@@ -91,6 +112,8 @@ package body Archicheck.IO is
       end if;
    end New_Debug_Line;
 
+   -- -------------------------------------------------------------------------
+   -- Procedure: Put_Line
    -- -------------------------------------------------------------------------
    procedure Put_Line (Item : String; Only_When_Verbose : Boolean := False) is
    begin
@@ -101,6 +124,8 @@ package body Archicheck.IO is
    end Put_Line;
 
    -- -------------------------------------------------------------------------
+   -- Procedure: Put
+   -- -------------------------------------------------------------------------
    procedure Put (Item : String; Only_When_Verbose : Boolean := False) is
    begin
       if Settings.Quiet_Mode then return; end if;
@@ -109,6 +134,8 @@ package body Archicheck.IO is
       end if;
    end Put;
 
+   -- --------------------------------------------------------------------------
+   -- Procedure: New_Line
    -- -------------------------------------------------------------------------
    procedure New_Line (Spacing           : Ada.Text_IO.Positive_Count := 1;
                        Only_When_Verbose : Boolean := False) is
@@ -138,6 +165,8 @@ package body Archicheck.IO is
       end if;
    end GNU_Prefix;
 
+   -- --------------------------------------------------------------------------
+   -- Function: New_Line
    -- -------------------------------------------------------------------------
    function GNU_Prefix (File   : in Ada.Text_IO.File_Type;
                         Line   : in Positive;

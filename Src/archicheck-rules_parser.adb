@@ -6,6 +6,16 @@
 -- Public License Versions 3, refer to the COPYING file.
 -- -----------------------------------------------------------------------------
 
+-- -----------------------------------------------------------------------------
+-- Package: Archicheck.Rules_Parser body
+--
+-- Implementation Notes:
+--
+-- Portability Issues:
+--
+-- Anticipated Changes:
+-- -----------------------------------------------------------------------------
+
 with OpenToken.Token; use OpenToken.Token;
 with OpenToken.Text_Feeder.Text_IO;
 with OpenToken.Text_Feeder;
@@ -15,6 +25,7 @@ with OpenToken.Token.Enumerated.Analyzer;
 with OpenToken.Recognizer.Identifier;
 with OpenToken.Recognizer.Character_Set;
 with OpenToken.Recognizer.Separator;
+-- with OpenToken.Recognizer.Line_Comment;
 with OpenToken.Production.List;
 with OpenToken.Production.Parser.LALR.Generator;
 with OpenToken.Production.Parser.LALR.Parser;
@@ -27,11 +38,12 @@ with OpenToken.Recognizer.Keyword;
 with Archicheck.IO;
 with Archicheck.Settings;
 with Archicheck.Components;   use Archicheck.Components;
-
+with Archicheck.Layers;
 
 with Ada.Exceptions;
 with Ada.Text_IO;
 with Ada.Strings.Maps.Constants;
+with Ada.Strings.Unbounded;
 
 package body Archicheck.Rules_Parser is
 
@@ -49,24 +61,30 @@ package body Archicheck.Rules_Parser is
    type Token_Ids is
      (-- Non reporting tokens (not used in generating an LALR grammar) -----------------------------------------
       Whitespace_Id,
-      Dot_Id, -- .
+      -- Comment_Id,
       --        EoL_Id,
       --        Minus_Id,
-      -- Comment_Id,
-      Semicolon_Id, -- ;
-
 
       -- Terminals tokens ---------------
+      -- Keywords
       A_Id, -- first terminal
       And_Id,
-      Comma_Id, -- ,
       Contains_Id,
       Is_Id,
       Layer_Id,
       --        May_Id,
       Over_Id,
       --        Use_Id,
+
+      -- Misc
+      Comma_Id, -- ,
+      Dot_Id, -- .
+      Semicolon_Id, -- ;
       EoF_Id,
+      -- Whitespace_Id,
+      -- Comment_Id,
+      --        EoL_Id,
+      --        Minus_Id,
       --  Identifier must be after keywords, so they are recognized instead
       Identifier_Id, -- last terminal
 
@@ -78,11 +96,13 @@ package body Archicheck.Rules_Parser is
       Component_Declaration_Id,
       Layer_Declaration_Id
      );
+   First_Terminal : constant Token_Ids := A_Id;
+   Last_Terminal  : constant Token_Ids := Identifier_Id;
 
    -- private
 
    package Master_Token is new OpenToken.Token.Enumerated
-     (Token_Ids, A_Id, Identifier_Id, Token_Ids'Image);
+     (Token_Ids, First_Terminal, Last_Terminal, Token_Ids'Image);
    package Tokenizer is new Master_Token.Analyzer;
 
    package Token_List is new Master_Token.List;
@@ -106,6 +126,8 @@ package body Archicheck.Rules_Parser is
    --use OpenToken.Recognizer;
    Syntax : constant Tokenizer.Syntax :=
               (Whitespace_Id => Tokenizer.Get (OpenToken.Recognizer.Character_Set.Get (OpenToken.Recognizer.Character_Set.Standard_Whitespace)),
+               -- Comment_Id    => Tokenizer.Get (OpenToken.Recognizer.Line_Comment.Get ("--", Reportable => True)), --** que veut dire le reportable??
+               --
                A_Id          => Tokenizer.Get (OpenToken.Recognizer.Keyword.Get ("a")),
                And_Id        => Tokenizer.Get (OpenToken.Recognizer.Keyword.Get ("and")),
                Contains_Id   => Tokenizer.Get (OpenToken.Recognizer.Keyword.Get ("contains")),
@@ -114,20 +136,27 @@ package body Archicheck.Rules_Parser is
                -- May_Id        => Tokenizer.Get (OpenToken.Recognizer.Keyword.Get ("may")),
                Over_Id       => Tokenizer.Get (OpenToken.Recognizer.Keyword.Get ("over")),
                -- Use_Id        => Tokenizer.Get (OpenToken.Recognizer.Keyword.Get ("use")),
+
                -- Delimiters
+               -- Comment_Id    => Tokenizer.Get (OpenToken.Recognizer.Line_Comment.Get ("--", Reportable => True)), --** que veut dire le reportable??
                Comma_Id      => Tokenizer.Get (OpenToken.Recognizer.Separator.Get (",")),
+               -- Whitespace_Id => Tokenizer.Get (OpenToken.Recognizer.Character_Set.Get (OpenToken.Recognizer.Character_Set.Standard_Whitespace)),
                Dot_Id        => Tokenizer.Get (OpenToken.Recognizer.Separator.Get (".")),
                -- Minus_Id      => Tokenizer.Get (OpenToken.Recognizer.Separator.Get ("-")),
                Semicolon_Id  => Tokenizer.Get (OpenToken.Recognizer.Separator.Get (";")),
 
+               EoF_Id        => Tokenizer.Get (OpenToken.Recognizer.End_Of_File.Get),
+
                --  Identifier must be after keywords, so they are recognized instead
-               Identifier_Id => Tokenizer.Get (Recognizer => OpenToken.Recognizer.Identifier.Get (Start_Chars => Ada.Strings.Maps.Constants.Letter_Set,
-                                                                                                  Body_Chars  => Ada.Strings.Maps.Constants.Alphanumeric_Set),
-                                               New_Token  => Identifiers.Get (Identifier_Id)),
+               Identifier_Id => Tokenizer.Get
+                 (Recognizer => OpenToken.Recognizer.Identifier.Get
+                    (Start_Chars => Ada.Strings.Maps.Constants.Letter_Set,
+                     Body_Chars  => Ada.Strings.Maps.Constants.Alphanumeric_Set),
+                  New_Token  => Identifiers.Get (Identifier_Id))
+               --
                -- EoL_Id        => Tokenizer.Get (OpenToken.Recognizer.Separator.Get ((1 => OpenToken.EOL_Character))),
-               -- Comment_Id    => Tokenizer.Get (OpenToken.Recognizer.Line_Comment.Get ("--")),
                -- Bad_Token_Id  => Tokenizer.Get (OpenToken.Recognizer.Nothing.Get),
-               EoF_Id        => Tokenizer.Get (OpenToken.Recognizer.End_Of_File.Get));
+                );
 
    --  The non-terminal tokens are pointers (type Handle) to allow for
    --  mutual recursion. So the terminal ones are too, for
@@ -136,16 +165,19 @@ package body Archicheck.Rules_Parser is
 
 
    --  Terminal tokens
-   A_T        : constant Master_Token.Class := Master_Token.Get (A_Id);
-   And_T      : constant Master_Token.Class := Master_Token.Get (And_Id);
-   Comma_T    : constant Master_Token.Class := Master_Token.Get (Comma_Id);
-   Contains   : constant Master_Token.Class := Master_Token.Get (Contains_Id);
-   Identifier : constant Master_Token.Class := Master_Token.Get (Identifier_Id);
-   Is_T       : constant Master_Token.Class := Master_Token.Get (Is_Id);
-   EoF        : constant Master_Token.Class := Master_Token.Get (EoF_Id);
-   -- EoL        : constant Master_Token.Class := Master_Token.Get (EoL_Id);
-   Layer      : constant Master_Token.Class := Master_Token.Get (Layer_Id);
-   Over       : constant Master_Token.Class := Master_Token.Get (Over_Id);
+   A_T         : constant Master_Token.Class := Master_Token.Get (A_Id);
+   And_T       : constant Master_Token.Class := Master_Token.Get (And_Id);
+   Contains    : constant Master_Token.Class := Master_Token.Get (Contains_Id);
+   Comma_T     : constant Master_Token.Class := Master_Token.Get (Comma_Id);
+   Dot_T       : constant Master_Token.Class := Master_Token.Get (Dot_Id);
+   Identifier  : constant Master_Token.Class := Master_Token.Get (Identifier_Id);
+   Is_T        : constant Master_Token.Class := Master_Token.Get (Is_Id);
+   EoF         : constant Master_Token.Class := Master_Token.Get (EoF_Id);
+   -- EoL      : constant Master_Token.Class := Master_Token.Get (EoL_Id);
+   Layer       : constant Master_Token.Class := Master_Token.Get (Layer_Id);
+   Over        : constant Master_Token.Class := Master_Token.Get (Over_Id);
+   Semicolon_T : constant Master_Token.Class := Master_Token.Get (Semicolon_Id);
+   -- Comment_T   : constant Master_Token.Class := Master_Token.Get (Comment_Id);
 
    -- Non-terminal tokens, which define the grammar.
    Layer_Declaration     : constant Nonterminal.Class := Nonterminal.Get (Layer_Declaration_Id);
@@ -193,15 +225,19 @@ package body Archicheck.Rules_Parser is
 
    Grammar : constant Production_List.Instance :=
                Rules_File             <= Rule_List & EoF                    and
+               Rule_List              <= Rule_List & Semicolon_T            and
+               Rule_List              <= Rule_List & Dot_T                  and
                Rule_List              <= Rule_List & Rule                   and
                Rule_List              <= Rule                               and
+               -- Rule                   <= Comment_T                          and
                Rule                   <= Layer_Declaration                  and
                Rule                   <= Component_Declaration              and
                Unit_List              <= Identifier & Comma_T & Unit_List                    + Append_Unit_To_List'Access         and
-               Unit_List              <= Identifier & And_T & Unit_List                      + Append_Unit_To_List'Access         and
-               Unit_List              <= Identifier                                          + Initialize_Unit_List'Access        and --                 + Initialize_Unit_List'Access        and
-               Component_Declaration  <= Identifier & Contains & Unit_List                   + Store_Component_Declaration'Access and -- Nonterminal.Synthesize_Self and -- Insert [Component, Unit] in Component_List
-               Layer_Declaration      <= Identifier & Is_T & A_T & Layer & Over & Identifier + Store_Layer_Declaration'Access;        -- Insert [Layer, Layer]    in Layer_List an
+               Unit_List              <= Identifier & And_T   & Unit_List                    + Append_Unit_To_List'Access         and
+               -- Unit_List              <= Identifier           & Unit_List                    + Append_Unit_To_List'Access         and
+               Unit_List              <= Identifier                                          + Initialize_Unit_List'Access        and
+               Component_Declaration  <= Identifier & Contains & Unit_List                   + Store_Component_Declaration'Access and
+               Layer_Declaration      <= Identifier & Is_T & A_T & Layer & Over & Identifier + Store_Layer_Declaration'Access;
 
    --  This is of type OpenToken.Token.Handle, so it can be passed to
    --  OpenToken.Token.Parse, rather than Sequence.Parse.
@@ -254,11 +290,14 @@ package body Archicheck.Rules_Parser is
    Analyzer   : constant Tokenizer.Handle := Tokenizer.Initialize (Syntax, Feeder'Access);
 
    --  The lalr parser instance.
-   Rules_File_Parser : LALR_Parser.Instance := LALR_Parser.Initialize (Analyzer,
-                                                                       LALR_Generator.Generate (Grammar));
+   Rules_File_Parser : LALR_Parser.Instance := LALR_Parser.Initialize
+     (Analyzer,
+      LALR_Generator.Generate (Grammar, Ignore_Unused_Tokens => True)); --**
    Units             : Unit_Lists.List;
 
 
+   -- -------------------------------------------------------------------------
+   -- Procedure: Store_Component_Declaration
    -- -------------------------------------------------------------------------
    procedure Store_Component_Declaration (New_Token : out Nonterminal.Class;
                                           Source    : in  Token_List.Instance'Class;
@@ -289,7 +328,10 @@ package body Archicheck.Rules_Parser is
 
       begin
          if Settings.List_Rules then
-            Put_Line (Prefix & "Component " & Component_Name & " contains Unit " & Unit_List_Image (Units));
+            for U of Units loop
+              Put_Line (Prefix & "Component " & Component_Name & " contains Unit " & To_String (U));
+            end loop;
+            -- Put_Line (Prefix & "Component " & Component_Name & " contains Unit " & Unit_List_Image (Units));
          end if;
 
          Cursor := Component_Maps.Find (Component_Map, Component_Name);
@@ -314,6 +356,8 @@ package body Archicheck.Rules_Parser is
 
    end Store_Component_Declaration;
 
+   -- -------------------------------------------------------------------------
+   -- Procedure: Store_Layer_Declaration
    -- -------------------------------------------------------------------------
    procedure Store_Layer_Declaration (New_Token : out Nonterminal.Class;
                                       Source    : in  Token_List.Instance'Class;
@@ -345,12 +389,14 @@ package body Archicheck.Rules_Parser is
                                   Column => Analyzer.Column)
                       & "Layer " & Using & " is over layer " & Used);
          end if;
-         Layers.Append ((Using_Layer => To_Unbounded_String (Using),
-                         Used_Layer  => To_Unbounded_String (Used)));
+         Layers.Add_Layer ((Using_Layer => To_Unbounded_String (Using),
+                            Used_Layer  => To_Unbounded_String (Used)));
       end;
 
    end Store_Layer_Declaration;
 
+   -- -------------------------------------------------------------------------
+   -- Procedure: Append_Unit_To_List
    -- -------------------------------------------------------------------------
    procedure Initialize_Unit_List (New_Token : out Nonterminal.Class;
                                    Source    : in  Token_List.Instance'Class;
@@ -372,6 +418,8 @@ package body Archicheck.Rules_Parser is
    end Initialize_Unit_List;
 
    -- -------------------------------------------------------------------------
+   -- Procedure: Append_Unit_To_List
+   -- -------------------------------------------------------------------------
    procedure Append_Unit_To_List (New_Token : out Nonterminal.Class;
                                   Source    : in  Token_List.Instance'Class;
                                   To_ID     : in  Master_Token.Token_ID) is
@@ -390,6 +438,8 @@ package body Archicheck.Rules_Parser is
       Put_Debug_Line (Prefix & "Append_Unit " & Unit_Name & " To_List");
    end Append_Unit_To_List;
 
+   -- -------------------------------------------------------------------------
+   -- Procedure: Parse
    -- -------------------------------------------------------------------------
    procedure Parse (File_Name  : in String) is
       use Ada.Text_IO;

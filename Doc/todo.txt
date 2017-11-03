@@ -1,33 +1,31 @@
 File: TODO list
 
 Rules file:
--       Regroup test on Syntaxic sugar in the rule files, that is to show insensitivity to casing, "," ";" "." Separators, comments, etc.
--       Update the Rules syntax text file to show all syntaxic sugar possibilities (use of "." / ";" / "," / "and", etc.), and to show how to comment
--       Exclude "limited with" from dependencies
 -       Implement the _only X can use Y_ rule
 -       Implement the _only X can use pragma import_ rule
 -       Implement globbing characters, for example _only *.Porting_Kit can use X_
 -       Is it useful to have a semantic difference between _only Porting_Kit may depends on C_Files_ and _Porting_Kit is a layer over C_Files_ ?
 -       Is it useful to have a _may_ semantics : _GLU may depends on GL_ ?
+
+Ada specific :
+-       Exclude "limited with" from dependencies
+-       use Type processing
 -       Processing Import pragma as a dependency. e.g. 
         > pragma Import (C, Get_File_Names_Case_Sensitive,
         >                "__gnat_get_file_names_case_sensitive");   
+-       taking into account other Ada unit than package : procedure, protected object, task, etc.
 
 Development environment:
 -       Implement a darcs connected version id in the source and helper
--       Update the use of gnat (compiler option, gnatmake replacement))
 -       Have the tests OS agnostic (test depending on the path of Ada file analyzed, that fail if run on Windows)
 -       Consider replacement of the documentation tools (Dia for UML diagrams, NaturalDocs, etc.)
         for NaturalDocs : https://daringfireball.net/projects/markdown/, reST/sphinx http://www.sphinx-doc.org/en/stable/, http://pandoc.org/index.html
 -       Use Livecoding? :-) (https://www.livecoding.tv/livestreams/)
 
 Bug:
--       Implement an error return code when the rules are broken, to allow a normal use in Makefiles, unless -no-error
 
 Features:
--       Change/Simplify the various options to know what the tool understand from the rules file, and from analyzed sources :
 -       Implement a command line way to pass simple rules
--       Use <gnu error messages format at https://www.gnu.org/prep/standards/html_node/Errors.html> ( _sourcefile:lineno: message_ ) when identifying a rule that breaks
 
 Documentation:
 -       Restructure the home page, to have a short intro and a "quick run" section that summarize "Installing' and "Getting started", and split the rest in other text files.
@@ -36,6 +34,12 @@ Documentation:
 
 Done:
 -       Auto add -help output to the doc thanks to Makefile
+-       Change/Simplify the various options to know what the tool understand from the rules file, and from analyzed sources 
+-       Use <gnu error messages format at https://www.gnu.org/prep/standards/html_node/Errors.html> ( _sourcefile:lineno: message_ ) when identifying a rule that breaks
+-       Implement an error return code when the rules are broken, to allow a normal use in Makefiles, unless -no-error
+-       Update the use of gnat (compiler option, gnatmake replacement))
+-       Regroup test on Syntaxic sugar in the rule files, that is to show insensitivity to casing, "," ";" "." Separators, comments, etc.
+-       Update the Rules syntax text file to show all syntaxic sugar possibilities (use of "." / ";" / "," / "and", etc.), and to show how to comment
 
  
 
