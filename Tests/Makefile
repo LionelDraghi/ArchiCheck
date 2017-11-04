@@ -1,11 +1,14 @@
-all: clean check tests_summary.txt
+all: check tests_summary.txt
 
 .PHONY : clean
 
 Tools/create_pkg:
-	@ $(MAKE) --directory=Tools
+	@ $(MAKE) create_pkg --directory=Tools
 
-check: ../Obj/archicheck Tools/create_pkg
+Tools/testrec:
+	@ $(MAKE) testrec    --directory=Tools
+
+check: ../Obj/archicheck Tools/create_pkg Tools/testrec
 	$(MAKE) check --directory=1_Command_Line
 	$(MAKE) check --directory=2_Source_List
 	$(MAKE) check --directory=3_Dependency_List
@@ -17,7 +20,6 @@ check: ../Obj/archicheck Tools/create_pkg
 	$(MAKE) check --directory=9_GtkAda
 
 tests_summary.txt:
-
 	cat `find . -name testrec.txt` > tmp.txt
 	- grep "<Successful>"  tmp.txt > Successful.lst
 	- grep "<Failed>"      tmp.txt > Failed.lst

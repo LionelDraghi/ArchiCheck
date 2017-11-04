@@ -6,15 +6,15 @@ with -O3 option.
 About: Build
 
 (start code)
-date -r archicheck --iso-8601=seconds
+> date -r archicheck --iso-8601=seconds
 
-2017-11-02T03:03:59+01:00
+2017-11-03T23:03:24+01:00
 (end)
 
 About: Dependencies
 
 (start code)
-readelf -d archicheck | grep 'NEEDED'
+> readelf -d archicheck | grep 'NEEDED'
 
  0x0000000000000001 (NEEDED)             Bibliothèque partagée: [libopentoken.so.9]
  0x0000000000000001 (NEEDED)             Bibliothèque partagée: [libgcc_s.so.1]

@@ -20,7 +20,7 @@ Timestamp: Updated month day, year
 # These are indexes you deleted, so Natural Docs will not add them again
 # unless you remove them from this line.
 
-Don't Index: Constants, Types, Variables
+Don't Index: Constants, Variables, Types
 
 
 # --------------------------------------------------------------------------
@@ -63,6 +63,7 @@ Group: Src and tests  {
 
    File: Dashboard  (/home/lionel/Proj/Archicheck/Doc/Dashboard.txt)
    Link: Code coverage  (http://lionel.draghi.free.fr/Archicheck/lcov/index.html)
+   File: Test Status  (/home/lionel/Proj/Archicheck/Tests/tests_summary.txt)
 
    Group: Src  {
 
@@ -91,6 +92,7 @@ Group: Src and tests  {
 
    Group: Tests  {
 
+      File: Command line suite  (/home/lionel/Proj/Archicheck/Tests/1_Command_Line/testrec.txt)
       File: Layer rules tests  (/home/lionel/Proj/Archicheck/Tests/5_Layers/Readme.txt)
       File: Child packages tests  (/home/lionel/Proj/Archicheck/Tests/6_Child_Packages/Readme.txt)
       File: Rules file syntax  (/home/lionel/Proj/Archicheck/Tests/7_Rules_Files_Syntax/Readme.txt)
@@ -98,6 +100,14 @@ Group: Src and tests  {
       File: --list_dependencies option test  (/home/lionel/Proj/Archicheck/Tests/3_Dependency_List/Readme.txt)
       File: --list_files option test  (/home/lionel/Proj/Archicheck/Tests/2_Source_List/Readme.txt)
       File: --list_rules option tests  (/home/lionel/Proj/Archicheck/Tests/4_Component_List/Readme.txt)
+      File: Child packages suite  (/home/lionel/Proj/Archicheck/Tests/6_Child_Packages/testrec.txt)
+      File: Component list suite  (/home/lionel/Proj/Archicheck/Tests/4_Component_List/testrec.txt)
+      File: Dependency list suite  (/home/lionel/Proj/Archicheck/Tests/3_Dependency_List/testrec.txt)
+      File: Globbing Character suite  (/home/lionel/Proj/Archicheck/Tests/8_Globbing_Characters/testrec.txt)
+      File: Layer suite  (/home/lionel/Proj/Archicheck/Tests/5_Layers/testrec.txt)
+      File: Rules file syntax suite  (/home/lionel/Proj/Archicheck/Tests/7_Rules_Files_Syntax/testrec.txt)
+      File: Sources list suite  (/home/lionel/Proj/Archicheck/Tests/2_Source_List/testrec.txt)
+      File: GtkAda tests suite  (/home/lionel/Proj/Archicheck/Tests/9_GtkAda/testrec.txt)
 
       Group: Tools Src  {
 
@@ -118,6 +128,7 @@ Group: Index  {
    Function Index: Functions
    Test Suite Index: Test Suites
    Test Index: Tests
+   Result Index: Results
    }  # Group: Index
 
 

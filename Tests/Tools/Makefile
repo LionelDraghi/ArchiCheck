@@ -110,7 +110,9 @@ check_clean: ${TR}
 
 .PHONY : clean
 clean:
-	gnat clean -q -Pcreate_pkg.gpr
-	gnat clean -q -Ptestrec.gpr
+	gnat clean -q -c -Pcreate_pkg.gpr
+	gnat clean -q -c -Ptestrec.gpr
+	# -c : Only delete compiler generated files
+	#      exec should not removed, because "testrec clean" is called in Makefile's clean
 	- ${RM} .testrec state.? state.?? testrec.txt diff.? diff.?? file? state.ref
 

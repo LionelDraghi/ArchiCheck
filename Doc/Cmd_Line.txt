@@ -18,8 +18,8 @@ Options :
    -lf | --list_files        : list sources files analyzed
    -ld | --list_dependencies : list identified dependencies in analyzed sources files
    -lr | --list_rules        : list rules in a rules file
-   -q  | --quiet             : no message unless error. Warning are also ignored.
    -v  | --verbose
+   -q  | --quiet             : no message unless error. Warning are also ignored.
          --version           : archicheck version
    -h  | --help              : this message
 
@@ -37,7 +37,7 @@ About: Archicheck current version
 (end)
 
 (start code)
-ArchiCheck version 0.2
+0.3.1
 
 (end)
 

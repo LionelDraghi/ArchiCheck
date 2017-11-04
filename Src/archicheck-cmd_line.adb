@@ -38,7 +38,7 @@ package body Archicheck.Cmd_Line is
    procedure Put_Version is
       use Archicheck.IO;
    begin
-      Put_Line ("ArchiCheck version " & Settings.ArchiCheck_Version);
+      Put_Line (Settings.ArchiCheck_Version);
       New_Line;
    end Put_Version;
 

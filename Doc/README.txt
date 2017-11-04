@@ -57,7 +57,7 @@ Needed external software : ploticus, NaturalDocs, sloccount and lcov.
 On Debian Linux family :
 > apt install ploticus naturaldocs sloccount lcov
 
-To contribute: 
+About: To contribute
 The easiest way to contribute (at this stage) is to use darcs, and to submit darcs patches, whatever is changed or added in the code, tests, text file, etc.
 Anyway, ideas or feedback are welcome <here at lionel.draghi@free.fr>.
 
@@ -88,8 +88,8 @@ More generally speaking, I won't be that much available for extending this tool,
 
 About: About
 
-Version :
-TBD
+Version:
+   <Archicheck current version>
 
 License:
 ArchiCheck is distributed under GPL version 3, refer to the <COPYING at file://home/lionel/Proj/ArchiCheck/COPYING> file.

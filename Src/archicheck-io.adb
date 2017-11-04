@@ -42,8 +42,8 @@ package body Archicheck.IO is
       Ada.Text_IO.Put_Line ("   -lr | --list_rules        : list rules in a rules file");
       -- Ada.Text_IO.Put_Line ("   NB : when one of the list options above is used, checks are NOT performed");
       --** copyright and disclaimer to be added?
-      Ada.Text_IO.Put_Line ("   -q  | --quiet             : no message unless error. Warning are also ignored.");
       Ada.Text_IO.Put_Line ("   -v  | --verbose");
+      Ada.Text_IO.Put_Line ("   -q  | --quiet             : no message unless error. Warning are also ignored.");
       Ada.Text_IO.Put_Line ("         --version           : archicheck version");
       Ada.Text_IO.Put_Line ("   -h  | --help              : this message");
       Ada.Text_IO.New_Line;

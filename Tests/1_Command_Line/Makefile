@@ -44,7 +44,7 @@ test2:
 	${TR} cmt "Test that the --version will put :" 			
 	${TR} cmt  								
 	${TR} cmt "(start code)" 						
-	echo "ArchiCheck version 0.2"	>  expected_version.txt
+	echo "0.3.1"			>  expected_version.txt
 	cat expected_version.txt >> testrec.txt					
 	${TR} cmt "(end)" 							
 

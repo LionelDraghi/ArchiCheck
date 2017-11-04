@@ -2,7 +2,7 @@
 
 all: build check doc
 
-release: clean build_release check
+release: build_release check
 	cp -p Obj/archicheck Linux_amd64_release/
 
 	> Doc/Download.txt
@@ -48,6 +48,8 @@ check: Obj/archicheck
 
 	@ # initializing coverage data before run
 	lcov --quiet --capture --initial --directory Obj -o Obj/coverage.info
+	# lcov error are ignored because this is also runned when in release mode, without 
+	# coverage info generated
 
 	echo Make Tests
 	$(MAKE) --directory=Tests
@@ -159,11 +161,9 @@ Cmd_Line.txt:
 doc: dashboard Cmd_Line.txt
 	echo Make Doc
 
-	naturaldocs -q --rebuild -i Doc -i Src -i Tests 		\
-		-s Default archicheck					\
-		-xi _darcs						\
-		-xi Src/backup						\
-		-xi Obj							\
+	naturaldocs -q -i Doc -i Src -i Tests 		\
+		-s Default archicheck			\
+		-xi _darcs -xi Src/backup -xi Obj	\
 		-o FramedHTML Doc/Generated -p Doc/Natural_Docs
 	cp -p  Doc/Archicheck_Overview.pdf Doc/Generated
 	cp -rp Doc/lcov Doc/Generated
