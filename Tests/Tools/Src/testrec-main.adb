@@ -248,17 +248,17 @@ procedure Testrec.Main is
 
       end if;
 
-      -- Log file:
-      declare
-         use Ada.Text_IO;
-         Common_Text : constant String := Indent & "- Asserting that """ & Prog & " " & Opts & """ return " & Boolean'Image (Expected);
-      begin
-         if Success then
-            Put_Line (Log_File, Item => Common_Text & " : OK");
-         else
-            Put_Line (Log_File, Item => "*" & Common_Text & " : Failed*");
-         end if;
-      end;
+      --        -- Log file:
+      --        declare
+      --           use Ada.Text_IO;
+      --           Common_Text : constant String := Indent & "- Asserting that """ & Prog & " " & Opts & """ return " & Boolean'Image (Expected);
+      --        begin
+      --           if Success then
+      --              Put_Line (Log_File, Item => Common_Text & " : OK");
+      --           else
+      --              Put_Line (Log_File, Item => "*" & Common_Text & " : Failed*");
+      --           end if;
+      --        end;
 
    end Assert;
 

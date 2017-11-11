@@ -7,7 +7,7 @@ Rules file:
 -       Is it useful to have a semantic difference between _only Porting_Kit may depends on C_Files_ and _Porting_Kit is a layer over C_Files_ ?
 -       Is it useful to have a _may_ semantics : _GLU may depends on GL_ ?
 
-Ada specific :
+Ada specific:
 -       Exclude "limited with" from dependencies
 -       use Type processing
 -       Processing Import pragma as a dependency. e.g. 

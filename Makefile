@@ -161,7 +161,7 @@ Cmd_Line.txt:
 doc: dashboard Cmd_Line.txt
 	echo Make Doc
 
-	naturaldocs -q -i Doc -i Src -i Tests 		\
+	naturaldocs -r -i Doc -i Src -i Tests 		\
 		-s Default archicheck			\
 		-xi _darcs -xi Src/backup -xi Obj	\
 		-o FramedHTML Doc/Generated -p Doc/Natural_Docs

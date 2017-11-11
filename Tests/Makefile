@@ -9,15 +9,15 @@ Tools/testrec:
 	@ $(MAKE) testrec    --directory=Tools
 
 check: ../Obj/archicheck Tools/create_pkg Tools/testrec
-	$(MAKE) check --directory=1_Command_Line
-	$(MAKE) check --directory=2_Source_List
-	$(MAKE) check --directory=3_Dependency_List
-	$(MAKE) check --directory=4_Component_List
-	$(MAKE) check --directory=5_Layers
-	$(MAKE) check --directory=6_Child_Packages
-	$(MAKE) check --directory=7_Rules_Files_Syntax
-	$(MAKE) check --directory=8_Globbing_Characters
-	$(MAKE) check --directory=9_GtkAda
+	$(MAKE) check --directory=01_Command_Line
+	$(MAKE) check --directory=02_Source_List
+	$(MAKE) check --directory=03_Dependency_List
+	$(MAKE) check --directory=04_Component_List
+	$(MAKE) check --directory=05_Layer_Rule
+	$(MAKE) check --directory=06_Child_Packages
+	$(MAKE) check --directory=07_Rules_Files_Syntax
+	$(MAKE) check --directory=08_Globbing_Characters
+	$(MAKE) check --directory=09_GtkAda
 
 tests_summary.txt:
 	cat `find . -name testrec.txt` > tmp.txt
@@ -53,15 +53,15 @@ tests_summary.txt:
 clean:
 	@ $(MAKE) clean --directory=Tools
 
-	@ $(MAKE) clean --directory=1_Command_Line
-	@ $(MAKE) clean --directory=2_Source_List
-	@ $(MAKE) clean --directory=3_Dependency_List
-	@ $(MAKE) clean --directory=4_Component_List
-	@ $(MAKE) clean --directory=5_Layers
-	@ $(MAKE) clean --directory=6_Child_Packages
-	@ $(MAKE) clean --directory=7_Rules_Files_Syntax
-	@ $(MAKE) clean --directory=8_Globbing_Characters
-	@ $(MAKE) clean --directory=9_GtkAda
+	@ $(MAKE) clean --directory=01_Command_Line
+	@ $(MAKE) clean --directory=02_Source_List
+	@ $(MAKE) clean --directory=03_Dependency_List
+	@ $(MAKE) clean --directory=04_Component_List
+	@ $(MAKE) clean --directory=05_Layer_Rule
+	@ $(MAKE) clean --directory=06_Child_Packages
+	@ $(MAKE) clean --directory=07_Rules_Files_Syntax
+	@ $(MAKE) clean --directory=08_Globbing_Characters
+	@ $(MAKE) clean --directory=09_GtkAda
 
 	- ${RM} tests_summary.txt *.lst short_tests_summary.txt
 

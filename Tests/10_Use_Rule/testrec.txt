@@ -1,0 +1,37 @@
+
+Test Suite: Use rules test suite
+
+
+   Test:    Use rules test suite / Use
+      First test, should be OK
+      (start code)
+Component_A contains P1, P2
+Component_B contains P3, P4
+
+Component_A use Component_B
+      (end)
+
+   Test:    Use rules test suite / Use
+      First test, should be OK
+      (start code)
+Component_A contains P1, P2
+Component_B contains P3, P4
+		
+Component_A use Component_B
+      (end)
+
+   Use rules test suite / Use <Successful>
+
+   Test:    Use rules test suite / Reverse dependency test
+      Detection of a dependancy from a used component to the using component.
+      (start code)
+Component_A contains P1, P2
+Component_B contains P3, P4
+
+only Component_A may use Component_B
+      (end)
+
+      Expected output :
+      (start code)
+Error : P4 is in Layer_B layer, and so shall not use P5 in the upper Layer_A layer
+      (end)

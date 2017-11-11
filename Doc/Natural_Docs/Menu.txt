@@ -20,7 +20,7 @@ Timestamp: Updated month day, year
 # These are indexes you deleted, so Natural Docs will not add them again
 # unless you remove them from this line.
 
-Don't Index: Constants, Variables, Types
+Don't Index: Constants, Types, Variables
 
 
 # --------------------------------------------------------------------------
@@ -47,8 +47,9 @@ Don't Index: Constants, Variables, Types
 # --------------------------------------------------------------------------
 
 
-File: START HERE  (/home/lionel/Proj/Archicheck/Doc/README.txt)
+File: Quick Start  (/home/lionel/Proj/Archicheck/Doc/README.txt)
 File: Download  (/home/lionel/Proj/Archicheck/Doc/Download.txt)
+File: About  (/home/lionel/Proj/Archicheck/Doc/About.txt)
 
 Group: Documentation  {
 
@@ -56,6 +57,7 @@ Group: Documentation  {
    File: Archicheck command line  (/home/lionel/Proj/Archicheck/Doc/Cmd_Line.txt)
    File: Rules Syntax  (/home/lionel/Proj/Archicheck/Doc/Rules_Syntax.txt)
    File: TODO list  (/home/lionel/Proj/Archicheck/Doc/todo.txt)
+   File: Contributing  (/home/lionel/Proj/Archicheck/Doc/Contributing.txt)
    File: License  (/home/lionel/Proj/Archicheck/Doc/COPYING.txt)
    }  # Group: Documentation
 
@@ -63,7 +65,6 @@ Group: Src and tests  {
 
    File: Dashboard  (/home/lionel/Proj/Archicheck/Doc/Dashboard.txt)
    Link: Code coverage  (http://lionel.draghi.free.fr/Archicheck/lcov/index.html)
-   File: Test Status  (/home/lionel/Proj/Archicheck/Tests/tests_summary.txt)
 
    Group: Src  {
 
@@ -92,22 +93,23 @@ Group: Src and tests  {
 
    Group: Tests  {
 
-      File: Command line suite  (/home/lionel/Proj/Archicheck/Tests/1_Command_Line/testrec.txt)
-      File: Layer rules tests  (/home/lionel/Proj/Archicheck/Tests/5_Layers/Readme.txt)
-      File: Child packages tests  (/home/lionel/Proj/Archicheck/Tests/6_Child_Packages/Readme.txt)
-      File: Rules file syntax  (/home/lionel/Proj/Archicheck/Tests/7_Rules_Files_Syntax/Readme.txt)
-      File: Globbing Characters tests  (/home/lionel/Proj/Archicheck/Tests/8_Globbing_Characters/Readme.txt)
-      File: --list_dependencies option test  (/home/lionel/Proj/Archicheck/Tests/3_Dependency_List/Readme.txt)
-      File: --list_files option test  (/home/lionel/Proj/Archicheck/Tests/2_Source_List/Readme.txt)
-      File: --list_rules option tests  (/home/lionel/Proj/Archicheck/Tests/4_Component_List/Readme.txt)
-      File: Child packages suite  (/home/lionel/Proj/Archicheck/Tests/6_Child_Packages/testrec.txt)
-      File: Component list suite  (/home/lionel/Proj/Archicheck/Tests/4_Component_List/testrec.txt)
-      File: Dependency list suite  (/home/lionel/Proj/Archicheck/Tests/3_Dependency_List/testrec.txt)
-      File: Globbing Character suite  (/home/lionel/Proj/Archicheck/Tests/8_Globbing_Characters/testrec.txt)
-      File: Layer suite  (/home/lionel/Proj/Archicheck/Tests/5_Layers/testrec.txt)
-      File: Rules file syntax suite  (/home/lionel/Proj/Archicheck/Tests/7_Rules_Files_Syntax/testrec.txt)
-      File: Sources list suite  (/home/lionel/Proj/Archicheck/Tests/2_Source_List/testrec.txt)
-      File: GtkAda tests suite  (/home/lionel/Proj/Archicheck/Tests/9_GtkAda/testrec.txt)
+      File: --list_dependencies option test  (/home/lionel/Proj/Archicheck/Tests/03_Dependency_List/Readme.txt)
+      File: --list_dependencies option test suite  (/home/lionel/Proj/Archicheck/Tests/03_Dependency_List/testrec.txt)
+      File: --list_files option test  (/home/lionel/Proj/Archicheck/Tests/02_Source_List/Readme.txt)
+      File: --list_files option test suite  (/home/lionel/Proj/Archicheck/Tests/02_Source_List/testrec.txt)
+      File: --list_rules option test suite  (/home/lionel/Proj/Archicheck/Tests/04_Component_List/testrec.txt)
+      File: --list_rules option tests  (/home/lionel/Proj/Archicheck/Tests/04_Component_List/Readme.txt)
+      File: Child packages test suite  (/home/lionel/Proj/Archicheck/Tests/06_Child_Packages/testrec.txt)
+      File: Child packages tests  (/home/lionel/Proj/Archicheck/Tests/06_Child_Packages/Readme.txt)
+      File: Command line test suite  (/home/lionel/Proj/Archicheck/Tests/01_Command_Line/testrec.txt)
+      File: Globbing Character test suite  (/home/lionel/Proj/Archicheck/Tests/08_Globbing_Characters/testrec.txt)
+      File: Globbing Characters tests  (/home/lionel/Proj/Archicheck/Tests/08_Globbing_Characters/Readme.txt)
+      File: GtkAda test suite  (/home/lionel/Proj/Archicheck/Tests/09_GtkAda/testrec.txt)
+      File: Layer rules test suite  (/home/lionel/Proj/Archicheck/Tests/05_Layer_Rule/testrec.txt)
+      File: Layer rules tests  (/home/lionel/Proj/Archicheck/Tests/05_Layer_Rule/Readme.txt)
+      File: Rules file syntax  (/home/lionel/Proj/Archicheck/Tests/07_Rules_Files_Syntax/Readme.txt)
+      File: Rules file syntax test suite  (/home/lionel/Proj/Archicheck/Tests/07_Rules_Files_Syntax/testrec.txt)
+      File: Test Status  (/home/lionel/Proj/Archicheck/Tests/tests_summary.txt)
 
       Group: Tools Src  {
 
@@ -116,6 +118,7 @@ Group: Src and tests  {
          File: Testrec.Main specification  (/home/lionel/Proj/Archicheck/Tests/Tools/Src/testrec-main.ads)
          }  # Group: Tools Src
 
+      File: Use rules test suite  (/home/lionel/Proj/Archicheck/Tests/10_Use_Rule/testrec.txt)
       }  # Group: Tests
 
    }  # Group: Src and tests

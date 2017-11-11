@@ -1,3 +1,5 @@
-Please refer to Doc/index.html (or Doc/README.txt).
+
+Please refer to http://lionel.draghi.free.fr/Archicheck/index.html.
+(This site is generated using NaturalDocs by make doc)
 
 

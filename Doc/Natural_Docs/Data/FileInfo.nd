@@ -1,0 +1,206 @@
+1.51
+Ada
+/home/lionel/Proj/Archicheck/Tests/08_Globbing_Characters/dir1/p3.ads	1510389444	0	/home/lionel/Proj/Archicheck/Tests/08_Globbing_Characters/dir1/p3.ads
+/home/lionel/Proj/Archicheck/Tests/01_Command_Line/err9.txt	1510389437	0	/home/lionel/Proj/Archicheck/Tests/01_Command_Line/err9.txt
+/home/lionel/Proj/Archicheck/Tests/03_Dependency_List/dir2/a.ads	1510389438	0	/home/lionel/Proj/Archicheck/Tests/03_Dependency_List/dir2/a.ads
+/home/lionel/Proj/Archicheck/Tests/10_Use_Rule/dir3c/p6.ads	1510180670	0	/home/lionel/Proj/Archicheck/Tests/10_Use_Rule/dir3c/p6.ads
+/home/lionel/Proj/Archicheck/Tests/01_Command_Line/help1.txt	1510389435	0	/home/lionel/Proj/Archicheck/Tests/01_Command_Line/help1.txt
+/home/lionel/Proj/Archicheck/Tests/10_Use_Rule/dir2/p3.ads	1510183371	0	/home/lionel/Proj/Archicheck/Tests/10_Use_Rule/dir2/p3.ads
+/home/lionel/Proj/Archicheck/Tests/06_Child_Packages/dir1/gui-p1.ads	1510389441	0	/home/lionel/Proj/Archicheck/Tests/06_Child_Packages/dir1/gui-p1.ads
+/home/lionel/Proj/Archicheck/Tests/Tools/Src/testrec-current_state.ads	1510355689	0	/home/lionel/Proj/Archicheck/Tests/Tools/Src/testrec-current_state.ads
+/home/lionel/Proj/Archicheck/Tests/10_Use_Rule/dir4/p2.ads	1510180670	0	/home/lionel/Proj/Archicheck/Tests/10_Use_Rule/dir4/p2.ads
+/home/lionel/Proj/Archicheck/Tests/06_Child_Packages/rules.txt	1510389441	0	/home/lionel/Proj/Archicheck/Tests/06_Child_Packages/rules.txt
+/home/lionel/Proj/Archicheck/Tests/06_Child_Packages/dir1/db-p3.ads	1510389441	0	/home/lionel/Proj/Archicheck/Tests/06_Child_Packages/dir1/db-p3.ads
+/home/lionel/Proj/Archicheck/Tests/04_Component_List/Readme.txt	1510355689	1	--list_rules option tests
+/home/lionel/Proj/Archicheck/Tests/05_Layer_Rule/dirB/svg_parser.ads	1510389439	0	/home/lionel/Proj/Archicheck/Tests/05_Layer_Rule/dirB/svg_parser.ads
+/home/lionel/Proj/Archicheck/Src/archicheck-settings.adb	1510355690	1	Archicheck.Settings body
+/home/lionel/Proj/Archicheck/Tests/01_Command_Line/expected_err13.txt	1510389437	0	/home/lionel/Proj/Archicheck/Tests/01_Command_Line/expected_err13.txt
+/home/lionel/Proj/Archicheck/Src/archicheck-layers.adb	1510355690	1	Archicheck.Layers body
+/home/lionel/Proj/Archicheck/Doc/Dashboard.txt	1510389455	1	Dashboard
+/home/lionel/Proj/Archicheck/Src/archicheck-cmd_line.adb	1510355691	1	Archicheck.Cmd_Line body
+/home/lionel/Proj/Archicheck/Doc/About.txt	1510091303	1	About
+/home/lionel/Proj/Archicheck/Tests/01_Command_Line/err5.txt	1510389436	0	/home/lionel/Proj/Archicheck/Tests/01_Command_Line/err5.txt
+/home/lionel/Proj/Archicheck/Tests/05_Layer_Rule/dirB/svg_generator.ads	1510389439	0	/home/lionel/Proj/Archicheck/Tests/05_Layer_Rule/dirB/svg_generator.ads
+/home/lionel/Proj/Archicheck/Tests/10_Use_Rule/dir1/p4.ads	1510183367	0	/home/lionel/Proj/Archicheck/Tests/10_Use_Rule/dir1/p4.ads
+/home/lionel/Proj/Archicheck/Tests/01_Command_Line/err13.txt	1510389437	0	/home/lionel/Proj/Archicheck/Tests/01_Command_Line/err13.txt
+/home/lionel/Proj/Archicheck/Tests/05_Layer_Rule/dir1/p2.adb	1510389439	0	/home/lionel/Proj/Archicheck/Tests/05_Layer_Rule/dir1/p2.adb
+/home/lionel/Proj/Archicheck/Tests/05_Layer_Rule/dir1/p1.ads	1510389439	0	/home/lionel/Proj/Archicheck/Tests/05_Layer_Rule/dir1/p1.ads
+/home/lionel/Proj/Archicheck/Src/archicheck-components.adb	1510355690	1	Archicheck.Components body
+/home/lionel/Proj/Archicheck/Tests/05_Layer_Rule/dir3a/p1.ads	1510389440	0	/home/lionel/Proj/Archicheck/Tests/05_Layer_Rule/dir3a/p1.ads
+/home/lionel/Proj/Archicheck/Tests/05_Layer_Rule/dir4/p4.ads	1510389440	0	/home/lionel/Proj/Archicheck/Tests/05_Layer_Rule/dir4/p4.ads
+/home/lionel/Proj/Archicheck/Tests/07_Rules_Files_Syntax/lc2.txt	1510389442	0	/home/lionel/Proj/Archicheck/Tests/07_Rules_Files_Syntax/lc2.txt
+/home/lionel/Proj/Archicheck/Tests/09_GtkAda/testrec.txt	1510389449	1	GtkAda test suite
+/home/lionel/Proj/Archicheck/Tests/01_Command_Line/expected_err11.txt	1510389437	0	/home/lionel/Proj/Archicheck/Tests/01_Command_Line/expected_err11.txt
+/home/lionel/Proj/Archicheck/Tests/05_Layer_Rule/dirB/renderer.ads	1510389439	0	/home/lionel/Proj/Archicheck/Tests/05_Layer_Rule/dirB/renderer.ads
+/home/lionel/Proj/Archicheck/Tests/06_Child_Packages/dir1/db-p4.ads	1510389441	0	/home/lionel/Proj/Archicheck/Tests/06_Child_Packages/dir1/db-p4.ads
+/home/lionel/Proj/Archicheck/Src/archicheck-dependencies.adb	1510355690	1	Archicheck.Dependencies body
+/home/lionel/Proj/Archicheck/Src/archicheck-rules_parser.ads	1510355690	1	Archicheck.Rules_Parser specification
+/home/lionel/Proj/Archicheck/Tests/10_Use_Rule/dir1/p1.ads	1510183367	0	/home/lionel/Proj/Archicheck/Tests/10_Use_Rule/dir1/p1.ads
+/home/lionel/Proj/Archicheck/Tests/06_Child_Packages/dir4/db-p3.ads	1510389442	0	/home/lionel/Proj/Archicheck/Tests/06_Child_Packages/dir4/db-p3.ads
+/home/lionel/Proj/Archicheck/Tests/05_Layer_Rule/dir1/p3.ads	1510389439	0	/home/lionel/Proj/Archicheck/Tests/05_Layer_Rule/dir1/p3.ads
+/home/lionel/Proj/Archicheck/Tests/02_Source_List/dir1/a.ads	1510389437	0	/home/lionel/Proj/Archicheck/Tests/02_Source_List/dir1/a.ads
+/home/lionel/Proj/Archicheck/Tests/03_Dependency_List/dir2/a.adb	1510389438	0	/home/lionel/Proj/Archicheck/Tests/03_Dependency_List/dir2/a.adb
+/home/lionel/Proj/Archicheck/Tests/Tools/Src/testrec.ads	1510355689	1	Testrec
+/home/lionel/Proj/Archicheck/Tests/01_Command_Line/err11.txt	1510389437	0	/home/lionel/Proj/Archicheck/Tests/01_Command_Line/err11.txt
+/home/lionel/Proj/Archicheck/Tests/06_Child_Packages/dir4/gui-p1.ads	1510389442	0	/home/lionel/Proj/Archicheck/Tests/06_Child_Packages/dir4/gui-p1.ads
+/home/lionel/Proj/Archicheck/Tests/08_Globbing_Characters/dir1/p2.ads	1510389444	0	/home/lionel/Proj/Archicheck/Tests/08_Globbing_Characters/dir1/p2.ads
+/home/lionel/Proj/Archicheck/Tests/01_Command_Line/rules.txt	1510389437	0	/home/lionel/Proj/Archicheck/Tests/01_Command_Line/rules.txt
+/home/lionel/Proj/Archicheck/Tests/06_Child_Packages/dir2/gui-p5.ads	1510389441	0	/home/lionel/Proj/Archicheck/Tests/06_Child_Packages/dir2/gui-p5.ads
+/home/lionel/Proj/Archicheck/Tests/07_Rules_Files_Syntax/rules2.txt	1510355689	0	/home/lionel/Proj/Archicheck/Tests/07_Rules_Files_Syntax/rules2.txt
+/home/lionel/Proj/Archicheck/Tests/05_Layer_Rule/dir4/p1.ads	1510389440	0	/home/lionel/Proj/Archicheck/Tests/05_Layer_Rule/dir4/p1.ads
+/home/lionel/Proj/Archicheck/Tests/05_Layer_Rule/dir4/p2.ads	1510389440	0	/home/lionel/Proj/Archicheck/Tests/05_Layer_Rule/dir4/p2.ads
+/home/lionel/Proj/Archicheck/Doc/README.txt	1510177931	1	Quick Start
+/home/lionel/Proj/Archicheck/Tests/04_Component_List/testrec.txt	1510389439	1	--list_rules option test suite
+/home/lionel/Proj/Archicheck/Src/archicheck-io.ads	1510355690	1	Archicheck.IO specification
+/home/lionel/Proj/Archicheck/Tests/06_Child_Packages/dir6/guip2.ads	1510389442	0	/home/lionel/Proj/Archicheck/Tests/06_Child_Packages/dir6/guip2.ads
+/home/lionel/Proj/Archicheck/Tests/05_Layer_Rule/dir2/p4.ads	1510389440	0	/home/lionel/Proj/Archicheck/Tests/05_Layer_Rule/dir2/p4.ads
+/home/lionel/Proj/Archicheck/Tests/08_Globbing_Characters/testrec.txt	1510389444	1	Globbing Character test suite
+/home/lionel/Proj/Archicheck/Tests/01_Command_Line/expected_err6.txt	1510389436	0	/home/lionel/Proj/Archicheck/Tests/01_Command_Line/expected_err6.txt
+/home/lionel/Proj/Archicheck/Tests/10_Use_Rule/dir4/p1.ads	1510180670	0	/home/lionel/Proj/Archicheck/Tests/10_Use_Rule/dir4/p1.ads
+/home/lionel/Proj/Archicheck/Tests/01_Command_Line/dir6/src.adb	1510389436	0	/home/lionel/Proj/Archicheck/Tests/01_Command_Line/dir6/src.adb
+/home/lionel/Proj/Archicheck/Tests/05_Layer_Rule/dir2/p1.ads	1510389440	0	/home/lionel/Proj/Archicheck/Tests/05_Layer_Rule/dir2/p1.ads
+/home/lionel/Proj/Archicheck/Tests/05_Layer_Rule/dir3b/p4.ads	1510389440	0	/home/lionel/Proj/Archicheck/Tests/05_Layer_Rule/dir3b/p4.ads
+/home/lionel/Proj/Archicheck/Tests/07_Rules_Files_Syntax/rules4.txt	1510355689	0	/home/lionel/Proj/Archicheck/Tests/07_Rules_Files_Syntax/rules4.txt
+/home/lionel/Proj/Archicheck/Tests/06_Child_Packages/testrec.txt	1510389442	1	Child packages test suite
+/home/lionel/Proj/Archicheck/Tests/06_Child_Packages/dir6/gui-p1.ads	1510389442	0	/home/lionel/Proj/Archicheck/Tests/06_Child_Packages/dir6/gui-p1.ads
+/home/lionel/Proj/Archicheck/Src/archicheck-sources.adb	1510355690	1	Archicheck.Sources
+/home/lionel/Proj/Archicheck/Tests/01_Command_Line/expected_help.txt	1510389435	0	/home/lionel/Proj/Archicheck/Tests/01_Command_Line/expected_help.txt
+/home/lionel/Proj/Archicheck/Tests/Tools/Src/create_pkg.adb	1510355676	0	/home/lionel/Proj/Archicheck/Tests/Tools/Src/create_pkg.adb
+/home/lionel/Proj/Archicheck/Tests/Tools/Src/config.ads	1510355689	0	/home/lionel/Proj/Archicheck/Tests/Tools/Src/config.ads
+/home/lionel/Proj/Archicheck/Tests/10_Use_Rule/dir2/p5.ads	1510183371	0	/home/lionel/Proj/Archicheck/Tests/10_Use_Rule/dir2/p5.ads
+/home/lionel/Proj/Archicheck/Src/archicheck-io.adb	1510355691	1	Archicheck.IO body
+/home/lionel/Proj/Archicheck/Tests/01_Command_Line/expected_err10.txt	1510389437	0	/home/lionel/Proj/Archicheck/Tests/01_Command_Line/expected_err10.txt
+/home/lionel/Proj/Archicheck/Tests/01_Command_Line/src.adb	1510389437	0	/home/lionel/Proj/Archicheck/Tests/01_Command_Line/src.adb
+/home/lionel/Proj/Archicheck/Src/archicheck-rules_parser.adb	1510183120	1	Archicheck.Rules_Parser body
+/home/lionel/Proj/Archicheck/Tests/01_Command_Line/expected_err3.txt	1510389435	0	/home/lionel/Proj/Archicheck/Tests/01_Command_Line/expected_err3.txt
+/home/lionel/Proj/Archicheck/Doc/Rules_Syntax.txt	1510355690	1	Rules Syntax
+/home/lionel/Proj/Archicheck/Tests/05_Layer_Rule/dirB/rasterizer.ads	1510389439	0	/home/lionel/Proj/Archicheck/Tests/05_Layer_Rule/dirB/rasterizer.ads
+/home/lionel/Proj/Archicheck/Tests/03_Dependency_List/dir1/c-d.ads	1510389438	0	/home/lionel/Proj/Archicheck/Tests/03_Dependency_List/dir1/c-d.ads
+/home/lionel/Proj/Archicheck/Tests/10_Use_Rule/dir3b/p3.ads	1510180670	0	/home/lionel/Proj/Archicheck/Tests/10_Use_Rule/dir3b/p3.ads
+/home/lionel/Proj/Archicheck/Tests/07_Rules_Files_Syntax/Readme.txt	1510355690	1	Rules file syntax
+/home/lionel/Proj/Archicheck/Tests/05_Layer_Rule/dir1/p4.ads	1510389439	0	/home/lionel/Proj/Archicheck/Tests/05_Layer_Rule/dir1/p4.ads
+/home/lionel/Proj/Archicheck/Tests/01_Command_Line/err8.txt	1510389436	0	/home/lionel/Proj/Archicheck/Tests/01_Command_Line/err8.txt
+/home/lionel/Proj/Archicheck/Src/archicheck.ads	1510355690	1	Archicheck specification
+/home/lionel/Proj/Archicheck/Tests/02_Source_List/dir2/b.ads	1510389437	0	/home/lionel/Proj/Archicheck/Tests/02_Source_List/dir2/b.ads
+/home/lionel/Proj/Archicheck/Tests/05_Layer_Rule/dir2/p2.ads	1510389440	0	/home/lionel/Proj/Archicheck/Tests/05_Layer_Rule/dir2/p2.ads
+/home/lionel/Proj/Archicheck/Tests/06_Child_Packages/dir2/gui-p2.ads	1510389441	0	/home/lionel/Proj/Archicheck/Tests/06_Child_Packages/dir2/gui-p2.ads
+/home/lionel/Proj/Archicheck/Tests/03_Dependency_List/dir1/a.ads	1510389438	0	/home/lionel/Proj/Archicheck/Tests/03_Dependency_List/dir1/a.ads
+/home/lionel/Proj/Archicheck/Tests/08_Globbing_Characters/dir1/p1.ads	1510389443	0	/home/lionel/Proj/Archicheck/Tests/08_Globbing_Characters/dir1/p1.ads
+/home/lionel/Proj/Archicheck/Tests/07_Rules_Files_Syntax/rules5.txt	1510355690	0	/home/lionel/Proj/Archicheck/Tests/07_Rules_Files_Syntax/rules5.txt
+/home/lionel/Proj/Archicheck/Tests/07_Rules_Files_Syntax/lc1.txt	1510389442	0	/home/lionel/Proj/Archicheck/Tests/07_Rules_Files_Syntax/lc1.txt
+/home/lionel/Proj/Archicheck/Tests/05_Layer_Rule/dir1/p2.ads	1510389439	0	/home/lionel/Proj/Archicheck/Tests/05_Layer_Rule/dir1/p2.ads
+/home/lionel/Proj/Archicheck/Tests/08_Globbing_Characters/Readme.txt	1510355689	1	Globbing Characters tests
+/home/lionel/Proj/Archicheck/Tests/07_Rules_Files_Syntax/lc5.txt	1510389443	0	/home/lionel/Proj/Archicheck/Tests/07_Rules_Files_Syntax/lc5.txt
+/home/lionel/Proj/Archicheck/Tests/01_Command_Line/err10.txt	1510389437	0	/home/lionel/Proj/Archicheck/Tests/01_Command_Line/err10.txt
+/home/lionel/Proj/Archicheck/Tests/06_Child_Packages/dir3/gui-p1.ads	1510389442	0	/home/lionel/Proj/Archicheck/Tests/06_Child_Packages/dir3/gui-p1.ads
+/home/lionel/Proj/Archicheck/Tests/02_Source_List/testrec.txt	1510389438	1	--list_files option test suite
+/home/lionel/Proj/Archicheck/Tests/10_Use_Rule/dir2/p4.ads	1510183371	0	/home/lionel/Proj/Archicheck/Tests/10_Use_Rule/dir2/p4.ads
+/home/lionel/Proj/Archicheck/Tests/09_GtkAda/rules.txt	1510355690	0	/home/lionel/Proj/Archicheck/Tests/09_GtkAda/rules.txt
+/home/lionel/Proj/Archicheck/Tests/05_Layer_Rule/dir2/p5.ads	1510389440	0	/home/lionel/Proj/Archicheck/Tests/05_Layer_Rule/dir2/p5.ads
+/home/lionel/Proj/Archicheck/Tests/01_Command_Line/expected_version.txt	1510389435	0	/home/lionel/Proj/Archicheck/Tests/01_Command_Line/expected_version.txt
+/home/lionel/Proj/Archicheck/Tests/01_Command_Line/err12.txt	1510389437	0	/home/lionel/Proj/Archicheck/Tests/01_Command_Line/err12.txt
+/home/lionel/Proj/Archicheck/Tests/05_Layer_Rule/dir3a/p2.ads	1510389440	0	/home/lionel/Proj/Archicheck/Tests/05_Layer_Rule/dir3a/p2.ads
+/home/lionel/Proj/Archicheck/Tests/05_Layer_Rule/dir3a/p2.adb	1510389440	0	/home/lionel/Proj/Archicheck/Tests/05_Layer_Rule/dir3a/p2.adb
+/home/lionel/Proj/Archicheck/Tests/05_Layer_Rule/dirB/ui_component.ads	1510389439	0	/home/lionel/Proj/Archicheck/Tests/05_Layer_Rule/dirB/ui_component.ads
+/home/lionel/Proj/Archicheck/Src/archicheck-check_layer_rules.ads	1510355690	1	Archicheck.Check_Layer_Rules specification
+/home/lionel/Proj/Archicheck/Tests/02_Source_List/Readme.txt	1510355689	1	--list_files option test
+/home/lionel/Proj/Archicheck/Tests/10_Use_Rule/dir3a/p1.ads	1510180670	0	/home/lionel/Proj/Archicheck/Tests/10_Use_Rule/dir3a/p1.ads
+/home/lionel/Proj/Archicheck/Tests/03_Dependency_List/dir1/c.ads	1510389438	0	/home/lionel/Proj/Archicheck/Tests/03_Dependency_List/dir1/c.ads
+/home/lionel/Proj/Archicheck/Tests/06_Child_Packages/dir3/gui-p2.ads	1510389442	0	/home/lionel/Proj/Archicheck/Tests/06_Child_Packages/dir3/gui-p2.ads
+/home/lionel/Proj/Archicheck/Tests/10_Use_Rule/dir3b/p4.ads	1510180670	0	/home/lionel/Proj/Archicheck/Tests/10_Use_Rule/dir3b/p4.ads
+/home/lionel/Proj/Archicheck/Tests/01_Command_Line/expected_err9.txt	1510389437	0	/home/lionel/Proj/Archicheck/Tests/01_Command_Line/expected_err9.txt
+/home/lionel/Proj/Archicheck/Tests/05_Layer_Rule/testrec.txt	1510389441	1	Layer rules test suite
+/home/lionel/Proj/Archicheck/Tests/10_Use_Rule/dir1/p2.adb	1510183367	0	/home/lionel/Proj/Archicheck/Tests/10_Use_Rule/dir1/p2.adb
+/home/lionel/Proj/Archicheck/Tests/01_Command_Line/dir12/src.adb	1510389437	0	/home/lionel/Proj/Archicheck/Tests/01_Command_Line/dir12/src.adb
+/home/lionel/Proj/Archicheck/Tests/05_Layer_Rule/dir2/p3.ads	1510389440	0	/home/lionel/Proj/Archicheck/Tests/05_Layer_Rule/dir2/p3.ads
+/home/lionel/Proj/Archicheck/Tests/06_Child_Packages/dir6/dbp2.ads	1510389442	0	/home/lionel/Proj/Archicheck/Tests/06_Child_Packages/dir6/dbp2.ads
+/home/lionel/Proj/Archicheck/Tests/10_Use_Rule/dir2/p1.ads	1510183371	0	/home/lionel/Proj/Archicheck/Tests/10_Use_Rule/dir2/p1.ads
+/home/lionel/Proj/Archicheck/Src/archicheck-layers.ads	1510355690	1	Archicheck.Layers specification
+/home/lionel/Proj/Archicheck/Doc/Contributing.txt	1510183697	1	Contributing
+/home/lionel/Proj/Archicheck/Tests/01_Command_Line/err4.txt	1510389436	0	/home/lionel/Proj/Archicheck/Tests/01_Command_Line/err4.txt
+/home/lionel/Proj/Archicheck/Tests/01_Command_Line/version1.txt	1510389435	0	/home/lionel/Proj/Archicheck/Tests/01_Command_Line/version1.txt
+/home/lionel/Proj/Archicheck/Src/archicheck-settings.ads	1510355691	1	Archicheck.Settings specification
+/home/lionel/Proj/Archicheck/Tests/01_Command_Line/expected_err8.txt	1510389436	0	/home/lionel/Proj/Archicheck/Tests/01_Command_Line/expected_err8.txt
+/home/lionel/Proj/Archicheck/Tests/10_Use_Rule/dir4/p7.ads	1510180670	0	/home/lionel/Proj/Archicheck/Tests/10_Use_Rule/dir4/p7.ads
+/home/lionel/Proj/Archicheck/Tests/10_Use_Rule/dir3a/p2.adb	1510180670	0	/home/lionel/Proj/Archicheck/Tests/10_Use_Rule/dir3a/p2.adb
+/home/lionel/Proj/Archicheck/Tests/03_Dependency_List/Readme.txt	1510355689	1	--list_dependencies option test
+/home/lionel/Proj/Archicheck/Src/archicheck-components.ads	1510355690	1	Archicheck.Components specification
+/home/lionel/Proj/Archicheck/Tests/03_Dependency_List/dir1/a.adb	1510389438	0	/home/lionel/Proj/Archicheck/Tests/03_Dependency_List/dir1/a.adb
+/home/lionel/Proj/Archicheck/Doc/COPYING.txt	1510355689	1	License
+/home/lionel/Proj/Archicheck/Tests/05_Layer_Rule/dir3c/p6.ads	1510389440	0	/home/lionel/Proj/Archicheck/Tests/05_Layer_Rule/dir3c/p6.ads
+/home/lionel/Proj/Archicheck/Tests/01_Command_Line/expected_err5.txt	1510389436	0	/home/lionel/Proj/Archicheck/Tests/01_Command_Line/expected_err5.txt
+/home/lionel/Proj/Archicheck/Tests/07_Rules_Files_Syntax/rules3.txt	1510355690	0	/home/lionel/Proj/Archicheck/Tests/07_Rules_Files_Syntax/rules3.txt
+/home/lionel/Proj/Archicheck/Src/archicheck-main.adb	1510355690	1	Archicheck.Main body
+/home/lionel/Proj/Archicheck/Tests/02_Source_List/dir3/c-d.ads	1510389437	0	/home/lionel/Proj/Archicheck/Tests/02_Source_List/dir3/c-d.ads
+/home/lionel/Proj/Archicheck/Tests/Tools/Src/testrec-main.ads	1510355689	1	Testrec.Main specification
+/home/lionel/Proj/Archicheck/Tests/05_Layer_Rule/dir4/p7.ads	1510389440	0	/home/lionel/Proj/Archicheck/Tests/05_Layer_Rule/dir4/p7.ads
+/home/lionel/Proj/Archicheck/Tests/05_Layer_Rule/dirB/bridge.ads	1510389439	0	/home/lionel/Proj/Archicheck/Tests/05_Layer_Rule/dirB/bridge.ads
+/home/lionel/Proj/Archicheck/Tests/01_Command_Line/err3.txt	1510389435	0	/home/lionel/Proj/Archicheck/Tests/01_Command_Line/err3.txt
+/home/lionel/Proj/Archicheck/Tests/03_Dependency_List/dir2/c.ads	1510389438	0	/home/lionel/Proj/Archicheck/Tests/03_Dependency_List/dir2/c.ads
+/home/lionel/Proj/Archicheck/Tests/06_Child_Packages/dir1/gui-p2.ads	1510389441	0	/home/lionel/Proj/Archicheck/Tests/06_Child_Packages/dir1/gui-p2.ads
+/home/lionel/Proj/Archicheck/Tests/06_Child_Packages/dir5/gui-p1.ads	1510389442	0	/home/lionel/Proj/Archicheck/Tests/06_Child_Packages/dir5/gui-p1.ads
+/home/lionel/Proj/Archicheck/Tests/06_Child_Packages/dir3/db-p3.ads	1510389442	0	/home/lionel/Proj/Archicheck/Tests/06_Child_Packages/dir3/db-p3.ads
+/home/lionel/Proj/Archicheck/Src/archicheck-check_layer_rules.adb	1510355690	1	/home/lionel/Proj/Archicheck/Src/archicheck-check_layer_rules.adb
+/home/lionel/Proj/Archicheck/Tests/05_Layer_Rule/dirB/transcoder.ads	1510389439	0	/home/lionel/Proj/Archicheck/Tests/05_Layer_Rule/dirB/transcoder.ads
+/home/lionel/Proj/Archicheck/Tests/05_Layer_Rule/dirB/browser.ads	1510389439	0	/home/lionel/Proj/Archicheck/Tests/05_Layer_Rule/dirB/browser.ads
+/home/lionel/Proj/Archicheck/Tests/Tools/Src/config.adb	1510355689	0	/home/lionel/Proj/Archicheck/Tests/Tools/Src/config.adb
+/home/lionel/Proj/Archicheck/Tests/10_Use_Rule/dir4/p4.ads	1510180670	0	/home/lionel/Proj/Archicheck/Tests/10_Use_Rule/dir4/p4.ads
+/home/lionel/Proj/Archicheck/Tests/01_Command_Line/help2.txt	1510389435	0	/home/lionel/Proj/Archicheck/Tests/01_Command_Line/help2.txt
+/home/lionel/Proj/Archicheck/Doc/todo.txt	1510087364	1	TODO list
+/home/lionel/Proj/Archicheck/Tests/tests_summary.txt	1510389449	1	Test Status
+/home/lionel/Proj/Archicheck/Tests/01_Command_Line/expected_err12.txt	1510389437	0	/home/lionel/Proj/Archicheck/Tests/01_Command_Line/expected_err12.txt
+/home/lionel/Proj/Archicheck/Tests/05_Layer_Rule/dir3c/p6.adb	1510389440	0	/home/lionel/Proj/Archicheck/Tests/05_Layer_Rule/dir3c/p6.adb
+/home/lionel/Proj/Archicheck/Tests/10_Use_Rule/dir1/p3.ads	1510183367	0	/home/lionel/Proj/Archicheck/Tests/10_Use_Rule/dir1/p3.ads
+/home/lionel/Proj/Archicheck/Tests/02_Source_List/dir3/c.ads	1510389437	0	/home/lionel/Proj/Archicheck/Tests/02_Source_List/dir3/c.ads
+/home/lionel/Proj/Archicheck/Src/archicheck-sources.ads	1510355690	1	Archicheck.Sources
+/home/lionel/Proj/Archicheck/Tests/06_Child_Packages/dir2/db-p4.ads	1510389441	0	/home/lionel/Proj/Archicheck/Tests/06_Child_Packages/dir2/db-p4.ads
+/home/lionel/Proj/Archicheck/Tests/10_Use_Rule/dir3c/p6.adb	1510180670	0	/home/lionel/Proj/Archicheck/Tests/10_Use_Rule/dir3c/p6.adb
+/home/lionel/Proj/Archicheck/Tests/06_Child_Packages/dir4/p7.ads	1510389442	0	/home/lionel/Proj/Archicheck/Tests/06_Child_Packages/dir4/p7.ads
+/home/lionel/Proj/Archicheck/Tests/08_Globbing_Characters/dir1/p4.ads	1510389444	0	/home/lionel/Proj/Archicheck/Tests/08_Globbing_Characters/dir1/p4.ads
+/home/lionel/Proj/Archicheck/Tests/03_Dependency_List/dir2/b.adb	1510389438	0	/home/lionel/Proj/Archicheck/Tests/03_Dependency_List/dir2/b.adb
+/home/lionel/Proj/Archicheck/Tests/06_Child_Packages/dir4/gui-p2.ads	1510389442	0	/home/lionel/Proj/Archicheck/Tests/06_Child_Packages/dir4/gui-p2.ads
+/home/lionel/Proj/Archicheck/Tests/06_Child_Packages/dir3/p6.ads	1510389442	0	/home/lionel/Proj/Archicheck/Tests/06_Child_Packages/dir3/p6.ads
+/home/lionel/Proj/Archicheck/Src/archicheck-cmd_line.ads	1510355690	1	Archicheck.Cmd_Line specification
+/home/lionel/Proj/Archicheck/Tests/01_Command_Line/expected_err4.txt	1510389435	0	/home/lionel/Proj/Archicheck/Tests/01_Command_Line/expected_err4.txt
+/home/lionel/Proj/Archicheck/Tests/03_Dependency_List/testrec.txt	1510389438	1	--list_dependencies option test suite
+/home/lionel/Proj/Archicheck/Tests/07_Rules_Files_Syntax/reference_lc.txt	1510355689	0	/home/lionel/Proj/Archicheck/Tests/07_Rules_Files_Syntax/reference_lc.txt
+/home/lionel/Proj/Archicheck/Tests/06_Child_Packages/dir5/db-p3.ads	1510389442	0	/home/lionel/Proj/Archicheck/Tests/06_Child_Packages/dir5/db-p3.ads
+/home/lionel/Proj/Archicheck/Tests/01_Command_Line/err6.txt	1510389436	0	/home/lionel/Proj/Archicheck/Tests/01_Command_Line/err6.txt
+/home/lionel/Proj/Archicheck/Tests/07_Rules_Files_Syntax/lc3.txt	1510389443	0	/home/lionel/Proj/Archicheck/Tests/07_Rules_Files_Syntax/lc3.txt
+/home/lionel/Proj/Archicheck/Tests/01_Command_Line/testrec.txt	1510389437	1	Command line test suite
+/home/lionel/Proj/Archicheck/Tests/05_Layer_Rule/Readme.txt	1510355689	1	Layer rules tests
+/home/lionel/Proj/Archicheck/Src/archicheck-dependencies.ads	1510355690	1	Archicheck.Dependencies specification
+/home/lionel/Proj/Archicheck/Tests/06_Child_Packages/dir5/db-p4.ads	1510389442	0	/home/lionel/Proj/Archicheck/Tests/06_Child_Packages/dir5/db-p4.ads
+/home/lionel/Proj/Archicheck/Tests/07_Rules_Files_Syntax/expected_lc3.txt	1510389443	0	/home/lionel/Proj/Archicheck/Tests/07_Rules_Files_Syntax/expected_lc3.txt
+/home/lionel/Proj/Archicheck/Tests/06_Child_Packages/dir3/db-p4.ads	1510389442	0	/home/lionel/Proj/Archicheck/Tests/06_Child_Packages/dir3/db-p4.ads
+/home/lionel/Proj/Archicheck/Tests/03_Dependency_List/dir1/b.adb	1510389438	0	/home/lionel/Proj/Archicheck/Tests/03_Dependency_List/dir1/b.adb
+/home/lionel/Proj/Archicheck/Tests/06_Child_Packages/dir2/db-p4.adb	1510389441	0	/home/lionel/Proj/Archicheck/Tests/06_Child_Packages/dir2/db-p4.adb
+/home/lionel/Proj/Archicheck/Tests/Tools/Src/testrec-main.adb	1509831584	1	Testrec.Main
+/home/lionel/Proj/Archicheck/Tests/10_Use_Rule/dir1/p2.ads	1510183367	0	/home/lionel/Proj/Archicheck/Tests/10_Use_Rule/dir1/p2.ads
+/home/lionel/Proj/Archicheck/Tests/05_Layer_Rule/dir4/p3.ads	1510389440	0	/home/lionel/Proj/Archicheck/Tests/05_Layer_Rule/dir4/p3.ads
+/home/lionel/Proj/Archicheck/Tests/05_Layer_Rule/dirB/gvt.ads	1510389439	0	/home/lionel/Proj/Archicheck/Tests/05_Layer_Rule/dirB/gvt.ads
+/home/lionel/Proj/Archicheck/Tests/06_Child_Packages/dir2/gui-p1.ads	1510389441	0	/home/lionel/Proj/Archicheck/Tests/06_Child_Packages/dir2/gui-p1.ads
+/home/lionel/Proj/Archicheck/Tests/Tools/Src/testrec-current_state.adb	1510355689	0	/home/lionel/Proj/Archicheck/Tests/Tools/Src/testrec-current_state.adb
+/home/lionel/Proj/Archicheck/Tests/06_Child_Packages/dir2/db-p3.ads	1510389441	0	/home/lionel/Proj/Archicheck/Tests/06_Child_Packages/dir2/db-p3.ads
+/home/lionel/Proj/Archicheck/Tests/07_Rules_Files_Syntax/reference_rules.txt	1510355689	0	/home/lionel/Proj/Archicheck/Tests/07_Rules_Files_Syntax/reference_rules.txt
+/home/lionel/Proj/Archicheck/Tests/06_Child_Packages/dir4/db-p4.ads	1510389442	0	/home/lionel/Proj/Archicheck/Tests/06_Child_Packages/dir4/db-p4.ads
+/home/lionel/Proj/Archicheck/Tests/short_tests_summary.txt	1510389449	0	/home/lionel/Proj/Archicheck/Tests/short_tests_summary.txt
+/home/lionel/Proj/Archicheck/Tests/05_Layer_Rule/dir3b/p3.ads	1510389440	0	/home/lionel/Proj/Archicheck/Tests/05_Layer_Rule/dir3b/p3.ads
+/home/lionel/Proj/Archicheck/Tests/06_Child_Packages/dir6/db-p1.ads	1510389442	0	/home/lionel/Proj/Archicheck/Tests/06_Child_Packages/dir6/db-p1.ads
+/home/lionel/Proj/Archicheck/Tests/02_Source_List/dir1/a.adb	1510389437	0	/home/lionel/Proj/Archicheck/Tests/02_Source_List/dir1/a.adb
+/home/lionel/Proj/Archicheck/Tests/10_Use_Rule/testrec.txt	1510183371	1	Use rules test suite
+/home/lionel/Proj/Archicheck/Tests/07_Rules_Files_Syntax/testrec.txt	1510389443	1	Rules file syntax test suite
+/home/lionel/Proj/Archicheck/Tests/10_Use_Rule/dir4/p3.ads	1510180670	0	/home/lionel/Proj/Archicheck/Tests/10_Use_Rule/dir4/p3.ads
+/home/lionel/Proj/Archicheck/Tests/03_Dependency_List/dir2/c-d.ads	1510389438	0	/home/lionel/Proj/Archicheck/Tests/03_Dependency_List/dir2/c-d.ads
+/home/lionel/Proj/Archicheck/Tests/10_Use_Rule/dir2/p2.ads	1510183371	0	/home/lionel/Proj/Archicheck/Tests/10_Use_Rule/dir2/p2.ads
+/home/lionel/Proj/Archicheck/Tests/10_Use_Rule/dir3a/p2.ads	1510180670	0	/home/lionel/Proj/Archicheck/Tests/10_Use_Rule/dir3a/p2.ads
+/home/lionel/Proj/Archicheck/Tests/07_Rules_Files_Syntax/lc4.txt	1510389443	0	/home/lionel/Proj/Archicheck/Tests/07_Rules_Files_Syntax/lc4.txt
+/home/lionel/Proj/Archicheck/Src/archicheck-main.ads	1510355690	1	Archicheck.Main specification
+/home/lionel/Proj/Archicheck/Tests/07_Rules_Files_Syntax/expected_lc2.txt	1510389442	0	/home/lionel/Proj/Archicheck/Tests/07_Rules_Files_Syntax/expected_lc2.txt
+/home/lionel/Proj/Archicheck/Tests/06_Child_Packages/dir5/gui-p2.ads	1510389442	0	/home/lionel/Proj/Archicheck/Tests/06_Child_Packages/dir5/gui-p2.ads
+/home/lionel/Proj/Archicheck/Tests/07_Rules_Files_Syntax/expected_lc4.txt	1510389443	0	/home/lionel/Proj/Archicheck/Tests/07_Rules_Files_Syntax/expected_lc4.txt
+/home/lionel/Proj/Archicheck/Tests/06_Child_Packages/Readme.txt	1510355689	1	Child packages tests
+/home/lionel/Proj/Archicheck/Doc/Download.txt	1509826936	1	Download
+/home/lionel/Proj/Archicheck/Doc/Cmd_Line.txt	1510389455	1	Archicheck command line
+/home/lionel/Proj/Archicheck/Tests/Tools/Src/testrec-settings.ads	1510355689	0	/home/lionel/Proj/Archicheck/Tests/Tools/Src/testrec-settings.ads
+/home/lionel/Proj/Archicheck/Tests/05_Layer_Rule/dirB/svgdom.ads	1510389439	0	/home/lionel/Proj/Archicheck/Tests/05_Layer_Rule/dirB/svgdom.ads

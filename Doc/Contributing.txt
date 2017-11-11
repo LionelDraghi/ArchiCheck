@@ -1,0 +1,46 @@
+File: Contributing 
+
+About: Installing 
+
+Portability:
+Note that the Ada should be pretty platform independant, but I tested it only on my Linux/Intel platform.
+Makefile are clearly not portable, and probably need heavy refactoring to run on non Unix like system.
+
+Downloading sources:
+If your're an (happy) darcs user :
+> darcs clone --lazy https://hub.darcs.net/LioD/ArchiCheck
+
+An Archicheck directory will be created.
+
+Otherwise, <go there at https://hub.darcs.net/LioD/ArchiCheck/dist> to download a zip archive..   
+
+Building:
+To build ArchiCheck and the tests, just type 
+> make check
+in the ArchiCheck root directory.
+
+Needed external software : libopentoken, and gnat gcc Ada compiler. 
+
+On Debian Linux family :
+> apt install libopentoken6-dev gnat make 
+archicheck exe will be in the Obj directory.
+
+And to build this documentation / web pages:
+> make doc
+Needed external software : ploticus, NaturalDocs, sloccount and lcov. 
+On Debian Linux family :
+> apt install ploticus naturaldocs sloccount lcov
+
+About: To contribute
+The easiest way to contribute (at this stage) is to use darcs, and to submit darcs patches, whatever is changed or added in the code, tests, text file, etc.
+Anyway, ideas or feedback are welcome <here at lionel.draghi@free.fr>.
+
+The shortest tuto: 
+> darcs clone --lazy https://hub.darcs.net/LioD/ArchiCheck  # should be already done
+*then hack the code, tests and doc!*
+> darcs record -a -m "what my patch does"
+> darcs send -o patch_file
+send the generated patch_file <to ArchiCheck maintainer at lionel.draghi@free.fr>
+
+More on working with darcs:
+Getting started with darcs : <http://darcs.net/QuickStart>.
