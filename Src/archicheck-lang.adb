@@ -40,39 +40,89 @@ package body Archicheck.Lang is
    --    Each plugged language processor will provide the regular expression to
    --    recognize his own files, and a file search is run on that pattern for
    --    each plugged language.
-
    -- -------------------------------------------------------------------------
-   procedure Get_Src_List (Root_Dir : in String) is
+   procedure Get_Src_List (Root_Dir  : in String;
+                           Recursive : in Boolean) is
       use Ada.Directories;
-      Search          : Search_Type;
+      File_Search     : Search_Type;
+      Dir_Search      : Search_Type;
       Directory_Entry : Directory_Entry_Type;
+      Directory_Entry2 : Directory_Entry_Type;
 
       use Ada.Strings.Unbounded;
 
    begin
       for L in Sources.Language loop
-         Put_Debug_Line (Msg    => "Analysing directory " & Root_Dir & " for language : " & Sources.Language'Image (L));
+         Put_Debug_Line (Msg => "Analysing directory " & Root_Dir
+                         & " for language : " & Sources.Language'Image (L));
 
+         -- Sources search :
          Start_Search
-           (Search    => Search,
+           (Search    => File_Search,
             Directory => Root_Dir,
             Pattern   => File_Extensions (Processor_List (L).all), -- dispatching call
-            Filter    => (Directory => False,
-                          others    => True));
-         while More_Entries (Search) loop
-            Get_Next_Entry (Search, Directory_Entry);
+            Filter    => (Directory => False, others => True));
+         while More_Entries (File_Search) loop
+            Get_Next_Entry (File_Search, Directory_Entry);
             declare
-               Name : constant String := Ada.Directories.Full_Name (Directory_Entry);
+               Name : constant String := Full_Name (Directory_Entry);
             begin
                Sources.Add_Source (Src => (Name => To_Unbounded_String (Name),
                                            -- Time_Tag => Modification_Time (Directory_Entry),
                                            Lang => L));
-               Put_Debug_Line (Msg    => "Found " & Name);
+               Put_Debug_Line (Msg => "Found " & Name);
             end;
 
          end loop;
-         End_Search (Search);
+         End_Search (File_Search);
+
       end loop;
+
+      if Recursive then
+         -- Directory search :
+         Start_Search (Search    => Dir_Search,
+                       Directory => Root_Dir,
+                       Pattern   => "*", -- match all
+                       Filter    => (Directory => True, others => False));
+         while More_Entries (Dir_Search) loop
+            declare
+            begin
+               Get_Next_Entry (Dir_Search, Directory_Entry2);
+               Put_Debug_Line (Msg => File_Kind'Image (Kind (Directory_Entry2)) & " : " & Full_Name (Directory_Entry2));
+               -- recursive call :
+               if Simple_Name (Directory_Entry2) /= "." and then Simple_Name (Directory_Entry2) /= ".." then
+                  -- code found here : https://rosettacode.org/wiki/Walk_a_directory/Recursively#Ada
+                  --** but isn't this Unix specific???
+                  Get_Src_List (Root_Dir  => Full_Name (Directory_Entry2),
+                                Recursive => Recursive);
+               end if;
+            end;
+
+         end loop;
+         End_Search (Dir_Search);
+      end if;
+
+      -- from Rosetta :
+      --        procedure Walk (Name : String; Pattern : String) is
+      --           procedure Print (Item : Directory_Entry_Type) is
+      --           begin
+      --              Ada.Text_IO.Put_Line (Full_Name (Item));
+      --           end Print;
+      --           procedure Walk (Item : Directory_Entry_Type) is
+      --           begin
+      --              if Simple_Name (Item) /= "." and then Simple_Name (Item) /= ".." then
+      --                 Walk (Full_Name (Item), Pattern);
+      --              end if;
+      --           exception
+      --              when Name_Error => null;
+      --           end Walk;
+      --        begin
+      --           Search (Name, Pattern, (others => True), Print'Access);
+      --           Search (Name, "", (Directory => True, others => False), Walk'Access);
+      --        end Walk;
+      --     begin
+      --        Walk (".", "*.adb");
+
    end Get_Src_List;
 
    -- --------------------------------------------------------------------------
@@ -88,8 +138,6 @@ package body Archicheck.Lang is
       procedure Put_Debug_Line (Msg    : in String  := "";
                                 Debug  : in Boolean := Archicheck.Settings.Debug_Mode;
                                 Prefix : in String  := "Dependencies") renames Archicheck.IO.Put_Debug_Line;
-
-      -- Global text file for reading parse data
       use Ada.Strings.Unbounded;
 
       Src_List : constant Sources.Source_Lists.List := Sources.Get_List;
@@ -101,8 +149,6 @@ package body Archicheck.Lang is
          Analyze_Dependencies (Processor_List (S.Lang).all, -- dispatching call
                                From_Source => To_String (S.Name));
       end loop;
-
-      -- if not Unit_Type_Identified then IO.Put_Warning ("Unknown Ada Unit in " & To_String (From_Source)); end if;
 
    end Analyze_Dependencies;
 

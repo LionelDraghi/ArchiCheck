@@ -18,7 +18,7 @@ header:
 
 test1:
 	@ #---------------------------------------------------------------------
-	${TR} start "-lf test"
+	${TR} start "--list_file test, recursive and non recursive"
 
 	@ ${TR} cmt "> archicheck -lf -I ./batik-1.9/test-sources/org/apache/batik/dom"
 	@ ${TR} cmt "Expected :"
@@ -28,6 +28,15 @@ test1:
 
 	@ ../../Obj/archicheck -lf -I ./batik-1.9/test-sources/org/apache/batik/dom > output.1
 	${TR} assert true /usr/bin/sdiff "-s expected_output.1 output.1"
+
+	@ ${TR} cmt "> archicheck -lf -r -I ./batik-1.9/test-sources/org/apache/batik/dom"
+	@ ${TR} cmt "Expected :"
+	@ ${TR} cmt "(start code)"
+	cat expected_output.1b >> testrec.txt
+	@ ${TR} cmt "(end)"
+
+	@ ../../Obj/archicheck -lf -r -I ./batik-1.9/test-sources/org/apache/batik/dom > output.1b
+	${TR} assert true /usr/bin/sdiff "-s expected_output.1b output.1b"
 
 	${TR} end
 

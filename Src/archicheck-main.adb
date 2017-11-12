@@ -32,7 +32,7 @@ procedure Archicheck.Main is
 
 begin
    -- language specific processor pluggin:
-   Archicheck.Lang.Initialize;
+   Lang.Initialize;
 
    Cmd_Line.Analyze_Cmd_Line (Cmd_Line_OK);
 
@@ -46,9 +46,6 @@ begin
 
       -- 2 - let's extract dependencies from sources
       -- -----------------------------------------------------------------------
---        for Src of Sources.Get_List loop
---           Dependencies.Add_Dependencies (From_Source => Src.Name);
---        end loop;
       Lang.Analyze_Dependencies;
 
       if Settings.List_Dependencies then

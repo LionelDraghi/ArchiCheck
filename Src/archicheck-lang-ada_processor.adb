@@ -188,6 +188,7 @@ package body Archicheck.Lang.Ada_Processor is
 
                for D of Tmp loop
                   Dependencies.Append (D);
+                  --** optimisation : inclure dans cette boucle les deux Set_Unit_Name ci-dessus
                end loop;
 
                -- let's reset the tmp list. This should be usefull only when processing

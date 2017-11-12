@@ -28,7 +28,8 @@ private package Archicheck.Lang is
    -- Purpose: return all sources in Root_Dir and surbdirs that is recognized
    -- by one of the langage processor.
    -- --------------------------------------------------------------------------
-   procedure Get_Src_List (Root_Dir : in String); --** to be renamed
+   procedure Get_Src_List (Root_Dir  : in String;
+                           Recursive : in Boolean); --** to be renamed
 
    -- --------------------------------------------------------------------------
    -- procedure: Analyze_Dependencies

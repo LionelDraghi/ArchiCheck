@@ -44,9 +44,6 @@ package body Archicheck.Sources is
       for Src of List loop
          Source_List.Append (Src);
       end loop;
-      --        Source_List.Splice (Source => List,
-      --                            Target => Source_List,
-      --                            Before => No_Element); -- to append Source at this end of Target
    end Add_List;
 
    -- --------------------------------------------------------------------------

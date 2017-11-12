@@ -57,7 +57,6 @@ private package Archicheck.Dependencies is
 
    procedure Append (Dep : Dependency);
 
-
    -- --------------------------------------------------------------------------
    -- Procedure: Dump
    -- Purpose:
@@ -69,6 +68,5 @@ private package Archicheck.Dependencies is
    --   None
    -- --------------------------------------------------------------------------
    procedure Dump;
-
 
 end Archicheck.Dependencies;

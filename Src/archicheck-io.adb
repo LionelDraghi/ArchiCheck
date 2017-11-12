@@ -40,6 +40,7 @@ package body Archicheck.IO is
       Ada.Text_IO.Put_Line ("   -ld | --list_dependencies : list identified dependencies"
                 & " in analyzed sources files");
       Ada.Text_IO.Put_Line ("   -lr | --list_rules        : list rules in a rules file");
+      Ada.Text_IO.Put_Line ("   -r  | --recursive         : all following -I are recursive");
       -- Ada.Text_IO.Put_Line ("   NB : when one of the list options above is used, checks are NOT performed");
       --** copyright and disclaimer to be added?
       Ada.Text_IO.Put_Line ("   -v  | --verbose");

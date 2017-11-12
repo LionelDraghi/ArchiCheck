@@ -101,23 +101,6 @@ package body Archicheck.Lang.Java_Processor is
          return To_String (Name);
       end Get_Unit_Name;
 
-      -- -----------------------------------------------------------------------
-      -- Procedure: Set_Unit_Name
-      -- -----------------------------------------------------------------------
-      -- Iterate trough a list to set the field Unit_Name, and only this one.
---        procedure Set_Unit_Name (List      : in out Dependency_Lists.List;
---                                 Unit_Name : in     String;
---                                 Kind      : in     Unit_Kind) is
---        begin
---           for Dep of List loop
---              Dep.From.Name := To_Unbounded_String (Unit_Name);
---              Dep.From.Kind := Kind;
---           end loop;
---        end Set_Unit_Name;
-
-      -- Found_Pkg  : Unbounded_String := To_Unbounded_String ("Default");
-      -- if the is not package declaration before import declarations, the class is owned by Default package
-
       Unit_Kind : Dependencies.Unit_Kind;
 
    begin

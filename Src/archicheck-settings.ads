@@ -26,6 +26,7 @@ private package Archicheck.Settings is
    List_Files        : Boolean := False;
    List_Dependencies : Boolean := False;
    List_Rules        : Boolean := False;
+   Recursive         : Boolean := False;
    Quiet_Mode        : Boolean := False;
    Verbose_Mode      : Boolean := False;
 

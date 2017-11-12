@@ -2,7 +2,7 @@ File: Dashboard
 
 About: Test results
 (start code)
-Successful  34
+Successful  39
 Failed      0
 Empty       8
 (end)
@@ -10,13 +10,13 @@ Empty       8
 
 About: Lines coverage rate
 (start code)
-  lines......: 86.1% (559 of 649 lines)
+  lines......: 83.5% (558 of 668 lines)
 (end)
 (see lines_coverage.png)
 
 About: Function coverage rate
 (start code)
-  functions..: 74.9% (128 of 171 functions)
+  functions..: 74.4% (128 of 172 functions)
 (end)
 (see functions_coverage.png)
 

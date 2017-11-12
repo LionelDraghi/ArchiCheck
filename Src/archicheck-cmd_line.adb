@@ -44,7 +44,8 @@ package body Archicheck.Cmd_Line is
    -- -------------------------------------------------------------------------
    -- Procedure: Process_Directory_Option
    -- -------------------------------------------------------------------------
-   procedure Process_Directory_Option (Line_OK : out Boolean) is
+   procedure Process_Directory_Option (Line_OK   :    out Boolean;
+                                       Recursive : in     Boolean) is
       use Archicheck.IO;
 
    begin
@@ -64,7 +65,7 @@ package body Archicheck.Cmd_Line is
             if Exists (Full_Name) then
                if Kind (Full_Name) = Directory then
                   -- let's collect all sources in that dir:
-                  Lang.Get_Src_List (Root_Dir => Full_Name);
+                  Lang.Get_Src_List (Root_Dir => Full_Name, Recursive => Recursive);
                   Line_OK := True;
 
                else
@@ -152,7 +153,7 @@ package body Archicheck.Cmd_Line is
 
          begin
             if Opt = "-I" then
-               Process_Directory_Option (Line_OK);
+               Process_Directory_Option (Line_OK, Settings.Recursive);
                if not Line_OK then return; end if;
 
             elsif Opt = "-lf" or Opt = "--list_files" then
@@ -165,6 +166,10 @@ package body Archicheck.Cmd_Line is
 
             elsif Opt = "-lr" or Opt = "--list_rules" then
                Settings.List_Rules := True;
+               Arg_Counter := Arg_Counter + 1;
+
+            elsif Opt = "-r" or Opt = "--recursive" then
+               Settings.Recursive := True;
                Arg_Counter := Arg_Counter + 1;
 
             elsif Opt = "--version" then
