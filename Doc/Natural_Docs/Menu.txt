@@ -20,7 +20,7 @@ Timestamp: Updated month day, year
 # These are indexes you deleted, so Natural Docs will not add them again
 # unless you remove them from this line.
 
-Don't Index: Constants, Types, Variables
+Don't Index: Variables, Types, Constants
 
 
 # --------------------------------------------------------------------------
@@ -89,6 +89,13 @@ Group: Src and tests  {
       File: Archicheck.Layers body  (/home/lionel/Proj/Archicheck/Src/archicheck-layers.adb)
       File: Archicheck.Layers specification  (/home/lionel/Proj/Archicheck/Src/archicheck-layers.ads)
       File: Archicheck.Rules_Parser body  (/home/lionel/Proj/Archicheck/Src/archicheck-rules_parser.adb)
+      File: Archicheck.Lang  (/home/lionel/Proj/Archicheck/Src/archicheck-lang.ads)
+      File: Archicheck.Lang body  (/home/lionel/Proj/Archicheck/Src/archicheck-lang.adb)
+      File: Archicheck.Lang.Ada  (/home/lionel/Proj/Archicheck/Src/archicheck-lang-ada_processor.ads)
+      File: Archicheck.Lang.Ada_Processor body  (/home/lionel/Proj/Archicheck/Src/archicheck-lang-ada_processor.adb)
+      File: Archicheck.Lang.Initialize body  (/home/lionel/Proj/Archicheck/Src/archicheck-lang-initialize.adb)
+      File: Archicheck.Lang.Ada  (/home/lionel/Proj/Archicheck/Src/archicheck-lang-java_processor.ads)
+      File: Archicheck.Lang.Java_Processor body  (/home/lionel/Proj/Archicheck/Src/archicheck-lang-java_processor.adb)
       }  # Group: Src
 
    Group: Tests  {
@@ -105,6 +112,7 @@ Group: Src and tests  {
       File: Globbing Character test suite  (/home/lionel/Proj/Archicheck/Tests/08_Globbing_Characters/testrec.txt)
       File: Globbing Characters tests  (/home/lionel/Proj/Archicheck/Tests/08_Globbing_Characters/Readme.txt)
       File: GtkAda test suite  (/home/lionel/Proj/Archicheck/Tests/09_GtkAda/testrec.txt)
+      File: Java code tests  (/home/lionel/Proj/Archicheck/Tests/11_Batik/testrec.txt)
       File: Layer rules test suite  (/home/lionel/Proj/Archicheck/Tests/05_Layer_Rule/testrec.txt)
       File: Layer rules tests  (/home/lionel/Proj/Archicheck/Tests/05_Layer_Rule/Readme.txt)
       File: Rules file syntax  (/home/lionel/Proj/Archicheck/Tests/07_Rules_Files_Syntax/Readme.txt)

@@ -164,6 +164,7 @@ doc: dashboard Cmd_Line.txt
 	naturaldocs -r -i Doc -i Src -i Tests 		\
 		-s Default archicheck			\
 		-xi _darcs -xi Src/backup -xi Obj	\
+		-xi Tests/11_Batik/batik-1.9		\
 		-o FramedHTML Doc/Generated -p Doc/Natural_Docs
 	cp -p  Doc/Archicheck_Overview.pdf Doc/Generated
 	cp -rp Doc/lcov Doc/Generated

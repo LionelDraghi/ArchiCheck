@@ -17,16 +17,15 @@
 --
 -- -----------------------------------------------------------------------------
 
-with Ada.Command_Line;
-with Ada.Directories;
-with Ada.Strings.Unbounded;
 with Archicheck.IO;
+with Archicheck.Lang;
 with Archicheck.Settings;
 with Archicheck.Sources;
 
-package body Archicheck.Cmd_Line is
+with Ada.Command_Line;
+with Ada.Directories;
 
-   use Ada.Strings.Unbounded;
+package body Archicheck.Cmd_Line is
 
    -- -------------------------------------------------------------------------
    Arg_Counter   : Positive := 1;
@@ -53,47 +52,31 @@ package body Archicheck.Cmd_Line is
       if Ada.Command_Line.Argument_Count < Arg_Counter + 1 then
          Put_Error ("Sources directory expected after -I");
          Line_OK := False;
+
       else
          declare
             use Ada.Command_Line;
             use Ada.Directories;
-            Full_Name   : constant String :=
-                            Ada.Directories.Full_Name   (Argument (Arg_Counter + 1));
-            Simple_Name : constant String :=
-                            Ada.Directories.Simple_Name (Argument (Arg_Counter + 1));
+            Full_Name   : constant String := Ada.Directories.Full_Name   (Argument (Arg_Counter + 1));
+            Simple_Name : constant String := Ada.Directories.Simple_Name (Argument (Arg_Counter + 1));
 
          begin
             if Exists (Full_Name) then
                if Kind (Full_Name) = Directory then
-                  -- Ada.Text_IO.Put_Line ("Analysing directory " & Name);
-                  declare
-                     Search : Search_Type;
-                     Directory_Entry : Directory_Entry_Type;
-                  begin
-                     Start_Search
-                       (Search    => Search,
-                        Directory => Full_Name,
-                        Pattern   => "*.ad[asb]", --** hard coded for usual Ada convention
-                        Filter    => (Directory => False,
-                                      others    => True));
-                     while More_Entries (Search) loop
-                        Get_Next_Entry (Search, Directory_Entry);
-                        Sources.Add_Source (Src => (Name     => To_Unbounded_String
-                                                    (Ada.Directories.Full_Name (Directory_Entry)),
-                                                    Time_Tag => Modification_Time (Directory_Entry)));
-                        -- Put_Debug_Line ("trouvé : " & Full_Name (Directory_Entry));
-                     end loop;
-                     End_Search (Search);
-                     Line_OK := True;
-                  end;
+                  -- let's collect all sources in that dir:
+                  Lang.Get_Src_List (Root_Dir => Full_Name);
+                  Line_OK := True;
 
                else
                  Put_Error (Simple_Name & " is not a directory");
                  Line_OK := False;
+
                end if;
+
             else
                Put_Error ("No " & Simple_Name & " directory");
                Line_OK := False;
+
             end if;
          end;
          Arg_Counter := Arg_Counter + 2;
@@ -113,11 +96,6 @@ package body Archicheck.Cmd_Line is
       use Archicheck.IO;
 
    begin
-      -- Put_Error ("Settings.Src_Needed  : " & Boolean'Image (Settings.Src_Needed));
-      -- Put_Error ("Rules_File_Needed : " & Boolean'Image (Settings.Rules_File_Needed));
-      -- Put_Error ("Src List is empty : "
-      -- & Boolean'Image (Source_Lists.Is_Empty (Sources.Get_List)));
-
       -- first, let's eliminate the normal situation :
       -- there is a rules file, and there are sources to analyze
       if Settings.Rules_File_Name = "" or Sources.Get_List.Is_Empty then

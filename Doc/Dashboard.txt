@@ -10,13 +10,13 @@ Empty       8
 
 About: Lines coverage rate
 (start code)
-  lines......: 85.1% (462 of 543 lines)
+  lines......: 86.1% (559 of 649 lines)
 (end)
 (see lines_coverage.png)
 
 About: Function coverage rate
 (start code)
-  functions..: 72.5% (100 of 138 functions)
+  functions..: 74.9% (128 of 171 functions)
 (end)
 (see functions_coverage.png)
 

@@ -1,5 +1,10 @@
+Archicheck readme
+=================
 
-Please refer to http://lionel.draghi.free.fr/Archicheck/index.html.
-(This site is generated using NaturalDocs by make doc)
+Please refer to [archicheck website](http://lionel.draghi.free.fr/Archicheck/index.html) for a complete html documentation (generated using [NaturalDocs](www.naturaldocs.org)).
+
+
+
+
 
 

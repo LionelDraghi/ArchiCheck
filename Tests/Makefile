@@ -18,6 +18,7 @@ check: ../Obj/archicheck Tools/create_pkg Tools/testrec
 	$(MAKE) check --directory=07_Rules_Files_Syntax
 	$(MAKE) check --directory=08_Globbing_Characters
 	$(MAKE) check --directory=09_GtkAda
+	$(MAKE) check --directory=11_Batik
 
 tests_summary.txt:
 	cat `find . -name testrec.txt` > tmp.txt
@@ -62,6 +63,7 @@ clean:
 	@ $(MAKE) clean --directory=07_Rules_Files_Syntax
 	@ $(MAKE) clean --directory=08_Globbing_Characters
 	@ $(MAKE) clean --directory=09_GtkAda
+	@ $(MAKE) clean --directory=11_Batik
 
 	- ${RM} tests_summary.txt *.lst short_tests_summary.txt
 

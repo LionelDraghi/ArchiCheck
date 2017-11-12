@@ -1,6 +1,7 @@
 File: Quick Start
 
 About: Archicheck Overview 
+==========================
 
 Archicheck is a simple tool to describe and enforce architecture/design decision that are not easily checked by languages and compilers.
 
@@ -22,6 +23,7 @@ and it will for example checks that pkg_3 (in the lower layer) is not using pkg_
 *And that's it!*
 
 About: Philosophy & status quo
+------------------------------
 
 Archicheck is a mockup, with only few (but usefull) functionalities, and not tested on real, big software.
 It currently process only Ada sources, but it is meant to accept other languages, and multi-languages projet. 

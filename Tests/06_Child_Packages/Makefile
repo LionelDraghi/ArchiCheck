@@ -148,8 +148,8 @@ test6:
 	@ ${CREATE_PKG} DBP2   spec  -in dir6 -with DB.P1
 
 	@ > expected_output.6
-	@ echo "Warning : GUIP2 is neither in GUI or DB layer, and so shall not directly use DB.P1 in the DB layer" >> expected_output.6
 	@ echo "Warning : DBP2 is neither in GUI or DB layer, and so shall not directly use DB.P1 in the DB layer"  >> expected_output.6
+	@ echo "Warning : GUIP2 is neither in GUI or DB layer, and so shall not directly use DB.P1 in the DB layer" >> expected_output.6
 
 	@ ../../Obj/archicheck rules.txt -I dir6   > output.6
 	${TR} assert true /usr/bin/sdiff "-s expected_output.6 output.6"

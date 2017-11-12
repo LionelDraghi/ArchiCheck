@@ -36,7 +36,7 @@ test1:
 	@ echo "end C . D ;"		>> dir1/c-d.ads
 
 	@ ../../Obj/archicheck -I dir1 --list_dependencies | sort > output.1
-	${TR} assert true /usr/bin/sdiff "-s expected_output.1 output.1"
+	${TR} assert true /usr/bin/sdiff "-sbB expected_output.1 output.1"
 
 	${TR} end
 
@@ -64,7 +64,7 @@ test2:
 	${TR} cmt "(end)"
 
 	@ ../../Obj/archicheck -I dir2 --list_dependencies | sort > output.2
-	${TR} assert true /usr/bin/sdiff "-s expected_output.2 output.2"
+	${TR} assert true /usr/bin/sdiff "-sbB expected_output.2 output.2"
 
 	${TR} end
 

@@ -21,13 +21,18 @@
 
 private package Archicheck.Settings is
 
-   ArchiCheck_Version : constant String := "0.3.1";
+   ArchiCheck_Version : constant String := "0.4.0";
 
    List_Files        : Boolean := False;
    List_Dependencies : Boolean := False;
    List_Rules        : Boolean := False;
    Quiet_Mode        : Boolean := False;
    Verbose_Mode      : Boolean := False;
+
+   -- -------------------------------------------------------------------------
+   Ada_Files_Pattern  : constant String := "*.[aA][dD][asbASB]";
+   Java_Files_Pattern : constant String := "*.[jJ][aA][vV][aA]";
+   -- Not sure that this case independance mess is usefull
 
    -- Undocumented option :
    Debug_Mode : Boolean := False;

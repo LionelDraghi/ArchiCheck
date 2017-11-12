@@ -18,16 +18,19 @@
 -- Performance:
 -- -----------------------------------------------------------------------------
 
-with Ada.Calendar;
 with Ada.Strings.Unbounded;
 with Ada.Containers.Doubly_Linked_Lists;
 
 private package Archicheck.Sources is
 
+   -- -------------------------------------------------------------------------
+   type Language is (Ada_2012, Java);
+
    -- --------------------------------------------------------------------------
    type Source is record
       Name     : Ada.Strings.Unbounded.Unbounded_String;
-      Time_Tag : Ada.Calendar.Time;
+      -- useless till now : Time_Tag : Ada.Calendar.Time;
+      Lang     : Language;
    end record;
    package Source_Lists is new Ada.Containers.Doubly_Linked_Lists (Source);
 
@@ -40,6 +43,11 @@ private package Archicheck.Sources is
    -- Function: Add_Source
    -- --------------------------------------------------------------------------
    procedure Add_Source (Src : in Source);
+
+   -- --------------------------------------------------------------------------
+   -- Function: Add_List
+   -- --------------------------------------------------------------------------
+   procedure Add_List (List : in Source_Lists.List);
 
    -- -------------------------------------------------------------------------
    -- Function: Source_List_Image

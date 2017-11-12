@@ -104,8 +104,8 @@ begin
       begin
          for D of Dependencies.Get_List loop
             declare
-               X              : constant String := To_String (D.Unit_Name);
-               Y              : constant String := To_String (D.Depends_On_Unit);
+               X              : constant String := To_String (D.From.Name);
+               Y              : constant String := To_String (D.To.Name);
                Is_X_In_Client : constant Boolean := Is_Unit_In_Component (Unit => X, Component => Client);
                Is_X_In_Server : constant Boolean := Is_Unit_In_Component (Unit => X, Component => Server);
                Is_Y_In_Client : constant Boolean := Is_Unit_In_Component (Unit => Y, Component => Client);

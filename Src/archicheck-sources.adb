@@ -37,6 +37,19 @@ package body Archicheck.Sources is
    end Add_Source;
 
    -- --------------------------------------------------------------------------
+   -- Procedure: Add_List
+   -- --------------------------------------------------------------------------
+   procedure Add_List (List : in Source_Lists.List) is
+   begin
+      for Src of List loop
+         Source_List.Append (Src);
+      end loop;
+      --        Source_List.Splice (Source => List,
+      --                            Target => Source_List,
+      --                            Before => No_Element); -- to append Source at this end of Target
+   end Add_List;
+
+   -- --------------------------------------------------------------------------
    -- Function: Source_List_Image
    -- -------------------------------------------------------------------------
    function Source_List_Image (Sources : in Source_Lists.List) return String is

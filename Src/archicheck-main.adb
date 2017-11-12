@@ -16,19 +16,24 @@
 -- Anticipated Changes:
 -- -----------------------------------------------------------------------------
 
-with Ada.Command_Line;
 with Archicheck.Cmd_Line;
 with Archicheck.Settings;
 with Archicheck.Rules_Parser;
 with Archicheck.Check_Layer_Rules;
 with Archicheck.Sources;
+with Archicheck.Lang;
+with Archicheck.Lang.Initialize;
 with Archicheck.Dependencies;
 
+with Ada.Command_Line;
 
 procedure Archicheck.Main is
    Cmd_Line_OK   : Boolean;
 
 begin
+   -- language specific processor pluggin:
+   Archicheck.Lang.Initialize;
+
    Cmd_Line.Analyze_Cmd_Line (Cmd_Line_OK);
 
    if Cmd_Line_OK then
@@ -41,9 +46,10 @@ begin
 
       -- 2 - let's extract dependencies from sources
       -- -----------------------------------------------------------------------
-      for Src of Sources.Get_List loop
-         Dependencies.Add_Dependencies (From_Source => Src.Name);
-      end loop;
+--        for Src of Sources.Get_List loop
+--           Dependencies.Add_Dependencies (From_Source => Src.Name);
+--        end loop;
+      Lang.Analyze_Dependencies;
 
       if Settings.List_Dependencies then
          Dependencies.Dump;
@@ -53,9 +59,6 @@ begin
       -- -----------------------------------------------------------------------
       if Settings.Rules_File_Name /= "" then
          Rules_Parser.Parse (Settings.Rules_File_Name);
-         -- Simply coded initial version integrating parsing + analyze
-         --           Analyze_Rules (From_File  => Settings.Rules_File_Name,
-         --                          Components => Component_Map);
       end if;
 
       -- 4 - let's run the checks

@@ -45,7 +45,7 @@ test1: ../../Obj/archicheck
 	@ ${CREATE_PKG} C.D spec -in dir3 -with B
 
 	@ ../../Obj/archicheck -I dir1 -I dir2 -I dir3 --list_files | sort > file_list
-	${TR} assert true /usr/bin/sdiff "-s expected_file_list file_list"
+	${TR} assert true /usr/bin/sdiff "-sbB expected_file_list file_list"
 
 	${TR} end
 
