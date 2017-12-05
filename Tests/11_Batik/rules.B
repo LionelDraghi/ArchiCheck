@@ -1,6 +1,6 @@
-Applications      contains Browser and Rasterizer
-Core_Modules      contains UI_Component, Transcoder, SVG_Generator, Bridge and SVGDOM
-Low_Level_Modules contains Renderer, GVT and SVG_Parser
+Applications      contains org.apache.batik.apps.svgbrowser and org.apache.batik.apps.rasterizer
+Core_Modules      contains org.apache.batik.UI_Component, org.apache.batik.transcoder, org.apache.batik.SVGGen, org.apache.batik.Bridge and org.apache.batik.dom.svg
+Low_Level_Modules contains org.apache.batik.gvt.renderer, org.apache.batik.GVT and org.apache.batik.Parser
 
 Applications is a layer over Core_Modules
 Core_Modules is a layer over Low_Level_Modules

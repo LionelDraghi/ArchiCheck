@@ -1,0 +1,258 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html lang="en">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>LCOV - ArchiCheck tests coverage - /home/lionel/Proj/Archicheck/Src/archicheck-io.adb</title>
+  <link rel="stylesheet" type="text/css" href="../../../../../gcov.css">
+</head>
+
+<body>
+
+  <table width="100%" border=0 cellspacing=0 cellpadding=0>
+    <tr><td class="title">LCOV - code coverage report</td></tr>
+    <tr><td class="ruler"><img src="../../../../../glass.png" width=3 height=3 alt=""></td></tr>
+
+    <tr>
+      <td width="100%">
+        <table cellpadding=1 border=0 width="100%">
+          <tr>
+            <td width="10%" class="headerItem">Current view:</td>
+            <td width="35%" class="headerValue"><a href="../../../../../index.html">top level</a> - <a href="index.html">home/lionel/Proj/Archicheck/Src</a> - archicheck-io.adb<span style="font-size: 80%;"> (source / <a href="archicheck-io.adb.func-sort-c.html">functions</a>)</span></td>
+            <td width="5%"></td>
+            <td width="15%"></td>
+            <td width="10%" class="headerCovTableHead">Hit</td>
+            <td width="10%" class="headerCovTableHead">Total</td>
+            <td width="15%" class="headerCovTableHead">Coverage</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Test:</td>
+            <td class="headerValue">ArchiCheck tests coverage</td>
+            <td></td>
+            <td class="headerItem">Lines:</td>
+            <td class="headerCovTableEntry">54</td>
+            <td class="headerCovTableEntry">71</td>
+            <td class="headerCovTableEntryMed">76.1 %</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Date:</td>
+            <td class="headerValue">2017-11-30 23:30:31</td>
+            <td></td>
+            <td class="headerItem">Functions:</td>
+            <td class="headerCovTableEntry">8</td>
+            <td class="headerCovTableEntry">11</td>
+            <td class="headerCovTableEntryLo">72.7 %</td>
+          </tr>
+          <tr><td><img src="../../../../../glass.png" width=3 height=3 alt=""></td></tr>
+        </table>
+      </td>
+    </tr>
+
+    <tr><td class="ruler"><img src="../../../../../glass.png" width=3 height=3 alt=""></td></tr>
+  </table>
+
+  <table cellpadding=0 cellspacing=0 border=0>
+    <tr>
+      <td><br></td>
+    </tr>
+    <tr>
+      <td>
+<pre class="sourceHeading">          Line data    Source code</pre>
+<pre class="source">
+<a name="1"><span class="lineNum">       1 </span>            : -- -----------------------------------------------------------------------------</a>
+<span class="lineNum">       2 </span>            : -- ArchiCheck, the software architecture compliance verifier
+<span class="lineNum">       3 </span>            : -- Copyright (C) 2005, 2006, 2009 - Lionel Draghi
+<span class="lineNum">       4 </span>            : -- This program is free software;
+<span class="lineNum">       5 </span>            : -- you can redistribute it and/or modify it under the terms of the GNU General
+<span class="lineNum">       6 </span>            : -- Public License Versions 3, refer to the COPYING file.
+<span class="lineNum">       7 </span>            : -- -----------------------------------------------------------------------------
+<span class="lineNum">       8 </span>            : 
+<span class="lineNum">       9 </span>            : -- -----------------------------------------------------------------------------
+<span class="lineNum">      10 </span>            : -- Package: Archicheck.IO body
+<span class="lineNum">      11 </span>            : --
+<span class="lineNum">      12 </span>            : -- Implementation Notes:
+<span class="lineNum">      13 </span>            : --
+<span class="lineNum">      14 </span>            : -- Portability Issues:
+<span class="lineNum">      15 </span>            : --
+<span class="lineNum">      16 </span>            : -- Anticipated Changes:
+<span class="lineNum">      17 </span>            : --
+<span class="lineNum">      18 </span>            : -- -----------------------------------------------------------------------------
+<span class="lineNum">      19 </span>            : 
+<span class="lineNum">      20 </span>            : with Archicheck.Settings;
+<span class="lineNum">      21 </span>            : with Ada.Strings.Fixed;
+<span class="lineNum">      22 </span>            : with Ada.Directories;
+<span class="lineNum">      23 </span>            : 
+<span class="lineNum">      24 </span>            : package body Archicheck.IO is
+<span class="lineNum">      25 </span>            : 
+<span class="lineNum">      26 </span>            :    -- -------------------------------------------------------------------------
+<a name="27"><span class="lineNum">      27 </span>            :    -- Procedure: Put_Help</a>
+<span class="lineNum">      28 </span>            :    -- -------------------------------------------------------------------------
+<span class="lineNum">      29 </span><span class="lineCov">         54 :    procedure Put_Help is</span>
+<span class="lineNum">      30 </span>            :    begin
+<span class="lineNum">      31 </span><span class="lineCov">         54 :       Ada.Text_IO.New_Line;</span>
+<span class="lineNum">      32 </span><span class="lineCov">         54 :       Ada.Text_IO.Put_Line (&quot;ArchiCheck normal use :&quot;);</span>
+<span class="lineNum">      33 </span><span class="lineCov">         54 :       Ada.Text_IO.Put_Line (&quot;   archicheck rules_file -I directory [-I directory]*&quot;);</span>
+<span class="lineNum">      34 </span><span class="lineCov">         54 :       Ada.Text_IO.New_Line;</span>
+<span class="lineNum">      35 </span><span class="lineCov">         54 :       Ada.Text_IO.Put_Line (&quot;General form :&quot;);</span>
+<span class="lineNum">      36 </span><span class="lineCov">         54 :       Ada.Text_IO.Put_Line (&quot;   archicheck [Options] [rules_file] [-I directory]*&quot;);</span>
+<span class="lineNum">      37 </span><span class="lineCov">         54 :       Ada.Text_IO.New_Line;</span>
+<span class="lineNum">      38 </span><span class="lineCov">         54 :       Ada.Text_IO.Put_Line (&quot;Options :&quot;);</span>
+<span class="lineNum">      39 </span><span class="lineCov">         54 :       Ada.Text_IO.Put_Line (&quot;   -lf | --list_files        : list sources files analyzed&quot;);</span>
+<span class="lineNum">      40 </span><span class="lineCov">         54 :       Ada.Text_IO.Put_Line (&quot;   -ld | --list_dependencies : list identified dependencies&quot;</span>
+<span class="lineNum">      41 </span>            :                 &amp; &quot; in analyzed sources files&quot;);
+<span class="lineNum">      42 </span><span class="lineCov">         54 :       Ada.Text_IO.Put_Line (&quot;   -lr | --list_rules        : list rules in a rules file&quot;);</span>
+<span class="lineNum">      43 </span><span class="lineCov">         54 :       Ada.Text_IO.Put_Line (&quot;   -r  | --recursive         : all following -I are recursive&quot;);</span>
+<span class="lineNum">      44 </span>            :       -- Ada.Text_IO.Put_Line (&quot;   NB : when one of the list options above is used, checks are NOT performed&quot;);
+<span class="lineNum">      45 </span>            :       --** copyright and disclaimer to be added?
+<span class="lineNum">      46 </span><span class="lineCov">         54 :       Ada.Text_IO.Put_Line (&quot;   -v  | --verbose&quot;);</span>
+<span class="lineNum">      47 </span><span class="lineCov">         54 :       Ada.Text_IO.Put_Line (&quot;   -q  | --quiet             : no message unless error. Warning are also ignored.&quot;);</span>
+<span class="lineNum">      48 </span><span class="lineCov">         54 :       Ada.Text_IO.Put_Line (&quot;         --version           : archicheck version&quot;);</span>
+<span class="lineNum">      49 </span><span class="lineCov">         54 :       Ada.Text_IO.Put_Line (&quot;   -h  | --help              : this message&quot;);</span>
+<span class="lineNum">      50 </span><span class="lineCov">         54 :       Ada.Text_IO.New_Line;</span>
+<span class="lineNum">      51 </span><span class="lineCov">         54 :       Ada.Text_IO.Put_Line (&quot;Examples:&quot;);</span>
+<span class="lineNum">      52 </span><span class="lineCov">         54 :       Ada.Text_IO.Put_Line (&quot;   archicheck rules.txt -I ./src&quot;);</span>
+<span class="lineNum">      53 </span><span class="lineCov">         54 :       Ada.Text_IO.Put_Line (&quot;   archicheck -lf -I ./src&quot;);</span>
+<span class="lineNum">      54 </span><span class="lineCov">         54 :       Ada.Text_IO.Put_Line (&quot;   archicheck -lr rules.txt&quot;);</span>
+<span class="lineNum">      55 </span><span class="lineCov">         54 :       Ada.Text_IO.New_Line;</span>
+<span class="lineNum">      56 </span><span class="lineCov">         54 :    end Put_Help;</span>
+<span class="lineNum">      57 </span>            : 
+<span class="lineNum">      58 </span>            :    -- -------------------------------------------------------------------------
+<a name="59"><span class="lineNum">      59 </span>            :    -- Procedure: Put_Warning</a>
+<span class="lineNum">      60 </span>            :    -- -------------------------------------------------------------------------
+<span class="lineNum">      61 </span><span class="lineCov">      20320 :    procedure Put_Warning (Msg : in String := &quot;&quot;) is</span>
+<span class="lineNum">      62 </span>            :    begin
+<span class="lineNum">      63 </span><span class="lineCov">      20320 :       Put_Line (&quot;Warning : &quot; &amp; Msg);</span>
+<span class="lineNum">      64 </span>            :       -- use the local version of Put_Line, and not the Ada.Text_IO one, so that
+<span class="lineNum">      65 </span>            :       -- Warning messages are also ignored when --quiet.
+<span class="lineNum">      66 </span><span class="lineCov">      20320 :    end Put_Warning;</span>
+<span class="lineNum">      67 </span>            : 
+<span class="lineNum">      68 </span>            :    -- -------------------------------------------------------------------------
+<a name="69"><span class="lineNum">      69 </span>            :    -- Procedure: Put_Error</a>
+<span class="lineNum">      70 </span>            :    -- -------------------------------------------------------------------------
+<span class="lineNum">      71 </span><span class="lineCov">         92 :    procedure Put_Error (Msg       : in String  := &quot;&quot;;</span>
+<span class="lineNum">      72 </span>            :                         With_Help : in Boolean := False) is
+<span class="lineNum">      73 </span>            :    begin
+<span class="lineNum">      74 </span><span class="lineCov">         92 :       Ada.Text_IO.Put_Line (&quot;Error : &quot; &amp; Msg);</span>
+<span class="lineNum">      75 </span><span class="lineCov">         92 :       if With_Help then Put_Help; end if;</span>
+<span class="lineNum">      76 </span><span class="lineCov">         92 :    end Put_Error;</span>
+<span class="lineNum">      77 </span>            : 
+<span class="lineNum">      78 </span>            :    -- -------------------------------------------------------------------------
+<a name="79"><span class="lineNum">      79 </span>            :    -- Procedure: Put_Debug_Line</a>
+<span class="lineNum">      80 </span>            :    -- -------------------------------------------------------------------------
+<span class="lineNum">      81 </span><span class="lineCov">     340236 :    procedure Put_Debug_Line (Msg    : in String := &quot;&quot;;</span>
+<span class="lineNum">      82 </span>            :                              Debug  : in Boolean;
+<span class="lineNum">      83 </span>            :                              Prefix : in String) is
+<span class="lineNum">      84 </span>            :    begin
+<span class="lineNum">      85 </span><span class="lineCov">     340236 :       if Debug then</span>
+<span class="lineNum">      86 </span><span class="lineNoCov">          0 :          Ada.Text_IO.Put_Line (Prefix &amp; &quot; | &quot; &amp; Msg);</span>
+<span class="lineNum">      87 </span>            :       end if;
+<span class="lineNum">      88 </span><span class="lineCov">     340236 :    end Put_Debug_Line;</span>
+<span class="lineNum">      89 </span>            : 
+<span class="lineNum">      90 </span>            :    -- --------------------------------------------------------------------------
+<a name="91"><span class="lineNum">      91 </span>            :    -- Procedure: Put_Debug</a>
+<span class="lineNum">      92 </span>            :    -- -------------------------------------------------------------------------
+<span class="lineNum">      93 </span><span class="lineCov">        808 :    procedure Put_Debug (Msg    : in String := &quot;&quot;;</span>
+<span class="lineNum">      94 </span>            :                         Debug  : in Boolean;
+<span class="lineNum">      95 </span>            :                         Prefix : in String) is
+<span class="lineNum">      96 </span>            :    begin
+<span class="lineNum">      97 </span><span class="lineCov">        808 :       if Debug then</span>
+<span class="lineNum">      98 </span><span class="lineNoCov">          0 :          if Prefix = &quot;&quot; then</span>
+<span class="lineNum">      99 </span><span class="lineNoCov">          0 :             Ada.Text_IO.Put (Msg);</span>
+<span class="lineNum">     100 </span>            :          else
+<span class="lineNum">     101 </span><span class="lineNoCov">          0 :             Ada.Text_IO.Put (Prefix &amp; &quot; | &quot; &amp; Msg);</span>
+<span class="lineNum">     102 </span>            :          end if;
+<span class="lineNum">     103 </span>            :       end if;
+<span class="lineNum">     104 </span><span class="lineCov">        808 :    end Put_Debug;</span>
+<span class="lineNum">     105 </span>            : 
+<span class="lineNum">     106 </span>            :    -- -------------------------------------------------------------------------
+<a name="107"><span class="lineNum">     107 </span>            :    -- Procedure: New_Debug_Line</a>
+<span class="lineNum">     108 </span>            :    -- -------------------------------------------------------------------------
+<span class="lineNum">     109 </span><span class="lineNoCov">          0 :    procedure New_Debug_Line (Debug  : in Boolean) is</span>
+<span class="lineNum">     110 </span>            :    begin
+<span class="lineNum">     111 </span><span class="lineNoCov">          0 :       if Debug then</span>
+<span class="lineNum">     112 </span><span class="lineNoCov">          0 :          Ada.Text_IO.New_Line;</span>
+<span class="lineNum">     113 </span>            :       end if;
+<span class="lineNum">     114 </span><span class="lineNoCov">          0 :    end New_Debug_Line;</span>
+<span class="lineNum">     115 </span>            : 
+<span class="lineNum">     116 </span>            :    -- -------------------------------------------------------------------------
+<a name="117"><span class="lineNum">     117 </span>            :    -- Procedure: Put_Line</a>
+<span class="lineNum">     118 </span>            :    -- -------------------------------------------------------------------------
+<span class="lineNum">     119 </span><span class="lineCov">     173410 :    procedure Put_Line (Item : String; Only_When_Verbose : Boolean := False) is</span>
+<span class="lineNum">     120 </span>            :    begin
+<span class="lineNum">     121 </span><span class="lineCov">     173410 :       if Settings.Quiet_Mode then return; end if;</span>
+<span class="lineNum">     122 </span><span class="lineCov">      44506 :       if Settings.Verbose_Mode or not Only_When_Verbose then</span>
+<span class="lineNum">     123 </span><span class="lineCov">      13134 :          Ada.Text_IO.Put_Line (Item);</span>
+<span class="lineNum">     124 </span>            :       end if;
+<span class="lineNum">     125 </span><span class="lineCov">      44506 :    end Put_Line;</span>
+<span class="lineNum">     126 </span>            : 
+<span class="lineNum">     127 </span>            :    -- -------------------------------------------------------------------------
+<a name="128"><span class="lineNum">     128 </span>            :    -- Procedure: Put</a>
+<span class="lineNum">     129 </span>            :    -- -------------------------------------------------------------------------
+<span class="lineNum">     130 </span><span class="lineNoCov">          0 :    procedure Put (Item : String; Only_When_Verbose : Boolean := False) is</span>
+<span class="lineNum">     131 </span>            :    begin
+<span class="lineNum">     132 </span><span class="lineNoCov">          0 :       if Settings.Quiet_Mode then return; end if;</span>
+<span class="lineNum">     133 </span><span class="lineNoCov">          0 :       if Settings.Verbose_Mode or not Only_When_Verbose then</span>
+<span class="lineNum">     134 </span><span class="lineNoCov">          0 :          Ada.Text_IO.Put (Item);</span>
+<span class="lineNum">     135 </span>            :       end if;
+<span class="lineNum">     136 </span><span class="lineNoCov">          0 :    end Put;</span>
+<span class="lineNum">     137 </span>            : 
+<span class="lineNum">     138 </span>            :    -- --------------------------------------------------------------------------
+<a name="139"><span class="lineNum">     139 </span>            :    -- Procedure: New_Line</a>
+<span class="lineNum">     140 </span>            :    -- -------------------------------------------------------------------------
+<span class="lineNum">     141 </span><span class="lineCov">         22 :    procedure New_Line (Spacing           : Ada.Text_IO.Positive_Count := 1;</span>
+<span class="lineNum">     142 </span>            :                        Only_When_Verbose : Boolean := False) is
+<span class="lineNum">     143 </span>            :    begin
+<span class="lineNum">     144 </span><span class="lineCov">         22 :       if Settings.Quiet_Mode then return; end if;</span>
+<span class="lineNum">     145 </span><span class="lineCov">         22 :       if Settings.Verbose_Mode or not Only_When_Verbose then</span>
+<span class="lineNum">     146 </span><span class="lineCov">         22 :          Ada.Text_IO.New_Line (Spacing);</span>
+<span class="lineNum">     147 </span>            :       end if;
+<span class="lineNum">     148 </span><span class="lineCov">         22 :    end New_Line;</span>
+<span class="lineNum">     149 </span>            : 
+<span class="lineNum">     150 </span>            :    -- -------------------------------------------------------------------------
+<a name="151"><span class="lineNum">     151 </span>            :    -- Function: GNU_Prefix body</a>
+<span class="lineNum">     152 </span>            :    -- -------------------------------------------------------------------------
+<span class="lineNum">     153 </span><span class="lineCov">        412 :    function GNU_Prefix (File   : in String;</span>
+<span class="lineNum">     154 </span>            :                         Line   : in Positive;
+<span class="lineNum">     155 </span>            :                         Column : in Integer := 0) return String is
+<span class="lineNum">     156 </span>            :       use Ada.Strings;
+<span class="lineNum">     157 </span>            :       use Ada.Strings.Fixed;
+<span class="lineNum">     158 </span><span class="lineCov">        412 :       Trimed_File   : constant String := Trim (File, Side =&gt; Both);</span>
+<span class="lineNum">     159 </span><span class="lineCov">        412 :       Trimed_Line   : constant String := Trim (Positive'Image (Line), Side =&gt; Both);</span>
+<span class="lineNum">     160 </span><span class="lineCov">        412 :       Trimed_Column : constant String := Trim (Integer'Image (Column), Side =&gt; Both);</span>
+<span class="lineNum">     161 </span>            :    begin
+<span class="lineNum">     162 </span><span class="lineCov">        824 :       if Column = 0 then</span>
+<span class="lineNum">     163 </span><span class="lineCov">        412 :          return Trimed_File &amp; &quot;:&quot; &amp; Trimed_Line &amp; &quot;: &quot;;</span>
+<span class="lineNum">     164 </span>            :       else
+<span class="lineNum">     165 </span><span class="lineCov">        824 :          return Trimed_File &amp; &quot;:&quot; &amp; Trimed_Line &amp; &quot;.&quot; &amp; Trimed_Column &amp; &quot;: &quot;;</span>
+<span class="lineNum">     166 </span>            :       end if;
+<span class="lineNum">     167 </span>            :    end GNU_Prefix;
+<span class="lineNum">     168 </span>            : 
+<span class="lineNum">     169 </span>            :    -- --------------------------------------------------------------------------
+<a name="170"><span class="lineNum">     170 </span>            :    -- Function: New_Line</a>
+<span class="lineNum">     171 </span>            :    -- -------------------------------------------------------------------------
+<span class="lineNum">     172 </span><span class="lineNoCov">          0 :    function GNU_Prefix (File   : in Ada.Text_IO.File_Type;</span>
+<span class="lineNum">     173 </span>            :                         Line   : in Positive;
+<span class="lineNum">     174 </span>            :                         Column : in Integer := 0) return String is
+<span class="lineNum">     175 </span>            :    begin
+<span class="lineNum">     176 </span><span class="lineNoCov">          0 :       return GNU_Prefix (File   =&gt; Ada.Directories.Full_Name (Ada.Text_IO.Name (File)),</span>
+<span class="lineNum">     177 </span><span class="lineNoCov">          0 :                          Line   =&gt; Line,</span>
+<span class="lineNum">     178 </span>            :                          Column =&gt; Column);
+<span class="lineNum">     179 </span><span class="lineNoCov">          0 :    end GNU_Prefix;</span>
+<span class="lineNum">     180 </span>            : 
+<span class="lineNum">     181 </span>            : end Archicheck.IO;
+<span class="lineNum">     182 </span>            : 
+</pre>
+      </td>
+    </tr>
+  </table>
+  <br>
+
+  <table width="100%" border=0 cellspacing=0 cellpadding=0>
+    <tr><td class="ruler"><img src="../../../../../glass.png" width=3 height=3 alt=""></td></tr>
+    <tr><td class="versionInfo">Generated by: <a href="http://ltp.sourceforge.net/coverage/lcov.php" target="_parent">LCOV version 1.13</a></td></tr>
+  </table>
+  <br>
+
+</body>
+</html>

@@ -37,7 +37,7 @@ package body Archicheck.IO is
       Ada.Text_IO.New_Line;
       Ada.Text_IO.Put_Line ("Options :");
       Ada.Text_IO.Put_Line ("   -lf | --list_files        : list sources files analyzed");
-      Ada.Text_IO.Put_Line ("   -ld | --list_dependencies : list identified dependencies"
+      Ada.Text_IO.Put_Line ("   -ld | --list_dependencies : list identified units and dependencies"
                 & " in analyzed sources files");
       Ada.Text_IO.Put_Line ("   -lr | --list_rules        : list rules in a rules file");
       Ada.Text_IO.Put_Line ("   -r  | --recursive         : all following -I are recursive");

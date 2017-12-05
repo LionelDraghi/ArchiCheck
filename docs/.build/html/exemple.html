@@ -1,0 +1,327 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>ArchiCheck &#8212; ArchiCheck 0.0.4 documentation</title>
+    
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '0.0.4',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="top" title="ArchiCheck 0.0.4 documentation" href="index.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body role="document">
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <img alt="https://cloud.githubusercontent.com/assets/7521600/15992701/ef245fd4-30ef-11e6-992d-275c5ca7c3a0.jpg" src="https://cloud.githubusercontent.com/assets/7521600/15992701/ef245fd4-30ef-11e6-992d-275c5ca7c3a0.jpg" />
+<div class="section" id="archicheck">
+<h1>ArchiCheck<a class="headerlink" href="#archicheck" title="Permalink to this headline">¶</a></h1>
+<p>coala-bears is a Python package containing all the bears that are officially</p>
+<p>supported by coala. It features more than <strong>78 bears</strong> covering</p>
+<p><strong>54 languages</strong>. Here is a <a class="reference external" href="https://github.com/coala/bear-docs/">generated list</a></p>
+<p>that contains information about each bear, such as the languages it supports and</p>
+<p>what fixes it can apply to your code.</p>
+<p><a href="#id3"><span class="problematic" id="id4">|Throughput Graph|</span></a></p>
+<hr class="docutils" />
+<hr class="docutils" />
+<hr class="docutils" />
+<p>Installation</p>
+<hr class="docutils" />
+<p>To install the <strong>latest stable version</strong> run:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>$ pip3 install coala-bears
+</pre></div>
+</div>
+<p><img alt="Stable" src="https://img.shields.io/badge/latest%20stable-0.11.1-green.svg" /></p>
+<p>To install the latest development version run:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>$ pip3 install coala-bears --pre
+</pre></div>
+</div>
+<p>The latest code from the master branch is automatically deployed as the</p>
+<p>development version in PyPI.</p>
+<p>To also install all bears for coala at once run:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>$ pip3 install coala-bears
+</pre></div>
+</div>
+<p>Be sure to use the latest version of pip, the default pip from Debian doesn&#8217;t</p>
+<p>support our dependency version number specifiers. You will have to <a href="#id1"><span class="problematic" id="id2">`</span></a>use a</p>
+<p>virtualenv &lt;<a class="reference external" href="https://github.com/coala/coala/wiki/FAQ#installation-is-failing-help">https://github.com/coala/coala/wiki/FAQ#installation-is-failing-help</a>&gt;`__</p>
+<p>in this case.</p>
+<p><a href="#id5"><span class="problematic" id="id6">|PyPI|</span></a> <a href="#id7"><span class="problematic" id="id8">|Windows|</span></a> <a href="#id9"><span class="problematic" id="id10">|Linux|</span></a></p>
+<hr class="docutils" />
+<hr class="docutils" />
+<p>Languages Supported</p>
+<hr class="docutils" />
+<p>To see what coala can do for your language, run:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>$ coala --show-bears --filter-by-language Python
+</pre></div>
+</div>
+<table border="1" class="docutils">
+<colgroup>
+</colgroup>
+<tbody valign="top">
+</tbody>
+</table>
+<div class="line-block">
+<div class="line">Languages coala provides algorithms for                       |</div>
+</div>
+<p>+============================+============================+============================+</p>
+<div class="line-block">
+<div class="line">C                          | Latex                      | SQL                        |</div>
+</div>
+<table border="1" class="docutils">
+<colgroup>
+</colgroup>
+<tbody valign="top">
+</tbody>
+</table>
+<div class="line-block">
+<div class="line">C++                        | Lua                        | Stylus                     |</div>
+</div>
+<table border="1" class="docutils">
+<colgroup>
+</colgroup>
+<tbody valign="top">
+</tbody>
+</table>
+<div class="line-block">
+<div class="line">C#                         | Markdown                   | Swift                      |</div>
+</div>
+<table border="1" class="docutils">
+<colgroup>
+</colgroup>
+<tbody valign="top">
+</tbody>
+</table>
+<div class="line-block">
+<div class="line">CMake                      | Matlab/Octave              | TypeScript                 |</div>
+</div>
+<table border="1" class="docutils">
+<colgroup>
+</colgroup>
+<tbody valign="top">
+</tbody>
+</table>
+<div class="line-block">
+<div class="line">CoffeeScript               | Natural Language (English) | Verilog                    |</div>
+</div>
+<table border="1" class="docutils">
+<colgroup>
+</colgroup>
+<tbody valign="top">
+</tbody>
+</table>
+<div class="line-block">
+<div class="line">CSS                        | Perl                       | VHDL                       |</div>
+</div>
+<table border="1" class="docutils">
+<colgroup>
+</colgroup>
+<tbody valign="top">
+</tbody>
+</table>
+<div class="line-block">
+<div class="line">Dart                       | PHP                        | Vimscript                  |</div>
+</div>
+<table border="1" class="docutils">
+<colgroup>
+</colgroup>
+<tbody valign="top">
+</tbody>
+</table>
+<div class="line-block">
+<div class="line">Fortran                    | Python 2                   | XML                        |</div>
+</div>
+<table border="1" class="docutils">
+<colgroup>
+</colgroup>
+<tbody valign="top">
+</tbody>
+</table>
+<div class="line-block">
+<div class="line">Go                         | Python 3                   | YAML                       |</div>
+</div>
+<table border="1" class="docutils">
+<colgroup>
+</colgroup>
+<tbody valign="top">
+</tbody>
+</table>
+<div class="line-block">
+<div class="line">Haskell                    | R                          |                            |</div>
+</div>
+<table border="1" class="docutils">
+<colgroup>
+</colgroup>
+<tbody valign="top">
+</tbody>
+</table>
+<div class="line-block">
+<div class="line">HTML                       | reStructured Text          |                            |</div>
+</div>
+<table border="1" class="docutils">
+<colgroup>
+</colgroup>
+<tbody valign="top">
+</tbody>
+</table>
+<div class="line-block">
+<div class="line">Java                       | Ruby                       |                            |</div>
+</div>
+<table border="1" class="docutils">
+<colgroup>
+</colgroup>
+<tbody valign="top">
+</tbody>
+</table>
+<div class="line-block">
+<div class="line">JavaScript                 | Scala                      |                            |</div>
+</div>
+<table border="1" class="docutils">
+<colgroup>
+</colgroup>
+<tbody valign="top">
+</tbody>
+</table>
+<div class="line-block">
+<div class="line">JSP                        | SCSS                       |                            |</div>
+</div>
+<table border="1" class="docutils">
+<colgroup>
+</colgroup>
+<tbody valign="top">
+</tbody>
+</table>
+<div class="line-block">
+<div class="line">Julia                      | sh &amp; bash scripts          |                            |</div>
+</div>
+<table border="1" class="docutils">
+<colgroup>
+</colgroup>
+<tbody valign="top">
+</tbody>
+</table>
+<p>The number of bears grows every day! If you want to see any particular</p>
+<p>functionality be sure to submit an issue, but please read the <a href="#id15"><span class="problematic" id="id16">`Getting Involved`_</span></a></p>
+<p>section before doing so.</p>
+<p>You can read more at our <a class="reference external" href="http://coala.io/writingbears">documentation</a>.</p>
+<p>There you can learn how to easily write bears yourself! Be sure to let us know</p>
+<p>if you do so, so we&#8217;ll be able to include it here and spread the word about it.</p>
+<hr class="docutils" />
+<hr class="docutils" />
+<p>Usage</p>
+<hr class="docutils" />
+<p>For more information about how to do basic analysis, check out the</p>
+<p><a class="reference external" href="https://github.com/coala/coala#usage">coala README</a>.</p>
+<hr class="docutils" />
+<hr class="docutils" />
+<p>Getting Involved</p>
+<hr class="docutils" />
+<p>If you would like to be a part of the coala community, you can check out our</p>
+<p><a class="reference external" href="http://coala.readthedocs.io/en/latest/Help/Getting_In_Touch.html">Getting In Touch</a></p>
+<p>page or ask us at our active Gitter channel, where we have maintainers from</p>
+<p>all over the world. We appreciate any help!</p>
+<p>We also have a</p>
+<p><a class="reference external" href="http://coala.io/newcomer">newcomer guide</a></p>
+<p>to help you get started by fixing an issue yourself! If you get stuck anywhere</p>
+<p>or need some help, feel free to contact us on Gitter or drop a mail at our</p>
+<p><a class="reference external" href="https://groups.google.com/d/forum/coala-newcomers">newcomer mailing list</a>.</p>
+<p><a href="#id11"><span class="problematic" id="id12">|gitter|</span></a></p>
+<hr class="docutils" />
+<hr class="docutils" />
+<p>Support</p>
+<hr class="docutils" />
+<p>Feel free to contact us at our <a class="reference external" href="https://gitter.im/coala/coala">Gitter channel</a>, we&#8217;d be happy to help!</p>
+<p>If you are interested in commercial support, please contact us on the Gitter</p>
+<p>channel as well.</p>
+<p>You can also drop an email at our</p>
+<p><a class="reference external" href="https://github.com/coala/coala/wiki/Mailing-Lists">mailing list</a>.</p>
+<hr class="docutils" />
+<hr class="docutils" />
+<p>Authors</p>
+<hr class="docutils" />
+<p>coala is maintained by a growing community. Please take a look at the</p>
+<p>meta information in <a class="reference external" href="setup.py">setup.py</a> for the current maintainers.</p>
+<hr class="docutils" />
+<hr class="docutils" />
+<p>License</p>
+<hr class="docutils" />
+<p><a href="#id13"><span class="problematic" id="id14">|AGPL|</span></a></p>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper"><div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+  </ul></li>
+</ul>
+</div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/exemple.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2017, Lionel Draghi.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.4.9</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.8</a>
+      
+      |
+      <a href="_sources/exemple.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

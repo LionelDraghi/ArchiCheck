@@ -34,16 +34,18 @@ private package Archicheck.IO is
 
    -- Mimics eponym Text_IO functions, except that :
    --   - if --quiet is set on command line, they have no effect,
-   --   - if Only_When_Verbose is False, they have no effect unless --verbose is set on command line
+   --   - if Only_When_Verbose is False, they have no effect
+   --     unless --verbose is set on command line
    procedure Put_Line (Item : String; Only_When_Verbose : Boolean := False);
    procedure Put      (Item : String; Only_When_Verbose : Boolean := False);
-   procedure New_Line (Spacing : Ada.Text_IO.Positive_Count := 1; Only_When_Verbose : Boolean := False);
+   procedure New_Line (Spacing           : Ada.Text_IO.Positive_Count := 1;
+                       Only_When_Verbose : Boolean := False);
 
    procedure Put_Warning (Msg       : in String := "");
    procedure Put_Error   (Msg       : in String := "";
                           With_Help : in Boolean := False);
 
-   -- -------------------------------------------------------------------------
+   -- --------------------------------------------------------------------------
    -- Function: GNU_Prefix
    --
    -- Purpose:
@@ -64,18 +66,18 @@ private package Archicheck.IO is
    --    to ease error msg understanding.
    --    For example, a "../../rules.txt" command line parameter should be
    --    displayed as is in case of messages regarding this rules.txt file.
-   -- -------------------------------------------------------------------------
+   -- --------------------------------------------------------------------------
    function GNU_Prefix (File   : in String;
                         Line   : in Positive;
                         Column : in Integer := 0) return String;
 
-   -- -------------------------------------------------------------------------
+   -- --------------------------------------------------------------------------
    -- Function: GNU_Prefix
    --
    -- Purpose:
    --    With this second form, the file is given as an Ada.Text_IO.File_Type,
    --    and <Ada.Directories.Full_Name> is used to display the file name.
-   -- -------------------------------------------------------------------------
+   -- --------------------------------------------------------------------------
    function GNU_Prefix (File   : in Ada.Text_IO.File_Type;
                         Line   : in Positive;
                         Column : in Integer := 0) return String;

@@ -62,8 +62,8 @@ private
    type Interface_Access is access all Lang_Interface'class;
 
    -- -------------------------------------------------------------------------
-   procedure Subscribe (Language_Processor : in Interface_Access;
-                        For_Language       : in Sources.Language);
+   procedure Register (Language_Processor : in Interface_Access;
+                       For_Language       : in Sources.Language);
 
 
 end Archicheck.Lang;

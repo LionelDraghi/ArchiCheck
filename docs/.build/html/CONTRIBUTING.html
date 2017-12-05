@@ -1,0 +1,140 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Contributing &#8212; ArchiCheck 0.0.4 documentation</title>
+    
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '0.0.4',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="author" title="About these documents" href="about.html" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="top" title="ArchiCheck 0.0.4 documentation" href="index.html" />
+    <link rel="next" title="&lt;no title&gt;" href="COPYING.html" />
+    <link rel="prev" title="TODO list" href="todo.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body role="document">
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="contributing">
+<h1>Contributing<a class="headerlink" href="#contributing" title="Permalink to this headline">¶</a></h1>
+</div>
+<div class="section" id="portability">
+<h1>Portability:<a class="headerlink" href="#portability" title="Permalink to this headline">¶</a></h1>
+<p>Note that the Ada should be pretty platform independant, but I tested it
+only on my Linux/Intel platform. Makefile are clearly not portable, and
+probably need heavy refactoring to run on non Unix like system.</p>
+</div>
+<div class="section" id="downloading-sources">
+<h1>Downloading sources:<a class="headerlink" href="#downloading-sources" title="Permalink to this headline">¶</a></h1>
+<p><code class="docutils literal"><span class="pre">git</span> <span class="pre">clone</span> <span class="pre">https://github.com/LionelDraghi/ArchiCheck.git</span></code></p>
+<p>An Archicheck directory will be created.</p>
+<p>Otherwise, <a class="reference external" href="https://github.com/LionelDraghi/ArchiCheck/archive/master.zip">go there to download a zip
+archive</a>.</p>
+</div>
+<div class="section" id="building">
+<h1>Building:<a class="headerlink" href="#building" title="Permalink to this headline">¶</a></h1>
+<p>To build ArchiCheck and the tests, just type</p>
+<p><code class="docutils literal"><span class="pre">make</span> <span class="pre">check</span></code></p>
+<p>in the ArchiCheck root directory.</p>
+<p>Needed external software : libopentoken, and gnat gcc Ada compiler.</p>
+<p>On Debian Linux family :</p>
+<p><code class="docutils literal"><span class="pre">apt</span> <span class="pre">install</span> <span class="pre">libopentoken6-dev</span> <span class="pre">gnat</span> <span class="pre">make</span></code></p>
+<p>archicheck exe will be in the Obj directory.</p>
+</div>
+<div class="section" id="and-to-build-this-documentation-web-pages">
+<h1>And to build this documentation / web pages:<a class="headerlink" href="#and-to-build-this-documentation-web-pages" title="Permalink to this headline">¶</a></h1>
+<p><code class="docutils literal"><span class="pre">make</span> <span class="pre">doc</span></code></p>
+<p>Needed external software : ploticus, NaturalDocs, sloccount and lcov.</p>
+<p>On Debian Linux family :</p>
+<p><code class="docutils literal"><span class="pre">apt</span> <span class="pre">install</span> <span class="pre">ploticus</span> <span class="pre">naturaldocs</span> <span class="pre">sloccount</span> <span class="pre">lcov</span></code></p>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Contributing</a></li>
+<li><a class="reference internal" href="#portability">Portability:</a></li>
+<li><a class="reference internal" href="#downloading-sources">Downloading sources:</a></li>
+<li><a class="reference internal" href="#building">Building:</a></li>
+<li><a class="reference internal" href="#and-to-build-this-documentation-web-pages">And to build this documentation / web pages:</a></li>
+</ul>
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="todo.html" title="previous chapter">TODO list</a></li>
+      <li>Next: <a href="COPYING.html" title="next chapter">&lt;no title&gt;</a></li>
+  </ul></li>
+</ul>
+</div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/CONTRIBUTING.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2017, Lionel Draghi.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.4.9</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.8</a>
+      
+      |
+      <a href="_sources/CONTRIBUTING.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

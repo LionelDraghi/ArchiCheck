@@ -32,6 +32,14 @@ package body Archicheck.Cmd_Line is
    Src_Dir_Given : Boolean := False;
 
    -- -------------------------------------------------------------------------
+   -- Procedure: Next_Arg
+   -- -------------------------------------------------------------------------
+   procedure Next_Arg is
+   begin
+      Arg_Counter := Arg_Counter + 1;
+   end Next_Arg;
+
+   -- -------------------------------------------------------------------------
    -- Procedure: Put_Version
    -- -------------------------------------------------------------------------
    procedure Put_Version is
@@ -97,6 +105,8 @@ package body Archicheck.Cmd_Line is
       use Archicheck.IO;
 
    begin
+      Line_OK := True;
+
       -- first, let's eliminate the normal situation :
       -- there is a rules file, and there are sources to analyze
       if Settings.Rules_File_Name = "" or Sources.Get_List.Is_Empty then
@@ -150,7 +160,6 @@ package body Archicheck.Cmd_Line is
       while Arg_Counter <= Ada.Command_Line.Argument_Count loop
          declare
             Opt : constant String := Ada.Command_Line.Argument (Arg_Counter);
-
          begin
             if Opt = "-I" then
                Process_Directory_Option (Line_OK, Settings.Recursive);
@@ -158,46 +167,46 @@ package body Archicheck.Cmd_Line is
 
             elsif Opt = "-lf" or Opt = "--list_files" then
                Settings.List_Files := True;
-               Arg_Counter := Arg_Counter + 1;
+               Next_Arg;
 
             elsif Opt = "-ld" or Opt = "--list_dependencies" then
                Settings.List_Dependencies := True;
-               Arg_Counter := Arg_Counter + 1;
+               Next_Arg;
 
             elsif Opt = "-lr" or Opt = "--list_rules" then
                Settings.List_Rules := True;
-               Arg_Counter := Arg_Counter + 1;
+               Next_Arg;
 
             elsif Opt = "-r" or Opt = "--recursive" then
                Settings.Recursive := True;
-               Arg_Counter := Arg_Counter + 1;
+               Next_Arg;
 
             elsif Opt = "--version" then
                Put_Version;
-               Arg_Counter := Arg_Counter + 1;
+               Next_Arg;
 
             elsif Opt = "-h" or Opt = "--help" then
                Put_Help;
-               Arg_Counter := Arg_Counter + 1;
+               Next_Arg;
 
             elsif Opt = "-q" or Opt = "--quiet" then
                Settings.Quiet_Mode := True;
-               Arg_Counter := Arg_Counter + 1;
+               Next_Arg;
 
             elsif Opt = "-v" or Opt = "--verbose" then
                Settings.Verbose_Mode := True;
-               Arg_Counter := Arg_Counter + 1;
+               Next_Arg;
 
             elsif Opt = "-d" then
                -- undocumented option
                Settings.Debug_Mode := True;
-               Arg_Counter := Arg_Counter + 1;
+               Next_Arg;
 
                -- elsif Arg_Counter = Ada.Command_Line.Argument_Count then
             elsif Ada.Directories.Exists (Opt) then
                -- should be the rules file
                Settings.Set_Rules_File_Name (Opt);
-               Arg_Counter := Arg_Counter + 1;
+               Next_Arg;
 
             else
                Put_Error ("Unknown rules file or unknow option " & Opt, With_Help => True);
@@ -206,6 +215,7 @@ package body Archicheck.Cmd_Line is
             end if;
 
             exit when not Line_OK;
+
          end;
 
       end loop;

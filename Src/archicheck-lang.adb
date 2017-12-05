@@ -22,127 +22,93 @@ with Archicheck.Settings;
 
 with Ada.Directories;
 with Ada.Strings.Unbounded;
+with Ada.Containers;
 
 package body Archicheck.Lang is
 
    -- Change default Debug parameter value to enable/disable Debug messages in this package
-   -- -------------------------------------------------------------------------
+   -- --------------------------------------------------------------------------
    procedure Put_Debug_Line (Msg    : in String  := "";
-                             Debug  : in Boolean := False; -- Settings.Debug_Mode,
+                             Debug  : in Boolean := Settings.Debug_Mode;
                              Prefix : in String  := "Lang") renames Archicheck.IO.Put_Debug_Line;
 
-   -- -------------------------------------------------------------------------
+   -- --------------------------------------------------------------------------
    Processor_List : array (Sources.Language) of Interface_Access;
 
-   -- -------------------------------------------------------------------------
+   -- --------------------------------------------------------------------------
    -- Procedure: Get_Src_List
    -- Implementation Notes:
    --    Each plugged language processor will provide the regular expression to
    --    recognize his own files, and a file search is run on that pattern for
    --    each plugged language.
-   -- -------------------------------------------------------------------------
+   -- --------------------------------------------------------------------------
    procedure Get_Src_List (Root_Dir  : in String;
                            Recursive : in Boolean) is
-      use Ada.Directories;
-      File_Search     : Search_Type;
-      Dir_Search      : Search_Type;
-      Directory_Entry : Directory_Entry_Type;
-      Directory_Entry2 : Directory_Entry_Type;
 
-      use Ada.Strings.Unbounded;
+      -- -----------------------------------------------------------------------
+      Src_Count : array (Sources.Language) of Natural := (others => 0);
+      Dir_Count : array (Sources.Language) of Natural := (others => 1);
+
+      -- -----------------------------------------------------------------------
+      procedure Walk (Name : String; L : Sources.Language) is
+
+         use Ada.Directories;
+         use Ada.Strings.Unbounded;
+         Extension : constant String := File_Extensions (Processor_List (L).all); -- dispatching call
+
+         -- --------------------------------------------------------------------
+         procedure Print (Item : Directory_Entry_Type) is
+            Name : constant String := Full_Name (Item);
+         begin
+            Sources.Add_Source (Src => (Name => To_Unbounded_String (Name),
+                                        -- Time_Tag => Modification_Time (Directory_Entry),
+                                        Lang => L));
+            -- Put_Debug_Line (Msg => "Found " & Name);
+            Src_Count (L) := Src_Count (L) + 1;
+         end Print;
+
+         -- --------------------------------------------------------------------
+         procedure Walk (Item : Directory_Entry_Type) is
+         begin
+            if Simple_Name (Item) /= "." and then Simple_Name (Item) /= ".." then
+               -- code found here : https://rosettacode.org/wiki/Walk_a_directory/Recursively#Ada
+               --** but isn't this Unix specific???
+               Dir_Count (L) := Dir_Count (L) + 1;
+               Walk (Full_Name (Item), L);
+            end if;
+         exception when Name_Error => null;
+         end Walk;
+
+      begin
+         Search (Name, Extension, (Directory => False, others => True), Print'Access);
+         if Recursive then
+            Search (Name, "", (Directory => True, others => False), Walk'Access);
+         end if;
+      end Walk;
 
    begin
       for L in Sources.Language loop
-         Put_Debug_Line (Msg => "Analysing directory " & Root_Dir
-                         & " for language : " & Sources.Language'Image (L));
-
-         -- Sources search :
-         Start_Search
-           (Search    => File_Search,
-            Directory => Root_Dir,
-            Pattern   => File_Extensions (Processor_List (L).all), -- dispatching call
-            Filter    => (Directory => False, others => True));
-         while More_Entries (File_Search) loop
-            Get_Next_Entry (File_Search, Directory_Entry);
-            declare
-               Name : constant String := Full_Name (Directory_Entry);
-            begin
-               Sources.Add_Source (Src => (Name => To_Unbounded_String (Name),
-                                           -- Time_Tag => Modification_Time (Directory_Entry),
-                                           Lang => L));
-               Put_Debug_Line (Msg => "Found " & Name);
-            end;
-
-         end loop;
-         End_Search (File_Search);
-
+         -- Put_Debug_Line (Msg => "Analysing directory " & Root_Dir
+         --                 & " for language : " & Sources.Language'Image (L));
+         Walk (Root_Dir, L);
+         IO.Put_Line (Item => Integer'Image (Src_Count (L)) & " "
+                      & Sources.Language'Image (L) & " src in"
+                      & Natural'Image (Dir_Count (L)) & " dir",
+                     Only_When_Verbose => True);
       end loop;
-
-      if Recursive then
-         -- Directory search :
-         Start_Search (Search    => Dir_Search,
-                       Directory => Root_Dir,
-                       Pattern   => "*", -- match all
-                       Filter    => (Directory => True, others => False));
-         while More_Entries (Dir_Search) loop
-            declare
-            begin
-               Get_Next_Entry (Dir_Search, Directory_Entry2);
-               Put_Debug_Line (Msg => File_Kind'Image (Kind (Directory_Entry2)) & " : " & Full_Name (Directory_Entry2));
-               -- recursive call :
-               if Simple_Name (Directory_Entry2) /= "." and then Simple_Name (Directory_Entry2) /= ".." then
-                  -- code found here : https://rosettacode.org/wiki/Walk_a_directory/Recursively#Ada
-                  --** but isn't this Unix specific???
-                  Get_Src_List (Root_Dir  => Full_Name (Directory_Entry2),
-                                Recursive => Recursive);
-               end if;
-            end;
-
-         end loop;
-         End_Search (Dir_Search);
-      end if;
-
-      -- from Rosetta :
-      --        procedure Walk (Name : String; Pattern : String) is
-      --           procedure Print (Item : Directory_Entry_Type) is
-      --           begin
-      --              Ada.Text_IO.Put_Line (Full_Name (Item));
-      --           end Print;
-      --           procedure Walk (Item : Directory_Entry_Type) is
-      --           begin
-      --              if Simple_Name (Item) /= "." and then Simple_Name (Item) /= ".." then
-      --                 Walk (Full_Name (Item), Pattern);
-      --              end if;
-      --           exception
-      --              when Name_Error => null;
-      --           end Walk;
-      --        begin
-      --           Search (Name, Pattern, (others => True), Print'Access);
-      --           Search (Name, "", (Directory => True, others => False), Walk'Access);
-      --        end Walk;
-      --     begin
-      --        Walk (".", "*.adb");
 
    end Get_Src_List;
 
    -- --------------------------------------------------------------------------
    -- Procedure: Add_Dependencies
-   --
-   -- Implementation Notes:
-   --   - Based on OpenToken Ada_Lexer
    -- --------------------------------------------------------------------------
    procedure Analyze_Dependencies is
-
-      -- Change default Debug parameter value to enable/disable Debug messages in this package
-      -- -----------------------------------------------------------------------
-      procedure Put_Debug_Line (Msg    : in String  := "";
-                                Debug  : in Boolean := Archicheck.Settings.Debug_Mode;
-                                Prefix : in String  := "Dependencies") renames Archicheck.IO.Put_Debug_Line;
+      Src_List : constant Sources.Source_Lists.List := Sources.Get_List;
       use Ada.Strings.Unbounded;
 
-      Src_List : constant Sources.Source_Lists.List := Sources.Get_List;
-
    begin
+      Put_Debug_Line (Msg => "Analysing dependencies," &
+                        Ada.Containers.Count_Type'Image (Sources.Source_Lists.Length (Src_List)) & " sources");
       for S of Src_List loop
          Put_Debug_Line (Msg => "Analysing dependencies for src : " & To_String (S.Name));
 
@@ -152,11 +118,13 @@ package body Archicheck.Lang is
 
    end Analyze_Dependencies;
 
-   -- -------------------------------------------------------------------------
-   procedure Subscribe (Language_Processor : in Interface_Access;
-                        For_Language       : in Sources.Language) is
+   -- --------------------------------------------------------------------------
+   -- procedure Register
+   -- --------------------------------------------------------------------------
+   procedure Register (Language_Processor : in Interface_Access;
+                       For_Language       : in Sources.Language) is
    begin
       Processor_List (For_Language) := Language_Processor;
-   end Subscribe;
+   end Register;
 
 end Archicheck.Lang;

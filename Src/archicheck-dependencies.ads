@@ -9,8 +9,8 @@
 -- -----------------------------------------------------------------------------
 -- Package: Archicheck.Dependencies specification
 -- Purpose:
---   This package defines Unit, and manage the list of dependencies found while
---    analyzing sources.
+--   This package defines a Unit, and manage the list of dependencies found
+--   while analyzing sources.
 --
 -- Effects:
 --
@@ -28,15 +28,35 @@ with Ada.Containers.Doubly_Linked_Lists;
 private package Archicheck.Dependencies is
 
    -- --------------------------------------------------------------------------
-   type Unit_Kind is (Pkg_Spec, Pkg_Body, Java_Class, Java_Interface, Unknown) with Default_Value => Unknown;
+   type Unit_Kind is (Package_K,
+                      Procedure_K,
+                      Function_K,
+                      Task_K,
+                      Protected_K,
+                      Class_K,
+                      Interface_K,
+                      Unknown) with Default_Value => Unknown;
    function Image (Kind : Unit_Kind) return String;
 
    type Unit is record
-      Name : Ada.Strings.Unbounded.Unbounded_String;
-      File : Ada.Strings.Unbounded.Unbounded_String;
-      Lang : Sources.Language;
-      Kind : Unit_Kind;
+      Name           : Ada.Strings.Unbounded.Unbounded_String;
+      File           : Ada.Strings.Unbounded.Unbounded_String;
+      Lang           : Sources.Language;
+      Kind           : Unit_Kind;
+      Implementation : Boolean; -- False if Specification, or Interface,
+                                -- True if implementation (or body, etc.)
    end record;
+
+   -- --------------------------------------------------------------------------
+   -- Function Unit_Description
+   -- Purpose:
+   --   Return a string describing the unit, depending on the language.
+   --   It can be "package body" for Ada
+   --   or "interface" for Java
+   -- Exceptions:
+   --   None
+   -- --------------------------------------------------------------------------
+   function Unit_Description (U : in Unit) return String;
 
    -- --------------------------------------------------------------------------
    type Dependency is record
@@ -68,5 +88,6 @@ private package Archicheck.Dependencies is
    --   None
    -- --------------------------------------------------------------------------
    procedure Dump;
+
 
 end Archicheck.Dependencies;

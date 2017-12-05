@@ -14,7 +14,6 @@
 -- Portability Issues:
 --
 -- Anticipated Changes:
---   - More more thorough Ada implementation needed
 --
 -- -----------------------------------------------------------------------------
 
@@ -39,8 +38,8 @@ package body Archicheck.Lang.Java_Processor is
    -- --------------------------------------------------------------------------
    procedure Initialize is
    begin
-      Subscribe (Language_Processor => Processor'Access,
-                 For_Language       => Sources.Java);
+      Register (Language_Processor => Processor'Access,
+                For_Language       => Sources.Java);
    end Initialize;
 
    -- --------------------------------------------------------------------------
@@ -67,9 +66,9 @@ package body Archicheck.Lang.Java_Processor is
       procedure Put_Debug_Line (Msg    : in String  := "";
                                 Debug  : in Boolean := Settings.Debug_Mode;
                                 Prefix : in String  := "Java_Processor.Analyze_Dependencies") renames Archicheck.IO.Put_Debug_Line;
---        procedure Put_Debug (Msg    : in String  := "";
---                             Debug  : in Boolean := Settings.Debug_Mode;
---                             Prefix : in String  := "Java_Processor.Analyze_Dependencies") renames Archicheck.IO.Put_Debug;
+      --        procedure Put_Debug (Msg    : in String  := "";
+      --                             Debug  : in Boolean := Settings.Debug_Mode;
+      --                             Prefix : in String  := "Java_Processor.Analyze_Dependencies") renames Archicheck.IO.Put_Debug;
       -- procedure New_Debug_Line (Debug  : in Boolean := Settings.Debug_Mode) renames Archicheck.IO.New_Debug_Line;
 
       -- Global text file for reading parse data
@@ -102,8 +101,11 @@ package body Archicheck.Lang.Java_Processor is
       end Get_Unit_Name;
 
       Unit_Kind : Dependencies.Unit_Kind;
+      Pkg_Name  : Unbounded_String := Null_Unbounded_String;
 
    begin
+      if Settings.Debug_Mode then OpenToken.Trace_Parse := 1; end if; -- value > 0 : debug level
+
       -- New_Debug_Line;
       IO.Put_Line ("Looking for dependencies in " & From_Source & " :", Only_When_Verbose => True);
 
@@ -113,21 +115,21 @@ package body Archicheck.Lang.Java_Processor is
       Ada.Text_IO.Set_Input (File);
       Analyzer.Set_Text_Feeder (OpenToken.Text_Feeder.Text_IO.Create (Ada.Text_IO.Current_Input));
 
-
       Source_Analysis : loop
          begin
+            Put_Debug_Line ("token to analyze : " & Java_Token'Image (Analyzer.ID));
             case Analyzer.ID is
             when Package_T =>
                -- processing the package declaration
                --     > package Java.Awt.Evt;
                -- line
-               Put_Debug_Line ("Analyzing Java pkg " & Java_Token'Image (Analyzer.ID));
                Analyzer.Find_Next;
-               --                 declare
-               --                    Unit : constant String := Get_Unit_Name;
-               --                 begin
-               --                    Unit_Type_Identified := True;
-               --                 end;
+               declare
+                  Pkg : constant String := Get_Unit_Name;
+               begin
+                  Pkg_Name := To_Unbounded_String (Pkg);
+                  Put_Debug_Line ("Analyzing Java pkg " & Pkg);
+               end;
 
             when Import_T =>
                -- processing a
@@ -137,20 +139,23 @@ package body Archicheck.Lang.Java_Processor is
                   Analyzer.Find_Next;
                   if Analyzer.ID = Static_T then
                      Analyzer.Find_Next;
+                     Put_Debug_Line ("on saute static, token to analyze : " & Java_Token'Image (Analyzer.ID));
                   end if;
 
                   declare
                      Withed_Unit : constant String := Get_Unit_Name;
                   begin
-                     IO.Put_Line ("   - " & Withed_Unit, Only_When_Verbose => True);
-                     Append (Tmp, (From => (Name => Null_Unbounded_String,
-                                            File => To_Unbounded_String (From_Source),
-                                            Lang => Sources.Java,
-                                            Kind => Java_Class),
-                                   To   => (Name => To_Unbounded_String (Withed_Unit),
-                                            File => Null_Unbounded_String,
-                                            Lang => Sources.Java,
-                                            Kind => Java_Class)));
+                     IO.Put_Line ("   - depends on " & Withed_Unit, Only_When_Verbose => True);
+                     Append (Tmp, (From => (Name           => Null_Unbounded_String,
+                                            File           => To_Unbounded_String (From_Source),
+                                            Lang           => Sources.Java,
+                                            Kind           => Class_K,
+                                            Implementation => True), --** what does it means in Java?... who knows...
+                                   To   => (Name           => To_Unbounded_String (Withed_Unit),
+                                            File           => Null_Unbounded_String,
+                                            Lang           => Sources.Java,
+                                            Kind           => Unknown,
+                                            Implementation => True))); --** who knows...
                      exit Unit_List when Analyzer.ID /= Comma_T;
                      --** not sure it's possible to have several unit behind a single import in Java
                      -- otherwise, loop to continue in the list of comma separated withed unit
@@ -159,34 +164,50 @@ package body Archicheck.Lang.Java_Processor is
 
             when Class_T | Interface_T =>
                -- processing the class declaration
-               --     > [public] [class|interface] ;
+               --     > [public] [abstract] [class|interface] ... ;
                -- line
-               if    Analyzer.ID = Class_T     then Unit_Kind := Dependencies.Java_Class;
-               elsif Analyzer.ID = Interface_T then Unit_Kind := Dependencies.Java_Interface;
+               if    Analyzer.ID = Class_T     then Unit_Kind := Dependencies.Class_K;
+               elsif Analyzer.ID = Interface_T then Unit_Kind := Dependencies.Interface_K;
                end if;
 
                Analyzer.Find_Next;
-
                declare
                   From : constant String := Get_Unit_Name;
+                  Full_Name : Unbounded_String;
                begin
+                  if Pkg_Name = Null_Unbounded_String then
+                     -- no Package, let's call back on the class name
+                     Full_Name := To_Unbounded_String (From);
+                  else
+                     Full_Name := Pkg_Name & '.' & From;
+                  end if;
+
+                  IO.Put_Line ("   - defines " & Dependencies.Unit_Kind'Image (Unit_Kind)
+                               & " " & To_String (Full_Name),
+                               Only_When_Verbose => True);
                   for D of Tmp loop
-                     Dependencies.Append ((From => (Name => To_Unbounded_String (From),
-                                                    File => D.From.File,
-                                                    Lang => D.From.Lang,
-                                                    Kind => Unit_Kind),
+                     Dependencies.Append ((From => (Name           => Full_Name,
+                                                    File           => D.From.File,
+                                                    Lang           => D.From.Lang,
+                                                    Kind           => Unit_Kind,
+                                                    Implementation => D.From.Implementation),
                                            To   => D.To));
                   end loop;
                end;
+               --**Dependencies.Dump;
 
                exit Source_Analysis;
                -- this exit is a risky optimization, as I am not sure it is possible to have multiple class in a single file...
+
+               -- when End_of_File_T => exit Source_Analysis;
 
                when others => Analyzer.Find_Next;
 
             end case;
 
             exit Source_Analysis when Analyzer.ID = End_of_File_T;
+
+            -- Analyzer.Find_Next;
 
          exception
             when Error : others =>

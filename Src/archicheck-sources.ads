@@ -29,7 +29,7 @@ private package Archicheck.Sources is
    -- --------------------------------------------------------------------------
    type Source is record
       Name     : Ada.Strings.Unbounded.Unbounded_String;
-      -- useless till now : Time_Tag : Ada.Calendar.Time;
+      -- provision for "make like" analyzis : Time_Tag : Ada.Calendar.Time;
       Lang     : Language;
    end record;
    package Source_Lists is new Ada.Containers.Doubly_Linked_Lists (Source);

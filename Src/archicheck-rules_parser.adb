@@ -93,6 +93,7 @@ package body Archicheck.Rules_Parser is
       Rules_File_Id,
       Rule_List_Id,
       Rule_Id,
+      -- Unit_Id,
       Unit_List_Id,
       Component_Declaration_Id,
       Layer_Declaration_Id,
@@ -160,12 +161,6 @@ package body Archicheck.Rules_Parser is
                -- Bad_Token_Id  => Tokenizer.Get (OpenToken.Recognizer.Nothing.Get),
                 );
 
-   --  The non-terminal tokens are pointers (type Handle) to allow for
-   --  mutual recursion. So the terminal ones are too, for
-   --  consistency, and to reduce the number of '&' and 'or' operators
-   --  we need.
-
-
    --  Terminal tokens
    A_T          : constant Master_Token.Class := Master_Token.Get (A_Id);
    And_T        : constant Master_Token.Class := Master_Token.Get (And_Id);
@@ -192,6 +187,7 @@ package body Archicheck.Rules_Parser is
    Rule                        : constant Nonterminal.Class := Nonterminal.Get (Rule_Id);
    Rule_List                   : constant Nonterminal.Class := Nonterminal.Get (Rule_List_Id);
    Rules_File                  : constant Nonterminal.Class := Nonterminal.Get (Rules_File_Id);
+   -- Unit                        : constant Nonterminal.Class := Nonterminal.Get (Unit_Id);
    Unit_List                   : constant Nonterminal.Class := Nonterminal.Get (Unit_List_Id);
 
    --  Allow infix operators for building productions
@@ -201,6 +197,16 @@ package body Archicheck.Rules_Parser is
    use type Production_List.Instance;
 
 
+--     -- -------------------------------------------------------------------------
+--     procedure Initialize_Unit_Name (New_Token : out Nonterminal.Class;
+--                                     Source    : in  Token_List.Instance'Class;
+--                                     To_ID     : in  Master_Token.Token_ID);
+--
+--     -- -------------------------------------------------------------------------
+--     procedure Store_Unit_Name (New_Token : out Nonterminal.Class;
+--                                Source    : in  Token_List.Instance'Class;
+--                                To_ID     : in  Master_Token.Token_ID);
+--
    -- -------------------------------------------------------------------------
    procedure Store_Component_Declaration (New_Token : out Nonterminal.Class;
                                           Source    : in  Token_List.Instance'Class;
@@ -236,6 +242,7 @@ package body Archicheck.Rules_Parser is
    -- Rules_File                  -> Rule_List & EoF
    -- Rule_List                   -> Rule [Rule]*
    -- Separator                   -> , | and | blank
+   -- Unit                        -> Identifier[.Identifier]*
    -- Unit_List                   -> Unit [[Separator]* Unit]*                    Unit_List = Unit & Unit & Unit etc.
    -- Component_Declaration       -> Component contains Unit_List                 Insert [Component, Unit_List] in Component_List
    -- Layer_Declaration           -> Layer is a layer over Layer                  Insert [Layer, Layer]         in Layer_List
@@ -254,52 +261,19 @@ package body Archicheck.Rules_Parser is
                Rule                        <= Use_Restriction_Declaration        and
                Rule                        <= Layer_Declaration                  and
                Rule                        <= Component_Declaration              and
+--                 Unit                        <= Unit & Dot_T & Identifier_T     + Store_Unit_Name'Access      and
+--                 Unit                        <= Identifier_T                    + Initialize_Unit_Name'Access and
                Unit_List                   <= Identifier_T & Comma_T & Unit_List                          + Append_Unit_To_List'Access         and
                Unit_List                   <= Identifier_T & And_T   & Unit_List                          + Append_Unit_To_List'Access         and
                -- Unit_List              <= Identifier           & Unit_List                    + Append_Unit_To_List'Access         and
                Unit_List                   <= Identifier_T                                                + Initialize_Unit_List'Access        and
-               Component_Declaration       <= Identifier_T & Contains_T & Unit_List                       + Store_Component_Declaration'Access and
-               Layer_Declaration           <= Identifier_T & Is_T & A_T & Layer_T & Over_T & Identifier_T + Store_Layer_Declaration'Access     and
-               Use_Declaration             <= Identifier_T & Use_T & Identifier_T                         + Store_Use_Declaration'Access       and
-               Use_Restriction_Declaration <= Only_T & Identifier_T & May_T & Use_T & Identifier_T        + Store_Use_Restriction_Declaration'Access;
-
-   --  This is of type OpenToken.Token.Handle, so it can be passed to
-   --  OpenToken.Token.Parse, rather than Sequence.Parse.
-
-   -- Units_In_File definition : "units in Dir1/*.ads"
-   --     Units_In_File.all := Selection.Class
-   --       (File or
-   --        Sequence.New_Instance (File & Selection.Class (And_T or Comma_T)));
-   -- File_List : File [(and|,) File]
-   -- example : units in Dir1/*.ads, units in Dir2 and units in Dir3"
-
-
-   -- Step 5: Define the Lexical Analyser
-
-   --     type Sentence_Token is abstract new OpenToken.Token.Instance with null record;
-   --     --     function Could_Parse_To (Match    : in Instance;
-   --     --                              Analyzer : in Source_Class) return Boolean;
-   --
-   --     type Component_Definition_Token is abstract new OpenToken.Token.Instance with record
-   --        Component_Name : Ada.Strings.Unbounded.Unbounded_String;
-   --        Unit_List      : Unit_Lists.List;
-   --        Source_List    : Archicheck.Source_Lists.List;
-   --     end record;
-   --     type Component_Definition_Token_Handle is access all Component_Definition_Token'Class;
-   --
-   --     type Rule_Token is abstract new OpenToken.Token.Instance with record
-   --        Server_Name : Ada.Strings.Unbounded.Unbounded_String;
-   --        Client_Name : Ada.Strings.Unbounded.Unbounded_String;
-   --        --** pour l'instant seule la regle layer est traitée
-   --     end record;
-   --     type Rule_Token_Handle is access all Rule_Token'Class;
-   --
-   --     --     type File_List_Token is new OpenToken.Token.List.Instance with record
-   --     --        Source_List : Archicheck.Source_Lists.List;
-   --     --     end record; -- (File_List_Token, File_List_Token);
-   --     --     procedure Add_List_Element (Match   : in out File_List_Token;
-   --     --                                 Element : in out OpenToken.Token.Class);
-
+--                Unit_List                   <= Unit & Comma_T & Unit_List                          + Append_Unit_To_List'Access         and
+--                Unit_List                   <= Unit & And_T   & Unit_List                          + Append_Unit_To_List'Access         and
+--                Unit_List                   <= Unit                                                + Initialize_Unit_List'Access        and
+              Component_Declaration       <= Identifier_T & Contains_T & Unit_List                       + Store_Component_Declaration'Access and
+              Layer_Declaration           <= Identifier_T & Is_T & A_T & Layer_T & Over_T & Identifier_T + Store_Layer_Declaration'Access     and
+              Use_Declaration             <= Identifier_T & Use_T & Identifier_T                         + Store_Use_Declaration'Access       and
+              Use_Restriction_Declaration <= Only_T & Identifier_T & May_T & Use_T & Identifier_T        + Store_Use_Restriction_Declaration'Access;
 
    --  Create a text feeder for our Input_File.
    Input_File : aliased Ada.Text_IO.File_Type;
@@ -313,7 +287,65 @@ package body Archicheck.Rules_Parser is
      (Analyzer,
       LALR_Generator.Generate (Grammar, Ignore_Unused_Tokens => True)); --**
    Units             : Unit_Lists.List;
+   -- Unit_Name         : Ada.Strings.Unbounded.Unbounded_String;
 
+--     -- -------------------------------------------------------------------------
+--     -- Procedure: Initialize_Unit_Name
+--     -- -------------------------------------------------------------------------
+--     procedure Initialize_Unit_Name (New_Token : out Nonterminal.Class;
+--                                     Source    : in  Token_List.Instance'Class;
+--                                     To_ID     : in  Master_Token.Token_ID)
+--     is
+--        pragma Unreferenced (New_Token, To_ID);
+--        Left  : constant Token_List.List_Iterator := Token_List.Initial_Iterator (Source);
+--
+--        use Archicheck.IO;
+--        use OpenToken.Buffers;
+--        use Ada.Strings.Unbounded;
+--        Prefix         : constant String := GNU_Prefix (File   => Settings.Rules_File_Name,
+--                                                        Line   => Rules_File_Parser.Line,
+--                                                        Column => Rules_File_Parser.Column);
+--
+--     begin
+--        declare
+--           Component_Name : constant String := To_String (Identifiers.Instance (Token_List.Token_Handle (Left).all).Identifier);
+--        begin
+--           Unit_Name := To_Unbounded_String (Component_Name);
+--           Put_Line (Prefix & "init Unit_Name = " & To_String (Unit_Name));
+--        end;
+--
+--     end Initialize_Unit_Name;
+--
+--     -- -------------------------------------------------------------------------
+--     -- Procedure: Store_Unit_Name
+--     -- -------------------------------------------------------------------------
+--     procedure Store_Unit_Name (New_Token : out Nonterminal.Class;
+--                                Source    : in  Token_List.Instance'Class;
+--                                To_ID     : in  Master_Token.Token_ID)
+--     is
+--        pragma Unreferenced (New_Token, To_ID);
+--        -- Left  : constant Token_List.List_Iterator := Token_List.Initial_Iterator (Source);
+--        Right :          Token_List.List_Iterator := Token_List.Initial_Iterator (Source);
+--
+--        use Archicheck.IO;
+--        use OpenToken.Buffers;
+--        use Ada.Strings.Unbounded;
+--        Prefix         : constant String := GNU_Prefix (File   => Settings.Rules_File_Name,
+--                                                        Line   => Rules_File_Parser.Line,
+--                                                        Column => Rules_File_Parser.Column);
+--
+--     begin
+--        Token_List.Next_Token (Right); -- move "Right" over "."
+--        Token_List.Next_Token (Right); -- move "Right" over the next Identifier
+--
+--        declare
+--           Component_Name : constant String := To_String (Identifiers.Instance (Token_List.Token_Handle (Right).all).Identifier);
+--        begin
+--           Unit_Name := Unit_Name & '.' & Component_Name;
+--           Put_Line (Prefix & "Unit_Name = " & To_String (Unit_Name));
+--        end;
+--
+--     end Store_Unit_Name;
 
    -- -------------------------------------------------------------------------
    -- Procedure: Store_Component_Declaration
@@ -347,7 +379,7 @@ package body Archicheck.Rules_Parser is
       begin
          if Settings.List_Rules then
             for U of Units loop
-              Put_Line (Prefix & "Component " & Component_Name & " contains Unit " & To_String (U));
+               Put_Line (Prefix & "Component " & Component_Name & " contains Unit " & To_String (U));
             end loop;
             -- Put_Line (Prefix & "Component " & Component_Name & " contains Unit " & Unit_List_Image (Units));
          end if;
@@ -481,7 +513,7 @@ package body Archicheck.Rules_Parser is
             Put_Line (GNU_Prefix (File   => Settings.Rules_File_Name,
                                   Line   => Analyzer.Line,
                                   Column => Analyzer.Column)
-                      & "component " & Using & " may use component " & Used);
+                      & "Component " & Using & " may use component " & Used);
          end if;
 --           Layers.Add_Layer ((Using_Layer => To_Unbounded_String (Using),
 --                              Used_Layer  => To_Unbounded_String (Used)));
@@ -544,9 +576,11 @@ package body Archicheck.Rules_Parser is
             Name => File_Name);
       Set_Input (Input_File);
 
-      -- LALR_Parser.Print_Table (Test_Parser);
+      if Settings.Debug_Mode then
+         OpenToken.Trace_Parse := 1;  -- value > 0 : debug level
+      end if;
+
       Parsing : begin
-         if Settings.Debug_Mode then OpenToken.Trace_Parse := 0; end if; -- value > 0 : debug level
          LALR_Parser.Parse (Rules_File_Parser);
 
       exception
@@ -554,25 +588,9 @@ package body Archicheck.Rules_Parser is
             IO.Put_Error (IO.GNU_Prefix (File_Name, Analyzer.Line, Analyzer.Column) & "parse exception");
             IO.Put_Error (Ada.Exceptions.Exception_Information (Error));
 
-            -- Peut-on faire mieux comme message? comme par exemple :
---              declare
---                 ID     : constant String := Token.Name (Current_Token.all);
---                 Lexeme : constant String := Parser.Analyzer.Lexeme;
---
---                 --  FIXME: merge expecting from all active parsers
---                 Expecting_Tokens : constant Token_Array := Expecting (Parser.Table, Parsers.First.Peek.State);
---              begin
---                 --  FIXME: free everything
---                 raise Syntax_Error with
---                 Int_Image (Parser.Analyzer.Line) & ":" & Int_Image (Parser.Analyzer.Column) &
---                   ": Syntax error; expecting " & Names (Parser.Analyzer, Expecting_Tokens) &
---                   "; found " & ID & " '" & Lexeme & "'";
---              end;
-
-
       end Parsing;
 
-      Close (File => Input_File);
+      Close (Input_File);
 
    end Parse;
 

@@ -5,12 +5,12 @@ TR=../Tools/testrec
 
 .PHONY : clean
 
-check: ../../Obj/archicheck header test1 test2 test3 test4 test5
+check: ../../Obj/archicheck header test1 test2 test3 test4 test5 test6 test7
 
 header:
 	@ #---------------------------------------------------------------------
 	${TR} clean
-	${TR} create "Java code tests"
+	${TR} create "Java code test suite"
 
 	@ # Creating the batik dir :
 	@ tar -xf batik-src-1.9.tar.gz
@@ -45,7 +45,7 @@ test2:
 	@ #---------------------------------------------------------------------
 	${TR} start "simple import "
 
-	- @ mkdir dir2
+	- @ mkdir -p dir2
 	@ cp ./batik-1.9/contrib/jsvg/JSVG.java dir2
 
 	@ ${TR} cmt "(start code)"
@@ -67,7 +67,7 @@ test3:
 	@ #---------------------------------------------------------------------
 	${TR} start "interface"
 
-	- @ mkdir dir3
+	- @ mkdir -p dir3
 	@ cp ./batik-1.9/batik-dom/src/main/java/org/apache/batik/dom/events/NodeEventTarget.java dir3
 
 	@ ${TR} cmt "(start code)"
@@ -89,7 +89,7 @@ test4:
 	@ #---------------------------------------------------------------------
 	${TR} start "no import"
 
-	- @ mkdir dir4
+	- @ mkdir -p dir4
 	@ cp ./batik-1.9/batik-dom/src/main/java/org/apache/batik/dom/util/TriplyIndexedTable.java dir4
 
 	@ ${TR} cmt "(start code)"
@@ -111,7 +111,7 @@ test5:
 	@ #---------------------------------------------------------------------
 	${TR} start "no package"
 
-	- @ mkdir dir5
+	- @ mkdir -p dir5
 	@ > dir5/MyClass.java
 	@ echo "import org.w3c.dom.DOMException;" 			>> dir5/MyClass.java
 	@ echo "import org.w3c.dom.events.Event;" 			>> dir5/MyClass.java
@@ -121,7 +121,7 @@ test5:
 	@ echo "}" 							>> dir5/MyClass.java
 
 	@ ${TR} cmt "(start code)"
-	sed -n '/package /,/public class/p' dir5/MyClass.java >> testrec.txt
+	sed -n '1,/public interface/p' dir5/MyClass.java >> testrec.txt
 	@ ${TR} cmt "(end)"
 
 	@ ${TR} cmt "> archicheck -lf -I dir5"
@@ -135,47 +135,53 @@ test5:
 
 	${TR} end
 
-testx:
+test6:
 	@ #---------------------------------------------------------------------
-	${TR} start "import with wild card"
+	${TR} start "real Batik code"
 
-	@ cp ./batik-1.9/contrib/scroll/ScrollExample.java .
+	- @ mkdir -p dir6
+	@ cp ./batik-1.9/batik-transcoder/src/main/java/org/apache/batik/transcoder/SVGAbstractTranscoder.java dir6
 
+	@ ${TR} cmt "This class is in transcoder, and uses Bridge and GVT, and that's OK"
 	@ ${TR} cmt "(start code)"
-	sed -n '/package /,/public class/p' ScrollExample.java >> testrec.txt
+	sed -n '/package /,/public abstract class/p' dir6/SVGAbstractTranscoder.java >> testrec.txt
 	@ ${TR} cmt "(end)"
 
-	@ > expected_output.1
-	@ ../../Obj/archicheck -ld -I . rules.1 > output.1
-	${TR} assert true /usr/bin/sdiff "-s expected_output.1 output.1"
+	> expected_output.6 
+	@ ${TR} cmt "> archicheck rules.B -I dir6"
+	@ ${TR} cmt "No output expected"
+
+	### @ ../../Obj/archicheck rules.B -I dir6 > output.6
+	### ${TR} assert true /usr/bin/sdiff "-s expected_output.6 output.6"
 
 	${TR} end
 
-
-Batik:
+test7:
 	@ #---------------------------------------------------------------------
-	${TR} start "Batik project architecture, code is compliant with rules file, no output expected"
-	@ ${CREATE_PKG} Browser       spec -in dirB -with UI_Component
-	@ ${CREATE_PKG} Rasterizer    spec -in dirB -with Transcoder
-	@ ${CREATE_PKG} UI_Component  spec -in dirB -with Bridge -with Renderer
-	@ ${CREATE_PKG} Transcoder    spec -in dirB -with Bridge -with Renderer
-	@ ${CREATE_PKG} Bridge        spec  -in dirB -with GVT -with SVGDOM
-	@ ${CREATE_PKG} Renderer      spec  -in dirB -with GVT
-	@ ${CREATE_PKG} GVT           spec  -in dirB
-	@ ${CREATE_PKG} SVGDOM        spec  -in dirB -with SVG_Parser
-	@ ${CREATE_PKG} SVG_Parser    spec  -in dirB
-	@ ${CREATE_PKG} SVG_Generator spec  -in dirB -with SVGDOM
+	${TR} start "Let's add dependencies to Browser and Rasterizer into a Transcoder class"
 
-	@ ${TR} cmt "Architecture of the The Apache Batik Project, available <here at https://xmlgraphics.apache.org/batik/using/architecture.html>".
-	@ ${TR} cmt "(see Batik.png)"
-	@ ${TR} cmt "Described by this rules file :"
+	- @ mkdir -p dir7
+	@ > dir7/MyClass.java
+	@ echo "package org.apache.batik.transcoder;"			>> dir7/MyClass.java
+	@ echo "" 							>> dir7/MyClass.java
+	@ echo "import org.w3c.dom.Browser.Event;" 			>> dir7/MyClass.java
+	@ echo "import org.w3c.dom.events.Rasterizer;" 			>> dir7/MyClass.java
+	@ echo "" 							>> dir7/MyClass.java
+	@ echo "public interface NodeEventTarget extends EventTarget {"	>> dir7/MyClass.java
+	@ echo ""				 			>> dir7/MyClass.java
+	@ echo "}" 							>> dir7/MyClass.java
+
 	@ ${TR} cmt "(start code)"
-	cat rules.B >> testrec.txt
+	sed -n '/package /,/public abstract class/p' dir7/MyClass.java >> testrec.txt
 	@ ${TR} cmt "(end)"
 
-	@ > expected_output.B
-	@ ../../Obj/archicheck -q -I dir1 rules.B > output.B
-	${TR} assert true /usr/bin/sdiff "-s expected_output.B output.B"
+	@ ${TR} cmt "> archicheck rules.B -I dir7"
+	@ ${TR} cmt "(start code)"
+	cat expected_output.7 >> testrec.txt
+	@ ${TR} cmt "(end)"
+
+	### @ ../../Obj/archicheck rules.B -I dir7 > output.7
+	### ${TR} assert true /usr/bin/sdiff "-s expected_output.7 output.7"
 
 	${TR} end
 

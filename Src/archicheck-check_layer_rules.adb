@@ -33,9 +33,9 @@ procedure Archicheck.Check_Layer_Rules is
    procedure Put_Debug_Line (Msg    : in String  := "";
                              Debug  : in Boolean := Settings.Debug_Mode;
                              Prefix : in String  := "Check_Layer_Rules") renames Archicheck.IO.Put_Debug_Line;
---     procedure Put_Debug (Msg    : in String  := "";
---                          Debug  : in Boolean := Settings.Debug_Mode;
---                          Prefix : in String  := "Check_Layer_Rules") renames Archicheck.IO.Put_Debug;
+   --     procedure Put_Debug (Msg    : in String  := "";
+   --                          Debug  : in Boolean := Settings.Debug_Mode;
+   --                          Prefix : in String  := "Check_Layer_Rules") renames Archicheck.IO.Put_Debug;
 
    -- --------------------------------------------------------------------------
    -- Function: To_Lower

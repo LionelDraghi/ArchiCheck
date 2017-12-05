@@ -21,7 +21,7 @@
 
 private package Archicheck.Settings is
 
-   ArchiCheck_Version : constant String := "0.4.0";
+   ArchiCheck_Version : constant String := "0.4.1";
 
    List_Files        : Boolean := False;
    List_Dependencies : Boolean := False;
@@ -31,9 +31,9 @@ private package Archicheck.Settings is
    Verbose_Mode      : Boolean := False;
 
    -- -------------------------------------------------------------------------
-   Ada_Files_Pattern  : constant String := "*.[aA][dD][asbASB]";
-   Java_Files_Pattern : constant String := "*.[jJ][aA][vV][aA]";
-   -- Not sure that this case independance mess is usefull
+   Ada_Files_Pattern  : constant String := "*.ad[asb]";
+   Java_Files_Pattern : constant String := "*.java";
+   -- Not sure that case independance is usefull here
 
    -- Undocumented option :
    Debug_Mode : Boolean := False;

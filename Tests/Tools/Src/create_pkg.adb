@@ -6,7 +6,6 @@
 -- Public License Versions 3, refer to the COPYING file.
 -- -----------------------------------------------------------------------------
 
-
 with Ada.Command_Line;
 with Ada.Directories;
 with Ada.Strings.Maps.Constants;
@@ -51,7 +50,7 @@ procedure Create_Pkg is
    Unit_Name : Unbounded_String;
    Dir_Name  : Unbounded_String;
 
-   Version : constant String := "v1.0";
+   Version : constant String := "v1.1";
 
    -- -------------------------------------------------------------------------
    procedure Create_File is
@@ -125,11 +124,11 @@ begin
       New_Line (File);
       Put_Line (File, "-- created by Create_Pkg " & Version);
       if Create_Body then
-         Put_Line (File, "package body " & To_String (Unit_Name) & ";");
+         Put_Line (File, "package body " & To_String (Unit_Name) & " is");
+         Put_Line (File, "   null;");
       else
-         Put_Line (File, "package "      & To_String (Unit_Name) & ";");
+         Put_Line (File, "package "      & To_String (Unit_Name) & " is");
       end if;
-      Put_Line (File, "   null;");
       Put_Line (File, "end " & To_String (Unit_Name) & ";");
       Close (File);
 

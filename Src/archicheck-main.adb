@@ -24,6 +24,7 @@ with Archicheck.Sources;
 with Archicheck.Lang;
 with Archicheck.Lang.Initialize;
 with Archicheck.Dependencies;
+with Archicheck.IO;
 
 with Ada.Command_Line;
 
@@ -34,6 +35,7 @@ begin
    -- language specific processor pluggin:
    Lang.Initialize;
 
+   IO.Put_Line ("Starting src identification", Only_When_Verbose => True);
    Cmd_Line.Analyze_Cmd_Line (Cmd_Line_OK);
 
    if Cmd_Line_OK then
@@ -46,6 +48,7 @@ begin
 
       -- 2 - let's extract dependencies from sources
       -- -----------------------------------------------------------------------
+      IO.Put_Line ("Starting src analyzis", Only_When_Verbose => True);
       Lang.Analyze_Dependencies;
 
       if Settings.List_Dependencies then
@@ -54,12 +57,14 @@ begin
 
       -- 3 - Rules file analyzis
       -- -----------------------------------------------------------------------
+      IO.Put_Line ("Reading rules file...", Only_When_Verbose => True);
       if Settings.Rules_File_Name /= "" then
          Rules_Parser.Parse (Settings.Rules_File_Name);
       end if;
 
       -- 4 - let's run the checks
       -- -----------------------------------------------------------------------
+      IO.Put_Line ("Checking rules...", Only_When_Verbose => True);
       Check_Layer_Rules;
 
    else

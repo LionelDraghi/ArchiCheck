@@ -7,7 +7,7 @@
 -- -----------------------------------------------------------------------------
 
 -- -----------------------------------------------------------------------------
--- Package: Archicheck.Lang.Ada
+-- Package: Archicheck.Lang.Java_Processor
 --
 -- Purpose:
 --   This package implement the abstract interface for Java sources.
@@ -31,13 +31,13 @@ package Archicheck.Lang.Java_Processor is
    -- Exceptions:
    --   Node_Already_Defined
    -- --------------------------------------------------------------------------
-   procedure Analyze_Dependencies (Lang        : in Java_Interface;
-                                   From_Source : in String);
+   overriding procedure Analyze_Dependencies (Lang        : in Java_Interface;
+                                              From_Source : in String);
 
    -- --------------------------------------------------------------------------
    -- Function: File_Extensions
    -- --------------------------------------------------------------------------
-   function File_Extensions (Lang : in Java_Interface) return String;
+   overriding function File_Extensions (Lang : in Java_Interface) return String;
 
    -- --------------------------------------------------------------------------
    -- Procedure: Initialize

@@ -32,13 +32,13 @@ package Archicheck.Lang.Ada_Processor is
    -- Exceptions:
    --   Node_Already_Defined
    -- --------------------------------------------------------------------------
-   procedure Analyze_Dependencies (Lang        : in Ada_Interface;
-                                   From_Source : in String);
+   overriding procedure Analyze_Dependencies (Lang        : in Ada_Interface;
+                                              From_Source : in String);
 
    -- --------------------------------------------------------------------------
    -- Function: File_Extensions
    -- --------------------------------------------------------------------------
-   function File_Extensions (Lang : in Ada_Interface) return String;
+   overriding function File_Extensions (Lang : in Ada_Interface) return String;
 
    -- --------------------------------------------------------------------------
    -- Procedure: Initialize
