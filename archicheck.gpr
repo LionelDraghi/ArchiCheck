@@ -9,6 +9,11 @@ project Archicheck is
    for Object_Dir use "Obj";
    for Main use ("archicheck-main.adb");
 
+   package Ide is
+      for Vcs_Kind use "Git";
+      -- for Documentation_Dir use "./html";
+   end Ide;
+
    package Builder is
       for Executable ("archicheck-main.adb") use "archicheck";
       for Default_Switches ("ada") use ("-j2");
@@ -67,9 +72,6 @@ project Archicheck is
             -- -flto : link time optimization 
       end case;
    end Linker;
-
-   package Ide is
-   end Ide;
 
    package Binder is
       case Mode is

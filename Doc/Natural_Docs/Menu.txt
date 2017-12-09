@@ -20,7 +20,7 @@ Timestamp: Updated month day, year
 # These are indexes you deleted, so Natural Docs will not add them again
 # unless you remove them from this line.
 
-Don't Index: Types, Variables, Constants
+Don't Index: Types, Constants, Variables
 
 
 # --------------------------------------------------------------------------
@@ -47,9 +47,12 @@ Don't Index: Types, Variables, Constants
 # --------------------------------------------------------------------------
 
 
-File: Quick Start  (/home/lionel/Proj/Archicheck/Doc/README.txt)
-File: Download  (/home/lionel/Proj/Archicheck/Doc/Download.txt)
-File: About  (/home/lionel/Proj/Archicheck/Doc/About.txt)
+Group: Quick start  {
+
+   File: Quick Start  (/home/lionel/Proj/Archicheck/Doc/README.txt)
+   File: Download  (/home/lionel/Proj/Archicheck/Doc/Download.txt)
+   File: About  (/home/lionel/Proj/Archicheck/Doc/About.txt)
+   }  # Group: Quick start
 
 Group: Documentation  {
 
@@ -61,63 +64,26 @@ Group: Documentation  {
    File: License  (/home/lionel/Proj/Archicheck/Doc/COPYING.txt)
    }  # Group: Documentation
 
-Group: Src and tests  {
+Group: Tests &amp; Sources  {
 
    File: Dashboard  (/home/lionel/Proj/Archicheck/Doc/Dashboard.txt)
    Link: Code coverage  (http://lionel.draghi.free.fr/Archicheck/lcov/index.html)
-
-   Group: Src  {
-
-      File: Archicheck specification  (/home/lionel/Proj/Archicheck/Src/archicheck.ads)
-      File: Archicheck.Main specification  (/home/lionel/Proj/Archicheck/Src/archicheck-main.ads)
-      File: Archicheck.Cmd_Line specification  (/home/lionel/Proj/Archicheck/Src/archicheck-cmd_line.ads)
-      File: Archicheck.IO specification  (/home/lionel/Proj/Archicheck/Src/archicheck-io.ads)
-      File: Archicheck.Settings specification  (/home/lionel/Proj/Archicheck/Src/archicheck-settings.ads)
-      File: Archicheck.Rules_Parser specification  (/home/lionel/Proj/Archicheck/Src/archicheck-rules_parser.ads)
-      File: Archicheck.IO body  (/home/lionel/Proj/Archicheck/Src/archicheck-io.adb)
-      File: Archicheck.Cmd_Line body  (/home/lionel/Proj/Archicheck/Src/archicheck-cmd_line.adb)
-      File: Archicheck.Main body  (/home/lionel/Proj/Archicheck/Src/archicheck-main.adb)
-      File: Archicheck.Settings body  (/home/lionel/Proj/Archicheck/Src/archicheck-settings.adb)
-      File: archicheck-check_layer_rules.adb  (/home/lionel/Proj/Archicheck/Src/archicheck-check_layer_rules.adb)
-      File: Archicheck.Check_Layer_Rules specification  (/home/lionel/Proj/Archicheck/Src/archicheck-check_layer_rules.ads)
-      File: Archicheck.Sources  (/home/lionel/Proj/Archicheck/Src/archicheck-sources.ads)
-      File: Archicheck.Components body  (/home/lionel/Proj/Archicheck/Src/archicheck-components.adb)
-      File: Archicheck.Components specification  (/home/lionel/Proj/Archicheck/Src/archicheck-components.ads)
-      File: Archicheck.Dependencies body  (/home/lionel/Proj/Archicheck/Src/archicheck-dependencies.adb)
-      File: Archicheck.Dependencies specification  (/home/lionel/Proj/Archicheck/Src/archicheck-dependencies.ads)
-      File: Archicheck.Sources  (/home/lionel/Proj/Archicheck/Src/archicheck-sources.adb)
-      File: Archicheck.Layers body  (/home/lionel/Proj/Archicheck/Src/archicheck-layers.adb)
-      File: Archicheck.Layers specification  (/home/lionel/Proj/Archicheck/Src/archicheck-layers.ads)
-      File: Archicheck.Rules_Parser body  (/home/lionel/Proj/Archicheck/Src/archicheck-rules_parser.adb)
-      File: Archicheck.Lang  (/home/lionel/Proj/Archicheck/Src/archicheck-lang.ads)
-      File: Archicheck.Lang body  (/home/lionel/Proj/Archicheck/Src/archicheck-lang.adb)
-      File: Archicheck.Lang.Ada  (/home/lionel/Proj/Archicheck/Src/archicheck-lang-ada_processor.ads)
-      File: Archicheck.Lang.Ada_Processor body  (/home/lionel/Proj/Archicheck/Src/archicheck-lang-ada_processor.adb)
-      File: Archicheck.Lang.Initialize body  (/home/lionel/Proj/Archicheck/Src/archicheck-lang-initialize.adb)
-      File: Archicheck.Lang.Ada  (/home/lionel/Proj/Archicheck/Src/archicheck-lang-java_processor.ads)
-      File: Archicheck.Lang.Java_Processor body  (/home/lionel/Proj/Archicheck/Src/archicheck-lang-java_processor.adb)
-      }  # Group: Src
+   File: Test Status  (/home/lionel/Proj/Archicheck/Tests/tests_summary.txt)
 
    Group: Tests  {
 
-      File: --list_dependencies option test  (/home/lionel/Proj/Archicheck/Tests/03_Dependency_List/Readme.txt)
-      File: --list_dependencies option test suite  (/home/lionel/Proj/Archicheck/Tests/03_Dependency_List/testrec.txt)
-      File: --list_files option test  (/home/lionel/Proj/Archicheck/Tests/02_Source_List/Readme.txt)
-      File: --list_files option test suite  (/home/lionel/Proj/Archicheck/Tests/02_Source_List/testrec.txt)
-      File: --list_rules option test suite  (/home/lionel/Proj/Archicheck/Tests/04_Component_List/testrec.txt)
-      File: --list_rules option tests  (/home/lionel/Proj/Archicheck/Tests/04_Component_List/Readme.txt)
-      File: Child packages test suite  (/home/lionel/Proj/Archicheck/Tests/06_Child_Packages/testrec.txt)
-      File: Child packages tests  (/home/lionel/Proj/Archicheck/Tests/06_Child_Packages/Readme.txt)
       File: Command line test suite  (/home/lionel/Proj/Archicheck/Tests/01_Command_Line/testrec.txt)
-      File: Globbing Character test suite  (/home/lionel/Proj/Archicheck/Tests/08_Globbing_Characters/testrec.txt)
-      File: Globbing Characters tests  (/home/lionel/Proj/Archicheck/Tests/08_Globbing_Characters/Readme.txt)
-      File: GtkAda test suite  (/home/lionel/Proj/Archicheck/Tests/09_GtkAda/testrec.txt)
-      File: Java code tests  (/home/lionel/Proj/Archicheck/Tests/11_Batik/testrec.txt)
+      File: --list_files option test suite  (/home/lionel/Proj/Archicheck/Tests/02_Source_List/testrec.txt)
+      File: --list_dependencies option test suite  (/home/lionel/Proj/Archicheck/Tests/03_Dependency_List/testrec.txt)
+      File: --list_rules option test suite  (/home/lionel/Proj/Archicheck/Tests/04_Component_List/testrec.txt)
       File: Layer rules test suite  (/home/lionel/Proj/Archicheck/Tests/05_Layer_Rule/testrec.txt)
-      File: Layer rules tests  (/home/lionel/Proj/Archicheck/Tests/05_Layer_Rule/Readme.txt)
-      File: Rules file syntax  (/home/lionel/Proj/Archicheck/Tests/07_Rules_Files_Syntax/Readme.txt)
+      File: Child packages test suite  (/home/lionel/Proj/Archicheck/Tests/06_Child_Packages/testrec.txt)
       File: Rules file syntax test suite  (/home/lionel/Proj/Archicheck/Tests/07_Rules_Files_Syntax/testrec.txt)
-      File: Test Status  (/home/lionel/Proj/Archicheck/Tests/tests_summary.txt)
+      File: Globbing Character test suite  (/home/lionel/Proj/Archicheck/Tests/08_Globbing_Characters/testrec.txt)
+      File: GtkAda test suite  (/home/lionel/Proj/Archicheck/Tests/09_GtkAda/testrec.txt)
+      File: Java code test suite  (/home/lionel/Proj/Archicheck/Tests/11_Batik/testrec.txt)
+      File: ZipAda code test suite  (/home/lionel/Proj/Archicheck/Tests/12_ZipAda/testrec.txt)
+      File: Ada units test suite  (/home/lionel/Proj/Archicheck/Tests/13_Ada_Units/testrec.txt)
 
       Group: Tools Src  {
 
@@ -126,10 +92,42 @@ Group: Src and tests  {
          File: Testrec.Main specification  (/home/lionel/Proj/Archicheck/Tests/Tools/Src/testrec-main.ads)
          }  # Group: Tools Src
 
-      File: Use rules test suite  (/home/lionel/Proj/Archicheck/Tests/10_Use_Rule/testrec.txt)
       }  # Group: Tests
 
-   }  # Group: Src and tests
+   Group: Src  {
+
+      File: Archicheck specification  (/home/lionel/Proj/Archicheck/Src/archicheck.ads)
+      File: Archicheck.Main specification  (/home/lionel/Proj/Archicheck/Src/archicheck-main.ads)
+      File: Archicheck.Cmd_Line specification  (/home/lionel/Proj/Archicheck/Src/archicheck-cmd_line.ads)
+      File: Archicheck.IO specification  (/home/lionel/Proj/Archicheck/Src/archicheck-io.ads)
+      File: Archicheck.Settings specification  (/home/lionel/Proj/Archicheck/Src/archicheck-settings.ads)
+      File: Archicheck.IO body  (/home/lionel/Proj/Archicheck/Src/archicheck-io.adb)
+      File: Archicheck.Cmd_Line body  (/home/lionel/Proj/Archicheck/Src/archicheck-cmd_line.adb)
+      File: Archicheck.Main body  (/home/lionel/Proj/Archicheck/Src/archicheck-main.adb)
+      File: Archicheck.Settings body  (/home/lionel/Proj/Archicheck/Src/archicheck-settings.adb)
+      File: Archicheck.Sources  (/home/lionel/Proj/Archicheck/Src/archicheck-sources.ads)
+      File: Archicheck.Components body  (/home/lionel/Proj/Archicheck/Src/archicheck-components.adb)
+      File: Archicheck.Components specification  (/home/lionel/Proj/Archicheck/Src/archicheck-components.ads)
+      File: Archicheck.Dependencies body  (/home/lionel/Proj/Archicheck/Src/archicheck-dependencies.adb)
+      File: Archicheck.Dependencies specification  (/home/lionel/Proj/Archicheck/Src/archicheck-dependencies.ads)
+      File: Archicheck.Sources  (/home/lionel/Proj/Archicheck/Src/archicheck-sources.adb)
+      File: Archicheck.Lang  (/home/lionel/Proj/Archicheck/Src/archicheck-lang.ads)
+      File: Archicheck.Lang body  (/home/lionel/Proj/Archicheck/Src/archicheck-lang.adb)
+      File: Archicheck.Lang.Ada  (/home/lionel/Proj/Archicheck/Src/archicheck-lang-ada_processor.ads)
+      File: Archicheck.Lang.Ada_Processor body  (/home/lionel/Proj/Archicheck/Src/archicheck-lang-ada_processor.adb)
+      File: Archicheck.Lang.Initialize body  (/home/lionel/Proj/Archicheck/Src/archicheck-lang-initialize.adb)
+      File: Archicheck.Lang.Java_Processor  (/home/lionel/Proj/Archicheck/Src/archicheck-lang-java_processor.ads)
+      File: Archicheck.Lang.Java_Processor body  (/home/lionel/Proj/Archicheck/Src/archicheck-lang-java_processor.adb)
+      File: archicheck-rules-check.adb  (/home/lionel/Proj/Archicheck/Src/archicheck-rules-check.adb)
+      File: Archicheck.Rules body  (/home/lionel/Proj/Archicheck/Src/archicheck-rules.adb)
+      File: Archicheck.Rules specification  (/home/lionel/Proj/Archicheck/Src/archicheck-rules.ads)
+      File: Archicheck.Rules.Check specification  (/home/lionel/Proj/Archicheck/Src/archicheck-rules-check.ads)
+      File: Archicheck.Rules.Parser body  (/home/lionel/Proj/Archicheck/Src/archicheck-rules-parser.adb)
+      File: Archicheck.Rules.Parser specification  (/home/lionel/Proj/Archicheck/Src/archicheck-rules-parser.ads)
+      }  # Group: Src
+
+   File: Use rules test suite  (/home/lionel/Proj/Archicheck/Tests/10_Use_Rule/testrec.txt)
+   }  # Group: Tests &amp; Sources
 
 Group: Index  {
 

@@ -44,6 +44,6 @@ test1:
 
 clean:
 	- ${RM} -rf output.* *.~ zip-ada 
-	@gnat clean sub-test
+	@gnat clean -q sub-test
 	- ${TR} clean
 

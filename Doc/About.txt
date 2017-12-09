@@ -2,24 +2,31 @@ File: About
 
 Version:
    <Archicheck current version>
+   
+OpenHub dashboard:
+   Some interesting graphics on <the Archichek OpenHub project page at https://www.openhub.net/p/ArchiCheck>
 
 History:
-- 2004 - 2005  : initial code and announce on comp.lang.ada, <in this thread at http://groups.google.com/group/comp.lang.ada/browse_thread/thread/4a195a443fce793e/41bb2cb527464bab?q=comp.lang.ada+example+of+layered+software#41bb2cb527464bab>.
-- 2005 - 2017  : glacial period
-- june 2017      : first public release, mockup code 
-- october 2017 : v0.3 version 
-	-- OpenToken is now used for rules file analysis
-        -- First "real-life" test on Gtk-Ada
-	-- Starting Ada 2012 use
+- 2004 - 2005   : initial code and announce on comp.lang.ada, <in this thread at http://groups.google.com/group/comp.lang.ada/browse_thread/thread/4a195a443fce793e/41bb2cb527464bab?q=comp.lang.ada+example+of+layered+software#41bb2cb527464bab>.
+- 2005 - 2017   : glacial period!
+- june 2017     : first public release, mockup code 
+- october 2017  : v0.3 version 
+  > OpenToken is now used for rules file analysis
+  > First "real-life" test on Gtk-Ada
+  > Starting Ada 2012 use
+
+- november 2017 : v0.4
+  > Java processing added, and test on Batik code
+  > -r option added (recursive -I)  
 
 License:
-ArchiCheck is distributed under GPL version 3, refer to the <COPYING at file://home/lionel/Proj/ArchiCheck/COPYING> file.
+  ArchiCheck is distributed under GPL version 3, refer to the <COPYING at file://home/lionel/Proj/Archicheck/COPYING> file.
 
 Author & contact:
-ArchiCheck was created by Lionel Draghi (<email at mailto:lionel.draghi@free.fr>).
+  ArchiCheck was created by Lionel Draghi (<email at mailto:lionel.draghi@free.fr>).
 
 Ada:
-ArchiCheck is proudly written in Ada. <http://getadanow.com/>
+  ArchiCheck is proudly written in Ada. <http://getadanow.com/>
 
 Special thanks to:
 - <Ludovic and all the Ada in Debian team at https://people.debian.org/~lbrenta/debian-ada-policy.html#Introduction>. 

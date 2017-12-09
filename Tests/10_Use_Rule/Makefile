@@ -5,7 +5,7 @@ TR=../Tools/testrec
 
 .PHONY : clean
 
-check: ../../Obj/archicheck header test1 test2 
+check: ../../Obj/archicheck header test1 test2 test3 test4
 
 header:
 	@ #---------------------------------------------------------------------
@@ -15,7 +15,7 @@ header:
 
 test1:
 	@ #---------------------------------------------------------------------
-	${TR} start "A component is using another one"
+	${TR} start "May_Use rule, code compliant, no output expected"
 	@ ${CREATE_PKG} P1 spec  -in dir1 -with P2
 	@ ${CREATE_PKG} P2 spec  -in dir1 -with P3
 	@ ${CREATE_PKG} P2 body  -in dir1 -with P4
@@ -33,6 +33,79 @@ test1:
 
 	${TR} end
 
+test2:
+	@ #---------------------------------------------------------------------
+	${TR} start "Using a unit from a non allowed unit"
+	@ ${CREATE_PKG} P1 spec  -in dir2 -with P2
+	@ ${CREATE_PKG} P2 spec  -in dir2 -with P3
+	@ ${CREATE_PKG} P2 body  -in dir2 -with P4
+	@ ${CREATE_PKG} P3 spec  -in dir2
+	@ ${CREATE_PKG} P4 spec  -in dir2
+	@ ${CREATE_PKG} P1 body  -in dir2 -with Interfaces.C
+	@ ${CREATE_PKG} P4 body  -in dir2 -with Interfaces.C
+	
+	@ ${TR} cmt "P4 body is using Interfaces.C : OK"
+	@ ${TR} cmt "P1 body is using Interfaces.C : should complain"
+	@ ${TR} cmt "(start code)"
+	cat expected_output.2 >> testrec.txt
+	@ ${TR} cmt "(end)"
+	
+	@ ../../Obj/archicheck -q -I dir2 rules.1 > output.2
+	${TR} assert true /usr/bin/sdiff "-s expected_output.2 output.2"
+
+	${TR} end
+
+test3:
+	@ #---------------------------------------------------------------------
+	${TR} start "Forbidden use test"
+	@ ${CREATE_PKG} P1 spec  -in dir3 -with P2
+	@ ${CREATE_PKG} P2 spec  -in dir3 -with P3
+	@ ${CREATE_PKG} P2 body  -in dir3 -with P4
+	@ ${CREATE_PKG} P3 spec  -in dir3
+	@ ${CREATE_PKG} P4 spec  -in dir3
+
+	@ ${TR} cmt "(start code)"
+	cat rules.3 		>> testrec.txt
+	cat expected_output.3	>> testrec.txt
+	@ ${TR} cmt "(end)"
+
+	@ ../../Obj/archicheck -q -I dir3 rules.3 > output.3
+	${TR} assert true /usr/bin/sdiff "-s expected_output.3 output.3"
+
+	${TR} end
+
+test4:
+	@ #---------------------------------------------------------------------
+	${TR} start "Allowing use of an environnement package"
+	@ ${CREATE_PKG} P1 spec  -in dir4 -with P2
+	@ ${CREATE_PKG} P2 spec  -in dir4 -with Containers.Generic_Sort
+	@ ${CREATE_PKG} P3 spec  -in dir4
+	@ ${CREATE_PKG} P4 spec  -in dir4
+	
+	> rules.4
+	@ echo "Layer_A contains P1 and P2" 		>> rules.4
+	@ echo "Layer_B contains P3 and P4" 		>> rules.4
+	@ echo "Layer_A is a layer over Layer_B"	>> rules.4
+	@ ${TR} cmt "(start code)"
+	cat rules.4 	      	>> testrec.txt
+	cat expected_output.4a	>> testrec.txt
+	@ ${TR} cmt "(end)"
+	
+	@ ${TR} cmt "First test without the allowing rule : should complain"
+	@ ../../Obj/archicheck -I dir4 rules.4 > output.4a
+	${TR} assert true /usr/bin/sdiff "-s expected_output.4a output.4a"
+
+	@ ${TR} cmt "And now with the allowing rule :"
+	@ echo "Containers use is allowed"	>> rules.4
+	@ ${TR} cmt "(start code)"
+	cat rules.4 	      	>> testrec.txt
+	@ ${TR} cmt "(end)"
+
+	> expected_output.4b
+	@ ../../Obj/archicheck -I dir4 rules.4 > output.4b
+	${TR} assert true /usr/bin/sdiff "-s expected_output.4b output.4b"
+
+	${TR} end
 clean:
 	- ${RM} -rf output.* dir? dir?? *.~
 	${TR} clean

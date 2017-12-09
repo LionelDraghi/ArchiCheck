@@ -10,9 +10,10 @@ Archicheck needs :
 - an architecture description : a simple text file describing your architecture
 
 Let's consider for example the file My_Architecture.txt, that describes a simple layered architecture :
-> - GUI contains pkg_1, pkg_2
-> - DB  contains pkg_3, pkg_4
-> - GUI is a layer over DB
+> GUI contains pkg_1, pkg_2
+> DB  contains pkg_3, pkg_4
+>
+> GUI is a layer over DB
 
 Run ArchiCheck that way :
 > archicheck -I My_Src_Dir My_Architecture.txt
@@ -37,15 +38,12 @@ About: Building from sources
 
 *- Get ArchiCheck sources :*
 
-     if you use darcs :
-        > darcs clone --lazy https://hub.darcs.net/LioD/ArchiCheck
-
-     otherwise, download a zip archive <here at https://hub.darcs.net/LioD/ArchiCheck/dist> 
-
+     Archicheck is hosted <here on Github at https://github.com/LionelDraghi/ArchiCheck>
+     (Until v0.3.0 (october 2017), archicheck was available thanks to darcs <here at https://hub.darcs.net/LioD/ArchiCheck>)
      
 *- Get OpenToken src :*
  
-     download here: <https://github.com/opentoken-io/opentoken.git>
+     download it here: <https://github.com/opentoken-io/opentoken.git>
 
      or do it the Debian way : 
      > apt install libopentoken6-dev gnat make
@@ -53,10 +51,10 @@ About: Building from sources
 
 *- Build :* 
 
-     on linux like plateform :
+     on linux like plateform, to build the exe and run the tests :
      > make build
 
-     othewise :
+     othewise, just build the exe :
      > gnat make -Parchicheck.gpr
 
      The exe should be in the Obj directory.

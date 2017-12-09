@@ -1,5 +1,5 @@
 with Rational_IO;
-with Enum_IO;
+-- with Enum_IO;
 
 procedure Sub.Test is
 

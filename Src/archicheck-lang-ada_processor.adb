@@ -20,12 +20,13 @@
 
 with Archicheck.IO;
 with Archicheck.Settings;
-with Ada.Text_IO;
 with Archicheck.Dependencies;
 
 with Ada_Lexer;
+
 with Ada.Exceptions;
 with Ada.Strings.Unbounded;
+with Ada.Text_IO;
 
 package body Archicheck.Lang.Ada_Processor is
 
@@ -114,7 +115,7 @@ package body Archicheck.Lang.Ada_Processor is
             Unit : constant String := Get_Unit_Name;
          begin
             Parent_Pkg_Name := To_Unbounded_String (Unit) & '.';
-            IO.Put_Line ("   - separate from " & Unit, Only_When_Verbose => True);
+            Put_Debug_Line ("   - separate from " & Unit); -- , Only_When_Verbose => True);
          end;
       end Process_Subunit;
 
@@ -126,7 +127,7 @@ package body Archicheck.Lang.Ada_Processor is
             declare
                Unit : constant String := Get_Unit_Name;
             begin
-               IO.Put_Line ("   - withing " & Unit, Only_When_Verbose => True);
+               Put_Debug_Line ("   - withing " & Unit); -- , Only_When_Verbose => True);
                Append (Tmp, (From => (Name           => Null_Unbounded_String,
                                       File           => To_Unbounded_String (From_Source),
                                       Lang           => Sources.Ada_2012,
@@ -339,7 +340,7 @@ package body Archicheck.Lang.Ada_Processor is
 
    begin
       --  New_Debug_Line;
-      IO.Put_Line ("Looking for dependencies in " & From_Source & " :", Only_When_Verbose => True);
+      Put_Debug_Line ("Looking for dependencies in " & From_Source & " :"); -- , Only_When_Verbose => True);
 
       Ada.Text_IO.Open (File => File,
                         Mode => Ada.Text_IO.In_File,
@@ -400,11 +401,10 @@ package body Archicheck.Lang.Ada_Processor is
                Process_Task;
                exit Source_Analysis; -- See optimization note above.
 
-            when others => Find_Next;
+            when others =>
+               Find_Next;
 
             end case;
-
-            Put_Debug_Line ("xxxxxxx");
 
          exception
             when Error : others =>

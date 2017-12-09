@@ -7,7 +7,7 @@
 -- -----------------------------------------------------------------------------
 
 -- -----------------------------------------------------------------------------
--- Package: Archicheck.Rules_Parser body
+-- Package: Archicheck.Rules.Parser body
 --
 -- Implementation Notes:
 --
@@ -38,14 +38,13 @@ with OpenToken.Recognizer.Keyword;
 with Archicheck.IO;
 with Archicheck.Settings;
 with Archicheck.Components;   use Archicheck.Components;
-with Archicheck.Layers;
 
 with Ada.Exceptions;
 with Ada.Text_IO;
 with Ada.Strings.Maps.Constants;
 with Ada.Strings.Unbounded;
 
-package body Archicheck.Rules_Parser is
+package body Archicheck.Rules.Parser is
 
    -- Change default Debug parameter value to enable/disable Debug messages in this package
    -- -------------------------------------------------------------------------
@@ -76,6 +75,8 @@ package body Archicheck.Rules_Parser is
       May_Id,
       Over_Id,
       Use_Id,
+      Forbidden_Id,
+      Allowed_Id,
 
       -- Misc
       Comma_Id, -- ,
@@ -98,7 +99,9 @@ package body Archicheck.Rules_Parser is
       Component_Declaration_Id,
       Layer_Declaration_Id,
       Use_Declaration_Id,
-      Use_Restriction_Declaration_Id
+      Use_Restriction_Declaration_Id,
+      Forbidden_Use_Declaration_Id,
+      Allowed_Used_Declaration_Id
      );
    First_Terminal : constant Token_Ids := A_Id;
    Last_Terminal  : constant Token_Ids := Identifier_Id;
@@ -139,6 +142,8 @@ package body Archicheck.Rules_Parser is
                May_Id        => Tokenizer.Get (OpenToken.Recognizer.Keyword.Get ("may")),
                Over_Id       => Tokenizer.Get (OpenToken.Recognizer.Keyword.Get ("over")),
                Use_Id        => Tokenizer.Get (OpenToken.Recognizer.Keyword.Get ("use")),
+               Forbidden_Id  => Tokenizer.Get (OpenToken.Recognizer.Keyword.Get ("forbidden")),
+               Allowed_Id    => Tokenizer.Get (OpenToken.Recognizer.Keyword.Get ("allowed")),
 
                -- Delimiters
                -- Comment_Id    => Tokenizer.Get (OpenToken.Recognizer.Line_Comment.Get ("--", Reportable => True)), --** que veut dire le reportable??
@@ -175,13 +180,17 @@ package body Archicheck.Rules_Parser is
    Only_T       : constant Master_Token.Class := Master_Token.Get (Only_Id);
    May_T        : constant Master_Token.Class := Master_Token.Get (May_Id);
    Use_T        : constant Master_Token.Class := Master_Token.Get (Use_Id);
+   Forbidden_T  : constant Master_Token.Class := Master_Token.Get (Forbidden_Id);
+   Allowed_T    : constant Master_Token.Class := Master_Token.Get (Allowed_Id);
    Over_T       : constant Master_Token.Class := Master_Token.Get (Over_Id);
    Semicolon_T  : constant Master_Token.Class := Master_Token.Get (Semicolon_Id);
-   -- Comment_T   : constant Master_Token.Class := Master_Token.Get (Comment_Id);
+   -- Comment_T : constant Master_Token.Class := Master_Token.Get (Comment_Id);
 
    -- Non-terminal tokens, which define the grammar.
    Use_Declaration             : constant Nonterminal.Class := Nonterminal.Get (Use_Declaration_Id);
    Use_Restriction_Declaration : constant Nonterminal.Class := Nonterminal.Get (Use_Restriction_Declaration_Id);
+   Forbidden_Use_Declaration   : constant Nonterminal.Class := Nonterminal.Get (Forbidden_Use_Declaration_Id);
+   Allowed_Use_Declaration     : constant Nonterminal.Class := Nonterminal.Get (Allowed_Used_Declaration_Id);
    Layer_Declaration           : constant Nonterminal.Class := Nonterminal.Get (Layer_Declaration_Id);
    Component_Declaration       : constant Nonterminal.Class := Nonterminal.Get (Component_Declaration_Id);
    Rule                        : constant Nonterminal.Class := Nonterminal.Get (Rule_Id);
@@ -207,32 +216,42 @@ package body Archicheck.Rules_Parser is
 --                                Source    : in  Token_List.Instance'Class;
 --                                To_ID     : in  Master_Token.Token_ID);
 --
-   -- -------------------------------------------------------------------------
+   -- --------------------------------------------------------------------------
    procedure Store_Component_Declaration (New_Token : out Nonterminal.Class;
                                           Source    : in  Token_List.Instance'Class;
                                           To_ID     : in  Master_Token.Token_ID);
 
-   -- -------------------------------------------------------------------------
+   -- --------------------------------------------------------------------------
    procedure Store_Layer_Declaration (New_Token : out Nonterminal.Class;
                                       Source    : in  Token_List.Instance'Class;
                                       To_ID     : in  Master_Token.Token_ID);
 
-   -- -------------------------------------------------------------------------
+   -- --------------------------------------------------------------------------
    procedure Store_Use_Declaration (New_Token : out Nonterminal.Class;
                                     Source    : in  Token_List.Instance'Class;
                                     To_ID     : in  Master_Token.Token_ID);
 
-   -- -------------------------------------------------------------------------
+   -- --------------------------------------------------------------------------
    procedure Store_Use_Restriction_Declaration (New_Token : out Nonterminal.Class;
                                                 Source    : in  Token_List.Instance'Class;
                                                 To_ID     : in  Master_Token.Token_ID);
 
-   -- -------------------------------------------------------------------------
+   -- --------------------------------------------------------------------------
+   procedure Add_Allowed_Unit (New_Token : out Nonterminal.Class;
+                               Source    : in  Token_List.Instance'Class;
+                               To_ID     : in  Master_Token.Token_ID);
+
+   -- --------------------------------------------------------------------------
+   procedure Add_Forbbiden_Unit (New_Token : out Nonterminal.Class;
+                                 Source    : in  Token_List.Instance'Class;
+                                 To_ID     : in  Master_Token.Token_ID);
+
+   -- --------------------------------------------------------------------------
    procedure Initialize_Unit_List (New_Token : out Nonterminal.Class;
                                    Source    : in  Token_List.Instance'Class;
                                    To_ID     : in  Master_Token.Token_ID);
 
-   -- -------------------------------------------------------------------------
+   -- --------------------------------------------------------------------------
    procedure Append_Unit_To_List (New_Token : out Nonterminal.Class;
                                   Source    : in  Token_List.Instance'Class;
                                   To_ID     : in  Master_Token.Token_ID);
@@ -252,28 +271,39 @@ package body Archicheck.Rules_Parser is
 
    Grammar : constant Production_List.Instance :=
                Rules_File                  <= Rule_List & EoF_T                  and
+
                Rule_List                   <= Rule_List & Semicolon_T            and
                Rule_List                   <= Rule_List & Dot_T                  and
                Rule_List                   <= Rule_List & Rule                   and
                Rule_List                   <= Rule                               and
+
                -- Rule                   <= Comment_T                          and
                Rule                        <= Use_Declaration                    and
                Rule                        <= Use_Restriction_Declaration        and
                Rule                        <= Layer_Declaration                  and
                Rule                        <= Component_Declaration              and
---                 Unit                        <= Unit & Dot_T & Identifier_T     + Store_Unit_Name'Access      and
---                 Unit                        <= Identifier_T                    + Initialize_Unit_Name'Access and
+               Rule                        <= Forbidden_Use_Declaration          and
+               Rule                        <= Allowed_Use_Declaration            and
+
                Unit_List                   <= Identifier_T & Comma_T & Unit_List                          + Append_Unit_To_List'Access         and
                Unit_List                   <= Identifier_T & And_T   & Unit_List                          + Append_Unit_To_List'Access         and
-               -- Unit_List              <= Identifier           & Unit_List                    + Append_Unit_To_List'Access         and
                Unit_List                   <= Identifier_T                                                + Initialize_Unit_List'Access        and
---                Unit_List                   <= Unit & Comma_T & Unit_List                          + Append_Unit_To_List'Access         and
---                Unit_List                   <= Unit & And_T   & Unit_List                          + Append_Unit_To_List'Access         and
---                Unit_List                   <= Unit                                                + Initialize_Unit_List'Access        and
+
               Component_Declaration       <= Identifier_T & Contains_T & Unit_List                       + Store_Component_Declaration'Access and
               Layer_Declaration           <= Identifier_T & Is_T & A_T & Layer_T & Over_T & Identifier_T + Store_Layer_Declaration'Access     and
               Use_Declaration             <= Identifier_T & Use_T & Identifier_T                         + Store_Use_Declaration'Access       and
-              Use_Restriction_Declaration <= Only_T & Identifier_T & May_T & Use_T & Identifier_T        + Store_Use_Restriction_Declaration'Access;
+              Use_Restriction_Declaration <= Only_T & Identifier_T & May_T & Use_T & Identifier_T        + Store_Use_Restriction_Declaration'Access and
+              Forbidden_Use_Declaration   <= Identifier_T & Use_T & Is_T & Forbidden_T                   + Add_Forbbiden_Unit'Access and
+              Allowed_Use_Declaration     <= Identifier_T & Use_T & Is_T & Allowed_T                     + Add_Allowed_Unit'Access;
+
+   -- Unit_List              <= Identifier           & Unit_List                    + Append_Unit_To_List'Access         and
+   --                Unit_List                   <= Unit & Comma_T & Unit_List                          + Append_Unit_To_List'Access         and
+   --                Unit_List                   <= Unit & And_T   & Unit_List                          + Append_Unit_To_List'Access         and
+   --                Unit_List                   <= Unit                                                + Initialize_Unit_List'Access        and
+
+   --                 Unit                        <= Unit & Dot_T & Identifier_T     + Store_Unit_Name'Access      and
+   --                 Unit                        <= Identifier_T                    + Initialize_Unit_Name'Access and
+
 
    --  Create a text feeder for our Input_File.
    Input_File : aliased Ada.Text_IO.File_Type;
@@ -425,7 +455,7 @@ package body Archicheck.Rules_Parser is
       Token_List.Next_Token (Right); -- move "Right" over "a"
       Token_List.Next_Token (Right); -- move "Right" over "layer"
       Token_List.Next_Token (Right); -- move "Right" over "over"
-      Token_List.Next_Token (Right); -- move "Right" over the layer
+      Token_List.Next_Token (Right); -- move "Right" over the layer name
 
       declare
          use Ada.Strings.Unbounded;
@@ -439,8 +469,9 @@ package body Archicheck.Rules_Parser is
                                   Column => Analyzer.Column)
                       & "Layer " & Using & " is over layer " & Used);
          end if;
-         Layers.Add_Layer ((Using_Layer => To_Unbounded_String (Using),
-                            Used_Layer  => To_Unbounded_String (Used)));
+         Add_Relationship ((Using_Unit => To_Unbounded_String (Using),
+                            Used_Unit  => To_Unbounded_String (Used),
+                            Kind       => Layer_Over));
       end;
 
    end Store_Layer_Declaration;
@@ -475,8 +506,9 @@ package body Archicheck.Rules_Parser is
                                   Column => Analyzer.Column)
                       & "Component " & Using & " uses component " & Used);
          end if;
---           Layers.Add_Layer ((Using_Layer => To_Unbounded_String (Using),
---                              Used_Layer  => To_Unbounded_String (Used)));
+         Add_Relationship ((Using_Unit => To_Unbounded_String (Using),
+                            Used_Unit  => To_Unbounded_String (Used),
+                            Kind       => May_Use));
       end;
 
    end Store_Use_Declaration;
@@ -513,13 +545,62 @@ package body Archicheck.Rules_Parser is
             Put_Line (GNU_Prefix (File   => Settings.Rules_File_Name,
                                   Line   => Analyzer.Line,
                                   Column => Analyzer.Column)
-                      & "Component " & Using & " may use component " & Used);
+                      & "Only component " & Using & " may use component " & Used);
          end if;
---           Layers.Add_Layer ((Using_Layer => To_Unbounded_String (Using),
---                              Used_Layer  => To_Unbounded_String (Used)));
+         Add_Relationship ((Using_Unit => To_Unbounded_String (Using),
+                            Used_Unit  => To_Unbounded_String (Used),
+                            Kind       => Exclusive_Use));
       end;
 
    end Store_Use_Restriction_Declaration;
+
+   -- --------------------------------------------------------------------------
+   procedure Add_Allowed_Unit (New_Token : out Nonterminal.Class;
+                               Source    : in  Token_List.Instance'Class;
+                               To_ID     : in  Master_Token.Token_ID) is
+      pragma Unreferenced (New_Token, To_ID);
+      Left  : constant Token_List.List_Iterator := Token_List.Initial_Iterator (Source);
+
+      use Archicheck.IO;
+      use OpenToken.Buffers;
+      use Ada.Strings.Unbounded;
+      Unit : constant String := To_String
+        (Identifiers.Instance (Token_List.Token_Handle (Left).all).Identifier);
+
+   begin
+      if Settings.List_Rules then
+         Put_Line (GNU_Prefix (File   => Settings.Rules_File_Name,
+                               Line   => Analyzer.Line,
+                               Column => Analyzer.Column) &
+                     "Use of " & Unit & " allowed ");
+      end if;
+      Add_Allowed_Unit (To_Unbounded_String (Unit));
+
+   end Add_Allowed_Unit;
+
+   -- --------------------------------------------------------------------------
+   procedure Add_Forbbiden_Unit (New_Token : out Nonterminal.Class;
+                                 Source    : in  Token_List.Instance'Class;
+                                 To_ID     : in  Master_Token.Token_ID) is
+      pragma Unreferenced (New_Token, To_ID);
+      Left  : constant Token_List.List_Iterator := Token_List.Initial_Iterator (Source);
+
+      use Archicheck.IO;
+      use OpenToken.Buffers;
+      use Ada.Strings.Unbounded;
+      Unit : constant String := To_String
+        (Identifiers.Instance (Token_List.Token_Handle (Left).all).Identifier);
+
+   begin
+      if Settings.List_Rules then
+         Put_Line (GNU_Prefix (File   => Settings.Rules_File_Name,
+                               Line   => Analyzer.Line,
+                               Column => Analyzer.Column) &
+                     "Use of " & Unit & " is forbidden");
+      end if;
+      Add_Forbidden_Unit (To_Unbounded_String (Unit));
+
+   end Add_Forbbiden_Unit;
 
    -- -------------------------------------------------------------------------
    -- Procedure: Append_Unit_To_List
@@ -594,4 +675,4 @@ package body Archicheck.Rules_Parser is
 
    end Parse;
 
-end Archicheck.Rules_Parser;
+end Archicheck.Rules.Parser;

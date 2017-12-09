@@ -18,8 +18,10 @@
 
 with Archicheck.Cmd_Line;
 with Archicheck.Settings;
-with Archicheck.Rules_Parser;
-with Archicheck.Check_Layer_Rules;
+with Archicheck.Rules.Parser;
+with Archicheck.Rules.Check;
+--  with Archicheck.Rules_Parser;
+--  with Archicheck.Check_Layer_Rules;
 with Archicheck.Sources;
 with Archicheck.Lang;
 with Archicheck.Lang.Initialize;
@@ -59,13 +61,13 @@ begin
       -- -----------------------------------------------------------------------
       IO.Put_Line ("Reading rules file...", Only_When_Verbose => True);
       if Settings.Rules_File_Name /= "" then
-         Rules_Parser.Parse (Settings.Rules_File_Name);
+         Rules.Parser.Parse (Settings.Rules_File_Name);
       end if;
 
       -- 4 - let's run the checks
       -- -----------------------------------------------------------------------
       IO.Put_Line ("Checking rules...", Only_When_Verbose => True);
-      Check_Layer_Rules;
+      Rules.Check;
 
    else
       Ada.Command_Line.Set_Exit_Status (Ada.Command_Line.Failure);

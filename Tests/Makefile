@@ -18,6 +18,7 @@ check: ../Obj/archicheck Tools/create_pkg Tools/testrec
 	$(MAKE) check --directory=07_Rules_Files_Syntax
 	$(MAKE) check --directory=08_Globbing_Characters
 	$(MAKE) check --directory=09_GtkAda
+	$(MAKE) check --directory=10_Use_Rule
 	$(MAKE) check --directory=11_Batik
 	$(MAKE) check --directory=12_ZipAda
 	$(MAKE) check --directory=13_Ada_Units
@@ -65,6 +66,7 @@ clean:
 	@ $(MAKE) clean --directory=07_Rules_Files_Syntax
 	@ $(MAKE) clean --directory=08_Globbing_Characters
 	@ $(MAKE) clean --directory=09_GtkAda
+	@ $(MAKE) clean --directory=10_Use_Rule
 	@ $(MAKE) clean --directory=11_Batik
 	@ $(MAKE) clean --directory=12_ZipAda
 	@ $(MAKE) clean --directory=13_Ada_Units
