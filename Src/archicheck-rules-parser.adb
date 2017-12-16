@@ -25,7 +25,8 @@ with OpenToken.Token.Enumerated.Analyzer;
 with OpenToken.Recognizer.Identifier;
 with OpenToken.Recognizer.Character_Set;
 with OpenToken.Recognizer.Separator;
--- with OpenToken.Recognizer.Line_Comment;
+with OpenToken.Recognizer.Line_Comment;
+with OpenToken.Recognizer.Keyword;
 with OpenToken.Production.List;
 with OpenToken.Production.Parser.LALR.Generator;
 with OpenToken.Production.Parser.LALR.Parser;
@@ -33,7 +34,6 @@ with OpenToken.Production.Parser.LALR.Parser_Lists;
 with OpenToken.Recognizer.End_Of_File;
 with OpenToken.Token.Enumerated.List;
 with OpenToken.Token.Enumerated.Nonterminal;
-with OpenToken.Recognizer.Keyword;
 
 with Archicheck.IO;
 with Archicheck.Settings;
@@ -60,7 +60,7 @@ package body Archicheck.Rules.Parser is
    type Token_Ids is
      (-- Non reporting tokens (not used in generating an LALR grammar) -----------------------------------------
       Whitespace_Id,
-      -- Comment_Id,
+      Comment_Id,
       --        EoL_Id,
       --        Minus_Id,
 
@@ -146,7 +146,7 @@ package body Archicheck.Rules.Parser is
                Allowed_Id    => Tokenizer.Get (OpenToken.Recognizer.Keyword.Get ("allowed")),
 
                -- Delimiters
-               -- Comment_Id    => Tokenizer.Get (OpenToken.Recognizer.Line_Comment.Get ("--", Reportable => True)), --** que veut dire le reportable??
+               Comment_Id    => Tokenizer.Get (OpenToken.Recognizer.Line_Comment.Get ("--", Reportable => False)),
                Comma_Id      => Tokenizer.Get (OpenToken.Recognizer.Separator.Get (",")),
                -- Whitespace_Id => Tokenizer.Get (OpenToken.Recognizer.Character_Set.Get (OpenToken.Recognizer.Character_Set.Standard_Whitespace)),
                Dot_Id        => Tokenizer.Get (OpenToken.Recognizer.Separator.Get (".")),
@@ -409,7 +409,8 @@ package body Archicheck.Rules.Parser is
       begin
          if Settings.List_Rules then
             for U of Units loop
-               Put_Line (Prefix & "Component " & Component_Name & " contains Unit " & To_String (U));
+               Put_Line (Prefix & "Component " & Component_Name & " contains Unit " & To_String (U),
+                         Level => IO.Quiet);
             end loop;
             -- Put_Line (Prefix & "Component " & Component_Name & " contains Unit " & Unit_List_Image (Units));
          end if;
@@ -467,7 +468,8 @@ package body Archicheck.Rules.Parser is
             Put_Line (GNU_Prefix (File   => Settings.Rules_File_Name,
                                   Line   => Analyzer.Line,
                                   Column => Analyzer.Column)
-                      & "Layer " & Using & " is over layer " & Used);
+                      & "Layer " & Using & " is over layer " & Used,
+                      Level => IO.Quiet);
          end if;
          Add_Relationship ((Using_Unit => To_Unbounded_String (Using),
                             Used_Unit  => To_Unbounded_String (Used),
@@ -504,7 +506,8 @@ package body Archicheck.Rules.Parser is
             Put_Line (GNU_Prefix (File   => Settings.Rules_File_Name,
                                   Line   => Analyzer.Line,
                                   Column => Analyzer.Column)
-                      & "Component " & Using & " uses component " & Used);
+                      & "Component " & Using & " uses component " & Used,
+                     Level => IO.Quiet);
          end if;
          Add_Relationship ((Using_Unit => To_Unbounded_String (Using),
                             Used_Unit  => To_Unbounded_String (Used),
@@ -545,7 +548,8 @@ package body Archicheck.Rules.Parser is
             Put_Line (GNU_Prefix (File   => Settings.Rules_File_Name,
                                   Line   => Analyzer.Line,
                                   Column => Analyzer.Column)
-                      & "Only component " & Using & " may use component " & Used);
+                      & "Only component " & Using & " may use component " & Used,
+                      Level => IO.Quiet);
          end if;
          Add_Relationship ((Using_Unit => To_Unbounded_String (Using),
                             Used_Unit  => To_Unbounded_String (Used),
@@ -572,7 +576,8 @@ package body Archicheck.Rules.Parser is
          Put_Line (GNU_Prefix (File   => Settings.Rules_File_Name,
                                Line   => Analyzer.Line,
                                Column => Analyzer.Column) &
-                     "Use of " & Unit & " allowed ");
+                     "Use of " & Unit & " allowed ",
+                   Level => IO.Quiet);
       end if;
       Add_Allowed_Unit (To_Unbounded_String (Unit));
 
@@ -596,7 +601,8 @@ package body Archicheck.Rules.Parser is
          Put_Line (GNU_Prefix (File   => Settings.Rules_File_Name,
                                Line   => Analyzer.Line,
                                Column => Analyzer.Column) &
-                     "Use of " & Unit & " is forbidden");
+                     "Use of " & Unit & " is forbidden",
+                   Level => IO.Quiet);
       end if;
       Add_Forbidden_Unit (To_Unbounded_String (Unit));
 

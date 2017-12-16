@@ -11,7 +11,15 @@ private package Testrec.Settings is
    Verbose : Boolean := False;
    Quiet   : Boolean := False;
 
-   Log_File_Name   : constant String := "testrec.txt";
+   type Output_Formats is (NaturalDocs, Markdown);
+   Output_Format : Output_Formats := Markdown;
+
+   function Log_File_Name return String;
+
    State_File_Name : constant String := ".testrec";
+
+   Version : constant String := "v1.1.0";
+   -- History:
+   -- v1 : default output format changed to Markdown
 
 end Testrec.Settings;

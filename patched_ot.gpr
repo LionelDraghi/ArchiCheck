@@ -1,0 +1,9 @@
+library project patched_ot extends "opentoken" is
+
+   for Source_Dirs use ("Patch");
+   for Library_Dir use "lib";
+   for Object_Dir   use "Obj";
+   for Externally_Built use "False";
+
+end patched_ot;
+

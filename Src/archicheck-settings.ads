@@ -10,8 +10,7 @@
 -- Package: Archicheck.Settings specification
 --
 -- Purpose:
---   This package defines Source, manage the Source list, and provides utilities
---   to print this list.
+--   This package manages global settings, hard coded or from cmd line.
 --
 -- Effects:
 --
@@ -21,22 +20,31 @@
 
 private package Archicheck.Settings is
 
-   ArchiCheck_Version : constant String := "0.4.1";
+   ArchiCheck_Version : constant String := "0.4.2";
 
    List_Files        : Boolean := False;
    List_Dependencies : Boolean := False;
    List_Rules        : Boolean := False;
    Recursive         : Boolean := False;
-   Quiet_Mode        : Boolean := False;
-   Verbose_Mode      : Boolean := False;
+
+   -- -------------------------------------------------------------------------
+   type Print_Out_Level is (Debug, Verbose, Normal, Quiet);
+   -- default: Normal messages are displayed, verbose messages are not displayed.
+   -- quiet:   Neither normal messages nor verbose messages are displayed.
+   --          This mode can be achieved using option --quiet.
+   -- verbose: Both normal messages and verbose messages are displayed.
+   --          This mode can be achieved using option --verbose.
+   Verbosity : Print_Out_Level := Normal;
+
+   -- -------------------------------------------------------------------------
+   -- Debug_Mode
+   -- -------------------------------------------------------------------------
+   function Debug_Mode return Boolean is (Verbosity = Debug);
 
    -- -------------------------------------------------------------------------
    Ada_Files_Pattern  : constant String := "*.ad[asb]";
    Java_Files_Pattern : constant String := "*.java";
-   -- Not sure that case independance is usefull here
-
-   -- Undocumented option :
-   Debug_Mode : Boolean := False;
+   -- Not sure that case independance would be usefull here
 
    -- -------------------------------------------------------------------------
    -- Procedure: Set_Rules_File_Name

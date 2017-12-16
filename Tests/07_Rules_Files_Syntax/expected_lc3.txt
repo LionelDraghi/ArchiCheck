@@ -1,0 +1,3 @@
+rules3.txt:11.4: Component App contains Unit Main
+rules3.txt:13.1025: Component GUI contains Unit Gtk
+rules3.txt:19.21: Component GUI contains Unit Glib

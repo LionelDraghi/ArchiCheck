@@ -190,16 +190,16 @@ package body Archicheck.Cmd_Line is
                Next_Arg;
 
             elsif Opt = "-q" or Opt = "--quiet" then
-               Settings.Quiet_Mode := True;
+               Settings.Verbosity := Quiet;
                Next_Arg;
 
             elsif Opt = "-v" or Opt = "--verbose" then
-               Settings.Verbose_Mode := True;
+               Settings.Verbosity := Verbose;
                Next_Arg;
 
             elsif Opt = "-d" then
                -- undocumented option
-               Settings.Debug_Mode := True;
+               Settings.Verbosity := Debug;
                Next_Arg;
 
                -- elsif Arg_Counter = Ada.Command_Line.Argument_Count then

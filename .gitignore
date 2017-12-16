@@ -1,1 +1,16 @@
 site/
+
+docs/lcov
+
+Obj/
+
+_darcs/
+
+Doc
+
+Tests/Tools/create_pkg
+Tests/Tools/testrec
+
+Linux_amd64_release/archicheck
+
+lib/

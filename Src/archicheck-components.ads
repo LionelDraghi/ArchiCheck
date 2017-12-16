@@ -39,16 +39,16 @@ private package Archicheck.Components is
       Hash            => Ada.Strings.Hash,
       Equivalent_Keys => "=",
       "="             => Unit_Lists."=");
-   Component_Map : Component_Maps.Map; --** à déplacer dans le body
+   Component_Map : Component_Maps.Map; --** Ã  dÃ©placer dans le body
 
    -- --------------------------------------------------------------------------
    -- Function: Unit_List_Image
    -- -------------------------------------------------------------------------
    function Unit_List_Image (UL : Unit_Lists.List) return String;
 
-   -- --------------------------------------------------------------------------
-   -- Function: Component_List_Image
-   -- -------------------------------------------------------------------------
-   function Component_List_Image return String;
+   --     -- --------------------------------------------------------------------------
+   --     -- Function: Component_List_Image
+   --     -- -------------------------------------------------------------------------
+   --     function Component_List_Image return String;
 
 end Archicheck.Components;

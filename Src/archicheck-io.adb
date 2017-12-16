@@ -17,9 +17,8 @@
 --
 -- -----------------------------------------------------------------------------
 
-with Archicheck.Settings;
 with Ada.Strings.Fixed;
-with Ada.Directories;
+-- with Ada.Directories;
 
 package body Archicheck.IO is
 
@@ -116,10 +115,10 @@ package body Archicheck.IO is
    -- -------------------------------------------------------------------------
    -- Procedure: Put_Line
    -- -------------------------------------------------------------------------
-   procedure Put_Line (Item : String; Only_When_Verbose : Boolean := False) is
+   procedure Put_Line (Item  : String;
+                       Level : Print_Out_Level := Normal) is
    begin
-      if Settings.Quiet_Mode then return; end if;
-      if Settings.Verbose_Mode or not Only_When_Verbose then
+      if Level >= Settings.Verbosity then
          Ada.Text_IO.Put_Line (Item);
       end if;
    end Put_Line;
@@ -127,10 +126,10 @@ package body Archicheck.IO is
    -- -------------------------------------------------------------------------
    -- Procedure: Put
    -- -------------------------------------------------------------------------
-   procedure Put (Item : String; Only_When_Verbose : Boolean := False) is
+   procedure Put (Item  : String;
+                  Level : Print_Out_Level := Normal) is
    begin
-      if Settings.Quiet_Mode then return; end if;
-      if Settings.Verbose_Mode or not Only_When_Verbose then
+      if Level >= Settings.Verbosity then
          Ada.Text_IO.Put (Item);
       end if;
    end Put;
@@ -139,10 +138,9 @@ package body Archicheck.IO is
    -- Procedure: New_Line
    -- -------------------------------------------------------------------------
    procedure New_Line (Spacing           : Ada.Text_IO.Positive_Count := 1;
-                       Only_When_Verbose : Boolean := False) is
+                       Level             : Print_Out_Level := Normal) is
    begin
-      if Settings.Quiet_Mode then return; end if;
-      if Settings.Verbose_Mode or not Only_When_Verbose then
+      if Level >= Settings.Verbosity then
          Ada.Text_IO.New_Line (Spacing);
       end if;
    end New_Line;
@@ -166,17 +164,17 @@ package body Archicheck.IO is
       end if;
    end GNU_Prefix;
 
-   -- --------------------------------------------------------------------------
-   -- Function: New_Line
-   -- -------------------------------------------------------------------------
-   function GNU_Prefix (File   : in Ada.Text_IO.File_Type;
-                        Line   : in Positive;
-                        Column : in Integer := 0) return String is
-   begin
-      return GNU_Prefix (File   => Ada.Directories.Full_Name (Ada.Text_IO.Name (File)),
-                         Line   => Line,
-                         Column => Column);
-   end GNU_Prefix;
+   --     -- --------------------------------------------------------------------------
+   --     -- Function: GNU_Prefix
+   --     -- -------------------------------------------------------------------------
+   --     function GNU_Prefix (File   : in Ada.Text_IO.File_Type;
+   --                          Line   : in Positive;
+   --                          Column : in Integer := 0) return String is
+   --     begin
+   --        return GNU_Prefix (File   => Ada.Directories.Full_Name (Ada.Text_IO.Name (File)),
+   --                           Line   => Line,
+   --                           Column => Column);
+   --     end GNU_Prefix;
 
 end Archicheck.IO;
 

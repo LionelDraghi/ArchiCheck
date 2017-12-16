@@ -94,7 +94,7 @@ package body Archicheck.Lang is
          IO.Put_Line (Item => Integer'Image (Src_Count (L)) & " "
                       & Sources.Language'Image (L) & " src in"
                       & Natural'Image (Dir_Count (L)) & " dir",
-                     Only_When_Verbose => True);
+                     Level => IO.Verbose);
       end loop;
 
    end Get_Src_List;
@@ -110,7 +110,7 @@ package body Archicheck.Lang is
       Put_Debug_Line (Msg => "Analysing dependencies," &
                         Ada.Containers.Count_Type'Image (Sources.Source_Lists.Length (Src_List)) & " sources");
       for S of Src_List loop
-         Put_Debug_Line (Msg => "Analysing dependencies for src : " & To_String (S.Name));
+         Put_Debug_Line (Msg => "Analysing dependencies in " & To_String (S.Name));
 
          Analyze_Dependencies (Processor_List (S.Lang).all, -- dispatching call
                                From_Source => To_String (S.Name));

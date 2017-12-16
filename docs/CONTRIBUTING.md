@@ -1,12 +1,14 @@
 Contributing 
 ============
 
-# Portability:
+Portability:
+------------
 
-  Note that the Ada should be pretty platform independant, but I tested it only on my Linux/Intel platform.
+  Note that the Ada code should be pretty platform independant, but I tested it only on my Linux/Intel platform.
   Makefile are clearly not portable, and probably need heavy refactoring to run on non Unix like system.
 
-# Downloading sources:
+Downloading sources:
+--------------------
 
   `git clone https://github.com/LionelDraghi/ArchiCheck.git`
 
@@ -14,7 +16,8 @@ Contributing
 
   Otherwise, [go there to download a zip archive](https://github.com/LionelDraghi/ArchiCheck/archive/master.zip). 
 
-# Building:
+Building:
+---------
 
   To build ArchiCheck and the tests, just type 
 
@@ -28,9 +31,10 @@ Contributing
 
   `apt install libopentoken6-dev gnat make`
 
-  archicheck exe will be in the Obj directory.
+  archicheck exe will be in the `Obj` directory.
 
-# And to build this documentation / web pages:
+And to build this documentation / web pages:
+--------------------------------------------
 
   `make doc`
 
@@ -38,6 +42,6 @@ Contributing
 
   On Debian Linux family :
 
-  `apt install ploticus naturaldocs sloccount lcov`
+  `apt install ploticus mkdocs sloccount lcov`
 
 

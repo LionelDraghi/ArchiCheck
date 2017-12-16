@@ -18,12 +18,16 @@
 -- Performance:
 -- -----------------------------------------------------------------------------
 
+with Archicheck.Settings;
+
 with Ada.Text_IO;
 
 private package Archicheck.IO is
 
+   -- --------------------------------------------------------------------------
    procedure Put_Help;
 
+   -- --------------------------------------------------------------------------
    procedure Put_Debug_Line (Msg    : in String := "";
                              Debug  : in Boolean;
                              Prefix : in String);
@@ -32,15 +36,35 @@ private package Archicheck.IO is
                         Prefix : in String);
    procedure New_Debug_Line (Debug  : in Boolean);
 
+--     type Print_Out_Level is (Debug, Verbose, Normal, Quiet);
+--     -- default: Normal messages are displayed, verbose messages are not displayed.
+--     -- quiet:   Neither normal messages nor verbose messages are displayed.
+--     --          This mode can be achieved using option --quiet.
+--     -- verbose: Both normal messages and verbose messages are displayed.
+--     --          This mode can be achieved using option --verbose.
+
+   -- --------------------------------------------------------------------------
+   use type Settings.Print_Out_Level;
+   subtype Print_Out_Level is Settings.Print_Out_Level;
+   Debug   : constant Print_Out_Level := Settings.Debug;
+   Verbose : constant Print_Out_Level := Settings.Verbose;
+   Normal  : constant Print_Out_Level := Settings.Normal;
+   Quiet   : constant Print_Out_Level := Settings.Quiet;
+
+   -- --------------------------------------------------------------------------
    -- Mimics eponym Text_IO functions, except that :
    --   - if --quiet is set on command line, they have no effect,
+   --     unless Even_In_Quiet_Mode is set.
    --   - if Only_When_Verbose is False, they have no effect
    --     unless --verbose is set on command line
-   procedure Put_Line (Item : String; Only_When_Verbose : Boolean := False);
-   procedure Put      (Item : String; Only_When_Verbose : Boolean := False);
-   procedure New_Line (Spacing           : Ada.Text_IO.Positive_Count := 1;
-                       Only_When_Verbose : Boolean := False);
+   procedure Put_Line (Item  : String;
+                       Level : Print_Out_Level := Normal);
+   procedure Put      (Item  : String;
+                       Level : Print_Out_Level := Normal);
+   procedure New_Line (Spacing : Ada.Text_IO.Positive_Count := 1;
+                       Level   : Print_Out_Level := Normal);
 
+   -- --------------------------------------------------------------------------
    procedure Put_Warning (Msg       : in String := "");
    procedure Put_Error   (Msg       : in String := "";
                           With_Help : in Boolean := False);
@@ -71,15 +95,15 @@ private package Archicheck.IO is
                         Line   : in Positive;
                         Column : in Integer := 0) return String;
 
-   -- --------------------------------------------------------------------------
-   -- Function: GNU_Prefix
-   --
-   -- Purpose:
-   --    With this second form, the file is given as an Ada.Text_IO.File_Type,
-   --    and <Ada.Directories.Full_Name> is used to display the file name.
-   -- --------------------------------------------------------------------------
-   function GNU_Prefix (File   : in Ada.Text_IO.File_Type;
-                        Line   : in Positive;
-                        Column : in Integer := 0) return String;
+   --     -- --------------------------------------------------------------------------
+   --     -- Function: GNU_Prefix
+   --     --
+   --     -- Purpose:
+   --     --    With this second form, the file is given as an Ada.Text_IO.File_Type,
+   --     --    and <Ada.Directories.Full_Name> is used to display the file name.
+   --     -- --------------------------------------------------------------------------
+   --     function GNU_Prefix (File   : in Ada.Text_IO.File_Type;
+   --                          Line   : in Positive;
+   --                          Column : in Integer := 0) return String;
 
 end Archicheck.IO;

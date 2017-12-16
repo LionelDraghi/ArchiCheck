@@ -16,7 +16,7 @@
 -- Anticipated Changes:
 -- -----------------------------------------------------------------------------
 
-with Ada.Text_IO;
+with Archicheck.IO;
 
 package body Archicheck.Sources is
 
@@ -36,37 +36,38 @@ package body Archicheck.Sources is
       Source_List.Append (Src);
    end Add_Source;
 
-   -- --------------------------------------------------------------------------
-   -- Procedure: Add_List
-   -- --------------------------------------------------------------------------
-   procedure Add_List (List : in Source_Lists.List) is
-   begin
-      for Src of List loop
-         Source_List.Append (Src);
-      end loop;
-   end Add_List;
-
-   -- --------------------------------------------------------------------------
-   -- Function: Source_List_Image
-   -- -------------------------------------------------------------------------
-   function Source_List_Image (Sources : in Source_Lists.List) return String is
-      use Ada.Strings.Unbounded;
-      Tmp : Unbounded_String := Null_Unbounded_String;
-   begin
-      for Src of Sources loop
-         Tmp := Tmp & Src.Name;
-      end loop;
-      return (To_String (Tmp));
-   end Source_List_Image;
+   --     -- --------------------------------------------------------------------------
+   --     -- Procedure: Add_List
+   --     -- --------------------------------------------------------------------------
+   --     procedure Add_List (List : in Source_Lists.List) is
+   --     begin
+   --        for Src of List loop
+   --           Source_List.Append (Src);
+   --        end loop;
+   --     end Add_List;
+   --
+   --     -- --------------------------------------------------------------------------
+   --     -- Function: Source_List_Image
+   --     -- -------------------------------------------------------------------------
+   --     function Source_List_Image (Sources : in Source_Lists.List) return String is
+   --        use Ada.Strings.Unbounded;
+   --        Tmp : Unbounded_String := Null_Unbounded_String;
+   --     begin
+   --        for Src of Sources loop
+   --           Tmp := Tmp & Src.Name;
+   --        end loop;
+   --        return (To_String (Tmp));
+   --     end Source_List_Image;
 
    -- --------------------------------------------------------------------------
    -- Procedure: Dump_Sources
    -- -------------------------------------------------------------------------
    procedure Dump_Sources (Sources : in Source_Lists.List) is
       use Ada.Strings.Unbounded;
+      use Archicheck.IO;
    begin
       for Src of Sources loop
-         Ada.Text_IO.Put_Line (To_String (Src.Name));
+         Put_Line (To_String (Src.Name), Level => Quiet);
       end loop;
    end Dump_Sources;
 

@@ -1,4 +1,4 @@
-all: create_pkg testrec check_suite check_test run_test check_clean
+all: create_pkg testrec check_suite check_test run_test check_clean doc
 
 TR=./testrec
 
@@ -107,12 +107,14 @@ check_clean: ${TR}
 	${TR} state > state.12
 	sdiff -sB state.ref state.12
 
+doc:
+	cp tools.md ../../docs/tests/
 
 .PHONY : clean
 clean:
 	gnat clean -q -c -Pcreate_pkg.gpr
 	gnat clean -q -c -Ptestrec.gpr
 	# -c : Only delete compiler generated files
-	#      exec should not removed, because "testrec clean" is called in Makefile's clean
-	- ${RM} .testrec state.? state.?? testrec.txt diff.? diff.?? file? state.ref
+	#      exec should not be removed, because "testrec clean" is called in Makefile's clean
+	- ${RM} .testrec state.? state.?? testrec.md diff.? diff.?? file? state.ref
 

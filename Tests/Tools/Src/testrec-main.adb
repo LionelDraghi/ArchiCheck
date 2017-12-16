@@ -25,22 +25,45 @@ with Ada.Directories;
 
 procedure Testrec.Main is
 
-   -- -------------------------------------------------------------------------
-   Log_File       : Ada.Text_IO.File_Type;
-   Arg_Counter    : Positive        := 1;
-   Empty_Tag      : constant String := "<Empty>";
-   Fail_Tag       : constant String := "<Failed>";
-   Successful_Tag : constant String := "<Successful>";
+   -- --------------------------------------------------------------------------
+   Log_File    : Ada.Text_IO.File_Type;
+   Arg_Counter : Positive := 1;
 
-   -- -------------------------------------------------------------------------
+   -- --------------------------------------------------------------------------
+   function Empty_Tag      return String is
+   begin
+      case Settings.Output_Format is
+         when Settings.NaturalDocs => return "<Empty>";
+         when Settings.Markdown    => return "[Empty]";
+      end case;
+   end Empty_Tag;
+   -- --------------------------------------------------------------------------
+   function Fail_Tag       return String is
+   begin
+      case Settings.Output_Format is
+         when Settings.NaturalDocs => return "<Failed>";
+         when Settings.Markdown    => return "[Failed]";
+      end case;
+   end Fail_Tag;
+   -- --------------------------------------------------------------------------
+   function Successful_Tag return String is
+   begin
+      case Settings.Output_Format is
+         when Settings.NaturalDocs => return "<Successful>";
+         when Settings.Markdown    => return "[Successful]";
+      end case;
+   end Successful_Tag;
+
+   -- --------------------------------------------------------------------------
    type Indent_Level is range 0 .. 2;
    Current_Indent : Indent_Level := 0;
 
-   -- -------------------------------------------------------------------------
+   -- --------------------------------------------------------------------------
    function Indent return String is
-      Indent_1       : constant String := "   ";
-      Indent_2       : constant String := "      ";
+      Indent_1 : constant String := " ";
+      Indent_2 : constant String := "  ";
    begin
+
       case Current_Indent is
          when 0 => return "";
          when 1 => return Indent_1;
@@ -49,7 +72,7 @@ procedure Testrec.Main is
    end Indent;
 
 
-   -- -------------------------------------------------------------------------
+   -- --------------------------------------------------------------------------
    procedure Put_Usage is
       use Ada.Text_IO;
    begin
@@ -69,14 +92,15 @@ procedure Testrec.Main is
       Put_Line ("   testrec state                                  : display testrec current state");
       New_Line;
       Put_Line ("Options:");
-      Put_Line ("   -q | --quiet   : no output on standard output unless error");
-      Put_Line ("   -v | --verbose : standard output is as verbose as possible");
-      Put_Line ("   Note that those options have no effect on NaturalDocs file output (that is always verbose)");
+      Put_Line ("   -q  | --quiet       : no output on standard output unless error");
+      Put_Line ("   -v  | --verbose     : standard output is as verbose as possible");
+      Put_Line ("   Note that those options have no effect on text file output (that is always verbose)");
       Put_Line ("   Default standard output behavior:");
       Put_Line ("   - only Test Suite start and Test end are displayed");
       Put_Line ("   - assert, cmt, clean, end, etc. do not output messages");
       Put_Line ("   - state command ignore those options");
-      Put_Line ("   -h | --help    : this message");
+      Put_Line ("   -nd | --naturaldocs : use a NaturalDocs friendly txt format instead of the default markdown");
+      Put_Line ("   -h  | --help        : this message");
       New_Line;
       Put_Line ("Tests:");
       Put_Line ("   A test is a sequence of call to assert :");
@@ -125,7 +149,7 @@ procedure Testrec.Main is
 
    type Verbosity is (Verbose, Default, Quiet);
 
-   -- -------------------------------------------------------------------------
+   -- --------------------------------------------------------------------------
    procedure Put_Line (Text         : String;
                        At_Verbosity : Verbosity := Default) is
       use Ada.Text_IO;
@@ -138,7 +162,7 @@ procedure Testrec.Main is
       end if;
    end Put_Line;
 
-   -- -------------------------------------------------------------------------
+   -- --------------------------------------------------------------------------
    procedure New_Line (At_Verbosity : Verbosity := Default) is
       use Ada.Text_IO;
    begin
@@ -150,7 +174,7 @@ procedure Testrec.Main is
       end if;
    end New_Line;
 
-   -- -------------------------------------------------------------------------
+   -- --------------------------------------------------------------------------
    procedure Create_Suite (Name : String) is
    begin
       Current_Indent := 0;
@@ -166,7 +190,13 @@ procedure Testrec.Main is
          use Ada.Text_IO;
       begin
          New_Line (Log_File);
-         Put_Line (Log_File, Indent & "Test Suite: " & Name);
+         case Settings.Output_Format is
+            when Settings.NaturalDocs =>
+               Put_Line (Log_File, Indent & "Test Suite: " & Name);
+            when Settings.Markdown    =>
+               Put_Line (Log_File, "# " & Name);
+               New_Line (Log_File);
+         end case;
          New_Line (Log_File);
       end;
 
@@ -262,7 +292,7 @@ procedure Testrec.Main is
 
    end Assert;
 
-   -- -------------------------------------------------------------------------
+   -- --------------------------------------------------------------------------
    procedure State is
    begin
       Put_Line ("Testrec current state :", Quiet);
@@ -270,7 +300,7 @@ procedure Testrec.Main is
       Put_Line (Current_State.State_String, Quiet);
    end State;
 
-   -- -------------------------------------------------------------------------
+   -- --------------------------------------------------------------------------
    procedure Start (Test_Name : in String) is
       use Ada.Strings.Unbounded;
       Common_Text : Unbounded_String;
@@ -294,7 +324,13 @@ procedure Testrec.Main is
          use Ada.Text_IO;
       begin
          New_Line (Log_File);
-         Put_Line (Log_File, Item => Indent & "Test: " & To_String (Common_Text));
+         case Settings.Output_Format is
+            when Settings.NaturalDocs =>
+               Put_Line (Log_File, Item => Indent & "Test: " & To_String (Common_Text));
+            when Settings.Markdown    =>
+               Put_Line (Log_File, Item =>          "## " & To_String (Common_Text));
+               New_Line (Log_File);
+         end case;
       end;
 
       Current_Indent := 2;
@@ -302,7 +338,7 @@ procedure Testrec.Main is
 
    end Start;
 
-   -- -------------------------------------------------------------------------
+   -- --------------------------------------------------------------------------
    procedure End_Test is
       use Current_State;
       use Ada.Strings.Unbounded;
@@ -345,7 +381,12 @@ procedure Testrec.Main is
             begin
                Put_Line (Text, Quiet);
                Ada.Text_IO.New_Line (Log_File);
-               Ada.Text_IO.Put_Line (Log_File, Item => "*" & Text  & "*");
+               case Settings.Output_Format is
+               when Settings.NaturalDocs =>
+                  Ada.Text_IO.Put_Line (Log_File, Item => "*"  & Text & "*");
+               when Settings.Markdown    =>
+                  Ada.Text_IO.Put_Line (Log_File, Item => "**" & Text & "**");
+               end case;
             end;
          end if;
       end if;
@@ -355,7 +396,7 @@ procedure Testrec.Main is
 
    end End_Test;
 
-   -- -------------------------------------------------------------------------
+   -- --------------------------------------------------------------------------
    procedure Run (Test_Name : String;
                   Expected  : Boolean;
                   Prog      : String;
@@ -367,7 +408,7 @@ procedure Testrec.Main is
       End_Test;
    end Run;
 
-   -- -------------------------------------------------------------------------
+   -- --------------------------------------------------------------------------
    procedure Open_Log_File is
       use Ada.Text_IO;
    begin
@@ -476,6 +517,9 @@ begin
 
             elsif Opt = "-q" or Opt = "--quiet" then
                Settings.Quiet := True;
+
+            elsif Opt = "-nd" or Opt = "--naturaldocs" then
+               Settings.Output_Format := Settings.NaturalDocs;
 
             else
                Put_Line ("Unknown Option " & Opt, Quiet);

@@ -1,4 +1,5 @@
-with "opentoken";
+-- with "opentoken";
+with "patched_ot";
 
 project Archicheck is
 

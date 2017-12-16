@@ -20,7 +20,7 @@ Timestamp: Updated month day, year
 # These are indexes you deleted, so Natural Docs will not add them again
 # unless you remove them from this line.
 
-Don't Index: Types, Constants, Variables
+Don't Index: Variables, Constants, Types
 
 
 # --------------------------------------------------------------------------
@@ -73,14 +73,15 @@ Group: Tests &amp; Sources  {
    Group: Tests  {
 
       File: Command line test suite  (/home/lionel/Proj/Archicheck/Tests/01_Command_Line/testrec.txt)
-      File: --list_files option test suite  (/home/lionel/Proj/Archicheck/Tests/02_Source_List/testrec.txt)
-      File: --list_dependencies option test suite  (/home/lionel/Proj/Archicheck/Tests/03_Dependency_List/testrec.txt)
-      File: --list_rules option test suite  (/home/lionel/Proj/Archicheck/Tests/04_Component_List/testrec.txt)
+      File: Non recursive file identification test suite  (/home/lionel/Proj/Archicheck/Tests/02_Source_List/testrec.txt)
+      File: Dependencies identification simple test suite  (/home/lionel/Proj/Archicheck/Tests/03_Dependency_List/testrec.txt)
+      File: Component definition rules test suite  (/home/lionel/Proj/Archicheck/Tests/04_Component_List/testrec.txt)
       File: Layer rules test suite  (/home/lionel/Proj/Archicheck/Tests/05_Layer_Rule/testrec.txt)
       File: Child packages test suite  (/home/lionel/Proj/Archicheck/Tests/06_Child_Packages/testrec.txt)
       File: Rules file syntax test suite  (/home/lionel/Proj/Archicheck/Tests/07_Rules_Files_Syntax/testrec.txt)
       File: Globbing Character test suite  (/home/lionel/Proj/Archicheck/Tests/08_Globbing_Characters/testrec.txt)
       File: GtkAda test suite  (/home/lionel/Proj/Archicheck/Tests/09_GtkAda/testrec.txt)
+      File: Use rules test suite  (/home/lionel/Proj/Archicheck/Tests/10_Use_Rule/testrec.txt)
       File: Java code test suite  (/home/lionel/Proj/Archicheck/Tests/11_Batik/testrec.txt)
       File: ZipAda code test suite  (/home/lionel/Proj/Archicheck/Tests/12_ZipAda/testrec.txt)
       File: Ada units test suite  (/home/lionel/Proj/Archicheck/Tests/13_Ada_Units/testrec.txt)
@@ -126,7 +127,6 @@ Group: Tests &amp; Sources  {
       File: Archicheck.Rules.Parser specification  (/home/lionel/Proj/Archicheck/Src/archicheck-rules-parser.ads)
       }  # Group: Src
 
-   File: Use rules test suite  (/home/lionel/Proj/Archicheck/Tests/10_Use_Rule/testrec.txt)
    }  # Group: Tests &amp; Sources
 
 Group: Index  {

@@ -21,7 +21,6 @@
 
 with Archicheck.IO;
 
-with Ada.Text_IO;
 with Ada.Strings.Fixed;
 with Ada.Strings.Maps;
 with Ada.Strings.Maps.Constants;
@@ -136,14 +135,16 @@ package body Archicheck.Dependencies is
       use Archicheck.IO;
    begin
       for D of Dependency_List loop
-         Ada.Text_IO.Put_Line (Ada.Strings.Unbounded.To_String (D.From.Name) & " " & Unit_Description (D.From)
-                               & " depends on "
-                               & Ada.Strings.Unbounded.To_String (D.To.Name) & " "); --  & Image (D.To.Kind));
-                                                                                     -- gives file details only when verbose :
+         Put_Line (Ada.Strings.Unbounded.To_String (D.From.Name) & " " & Unit_Description (D.From)
+                   & " depends on "
+                   & Ada.Strings.Unbounded.To_String (D.To.Name) & " ",
+                   Level => Quiet); --  & Image (D.To.Kind));
+
+         -- gives file details only when verbose :
          Put_Line ("   " & Ada.Strings.Unbounded.To_String (D.From.File)
                    & " ->  "
                    & Ada.Strings.Unbounded.To_String (D.To.File),
-                   Only_When_Verbose => True);
+                   Level => Verbose);
       end loop;
    end Dump;
 

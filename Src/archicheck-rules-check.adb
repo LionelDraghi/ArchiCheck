@@ -21,8 +21,8 @@ with Archicheck.Dependencies;
 with Archicheck.Components;   use Archicheck.Components;
 with Archicheck.Settings;
 
-with Ada.Strings.Fixed;
-with Ada.Strings.Maps.Constants;
+-- with Ada.Strings.Fixed;
+-- with Ada.Strings.Maps.Constants;
 with Ada.Strings.Unbounded;
 
 procedure Archicheck.Rules.Check is
@@ -43,7 +43,7 @@ procedure Archicheck.Rules.Check is
       Units : Unit_Lists.List;
       Found : Boolean := False;
       use Ada.Strings;
-      use Ada.Strings.Fixed;
+      -- use Ada.Strings.Fixed;
 
    begin
       -- Put_Debug_Line ("Unit >" & Unit & "<, component >" & Component & "<");
@@ -75,7 +75,7 @@ begin
          Y              : constant String := To_String (D.To.Name);
 
       begin
-         IO.Put_Line (X & " depends on " & Y, Only_When_Verbose => True);
+         IO.Put_Line (X & " depends on " & Y, Level => Verbose);
 
          if Is_Forbidden (D.To.Name) then
             IO.Put_Error ("in file " & To_String (D.From.File) & " : " & Y & " use is forbidden");
@@ -99,7 +99,7 @@ begin
                begin
                   IO.Put_Line ("- Checking relationship " & Relationship_Kind'Image (R.Kind)
                                & " : " & To_String (R.Using_Unit) & " -> "
-                               & To_String (R.Used_Unit), Only_When_Verbose => True);
+                               & To_String (R.Used_Unit), Level => Verbose);
 
                   if (Is_X_In_Server and Is_Y_In_Server) or (Is_X_In_Client and Is_Y_In_Client) then
                      -- no check to do, as both unit are in the same component
@@ -136,7 +136,12 @@ begin
                         end if;
 
                      when May_Use =>
-                        IO.Put_Warning ("May_Use rules not yet implemented");
+                        -- X may use Y actually means that Y shall not use X,
+                        -- and this is wath we check here
+                        if Is_X_In_Server and Is_Y_In_Client then
+                           IO.Put_Error (Client & " is over " & Server & ", so "
+                                         & X & " shall not use " & Y);
+                        end if;
 
                      end case;
                   end if;

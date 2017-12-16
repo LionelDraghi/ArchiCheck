@@ -1,4 +1,4 @@
-all: check
+all: check doc
 
 CREATE_PKG=../Tools/create_pkg
 TR=../Tools/testrec
@@ -10,7 +10,7 @@ check: ../../Obj/archicheck header test1 test2
 header:
 	@ #---------------------------------------------------------------------
 	${TR} clean
-	${TR} create "--list_dependencies option test suite"
+	${TR} create "Dependencies identification simple test suite"
 
 
 test1: 
@@ -19,9 +19,10 @@ test1:
 	${TR} cmt "(src not detailed here)"
 	${TR} cmt "> archicheck -I dir1 --list_dependencies"
 	${TR} cmt "should put:"
-	${TR} cmt "(start code)"
-	cat expected_output.1 >> testrec.txt
-	${TR} cmt "(end)"
+	@ ${TR} cmt 
+	${TR} cmt '```'
+	cat expected_output.1 >> testrec.md
+	${TR} cmt '```'
 	${TR} cmt ""
 
 	@ ${CREATE_PKG} A spec -in dir1 -with B
@@ -59,9 +60,11 @@ test2:
 	@ echo "end C . D ;"		>> dir2/c-d.adb
 
 	${TR} cmt "same test here, but c-d.adb if formated this way :"
-	${TR} cmt "(start code)"
-	cat dir2/c-d.adb 	>> testrec.txt
-	${TR} cmt "(end)"
+	@ ${TR} cmt 
+	${TR} cmt '```'
+	cat dir2/c-d.adb 	>> testrec.md
+	${TR} cmt '```'
+	@ ${TR} cmt 
 
 	@ ../../Obj/archicheck -I dir2 --list_dependencies | sort > output.2
 	${TR} assert true /usr/bin/sdiff "-sbB expected_output.2 output.2"
@@ -73,3 +76,5 @@ clean:
 	- ${RM} -rf output.? dir?
 	${TR} clean
 
+doc:
+	cp testrec.md ../../docs/tests/dependency_list.md

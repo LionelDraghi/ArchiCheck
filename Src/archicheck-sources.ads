@@ -44,15 +44,15 @@ private package Archicheck.Sources is
    -- --------------------------------------------------------------------------
    procedure Add_Source (Src : in Source);
 
-   -- --------------------------------------------------------------------------
-   -- Function: Add_List
-   -- --------------------------------------------------------------------------
-   procedure Add_List (List : in Source_Lists.List);
-
-   -- -------------------------------------------------------------------------
-   -- Function: Source_List_Image
-   -- -------------------------------------------------------------------------
-   function Source_List_Image (Sources : in Archicheck.Sources.Source_Lists.List) return String;
+   --     -- --------------------------------------------------------------------------
+   --     -- Function: Add_List
+   --     -- --------------------------------------------------------------------------
+   --     procedure Add_List (List : in Source_Lists.List);
+   --
+   --     -- -------------------------------------------------------------------------
+   --     -- Function: Source_List_Image
+   --     -- -------------------------------------------------------------------------
+   --     function Source_List_Image (Sources : in Archicheck.Sources.Source_Lists.List) return String;
 
    -- -------------------------------------------------------------------------
    -- Procedure: Dump_Sources

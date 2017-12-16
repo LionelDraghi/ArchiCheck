@@ -18,7 +18,7 @@ General form :
 
 Options :
    -lf | --list_files        : list sources files analyzed
-   -ld | --list_dependencies : list identified dependencies in analyzed sources files
+   -ld | --list_dependencies : list identified units and dependencies in analyzed sources files
    -lr | --list_rules        : list rules in a rules file
    -r  | --recursive         : all following -I are recursive
    -v  | --verbose
@@ -41,7 +41,7 @@ archicheck --version
 ```
 
 ```
-0.4.0
+0.4.2
 
 ```
 

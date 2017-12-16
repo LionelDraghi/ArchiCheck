@@ -17,8 +17,8 @@ package body Testrec.Current_State is
 
    use Config;
 
-   State           : Config.Configuration;
-   State_File      : Ada.Text_IO.File_Type;
+   State      : Config.Configuration;
+   State_File : Ada.Text_IO.File_Type;
 
    Overall_State_Mark : constant String := "Overall_State";
    Suite_State_Mark   : constant String := "Current_Suite_State";

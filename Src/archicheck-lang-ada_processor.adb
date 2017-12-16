@@ -65,11 +65,11 @@ package body Archicheck.Lang.Ada_Processor is
       -- -----------------------------------------------------------------------
       procedure Put_Debug_Line (Msg    : in String  := "";
                                 Debug  : in Boolean := Settings.Debug_Mode;
-                                Prefix : in String  := "Ada_Processor.Analyze_Dependencies") renames Archicheck.IO.Put_Debug_Line;
+                                Prefix : in String  := "Analyze_Dep") renames Archicheck.IO.Put_Debug_Line;
       --        procedure Put_Debug (Msg    : in String  := "";
-      --                             Debug  : in Boolean := Settings.Debug_Mode;
+      --                             Debug  : in Boolean := Settings.Verbosity = Settings.Debug;
       --                             Prefix : in String  := "Ada_Processor.Analyze_Dependencies") renames Archicheck.IO.Put_Debug;
-      -- procedure New_Debug_Line (Debug  : in Boolean := Settings.Debug_Mode) renames Archicheck.IO.New_Debug_Line;
+      -- procedure New_Debug_Line (Debug  : in Boolean := Settings.Verbosity = Settings.Debug) renames Archicheck.IO.New_Debug_Line;
 
       File : Ada.Text_IO.File_Type;
 
@@ -84,7 +84,6 @@ package body Archicheck.Lang.Ada_Processor is
       Implementation       : Boolean               := True;
       Parent_Pkg_Name      : Unbounded_String      := Null_Unbounded_String;
       -- Parent_Pkg_Name should remain null unless subunits (that is "separate")
-
 
       -- -----------------------------------------------------------------------
       -- Procedure: Get_Unit_Name
@@ -115,7 +114,7 @@ package body Archicheck.Lang.Ada_Processor is
             Unit : constant String := Get_Unit_Name;
          begin
             Parent_Pkg_Name := To_Unbounded_String (Unit) & '.';
-            Put_Debug_Line ("   - separate from " & Unit); -- , Only_When_Verbose => True);
+            Put_Debug_Line ("   - separate from " & Unit); -- , Level => Verbose);
          end;
       end Process_Subunit;
 
@@ -127,7 +126,7 @@ package body Archicheck.Lang.Ada_Processor is
             declare
                Unit : constant String := Get_Unit_Name;
             begin
-               Put_Debug_Line ("   - withing " & Unit); -- , Only_When_Verbose => True);
+               Put_Debug_Line ("   - withing " & Unit); -- , Level => Verbose);
                Append (Tmp, (From => (Name           => Null_Unbounded_String,
                                       File           => To_Unbounded_String (From_Source),
                                       Lang           => Sources.Ada_2012,
@@ -337,10 +336,16 @@ package body Archicheck.Lang.Ada_Processor is
          end;
       end Process_Protected;
 
+      In_Generic_Formal_Part : Boolean := False;
+      -- Set to True after "generic" keyword so that to avoid considering "with" declaration
+      -- in formal parameters, like in :
+      -- > generic
+      -- >   with procedure X;
+      -- > package Y ...
 
    begin
-      --  New_Debug_Line;
-      Put_Debug_Line ("Looking for dependencies in " & From_Source & " :"); -- , Only_When_Verbose => True);
+      -- -----------------------------------------------------------------------
+      Put_Debug_Line ("Looking for dependencies in " & From_Source & " :"); -- , Level => Verbose);
 
       Ada.Text_IO.Open (File => File,
                         Mode => Ada.Text_IO.In_File,
@@ -375,34 +380,47 @@ package body Archicheck.Lang.Ada_Processor is
             --
 
             case Token_ID is
-            when With_T =>
-               Process_With;
+               when With_T =>
+                  if In_Generic_Formal_Part then
+                     Put_Debug_Line ("skiping with in generic formal part");
+                     Find_Next; -- To skip the "with"
+                     Put_Debug_Line ("Skip the with, token = " &  Ada_Token'Image (Token_ID));
+                     Find_Next; -- To skip the following "procedure" or whatever
+                     Put_Debug_Line ("Skip what follow the with, token = " &  Ada_Token'Image (Token_ID));
+                  else
+                     Process_With;
+                  end if;
 
-            when Separate_T =>
-               Process_Subunit;
+               when Separate_T =>
+                  Process_Subunit;
 
-            when Package_T =>
-               Process_Pkg;
-               exit Source_Analysis;
-               -- This optimization (exiting before end of file) prevents multiple pkg per file processing.
-               -- On the other hand, GtkAda analysis drop from 8s to 0.7s when uncommenting this line.
-               -- Chechekd with :
-               -- > time ../../Obj/archicheck -lf -I gtkada
+               when Package_T =>
+                  Process_Pkg;
+                  exit Source_Analysis;
+                  -- This optimization (exiting before end of file) prevents multiple pkg per file processing.
+                  -- On the other hand, GtkAda analysis drop from 8s to 0.7s when uncommenting this line.
+                  -- Chechekd with :
+                  -- > time ../../Obj/archicheck -lf -I gtkada
 
-            when Procedure_T | Function_T =>
-               Process_Subroutine;
-               exit Source_Analysis; -- See optimization note above.
+               when Procedure_T | Function_T =>
+                  Process_Subroutine;
+                  exit Source_Analysis; -- See optimization note above.
 
-            when Protected_T =>
-               Process_Protected;
-               exit Source_Analysis; -- See optimization note above.
+               when Protected_T =>
+                  Process_Protected;
+                  exit Source_Analysis; -- See optimization note above.
 
-            when Task_T =>
-               Process_Task;
-               exit Source_Analysis; -- See optimization note above.
+               when Task_T =>
+                  Process_Task;
+                  exit Source_Analysis; -- See optimization note above.
 
-            when others =>
-               Find_Next;
+               when Generic_T =>
+                  Put_Debug_Line ("In_Generic_Formal_Part := True, token = " & Ada_Token'Image (Token_ID));
+                  In_Generic_Formal_Part := True;
+                  Find_Next; -- To skip the "generic" word
+
+               when others =>
+                  Find_Next;
 
             end case;
 

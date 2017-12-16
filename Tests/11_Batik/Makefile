@@ -1,4 +1,4 @@
-all: check
+all: check doc
 
 CREATE_PKG=../Tools/create_pkg
 TR=../Tools/testrec
@@ -22,18 +22,22 @@ test1:
 
 	@ ${TR} cmt "> archicheck -lf -I ./batik-1.9/test-sources/org/apache/batik/dom"
 	@ ${TR} cmt "Expected :"
-	@ ${TR} cmt "(start code)"
-	cat expected_output.1 >> testrec.txt
-	@ ${TR} cmt "(end)"
+	@ ${TR} cmt 
+	@ ${TR} cmt '```'
+	cat expected_output.1 >> testrec.md
+	@ ${TR} cmt '```'
+	@ ${TR} cmt 
 
 	@ ../../Obj/archicheck -lf -I ./batik-1.9/test-sources/org/apache/batik/dom > output.1
 	${TR} assert true /usr/bin/sdiff "-s expected_output.1 output.1"
 
 	@ ${TR} cmt "> archicheck -lf -r -I ./batik-1.9/test-sources/org/apache/batik/dom"
 	@ ${TR} cmt "Expected :"
-	@ ${TR} cmt "(start code)"
-	cat expected_output.1b >> testrec.txt
-	@ ${TR} cmt "(end)"
+	@ ${TR} cmt 
+	@ ${TR} cmt '```'
+	cat expected_output.1b >> testrec.md
+	@ ${TR} cmt '```'
+	@ ${TR} cmt 
 
 	@ ../../Obj/archicheck -lf -r -I ./batik-1.9/test-sources/org/apache/batik/dom > output.1b
 	${TR} assert true /usr/bin/sdiff "-s expected_output.1b output.1b"
@@ -48,15 +52,21 @@ test2:
 	- @ mkdir -p dir2
 	@ cp ./batik-1.9/contrib/jsvg/JSVG.java dir2
 
-	@ ${TR} cmt "(start code)"
-	sed -n '/package /,/public class/p' dir2/JSVG.java >> testrec.txt
-	@ ${TR} cmt "(end)"
+	@ ${TR} cmt 
+	@ ${TR} cmt '```'
+	sed -n '/package /,/public class/p' dir2/JSVG.java >> testrec.md
+	@ ${TR} cmt '```'
+	@ ${TR} cmt 
 
+	@ ${TR} cmt 
 	@ ${TR} cmt "> archicheck -lf -I dir2"
+	@ ${TR} cmt 
 	@ ${TR} cmt "Expected :"
-	@ ${TR} cmt "(start code)"
-	cat expected_output.2 >> testrec.txt
-	@ ${TR} cmt "(end)"
+	@ ${TR} cmt 
+	@ ${TR} cmt '```'
+	cat expected_output.2 >> testrec.md
+	@ ${TR} cmt '```'
+	@ ${TR} cmt 
 
 	@ ../../Obj/archicheck -ld -I dir2 > output.2
 	${TR} assert true /usr/bin/sdiff "-s expected_output.2 output.2"
@@ -70,15 +80,21 @@ test3:
 	- @ mkdir -p dir3
 	@ cp ./batik-1.9/batik-dom/src/main/java/org/apache/batik/dom/events/NodeEventTarget.java dir3
 
-	@ ${TR} cmt "(start code)"
-	sed -n '/package /,/public interface/p' dir3/NodeEventTarget.java >> testrec.txt
-	@ ${TR} cmt "(end)"
+	@ ${TR} cmt 
+	@ ${TR} cmt '```'
+	sed -n '/package /,/public interface/p' dir3/NodeEventTarget.java >> testrec.md
+	@ ${TR} cmt '```'
+	@ ${TR} cmt 
 
+	@ ${TR} cmt 
 	@ ${TR} cmt "> archicheck -lf -I dir3"
+	@ ${TR} cmt 
 	@ ${TR} cmt "Expected :"
-	@ ${TR} cmt "(start code)"
-	cat expected_output.3 >> testrec.txt
-	@ ${TR} cmt "(end)"
+	@ ${TR} cmt 
+	@ ${TR} cmt '```'
+	cat expected_output.3 >> testrec.md
+	@ ${TR} cmt '```'
+	@ ${TR} cmt 
 
 	@ ../../Obj/archicheck -ld -I dir3 > output.3
 	${TR} assert true /usr/bin/sdiff "-s expected_output.3 output.3"
@@ -92,15 +108,20 @@ test4:
 	- @ mkdir -p dir4
 	@ cp ./batik-1.9/batik-dom/src/main/java/org/apache/batik/dom/util/TriplyIndexedTable.java dir4
 
-	@ ${TR} cmt "(start code)"
-	sed -n '/package /,/public class/p' dir4/TriplyIndexedTable.java >> testrec.txt
-	@ ${TR} cmt "(end)"
+	@ ${TR} cmt 
+	@ ${TR} cmt '```'
+	sed -n '/package /,/public class/p' dir4/TriplyIndexedTable.java >> testrec.md
+	@ ${TR} cmt '```'
+	@ ${TR} cmt 
 
 	@ ${TR} cmt "> archicheck -lf -I dir4"
+	@ ${TR} cmt 
 	@ ${TR} cmt "Expected :"
-	@ ${TR} cmt "(start code)"
-	cat expected_output.4 >> testrec.txt
-	@ ${TR} cmt "(end)"
+	@ ${TR} cmt 
+	@ ${TR} cmt '```'
+	cat expected_output.4 >> testrec.md
+	@ ${TR} cmt '```'
+	@ ${TR} cmt 
 
 	@ ../../Obj/archicheck -ld -I dir4 > output.4
 	${TR} assert true /usr/bin/sdiff "-s expected_output.4 output.4"
@@ -120,15 +141,20 @@ test5:
 	@ echo ""				 			>> dir5/MyClass.java
 	@ echo "}" 							>> dir5/MyClass.java
 
-	@ ${TR} cmt "(start code)"
-	sed -n '1,/public interface/p' dir5/MyClass.java >> testrec.txt
-	@ ${TR} cmt "(end)"
+	@ ${TR} cmt 
+	@ ${TR} cmt '```'
+	sed -n '1,/public interface/p' dir5/MyClass.java >> testrec.md
+	@ ${TR} cmt '```'
+	@ ${TR} cmt 
 
 	@ ${TR} cmt "> archicheck -lf -I dir5"
+	@ ${TR} cmt 
 	@ ${TR} cmt "Expected :"
-	@ ${TR} cmt "(start code)"
-	cat expected_output.5 >> testrec.txt
-	@ ${TR} cmt "(end)"
+	@ ${TR} cmt 
+	@ ${TR} cmt '```'
+	cat expected_output.5 >> testrec.md
+	@ ${TR} cmt '```'
+	@ ${TR} cmt 
 
 	@ ../../Obj/archicheck -ld -I dir5 > output.5
 	${TR} assert true /usr/bin/sdiff "-s expected_output.5 output.5"
@@ -142,10 +168,13 @@ test6:
 	- @ mkdir -p dir6
 	@ cp ./batik-1.9/batik-transcoder/src/main/java/org/apache/batik/transcoder/SVGAbstractTranscoder.java dir6
 
+	@ ${TR} cmt 
 	@ ${TR} cmt "This class is in transcoder, and uses Bridge and GVT, and that's OK"
-	@ ${TR} cmt "(start code)"
-	sed -n '/package /,/public abstract class/p' dir6/SVGAbstractTranscoder.java >> testrec.txt
-	@ ${TR} cmt "(end)"
+	@ ${TR} cmt 
+	@ ${TR} cmt '```'
+	sed -n '/package /,/public abstract class/p' dir6/SVGAbstractTranscoder.java >> testrec.md
+	@ ${TR} cmt '```'
+	@ ${TR} cmt 
 
 	> expected_output.6 
 	@ ${TR} cmt "> archicheck rules.B -I dir6"
@@ -171,14 +200,18 @@ test7:
 	@ echo ""				 			>> dir7/MyClass.java
 	@ echo "}" 							>> dir7/MyClass.java
 
-	@ ${TR} cmt "(start code)"
-	sed -n '/package /,/public abstract class/p' dir7/MyClass.java >> testrec.txt
-	@ ${TR} cmt "(end)"
+	@ ${TR} cmt 
+	@ ${TR} cmt '```'
+	sed -n '/package /,/public abstract class/p' dir7/MyClass.java >> testrec.md
+	@ ${TR} cmt '```'
+	@ ${TR} cmt 
 
 	@ ${TR} cmt "> archicheck rules.B -I dir7"
-	@ ${TR} cmt "(start code)"
-	cat expected_output.7 >> testrec.txt
-	@ ${TR} cmt "(end)"
+	@ ${TR} cmt 
+	@ ${TR} cmt '```'
+	cat expected_output.7 >> testrec.md
+	@ ${TR} cmt '```'
+	@ ${TR} cmt 
 
 	### @ ../../Obj/archicheck rules.B -I dir7 > output.7
 	### ${TR} assert true /usr/bin/sdiff "-s expected_output.7 output.7"
@@ -190,3 +223,5 @@ clean:
 	- ${RM} -rf output.* dir? dir?? *.~ batik-1.9 *.java dir?
 	- ${TR} clean
 
+doc:
+	cp testrec.md ../../docs/tests/batik.md

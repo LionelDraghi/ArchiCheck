@@ -1,4 +1,4 @@
-all: check
+all: check doc
 
 TR=../Tools/testrec
 
@@ -24,12 +24,13 @@ test1:
 	${TR} start "Help options:" 
 	${TR} cmt  								
 	${TR} cmt "   Test that the -h, --help or no command line will output :" 	
-	${TR} cmt  								
 	
 	../../Obj/archicheck -h > expected_help.txt
-	${TR} cmt "(start code)" 						
-	cat expected_help.txt >> testrec.txt
-	${TR} cmt "(end)" 							
+	${TR} cmt 
+	${TR} cmt '```' 						
+	cat expected_help.txt >> testrec.md
+	${TR} cmt '```' 						
+	${TR} cmt 
 
 	../../Obj/archicheck --help	> help1.txt
 	${TR} assert true /usr/bin/sdiff "-sbB help1.txt expected_help.txt" 
@@ -43,11 +44,12 @@ test2:
 	${TR} start "Version option" 					
 	${TR} cmt  								
 	${TR} cmt "Test that the --version will put :" 			
-	${TR} cmt  								
-	${TR} cmt "(start code)" 						
-	echo "0.4.1"			> expected_version.txt
-	cat expected_version.txt >> testrec.txt					
-	${TR} cmt "(end)" 							
+	${TR} cmt 
+	${TR} cmt '```' 						
+	echo "0.4.2"			> expected_version.txt
+	cat expected_version.txt >> testrec.md					
+	${TR} cmt '```' 						
+	${TR} cmt 
 
 	../../Obj/archicheck --version	> version1.txt
 	${TR} assert true /usr/bin/sdiff "-sbB version1.txt expected_version.txt"
@@ -63,9 +65,11 @@ test3:
 
 	echo "Error : Sources directory expected after -I"	>  expected_err3.txt
 
-	${TR} cmt "(start code)" 						
-	cat expected_err3.txt	>> testrec.txt					
-	${TR} cmt "(end)" 							
+	${TR} cmt 
+	${TR} cmt '```' 						
+	cat expected_err3.txt	>> testrec.md					
+	${TR} cmt '```' 						 	
+	${TR} cmt  							
 
 	test ! `../../Obj/archicheck -I		> err3.txt  2>&1`
 	${TR} assert true /usr/bin/sdiff "-s expected_err3.txt err3.txt"
@@ -81,9 +85,11 @@ test4:
 
 	echo "Error : No qsdqjh directory"	>  expected_err4.txt
 
-	${TR} cmt "(start code)" 						
-	cat expected_err4.txt	>> testrec.txt					
-	${TR} cmt "(end)" 							
+	${TR} cmt
+	${TR} cmt '```'
+	cat expected_err4.txt	>> testrec.md					
+	${TR} cmt '```'
+	${TR} cmt 							
 
 	test ! `../../Obj/archicheck -I qsdqjh		> err4.txt  2>&1`
 	${TR} assert true /usr/bin/sdiff "-s expected_err4.txt err4.txt"
@@ -100,9 +106,11 @@ test5:
 	echo "Error : Unknown rules file or unknow option -xzy"	>  expected_err5.txt
 	cat expected_help.txt 					>> expected_err5.txt
 
-	${TR} cmt "(start code)" 						
-	cat expected_err5.txt	>> testrec.txt					
-	${TR} cmt "(end)" 							
+	${TR} cmt 
+	${TR} cmt '```' 						
+	cat expected_err5.txt	>> testrec.md					
+	${TR} cmt '```' 						 	
+	${TR} cmt  							
 
 	test ! `../../Obj/archicheck -xzy		> err5.txt  2>&1`
 	${TR} assert true /usr/bin/sdiff "-s expected_err5.txt err5.txt"
@@ -122,9 +130,11 @@ test6:
 	echo "Error : Nothing to do with those sources"	>  expected_err6.txt
 	cat expected_help.txt 				>> expected_err6.txt
 
-	${TR} cmt "(start code)" 						
-	cat expected_err6.txt	>> testrec.txt					
-	${TR} cmt "(end)" 							
+	${TR} cmt 
+	${TR} cmt '```' 						
+	cat expected_err6.txt	>> testrec.md					
+	${TR} cmt '```' 
+	${TR} cmt 
 
 	mkdir -p dir6
 	touch dir6/src.adb
@@ -145,9 +155,11 @@ test8:
 	echo "Error : No rules file given"		>  expected_err8.txt
 	cat expected_help.txt 				>> expected_err8.txt
 
-	${TR} cmt "(start code)" 						
-	cat expected_err8.txt	>> testrec.txt					
-	${TR} cmt "(end)" 							
+	${TR} cmt 
+	${TR} cmt '```' 						
+	cat expected_err8.txt	>> testrec.md					
+	${TR} cmt '```' 						 	
+	${TR} cmt  							
 
 	test ! `../../Obj/archicheck -lr  	> err8.txt 2>&1`
 	${TR} assert true /usr/bin/sdiff "-s expected_err8.txt err8.txt"
@@ -164,9 +176,11 @@ test9:
 
 	echo "Error : Cannot list files, no sources found to analyze"		>  expected_err9.txt	
 
-	${TR} cmt "(start code)" 						
-	cat expected_err9.txt	>> testrec.txt					
-	${TR} cmt "(end)"
+	${TR} cmt 
+	${TR} cmt '```' 						
+	cat expected_err9.txt	>> testrec.md					
+	${TR} cmt '```' 						 	
+	${TR} cmt 
  							
 	mkdir -p dir9
 	test ! `../../Obj/archicheck -lf -I dir9 	> err9.txt 2>&1`
@@ -184,9 +198,11 @@ test10:
 
 	echo "Error : src.adb is not a directory"		>  expected_err10.txt	
 
-	${TR} cmt "(start code)" 						
-	cat expected_err10.txt	>> testrec.txt					
-	${TR} cmt "(end)" 							
+	${TR} cmt 
+	${TR} cmt '```' 						
+	cat expected_err10.txt	>> testrec.md					
+	${TR} cmt '```' 						 	
+	${TR} cmt  							
 
 	touch rules.txt src.adb
 	test ! `../../Obj/archicheck rules.txt -I src.adb 	> err10.txt 2>&1`
@@ -206,9 +222,11 @@ test11:
 	echo "Error : Cannot list dependencies, no sources found"	>  expected_err11.txt
 	cat expected_help.txt 						>> expected_err11.txt
 
-	${TR} cmt "(start code)" 						
-	cat expected_err11.txt	>> testrec.txt					
-	${TR} cmt "(end)" 							
+	${TR} cmt 
+	${TR} cmt '```' 						
+	cat expected_err11.txt	>> testrec.md					
+	${TR} cmt '```' 						 	
+	${TR} cmt  							
 
 	touch rules.txt 
 	mkdir -p dir11
@@ -229,9 +247,11 @@ test12:
 	echo "Error : Nothing to do with those sources"		>  expected_err12.txt
 	cat expected_help.txt 					>> expected_err12.txt
 
-	${TR} cmt "(start code)" 						
-	cat expected_err12.txt	>> testrec.txt					
-	${TR} cmt "(end)" 
+	${TR} cmt 
+	${TR} cmt '```' 						
+	cat expected_err12.txt	>> testrec.md					
+	${TR} cmt '```' 						 	
+	${TR} cmt  
 							
 	mkdir -p dir12
 	touch dir12/src.adb
@@ -250,9 +270,11 @@ test13:
 	echo "Error : Nothing to do with this rules file"	>  expected_err13.txt
 	cat expected_help.txt 					>> expected_err13.txt
 	
-	${TR} cmt "(start code)" 						
-	cat expected_err13.txt	>> testrec.txt					
-	${TR} cmt "(end)" 
+	${TR} cmt 
+	${TR} cmt '```' 						
+	cat expected_err13.txt	>> testrec.md					
+	${TR} cmt '```' 						 	
+	${TR} cmt  
 							
 	test ! `../../Obj/archicheck rules.txt				> err13.txt 2>&1`
 	${TR} assert true /usr/bin/sdiff "-s expected_err13.txt err13.txt"
@@ -262,3 +284,6 @@ test13:
 clean:
 	- ${RM} -rf dir? dir?? err*.txt expected_*.txt src.adb rules.txt version1.txt help?.txt expected_*.txt 
 	${TR} clean
+
+doc:
+	cp testrec.md ../../docs/tests/command_line.md

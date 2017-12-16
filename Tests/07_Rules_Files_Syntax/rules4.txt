@@ -1,12 +1,5 @@
--- File: My Rules
--- 
--- My Comments.................
--- ............................
--- 
-App contains Main
 
--- GUI list of component:
-- GUI contains Gtk
-- GUI contains Glib
-- GUI contains Pango
+
+App contains Main;
+GUI contains ATK GIO Gtk, Glib and Pango.
 

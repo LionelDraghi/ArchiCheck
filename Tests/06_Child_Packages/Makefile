@@ -1,4 +1,4 @@
-all: check
+all: check doc
 
 CREATE_PKG=../Tools/create_pkg
 TR=../Tools/testrec
@@ -17,16 +17,19 @@ header:
 	${TR} cmt "The tests hereafter are similar to those in <Layer rules tests suite>, except that child packages allows to simplify rules file."
 	${TR} cmt 
 	${TR} cmt "The file rules :"
-	${TR} cmt "(start code)"
+	@ ${TR} cmt 
+	${TR} cmt '```'
 	${TR} cmt "GUI contains P1 and P2"
 	${TR} cmt "DB  contains P3 and P4"
 	${TR} cmt "GUI is a layer over DB"
-	${TR} cmt "(end)"
+	${TR} cmt '```'
 	${TR} cmt 
 	${TR} cmt "is simplified in :"
-	${TR} cmt "(start code)"
-	@ cat rules.txt			>> testrec.txt						
-	${TR} cmt "(end)"
+	@ ${TR} cmt 
+	${TR} cmt '```'
+	@ cat rules.txt			>> testrec.md						
+	${TR} cmt '```'
+	@ ${TR} cmt 
 	${TR} cmt "and packages GUI.P1, GUI.P2, DB.P3 and DB.P4 are created."
 
 
@@ -38,10 +41,12 @@ test1:
 	@ ${CREATE_PKG} Db.P3  spec  -in dir1
 	@ ${CREATE_PKG} DB.P4  spec  -in dir1
 
-	@ ${TR} cmt "(see test_1.png)"
-	@ ${TR} cmt "(start code)"
-	cat rules.txt >> testrec.txt
-	@ ${TR} cmt "(end)"
+	@ ${TR} cmt "![](cp1.png)"
+	@ ${TR} cmt 
+	@ ${TR} cmt '```'
+	cat rules.txt >> testrec.md
+	@ ${TR} cmt '```'
+	@ ${TR} cmt 
 
 	@ > expected_output.1
 	@ ../../Obj/archicheck -q -I dir1 rules.txt > output.1
@@ -63,12 +68,14 @@ test2:
 	@ echo "Error : DB.P4 is in DB layer, and so shall not use GUI.P5 in the upper GUI layer" > expected_output.2
 
 	@ ${TR} cmt "Detection of a dependancy from a lower layer component to an upper layer component."
-	@ ${TR} cmt "(see test_2.png)"
+	@ ${TR} cmt "![](cp2.png)"
 	@ ${TR} cmt
 	@ ${TR} cmt "Expected output :"
-	@ ${TR} cmt "(start code)"
-	cat expected_output.2 >> testrec.txt
-	@ ${TR} cmt "(end)"
+	@ ${TR} cmt 
+	@ ${TR} cmt '```'
+	cat expected_output.2 >> testrec.md
+	@ ${TR} cmt '```'
+	@ ${TR} cmt 
 
 	@ ../../Obj/archicheck --quiet -I dir2 rules.txt > output.2
 	${TR} assert true /usr/bin/sdiff "-s expected_output.2 output.2"
@@ -87,12 +94,14 @@ test3:
 	@ echo "Warning : P6 is neither in GUI or DB layer, and so shall not directly use DB.P4 in the DB layer" > expected_output.3
 
 	@ ${TR} cmt "Detection of a dependancy link crossing a layer."
-	@ ${TR} cmt "(see test_3.png)"
+	@ ${TR} cmt "![](cp3.png)"
 	@ ${TR} cmt
 	@ ${TR} cmt "Expected output :"
-	@ ${TR} cmt "(start code)"
-	cat expected_output.3 >> testrec.txt
-	@ ${TR} cmt "(end)"
+	@ ${TR} cmt 
+	@ ${TR} cmt '```'
+	cat expected_output.3 >> testrec.md
+	@ ${TR} cmt '```'
+	@ ${TR} cmt 
 
 	@ ../../Obj/archicheck -I dir3 rules.txt > output.3
 	${TR} assert true /usr/bin/sdiff "-s expected_output.3 output.3"
@@ -111,12 +120,14 @@ test4:
 	@ echo "Warning : GUI.P2 (in GUI layer) uses P7 that is neither in the same layer, nor in the lower DB layer" > expected_output.4
 
 	@ ${TR} cmt "Detection of an undescribed dependancy to a component that is neither in the same layer, nor in the lower layer."
-	@ ${TR} cmt "(see test_4.png)"
+	@ ${TR} cmt "![](cp4.png)"
 	@ ${TR} cmt
 	@ ${TR} cmt "Expected output :"
-	@ ${TR} cmt "(start code)"
-	cat expected_output.4 >> testrec.txt
-	@ ${TR} cmt "(end)"
+	@ ${TR} cmt 
+	@ ${TR} cmt '```'
+	cat expected_output.4 >> testrec.md
+	@ ${TR} cmt '```'
+	@ ${TR} cmt 
 
 	@ ../../Obj/archicheck -I dir4 rules.txt > output.4
 	${TR} assert true /usr/bin/sdiff "-s expected_output.4 output.4"
@@ -160,3 +171,6 @@ clean:
 	- ${RM} -rf expected_output.* output.* rules.txt dir? dir??  
 	${TR} clean
 
+doc:
+	cp testrec.md 	../../docs/tests/child_packages.md
+	cp cp?.png 	../../docs/tests/

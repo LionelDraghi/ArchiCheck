@@ -1,4 +1,4 @@
-all: check
+all: check doc
 
 CREATE_PKG=../Tools/create_pkg
 TR=../Tools/testrec
@@ -23,9 +23,11 @@ test1:
 	@ ${CREATE_PKG} P4 spec  -in dir1
 
 	@ ${TR} cmt "Code compliant with the rules, should be OK"
-	@ ${TR} cmt "(start code)"
-	cat rules.1 >> testrec.txt
-	@ ${TR} cmt "(end)"
+	@ ${TR} cmt 
+	@ ${TR} cmt '```'
+	cat rules.1 >> testrec.md
+	@ ${TR} cmt '```'
+	@ ${TR} cmt 
 
 	@ > expected_output.1
 	@ ../../Obj/archicheck -q -I dir1 rules.1 > output.1
@@ -46,9 +48,11 @@ test2:
 	
 	@ ${TR} cmt "P4 body is using Interfaces.C : OK"
 	@ ${TR} cmt "P1 body is using Interfaces.C : should complain"
-	@ ${TR} cmt "(start code)"
-	cat expected_output.2 >> testrec.txt
-	@ ${TR} cmt "(end)"
+	@ ${TR} cmt 
+	@ ${TR} cmt '```'
+	cat expected_output.2 >> testrec.md
+	@ ${TR} cmt '```'
+	@ ${TR} cmt 
 	
 	@ ../../Obj/archicheck -q -I dir2 rules.1 > output.2
 	${TR} assert true /usr/bin/sdiff "-s expected_output.2 output.2"
@@ -64,10 +68,15 @@ test3:
 	@ ${CREATE_PKG} P3 spec  -in dir3
 	@ ${CREATE_PKG} P4 spec  -in dir3
 
-	@ ${TR} cmt "(start code)"
-	cat rules.3 		>> testrec.txt
-	cat expected_output.3	>> testrec.txt
-	@ ${TR} cmt "(end)"
+	@ ${TR} cmt 
+	@ ${TR} cmt '```'
+	cat rules.3 		>> testrec.md
+	@ ${TR} cmt '```'
+	@ ${TR} cmt 
+	@ ${TR} cmt '```'
+	cat expected_output.3	>> testrec.md
+	@ ${TR} cmt '```'
+	@ ${TR} cmt 
 
 	@ ../../Obj/archicheck -q -I dir3 rules.3 > output.3
 	${TR} assert true /usr/bin/sdiff "-s expected_output.3 output.3"
@@ -86,10 +95,15 @@ test4:
 	@ echo "Layer_A contains P1 and P2" 		>> rules.4
 	@ echo "Layer_B contains P3 and P4" 		>> rules.4
 	@ echo "Layer_A is a layer over Layer_B"	>> rules.4
-	@ ${TR} cmt "(start code)"
-	cat rules.4 	      	>> testrec.txt
-	cat expected_output.4a	>> testrec.txt
-	@ ${TR} cmt "(end)"
+	@ ${TR} cmt 
+	@ ${TR} cmt '```'
+	cat rules.4 	      	>> testrec.md
+	@ ${TR} cmt '```'
+	@ ${TR} cmt 
+	@ ${TR} cmt '```'
+	cat expected_output.4a	>> testrec.md
+	@ ${TR} cmt '```'
+	@ ${TR} cmt 
 	
 	@ ${TR} cmt "First test without the allowing rule : should complain"
 	@ ../../Obj/archicheck -I dir4 rules.4 > output.4a
@@ -97,9 +111,11 @@ test4:
 
 	@ ${TR} cmt "And now with the allowing rule :"
 	@ echo "Containers use is allowed"	>> rules.4
-	@ ${TR} cmt "(start code)"
-	cat rules.4 	      	>> testrec.txt
-	@ ${TR} cmt "(end)"
+	@ ${TR} cmt 
+	@ ${TR} cmt '```'
+	cat rules.4 	      	>> testrec.md
+	@ ${TR} cmt '```'
+	@ ${TR} cmt 
 
 	> expected_output.4b
 	@ ../../Obj/archicheck -I dir4 rules.4 > output.4b
@@ -110,3 +126,5 @@ clean:
 	- ${RM} -rf output.* dir? dir?? *.~
 	${TR} clean
 
+doc:
+	cp testrec.md ../../docs/tests/use_rule.md

@@ -1,4 +1,4 @@
-all: check
+all: check doc
 
 CREATE_PKG=../Tools/create_pkg
 TR=../Tools/testrec
@@ -26,11 +26,14 @@ test1:
 
 	${TR} cmt
 	${TR} cmt "Testing this dependencies :"
-	${TR} cmt "(see test_1.png)"
+	${TR} cmt
+	${TR} cmt "![](gc1.png)"
+	@ ${TR} cmt
 	${TR} cmt "against this rules file :"
-	${TR} cmt "(start code)"
-	cat rules.1 >> testrec.txt
-	${TR} cmt "(end)"
+	@ ${TR} cmt
+	${TR} cmt '```'
+	cat rules.1 >> testrec.md
+	${TR} cmt '```'
 	${TR} cmt
 	${TR} cmt "No expected output (no error)"
 
@@ -57,16 +60,20 @@ test2:
 
 	@ ${TR} cmt
 	@ ${TR} cmt "Testing this dependencies :"
-	@ ${TR} cmt "(see test_2.png)"
+	${TR} cmt
+	@ ${TR} cmt "![](gc2.png)"
+	@ ${TR} cmt
 	@ ${TR} cmt "against this rules file :"
-	@ ${TR} cmt "(start code)"
-	cat rules.2 >> testrec.txt
-	@ ${TR} cmt "(end)"
+	@ ${TR} cmt
+	@ ${TR} cmt '```'
+	cat rules.2 >> testrec.md
+	@ ${TR} cmt '```'
 	@ ${TR} cmt
 	@ ${TR} cmt "Expected output :"
-	@ ${TR} cmt "(start code)"
-	cat expected_output.2 >> testrec.txt
-	@ ${TR} cmt "(end)"
+	@ ${TR} cmt
+	@ ${TR} cmt '```'
+	cat expected_output.2 >> testrec.md
+	@ ${TR} cmt '```'
 
 	## pas encore assez robuste pour ce test!! @ ../../Obj/archicheck -I dir2 rules.2 > output.2
 	## pas encore assez robuste pour ce test!! ${TR} assert true /usr/bin/sdiff "-s expected_output.2 output.2"
@@ -77,3 +84,6 @@ clean:
 	- ${RM} -rf expected_output.* output.* rules.? dir? dir?? *.~
 	${TR} clean
 
+doc:
+	cp testrec.md 	../../docs/tests/globbing_characters.md
+	cp gc?.png	../../docs/tests/

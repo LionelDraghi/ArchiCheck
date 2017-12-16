@@ -1,0 +1,90 @@
+# ------------------------------------------------------------------------------
+site_name: ArchiCheck
+
+site_url: http://lionel.draghi.free.fr/Archicheck/index.html
+repo_url: https://github.com/LionelDraghi/ArchiCheck
+site_description: 'Describe and enforce your software architecture'
+site_author: 'Lionel Draghi'
+
+pages:
+- Quick start: index.md
+- Download: Download.md
+- About: about.md
+
+- Documentation:
+  ##- [ArchiCheck overview](http://Archicheck_Overview.pdf)
+  - Cmd_Line.md
+  - rules_syntax.md
+  - todo.md
+  - CONTRIBUTING.md
+  - COPYING.md
+
+- Tests:
+  - tests/tests_status.md
+  - tests/command_line.md
+  - tests/source_list.md
+  - tests/dependency_list.md
+  - tests/component_list.md
+  - tests/layer_rule.md
+  - tests/child_packages.md
+  - tests/rules_files_syntax.md
+  - tests/globbing_characters.md
+  - tests/gtkada.md
+  - tests/use_rule.md
+  - tests/batik.md
+  - tests/zipada.md
+  - tests/ada_units.md
+  
+- Status:
+  - Dashboard.md
+  ## - [Code coverage](http://lionel.draghi.free.fr/Archicheck/lcov/index.html)
+  ##  - test_status.md
+  ## - fixme.md
+  
+## - Tools:
+##   - mdtags.md
+
+
+# ------------------------------------------------------------------------------
+# Les autres tags sont ici:
+# http://www.mkdocs.org/user-guide/configuration/
+
+repo_url: https://github.com/LionelDraghi/ArchiCheck
+repo_name: GitHub
+
+extra_css:
+  - 'lcov/gcov.css'
+
+extra_javascript:
+  
+# ------------------------------------------------------------------------------
+theme: 'material'
+# mkdocs
+# material
+# cinder
+# windmill
+# amelia
+# cerulean
+# cosmo
+# cyborg
+# flatly
+# journal
+# readable
+# simplex
+# slate
+# spacelab
+# united
+# yeti
+# readthedocs
+
+###  theme_dir: '/usr/local/lib/python2.7/dist-packages/mkdocs_windmill'
+
+# plugins : http://www.mkdocs.org/user-guide/plugins/
+# plugins:
+#   - search:
+#     lang: en
+        
+# Extensions : https://pythonhosted.org/Markdown/extensions/index.html
+
+markdown_extensions:
+    #~ - pymdownx.tasklist

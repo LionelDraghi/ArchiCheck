@@ -41,18 +41,18 @@ package body Archicheck.Components is
       return (To_String (Tmp));
    end Unit_List_Image;
 
-   -- --------------------------------------------------------------------------
-   -- Function: Component_List_Image
-   -- --------------------------------------------------------------------------
-   function Component_List_Image return String is
-      use Ada.Strings.Unbounded;
-      -- use IO;
-      Tmp : Unbounded_String := Null_Unbounded_String;
-   begin
-      for C in Component_Map.Iterate loop
-         Tmp := To_Unbounded_String (Component_Maps.Key (C)) & " contains " & Unit_List_Image (Component_Map (C)); --- & ASCII.LF;
-      end loop;
-      return (To_String (Tmp));
-   end Component_List_Image;
+   --     -- --------------------------------------------------------------------------
+   --     -- Function: Component_List_Image
+   --     -- --------------------------------------------------------------------------
+   --     function Component_List_Image return String is
+   --        use Ada.Strings.Unbounded;
+   --        -- use IO;
+   --        Tmp : Unbounded_String := Null_Unbounded_String;
+   --     begin
+   --        for C in Component_Map.Iterate loop
+   --           Tmp := To_Unbounded_String (Component_Maps.Key (C)) & " contains " & Unit_List_Image (Component_Map (C)); --- & ASCII.LF;
+   --        end loop;
+   --        return (To_String (Tmp));
+   --     end Component_List_Image;
 
 end Archicheck.Components;

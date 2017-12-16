@@ -1,6 +1,0 @@
-exemple.rst:103: [broken] https://github.com/coala/coala/wiki/FAQ#installation-is-failing-help: Anchor 'installation-is-failing-help' not found
-exemple.rst:235: [broken] https://github.com/coala/coala#usage: Anchor 'usage' not found
-exemple.rst:213: [redirected permanently] http://coala.io/writingbears to https://api.coala.io/en/latest/Developers/Writing_Native_Bears.html
-exemple.rst:319: [local] setup.py
-exemple.rst:263: [redirected permanently] http://coala.io/newcomer to http://api.coala.io/en/latest/Developers/Newcomers_Guide.html
-exemple.rst:269: [redirected with Found] https://groups.google.com/d/forum/coala-newcomers to https://groups.google.com/forum/#!forum/coala-newcomers

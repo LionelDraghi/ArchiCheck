@@ -1,4 +1,4 @@
-all: check
+all: check doc
 
 CREATE_PKG=../Tools/create_pkg
 TR=../Tools/testrec
@@ -22,10 +22,12 @@ test1:
 	@ ${CREATE_PKG} P3 spec  -in dir1
 	@ ${CREATE_PKG} P4 spec  -in dir1
 
-	@ ${TR} cmt "(see test_1.png)"
-	@ ${TR} cmt "(start code)"
-	cat rules.1 >> testrec.txt
-	@ ${TR} cmt "(end)"
+	@ ${TR} cmt '![][lr1.png]'
+	@ ${TR} cmt
+	@ ${TR} cmt '```'
+	cat rules.1 >> testrec.md
+	@ ${TR} cmt '```'
+	@ ${TR} cmt
 
 	@ > expected_output.1
 	@ ../../Obj/archicheck -q -I dir1 rules.1 > output.1
@@ -48,11 +50,14 @@ Batik:
 	@ ${CREATE_PKG} SVG_Generator spec  -in dirB -with SVGDOM
 
 	@ ${TR} cmt "Architecture of the The Apache Batik Project, available <here at https://xmlgraphics.apache.org/batik/using/architecture.html>".
-	@ ${TR} cmt "(see Batik.png)"
+	@ ${TR} cmt "![](batik.png)"
+	@ ${TR} cmt
 	@ ${TR} cmt "Described by this rules file :"
-	@ ${TR} cmt "(start code)"
-	cat rules.B >> testrec.txt
-	@ ${TR} cmt "(end)"
+	@ ${TR} cmt
+	@ ${TR} cmt '```'
+	cat rules.B >> testrec.md
+	@ ${TR} cmt '```'
+	@ ${TR} cmt
 
 	@ > expected_output.B
 	@ ../../Obj/archicheck -q -I dir1 rules.B > output.B
@@ -70,15 +75,18 @@ test2:
 	@ ${CREATE_PKG} P5 spec  -in dir2
 
 	@ ${TR} cmt "Detection of a dependancy from a lower layer component to an upper layer component."
-	@ ${TR} cmt "(see test_2.png)"
-	@ ${TR} cmt "(start code)"
-	cat rules.2 >> testrec.txt
-	@ ${TR} cmt "(end)"
+	@ ${TR} cmt "![](lr2.png)"
+	@ ${TR} cmt
+	@ ${TR} cmt '```'
+	cat rules.2 >> testrec.md
+	@ ${TR} cmt '```'
 	@ ${TR} cmt
 	@ ${TR} cmt "Expected output :"
-	@ ${TR} cmt "(start code)"
-	cat expected_output.2 >> testrec.txt
-	@ ${TR} cmt "(end)"
+	@ ${TR} cmt
+	@ ${TR} cmt '```'
+	cat expected_output.2 >> testrec.md
+	@ ${TR} cmt '```'
+	@ ${TR} cmt
 
 	@ ../../Obj/archicheck --quiet -I dir2 rules.2 > output.2
 	${TR} assert true /usr/bin/sdiff "-s expected_output.2 output.2"
@@ -97,15 +105,18 @@ test3:
 	@ ${CREATE_PKG} P6 body  -in dir3c -with P4
 
 	@ ${TR} cmt "Detection of a dependancy link crossing a layer."
-	@ ${TR} cmt "(see test_3.png)"
-	@ ${TR} cmt "(start code)"
-	cat rules.1 >> testrec.txt
-	@ ${TR} cmt "(end)"
+	@ ${TR} cmt "![](lr3.png)"
+	@ ${TR} cmt
+	@ ${TR} cmt '```'
+	cat rules.1 >> testrec.md
+	@ ${TR} cmt '```'
 	@ ${TR} cmt
 	@ ${TR} cmt "Expected output :"
-	@ ${TR} cmt "(start code)"
-	cat expected_output.3 >> testrec.txt
-	@ ${TR} cmt "(end)"
+	@ ${TR} cmt
+	@ ${TR} cmt '```'
+	cat expected_output.3 >> testrec.md
+	@ ${TR} cmt '```'
+	@ ${TR} cmt
 
 	@ ../../Obj/archicheck -I dir3a -I dir3b -I dir3c rules.1 > output.3
 	${TR} assert true /usr/bin/sdiff "-s expected_output.3 output.3"
@@ -122,15 +133,18 @@ test4:
 	@ ${CREATE_PKG} P7 spec  -in dir4
 
 	@ ${TR} cmt "Detection of an undescribed dependancy to a component that is neither in the same layer, nor in the lower layer."
-	@ ${TR} cmt "(see test_4.png)"
-	@ ${TR} cmt "(start code)"
-	cat rules.1 >> testrec.txt
-	@ ${TR} cmt "(end)"
+	@ ${TR} cmt "![](lr4.png)"
+	@ ${TR} cmt
+	@ ${TR} cmt '```'
+	cat rules.1 >> testrec.md
+	@ ${TR} cmt '```'
 	@ ${TR} cmt
 	@ ${TR} cmt "Expected output :"
-	@ ${TR} cmt "(start code)"
-	cat expected_output.4 >> testrec.txt
-	@ ${TR} cmt "(end)"
+	@ ${TR} cmt
+	@ ${TR} cmt '```'
+	cat expected_output.4 >> testrec.md
+	@ ${TR} cmt '```'
+	@ ${TR} cmt
 
 	@ ../../Obj/archicheck -I dir4 rules.1 > output.4
 	${TR} assert true /usr/bin/sdiff "-s expected_output.4 output.4"
@@ -141,3 +155,7 @@ clean:
 	- ${RM} -rf output.* dir? dir?? *.~
 	${TR} clean
 
+doc:
+	cp testrec.md 	../../docs/tests/layer_rule.md
+	cp lr?.png 	../../docs/tests/
+	cp batik.png 	../../docs/tests/

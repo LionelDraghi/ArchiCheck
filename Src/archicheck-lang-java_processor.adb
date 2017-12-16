@@ -67,9 +67,9 @@ package body Archicheck.Lang.Java_Processor is
                                 Debug  : in Boolean := Settings.Debug_Mode;
                                 Prefix : in String  := "Java_Processor.Analyze_Dependencies") renames Archicheck.IO.Put_Debug_Line;
       --        procedure Put_Debug (Msg    : in String  := "";
-      --                             Debug  : in Boolean := Settings.Debug_Mode;
+      --                             Debug  : in Boolean := Settings.Verbosity = Settings.Debug;
       --                             Prefix : in String  := "Java_Processor.Analyze_Dependencies") renames Archicheck.IO.Put_Debug;
-      -- procedure New_Debug_Line (Debug  : in Boolean := Settings.Debug_Mode) renames Archicheck.IO.New_Debug_Line;
+      -- procedure New_Debug_Line (Debug  : in Boolean := Settings.Verbosity = Settings.Debug) renames Archicheck.IO.New_Debug_Line;
 
       -- Global text file for reading parse data
       File : Ada.Text_IO.File_Type;
@@ -107,12 +107,13 @@ package body Archicheck.Lang.Java_Processor is
       if Settings.Debug_Mode then OpenToken.Trace_Parse := 1; end if; -- value > 0 : debug level
 
       -- New_Debug_Line;
-      IO.Put_Line ("Looking for dependencies in " & From_Source & " :", Only_When_Verbose => True);
+      IO.Put_Line ("Looking for dependencies in " & From_Source & " :", Level => IO.Verbose);
 
       Ada.Text_IO.Open (File => File,
                         Mode => Ada.Text_IO.In_File,
                         Name => From_Source);
       Ada.Text_IO.Set_Input (File);
+      Analyzer.Reset;
       Analyzer.Set_Text_Feeder (OpenToken.Text_Feeder.Text_IO.Create (Ada.Text_IO.Current_Input));
 
       Source_Analysis : loop
@@ -145,7 +146,7 @@ package body Archicheck.Lang.Java_Processor is
                   declare
                      Withed_Unit : constant String := Get_Unit_Name;
                   begin
-                     IO.Put_Line ("   - depends on " & Withed_Unit, Only_When_Verbose => True);
+                     IO.Put_Line ("   - depends on " & Withed_Unit, Level => IO.Verbose);
                      Append (Tmp, (From => (Name           => Null_Unbounded_String,
                                             File           => To_Unbounded_String (From_Source),
                                             Lang           => Sources.Java,
@@ -184,7 +185,7 @@ package body Archicheck.Lang.Java_Processor is
 
                   IO.Put_Line ("   - defines " & Dependencies.Unit_Kind'Image (Unit_Kind)
                                & " " & To_String (Full_Name),
-                               Only_When_Verbose => True);
+                               Level => IO.Verbose);
                   for D of Tmp loop
                      Dependencies.Append ((From => (Name           => Full_Name,
                                                     File           => D.From.File,

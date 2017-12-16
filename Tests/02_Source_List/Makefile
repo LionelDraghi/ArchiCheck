@@ -1,4 +1,4 @@
-all: check
+all: check doc
 
 .PHONY : clean
 
@@ -10,7 +10,7 @@ TR=../Tools/testrec
 header:
 	@ #---------------------------------------------------------------------
 	${TR} clean
-	${TR} create "--list_files option test suite"
+	${TR} create "Non recursive file identification test suite"
 
 test1: ../../Obj/archicheck 
 	@ #---------------------------------------------------------------------
@@ -33,9 +33,9 @@ test1: ../../Obj/archicheck
 	@ echo $(CURDIR)"/dir3/c.ads" 		>> expected_file_list
 	@ echo $(CURDIR)"/dir3/c-d.ads" 	>> expected_file_list
 
-	${TR} cmt "(start code)"
-	cat expected_file_list >> testrec.txt
-	${TR} cmt "(end)"
+	${TR} cmt '```'
+	cat expected_file_list >> testrec.md
+	${TR} cmt '```'
 	${TR} cmt ""
 
 	@ ${CREATE_PKG} A spec -in dir1 -with B
@@ -53,3 +53,5 @@ clean:
 	- ${RM} -rf expected_file_list file_list dir[123]
 	${TR} clean
 
+doc:
+	cp testrec.md ../../docs/tests/source_list.md
