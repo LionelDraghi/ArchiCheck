@@ -22,6 +22,7 @@ test1:
 	@ ${CREATE_PKG} P3 spec  -in dir1
 	@ ${CREATE_PKG} P4 spec  -in dir1
 
+	@ ${TR} cmt
 	@ ${TR} cmt '![][lr1.png]'
 	@ ${TR} cmt
 	@ ${TR} cmt '```'
@@ -50,6 +51,7 @@ Batik:
 	@ ${CREATE_PKG} SVG_Generator spec  -in dirB -with SVGDOM
 
 	@ ${TR} cmt "Architecture of the The Apache Batik Project, available <here at https://xmlgraphics.apache.org/batik/using/architecture.html>".
+	@ ${TR} cmt
 	@ ${TR} cmt "![](batik.png)"
 	@ ${TR} cmt
 	@ ${TR} cmt "Described by this rules file :"
@@ -75,6 +77,7 @@ test2:
 	@ ${CREATE_PKG} P5 spec  -in dir2
 
 	@ ${TR} cmt "Detection of a dependancy from a lower layer component to an upper layer component."
+	@ ${TR} cmt
 	@ ${TR} cmt "![](lr2.png)"
 	@ ${TR} cmt
 	@ ${TR} cmt '```'
@@ -105,6 +108,7 @@ test3:
 	@ ${CREATE_PKG} P6 body  -in dir3c -with P4
 
 	@ ${TR} cmt "Detection of a dependancy link crossing a layer."
+	@ ${TR} cmt
 	@ ${TR} cmt "![](lr3.png)"
 	@ ${TR} cmt
 	@ ${TR} cmt '```'
@@ -133,6 +137,7 @@ test4:
 	@ ${CREATE_PKG} P7 spec  -in dir4
 
 	@ ${TR} cmt "Detection of an undescribed dependancy to a component that is neither in the same layer, nor in the lower layer."
+	@ ${TR} cmt
 	@ ${TR} cmt "![](lr4.png)"
 	@ ${TR} cmt
 	@ ${TR} cmt '```'

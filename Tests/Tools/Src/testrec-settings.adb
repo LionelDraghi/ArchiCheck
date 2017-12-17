@@ -12,8 +12,9 @@ package body Testrec.Settings is
    function Log_File_Name return String is
    begin
       case Output_Format is
-         when NaturalDocs => return "testrec.txt";
-         when Markdown    => return "testrec.md";
+         when NaturalDocs     => return "testrec.txt";
+         when Markdown        => return "testrec.md";
+         -- when Standard_Output => return "";
       end case;
    end Log_File_Name;
 

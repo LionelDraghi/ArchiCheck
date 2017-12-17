@@ -194,7 +194,7 @@ test7:
 	@ echo "package org.apache.batik.transcoder;"			>> dir7/MyClass.java
 	@ echo "" 							>> dir7/MyClass.java
 	@ echo "import org.w3c.dom.Browser.Event;" 			>> dir7/MyClass.java
-	@ echo "import org.w3c.dom.events.Rasterizer;" 			>> dir7/MyClass.java
+	@ echo "import org.apache.batik.apps.Rasterizer;" 	  	>> dir7/MyClass.java
 	@ echo "" 							>> dir7/MyClass.java
 	@ echo "public interface NodeEventTarget extends EventTarget {"	>> dir7/MyClass.java
 	@ echo ""				 			>> dir7/MyClass.java
@@ -213,8 +213,8 @@ test7:
 	@ ${TR} cmt '```'
 	@ ${TR} cmt 
 
-	### @ ../../Obj/archicheck rules.B -I dir7 > output.7
-	### ${TR} assert true /usr/bin/sdiff "-s expected_output.7 output.7"
+	@ ../../Obj/archicheck rules.B -I dir7 > output.7
+	${TR} assert true /usr/bin/sdiff "-s expected_output.7 output.7"
 
 	${TR} end
 

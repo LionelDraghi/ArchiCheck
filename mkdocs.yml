@@ -6,6 +6,8 @@ repo_url: https://github.com/LionelDraghi/ArchiCheck
 site_description: 'Describe and enforce your software architecture'
 site_author: 'Lionel Draghi'
 
+use_directory_urls: false
+
 pages:
 - Quick start: index.md
 - Download: Download.md
@@ -51,6 +53,7 @@ pages:
 
 repo_url: https://github.com/LionelDraghi/ArchiCheck
 repo_name: GitHub
+
 
 extra_css:
   - 'lcov/gcov.css'

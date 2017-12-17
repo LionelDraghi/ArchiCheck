@@ -1,4 +1,4 @@
-reference_rules.txt:2.1: Component App contains Unit Main
-reference_rules.txt:3.1: Component GUI contains Unit Gtk
-reference_rules.txt:4.1: Component GUI contains Unit Glib
-reference_rules.txt:4.19: Component GUI contains Unit Pango
+reference_rules.txt:2.1: Component App contains unit Main
+reference_rules.txt:3.1: Component GUI contains unit Gtk
+reference_rules.txt:4.1: Component GUI contains unit Glib
+reference_rules.txt:4.19: Component GUI contains unit Pango

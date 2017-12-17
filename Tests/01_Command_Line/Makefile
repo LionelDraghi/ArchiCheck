@@ -21,7 +21,7 @@ header:
 	${TR} cmt  								
 
 test1:
-	${TR} start "Help options:" 
+	${TR} start "Help options" 
 	${TR} cmt  								
 	${TR} cmt "   Test that the -h, --help or no command line will output :" 	
 	
@@ -174,7 +174,7 @@ test9:
 	${TR} cmt "> archicheck -lf -I dir9"		
 	${TR} cmt "Expecting:"		
 
-	echo "Error : Cannot list files, no sources found to analyze"		>  expected_err9.txt	
+	echo "Warning : Cannot list files, no sources found to analyze"		>  expected_err9.txt	
 
 	${TR} cmt 
 	${TR} cmt '```' 						
@@ -215,12 +215,11 @@ test11:
 	${TR} cmt
 	${TR} cmt "When :"		
 	${TR} cmt "> mkdir -p dir11"
-	${TR} cmt "> touch rules.txt"
+	${TR} cmt "> echo ""Interfaces use is forbidden"" > rules.txt"
 	${TR} cmt "> archicheck rules.txt -ld -I dir11"		
 	${TR} cmt "Expecting:"		
 
-	echo "Error : Cannot list dependencies, no sources found"	>  expected_err11.txt
-	cat expected_help.txt 						>> expected_err11.txt
+	echo "Warning : Cannot list dependencies, no sources found"	>  expected_err11.txt
 
 	${TR} cmt 
 	${TR} cmt '```' 						
@@ -228,7 +227,7 @@ test11:
 	${TR} cmt '```' 						 	
 	${TR} cmt  							
 
-	touch rules.txt 
+	echo "Interfaces use is forbidden" > rules.txt 
 	mkdir -p dir11
 	test ! `../../Obj/archicheck rules.txt -ld -I dir11 	> err11.txt 2>&1`
 	${TR} assert true /usr/bin/sdiff "-s expected_err11.txt err11.txt"

@@ -24,10 +24,10 @@ check: ../Obj/archicheck Tools/create_pkg Tools/testrec
 	$(MAKE) check --directory=13_Ada_Units
 
 doc:
-	cat `find . -name testrec.txt` > tmp.txt
-	- grep "<Successful>"  tmp.txt > Successful.lst
-	- grep "<Failed>"      tmp.txt > Failed.lst
-	- grep "<Empty>"       tmp.txt > Empty.lst
+	cat `find . -name testrec.md` > tmp.txt
+	- grep '\[Successful\]'  tmp.txt > Successful.lst
+	- grep '\[Failed\]'      tmp.txt > Failed.lst
+	- grep '\[Empty\]'       tmp.txt > Empty.lst
 	rm tmp.txt
 
 	> tests_count.txt
@@ -42,21 +42,21 @@ doc:
 	echo ""                                                 >> tests_status.md
 	echo "   "`cat Successful.lst | wc -l`" tests OK"       >> tests_status.md
 	echo ""                                                 >> tests_status.md
-	sed "s/^ */   - \[/;s/ <Successful.*/\]\(\)/" Successful.lst	>> tests_status.md
+	sed "s/^ */   - \[/;s/ \[Successful\].*/\]\(\)/" Successful.lst	>> tests_status.md
 
 	echo ""                                                 >> tests_status.md
 	echo '## Failed'                                   	>> tests_status.md
 	echo ""                                                 >> tests_status.md
 	echo "   "`cat Failed.lst | wc -l`" tests failed"       >> tests_status.md
 	echo ""                                                 >> tests_status.md
-	sed "s/^ */   - \[/;s/ <Failed.*/\]\(\)/" Failed.lst    >> tests_status.md
+	sed "s/^ */   - \[/;s/ \[Failed\].*/\]\(\)/" Failed.lst >> tests_status.md
 
 	echo ""                                                 >> tests_status.md
 	echo '## Empty'                                    	>> tests_status.md
 	echo ""                                                 >> tests_status.md
 	echo "   "`cat Empty.lst | wc -l`" empty tests"         >> tests_status.md
 	echo ""                                                 >> tests_status.md
-	sed "s/^ */   - \[/;s/ <Empty.*/\]\(\)/" Empty.lst      >> tests_status.md
+	sed "s/^ */   - \[/;s/ \[Empty\].*/\]\(\)/" Empty.lst   >> tests_status.md
 
 	mv tests_status.md ../docs/tests
 

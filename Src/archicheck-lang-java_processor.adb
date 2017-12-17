@@ -103,6 +103,10 @@ package body Archicheck.Lang.Java_Processor is
       Unit_Kind : Dependencies.Unit_Kind;
       Pkg_Name  : Unbounded_String := Null_Unbounded_String;
 
+      -- détection de boucles infinies:
+      Idem : Natural    := 0;
+      Prev : Java_Token := End_of_File_T;
+
    begin
       if Settings.Debug_Mode then OpenToken.Trace_Parse := 1; end if; -- value > 0 : debug level
 
@@ -207,6 +211,17 @@ package body Archicheck.Lang.Java_Processor is
             end case;
 
             exit Source_Analysis when Analyzer.ID = End_of_File_T;
+
+            if Analyzer.ID = Prev then
+               Idem := Idem + 1;
+            else
+               Idem := 0;
+            end if;
+            Prev := Analyzer.ID;
+            if Idem > 10 then
+               IO.Put_Line ("   *** boucle infinie dans l'analyzer Java sur le lexeme " & Java_Token'Image (Analyzer.ID));
+               Analyzer.Find_Next;
+            end if;
 
             -- Analyzer.Find_Next;
 

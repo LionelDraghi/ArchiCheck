@@ -33,25 +33,28 @@ procedure Testrec.Main is
    function Empty_Tag      return String is
    begin
       case Settings.Output_Format is
-         when Settings.NaturalDocs => return "<Empty>";
-         when Settings.Markdown    => return "[Empty]";
+         when Settings.NaturalDocs     => return "<Empty>";
+         when Settings.Markdown        => return "[Empty](""tests-status#empty"")"; -- Fixme: hard coded reference to a tests_status.md file
+         -- when Settings.Standard_Output => return "[Empty]";
       end case;
    end Empty_Tag;
    -- --------------------------------------------------------------------------
    function Fail_Tag       return String is
    begin
       case Settings.Output_Format is
-         when Settings.NaturalDocs => return "<Failed>";
-         when Settings.Markdown    => return "[Failed]";
+         when Settings.NaturalDocs     => return "<Failed>";
+         when Settings.Markdown        => return "[Failed](""tests-status#failed"")";
+         -- when Settings.Standard_Output => return "[Failed]";
       end case;
    end Fail_Tag;
    -- --------------------------------------------------------------------------
    function Successful_Tag return String is
    begin
       case Settings.Output_Format is
-         when Settings.NaturalDocs => return "<Successful>";
-         when Settings.Markdown    => return "[Successful]";
-      end case;
+         when Settings.NaturalDocs     => return "<Successful>";
+         when Settings.Markdown        => return "[Successful](""tests-status#successful"")";
+         -- when Settings.Standard_Output => return "[Successful]";
+      eNd case;
    end Successful_Tag;
 
    -- --------------------------------------------------------------------------
@@ -357,29 +360,29 @@ procedure Testrec.Main is
 
       if Current_State.Test.Status = Test_Declared then
          -- test declared, but no assertion done:
+         Put_Line (To_String (Common_Text) & "[Empty]", Quiet);
          declare
             Text : constant String := To_String (Common_Text) & Empty_Tag;
          begin
-            Put_Line (Text, Quiet);
             Ada.Text_IO.New_Line (Log_File);
             Ada.Text_IO.Put_Line (Log_File, Item => Text);
          end;
 
       elsif Current_State.Test.Status = Test_In_Progress then
          if Current_State.Test.Result = Successful then
+            Put_Line (To_String (Common_Text) & "[Successful]", Quiet);
             declare
                Text : constant String := To_String (Common_Text) & Successful_Tag;
             begin
-               Put_Line (Text, Quiet);
                Ada.Text_IO.New_Line (Log_File);
                Ada.Text_IO.Put_Line (Log_File, Item => Text);
             end;
 
          elsif Current_State.Test.Result = Failed then
+            Put_Line (To_String (Common_Text) & "[Failed]", Quiet);
             declare
                Text : constant String := To_String (Common_Text) & Fail_Tag;
             begin
-               Put_Line (Text, Quiet);
                Ada.Text_IO.New_Line (Log_File);
                case Settings.Output_Format is
                when Settings.NaturalDocs =>

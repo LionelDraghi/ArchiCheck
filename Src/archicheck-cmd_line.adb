@@ -123,16 +123,16 @@ package body Archicheck.Cmd_Line is
             Line_OK := False;
 
          elsif Sources.Get_List.Is_Empty and Settings.List_Dependencies then
-            Put_Error ("Cannot list dependencies, no sources found", With_Help => True);
-            Line_OK := False;
+            Put_Warning ("Cannot list dependencies, no sources found");
+            Line_OK := True;
 
          elsif Sources.Get_List.Is_Empty and Settings.List_Files and Src_Dir_Given then
-            Put_Error ("Cannot list files, no sources found to analyze");
-            Line_OK := False;
+            Put_Warning ("Cannot list files, no sources found to analyze");
+            Line_OK := True;
 
          elsif Sources.Get_List.Is_Empty and Src_Dir_Given then
-            Put_Error ("No src found in those directories", With_Help => True);
-            Line_OK := False;
+            Put_Warning ("No src found in those directories");
+            Line_OK := True;
 
          elsif Settings.Rules_File_Name /= "" and not Settings.Rules_File_Needed then
             Put_Error ("Nothing to do with this rules file", With_Help => True);

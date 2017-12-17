@@ -11,7 +11,7 @@ private package Testrec.Settings is
    Verbose : Boolean := False;
    Quiet   : Boolean := False;
 
-   type Output_Formats is (NaturalDocs, Markdown);
+   type Output_Formats is (NaturalDocs, Markdown); --, Standard_Output);
    Output_Format : Output_Formats := Markdown;
 
    function Log_File_Name return String;

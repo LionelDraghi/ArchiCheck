@@ -57,17 +57,22 @@ begin
          Dependencies.Dump;
       end if;
 
-      -- 3 - Rules file analyzis
-      -- -----------------------------------------------------------------------
-      IO.Put_Line ("Reading rules file...", Level => IO.Verbose);
       if Settings.Rules_File_Name /= "" then
-         Rules.Parser.Parse (Settings.Rules_File_Name);
-      end if;
 
-      -- 4 - let's run the checks
-      -- -----------------------------------------------------------------------
-      IO.Put_Line ("Checking rules...", Level => IO.Verbose);
-      Rules.Check;
+         -- 3 - Rules file analyzis
+         -- --------------------------------------------------------------------
+         IO.Put_Line ("Reading rules file...", Level => IO.Verbose);
+         Rules.Parser.Parse (Settings.Rules_File_Name);
+
+         -- 4 - let's run the checks
+         -- --------------------------------------------------------------------
+         IO.Put_Line ("Checking rules...", Level => IO.Verbose);
+         Rules.Check;
+
+      else
+         IO.Put_Line ("No rules file provided", Level => IO.Verbose);
+
+      end if;
 
    else
       Ada.Command_Line.Set_Exit_Status (Ada.Command_Line.Failure);
