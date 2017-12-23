@@ -97,6 +97,6 @@ clean:
 	@ $(MAKE) clean --directory=14_Rules_On_Components
 	@ $(MAKE) clean --directory=15_Precedences_Rules
 
-	- ${RM} tests_status.md *.lst short_tests_status.md
+	- ${RM} tests_status.md *.lst short_tests_status.md tests_count.txt
 
 
