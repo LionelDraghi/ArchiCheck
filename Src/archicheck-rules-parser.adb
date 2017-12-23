@@ -93,7 +93,7 @@ package body Archicheck.Rules.Parser is
       Component_Declaration_Id,
       Layer_Declaration_Id,
       Use_Declaration_Id,
-      Use_Restriction_Declaration_Id,
+      Restricted_Use_Declaration_Id,
       Forbidden_Use_Declaration_Id,
       Allowed_Used_Declaration_Id
      );
@@ -177,7 +177,7 @@ package body Archicheck.Rules.Parser is
 
    -- Non-terminal tokens, which define the grammar.
    Use_Declaration             : constant Nonterminal.Class := Nonterminal.Get (Use_Declaration_Id);
-   Use_Restriction_Declaration : constant Nonterminal.Class := Nonterminal.Get (Use_Restriction_Declaration_Id);
+   Restricted_Use_Declaration : constant Nonterminal.Class := Nonterminal.Get (Restricted_Use_Declaration_Id);
    Forbidden_Use_Declaration   : constant Nonterminal.Class := Nonterminal.Get (Forbidden_Use_Declaration_Id);
    Allowed_Use_Declaration     : constant Nonterminal.Class := Nonterminal.Get (Allowed_Used_Declaration_Id);
    Layer_Declaration           : constant Nonterminal.Class := Nonterminal.Get (Layer_Declaration_Id);
@@ -221,7 +221,7 @@ package body Archicheck.Rules.Parser is
                                     To_ID     : in  Master_Token.Token_ID);
 
    -- --------------------------------------------------------------------------
-   procedure Store_Use_Restriction_Declaration (New_Token : out Nonterminal.Class;
+   procedure Store_Restricted_Use_Declaration (New_Token : out Nonterminal.Class;
                                                 Source    : in  Token_List.Instance'Class;
                                                 To_ID     : in  Master_Token.Token_ID);
 
@@ -245,9 +245,9 @@ package body Archicheck.Rules.Parser is
    -- Unit_List                   -> Unit [[Separator]* Unit]*                    Unit_List = Unit & Unit & Unit etc.
    -- Component_Declaration       -> Component contains Unit_List                 Insert [Component, Unit_List] in Component_List
    -- Layer_Declaration           -> Layer is a layer over Layer                  Insert [Layer, Layer]         in Layer_List
-   -- Use_Restriction_Declaration -> only Component1 may use component2
+   -- Restricted_Use_Declaration -> only Component1 may use component2
    -- Use_Declaration             -> Component1 uses Component2
-   -- Rule                        -> Component_Declaration | Layer_Declaration | Use_Declaration | Use_Restriction_Declaration
+   -- Rule                        -> Component_Declaration | Layer_Declaration | Use_Declaration | Restricted_Use_Declaration
 
    Grammar : constant Production_List.Instance :=
                Rules_File                  <= Rule_List & EoF_T              and
@@ -257,7 +257,7 @@ package body Archicheck.Rules.Parser is
                Rule_List                   <= Rule                           and
 
                Rule                        <= Use_Declaration                and
-               Rule                        <= Use_Restriction_Declaration    and
+               Rule                        <= Restricted_Use_Declaration    and
                Rule                        <= Layer_Declaration              and
                Rule                        <= Forbidden_Use_Declaration      and
                Rule                        <= Allowed_Use_Declaration        and
@@ -266,7 +266,7 @@ package body Archicheck.Rules.Parser is
                Component_Declaration       <= Unit & Contains_T & Unit_List                 + Store_Component_Declaration'Access       and
                Layer_Declaration           <= Unit & Is_T & A_T & Layer_T & Over_T & Unit   + Store_Layer_Declaration'Access           and
                Use_Declaration             <= Unit & Use_T & Unit                           + Store_Use_Declaration'Access             and
-               Use_Restriction_Declaration <= Only_T & Unit & May_T & Use_T & Unit          + Store_Use_Restriction_Declaration'Access and
+               Restricted_Use_Declaration  <= Only_T & Unit & May_T & Use_T & Unit          + Store_Restricted_Use_Declaration'Access and
                Forbidden_Use_Declaration   <= Unit & Use_T & Is_T & Forbidden_T             + Add_Forbbiden_Unit'Access                and
                Allowed_Use_Declaration     <= Unit & Use_T & Is_T & Allowed_T               + Add_Allowed_Unit'Access                  and
 
@@ -489,9 +489,9 @@ package body Archicheck.Rules.Parser is
    end Store_Use_Declaration;
 
    -- -------------------------------------------------------------------------
-   -- Procedure: Store_Use_Restriction_Declaration
+   -- Procedure: Store_Restricted_Use_Declaration
    -- -------------------------------------------------------------------------
-   procedure Store_Use_Restriction_Declaration (New_Token : out Nonterminal.Class;
+   procedure Store_Restricted_Use_Declaration (New_Token : out Nonterminal.Class;
                                                 Source    : in  Token_List.Instance'Class;
                                                 To_ID     : in  Master_Token.Token_ID)
    is
@@ -517,7 +517,7 @@ package body Archicheck.Rules.Parser is
                          Kind       => Exclusive_Use));
       Reset_Unit_Names;
 
-   end Store_Use_Restriction_Declaration;
+   end Store_Restricted_Use_Declaration;
 
    -- --------------------------------------------------------------------------
    procedure Add_Allowed_Unit (New_Token : out Nonterminal.Class;
