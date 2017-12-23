@@ -114,7 +114,7 @@ dashboard: build check
 	@ # - libs (Standart and OpenToken) 
 
 	@ # --------------------------------------------------------------------
-	genhtml Obj/coverage.info -o Doc/lcov -t "ArchiCheck tests coverage" \
+	genhtml Obj/coverage.info -o site/lcov -t "ArchiCheck tests coverage" \
 		-p "/home/lionel/Proj/Archichek" | tail -n 2 > cov_sum.txt
 	
 	# Processing the lines line :
@@ -260,7 +260,7 @@ doc: dashboard Cmd_Line.txt
 		#~ -o FramedHTML Doc/Generated -p Doc/Natural_Docs
 	#~ cp -p  Doc/Archicheck_Overview.pdf Doc/Generated
 	#~ cp -rp Doc/lcov Doc/Generated
-	## - cp -rp Linux_amd64_release/archicheck Doc/Generated
+	cp -rp Linux_amd64_release/archicheck site/
 
 .PHONY : clean
 clean:
