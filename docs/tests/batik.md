@@ -8,7 +8,7 @@
   > archicheck -lf -I ./batik-1.9/test-sources/org/apache/batik/dom
   Expected :
 
-  ```
+```
 /home/lionel/Proj/Archicheck/Tests/11_Batik/batik-1.9/test-sources/org/apache/batik/dom/ReplaceChildTest.java
 /home/lionel/Proj/Archicheck/Tests/11_Batik/batik-1.9/test-sources/org/apache/batik/dom/ElementTraversalTest.java
 /home/lionel/Proj/Archicheck/Tests/11_Batik/batik-1.9/test-sources/org/apache/batik/dom/NodeTextContentTest.java
@@ -34,12 +34,12 @@
 /home/lionel/Proj/Archicheck/Tests/11_Batik/batik-1.9/test-sources/org/apache/batik/dom/TextReplaceWholeTextTest.java
 /home/lionel/Proj/Archicheck/Tests/11_Batik/batik-1.9/test-sources/org/apache/batik/dom/NodeBaseURITest.java
 /home/lionel/Proj/Archicheck/Tests/11_Batik/batik-1.9/test-sources/org/apache/batik/dom/DocumentAdoptNodeTest.java
-  ```
+```
 
   > archicheck -lf -r -I ./batik-1.9/test-sources/org/apache/batik/dom
   Expected :
 
-  ```
+```
 /home/lionel/Proj/Archicheck/Tests/11_Batik/batik-1.9/test-sources/org/apache/batik/dom/ReplaceChildTest.java
 /home/lionel/Proj/Archicheck/Tests/11_Batik/batik-1.9/test-sources/org/apache/batik/dom/ElementTraversalTest.java
 /home/lionel/Proj/Archicheck/Tests/11_Batik/batik-1.9/test-sources/org/apache/batik/dom/NodeTextContentTest.java
@@ -68,15 +68,15 @@
 /home/lionel/Proj/Archicheck/Tests/11_Batik/batik-1.9/test-sources/org/apache/batik/dom/svg/EcmaScriptSVGDOMTest.java
 /home/lionel/Proj/Archicheck/Tests/11_Batik/batik-1.9/test-sources/org/apache/batik/dom/svg/ImportNodeTest.java
 /home/lionel/Proj/Archicheck/Tests/11_Batik/batik-1.9/test-sources/org/apache/batik/dom/svg/CloneNodeTest.java
-  ```
+```
 
 
- Java code test suite / --list_file test, recursive and non recursive [Successful]
+ Java code test suite / --list_file test, recursive and non recursive [Successful]("tests-status#successful")
 
 ##  Java code test suite / simple import 
 
 
-  ```
+```
 package org.apache.batik.apps.jsvg;
 
 import javax.swing.JFrame;
@@ -99,14 +99,14 @@ import org.apache.batik.swing.svg.SVGUserAgentGUIAdapter;
  * @version $Id: JSVG.java 1733420 2016-03-03 07:41:59Z gadams $
  */
 public class JSVG extends JFrame{
-  ```
+```
 
 
-  > archicheck -lf -I dir2
+  > archicheck -ld -I dir2
 
   Expected :
 
-  ```
+```
 org.apache.batik.apps.jsvg.JSVG class depends on javax.swing.JFrame 
 org.apache.batik.apps.jsvg.JSVG class depends on java.awt.BorderLayout 
 org.apache.batik.apps.jsvg.JSVG class depends on java.awt.Dimension 
@@ -114,15 +114,15 @@ org.apache.batik.apps.jsvg.JSVG class depends on java.awt.event.WindowAdapter
 org.apache.batik.apps.jsvg.JSVG class depends on java.awt.event.WindowEvent 
 org.apache.batik.apps.jsvg.JSVG class depends on org.apache.batik.swing.JSVGCanvas 
 org.apache.batik.apps.jsvg.JSVG class depends on org.apache.batik.swing.svg.SVGUserAgentGUIAdapter 
-  ```
+```
 
 
- Java code test suite / simple import [Successful]
+ Java code test suite / simple import [Successful]("tests-status#successful")
 
 ##  Java code test suite / interface
 
 
-  ```
+```
 package org.apache.batik.dom.events;
 
 import org.w3c.dom.DOMException;
@@ -140,28 +140,28 @@ import org.w3c.dom.events.EventTarget;
  * @version $Id: NodeEventTarget.java 1733416 2016-03-03 07:07:13Z gadams $
  */
 public interface NodeEventTarget extends EventTarget {
-  ```
+```
 
 
-  > archicheck -lf -I dir3
+  > archicheck -ld -I dir3
 
   Expected :
 
-  ```
+```
 org.apache.batik.dom.events.NodeEventTarget interface depends on org.w3c.dom.DOMException 
 org.apache.batik.dom.events.NodeEventTarget interface depends on org.w3c.dom.events.Event 
 org.apache.batik.dom.events.NodeEventTarget interface depends on org.w3c.dom.events.EventException 
 org.apache.batik.dom.events.NodeEventTarget interface depends on org.w3c.dom.events.EventListener 
 org.apache.batik.dom.events.NodeEventTarget interface depends on org.w3c.dom.events.EventTarget 
-  ```
+```
 
 
- Java code test suite / interface [Successful]
+ Java code test suite / interface [Successful]("tests-status#successful")
 
 ##  Java code test suite / no import
 
 
-  ```
+```
 package org.apache.batik.dom.util;
 
 /**
@@ -172,46 +172,46 @@ package org.apache.batik.dom.util;
  * @version $Id: TriplyIndexedTable.java 1733416 2016-03-03 07:07:13Z gadams $
  */
 public class TriplyIndexedTable {
-  ```
+```
 
-  > archicheck -lf -I dir4
+  > archicheck -ld -I dir4
 
   Expected :
 
-  ```
-  ```
+```
+```
 
 
- Java code test suite / no import [Successful]
+ Java code test suite / no import [Successful]("tests-status#successful")
 
 ##  Java code test suite / no package
 
 
-  ```
+```
 import org.w3c.dom.DOMException;
 import org.w3c.dom.events.Event;
 
 public interface NodeEventTarget extends EventTarget {
-  ```
+```
 
-  > archicheck -lf -I dir5
+  > archicheck -ld -I dir5
 
   Expected :
 
-  ```
+```
 NodeEventTarget interface depends on org.w3c.dom.DOMException 
 NodeEventTarget interface depends on org.w3c.dom.events.Event 
-  ```
+```
 
 
- Java code test suite / no package [Successful]
+ Java code test suite / no package [Successful]("tests-status#successful")
 
 ##  Java code test suite / real Batik code
 
 
   This class is in transcoder, and uses Bridge and GVT, and that's OK
 
-  ```
+```
 package org.apache.batik.transcoder;
 
 import java.awt.Dimension;
@@ -269,32 +269,36 @@ import org.w3c.dom.svg.SVGSVGElement;
  * @version $Id: SVGAbstractTranscoder.java 1733416 2016-03-03 07:07:13Z gadams $
  */
 public abstract class SVGAbstractTranscoder extends XMLAbstractTranscoder {
-  ```
+```
 
   > archicheck rules.B -I dir6
   No output expected
 
- Java code test suite / real Batik code [Empty]
+ Java code test suite / real Batik code [Empty]("tests-status#empty")
 
 ##  Java code test suite / Let's add dependencies to Browser and Rasterizer into a Transcoder class
 
 
-  ```
+```
 package org.apache.batik.transcoder;
 
 import org.w3c.dom.Browser.Event;
-import org.w3c.dom.events.Rasterizer;
+import org.apache.batik.apps.Rasterizer;
 
 public interface NodeEventTarget extends EventTarget {
 
 }
-  ```
+```
 
+  Run:
   > archicheck rules.B -I dir7
 
-  ```
+  Expected:
+```
+Warning : org.apache.batik.transcoder.NodeEventTarget (in Core_Modules layer) uses org.w3c.dom.Browser.Event that is neither in the same layer, nor in the lower Low_Level_Modules layer
+Error : org.apache.batik.transcoder.NodeEventTarget is in Core_Modules layer, and so shall not use org.apache.batik.apps.Rasterizer in the upper Applications layer
+Warning : org.apache.batik.transcoder.NodeEventTarget (in Core_Modules layer) uses org.apache.batik.apps.Rasterizer that is neither in the same layer, nor in the lower Low_Level_Modules layer
+```
 
-  ```
 
-
- Java code test suite / Let's add dependencies to Browser and Rasterizer into a Transcoder class [Empty]
+ Java code test suite / Let's add dependencies to Browser and Rasterizer into a Transcoder class [Successful]("tests-status#successful")
