@@ -59,7 +59,7 @@ test2:
 	@ ${TR} cmt 
 
 	@ ${TR} cmt 
-	@ ${TR} cmt "> archicheck -lf -I dir2"
+	@ ${TR} cmt "> archicheck -ld -I dir2"
 	@ ${TR} cmt 
 	@ ${TR} cmt "Expected :"
 	@ ${TR} cmt 
@@ -87,7 +87,7 @@ test3:
 	@ ${TR} cmt 
 
 	@ ${TR} cmt 
-	@ ${TR} cmt "> archicheck -lf -I dir3"
+	@ ${TR} cmt "> archicheck -ld -I dir3"
 	@ ${TR} cmt 
 	@ ${TR} cmt "Expected :"
 	@ ${TR} cmt 
@@ -114,7 +114,7 @@ test4:
 	@ ${TR} cmt '```'
 	@ ${TR} cmt 
 
-	@ ${TR} cmt "> archicheck -lf -I dir4"
+	@ ${TR} cmt "> archicheck -ld -I dir4"
 	@ ${TR} cmt 
 	@ ${TR} cmt "Expected :"
 	@ ${TR} cmt 
@@ -147,7 +147,7 @@ test5:
 	@ ${TR} cmt '```'
 	@ ${TR} cmt 
 
-	@ ${TR} cmt "> archicheck -lf -I dir5"
+	@ ${TR} cmt "> archicheck -ld -I dir5"
 	@ ${TR} cmt 
 	@ ${TR} cmt "Expected :"
 	@ ${TR} cmt 
@@ -206,8 +206,10 @@ test7:
 	@ ${TR} cmt '```'
 	@ ${TR} cmt 
 
+	@ ${TR} cmt 'Run:'
 	@ ${TR} cmt "> archicheck rules.B -I dir7"
 	@ ${TR} cmt 
+	@ ${TR} cmt 'Expected:'
 	@ ${TR} cmt '```'
 	cat expected_output.7 >> testrec.md
 	@ ${TR} cmt '```'
