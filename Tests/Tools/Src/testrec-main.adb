@@ -213,10 +213,14 @@ procedure Testrec.Main is
    begin
       declare
          use Ada.Text_IO;
+         use Settings;
       begin
          -- Log file:
          if Text = "" then
             New_Line (Log_File);
+         elsif Text = "```" and Settings.Output_Format = Settings.Markdown then -- no indentation for this MD code marker
+            Arg_Counter := Arg_Counter + 1;
+            Put_Line (Log_File, Text);
          else
             Arg_Counter := Arg_Counter + 1;
             Put_Line (Log_File, Indent & Text);
