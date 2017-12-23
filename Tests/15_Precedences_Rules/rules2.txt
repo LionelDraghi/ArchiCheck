@@ -1,0 +1,4 @@
+Interfaces   use is forbidden
+Interfaces.C use is allowed
+
+-- Fixme: and what if declared the other way round?

@@ -1,3 +1,0 @@
-Successful  47
-Failed      0
-Empty       5

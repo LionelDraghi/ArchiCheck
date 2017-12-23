@@ -9,18 +9,18 @@ site_author: 'Lionel Draghi'
 use_directory_urls: false
 
 pages:
-- Quick start: index.md
+- Quick start: readme.md
 - Download: Download.md
 - About: about.md
 
 - Documentation:
-  ##- [ArchiCheck overview](http://Archicheck_Overview.pdf)
+  ## - [ArchiCheck overview](http://Archicheck_Overview.pdf)
   - Cmd_Line.md
-  - rules_syntax.md
+  - rules.md
   - todo.md
   - CONTRIBUTING.md
   - COPYING.md
-
+  
 - Tests:
   - tests/tests_status.md
   - tests/command_line.md
@@ -36,11 +36,13 @@ pages:
   - tests/batik.md
   - tests/zipada.md
   - tests/ada_units.md
-  
+  - tests/rules_on_components.md
+  - tests/precedences_rules.md
+    
 - Status:
   - Dashboard.md
   ## - [Code coverage](http://lionel.draghi.free.fr/Archicheck/lcov/index.html)
-  ##  - test_status.md
+  - tests/tests_status.md
   ## - fixme.md
   
 ## - Tools:

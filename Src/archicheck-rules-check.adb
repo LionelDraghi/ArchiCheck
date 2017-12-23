@@ -18,7 +18,7 @@
 
 with Archicheck.IO;
 with Archicheck.Dependencies;
-with Archicheck.Components;   use Archicheck.Components;
+-- with Archicheck.Components;   use Archicheck.Components;
 with Archicheck.Settings;
 
 -- with Ada.Strings.Fixed;
@@ -32,35 +32,50 @@ procedure Archicheck.Rules.Check is
    procedure Put_Debug_Line (Msg    : in String  := "";
                              Debug  : in Boolean := Settings.Debug_Mode;
                              Prefix : in String  := "Check_Rules") renames Archicheck.IO.Put_Debug_Line;
+   --     procedure Put_Debug      (Msg    : in String  := "";
+   --                               Debug  : in Boolean := Settings.Debug_Mode;
+   --                               Prefix : in String  := "") renames Archicheck.IO.Put_Debug;
 
-   -- --------------------------------------------------------------------------
-   -- Function: Is_Unit_In_Component
-   -- -------------------------------------------------------------------------
-   function Is_Unit_In_Component (Unit      : String;
-                                  Component : String) return Boolean
-   is
-      use Ada.Strings.Unbounded;
-      Units : Unit_Lists.List;
-      Found : Boolean := False;
-      use Ada.Strings;
-      -- use Ada.Strings.Fixed;
-
-   begin
-      -- Put_Debug_Line ("Unit >" & Unit & "<, component >" & Component & "<");
-      if Component_Maps.Contains (Component_Map, Component) then
-         -- the component was described by one or more declarations
-         Units := Component_Maps.Element (Component_Map, Component);
-         Found := Unit_Lists.Contains (Units, To_Unbounded_String (Unit));
-
-         if Found then Put_Debug_Line ("Unit " & Unit & " is in the component " & Component); end if;
-
-         return Found;
-
-      else
-         return Dependencies.Is_Unit_In (Unit, Component);
-
-      end if;
-   end Is_Unit_In_Component;
+   --     -- --------------------------------------------------------------------------
+   --     -- Function: Is_Unit_In_Component
+   --     -- -------------------------------------------------------------------------
+   --     function Is_Unit_In_Component (Unit      : String;
+   --                                    Component : String) return Boolean
+   --     is
+   --        use Ada.Strings.Unbounded;
+   --        Units : Unit_Lists.List;
+   --        Found : Boolean := False;
+   --        use Ada.Strings;
+   --        -- use Ada.Strings.Fixed;
+   --
+   --     begin
+   --        if Component_Maps.Contains (Component_Map, Component) then
+   --           -- Put_Debug (" (component known) ");
+   --
+   --           -- the component was described by one or more declarations
+   --           Units := Component_Maps.Element (Component_Map, Component);
+   --           for U of Units loop
+   --              Put_Debug_Line ("Is " & Unit & " in " & To_String (U) & " defined by Component " & Component);
+   --              Found := Dependencies.Is_Unit_In (Unit, To_String (U));
+   --              Put_Debug_Line ("Found " & Boolean'Image (Found));
+   --              exit when Found;
+   --           end loop;
+   --           -- Found := Unit_Lists.Contains (Units, To_Unbounded_String (Unit));
+   --
+   --        else
+   --           Found := Dependencies.Is_Unit_In (Unit, Component);
+   --
+   --        end if;
+   --
+   --        if Found then
+   --           Put_Debug_Line ("Unit >" & Unit & "< is in component >" & Component & "< ");
+   --        else
+   --           Put_Debug_Line ("Unit >" & Unit & "< is NOT in component >" & Component & "< ");
+   --        end if;
+   --
+   --        return Found;
+   --
+   --     end Is_Unit_In_Component;
 
 
    use Ada.Strings.Unbounded;
@@ -107,41 +122,39 @@ begin
 
                   else
                      case R.Kind is
-                     when Layer_Over =>
-                        if Is_Y_In_Server and not Is_X_In_Client then
-                           IO.Put_Warning (X & " is neither in "
-                                           & Client & " or " & Server & " layer, and so shall not directly use "
-                                           & Y & " in the "
-                                           & Server & " layer");
-                        end if;
+                        when Layer_Over =>
+                           -- Error first, and if there is an error, following check should be useless
+                           if Is_X_In_Server and Is_Y_In_Client then
+                              IO.Put_Error (X & " is in " & Server
+                                            & " layer, and so shall not use "
+                                            & Y & " in the upper "
+                                            & Client & " layer");
 
-                        if Is_X_In_Server and Is_Y_In_Client then
-                           IO.Put_Error (X & " is in " & Server
-                                         & " layer, and so shall not use "
-                                         & Y & " in the upper "
-                                         & Client & " layer");
-                        end if;
+                           elsif Is_X_In_Client and not (Is_Y_In_Client or Is_Y_In_Server) then
+                              IO.Put_Warning (X & " (in " & Client & " layer) uses "
+                                              & Y & " that is neither in the same layer, nor in the lower "
+                                              & Server & " layer");
 
-                        if Is_X_In_Client and not (Is_Y_In_Client or Is_Y_In_Server)
-                        then
-                           IO.Put_Warning (X & " (in " & Client & " layer) uses "
-                                           & Y & " that is neither in the same layer, nor in the lower "
-                                           & Server & " layer");
-                        end if;
+                           elsif Is_Y_In_Server and not Is_X_In_Client then
+                                 IO.Put_Warning (X & " is neither in "
+                                                 & Client & " or " & Server & " layer, and so shall not directly use "
+                                                 & Y & " in the "
+                                                 & Server & " layer");
+                           end if;
 
-                     when Exclusive_Use =>
-                        if Is_Y_In_Server and not Is_X_In_Client then
-                           IO.Put_Error ("Only " & Client & " is allowed to use "
-                                         & Server & ", " & X & " is not");
-                        end if;
+                        when Exclusive_Use =>
+                           if Is_Y_In_Server and not Is_X_In_Client then
+                              IO.Put_Error ("Only " & Client & " is allowed to use "
+                                            & Server & ", " & X & " is not");
+                           end if;
 
-                     when May_Use =>
-                        -- X may use Y actually means that Y shall not use X,
-                        -- and this is wath we check here
-                        if Is_X_In_Server and Is_Y_In_Client then
-                           IO.Put_Error (Client & " is over " & Server & ", so "
-                                         & X & " shall not use " & Y);
-                        end if;
+                        when May_Use =>
+                           -- X may use Y actually means that Y shall not use X,
+                           -- and this is wath we check here
+                           if Is_X_In_Server and Is_Y_In_Client then
+                              IO.Put_Error (Client & " is over " & Server & ", so "
+                                            & X & " shall not use " & Y);
+                           end if;
 
                      end case;
                   end if;

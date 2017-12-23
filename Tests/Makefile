@@ -22,6 +22,8 @@ check: ../Obj/archicheck Tools/create_pkg Tools/testrec
 	$(MAKE) check --directory=11_Batik
 	$(MAKE) check --directory=12_ZipAda
 	$(MAKE) check --directory=13_Ada_Units
+	$(MAKE) check --directory=14_Rules_On_Components
+	$(MAKE) check --directory=15_Precedences_Rules
 
 doc:
 	cat `find . -name testrec.md` > tmp.txt
@@ -73,6 +75,8 @@ doc:
 	@ $(MAKE) doc --directory=11_Batik
 	@ $(MAKE) doc --directory=12_ZipAda
 	@ $(MAKE) doc --directory=13_Ada_Units
+	@ $(MAKE) doc --directory=14_Rules_On_Components
+	@ $(MAKE) doc --directory=15_Precedences_Rules
 
 clean:
 	@ $(MAKE) clean --directory=Tools
@@ -90,6 +94,8 @@ clean:
 	@ $(MAKE) clean --directory=11_Batik
 	@ $(MAKE) clean --directory=12_ZipAda
 	@ $(MAKE) clean --directory=13_Ada_Units
+	@ $(MAKE) clean --directory=14_Rules_On_Components
+	@ $(MAKE) clean --directory=15_Precedences_Rules
 
 	- ${RM} tests_status.md *.lst short_tests_status.md
 

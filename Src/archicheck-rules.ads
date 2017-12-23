@@ -61,4 +61,8 @@ private
    function Is_Allowed (Unit : in Unit_Name) return Boolean;
    procedure Add_Allowed_Unit (Unit : in Unit_Name);
 
+   -- -------------------------------------------------------------------------
+   function Is_Unit_In_Component (Unit      : String;
+                                  Component : String) return Boolean;
+
 end Archicheck.Rules;

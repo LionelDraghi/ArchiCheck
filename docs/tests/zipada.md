@@ -9,7 +9,7 @@
 
   Expected :
 
-  ```
+```
 /home/lionel/Proj/Archicheck/Tests/12_ZipAda/zip-ada/extras/lzma_dec.adb
 /home/lionel/Proj/Archicheck/Tests/12_ZipAda/zip-ada/extras/dual_io.adb
 /home/lionel/Proj/Archicheck/Tests/12_ZipAda/zip-ada/extras/win32-crt-stat.ads
@@ -112,10 +112,10 @@
 /home/lionel/Proj/Archicheck/Tests/12_ZipAda/zip-ada/demo/demo_csv_into_zip.adb
 /home/lionel/Proj/Archicheck/Tests/12_ZipAda/zip-ada/demo/demo_unzip.adb
 /home/lionel/Proj/Archicheck/Tests/12_ZipAda/zip-ada/demo/zip_with_many_files.adb
-  ```
+```
 
 
- ZipAda code test suite / -lf test [Successful]
+ ZipAda code test suite / -lf test [Successful]("tests-status#successful")
 
 ##  ZipAda code test suite / -ld test
 
@@ -123,7 +123,7 @@
 
   Expected :
 
-  ```
+```
 LZMA_Dec procedure body depends on LZMA.Decoding 
 LZMA_Dec procedure body depends on Ada.Command_Line 
 LZMA_Dec procedure body depends on Ada.Text_IO 
@@ -460,7 +460,7 @@ Zip_with_many_files procedure body depends on Zip_Streams
 Zip_with_many_files procedure body depends on Zip.Compress 
 Zip_with_many_files procedure body depends on Zip.Create 
 Zip_with_many_files procedure body depends on Ada.Strings.Fixed 
-  ```
+```
 
 
- ZipAda code test suite / -ld test [Successful]
+ ZipAda code test suite / -ld test [Successful]("tests-status#successful")
