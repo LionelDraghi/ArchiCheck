@@ -23,7 +23,7 @@ header:
 test1:
 	${TR} start "Help options" 
 	${TR} cmt  								
-	${TR} cmt "   Test that the -h, --help or no command line will output :" 	
+	${TR} cmt "Test that the -h, --help or no command line will output :" 	
 	
 	../../Obj/archicheck -h > expected_help.txt
 	${TR} cmt 
@@ -59,8 +59,9 @@ test2:
 test3:
 	${TR} start "-I option without src dir" 				
 	${TR} cmt
-	${TR} cmt "When :"		
+	${TR} cmt "When running:"		
 	${TR} cmt "> archicheck -I"		
+	${TR} cmt 
 	${TR} cmt "Expecting:"		
 
 	echo "Error : Sources directory expected after -I"	>  expected_err3.txt
@@ -79,8 +80,9 @@ test3:
 test4:
 	${TR} start "-I option with an unknow dir" 			
 	${TR} cmt
-	${TR} cmt "When :"		
+	${TR} cmt "When running:"		
 	${TR} cmt "> archicheck -I qsdqjh"		
+	${TR} cmt 
 	${TR} cmt "Expecting:"		
 
 	echo "Error : No qsdqjh directory"	>  expected_err4.txt
@@ -99,8 +101,9 @@ test4:
 test5:
 	${TR} start "unknown -xyz option" 				
 	${TR} cmt
-	${TR} cmt "When :"		
+	${TR} cmt "When running:"		
 	${TR} cmt "> archicheck -xzy"		
+	${TR} cmt 
 	${TR} cmt "Expecting:"		
 
 	echo "Error : Unknown rules file or unknow option -xzy"	>  expected_err5.txt
@@ -119,12 +122,13 @@ test5:
 
 test6:
 	${TR} start "-I option with... nothing to do" 			
-	${TR} cmt "      (no rules file, no -ld or -lf, etc.)"	
+	${TR} cmt "(no rules file, no -ld or -lf, etc.)"	
 	${TR} cmt
-	${TR} cmt "When :"		
+	${TR} cmt "When running:"		
 	${TR} cmt "> mkdir -p dir6"
 	${TR} cmt "> touch dir6/src.adb"
 	${TR} cmt "> archicheck -I dir6"		
+	${TR} cmt 
 	${TR} cmt "Expecting:"		
 
 	echo "Error : Nothing to do with those sources"	>  expected_err6.txt
@@ -148,8 +152,9 @@ test6:
 test8:
 	${TR} start "-lr option without rules file" 			
 	${TR} cmt
-	${TR} cmt "When :"		
+	${TR} cmt "When running:"		
 	${TR} cmt "> archicheck -lr"		
+	${TR} cmt 
 	${TR} cmt "Expecting:"		
 
 	echo "Error : No rules file given"		>  expected_err8.txt
@@ -169,9 +174,10 @@ test8:
 test9:
 	${TR} start "Legal line, but no src file in the given (existing) directory"
 	${TR} cmt
-	${TR} cmt "When :"		
+	${TR} cmt "When running:"		
 	${TR} cmt "> mkdir dir9"
 	${TR} cmt "> archicheck -lf -I dir9"		
+	${TR} cmt 
 	${TR} cmt "Expecting:"		
 
 	echo "Warning : Cannot list files, no sources found to analyze"		>  expected_err9.txt	
@@ -191,9 +197,10 @@ test9:
 test10:
 	${TR} start "file given to -I, instead of a directory"
 	${TR} cmt
-	${TR} cmt "When :"		
+	${TR} cmt "When running:"		
 	${TR} cmt "> touch rules.txt src.adb"
 	${TR} cmt "> archicheck rules.txt -I src.adb"		
+	${TR} cmt 
 	${TR} cmt "Expecting:"		
 
 	echo "Error : src.adb is not a directory"		>  expected_err10.txt	
@@ -213,10 +220,11 @@ test10:
 test11:
 	${TR} start "-ld given, but no source found"
 	${TR} cmt
-	${TR} cmt "When :"		
+	${TR} cmt "When running:"		
 	${TR} cmt "> mkdir -p dir11"
 	${TR} cmt "> echo ""Interfaces use is forbidden"" > rules.txt"
 	${TR} cmt "> archicheck rules.txt -ld -I dir11"		
+	${TR} cmt 
 	${TR} cmt "Expecting:"		
 
 	echo "Warning : Cannot list dependencies, no sources found"	>  expected_err11.txt
@@ -237,10 +245,11 @@ test11:
 test12:
 	${TR} start "src found, but nothing to do whith it"		
 	${TR} cmt
-	${TR} cmt "When :"		
+	${TR} cmt "When running:"		
 	${TR} cmt "> mkdir -p dir12"
 	${TR} cmt "> touch dir12/src.adb"
 	${TR} cmt "> archicheck -I dir12"		
+	${TR} cmt 
 	${TR} cmt "Expecting:"		
 
 	echo "Error : Nothing to do with those sources"		>  expected_err12.txt
@@ -262,8 +271,9 @@ test12:
 test13:
 	${TR} start "rules file found, but nothing to do whith it"	
 	${TR} cmt
-	${TR} cmt "When :"		
+	${TR} cmt "When running:"		
 	${TR} cmt "> archicheck rules.txt"		
+	${TR} cmt 
 	${TR} cmt "Expecting:"		
 
 	echo "Error : Nothing to do with this rules file"	>  expected_err13.txt
