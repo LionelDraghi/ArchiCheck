@@ -5,7 +5,7 @@ TR=../Tools/testrec
 
 .PHONY : clean
 
-check: ../../Obj/archicheck header test1 test2 test3 test4 test5 test6
+check: ../../Obj/archicheck header test1 test2 test3 test4 test5 test6 test7
 
 header:
 	@ #---------------------------------------------------------------------
@@ -14,7 +14,7 @@ header:
 
 	@ echo "GUI is a layer over DB"	> rules.txt
 
-	${TR} cmt "The tests hereafter are similar to those in <Layer rules tests suite>, except that child packages allows to simplify rules file."
+	${TR} cmt "The tests hereafter are similar to those in [Layer rules tests suite], except that child packages allows to simplify rules file."
 	${TR} cmt 
 	${TR} cmt "The file rules :"
 	@ ${TR} cmt 
@@ -164,6 +164,22 @@ test6:
 
 	@ ../../Obj/archicheck rules.txt -I dir6   > output.6
 	${TR} assert true /usr/bin/sdiff "-s expected_output.6 output.6"
+
+	${TR} end
+
+test7:
+	@ #---------------------------------------------------------------------
+	${TR} start "Forbidding Interfaces but allowing Interfaces.C"
+	@ ${CREATE_PKG} P1 spec  -in dir7 -with Interfaces
+	@ ${CREATE_PKG} P2 spec  -in dir7 -with Interfaces.C
+	@ ${CREATE_PKG} P3 spec  -in dir7 -with Interfaces.Java
+	
+	@ > expected_output.7
+	@ echo "Warning : DBP2 is neither in GUI or DB layer, and so shall not directly use DB.P1 in the DB layer"  >> expected_output.6
+	@ echo "Warning : GUIP2 is neither in GUI or DB layer, and so shall not directly use DB.P1 in the DB layer" >> expected_output.6
+
+	@ ../../Obj/archicheck rules7.txt -I dir7   > output.7
+	${TR} assert true /usr/bin/sdiff "-s expected_output.7 output.7"
 
 	${TR} end
 

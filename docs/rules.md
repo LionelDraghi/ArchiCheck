@@ -1,16 +1,17 @@
-Rules File Syntax
-=================
+Rules File
+==========
 
 Archicheck rules file uses a simple syntax to describe simple structural aspect of the software architecture.
 
-This file may contains :
-- Comments
+This file may contains :  
+
+- [Comments](#comments)
 - [Layer declaration](#layer)
 - [Component declaration](#components-declaration)
 - [Allowed use declaration](#environnement-packages)
 - [Forbidden use declaration](#forbidden-use)
 - [Restricted use declaration](#restricted-use)
-- [Use declaration](#use-declaration)             
+- [Use declaration](#use-declaration)     
 
 Here is a first example :
 ```
@@ -21,8 +22,11 @@ Layer_A is a layer over Layer_B
 Layer_A contains Pkg_A and Pkg_B
 Layer_B contains Pkg_C
 
--- Don't depend on unbounded containers packages! :
+-- Don't use unbounded containers packages :
 Ada.Containers.Indefinite use is forbidden
+
+-- Only the lower level layer can use C external lib :
+only Layer_B may use Interfaces.C
 ```
 
 Layer
@@ -41,11 +45,13 @@ This is why a rules file can be a simple as `Gtk is a layer over Gdk`.
 Use declaration
 ---------------
 
-A layer is a powerfull but strict metaphore.  
-But how can I describe that so common pseudo layred architecture, where the upper layer can access whatever is below?  
+A layer is a powerfull but strict metaphore. 
+
+How can I describe those so common pseudo layred architecture, where the upper layer can access whatever is below?
+
 Here is the [Gtk+](https://www.gtk.org/overview.php) example :![](tests/gtk.png)
 
-The `X use Y` provides a more relax rule.  
+The `X may use Y` provides a more relax rule than the layer one.  
 ArchiCheck will just ensure that:
 
 - no Y unit is using an X unit (Error msg)
@@ -53,12 +59,12 @@ ArchiCheck will just ensure that:
 For example here:
 
 ```
-Pango use Cairo
-Pango use Glib
-Gdk use Cairo
+Pango may use Cairo
+Pango may use Glib
+Gdk   may use Cairo
 -- etc.
 ```
-A more complete GtkAda possible rules file is available in tests, [here](#tests/gtkada.md).
+A more complete GtkAda possible rules file is available in tests, [here](tests/gtkada.md).
 
 Components declaration
 ----------------------
@@ -69,12 +75,12 @@ A special kind of unit may be declared directly in the rules file, thanks to the
 Presentation_Layer contains Pkg_1, Pkg_2 and Pkg_3;
 ```
 This create a component (a virtual unit), `Presentation_Layer`, that contains other unit 
-(`Pkg_1`, `Pkg_2`, etc.), that are also either real unit in the code, or components declared in the 
-rules file package.
-Now, `Presentation_Layer` can be used in rules like if it was a real compilation unit.
+(`Pkg_1`, `Pkg_2`, etc.), that are also either real unit in the code, or components declared in the rules file package.
 
-First Exemple
--------------
+Now, `Presentation_Layer` can be used in rules as if it was a real compilation unit.
+
+An example with layers and components
+-------------------------------------
 
 Let's consider this [Batik architecture](https://xmlgraphics.apache.org/batik/using/architecture.html) :  
 ![](img/Batik.png)
@@ -90,21 +96,6 @@ Applications is a layer over Core_Modules
 Core_Modules is a layer over Low_Level_Modules
 ```
 
-Syntax
-------
-
-Rules files syntax is supposed to be as close as possible to natural english, and all the following lines are legal : 
-
-```
-Presentation_Layer contains Pkg_1
-Presentation_Layer contains Pkg_2 -- Component declaration can be made in several lines 
-
--- Or in a more compact way :
-Presentation_Layer contains Pkg_1, Pkg_2, Pkg_3 
-Persistence_Layer  contains Pkg_4, Pkg_5 and Pkg_6
-```
-Note also that comment are possible, the Ada way, that is starting with `--`.
-
 Environnement packages
 ----------------------
 
@@ -112,16 +103,9 @@ Some packages are used everywhere in your application, and you don't wan to be f
 
 Use the `allowed` syntax :
 ```
-Java use is allowed
+Java.IO use is allowed
 ```
-**Remember that `Java` actually means `Java.*`**
-
-or 
-
-```
-Ada    use is allowed
-System use is allowed
-```
+> Remember that `Java.IO` actually means `Java.IO.*`
 
 Forbidden use
 -------------
@@ -134,14 +118,66 @@ Interfaces.C use is forbidden
 Restricted use
 --------------
 
-A less definitive rules make it possible to limit access to some unit to some other units :
+Prefixing a normal `may use` rule with `only` make it possible to limit accesses to some specific unit :
 
 ```
 only Low_Level_Layer may use Interfaces.C
 ```
+A restricted use will check that, like a normal use, `Interfaces.C` is not using `Low_Level_Layer`, but also that no other unit is using `Interfaces.C`.
 
-More complex issues
--------------------
+Note that multiple multiples restricted use may apply cumulatively to a unit :
+```
+only X may use Z
+only Y may use Z
+-- is equivalent to :
+--   only X and Y may use Z
+-- that is not (yet) a legal Archicheck syntax
+```
+Syntactic sugar
+--------------
+
+Rules files syntax is supposed to be as close as possible to natural english, with a flexible syntax. Rules line may terminate with semicolon or nothing, and units may be separated with `and` or comma (and not yet blanks, curiously).
+
+All the following lines are legal : 
+
+```
+-- Component declaration can be made in several lines :
+Presentation_Layer contains Pkg_1
+Presentation_Layer contains Pkg_2  
+
+\\ Or in a more compact way :
+Presentation_Layer contains Pkg_1, Pkg_2, Pkg_3 
+Presentation_Layer contains Pkg_4, Pkg_5 and Pkg_6
+```
+
+Comments
+--------
+
+As you may noticed in the previous example, comments are possible in several formats (but single line comments only), so keep your own habit :
+
+- the Ada way, that is starting with `--`, 
+- the Java / C# way, starting with `//`, 
+- the Shell way, starting with `#`.
+
+(Note that those comments format seems to be the most popular, according to [Rosetta Code](https://rosettacode.org/wiki/Comments))
+
+Reserved words
+--------------
+
+Words used in rules syntax are reserved, and can't be used as unit name in rules file (but obviously no problem to use them as file or compilation unit name) : 
+
+1. `a`
+1. `and`
+1. `contains`
+1. `is`
+1. `layer`
+1. `may`
+1. `only`
+1. `over`
+1. `use`
+
+More complex and open issues
+----------------------------
 
 ### Adding virtual units to an existing one
 
@@ -154,7 +190,7 @@ Two possible behavior here :
 - this is illegal and should be dealt with as an error when reading the rules file
 - this is is considered as an "Add" operation : `Glib`, `Ada.Containers` and there child packages should be considered as if there where actually `Utility.Glib` and `Utility.Ada.Containers`.
   
-As I am writing this (v0.4 Christmas 2017), I'm trying the second way, altrough it smell very complex (and I hate that precise smell). 
+> As I am writing this (v0.4.3 Christmas 2017), I'm trying the second way, altrough it smell very complex (and I hate that precise smell). 
 > Consider this as TBD.  
 > Any comment on that feature is welcome! 
 
@@ -180,3 +216,23 @@ Interfaces.* use is forbidden
 Interfaces.C use is allowed
 Interfaces   use is allowed -- or forbidden, according to your choice
 ```
+
+> Note that, as I am writing this (v0.4.3 Christmas 2017), only the test is implemented (and so is failing).
+
+### Cumulating `X may use Y` and `only X may use Y`?
+
+I'm not clear now on cumulating normal use and restricted use.
+
+Should we consider that :
+```
+X may use V
+only Y may use V
+only Z may use V
+```
+like `only X, Y and Z may use V`, or like `only Y and Z may use V`.
+And in the later case, should I raise an error or a warning when reading the file?
+
+As word are meaningful, I don't want to consider the first line as if `only` was there, and so I balance for the second way.
+
+> Note that, as I am writing this (v0.4.3 Christmas 2017), only the test is implemented (and so is failing).
+

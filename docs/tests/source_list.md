@@ -24,4 +24,4 @@
 ```
 
 
- Non recursive file identification test suite / Simple test [Successful]("tests-status#successful")
+ Non recursive file identification test suite / Simple test [Successful](tests_status.md#successful)

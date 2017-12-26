@@ -3,17 +3,17 @@ System     use is allowed
 Ada        use is allowed
 GNAT       use is allowed
 
-Pango use Cairo
-Pango use Glib
+Pango may use Cairo
+Pango may use Glib
 
-Gdk use Cairo
+Gdk may use Cairo
 
-GtkAda use Gtk 
+GtkAda may use Gtk 
 
-Gtk use Glib
-Gtk use Pango
-Gtk use Gdk
-Gtk use Cairo
+Gtk may use Glib
+Gtk may use Pango
+Gtk may use Gdk
+Gtk may use Cairo
 
 -- Exceptions to previous declarations
 GtkAda.Bindings use is allowed

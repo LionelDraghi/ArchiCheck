@@ -5,7 +5,7 @@ TR=../Tools/testrec
 
 .PHONY : clean
 
-check: ../../Obj/archicheck header test1 test2 test3 test4
+check: ../../Obj/archicheck header test1 test2 test3 test4 test5
 
 header:
 	@ #---------------------------------------------------------------------
@@ -49,6 +49,8 @@ test2:
 	@ ${TR} cmt "P4 body is using Interfaces.C : OK"
 	@ ${TR} cmt "P1 body is using Interfaces.C : should complain"
 	@ ${TR} cmt 
+	@ ${TR} cmt 'Expecting :'
+	@ ${TR} cmt 
 	@ ${TR} cmt '```'
 	cat expected_output.2 >> testrec.md
 	@ ${TR} cmt '```'
@@ -73,6 +75,8 @@ test3:
 	cat rules.3 		>> testrec.md
 	@ ${TR} cmt '```'
 	@ ${TR} cmt 
+	@ ${TR} cmt 'Expecting :'
+	@ ${TR} cmt 
 	@ ${TR} cmt '```'
 	cat expected_output.3	>> testrec.md
 	@ ${TR} cmt '```'
@@ -96,9 +100,13 @@ test4:
 	@ echo "Layer_B contains P3 and P4" 		>> rules.4
 	@ echo "Layer_A is a layer over Layer_B"	>> rules.4
 	@ ${TR} cmt 
+	@ ${TR} cmt 'Rules :'
+	@ ${TR} cmt 
 	@ ${TR} cmt '```'
 	cat rules.4 	      	>> testrec.md
 	@ ${TR} cmt '```'
+	@ ${TR} cmt 'Expecting :'
+	@ ${TR} cmt 
 	@ ${TR} cmt 
 	@ ${TR} cmt '```'
 	cat expected_output.4a	>> testrec.md
@@ -112,9 +120,13 @@ test4:
 	@ ${TR} cmt "And now with the allowing rule :"
 	@ echo "Containers use is allowed"	>> rules.4
 	@ ${TR} cmt 
+	@ ${TR} cmt 'Rules :'
+	@ ${TR} cmt 
 	@ ${TR} cmt '```'
 	cat rules.4 	      	>> testrec.md
 	@ ${TR} cmt '```'
+	@ ${TR} cmt 
+	@ ${TR} cmt 'No error expected.'
 	@ ${TR} cmt 
 
 	> expected_output.4b
@@ -122,6 +134,33 @@ test4:
 	${TR} assert true /usr/bin/sdiff "-s expected_output.4b output.4b"
 
 	${TR} end
+
+test5:
+	@ #---------------------------------------------------------------------
+	${TR} start "Cumulative only ... may use X rules"
+	@ ${CREATE_PKG} P1 spec  -in dir5 -with Interfaces.C
+	@ ${CREATE_PKG} P2 spec  -in dir5 -with Interfaces.C
+	@ ${CREATE_PKG} P3 spec  -in dir5 -with Interfaces.C
+
+	@ ${TR} cmt "P1 P2 and P3 are withing Interfaces.C"
+	@ ${TR} cmt 
+	@ ${TR} cmt "rules5.txt contains :"
+	@ ${TR} cmt 
+	@ ${TR} cmt '```'
+	cat rules.5 >> testrec.md
+	@ ${TR} cmt '```'
+	@ ${TR} cmt 
+	@ ${TR} cmt "When running :"
+	@ ${TR} cmt 
+	@ ${TR} cmt '> archicheck -q -I dir5 rules.5'
+	@ ${TR} cmt 
+	@ ${TR} cmt "Expected :"
+
+	@ ../../Obj/archicheck -q -I dir5 rules.5 > output.5
+	${TR} assert true /usr/bin/sdiff "-s expected_output.5 output.5"
+
+	${TR} end
+
 clean:
 	- ${RM} -rf output.* dir? dir?? *.~
 	${TR} clean

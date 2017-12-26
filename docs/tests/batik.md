@@ -71,7 +71,7 @@
 ```
 
 
- Java code test suite / --list_file test, recursive and non recursive [Successful]("tests-status#successful")
+ Java code test suite / --list_file test, recursive and non recursive [Successful](tests_status.md#successful)
 
 ##  Java code test suite / simple import 
 
@@ -117,7 +117,7 @@ org.apache.batik.apps.jsvg.JSVG class depends on org.apache.batik.swing.svg.SVGU
 ```
 
 
- Java code test suite / simple import [Successful]("tests-status#successful")
+ Java code test suite / simple import [Successful](tests_status.md#successful)
 
 ##  Java code test suite / interface
 
@@ -156,7 +156,7 @@ org.apache.batik.dom.events.NodeEventTarget interface depends on org.w3c.dom.eve
 ```
 
 
- Java code test suite / interface [Successful]("tests-status#successful")
+ Java code test suite / interface [Successful](tests_status.md#successful)
 
 ##  Java code test suite / no import
 
@@ -182,7 +182,7 @@ public class TriplyIndexedTable {
 ```
 
 
- Java code test suite / no import [Successful]("tests-status#successful")
+ Java code test suite / no import [Successful](tests_status.md#successful)
 
 ##  Java code test suite / no package
 
@@ -204,7 +204,7 @@ NodeEventTarget interface depends on org.w3c.dom.events.Event
 ```
 
 
- Java code test suite / no package [Successful]("tests-status#successful")
+ Java code test suite / no package [Successful](tests_status.md#successful)
 
 ##  Java code test suite / real Batik code
 
@@ -274,7 +274,7 @@ public abstract class SVGAbstractTranscoder extends XMLAbstractTranscoder {
   > archicheck rules.B -I dir6
   No output expected
 
- Java code test suite / real Batik code [Empty]("tests-status#empty")
+ Java code test suite / real Batik code [Empty](tests_status.md#empty)
 
 ##  Java code test suite / Let's add dependencies to Browser and Rasterizer into a Transcoder class
 
@@ -301,4 +301,4 @@ Warning : org.apache.batik.transcoder.NodeEventTarget (in Core_Modules layer) us
 ```
 
 
- Java code test suite / Let's add dependencies to Browser and Rasterizer into a Transcoder class [Successful]("tests-status#successful")
+ Java code test suite / Let's add dependencies to Browser and Rasterizer into a Transcoder class [Successful](tests_status.md#successful)

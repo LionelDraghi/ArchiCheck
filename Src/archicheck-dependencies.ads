@@ -45,6 +45,16 @@ private package Archicheck.Dependencies is
       Kind           : Unit_Kind;
       Implementation : Boolean; -- False if Specification, or Interface,
                                 -- True if implementation (or body, etc.)
+
+      -- Fixme:
+      -- A major redesign step would be to act in the code that component are
+      -- just a special kind of unit, and to add it in the Unit_Kind and here
+      -- in this record.
+      -- Contained units should became one of this record fields, and the
+      -- Components pkg could be removed.
+      -- "File" would be set to the rules file instead of a source file.
+      -- This is also linked to the decision to run into recursive problems
+      -- of real units extended with others trought "contains" declarations.
    end record;
 
    -- --------------------------------------------------------------------------
@@ -67,6 +77,7 @@ private package Archicheck.Dependencies is
    --   Exemples :
    --     Interfaces.C is     in Interfaces
    --     Interfaces.C is     in INTERFACES
+   --     Interfaces.C is     in Interfaces.C
    --     Interfaces.C is not in Interfaces.C.Utilities
    --     Interfaces.C is not in Interfaces.Com
    -- Exceptions:

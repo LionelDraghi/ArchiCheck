@@ -1,8 +1,6 @@
 
 
 
-
-
 App contains Main -- final comment
 
 -- comment
@@ -12,8 +10,8 @@ App contains Main -- final comment
 			
 GUI contains Glib
 
--- comment, should not be taken into account :
--- DB contains DB.Query  *********************
+// comment, should not be taken into account :
+// DB contains DB.Query  *********************
 
--- comment : 
---DB contains DB.IO 
+# comment : 
+##DB contains DB.IO 

@@ -60,7 +60,9 @@ package body Archicheck.Rules.Parser is
    type Token_Ids is
      (-- Non reporting tokens (not used in generating an LALR grammar) -----------------------------------------
       Whitespace_Id,
-      Comment_Id,
+      Ada_Comment_Id,
+      Java_Comment_Id,
+      Shell_Comment_Id,
 
       -- Terminals tokens ---------------
       -- Keywords
@@ -125,30 +127,32 @@ package body Archicheck.Rules.Parser is
 
    -- Step 3: Map the Terminal Token ID's to their recognizers and tokens
    Syntax : constant Tokenizer.Syntax :=
-              (Whitespace_Id => Tokenizer.Get (OpenToken.Recognizer.Character_Set.Get (OpenToken.Recognizer.Character_Set.Standard_Whitespace)),
+              (Whitespace_Id    => Tokenizer.Get (OpenToken.Recognizer.Character_Set.Get (OpenToken.Recognizer.Character_Set.Standard_Whitespace)),
                --
-               A_Id          => Tokenizer.Get (OpenToken.Recognizer.Keyword.Get ("a")),
-               And_Id        => Tokenizer.Get (OpenToken.Recognizer.Keyword.Get ("and")),
-               Contains_Id   => Tokenizer.Get (OpenToken.Recognizer.Keyword.Get ("contains")),
-               Is_Id         => Tokenizer.Get (OpenToken.Recognizer.Keyword.Get ("is")),
-               Layer_Id      => Tokenizer.Get (OpenToken.Recognizer.Keyword.Get ("layer")),
-               Only_Id       => Tokenizer.Get (OpenToken.Recognizer.Keyword.Get ("only")),
-               May_Id        => Tokenizer.Get (OpenToken.Recognizer.Keyword.Get ("may")),
-               Over_Id       => Tokenizer.Get (OpenToken.Recognizer.Keyword.Get ("over")),
-               Use_Id        => Tokenizer.Get (OpenToken.Recognizer.Keyword.Get ("use")),
-               Forbidden_Id  => Tokenizer.Get (OpenToken.Recognizer.Keyword.Get ("forbidden")),
-               Allowed_Id    => Tokenizer.Get (OpenToken.Recognizer.Keyword.Get ("allowed")),
+               A_Id             => Tokenizer.Get (OpenToken.Recognizer.Keyword.Get ("a")),
+               And_Id           => Tokenizer.Get (OpenToken.Recognizer.Keyword.Get ("and")),
+               Contains_Id      => Tokenizer.Get (OpenToken.Recognizer.Keyword.Get ("contains")),
+               Is_Id            => Tokenizer.Get (OpenToken.Recognizer.Keyword.Get ("is")),
+               Layer_Id         => Tokenizer.Get (OpenToken.Recognizer.Keyword.Get ("layer")),
+               Only_Id          => Tokenizer.Get (OpenToken.Recognizer.Keyword.Get ("only")),
+               May_Id           => Tokenizer.Get (OpenToken.Recognizer.Keyword.Get ("may")),
+               Over_Id          => Tokenizer.Get (OpenToken.Recognizer.Keyword.Get ("over")),
+               Use_Id           => Tokenizer.Get (OpenToken.Recognizer.Keyword.Get ("use")),
+               Forbidden_Id     => Tokenizer.Get (OpenToken.Recognizer.Keyword.Get ("forbidden")),
+               Allowed_Id       => Tokenizer.Get (OpenToken.Recognizer.Keyword.Get ("allowed")),
 
                -- Delimiters
-               Comment_Id    => Tokenizer.Get (OpenToken.Recognizer.Line_Comment.Get ("--", Reportable => False)),
-               Comma_Id      => Tokenizer.Get (OpenToken.Recognizer.Separator.Get (",")),
-               Dot_Id        => Tokenizer.Get (OpenToken.Recognizer.Separator.Get (".")),
-               Semicolon_Id  => Tokenizer.Get (OpenToken.Recognizer.Separator.Get (";")),
+               Ada_Comment_Id   => Tokenizer.Get (OpenToken.Recognizer.Line_Comment.Get ("--", Reportable => False)),
+               Java_Comment_Id  => Tokenizer.Get (OpenToken.Recognizer.Line_Comment.Get ("//", Reportable => False)),
+               Shell_Comment_Id => Tokenizer.Get (OpenToken.Recognizer.Line_Comment.Get ("#",  Reportable => False)),
+               Comma_Id         => Tokenizer.Get (OpenToken.Recognizer.Separator.Get (",")),
+               Dot_Id           => Tokenizer.Get (OpenToken.Recognizer.Separator.Get (".")),
+               Semicolon_Id     => Tokenizer.Get (OpenToken.Recognizer.Separator.Get (";")),
 
-               EoF_Id        => Tokenizer.Get (OpenToken.Recognizer.End_Of_File.Get),
+               EoF_Id           => Tokenizer.Get (OpenToken.Recognizer.End_Of_File.Get),
 
                --  Identifier must be after keywords, so they are recognized instead
-               Identifier_Id => Tokenizer.Get
+               Identifier_Id    => Tokenizer.Get
                  (Recognizer => OpenToken.Recognizer.Identifier.Get
                     (Start_Chars => Ada.Strings.Maps.Constants.Letter_Set,
                      Body_Chars  => Ada.Strings.Maps.Constants.Alphanumeric_Set),
@@ -263,19 +267,19 @@ package body Archicheck.Rules.Parser is
                Rule                        <= Allowed_Use_Declaration        and
                Rule                        <= Component_Declaration          and
 
-               Component_Declaration       <= Unit & Contains_T & Unit_List                 + Store_Component_Declaration'Access       and
-               Layer_Declaration           <= Unit & Is_T & A_T & Layer_T & Over_T & Unit   + Store_Layer_Declaration'Access           and
-               Use_Declaration             <= Unit & Use_T & Unit                           + Store_Use_Declaration'Access             and
+               Component_Declaration       <= Unit & Contains_T & Unit_List                 + Store_Component_Declaration'Access      and
+               Layer_Declaration           <= Unit & Is_T & A_T & Layer_T & Over_T & Unit   + Store_Layer_Declaration'Access          and
+               Use_Declaration             <= Unit & May_T & Use_T & Unit                   + Store_Use_Declaration'Access            and
                Restricted_Use_Declaration  <= Only_T & Unit & May_T & Use_T & Unit          + Store_Restricted_Use_Declaration'Access and
-               Forbidden_Use_Declaration   <= Unit & Use_T & Is_T & Forbidden_T             + Add_Forbbiden_Unit'Access                and
-               Allowed_Use_Declaration     <= Unit & Use_T & Is_T & Allowed_T               + Add_Allowed_Unit'Access                  and
+               Forbidden_Use_Declaration   <= Unit & Use_T & Is_T & Forbidden_T             + Add_Forbbiden_Unit'Access               and
+               Allowed_Use_Declaration     <= Unit & Use_T & Is_T & Allowed_T               + Add_Allowed_Unit'Access                 and
 
 
                Unit_List                   <= Unit & Comma_T & Unit_List     and
                Unit_List                   <= Unit & And_T   & Unit_List     and
                Unit_List                   <= Unit                           and
 
-               Unit                        <= Unit & Dot_T & Identifier_T                   + Add_To_Unit_Name'Access                  and
+               Unit                        <= Unit & Dot_T & Identifier_T                   + Add_To_Unit_Name'Access                 and
                Unit                        <= Identifier_T                                  + Initialize_Unit_Name'Access;
 
 
@@ -289,7 +293,7 @@ package body Archicheck.Rules.Parser is
    --  The LALR parser instance.
    Rules_File_Parser : LALR_Parser.Instance := LALR_Parser.Initialize
      (Analyzer,
-      LALR_Generator.Generate (Grammar, Ignore_Unused_Tokens => True)); --**
+      LALR_Generator.Generate (Grammar)); -- , Ignore_Unused_Tokens => True)); --**
 
    -- --------------------------------------------------------------------------
    -- Fixme: Fonctionnement Très Spécial, À Comenter!

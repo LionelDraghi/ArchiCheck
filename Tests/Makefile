@@ -44,21 +44,21 @@ doc:
 	echo ""                                                 >> tests_status.md
 	echo "   "`cat Successful.lst | wc -l`" tests OK"       >> tests_status.md
 	echo ""                                                 >> tests_status.md
-	sed "s/^ */   - \[/;s/ \[Successful\].*/\]\(\)/" Successful.lst	>> tests_status.md
+	sed "s/^ */  - \[/;s/ \[Successful\].*/\]\(\)/" Successful.lst	>> tests_status.md
 
 	echo ""                                                 >> tests_status.md
-	echo '## Failed'                                   	>> tests_status.md
+	echo '## Failed'                                   		>> tests_status.md
 	echo ""                                                 >> tests_status.md
 	echo "   "`cat Failed.lst | wc -l`" tests failed"       >> tests_status.md
 	echo ""                                                 >> tests_status.md
-	sed "s/^ */   - \[/;s/ \[Failed\].*/\]\(\)/" Failed.lst >> tests_status.md
+	sed "s/^** /  - \[/;s/ \[Failed\].*/\]\(\)/" Failed.lst >> tests_status.md
 
 	echo ""                                                 >> tests_status.md
-	echo '## Empty'                                    	>> tests_status.md
+	echo '## Empty'                                    		>> tests_status.md
 	echo ""                                                 >> tests_status.md
 	echo "   "`cat Empty.lst | wc -l`" empty tests"         >> tests_status.md
 	echo ""                                                 >> tests_status.md
-	sed "s/^ */   - \[/;s/ \[Empty\].*/\]\(\)/" Empty.lst   >> tests_status.md
+	sed "s/^ */  - \[/;s/ \[Empty\].*/\]\(\)/" Empty.lst	>> tests_status.md
 
 	mv tests_status.md ../docs/tests
 

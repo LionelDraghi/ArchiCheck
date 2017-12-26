@@ -29,9 +29,7 @@ test1:
 	@ cat reference_rules.txt >> testrec.md						
 	${TR} cmt '```'								
 	${TR} cmt ""								
-	${TR} cmt '```'							
-	${TR} cmt "archicheck -lr reference_rules.txt"				
-	${TR} cmt '```'								
+	${TR} cmt "> archicheck -lr reference_rules.txt"				
 	${TR} cmt ""								
 	${TR} cmt "The reference result is :"					
 	${TR} cmt ""								

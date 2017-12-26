@@ -23,7 +23,7 @@ test1:
 	@ ${CREATE_PKG} P4 spec  -in dir1
 
 	@ ${TR} cmt
-	@ ${TR} cmt '![][lr1.png]'
+	@ ${TR} cmt '![](lr1.png)'
 	@ ${TR} cmt
 	@ ${TR} cmt '```'
 	cat rules.1 >> testrec.md

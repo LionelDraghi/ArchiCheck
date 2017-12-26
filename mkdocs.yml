@@ -6,20 +6,20 @@ repo_url: https://github.com/LionelDraghi/ArchiCheck
 site_description: 'Describe and enforce your software architecture'
 site_author: 'Lionel Draghi'
 
-use_directory_urls: false
+use_directory_urls: true
 
 pages:
-- Quick start: readme.md
-- Download: Download.md
+- Quick start: index.md
+- Download: download.md
 - About: about.md
 
 - Documentation:
-  ## - [ArchiCheck overview](http://Archicheck_Overview.pdf)
-  - Cmd_Line.md
+  ## - [ArchiCheck overview](Archicheck_Overview.pdf)
+  - cmd_line.md
   - rules.md
   - todo.md
-  - CONTRIBUTING.md
-  - COPYING.md
+  - building.md
+  - copying.md
   
 - Tests:
   - tests/tests_status.md
@@ -40,7 +40,7 @@ pages:
   - tests/precedences_rules.md
     
 - Status:
-  - Dashboard.md
+  - dashboard.md
   ## - [Code coverage](http://lionel.draghi.free.fr/Archicheck/lcov/index.html)
   - tests/tests_status.md
   ## - fixme.md

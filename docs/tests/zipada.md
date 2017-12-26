@@ -115,7 +115,7 @@
 ```
 
 
- ZipAda code test suite / -lf test [Successful]("tests-status#successful")
+ ZipAda code test suite / -lf test [Successful](tests_status.md#successful)
 
 ##  ZipAda code test suite / -ld test
 
@@ -463,4 +463,4 @@ Zip_with_many_files procedure body depends on Ada.Strings.Fixed
 ```
 
 
- ZipAda code test suite / -ld test [Successful]("tests-status#successful")
+ ZipAda code test suite / -ld test [Successful](tests_status.md#successful)

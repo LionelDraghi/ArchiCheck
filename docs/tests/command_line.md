@@ -42,7 +42,7 @@ Examples:
 ```
 
 
- Command line test suite / Help options [Successful]("tests-status#successful")
+ Command line test suite / Help options [Successful](tests_status.md#successful)
 
 ##  Command line test suite / Version option
 
@@ -54,7 +54,7 @@ Examples:
 ```
 
 
- Command line test suite / Version option [Successful]("tests-status#successful")
+ Command line test suite / Version option [Successful](tests_status.md#successful)
 
 ##  Command line test suite / -I option without src dir
 
@@ -69,7 +69,7 @@ Error : Sources directory expected after -I
 ```
 
 
- Command line test suite / -I option without src dir [Successful]("tests-status#successful")
+ Command line test suite / -I option without src dir [Successful](tests_status.md#successful)
 
 ##  Command line test suite / -I option with an unknow dir
 
@@ -84,7 +84,7 @@ Error : No qsdqjh directory
 ```
 
 
- Command line test suite / -I option with an unknow dir [Successful]("tests-status#successful")
+ Command line test suite / -I option with an unknow dir [Successful](tests_status.md#successful)
 
 ##  Command line test suite / unknown -xyz option
 
@@ -121,7 +121,7 @@ Examples:
 ```
 
 
- Command line test suite / unknown -xyz option [Successful]("tests-status#successful")
+ Command line test suite / unknown -xyz option [Successful](tests_status.md#successful)
 
 ##  Command line test suite / -I option with... nothing to do
 
@@ -161,7 +161,7 @@ Examples:
 ```
 
 
- Command line test suite / -I option with... nothing to do [Successful]("tests-status#successful")
+ Command line test suite / -I option with... nothing to do [Successful](tests_status.md#successful)
 
 ##  Command line test suite / -lr option without rules file
 
@@ -198,7 +198,7 @@ Examples:
 ```
 
 
- Command line test suite / -lr option without rules file [Successful]("tests-status#successful")
+ Command line test suite / -lr option without rules file [Successful](tests_status.md#successful)
 
 ##  Command line test suite / Legal line, but no src file in the given (existing) directory
 
@@ -214,7 +214,7 @@ Warning : Cannot list files, no sources found to analyze
 ```
 
 
- Command line test suite / Legal line, but no src file in the given (existing) directory [Successful]("tests-status#successful")
+ Command line test suite / Legal line, but no src file in the given (existing) directory [Successful](tests_status.md#successful)
 
 ##  Command line test suite / file given to -I, instead of a directory
 
@@ -230,7 +230,7 @@ Error : src.adb is not a directory
 ```
 
 
- Command line test suite / file given to -I, instead of a directory [Successful]("tests-status#successful")
+ Command line test suite / file given to -I, instead of a directory [Successful](tests_status.md#successful)
 
 ##  Command line test suite / -ld given, but no source found
 
@@ -247,7 +247,7 @@ Warning : Cannot list dependencies, no sources found
 ```
 
 
- Command line test suite / -ld given, but no source found [Successful]("tests-status#successful")
+ Command line test suite / -ld given, but no source found [Successful](tests_status.md#successful)
 
 ##  Command line test suite / src found, but nothing to do whith it
 
@@ -286,7 +286,7 @@ Examples:
 ```
 
 
- Command line test suite / src found, but nothing to do whith it [Successful]("tests-status#successful")
+ Command line test suite / src found, but nothing to do whith it [Successful](tests_status.md#successful)
 
 ##  Command line test suite / rules file found, but nothing to do whith it
 
@@ -323,4 +323,4 @@ Examples:
 ```
 
 
- Command line test suite / rules file found, but nothing to do whith it [Successful]("tests-status#successful")
+ Command line test suite / rules file found, but nothing to do whith it [Successful](tests_status.md#successful)

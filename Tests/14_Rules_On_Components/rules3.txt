@@ -1,6 +1,10 @@
-LA is a Layer over LB
-LB is a Layer over LC
+X contains P1 and P2 -- P1 to P4 are existing compilation units
+Y contains P3 and P4
 
-Env contains Interfaces.C and Ada
-Env use is allowed
+Z contains X and Y -- Component of components
 
+-- till now, OK.
+
+-- and now let's try to add P1 (that belong to X) to another components :
+Y contains P1
+Z contains P1

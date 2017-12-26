@@ -59,7 +59,7 @@ test2:
 	@ echo "   null;"		>> dir2/c-d.adb
 	@ echo "end C . D ;"		>> dir2/c-d.adb
 
-	${TR} cmt "same test here, but c-d.adb if formated this way :"
+	${TR} cmt 'same test here, but `c-d.adb` if formated this way :'
 	@ ${TR} cmt 
 	${TR} cmt '```'
 	cat dir2/c-d.adb 	>> testrec.md

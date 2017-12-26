@@ -4,7 +4,7 @@ TR=../Tools/testrec
 
 .PHONY : clean
 
-check: ../../Obj/archicheck header test1 test2 test3
+check: ../../Obj/archicheck header test1 test2 test3 test4
 
 header:
 	${TR} clean
@@ -36,9 +36,7 @@ test2:
 	../../Obj/archicheck -ld -r -I gtkada-master | sort > output.2
 	
 	${TR} cmt 
-	${TR} cmt '```'							
-	${TR} cmt "archicheck -ld -r -I gtkada-master"							
-	${TR} cmt '```'
+	${TR} cmt "> archicheck -ld -r -I gtkada-master"							
 	${TR} cmt 
 	${TR} cmt "`cat expected_output.2 | wc -l` unit found, not detailed here"							
 
@@ -67,8 +65,34 @@ test3:
 	${TR} cmt 
 								
 	../../Obj/archicheck GtkAda.rules -r -I gtkada-master	> output.3
-	# -q is set to avoid warnings and focus on error
 	${TR} assert true /usr/bin/sdiff "-s expected_output.3 output.3"
+
+	${TR} end
+
+
+test4:
+	${TR} start "Another realistic GtkAda description file"		
+	
+	${TR} cmt 
+	${TR} cmt '![](gtk.png)'
+	${TR} cmt 
+	${TR} cmt "Checking those rules over GtkAda:"							
+	${TR} cmt 
+	${TR} cmt '```'							
+	cat GtkAda2.rules		>> testrec.md						
+	${TR} cmt '```'
+	${TR} cmt 
+
+	${TR} cmt "Expected output:"			
+	${TR} cmt 
+	${TR} cmt '```'							
+	cat expected_output.4		>> testrec.md						
+	${TR} cmt '```'
+	${TR} cmt 
+								
+	../../Obj/archicheck GtkAda2.rules -q -r -I gtkada-master	> output.4
+	# Fixme: -q is set to avoid warnings and focus on error till code is fixed
+	${TR} assert true /usr/bin/sdiff "-s expected_output.4 output.4"
 
 	${TR} end
 

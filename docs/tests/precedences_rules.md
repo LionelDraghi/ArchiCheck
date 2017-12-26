@@ -27,7 +27,7 @@ Error : LB.Y is in LB layer, and so shall not use LA.X in the upper LA layer
 Warning : LB.Y (in LB layer) uses LA.X that is neither in the same layer, nor in the lower LC layer
 ```
 
-** Precedence rules unit test / Declaration of a component already existing in code [Failed]("tests-status#failed")**
+** Precedence rules unit test / Declaration of a component already existing in code [Failed](tests_status.md#failed)**
 
 ##  Precedence rules unit test / Alowing a child of forbidden unit
 
@@ -49,4 +49,4 @@ Error : in file /home/lionel/Proj/Archicheck/Tests/15_Precedences_Rules/src/lb-y
 Error : in file /home/lionel/Proj/Archicheck/Tests/15_Precedences_Rules/src/lb-y.ads : Interfaces.Java use is forbidden
 ```
 
-** Precedence rules unit test / Alowing a child of forbidden unit [Failed]("tests-status#failed")**
+** Precedence rules unit test / Alowing a child of forbidden unit [Failed](tests_status.md#failed)**

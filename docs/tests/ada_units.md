@@ -6,6 +6,7 @@
 ##  Ada units test suite / Subunits (separate) unit test
 
   procedure Sub.Test has several separate units :
+
   - separate procedure
   - separate package
   - separate function
@@ -38,4 +39,4 @@ Rational_Numbers.IO package spec depends on A2
 ```
 
 
- Ada units test suite / Subunits (separate) unit test [Successful]("tests-status#successful")
+ Ada units test suite / Subunits (separate) unit test [Successful](tests_status.md#successful)

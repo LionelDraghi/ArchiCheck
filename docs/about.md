@@ -22,8 +22,8 @@ History:
 
 ---
 License:
-  ArchiCheck is distributed under GPL version 3, refer to the [COPYING file](file://home/lionel/Proj/Archicheck/COPYING).
 
+  ArchiCheck is distributed under GPL version 3, refer to the usual [COPYING file](copying.md).
 Author & contact:
   ArchiCheck was created by [Lionel Draghi](mailto:lionel.draghi@free.fr).
 
@@ -34,11 +34,13 @@ Ada:
 Special thanks to:
 
 - [Ludovic and all the Ada in Debian team](https://people.debian.org/~lbrenta/debian-ada-policy.html#Introduction). 
-- [darcs](http://darcs.net/)
-- [NaturalDocs](http://www.naturaldocs.org/)
+- [darcs](http://darcs.net/) (No more used)
+- [NaturalDocs](http://www.naturaldocs.org/) (No more used)
 - [OpenToken](http://stephe-leake.org/ada/opentoken.html)
 - [GNAT & GPS](http://libre.adacore.com/tools/gps/)
 - [Rolf Ebert & Gautier de Montmollin for IniFile](https://sourceforge.net/projects/ini-files/)
+- [mkdocs]()
+- [git and github]()
 
 <script type='text/javascript' src='https://www.openhub.net/stacks/147583/widgets/stack_normal?icon_width=16&icon_height=16&title=Ada%20dev%20stack&width=138&projects_shown=12&noclear=true'></script>
 

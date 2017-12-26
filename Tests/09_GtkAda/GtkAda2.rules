@@ -1,0 +1,31 @@
+Interfaces use is allowed
+System     use is allowed 
+Ada        use is allowed
+GNAT       use is allowed
+
+-- Pango may use Cairo
+-- Pango may use Glib
+-- Gdk   may use Cairo
+Low_Level contains Cairo and Glib -- arbitrary name
+Utilities contains Pango, Gdk     -- arbitrary name
+Utilities is a layer over Low_Level
+Gtk is a layer over Utilities
+
+
+
+GtkAda may use Gtk 
+
+-- Gtk may use Glib
+-- Gtk may use Pango
+-- Gtk may use Gdk
+-- Gtk may use Cairo
+Gtk may use Low_Level
+Gtk may use Utilities
+GtkAda may use Low_Level
+GtkAda may use Utilities
+
+-- Exceptions to previous declarations
+GtkAda.Bindings use is allowed
+GtkAda.Types    use is allowed
+GtkAda.C        use is allowed
+Gtk.Arguments   use is allowed -- This package is obsolete and replaced by Glib.Values

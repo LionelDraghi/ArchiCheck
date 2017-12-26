@@ -1,4 +1,4 @@
-library project patched_ot extends "opentoken" is
+library project patched_ot extends "/usr/share/ada/adainclude/opentoken" is
 
    for Source_Dirs use ("Patch");
    for Library_Dir use "lib";

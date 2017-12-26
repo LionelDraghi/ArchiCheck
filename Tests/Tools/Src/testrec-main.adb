@@ -34,7 +34,7 @@ procedure Testrec.Main is
    begin
       case Settings.Output_Format is
          when Settings.NaturalDocs     => return "<Empty>";
-         when Settings.Markdown        => return "[Empty](""tests-status#empty"")"; -- Fixme: hard coded reference to a tests_status.md file
+         when Settings.Markdown        => return "[Empty](tests_status.md#empty)"; -- Fixme: hard coded reference to a tests_status.md file
          -- when Settings.Standard_Output => return "[Empty]";
       end case;
    end Empty_Tag;
@@ -43,7 +43,7 @@ procedure Testrec.Main is
    begin
       case Settings.Output_Format is
          when Settings.NaturalDocs     => return "<Failed>";
-         when Settings.Markdown        => return "[Failed](""tests-status#failed"")";
+         when Settings.Markdown        => return "[Failed](tests_status.md#failed)";
          -- when Settings.Standard_Output => return "[Failed]";
       end case;
    end Fail_Tag;
@@ -52,7 +52,7 @@ procedure Testrec.Main is
    begin
       case Settings.Output_Format is
          when Settings.NaturalDocs     => return "<Successful>";
-         when Settings.Markdown        => return "[Successful](""tests-status#successful"")";
+         when Settings.Markdown        => return "[Successful](tests_status.md#successful)";
          -- when Settings.Standard_Output => return "[Successful]";
       eNd case;
    end Successful_Tag;

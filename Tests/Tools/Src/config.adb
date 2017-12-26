@@ -243,7 +243,7 @@ package body Config is
       Value_As_String : constant String := Value_Of (Cfg, Section, Mark);
       Val  : Long_Float;
       Last : Positive;
-      package LFIO is new Ada.Text_IO.Float_IO (Long_FLoat);
+      package LFIO is new Ada.Text_IO.Float_IO (Long_Float);
    begin
       if Value_As_String'Length > 0 and then
          Is_number_start (Value_As_String (Value_As_String'First))

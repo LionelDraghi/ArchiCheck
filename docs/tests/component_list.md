@@ -22,7 +22,7 @@ rules.1:1.18: Component App contains unit Main
 ```
 
 
- Component definition rules test suite / One component list [Successful]("tests-status#successful")
+ Component definition rules test suite / One component list [Successful](tests_status.md#successful)
 
 ##  Component definition rules test suite / GUI component contains 3 other components, declared one by one on the rules file
 
@@ -48,7 +48,7 @@ rules.2:4.19: Component GUI contains unit Pango
 ```
 
 
- Component definition rules test suite / GUI component contains 3 other components, declared one by one on the rules file [Successful]("tests-status#successful")
+ Component definition rules test suite / GUI component contains 3 other components, declared one by one on the rules file [Successful](tests_status.md#successful)
 
 ##  Component definition rules test suite / GUI component contains 3 other components, declared all in one line in the rules file
 
@@ -72,4 +72,4 @@ rules.3:2.36: Component GUI contains unit Pango
 ```
 
 
- Component definition rules test suite / GUI component contains 3 other components, declared all in one line in the rules file [Successful]("tests-status#successful")
+ Component definition rules test suite / GUI component contains 3 other components, declared all in one line in the rules file [Successful](tests_status.md#successful)

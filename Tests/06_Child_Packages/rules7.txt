@@ -1,0 +1,2 @@
+Interfaces   use is forbidden
+Interfaces.C use is allowed

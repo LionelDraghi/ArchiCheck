@@ -21,9 +21,7 @@ GUI contains Pango
 
 ```
 
-```
-  archicheck -lr reference_rules.txt
-```
+  > archicheck -lr reference_rules.txt
 
   The reference result is :
 
@@ -35,7 +33,7 @@ reference_rules.txt:4.19: Component GUI contains unit Pango
 ```
 
 
- Rules file syntax test suite / Reference file [Successful]("tests-status#successful")
+ Rules file syntax test suite / Reference file [Successful](tests_status.md#successful)
 
 ##  Rules file syntax test suite / Casing
 
@@ -49,14 +47,12 @@ GUI Contains Pango
 ```
 
 
- Rules file syntax test suite / Casing [Successful]("tests-status#successful")
+ Rules file syntax test suite / Casing [Successful](tests_status.md#successful)
 
 ##  Rules file syntax test suite / Spacing and comments
 
 
 ```
-
-
 
 
 
@@ -69,15 +65,15 @@ App contains Main -- final comment
 			
 GUI contains Glib
 
--- comment, should not be taken into account :
--- DB contains DB.Query  *********************
+// comment, should not be taken into account :
+// DB contains DB.Query  *********************
 
--- comment : 
---DB contains DB.IO 
+# comment : 
+##DB contains DB.IO 
 ```
 
 
- Rules file syntax test suite / Spacing and comments [Successful]("tests-status#successful")
+ Rules file syntax test suite / Spacing and comments [Successful](tests_status.md#successful)
 
 ##  Rules file syntax test suite / Punctuation and syntaxic sugar
 
@@ -93,4 +89,4 @@ GUI contains ATK GIO Gtk, Glib and Pango.
 ```
 
 
- Rules file syntax test suite / Punctuation and syntaxic sugar [Empty]("tests-status#empty")
+ Rules file syntax test suite / Punctuation and syntaxic sugar [Empty](tests_status.md#empty)

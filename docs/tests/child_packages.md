@@ -2,7 +2,7 @@
 # Child packages test suite
 
 
- The tests hereafter are similar to those in <Layer rules tests suite>, except that child packages allows to simplify rules file.
+ The tests hereafter are similar to those in [Layer rules tests suite], except that child packages allows to simplify rules file.
 
  The file rules :
 
@@ -29,7 +29,7 @@ GUI is a layer over DB
 ```
 
 
- Child packages test suite / Rules OK test, no output expected [Successful]("tests-status#successful")
+ Child packages test suite / Rules OK test, no output expected [Successful](tests_status.md#successful)
 
 ##  Child packages test suite / Reverse dependency test
 
@@ -43,7 +43,7 @@ Error : DB.P4 is in DB layer, and so shall not use GUI.P5 in the upper GUI layer
 ```
 
 
- Child packages test suite / Reverse dependency test [Successful]("tests-status#successful")
+ Child packages test suite / Reverse dependency test [Successful](tests_status.md#successful)
 
 ##  Child packages test suite / Layer bridging test
 
@@ -57,7 +57,7 @@ Warning : P6 is neither in GUI or DB layer, and so shall not directly use DB.P4 
 ```
 
 
- Child packages test suite / Layer bridging test [Successful]("tests-status#successful")
+ Child packages test suite / Layer bridging test [Successful](tests_status.md#successful)
 
 ##  Child packages test suite / Undescribed dependency test
 
@@ -71,14 +71,19 @@ Warning : GUI.P2 (in GUI layer) uses P7 that is neither in the same layer, nor i
 ```
 
 
- Child packages test suite / Undescribed dependency test [Successful]("tests-status#successful")
+ Child packages test suite / Undescribed dependency test [Successful](tests_status.md#successful)
 
 ##  Child packages test suite / Packages in the same layer may with themself
 
 
- Child packages test suite / Packages in the same layer may with themself [Successful]("tests-status#successful")
+ Child packages test suite / Packages in the same layer may with themself [Successful](tests_status.md#successful)
 
 ##  Child packages test suite / GUI.P1 is a GUI child, GUIP1 is not a GUI child pkg
 
 
- Child packages test suite / GUI.P1 is a GUI child, GUIP1 is not a GUI child pkg [Successful]("tests-status#successful")
+ Child packages test suite / GUI.P1 is a GUI child, GUIP1 is not a GUI child pkg [Successful](tests_status.md#successful)
+
+##  Child packages test suite / Forbidding Interfaces but allowing Interfaces.C
+
+
+** Child packages test suite / Forbidding Interfaces but allowing Interfaces.C [Failed](tests_status.md#failed)**

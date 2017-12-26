@@ -26,6 +26,7 @@ test1:
 	${TR} start "Subunits (separate) unit test"
 
 	@ ${TR} cmt "procedure Sub.Test has several separate units :"
+	@ ${TR} cmt 
 	@ ${TR} cmt "- separate procedure"
 	@ ${TR} cmt "- separate package"
 	@ ${TR} cmt "- separate function"
