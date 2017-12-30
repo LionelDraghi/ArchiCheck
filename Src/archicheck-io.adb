@@ -18,7 +18,6 @@
 -- -----------------------------------------------------------------------------
 
 with Ada.Strings.Fixed;
--- with Ada.Directories;
 
 package body Archicheck.IO is
 
@@ -62,6 +61,7 @@ package body Archicheck.IO is
       Put_Line ("Warning : " & Msg);
       -- use the local version of Put_Line, and not the Ada.Text_IO one, so that
       -- Warning messages are also ignored when --quiet.
+      -- Fixme: this dumb!
    end Put_Warning;
 
    -- -------------------------------------------------------------------------
@@ -71,6 +71,9 @@ package body Archicheck.IO is
                         With_Help : in Boolean := False) is
    begin
       Ada.Text_IO.Put_Line ("Error : " & Msg);
+      -- use the Text_IO Put_Line, so that error message are not filtered
+      -- according to verbosity
+      -- Fixme: this dumb!
       if With_Help then Put_Help; end if;
    end Put_Error;
 

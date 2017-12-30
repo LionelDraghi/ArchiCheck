@@ -1,1 +1,1 @@
-Error : in file /home/lionel/Proj/Archicheck/Tests/14_Rules_On_Components/dir4/p1.ads : Interfaces.C use is forbidden
+Error : dir4/p1.ads:2: Interfaces.C use is forbidden

@@ -52,17 +52,26 @@ private
    -- --------------------------------------------------------------------------
    -- Function: Is_Forbidden
    -- --------------------------------------------------------------------------
-   function Is_Forbidden (Unit : in Unit_Name) return Boolean;
-   procedure Add_Forbidden_Unit (Unit : in Unit_Name);
+   function Is_Forbidden (Unit_Name : in String) return Boolean;
+   procedure Add_Forbidden_Unit (Unit_Name : in String);
 
    -- --------------------------------------------------------------------------
    -- Function: Is_Allowed
    -- --------------------------------------------------------------------------
-   function Is_Allowed (Unit : in Unit_Name) return Boolean;
-   procedure Add_Allowed_Unit (Unit : in Unit_Name);
+   function Is_Allowed (Unit_Name : in String) return Boolean;
+   procedure Add_Allowed_Unit (Unit_Name : in String);
 
-   -- -------------------------------------------------------------------------
-   function Is_Unit_In_Component (Unit      : String;
-                                  Component : String) return Boolean;
+   -- --------------------------------------------------------------------------
+   -- Function: Is_Allowed
+   -- --------------------------------------------------------------------------
+   function Is_Allowed (Unit_Name : in String;
+                        For_Unit  : in String) return Boolean;
+
+   -- --------------------------------------------------------------------------
+   function Allowed_Users (Of_Unit : in String) return Relationship_Lists.List;
+   -- returns May_Use and Exclusive_Use that have Of_Unit as target
+   function Users_Image (List : in Relationship_Lists.List) return String;
+   -- returns "X and Y and Z" or "X" or ""
+
 
 end Archicheck.Rules;

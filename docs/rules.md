@@ -105,12 +105,12 @@ Use the `allowed` syntax :
 ```
 Java.IO use is allowed
 ```
-> Remember that `Java.IO` actually means `Java.IO.*`
+> Remember that `Java.IO` actually means `Java.IO` and `Java.IO.*`
 
 Forbidden use
 -------------
 
-Symetrically, you may want to ban from you design some packages :
+Symetrically, you may want to ban from your design some packages :
 ```
 Interfaces.C use is forbidden
 ```
@@ -125,12 +125,13 @@ only Low_Level_Layer may use Interfaces.C
 ```
 A restricted use will check that, like a normal use, `Interfaces.C` is not using `Low_Level_Layer`, but also that no other unit is using `Interfaces.C`.
 
-Note that multiple multiples restricted use may apply cumulatively to a unit :
+Note that multiple multiples restricted or non restricted use may apply cumulatively to a unit :
 ```
-only X may use Z
-only Y may use Z
+only X may use P1
+only Y may use P1
+Z may use P1
 -- is equivalent to :
---   only X and Y may use Z
+--   only X, Y and Z may use P1
 -- that is not (yet) a legal Archicheck syntax
 ```
 Syntactic sugar
@@ -153,13 +154,13 @@ Presentation_Layer contains Pkg_4, Pkg_5 and Pkg_6
 Comments
 --------
 
-As you may noticed in the previous example, comments are possible in several formats (but single line comments only), so keep your own habit :
+As you may have noticed in the previous example, comments are possible in several formats (but single line comments only), so keep your own habit :
 
 - the Ada way, that is starting with `--`, 
 - the Java / C# way, starting with `//`, 
 - the Shell way, starting with `#`.
 
-(Note that those comments format seems to be the most popular, according to [Rosetta Code](https://rosettacode.org/wiki/Comments))
+(Those format seems to be the most popular for single line comments in programming languages, according to [Rosetta Code](https://rosettacode.org/wiki/Comments))
 
 Reserved words
 --------------
@@ -186,13 +187,15 @@ For example, if there is a `Utility` compilation unit, with child units, and I d
 ```
 Utility contains Glib and Ada.Containers
 ```
-Two possible behavior here :  
+Two possible behavior here :
+
 - this is illegal and should be dealt with as an error when reading the rules file
 - this is is considered as an "Add" operation : `Glib`, `Ada.Containers` and there child packages should be considered as if there where actually `Utility.Glib` and `Utility.Ada.Containers`.
   
-> As I am writing this (v0.4.3 Christmas 2017), I'm trying the second way, altrough it smell very complex (and I hate that precise smell). 
+> As I am writing this (v0.5 january 2018), I'm trying the second way, altrough it smell very complex (and I hate that precise smell). 
+> 
 > Consider this as TBD.  
-> Any comment on that feature is welcome! 
+> Any comment on that feature is welcome. 
 
 ### Rules precedence
 
@@ -205,34 +208,22 @@ Interfaces.C use is allowed
 ```
 
 Whatever the order of those two declarations, it should have this behaviour :
+
 - `Interfaces.C` and all it's child units are allowed
 - all other `Interfaces` child are forbidden
+- and obviously `Interfaces` use is forbidden
 
-But, until globbing character implementation, there is no way to do an explicit choice for `Interfaces`.
+**Note that "allowed" as the precedence over "forbidden", meaning that if you 
+explicitly allow some unit, you can't forbid one of his child.**
 
-The "future" solution will be :
+For example, if we invert the previous exemple : 
 ```
-Interfaces.* use is forbidden 
-Interfaces.C use is allowed
-Interfaces   use is allowed -- or forbidden, according to your choice
+Interfaces   use is allowed
+Interfaces.C use is forbidden
 ```
+the second line will be ignored.
 
-> Note that, as I am writing this (v0.4.3 Christmas 2017), only the test is implemented (and so is failing).
-
-### Cumulating `X may use Y` and `only X may use Y`?
-
-I'm not clear now on cumulating normal use and restricted use.
-
-Should we consider that :
-```
-X may use V
-only Y may use V
-only Z may use V
-```
-like `only X, Y and Z may use V`, or like `only Y and Z may use V`.
-And in the later case, should I raise an error or a warning when reading the file?
-
-As word are meaningful, I don't want to consider the first line as if `only` was there, and so I balance for the second way.
-
-> Note that, as I am writing this (v0.4.3 Christmas 2017), only the test is implemented (and so is failing).
+> As I am writing this (v0.5 january 2018), implementing a more logical behaviour seem's complex.   
+> But who knows, I may change my mind, so consider this as likely to change.  
+> Any comment on that feature is welcome. 
 

@@ -20,7 +20,7 @@
 
 with Archicheck.IO;
 with Archicheck.Settings;
-with Archicheck.Dependencies;
+with Archicheck.Units;
 
 with Ada_Lexer;
 
@@ -73,13 +73,14 @@ package body Archicheck.Lang.Ada_Processor is
 
       File : Ada.Text_IO.File_Type;
 
-      use Dependencies;
-      use Dependencies.Dependency_Lists;
+      use Units.Dependency_Lists;
       use Ada.Strings.Unbounded;
       use Ada_Lexer;
 
-      Tmp                  : Dependency_Lists.List := Dependency_Lists.Empty_List;
-      Unit_Kind            : Dependencies.Unit_Kind;
+      Tmp2                 : Units.Dependency_Lists.List := Units.Dependency_Lists.Empty_List;
+      Unit_Kind2           : Units.Unit_Kind;
+      -- Fixme: to be renamed
+
       Unit_Type_Identified : Boolean               := False;
       Implementation       : Boolean               := True;
       Parent_Pkg_Name      : Unbounded_String      := Null_Unbounded_String;
@@ -125,18 +126,14 @@ package body Archicheck.Lang.Ada_Processor is
             Find_Next;
             declare
                Unit : constant String := Get_Unit_Name;
+               -- Fixme: to be replaced with the US version of Get_Unit_Name
             begin
                Put_Debug_Line ("   - withing " & Unit); -- , Level => Verbose);
-               Append (Tmp, (From => (Name           => Null_Unbounded_String,
-                                      File           => To_Unbounded_String (From_Source),
-                                      Lang           => Sources.Ada_2012,
-                                      Kind           => Unknown,
-                                      Implementation => True), -- unkown at that point
-                             To   => (Name           => To_Unbounded_String (Unit),
-                                      File           => Null_Unbounded_String,
-                                      Lang           => Sources.Ada_2012, --** pour l'instant
-                                      Kind           => Unknown,
-                                      Implementation => False))); -- generally False, but...
+
+               Tmp2.Append ((To_Unit => To_Unbounded_String (Unit),
+                             File    => To_Unbounded_String (From_Source),
+                             Line    => Ada_Lexer.Line));
+
                exit Unit_List when Token_ID /= Comma_T;
                -- otherwise, loop to continue in the list of comma separated withed unit
             end;
@@ -147,10 +144,9 @@ package body Archicheck.Lang.Ada_Processor is
       procedure Process_Pkg is
       begin
          Unit_Type_Identified := True;
-         Unit_Kind := Dependencies.Package_K;
 
          Put_Debug_Line ("5 : found unit " &  Ada_Token'Image (Token_ID));
-         if Is_Empty (Tmp) then
+         if Is_Empty (Tmp2) then
             -- we reach the unit name without meeting any "with"
             Put_Debug_Line ("No with");
          end if;
@@ -172,19 +168,16 @@ package body Archicheck.Lang.Ada_Processor is
          begin
             Put_Debug_Line ("in package " & Unit & " implem : " & Boolean'Image (Implementation));
 
-            for D of Tmp loop
-               Dependencies.Append ((From => (Name           => To_Unbounded_String (Unit),
-                                              File           => D.From.File,
-                                              Lang           => D.From.Lang,
-                                              Kind           => Unit_Kind,
-                                              Implementation => Implementation),
-                                     To   => D.To));
-            end loop;
+            Units.Add_Unit (Unit         => (Name           => To_Unbounded_String (Unit),
+                                             Lang           => Sources.Ada_2012,
+                                             Kind           => Units.Package_K,
+                                             Implementation => Implementation),
+                            Dependencies => Tmp2);
 
             -- Let's reset the tmp list. This should be usefull only when processing
             -- a source embedding multiple package declaration, so that the "with" of
             -- the first pkg will not be attributed to following pkg.
-            Clear (Tmp);
+            Clear (Tmp2);
 
          end;
       end Process_Pkg;
@@ -193,12 +186,12 @@ package body Archicheck.Lang.Ada_Processor is
       procedure Process_Subroutine is
       begin
          Unit_Type_Identified := True;
-         if    Token_ID = Procedure_T then Unit_Kind := Dependencies.Procedure_K;
-         elsif Token_ID = Function_T  then Unit_Kind := Dependencies.Function_K;
+         if    Token_ID = Procedure_T then Unit_Kind2 := Units.Procedure_K;
+         elsif Token_ID = Function_T  then Unit_Kind2 := Units.Function_K;
          end if;
 
          Put_Debug_Line ("5 : found unit type : " &  Ada_Token'Image (Token_ID));
-         if Is_Empty (Tmp) then
+         if Is_Empty (Tmp2) then
             -- we reach the unit name without meeting any "with"
             Put_Debug_Line ("No with ");
          end if;
@@ -207,6 +200,7 @@ package body Archicheck.Lang.Ada_Processor is
          Find_Next;
          declare
             Unit : constant String := To_String (Parent_Pkg_Name) & Get_Unit_Name;
+            use type Units.Unit_Kind;
          begin
             Put_Debug_Line ("Unit name : " & " " & Unit);
             Put_Debug_Line ("7 : after " & Unit & " : " &  Ada_Token'Image (Token_ID));
@@ -238,19 +232,27 @@ package body Archicheck.Lang.Ada_Processor is
 
             Put_Debug_Line ("Implem : " & Boolean'Image (Implementation));
 
-            for D of Tmp loop
-               Dependencies.Append ((From => (Name           => To_Unbounded_String (Unit),
-                                              File           => D.From.File,
-                                              Lang           => D.From.Lang,
-                                              Kind           => Unit_Kind,
-                                              Implementation => Implementation),
-                                     To   => D.To));
-            end loop;
+            if Unit_Kind2 = Units.Procedure_K then
+               -- Fixme : utiliser la syntaxe 2012 pour faire une unique déclaration dans le declare
+               Units.Add_Unit
+                 (Unit => (Name           => To_Unbounded_String (Unit),
+                           Lang           => Sources.Ada_2012,
+                           Kind           => Units.Procedure_K,
+                           Implementation => Implementation),
+                  Dependencies => Tmp2);
+            elsif  Unit_Kind2 = Units.Function_K   then
+               Units.Add_Unit
+                 (Unit => (Name           => To_Unbounded_String (Unit),
+                           Lang           => Sources.Ada_2012,
+                           Kind           => Units.Function_K,
+                           Implementation => Implementation),
+                  Dependencies => Tmp2);
+            end if;
 
             -- Let's reset the tmp list. This should be usefull only when processing
             -- a source embedding multiple package declaration, so that the "with" of
             -- the first pkg will not be attributed to following pkg.
-            Clear (Tmp);
+            Clear (Tmp2);
 
          end;
       end Process_Subroutine;
@@ -259,10 +261,9 @@ package body Archicheck.Lang.Ada_Processor is
       procedure Process_Task is
       begin
          Unit_Type_Identified := True;
-         Unit_Kind := Dependencies.Task_K;
 
          Put_Debug_Line ("Found unit type : " &  Ada_Token'Image (Token_ID));
-         if Is_Empty (Tmp) then
+         if Is_Empty (Tmp2) then
             -- we reach the unit name without meeting any "with"
             Put_Debug_Line ("No with ");
          end if;
@@ -279,19 +280,17 @@ package body Archicheck.Lang.Ada_Processor is
          begin
             Put_Debug_Line ("Task name : " & " " & Unit);
 
-            for D of Tmp loop
-               Dependencies.Append ((From => (Name           => To_Unbounded_String (Unit),
-                                              File           => D.From.File,
-                                              Lang           => D.From.Lang,
-                                              Kind           => Unit_Kind,
-                                              Implementation => True), -- separate task body
-                                     To   => D.To));
-            end loop;
+            Units.Add_Unit
+              (Unit         => (Name           => To_Unbounded_String (Unit),
+                                Lang           => Sources.Ada_2012,
+                                Kind           => Units.Task_K,
+                                Implementation => True), -- separate task body
+               Dependencies => Tmp2);
 
             -- Let's reset the tmp list. This should be usefull only when processing
             -- a source embedding multiple package declaration, so that the "with" of
             -- the first pkg will not be attributed to following pkg.
-            Clear (Tmp);
+            Clear (Tmp2);
 
          end;
       end Process_Task;
@@ -300,10 +299,9 @@ package body Archicheck.Lang.Ada_Processor is
       procedure Process_Protected is
       begin
          Unit_Type_Identified := True;
-         Unit_Kind := Dependencies.Protected_K;
 
          Put_Debug_Line ("Found unit type : " &  Ada_Token'Image (Token_ID));
-         if Is_Empty (Tmp) then
+         if Is_Empty (Tmp2) then
             -- we reach the unit name without meeting any "with"
             Put_Debug_Line ("No with ");
          end if;
@@ -319,19 +317,17 @@ package body Archicheck.Lang.Ada_Processor is
          begin
             Put_Debug_Line ("Protected name : " & " " & Unit);
 
-            for D of Tmp loop
-               Dependencies.Append ((From => (Name           => To_Unbounded_String (Unit),
-                                              File           => D.From.File,
-                                              Lang           => D.From.Lang,
-                                              Kind           => Unit_Kind,
-                                              Implementation => True), -- separate protected body
-                                     To   => D.To));
-            end loop;
+            Units.Add_Unit
+              (Unit         => (Name           => To_Unbounded_String (Unit),
+                                Lang           => Sources.Ada_2012,
+                                Kind           => Units.Protected_K,
+                                Implementation => True), -- separate protected body
+               Dependencies => Tmp2);
 
             -- Let's reset the tmp list. This should be usefull only when processing
             -- a source embedding multiple package declaration, so that the "with" of
             -- the first pkg will not be attributed to following pkg.
-            Clear (Tmp);
+            Clear (Tmp2);
 
          end;
       end Process_Protected;

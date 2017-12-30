@@ -3,7 +3,7 @@ all: check doc
 CREATE_PKG=../Tools/create_pkg
 TR=../Tools/testrec
 
-.PHONY : clean
+.PHONY : clean header
 
 check: ../../Obj/archicheck header test1 test2 test3 test4 test5 test6 test7
 

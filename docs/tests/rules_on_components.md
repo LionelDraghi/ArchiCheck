@@ -17,8 +17,8 @@ LB is a Layer over LC
 
   Expected :
 ```
-Warning : LB.Y (in LB layer) uses Ada.Containers that is neither in the same layer, nor in the lower LC layer
-Warning : LB.Y (in LB layer) uses Interfaces.C that is neither in the same layer, nor in the lower LC layer
+Warning : src/lb-y.ads:1: LB.Y (in LB layer) uses Ada.Containers that is neither in the same layer, nor in the lower LC layer
+Warning : src/lb-y.ads:2: LB.Y (in LB layer) uses Interfaces.C that is neither in the same layer, nor in the lower LC layer
 ```
   Let's now add faulty units in LC layer :
 
@@ -66,10 +66,13 @@ Env use is allowed
   P1 package is in X component, wha if I try to add it to another components?
 
 ```
-X contains P1 and P2 -- P1 to P4 are existing compilation units
+-- Two simple components :
+X contains P1 and P2
 Y contains P3 and P4
+-- P1 to P4 are existing compilation units
 
-Z contains X and Y -- Component of components
+-- A component of components
+Z contains X and Y
 
 -- till now, OK.
 
@@ -82,11 +85,16 @@ Z contains P1
   > archicheck rules3.txt -I src
 
   No more error/warning expected :
-```
-Error: P1 appartient au composant X, ne peut pas être ajouté au composant Y
-Warning : P1 appartient déjà au composant Z par l'intermédiaire de X, ligne ignorée```
 
-** Component processing in rules unit test / Trying to include a unit in more components [Failed](tests_status.md#failed)**
+  > Note that line numbers are false in error messages due to
+  > a strange OpenToken bug (I guess).
+
+```
+Error : rules3.txt:25: P1 already in X (cf. rules3.txt:3: ), can't be added to Y
+Error : rules3.txt:26: P1 already in X (cf. rules3.txt:3: ), can't be added to Z
+```
+
+ Component processing in rules unit test / Trying to include a unit in more components [Successful](tests_status.md#successful)
 
 ##  Component processing in rules unit test / Test on Components embedding components embedding components...
 
@@ -104,7 +112,7 @@ Interfaces.C use is forbidden
 
   Error expected, as P1 is unsing a forbidden unit :
 ```
-Error : in file /home/lionel/Proj/Archicheck/Tests/14_Rules_On_Components/dir4/p1.ads : Interfaces.C use is forbidden
+Error : dir4/p1.ads:2: Interfaces.C use is forbidden
 ```
   Lets allow Interfaces.C use through Z components :
 
@@ -115,7 +123,7 @@ Z contains Y
 
 Interfaces.C use is forbidden
 
-Z use Interfaces.C
+Z may use Interfaces.C
 ```
 
   Running :  
@@ -123,4 +131,4 @@ Z use Interfaces.C
 
   No more Error expected.
 
-** Component processing in rules unit test / Test on Components embedding components embedding components... [Failed](tests_status.md#failed)**
+ Component processing in rules unit test / Test on Components embedding components embedding components... [Successful](tests_status.md#successful)

@@ -46,7 +46,7 @@ test2:
 	@ ${TR} cmt '```'
 	@ ${TR} cmt 
 
-	@ ../../Obj/archicheck -ld -r -I ./zip-ada > output.2
+	@ ../../Obj/archicheck -ld -r -I ./zip-ada | sort > output.2
 	${TR} assert true /usr/bin/sdiff "-sbB expected_output.2 output.2"
 
 	${TR} end

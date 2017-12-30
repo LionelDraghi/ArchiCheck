@@ -28,9 +28,10 @@ package body Archicheck.Lang is
 
    -- Change default Debug parameter value to enable/disable Debug messages in this package
    -- --------------------------------------------------------------------------
-   procedure Put_Debug_Line (Msg    : in String  := "";
-                             Debug  : in Boolean := Settings.Debug_Mode;
-                             Prefix : in String  := "Lang") renames Archicheck.IO.Put_Debug_Line;
+   procedure Put_Debug_Line
+     (Msg    : in String  := "";
+      Debug  : in Boolean := Settings.Debug_Mode;
+      Prefix : in String  := "Lang") renames Archicheck.IO.Put_Debug_Line;
 
    -- --------------------------------------------------------------------------
    Processor_List : array (Sources.Language) of Interface_Access;
@@ -49,10 +50,13 @@ package body Archicheck.Lang is
       Src_Count : array (Sources.Language) of Natural := (others => 0);
       Dir_Count : array (Sources.Language) of Natural := (others => 1);
 
+      use Ada.Directories;
+
+      Current : constant String := Current_Directory;
+
       -- -----------------------------------------------------------------------
       procedure Walk (Name : String; L : Sources.Language) is
 
-         use Ada.Directories;
          use Ada.Strings.Unbounded;
          Extension : constant String := File_Extensions (Processor_List (L).all); -- dispatching call
 
@@ -60,10 +64,21 @@ package body Archicheck.Lang is
          procedure Print (Item : Directory_Entry_Type) is
             Name : constant String := Full_Name (Item);
          begin
-            Sources.Add_Source (Src => (Name => To_Unbounded_String (Name),
-                                        -- Time_Tag => Modification_Time (Directory_Entry),
-                                        Lang => L));
-            -- Put_Debug_Line (Msg => "Found " & Name);
+            if Name'Length > Current'Length
+              and then Name (Name'First .. Name'First + Current'Length - 1) = Current
+            -- Simple optimisation : if the long path is a subdir of the current one,
+            -- we only print the subdir
+            then
+               Sources.Add_Source
+                 (Src => (Name => To_Unbounded_String (Name (Name'First + Current'Length + 1 .. Name'Last)),
+                            -- Time_Tag => Modification_Time (Directory_Entry),
+                          Lang => L));
+            else
+               Sources.Add_Source
+                 (Src => (Name => To_Unbounded_String (Name),
+                          -- Time_Tag => Modification_Time (Directory_Entry),
+                          Lang => L));
+            end if;
             Src_Count (L) := Src_Count (L) + 1;
          end Print;
 
@@ -72,7 +87,7 @@ package body Archicheck.Lang is
          begin
             if Simple_Name (Item) /= "." and then Simple_Name (Item) /= ".." then
                -- code found here : https://rosettacode.org/wiki/Walk_a_directory/Recursively#Ada
-               --** but isn't this Unix specific???
+               -- but isn't this Unix specific???
                Dir_Count (L) := Dir_Count (L) + 1;
                Walk (Full_Name (Item), L);
             end if;
@@ -88,13 +103,15 @@ package body Archicheck.Lang is
 
    begin
       for L in Sources.Language loop
-         -- Put_Debug_Line (Msg => "Analysing directory " & Root_Dir
-         --                 & " for language : " & Sources.Language'Image (L));
+         Put_Debug_Line (Msg => "Analysing directory " & Root_Dir
+                          & " for language : " & Sources.Language'Image (L));
          Walk (Root_Dir, L);
-         IO.Put_Line (Item => Integer'Image (Src_Count (L)) & " "
-                      & Sources.Language'Image (L) & " src in"
-                      & Natural'Image (Dir_Count (L)) & " dir",
-                     Level => IO.Verbose);
+         if Src_Count (L) /= 0 then
+            IO.Put_Line (Item => "Found " & Integer'Image (Src_Count (L)) & " " &
+                           Sources.Language'Image (L) & " src in" &
+                           Natural'Image (Dir_Count (L)) & " dir",
+                         Level => IO.Verbose);
+         end if;
       end loop;
 
    end Get_Src_List;
@@ -107,10 +124,11 @@ package body Archicheck.Lang is
       use Ada.Strings.Unbounded;
 
    begin
-      Put_Debug_Line (Msg => "Analysing dependencies," &
-                        Ada.Containers.Count_Type'Image (Sources.Source_Lists.Length (Src_List)) & " sources");
+      Put_Debug_Line ("Analysing dependencies,"
+                      & Ada.Containers.Count_Type'Image
+                        (Sources.Source_Lists.Length (Src_List)) & " sources");
       for S of Src_List loop
-         Put_Debug_Line (Msg => "Analysing dependencies in " & To_String (S.Name));
+         Put_Debug_Line ("Analysing dependencies in " & To_String (S.Name));
 
          Analyze_Dependencies (Processor_List (S.Lang).all, -- dispatching call
                                From_Source => To_String (S.Name));

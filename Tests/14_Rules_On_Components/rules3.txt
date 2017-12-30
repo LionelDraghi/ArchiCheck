@@ -1,7 +1,10 @@
-X contains P1 and P2 -- P1 to P4 are existing compilation units
+-- Two simple components :
+X contains P1 and P2
 Y contains P3 and P4
+-- P1 to P4 are existing compilation units
 
-Z contains X and Y -- Component of components
+-- A component of components
+Z contains X and Y
 
 -- till now, OK.
 

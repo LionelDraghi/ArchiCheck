@@ -5,7 +5,7 @@ TR=../Tools/testrec
 
 .PHONY : clean
 
-check: ../../Obj/archicheck header test1 test2 test3 test4 test5
+check: ../../Obj/archicheck header test1 test2 test3 test4 test5 test6
 
 header:
 	@ #---------------------------------------------------------------------
@@ -26,6 +26,7 @@ test1:
 	@ ${TR} cmt 
 	@ ${TR} cmt '```'
 	cat rules.1 >> testrec.md
+	@ ${TR} cmt 
 	@ ${TR} cmt '```'
 	@ ${TR} cmt 
 
@@ -141,6 +142,7 @@ test5:
 	@ ${CREATE_PKG} P1 spec  -in dir5 -with Interfaces.C
 	@ ${CREATE_PKG} P2 spec  -in dir5 -with Interfaces.C
 	@ ${CREATE_PKG} P3 spec  -in dir5 -with Interfaces.C
+	@ ${CREATE_PKG} P4 spec  -in dir5 -with Interfaces.C
 
 	@ ${TR} cmt "P1 P2 and P3 are withing Interfaces.C"
 	@ ${TR} cmt 
@@ -148,16 +150,66 @@ test5:
 	@ ${TR} cmt 
 	@ ${TR} cmt '```'
 	cat rules.5 >> testrec.md
+	@ ${TR} cmt 
 	@ ${TR} cmt '```'
 	@ ${TR} cmt 
 	@ ${TR} cmt "When running :"
 	@ ${TR} cmt 
-	@ ${TR} cmt '> archicheck -q -I dir5 rules.5'
+	@ ${TR} cmt '> archicheck -I dir5 rules.5'
+	@ ${TR} cmt 
+	@ ${TR} cmt "Expected :"
+	@ ${TR} cmt 
+	@ ${TR} cmt '```'
+	cat expected_output.5	>> testrec.md
+	@ ${TR} cmt '```'
+	@ ${TR} cmt 
+	
+	@ ../../Obj/archicheck -I dir5 rules.5 > output.5
+	${TR} assert true /usr/bin/sdiff "-sBW expected_output.5 output.5"
+
+	${TR} end
+
+test6:
+	@ #---------------------------------------------------------------------
+	${TR} start "Combining Allowed and Forbidden"
+	@ ${CREATE_PKG} P1 spec  -in dir6 -with Interfaces
+	@ ${CREATE_PKG} P2 spec  -in dir6 -with Interfaces.C
+	@ ${CREATE_PKG} P3 spec  -in dir6 -with Interfaces.Java
+
+	@ ${TR} cmt "P1 P2 and P3 are withing Interfaces, Interfaces.C and Interfaces.Java"
+	@ ${TR} cmt 
+	@ ${TR} cmt "rules6.txt contains :"
+	@ ${TR} cmt 
+	@ ${TR} cmt '```'
+	cat rules.6 >> testrec.md
+	@ ${TR} cmt '```'
+	@ ${TR} cmt 
+	@ ${TR} cmt "When running :"
+	@ ${TR} cmt 
+	@ ${TR} cmt '> archicheck -I dir6 rules.6'
 	@ ${TR} cmt 
 	@ ${TR} cmt "Expected :"
 
-	@ ../../Obj/archicheck -q -I dir5 rules.5 > output.5
-	${TR} assert true /usr/bin/sdiff "-s expected_output.5 output.5"
+	@ ../../Obj/archicheck -I dir6 rules.6 > output.6
+	${TR} assert true /usr/bin/sdiff "-sBW expected_output.6 output.6"
+
+	@ ${TR} cmt "And now inverting Allowed and Forbidden"
+	@ ${TR} cmt 
+	@ ${TR} cmt "rules6b.txt contains :"
+	@ ${TR} cmt 
+	@ ${TR} cmt '```'
+	cat rules.6b >> testrec.md
+	@ ${TR} cmt 
+	@ ${TR} cmt '```'
+	@ ${TR} cmt 
+	@ ${TR} cmt "When running :"
+	@ ${TR} cmt 
+	@ ${TR} cmt '> archicheck -I dir6 rules.6b'
+	@ ${TR} cmt 
+	@ ${TR} cmt "Expected :"
+
+	@ ../../Obj/archicheck -I dir6 rules.6b > output.6b
+	${TR} assert true /usr/bin/sdiff "-sBW expected_output.6b output.6b"
 
 	${TR} end
 

@@ -74,8 +74,6 @@ test4:
 	${TR} start "Another realistic GtkAda description file"		
 	
 	${TR} cmt 
-	${TR} cmt '![](gtk.png)'
-	${TR} cmt 
 	${TR} cmt "Checking those rules over GtkAda:"							
 	${TR} cmt 
 	${TR} cmt '```'							

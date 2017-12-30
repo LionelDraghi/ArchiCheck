@@ -43,5 +43,3 @@ Further readings
 - [Get it and build it](building.md)
 - [ArchiCheck command line](cmd_line.md)
 - [More on rules and rules files](rules.md)
-
-

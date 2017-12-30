@@ -36,8 +36,8 @@ with OpenToken.Token.Enumerated.List;
 with OpenToken.Token.Enumerated.Nonterminal;
 
 with Archicheck.IO;
+with Archicheck.Units;
 with Archicheck.Settings;
-with Archicheck.Components;   use Archicheck.Components;
 
 with Ada.Exceptions;
 with Ada.Text_IO;
@@ -47,10 +47,10 @@ with Ada.Strings.Unbounded;
 package body Archicheck.Rules.Parser is
 
    -- Change default Debug parameter value to enable/disable Debug messages in this package
-   -- -------------------------------------------------------------------------
-   procedure Put_Debug_Line (Msg    : in String  := "";
-                             Debug  : in Boolean := False; -- change to True to debug this package
-                             Prefix : in String  := "Rules_Parser") renames Archicheck.IO.Put_Debug_Line;
+   -- --------------------------------------------------------------------------
+--     procedure Put_Debug_Line (Msg    : in String  := "";
+--                               Debug  : in Boolean := Settings.Debug_Mode; --True; -- change to True to debug this package
+--                               Prefix : in String  := "Rules_Parser") renames Archicheck.IO.Put_Debug_Line;
    --     procedure Put_Debug (Msg    : in String  := "";
    --                          Debug  : in Boolean := True;
    --                          Prefix : in String  := "Rules_Parser") renames Archicheck.IO.Put_Debug;
@@ -58,13 +58,13 @@ package body Archicheck.Rules.Parser is
 
    -- The list of tokens, without non-terminals in recursive descent.
    type Token_Ids is
-     (-- Non reporting tokens (not used in generating an LALR grammar) -----------------------------------------
+     (-- Non reporting tokens (not used in generating an LALR grammar) ---------
       Whitespace_Id,
       Ada_Comment_Id,
       Java_Comment_Id,
       Shell_Comment_Id,
 
-      -- Terminals tokens ---------------
+      -- Terminals tokens ------------------------------------------------------
       -- Keywords
       A_Id, -- first terminal
       And_Id,
@@ -86,7 +86,7 @@ package body Archicheck.Rules.Parser is
       --  Identifier must be after keywords, so they are recognized instead
       Identifier_Id, -- last terminal
 
-      -- Non-terminals tokens ---------------
+      -- Non-terminals tokens --------------------------------------------------
       Rules_File_Id,
       Rule_List_Id,
       Rule_Id,
@@ -199,12 +199,12 @@ package body Archicheck.Rules.Parser is
    use type Production_List.Instance;
 
 
-   -- -------------------------------------------------------------------------
+   -- --------------------------------------------------------------------------
    procedure Initialize_Unit_Name (New_Token : out Nonterminal.Class;
                                    Source    : in  Token_List.Instance'Class;
                                    To_ID     : in  Master_Token.Token_ID);
 
-   -- -------------------------------------------------------------------------
+   -- --------------------------------------------------------------------------
    procedure Add_To_Unit_Name (New_Token : out Nonterminal.Class;
                                Source    : in  Token_List.Instance'Class;
                                To_ID     : in  Master_Token.Token_ID);
@@ -261,7 +261,7 @@ package body Archicheck.Rules.Parser is
                Rule_List                   <= Rule                           and
 
                Rule                        <= Use_Declaration                and
-               Rule                        <= Restricted_Use_Declaration    and
+               Rule                        <= Restricted_Use_Declaration     and
                Rule                        <= Layer_Declaration              and
                Rule                        <= Forbidden_Use_Declaration      and
                Rule                        <= Allowed_Use_Declaration        and
@@ -293,18 +293,19 @@ package body Archicheck.Rules.Parser is
    --  The LALR parser instance.
    Rules_File_Parser : LALR_Parser.Instance := LALR_Parser.Initialize
      (Analyzer,
-      LALR_Generator.Generate (Grammar)); -- , Ignore_Unused_Tokens => True)); --**
+      LALR_Generator.Generate (Grammar)); -- , Ignore_Unused_Tokens => True));
 
    -- --------------------------------------------------------------------------
    -- Fixme: Fonctionnement Très Spécial, À Comenter!
-   Unit_List_A       : Unit_Lists.List;
-   Unit_List_B : Unit_Lists.List;
+   Dep_List_A2 : Units.Dependency_Lists.List;
+   Dep_List_B2 : Units.Dependency_Lists.List;
+   -- Fixme: to be renamed
 
    -- --------------------------------------------------------------------------
    procedure Reset_Unit_Names is
    begin
-      Unit_List_A.Clear;
-      Unit_List_B.Clear;
+      Dep_List_A2.Clear;
+      Dep_List_B2.Clear;
    end Reset_Unit_Names;
 
    -- --------------------------------------------------------------------------
@@ -320,49 +321,49 @@ package body Archicheck.Rules.Parser is
       use Archicheck.IO;
       use OpenToken.Buffers;
       use Ada.Strings.Unbounded;
-      --        Prefix         : constant String := GNU_Prefix (File   => Settings.Rules_File_Name,
-      --                                                        Line   => Rules_File_Parser.Line,
-      --                                                        Column => Rules_File_Parser.Column);
-
+      Component_Name : constant String := To_String
+        (Identifiers.Instance (Token_List.Token_Handle (Left).all).Identifier);
+      Dep : constant Units.Dependency :=
+                         (To_Unit => To_Unbounded_String (Component_Name),
+                          File    => To_Unbounded_String (Settings.Rules_File_Name),
+                          Line    => Rules_File_Parser.Line);
    begin
-      declare
-         Component_Name : constant String := To_String (Identifiers.Instance (Token_List.Token_Handle (Left).all).Identifier);
-      begin
-         if Unit_List_A.Is_Empty then
-            Unit_List_A.Append (To_Unbounded_String (Component_Name));
-            -- Put_Line (Prefix & "init Unit_Name_A = " & To_String (Unit_Name_A));
-         else
-            Unit_List_B.Append (To_Unbounded_String (Component_Name));
-            -- Put_Line (Prefix & "init Unit_Name_B = " & To_String (Unit_Name_B));
-         end if;
-      end;
+      if Dep_List_A2.Is_Empty then
+         Dep_List_A2.Append (Dep);
+         IO.Put_Line (Units.Location_Image (Dep)
+                      & To_String (Dep.To_Unit) & " added to A",
+                      Level => Debug);
+      else
+         Dep_List_B2.Append (Dep);
+         IO.Put_Line (Units.Location_Image (Dep)
+                      & To_String (Dep.To_Unit) & " added to B",
+                      Level => Debug);
+      end if;
 
    end Initialize_Unit_Name;
 
-   -- -------------------------------------------------------------------------
+   -- --------------------------------------------------------------------------
    -- Procedure: Add_To_Unit_Name
-   -- -------------------------------------------------------------------------
+   -- --------------------------------------------------------------------------
    procedure Add_To_Unit_Name (New_Token : out Nonterminal.Class;
-                              Source    : in  Token_List.Instance'Class;
-                              To_ID     : in  Master_Token.Token_ID)
+                               Source    : in  Token_List.Instance'Class;
+                               To_ID     : in  Master_Token.Token_ID)
    is
       pragma Unreferenced (New_Token, To_ID);
-      -- Left  : constant Token_List.List_Iterator := Token_List.Initial_Iterator (Source);
-      Right :          Token_List.List_Iterator := Token_List.Initial_Iterator (Source);
+      Right : Token_List.List_Iterator := Token_List.Initial_Iterator (Source);
 
       use Archicheck.IO;
       use OpenToken.Buffers;
       use Ada.Strings.Unbounded;
---        Prefix         : constant String := GNU_Prefix (File   => Settings.Rules_File_Name,
---                                                        Line   => Rules_File_Parser.Line,
---                                                        Column => Rules_File_Parser.Column);
       -- -----------------------------------------------------------------------
-      procedure Update_Last (List : in out Unit_Lists.List;
+      procedure Update_Last (List : in out Units.Dependency_Lists.List;
                              Name : in     String) is
-         Current_Name : constant Unbounded_String := List.Last_Element;
+         Current : constant Units.Dependency := List.Last_Element;
       begin
-         List.Replace_Element (List.Last, Current_Name & "." & Name);
-         -- Put_Line (Prefix & "adding " & Name & " to " & To_String (Current_Name));
+         List.Replace_Element
+           (List.Last, (To_Unit => Current.To_Unit & "." & Name,
+                        File    => Current.File,
+                        Line    => Current.Line));
       end Update_Last;
 
    begin
@@ -370,14 +371,17 @@ package body Archicheck.Rules.Parser is
       Token_List.Next_Token (Right); -- move "Right" over the next Identifier
 
       declare
-         Component_Name : constant String := To_String (Identifiers.Instance (Token_List.Token_Handle (Right).all).Identifier);
+         Component_Name : constant String := To_String
+           (Identifiers.Instance (Token_List.Token_Handle (Right).all).Identifier);
       begin
-         if Unit_List_B.Is_Empty then
-            Update_Last (Unit_List_A, Component_Name);
+         if Dep_List_B2.Is_Empty then
             -- Put_Line (Prefix & "Unit_Name_A = " & To_String (Unit_Name_A));
+            Update_Last (Dep_List_A2, Component_Name);
+
          else
-            Update_Last (Unit_List_B, Component_Name);
             -- Put_Line (Prefix & "Unit_Name_B = " & To_String (Unit_Name_B));
+            Update_Last (Dep_List_B2, Component_Name);
+
          end if;
 
       end;
@@ -396,38 +400,21 @@ package body Archicheck.Rules.Parser is
       use Archicheck.IO;
       use OpenToken.Buffers;
       use Ada.Strings.Unbounded;
-
-      Component_Name : constant String := To_String (Unit_List_A.First_Element); -- To_String (Identifiers.Instance (Token_List.Token_Handle (Left).all).Identifier);
-      Cursor         : Component_Maps.Cursor;
-      Prefix         : constant String := GNU_Prefix (File   => Settings.Rules_File_Name,
-                                                      Line   => Rules_File_Parser.Line,
-                                                      Column => Rules_File_Parser.Column);
+      Component_Name : constant String := To_String (Dep_List_A2.First_Element.To_Unit);
+      -- To_String (Identifiers.Instance (Token_List.Token_Handle (Left).all).Identifier);
    begin
       if Settings.List_Rules then
-         for U of Unit_List_B loop
-            Put_Line (Prefix & "Component " & Component_Name & " contains unit " & To_String (U),
-                      Level => IO.Quiet);
-         end loop;
-         -- Put_Line (Prefix & "Component " & Component_Name & " contains unit " & Unit_List_Image (Units));
+         Put_Line (GNU_Prefix (File   => Settings.Rules_File_Name,
+                               Line   => Rules_File_Parser.Line)
+                   & "Component " & Component_Name & " contains unit "
+                   & Units.Unit_List_Image (Dep_List_B2),
+                   Level => IO.Quiet);
       end if;
-
-      Cursor := Component_Maps.Find (Component_Map, Component_Name);
-
-      if Component_Maps.Has_Element (Cursor) then
-         -- the component was described by one or more declarations
-         Component_Maps.Replace_Element (Component_Map, Cursor, Unit_List_B);
-         Put_Debug_Line ("Adding units " & Unit_List_Image (Unit_List_B) & " to component " & Component_Name);
-
-      else
-         -- First occurence of this component
-         Component_Maps.Insert (Container => Component_Map,
-                                Key       => Component_Name,
-                                New_Item  => Unit_List_B);
-         Put_Debug_Line ("Creating component " & Component_Name & ", adding units " & Unit_List_Image (Unit_List_B));
-      end if;
-
+      Units.Add_Component
+        (Component    => (Name => To_Unbounded_String (Component_Name),
+                          Kind => Units.Component),
+         Dependencies => Dep_List_B2);
       Reset_Unit_Names;
-
    end Store_Component_Declaration;
 
    -- -------------------------------------------------------------------------
@@ -443,14 +430,13 @@ package body Archicheck.Rules.Parser is
       use OpenToken.Buffers;
       use Ada.Strings.Unbounded;
 
-      Using : constant String := To_String (Unit_List_A.First_Element); -- Fixme: conversion inutile
-      Used  : constant String := To_String (Unit_List_B.First_Element); -- Fixme: conversion inutile
+      Using : constant String := To_String (Dep_List_A2.First_Element.To_Unit); -- Fixme: conversion inutile
+      Used  : constant String := To_String (Dep_List_B2.First_Element.To_Unit); -- Fixme: conversion inutile
 
    begin
       if Settings.List_Rules then
          Put_Line (GNU_Prefix (File   => Settings.Rules_File_Name,
-                               Line   => Analyzer.Line,
-                               Column => Analyzer.Column)
+                               Line   => Analyzer.Line)
                    & "Layer " & Using & " is over layer " & Used,
                    Level => IO.Quiet);
       end if;
@@ -474,15 +460,14 @@ package body Archicheck.Rules.Parser is
       use OpenToken.Buffers;
 
       use Ada.Strings.Unbounded;
-      Using : constant String := To_String (Unit_List_A.First_Element); -- Fixme: conversion inutile
-      Used  : constant String := To_String (Unit_List_B.First_Element); -- Fixme: conversion inutile
+      Using : constant String := To_String (Dep_List_A2.First_Element.To_Unit); -- Fixme: conversion inutile
+      Used  : constant String := To_String (Dep_List_B2.First_Element.To_Unit); -- Fixme: conversion inutile
 
    begin
       if Settings.List_Rules then
          Put_Line (GNU_Prefix (File   => Settings.Rules_File_Name,
-                               Line   => Analyzer.Line,
-                               Column => Analyzer.Column)
-                   & "Component " & Using & " uses component " & Used,
+                               Line   => Analyzer.Line)
+                   & Using & " may use " & Used,
                    Level => IO.Quiet);
       end if;
       Add_Relationship ((Using_Unit => To_Unbounded_String (Using),
@@ -505,15 +490,14 @@ package body Archicheck.Rules.Parser is
       use OpenToken.Buffers;
 
       use Ada.Strings.Unbounded;
-      Using : constant String := To_String (Unit_List_A.First_Element); -- Fixme: conversion inutile
-      Used  : constant String := To_String (Unit_List_B.First_Element); -- Fixme: conversion inutile
+      Using : constant String := To_String (Dep_List_A2.First_Element.To_Unit); -- Fixme: conversion inutile
+      Used  : constant String := To_String (Dep_List_B2.First_Element.To_Unit); -- Fixme: conversion inutile
 
    begin
       if Settings.List_Rules then
          Put_Line (GNU_Prefix (File   => Settings.Rules_File_Name,
-                               Line   => Analyzer.Line,
-                               Column => Analyzer.Column)
-                   & "Only component " & Using & " may use component " & Used,
+                               Line   => Analyzer.Line)
+                   & "Only " & Using & " may use " & Used,
                    Level => IO.Quiet);
       end if;
       Add_Relationship ((Using_Unit => To_Unbounded_String (Using),
@@ -532,17 +516,16 @@ package body Archicheck.Rules.Parser is
       use Archicheck.IO;
       use OpenToken.Buffers;
       use Ada.Strings.Unbounded;
-      Unit : constant String := To_String (Unit_List_A.First_Element); -- Fixme: conversion inutile
+      Unit : constant String := To_String (Dep_List_A2.First_Element.To_Unit);
 
    begin
       if Settings.List_Rules then
          Put_Line (GNU_Prefix (File   => Settings.Rules_File_Name,
-                               Line   => Analyzer.Line,
-                               Column => Analyzer.Column) &
+                               Line   => Analyzer.Line) &
                      "Use of " & Unit & " allowed ",
                    Level => IO.Quiet);
       end if;
-      Add_Allowed_Unit (To_Unbounded_String (Unit));
+      Add_Allowed_Unit (Unit);
       Reset_Unit_Names;
 
    end Add_Allowed_Unit;
@@ -556,17 +539,16 @@ package body Archicheck.Rules.Parser is
       use Archicheck.IO;
       use OpenToken.Buffers;
       use Ada.Strings.Unbounded;
-      Unit : constant String := To_String (Unit_List_A.First_Element); -- Fixme: conversion inutile
+      Unit : constant String := To_String (Dep_List_A2.First_Element.To_Unit);
 
    begin
       if Settings.List_Rules then
          Put_Line (GNU_Prefix (File   => Settings.Rules_File_Name,
-                               Line   => Analyzer.Line,
-                               Column => Analyzer.Column) &
+                               Line   => Analyzer.Line) &
                      "Use of " & Unit & " is forbidden",
                    Level => IO.Quiet);
       end if;
-      Add_Forbidden_Unit (To_Unbounded_String (Unit));
+      Add_Forbidden_Unit (Unit);
       Reset_Unit_Names;
 
    end Add_Forbbiden_Unit;
@@ -593,7 +575,8 @@ package body Archicheck.Rules.Parser is
 
       exception
          when Error : others =>
-            IO.Put_Error (IO.GNU_Prefix (File_Name, Analyzer.Line, Analyzer.Column) & "parse exception");
+            IO.Put_Error (IO.GNU_Prefix (File_Name, Analyzer.Line)
+                          & "parse exception");
             IO.Put_Error (Ada.Exceptions.Exception_Information (Error));
 
       end Parsing;

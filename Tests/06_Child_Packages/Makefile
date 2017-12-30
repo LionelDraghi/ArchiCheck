@@ -65,8 +65,6 @@ test2:
 	@ ${CREATE_PKG} DB.P4  body  -in dir2 -with GUI.P5
 	@ ${CREATE_PKG} GUI.P5 spec  -in dir2
 
-	@ echo "Error : DB.P4 is in DB layer, and so shall not use GUI.P5 in the upper GUI layer" > expected_output.2
-
 	@ ${TR} cmt "Detection of a dependancy from a lower layer component to an upper layer component."
 	@ ${TR} cmt "![](cp2.png)"
 	@ ${TR} cmt
@@ -91,8 +89,6 @@ test3:
 	@ ${CREATE_PKG} DB.P4  spec  -in dir3
 	@ ${CREATE_PKG} P6     spec  -in dir3 -with DB.P4
 
-	@ echo "Warning : P6 is neither in GUI or DB layer, and so shall not directly use DB.P4 in the DB layer" > expected_output.3
-
 	@ ${TR} cmt "Detection of a dependancy link crossing a layer."
 	@ ${TR} cmt "![](cp3.png)"
 	@ ${TR} cmt
@@ -116,8 +112,6 @@ test4:
 	@ ${CREATE_PKG} DB.P3  spec  -in dir4
 	@ ${CREATE_PKG} DB.P4  spec  -in dir4
 	@ ${CREATE_PKG} P7     spec  -in dir4
-
-	@ echo "Warning : GUI.P2 (in GUI layer) uses P7 that is neither in the same layer, nor in the lower DB layer" > expected_output.4
 
 	@ ${TR} cmt "Detection of an undescribed dependancy to a component that is neither in the same layer, nor in the lower layer."
 	@ ${TR} cmt "![](cp4.png)"
@@ -158,10 +152,6 @@ test6:
 	@ ${CREATE_PKG} DB.P1  spec  -in dir6
 	@ ${CREATE_PKG} DBP2   spec  -in dir6 -with DB.P1
 
-	@ > expected_output.6
-	@ echo "Warning : DBP2 is neither in GUI or DB layer, and so shall not directly use DB.P1 in the DB layer"  >> expected_output.6
-	@ echo "Warning : GUIP2 is neither in GUI or DB layer, and so shall not directly use DB.P1 in the DB layer" >> expected_output.6
-
 	@ ../../Obj/archicheck rules.txt -I dir6   > output.6
 	${TR} assert true /usr/bin/sdiff "-s expected_output.6 output.6"
 
@@ -173,10 +163,6 @@ test7:
 	@ ${CREATE_PKG} P1 spec  -in dir7 -with Interfaces
 	@ ${CREATE_PKG} P2 spec  -in dir7 -with Interfaces.C
 	@ ${CREATE_PKG} P3 spec  -in dir7 -with Interfaces.Java
-	
-	@ > expected_output.7
-	@ echo "Warning : DBP2 is neither in GUI or DB layer, and so shall not directly use DB.P1 in the DB layer"  >> expected_output.6
-	@ echo "Warning : GUIP2 is neither in GUI or DB layer, and so shall not directly use DB.P1 in the DB layer" >> expected_output.6
 
 	@ ../../Obj/archicheck rules7.txt -I dir7   > output.7
 	${TR} assert true /usr/bin/sdiff "-s expected_output.7 output.7"
@@ -184,7 +170,7 @@ test7:
 	${TR} end
 
 clean:
-	- ${RM} -rf expected_output.* output.* rules.txt dir? dir??  
+	- ${RM} -rf output.* rules.txt dir? dir??  
 	${TR} clean
 
 doc:

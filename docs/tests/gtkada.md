@@ -60,10 +60,10 @@ Gtk.Arguments   use is allowed -- This package is obsolete and replaced by Glib.
   Expected output:
 
 ```
-Error : Gtk is over Gdk, so Gdk.Dnd shall not use Gtk
-Error : Gtk is over Gdk, so Gdk.Dnd shall not use Gtk.Target_List
-Error : Gtk is over Gdk, so Gdk.Dnd shall not use Gtk
-Error : GtkAda is over Gtk, so Gtk.GLArea shall not use Gtkada.Handlers
+Error : gtkada-master/src/gdk-dnd.ads:29: Gtk may use Gdk, so Gdk.Dnd shall not use Gtk
+Error : gtkada-master/src/gdk-dnd.ads:30: Gtk may use Gdk, so Gdk.Dnd shall not use Gtk.Target_List
+Error : gtkada-master/src/gdk-dnd.adb:29: Gtk may use Gdk, so Gdk.Dnd shall not use Gtk
+Error : gtkada-master/src/opengl/gtk-glarea.adb:26: GtkAda may use Gtk, so Gtk.GLArea shall not use Gtkada.Handlers
 ```
 
 
@@ -71,8 +71,6 @@ Error : GtkAda is over Gtk, so Gtk.GLArea shall not use Gtkada.Handlers
 
 ##  GtkAda test suite / Another realistic GtkAda description file
 
-
-  ![](gtk.png)
 
   Checking those rules over GtkAda:
 
@@ -82,24 +80,16 @@ System     use is allowed
 Ada        use is allowed
 GNAT       use is allowed
 
--- Pango may use Cairo
--- Pango may use Glib
--- Gdk   may use Cairo
 Low_Level contains Cairo and Glib -- arbitrary name
 Utilities contains Pango, Gdk     -- arbitrary name
 Utilities is a layer over Low_Level
 Gtk is a layer over Utilities
 
-
-
 GtkAda may use Gtk 
 
--- Gtk may use Glib
--- Gtk may use Pango
--- Gtk may use Gdk
--- Gtk may use Cairo
 Gtk may use Low_Level
 Gtk may use Utilities
+
 GtkAda may use Low_Level
 GtkAda may use Utilities
 
@@ -113,11 +103,14 @@ Gtk.Arguments   use is allowed -- This package is obsolete and replaced by Glib.
   Expected output:
 
 ```
-Error : Gtk is over Gdk, so Gdk.Dnd shall not use Gtk
-Error : Gtk is over Gdk, so Gdk.Dnd shall not use Gtk.Target_List
-Error : Gtk is over Gdk, so Gdk.Dnd shall not use Gtk
-Error : GtkAda is over Gtk, so Gtk.GLArea shall not use Gtkada.Handlers
+Error : gtkada-master/src/gdk-dnd.ads:29: Gdk.Dnd is in Utilities layer, and so shall not use Gtk in the upper Gtk layer
+Error : gtkada-master/src/gdk-dnd.ads:29: Gtk may use Utilities, so Gdk.Dnd shall not use Gtk
+Error : gtkada-master/src/gdk-dnd.ads:30: Gdk.Dnd is in Utilities layer, and so shall not use Gtk.Target_List in the upper Gtk layer
+Error : gtkada-master/src/gdk-dnd.ads:30: Gtk may use Utilities, so Gdk.Dnd shall not use Gtk.Target_List
+Error : gtkada-master/src/gdk-dnd.adb:29: Gdk.Dnd is in Utilities layer, and so shall not use Gtk in the upper Gtk layer
+Error : gtkada-master/src/gdk-dnd.adb:29: Gtk may use Utilities, so Gdk.Dnd shall not use Gtk
+Error : gtkada-master/src/opengl/gtk-glarea.adb:26: GtkAda may use Gtk, so Gtk.GLArea shall not use Gtkada.Handlers
 ```
 
 
-** GtkAda test suite / Another realistic GtkAda description file [Failed](tests_status.md#failed)**
+ GtkAda test suite / Another realistic GtkAda description file [Successful](tests_status.md#successful)

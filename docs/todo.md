@@ -59,17 +59,6 @@ Documentation:
 Done:
 -----
 
-- v0.4.3 : 
-  - Java and Shell style comments added to rules files
-  - web site migration from NaturalDocs to Markdown done
-  - Complete [rules file tutorial](rules.md)
-- v0.4.2 : 
-  - auto add -help output to the doc thanks to Makefile
-  - implements `X use is forbidden` and `X use is allowed`
-  - implement comments in rules files
-- v0.4.1 : implements `only Porting_Kit may use C_Files`
-- v0.4.1 : implements a _may_ semantics : `GLU may depends on GL`
-- v0.4.1 : taking into account other Ada unit than package : procedure, protected object, task, etc.
 - Change/Simplify the various options to know what the tool understand from the rules 
   file, and from analyzed sources 
 - Use [gnu error messages format]( https://www.gnu.org/prep/standards/html_node/Errors.html) (_sourcefile:lineno: message_) 

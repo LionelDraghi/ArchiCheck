@@ -52,7 +52,7 @@ Layer_A is a layer over Layer_B
   Expected output :
 
 ```
-Error : P4 is in Layer_B layer, and so shall not use P5 in the upper Layer_A layer
+Error : dir2/p4.ads:1: P4 is in Layer_B layer, and so shall not use P5 in the upper Layer_A layer
 ```
 
 
@@ -73,7 +73,7 @@ Layer_A is a layer over Layer_B
   Expected output :
 
 ```
-Warning : P6 is neither in Layer_A or Layer_B layer, and so shall not directly use P4 in the Layer_B layer
+Warning : dir3c/p6.adb:1: P6 is neither in Layer_A or Layer_B layer, and so shall not directly use P4 in the Layer_B layer
 ```
 
 
@@ -94,7 +94,7 @@ Layer_A is a layer over Layer_B
   Expected output :
 
 ```
-Warning : P2 (in Layer_A layer) uses P7 that is neither in the same layer, nor in the lower Layer_B layer
+Warning : dir4/p2.ads:3: P2 (in Layer_A layer) uses P7 that is neither in the same layer, nor in the lower Layer_B layer
 ```
 
 

@@ -4,4 +4,4 @@ Z contains Y
 
 Interfaces.C use is forbidden
 
-Z use Interfaces.C
+Z may use Interfaces.C

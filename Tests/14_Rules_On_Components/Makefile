@@ -88,6 +88,10 @@ test3:
 	@ ${TR} cmt "> archicheck rules3.txt -I src"
 	@ ${TR} cmt 
 	@ ${TR} cmt "No more error/warning expected :"
+	@ ${TR} cmt 
+	@ ${TR} cmt '> Note that line numbers are false in error messages due to'
+	@ ${TR} cmt '> a strange OpenToken bug (I guess).'
+	@ ${TR} cmt 
 	@ ${TR} cmt '```'
 	@ cat expected_output.3 >> testrec.md
 	@ ${TR} cmt '```'
@@ -128,7 +132,7 @@ test4:
 
 	@ ${TR} cmt "Lets allow Interfaces.C use through Z components :"
 	@ echo ""													>> rules4.txt
-	@ echo "Z use Interfaces.C"						>> rules4.txt
+	@ echo "Z may use Interfaces.C"						>> rules4.txt
 
 	@ ${TR} cmt 
 	@ ${TR} cmt '```'

@@ -3,24 +3,16 @@ System     use is allowed
 Ada        use is allowed
 GNAT       use is allowed
 
--- Pango may use Cairo
--- Pango may use Glib
--- Gdk   may use Cairo
 Low_Level contains Cairo and Glib -- arbitrary name
 Utilities contains Pango, Gdk     -- arbitrary name
 Utilities is a layer over Low_Level
 Gtk is a layer over Utilities
 
-
-
 GtkAda may use Gtk 
 
--- Gtk may use Glib
--- Gtk may use Pango
--- Gtk may use Gdk
--- Gtk may use Cairo
 Gtk may use Low_Level
 Gtk may use Utilities
+
 GtkAda may use Low_Level
 GtkAda may use Utilities
 

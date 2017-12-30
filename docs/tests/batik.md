@@ -9,65 +9,65 @@
   Expected :
 
 ```
-/home/lionel/Proj/Archicheck/Tests/11_Batik/batik-1.9/test-sources/org/apache/batik/dom/ReplaceChildTest.java
-/home/lionel/Proj/Archicheck/Tests/11_Batik/batik-1.9/test-sources/org/apache/batik/dom/ElementTraversalTest.java
-/home/lionel/Proj/Archicheck/Tests/11_Batik/batik-1.9/test-sources/org/apache/batik/dom/NodeTextContentTest.java
-/home/lionel/Proj/Archicheck/Tests/11_Batik/batik-1.9/test-sources/org/apache/batik/dom/HasChildNodesTest.java
-/home/lionel/Proj/Archicheck/Tests/11_Batik/batik-1.9/test-sources/org/apache/batik/dom/GetElementsByTagNameNSTest.java
-/home/lionel/Proj/Archicheck/Tests/11_Batik/batik-1.9/test-sources/org/apache/batik/dom/RemoveAttributeTest.java
-/home/lionel/Proj/Archicheck/Tests/11_Batik/batik-1.9/test-sources/org/apache/batik/dom/TextWholeTextTest.java
-/home/lionel/Proj/Archicheck/Tests/11_Batik/batik-1.9/test-sources/org/apache/batik/dom/DOMUtilitiesCharacterEscaping.java
-/home/lionel/Proj/Archicheck/Tests/11_Batik/batik-1.9/test-sources/org/apache/batik/dom/AttrIsIdTest.java
-/home/lionel/Proj/Archicheck/Tests/11_Batik/batik-1.9/test-sources/org/apache/batik/dom/DocumentRenameNodeTest.java
-/home/lionel/Proj/Archicheck/Tests/11_Batik/batik-1.9/test-sources/org/apache/batik/dom/NodeCompareDocumentPositionTest.java
-/home/lionel/Proj/Archicheck/Tests/11_Batik/batik-1.9/test-sources/org/apache/batik/dom/CloneElementTest.java
-/home/lionel/Proj/Archicheck/Tests/11_Batik/batik-1.9/test-sources/org/apache/batik/dom/EcmaScriptDOMTest.java
-/home/lionel/Proj/Archicheck/Tests/11_Batik/batik-1.9/test-sources/org/apache/batik/dom/AppendChildTest.java
-/home/lionel/Proj/Archicheck/Tests/11_Batik/batik-1.9/test-sources/org/apache/batik/dom/ElementSetIdAttributeNSTest.java
-/home/lionel/Proj/Archicheck/Tests/11_Batik/batik-1.9/test-sources/org/apache/batik/dom/SerializationTest.java
-/home/lionel/Proj/Archicheck/Tests/11_Batik/batik-1.9/test-sources/org/apache/batik/dom/DocumentNormalizeDocumentTest.java
-/home/lionel/Proj/Archicheck/Tests/11_Batik/batik-1.9/test-sources/org/apache/batik/dom/EventTargetAddEventListenerNSTest.java
-/home/lionel/Proj/Archicheck/Tests/11_Batik/batik-1.9/test-sources/org/apache/batik/dom/SetAttributeTest.java
-/home/lionel/Proj/Archicheck/Tests/11_Batik/batik-1.9/test-sources/org/apache/batik/dom/NullNamespaceTest.java
-/home/lionel/Proj/Archicheck/Tests/11_Batik/batik-1.9/test-sources/org/apache/batik/dom/NodeGetUserDataTest.java
-/home/lionel/Proj/Archicheck/Tests/11_Batik/batik-1.9/test-sources/org/apache/batik/dom/DOM3Test.java
-/home/lionel/Proj/Archicheck/Tests/11_Batik/batik-1.9/test-sources/org/apache/batik/dom/TextReplaceWholeTextTest.java
-/home/lionel/Proj/Archicheck/Tests/11_Batik/batik-1.9/test-sources/org/apache/batik/dom/NodeBaseURITest.java
-/home/lionel/Proj/Archicheck/Tests/11_Batik/batik-1.9/test-sources/org/apache/batik/dom/DocumentAdoptNodeTest.java
+batik-1.9/test-sources/org/apache/batik/dom/ReplaceChildTest.java
+batik-1.9/test-sources/org/apache/batik/dom/ElementTraversalTest.java
+batik-1.9/test-sources/org/apache/batik/dom/NodeTextContentTest.java
+batik-1.9/test-sources/org/apache/batik/dom/HasChildNodesTest.java
+batik-1.9/test-sources/org/apache/batik/dom/GetElementsByTagNameNSTest.java
+batik-1.9/test-sources/org/apache/batik/dom/RemoveAttributeTest.java
+batik-1.9/test-sources/org/apache/batik/dom/TextWholeTextTest.java
+batik-1.9/test-sources/org/apache/batik/dom/DOMUtilitiesCharacterEscaping.java
+batik-1.9/test-sources/org/apache/batik/dom/AttrIsIdTest.java
+batik-1.9/test-sources/org/apache/batik/dom/DocumentRenameNodeTest.java
+batik-1.9/test-sources/org/apache/batik/dom/NodeCompareDocumentPositionTest.java
+batik-1.9/test-sources/org/apache/batik/dom/CloneElementTest.java
+batik-1.9/test-sources/org/apache/batik/dom/EcmaScriptDOMTest.java
+batik-1.9/test-sources/org/apache/batik/dom/AppendChildTest.java
+batik-1.9/test-sources/org/apache/batik/dom/ElementSetIdAttributeNSTest.java
+batik-1.9/test-sources/org/apache/batik/dom/SerializationTest.java
+batik-1.9/test-sources/org/apache/batik/dom/DocumentNormalizeDocumentTest.java
+batik-1.9/test-sources/org/apache/batik/dom/EventTargetAddEventListenerNSTest.java
+batik-1.9/test-sources/org/apache/batik/dom/SetAttributeTest.java
+batik-1.9/test-sources/org/apache/batik/dom/NullNamespaceTest.java
+batik-1.9/test-sources/org/apache/batik/dom/NodeGetUserDataTest.java
+batik-1.9/test-sources/org/apache/batik/dom/DOM3Test.java
+batik-1.9/test-sources/org/apache/batik/dom/TextReplaceWholeTextTest.java
+batik-1.9/test-sources/org/apache/batik/dom/NodeBaseURITest.java
+batik-1.9/test-sources/org/apache/batik/dom/DocumentAdoptNodeTest.java
 ```
 
   > archicheck -lf -r -I ./batik-1.9/test-sources/org/apache/batik/dom
   Expected :
 
 ```
-/home/lionel/Proj/Archicheck/Tests/11_Batik/batik-1.9/test-sources/org/apache/batik/dom/ReplaceChildTest.java
-/home/lionel/Proj/Archicheck/Tests/11_Batik/batik-1.9/test-sources/org/apache/batik/dom/ElementTraversalTest.java
-/home/lionel/Proj/Archicheck/Tests/11_Batik/batik-1.9/test-sources/org/apache/batik/dom/NodeTextContentTest.java
-/home/lionel/Proj/Archicheck/Tests/11_Batik/batik-1.9/test-sources/org/apache/batik/dom/HasChildNodesTest.java
-/home/lionel/Proj/Archicheck/Tests/11_Batik/batik-1.9/test-sources/org/apache/batik/dom/GetElementsByTagNameNSTest.java
-/home/lionel/Proj/Archicheck/Tests/11_Batik/batik-1.9/test-sources/org/apache/batik/dom/RemoveAttributeTest.java
-/home/lionel/Proj/Archicheck/Tests/11_Batik/batik-1.9/test-sources/org/apache/batik/dom/TextWholeTextTest.java
-/home/lionel/Proj/Archicheck/Tests/11_Batik/batik-1.9/test-sources/org/apache/batik/dom/DOMUtilitiesCharacterEscaping.java
-/home/lionel/Proj/Archicheck/Tests/11_Batik/batik-1.9/test-sources/org/apache/batik/dom/AttrIsIdTest.java
-/home/lionel/Proj/Archicheck/Tests/11_Batik/batik-1.9/test-sources/org/apache/batik/dom/DocumentRenameNodeTest.java
-/home/lionel/Proj/Archicheck/Tests/11_Batik/batik-1.9/test-sources/org/apache/batik/dom/NodeCompareDocumentPositionTest.java
-/home/lionel/Proj/Archicheck/Tests/11_Batik/batik-1.9/test-sources/org/apache/batik/dom/CloneElementTest.java
-/home/lionel/Proj/Archicheck/Tests/11_Batik/batik-1.9/test-sources/org/apache/batik/dom/EcmaScriptDOMTest.java
-/home/lionel/Proj/Archicheck/Tests/11_Batik/batik-1.9/test-sources/org/apache/batik/dom/AppendChildTest.java
-/home/lionel/Proj/Archicheck/Tests/11_Batik/batik-1.9/test-sources/org/apache/batik/dom/ElementSetIdAttributeNSTest.java
-/home/lionel/Proj/Archicheck/Tests/11_Batik/batik-1.9/test-sources/org/apache/batik/dom/SerializationTest.java
-/home/lionel/Proj/Archicheck/Tests/11_Batik/batik-1.9/test-sources/org/apache/batik/dom/DocumentNormalizeDocumentTest.java
-/home/lionel/Proj/Archicheck/Tests/11_Batik/batik-1.9/test-sources/org/apache/batik/dom/EventTargetAddEventListenerNSTest.java
-/home/lionel/Proj/Archicheck/Tests/11_Batik/batik-1.9/test-sources/org/apache/batik/dom/SetAttributeTest.java
-/home/lionel/Proj/Archicheck/Tests/11_Batik/batik-1.9/test-sources/org/apache/batik/dom/NullNamespaceTest.java
-/home/lionel/Proj/Archicheck/Tests/11_Batik/batik-1.9/test-sources/org/apache/batik/dom/NodeGetUserDataTest.java
-/home/lionel/Proj/Archicheck/Tests/11_Batik/batik-1.9/test-sources/org/apache/batik/dom/DOM3Test.java
-/home/lionel/Proj/Archicheck/Tests/11_Batik/batik-1.9/test-sources/org/apache/batik/dom/TextReplaceWholeTextTest.java
-/home/lionel/Proj/Archicheck/Tests/11_Batik/batik-1.9/test-sources/org/apache/batik/dom/NodeBaseURITest.java
-/home/lionel/Proj/Archicheck/Tests/11_Batik/batik-1.9/test-sources/org/apache/batik/dom/DocumentAdoptNodeTest.java
-/home/lionel/Proj/Archicheck/Tests/11_Batik/batik-1.9/test-sources/org/apache/batik/dom/svg/EcmaScriptSVGDOMTest.java
-/home/lionel/Proj/Archicheck/Tests/11_Batik/batik-1.9/test-sources/org/apache/batik/dom/svg/ImportNodeTest.java
-/home/lionel/Proj/Archicheck/Tests/11_Batik/batik-1.9/test-sources/org/apache/batik/dom/svg/CloneNodeTest.java
+batik-1.9/test-sources/org/apache/batik/dom/ReplaceChildTest.java
+batik-1.9/test-sources/org/apache/batik/dom/ElementTraversalTest.java
+batik-1.9/test-sources/org/apache/batik/dom/NodeTextContentTest.java
+batik-1.9/test-sources/org/apache/batik/dom/HasChildNodesTest.java
+batik-1.9/test-sources/org/apache/batik/dom/GetElementsByTagNameNSTest.java
+batik-1.9/test-sources/org/apache/batik/dom/RemoveAttributeTest.java
+batik-1.9/test-sources/org/apache/batik/dom/TextWholeTextTest.java
+batik-1.9/test-sources/org/apache/batik/dom/DOMUtilitiesCharacterEscaping.java
+batik-1.9/test-sources/org/apache/batik/dom/AttrIsIdTest.java
+batik-1.9/test-sources/org/apache/batik/dom/DocumentRenameNodeTest.java
+batik-1.9/test-sources/org/apache/batik/dom/NodeCompareDocumentPositionTest.java
+batik-1.9/test-sources/org/apache/batik/dom/CloneElementTest.java
+batik-1.9/test-sources/org/apache/batik/dom/EcmaScriptDOMTest.java
+batik-1.9/test-sources/org/apache/batik/dom/AppendChildTest.java
+batik-1.9/test-sources/org/apache/batik/dom/ElementSetIdAttributeNSTest.java
+batik-1.9/test-sources/org/apache/batik/dom/SerializationTest.java
+batik-1.9/test-sources/org/apache/batik/dom/DocumentNormalizeDocumentTest.java
+batik-1.9/test-sources/org/apache/batik/dom/EventTargetAddEventListenerNSTest.java
+batik-1.9/test-sources/org/apache/batik/dom/SetAttributeTest.java
+batik-1.9/test-sources/org/apache/batik/dom/NullNamespaceTest.java
+batik-1.9/test-sources/org/apache/batik/dom/NodeGetUserDataTest.java
+batik-1.9/test-sources/org/apache/batik/dom/DOM3Test.java
+batik-1.9/test-sources/org/apache/batik/dom/TextReplaceWholeTextTest.java
+batik-1.9/test-sources/org/apache/batik/dom/NodeBaseURITest.java
+batik-1.9/test-sources/org/apache/batik/dom/DocumentAdoptNodeTest.java
+batik-1.9/test-sources/org/apache/batik/dom/svg/EcmaScriptSVGDOMTest.java
+batik-1.9/test-sources/org/apache/batik/dom/svg/ImportNodeTest.java
+batik-1.9/test-sources/org/apache/batik/dom/svg/CloneNodeTest.java
 ```
 
 
@@ -107,13 +107,13 @@ public class JSVG extends JFrame{
   Expected :
 
 ```
-org.apache.batik.apps.jsvg.JSVG class depends on javax.swing.JFrame 
-org.apache.batik.apps.jsvg.JSVG class depends on java.awt.BorderLayout 
-org.apache.batik.apps.jsvg.JSVG class depends on java.awt.Dimension 
-org.apache.batik.apps.jsvg.JSVG class depends on java.awt.event.WindowAdapter 
-org.apache.batik.apps.jsvg.JSVG class depends on java.awt.event.WindowEvent 
-org.apache.batik.apps.jsvg.JSVG class depends on org.apache.batik.swing.JSVGCanvas 
-org.apache.batik.apps.jsvg.JSVG class depends on org.apache.batik.swing.svg.SVGUserAgentGUIAdapter 
+org.apache.batik.apps.jsvg.JSVG class depends on javax.swing.JFrame
+org.apache.batik.apps.jsvg.JSVG class depends on java.awt.BorderLayout
+org.apache.batik.apps.jsvg.JSVG class depends on java.awt.Dimension
+org.apache.batik.apps.jsvg.JSVG class depends on java.awt.event.WindowAdapter
+org.apache.batik.apps.jsvg.JSVG class depends on java.awt.event.WindowEvent
+org.apache.batik.apps.jsvg.JSVG class depends on org.apache.batik.swing.JSVGCanvas
+org.apache.batik.apps.jsvg.JSVG class depends on org.apache.batik.swing.svg.SVGUserAgentGUIAdapter
 ```
 
 
@@ -148,11 +148,11 @@ public interface NodeEventTarget extends EventTarget {
   Expected :
 
 ```
-org.apache.batik.dom.events.NodeEventTarget interface depends on org.w3c.dom.DOMException 
-org.apache.batik.dom.events.NodeEventTarget interface depends on org.w3c.dom.events.Event 
-org.apache.batik.dom.events.NodeEventTarget interface depends on org.w3c.dom.events.EventException 
-org.apache.batik.dom.events.NodeEventTarget interface depends on org.w3c.dom.events.EventListener 
-org.apache.batik.dom.events.NodeEventTarget interface depends on org.w3c.dom.events.EventTarget 
+org.apache.batik.dom.events.NodeEventTarget interface depends on org.w3c.dom.DOMException
+org.apache.batik.dom.events.NodeEventTarget interface depends on org.w3c.dom.events.Event
+org.apache.batik.dom.events.NodeEventTarget interface depends on org.w3c.dom.events.EventException
+org.apache.batik.dom.events.NodeEventTarget interface depends on org.w3c.dom.events.EventListener
+org.apache.batik.dom.events.NodeEventTarget interface depends on org.w3c.dom.events.EventTarget
 ```
 
 
@@ -199,8 +199,8 @@ public interface NodeEventTarget extends EventTarget {
   Expected :
 
 ```
-NodeEventTarget interface depends on org.w3c.dom.DOMException 
-NodeEventTarget interface depends on org.w3c.dom.events.Event 
+NodeEventTarget interface depends on org.w3c.dom.DOMException
+NodeEventTarget interface depends on org.w3c.dom.events.Event
 ```
 
 
@@ -295,9 +295,8 @@ public interface NodeEventTarget extends EventTarget {
 
   Expected:
 ```
-Warning : org.apache.batik.transcoder.NodeEventTarget (in Core_Modules layer) uses org.w3c.dom.Browser.Event that is neither in the same layer, nor in the lower Low_Level_Modules layer
-Error : org.apache.batik.transcoder.NodeEventTarget is in Core_Modules layer, and so shall not use org.apache.batik.apps.Rasterizer in the upper Applications layer
-Warning : org.apache.batik.transcoder.NodeEventTarget (in Core_Modules layer) uses org.apache.batik.apps.Rasterizer that is neither in the same layer, nor in the lower Low_Level_Modules layer
+Warning : dir7/MyClass.java:3: org.apache.batik.transcoder.NodeEventTarget (in Core_Modules layer) uses org.w3c.dom.Browser.Event that is neither in the same layer, nor in the lower Low_Level_Modules layer
+Error : dir7/MyClass.java:4: org.apache.batik.transcoder.NodeEventTarget is in Core_Modules layer, and so shall not use org.apache.batik.apps.Rasterizer in the upper Applications layer
 ```
 
 

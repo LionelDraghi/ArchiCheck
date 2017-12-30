@@ -66,24 +66,23 @@ package body Archicheck.Cmd_Line is
          declare
             use Ada.Command_Line;
             use Ada.Directories;
-            Full_Name   : constant String := Ada.Directories.Full_Name   (Argument (Arg_Counter + 1));
-            Simple_Name : constant String := Ada.Directories.Simple_Name (Argument (Arg_Counter + 1));
+            Dir_Name : constant String := Argument (Arg_Counter + 1);
 
          begin
-            if Exists (Full_Name) then
-               if Kind (Full_Name) = Directory then
+            if Exists (Dir_Name) then
+               if Kind (Dir_Name) = Directory then
                   -- let's collect all sources in that dir:
-                  Lang.Get_Src_List (Root_Dir => Full_Name, Recursive => Recursive);
+                  Lang.Get_Src_List (Root_Dir => Dir_Name, Recursive => Recursive);
                   Line_OK := True;
 
                else
-                 Put_Error (Simple_Name & " is not a directory");
+                 Put_Error (Dir_Name & " is not a directory");
                  Line_OK := False;
 
                end if;
 
             else
-               Put_Error ("No " & Simple_Name & " directory");
+               Put_Error ("No " & Dir_Name & " directory");
                Line_OK := False;
 
             end if;

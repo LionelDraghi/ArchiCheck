@@ -39,7 +39,7 @@ GUI is a layer over DB
   Expected output :
 
 ```
-Error : DB.P4 is in DB layer, and so shall not use GUI.P5 in the upper GUI layer
+Error : dir2/db-p4.adb:1: DB.P4 is in DB layer, and so shall not use GUI.P5 in the upper GUI layer
 ```
 
 
@@ -53,7 +53,7 @@ Error : DB.P4 is in DB layer, and so shall not use GUI.P5 in the upper GUI layer
   Expected output :
 
 ```
-Warning : P6 is neither in GUI or DB layer, and so shall not directly use DB.P4 in the DB layer
+Warning : dir3/p6.ads:1: P6 is neither in GUI or DB layer, and so shall not directly use DB.P4 in the DB layer
 ```
 
 
@@ -67,7 +67,7 @@ Warning : P6 is neither in GUI or DB layer, and so shall not directly use DB.P4 
   Expected output :
 
 ```
-Warning : GUI.P2 (in GUI layer) uses P7 that is neither in the same layer, nor in the lower DB layer
+Warning : dir4/gui-p2.ads:3: GUI.P2 (in GUI layer) uses P7 that is neither in the same layer, nor in the lower DB layer
 ```
 
 
@@ -86,4 +86,4 @@ Warning : GUI.P2 (in GUI layer) uses P7 that is neither in the same layer, nor i
 ##  Child packages test suite / Forbidding Interfaces but allowing Interfaces.C
 
 
-** Child packages test suite / Forbidding Interfaces but allowing Interfaces.C [Failed](tests_status.md#failed)**
+ Child packages test suite / Forbidding Interfaces but allowing Interfaces.C [Successful](tests_status.md#successful)

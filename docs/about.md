@@ -13,10 +13,16 @@ History:
   - First "real-life" test on Gtk-Ada
   - Starting Ada 2012 use
 
-- november 2017 : v0.4
+- november / december 2017 : v0.4
 
   - Java processing added, and test on Batik code
-  - -r option added (recursive -I)  
+  - -r option added (recursive -I) 
+  - more complete Ada unit processing (protected, task, separate)
+  - new semantics : `is forbidden`, `is allowed`, `[only] may use`,  
+    cf. [rules file tutorial](rules.md)
+  - Ada, Java and Shell style comments added to rules files
+  - web site migration from NaturalDocs to Markdown done
+  - release as v.0.5  
 
   Some interesting historical graphics on [the Archichek OpenHub project page](https://www.openhub.net/p/ArchiCheck)
 

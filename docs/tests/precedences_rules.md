@@ -22,12 +22,12 @@ LC contains Interfaces.C and Ada
 
   Expected :
 ```
-Warning : LB.Y (in LB layer) uses LC.Z that is neither in the same layer, nor in the lower LC layer
-Error : LB.Y is in LB layer, and so shall not use LA.X in the upper LA layer
-Warning : LB.Y (in LB layer) uses LA.X that is neither in the same layer, nor in the lower LC layer
+Warning : src/lb-y.ads:3: LB.Y (in LB layer) uses Interfaces that is neither in the same layer, nor in the lower LC layer
+Warning : src/lb-y.ads:4: LB.Y (in LB layer) uses Interfaces.Java that is neither in the same layer, nor in the lower LC layer
+Error : src/lb-y.ads:6: LB.Y is in LB layer, and so shall not use LA.X in the upper LA layer
 ```
 
-** Precedence rules unit test / Declaration of a component already existing in code [Failed](tests_status.md#failed)**
+ Precedence rules unit test / Declaration of a component already existing in code [Successful](tests_status.md#successful)
 
 ##  Precedence rules unit test / Alowing a child of forbidden unit
 
@@ -45,8 +45,8 @@ Interfaces.C use is allowed
 
   No more error/warning expected :
 ```
-Error : in file /home/lionel/Proj/Archicheck/Tests/15_Precedences_Rules/src/lb-y.ads : Interfaces use is forbidden
-Error : in file /home/lionel/Proj/Archicheck/Tests/15_Precedences_Rules/src/lb-y.ads : Interfaces.Java use is forbidden
+Error : src/lb-y.ads:3: Interfaces use is forbidden
+Error : src/lb-y.ads:4: Interfaces.Java use is forbidden
 ```
 
-** Precedence rules unit test / Alowing a child of forbidden unit [Failed](tests_status.md#failed)**
+ Precedence rules unit test / Alowing a child of forbidden unit [Successful](tests_status.md#successful)

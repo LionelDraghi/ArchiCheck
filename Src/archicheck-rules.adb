@@ -18,12 +18,16 @@
 -- Performance:
 -- -----------------------------------------------------------------------------
 
-with Archicheck.Dependencies;
-with Archicheck.Settings;
 with Archicheck.IO;
-with Archicheck.Components;
+with Archicheck.Units;
+with Archicheck.Settings;
+
+with Ada.Strings.Fixed;
+with Ada.Strings.Maps.Constants;
 
 package body Archicheck.Rules is
+
+   use Ada.Strings.Unbounded;
 
    -- Change default Debug parameter value to enable/disable Debug messages in this package
    -- -------------------------------------------------------------------------
@@ -47,30 +51,29 @@ package body Archicheck.Rules is
 
 
    -- --------------------------------------------------------------------------
-   use type Ada.Strings.Unbounded.Unbounded_String;
    package Forbidden_Use_Lists is new Ada.Containers.Doubly_Linked_Lists
      (Unit_Name); -- Forbidden Unit Names
    Forbidden_Use_List : Forbidden_Use_Lists.List;
 
    -- --------------------------------------------------------------------------
-   function Is_Forbidden (Unit : in Unit_Name) return Boolean is
+   function Is_Forbidden (Unit_Name : in String) return Boolean is
       use Forbidden_Use_Lists;
-      use Ada.Strings.Unbounded;
    begin
       for U of Forbidden_Use_List loop
-         if Is_Unit_In_Component (To_String (Unit), To_String (U)) then
-            Put_Debug_Line ("Is_Forbidden (" & To_String (Unit) & ") return True (" & To_String (U) & " is forbidden)");
+         if Units.Is_Unit_In_Component (Unit_Name, To_String (U)) then
+            Put_Debug_Line ("Is_Forbidden (" & Unit_Name & ") return True (" & To_String (U) & " is forbidden)");
             return True;
          end if;
       end loop;
-      Put_Debug_Line ("Is_Forbidden (" & To_String (Unit) & ") return False");
+      Put_Debug_Line ("Is_Forbidden (" & Unit_Name & ") return False");
       return False;
+      -- Fixme: ajouter une référence à la règle en param out
    end Is_Forbidden;
 
    -- --------------------------------------------------------------------------
-   procedure Add_Forbidden_Unit (Unit : in Unit_Name) is
+   procedure Add_Forbidden_Unit (Unit_Name : in String) is
    begin
-      Forbidden_Use_List.Append (Unit);
+      Forbidden_Use_List.Append (To_Unbounded_String (Unit_Name));
    end Add_Forbidden_Unit;
 
 
@@ -80,67 +83,106 @@ package body Archicheck.Rules is
    Allowed_Use_List : Allowed_Use_Lists.List;
 
    -- --------------------------------------------------------------------------
-   function Is_Allowed (Unit : in Unit_Name) return Boolean is
+   function Is_Allowed (Unit_Name : in String) return Boolean is
       use Allowed_Use_Lists;
-      use Ada.Strings.Unbounded;
    begin
       for U of Allowed_Use_List loop
-         if Is_Unit_In_Component (To_String (Unit), To_String (U)) then
-               Put_Debug_Line ("Is_Allowed (" & To_String (Unit) & ") return True (" & To_String (U) & " is allowed)");
+         if Units.Is_Unit_In_Component (Unit_Name, To_String (U)) then
+            Put_Debug_Line ("Is_Allowed (" & Unit_Name & ") return True ("
+                            & To_String (U) & " is allowed)");
             return True;
          end if;
       end loop;
-      Put_Debug_Line ("Is_Allowed (" & To_String (Unit) & ") return False");
+      Put_Debug_Line ("Is_Allowed (" & Unit_Name & ") return False");
       return False;
    end Is_Allowed;
 
    -- --------------------------------------------------------------------------
-   procedure Add_Allowed_Unit (Unit : in Unit_Name) is
+   procedure Add_Allowed_Unit (Unit_Name : in String) is
    begin
-      Allowed_Use_List.Append (Unit);
+      Allowed_Use_List.Append (To_Unbounded_String (Unit_Name));
    end Add_Allowed_Unit;
 
    -- --------------------------------------------------------------------------
-   -- Function: Is_Unit_In_Component
-   -- -------------------------------------------------------------------------
-   function Is_Unit_In_Component (Unit      : String;
-                                  Component : String) return Boolean
-   is
-      use Ada.Strings.Unbounded;
-      use Archicheck.Components;
-      Units : Unit_Lists.List;
-      Found : Boolean := False;
-      use Ada.Strings;
-      -- use Ada.Strings.Fixed;
-
+   -- Function: Is_Allowed
+   -- --------------------------------------------------------------------------
+   function Is_Allowed (Unit_Name : in String;
+                        For_Unit  : in String) return Boolean is
    begin
-      if Component_Maps.Contains (Component_Map, Component) then
-         -- Put_Debug (" (component known) ");
+      Put_Debug_Line ("");
+      Put_Debug_Line ("Is_Allowed (" & Unit_Name & ", For_Unit => " & For_Unit & ") ?");
+      for R of Relationships loop
+         Put_Debug_Line ("   Testing R : " & To_String (R.Using_Unit)
+                         & " " & Relationship_Kind'Image (R.Kind)
+                         & " " & To_String (R.Used_Unit));
+         declare
+            -- B1 : constant Boolean := R.Kind = May_Use;
+            B2 : constant Boolean := Units.Is_Unit_In_Component (Unit_Name, To_String (R.Used_Unit));
+            B3 : constant Boolean := Units.Is_Unit_In_Component (For_Unit,  To_String (R.Using_Unit));
+         begin
+            -- if B1 then
+            Put_Debug_Line ("      Relationship kind : " & Relationship_Kind'Image (R.Kind));
+            Put_Debug_Line ("      Is " & Unit_Name & " in " & To_String (R.Used_Unit) & " : " & Boolean'Image (B2));
+            Put_Debug_Line ("      Is " & For_Unit & " in " & To_String (R.Using_Unit) & " : " & Boolean'Image (B3));
+            -- end if;
 
-         -- the component was described by one or more declarations
-         Units := Component_Maps.Element (Component_Map, Component);
-         for U of Units loop
-            Put_Debug_Line ("Is " & Unit & " in " & To_String (U) & " defined by Component " & Component);
-            Found := Dependencies.Is_Unit_In (Unit, To_String (U));
-            Put_Debug_Line ("Found " & Boolean'Image (Found));
-            exit when Found;
-         end loop;
-         -- Found := Unit_Lists.Contains (Units, To_Unbounded_String (Unit));
+            if Units.Is_Unit_In_Component (Unit_Name, To_String (R.Used_Unit)) and then
+              Units.Is_Unit_In_Component (For_Unit,  To_String (R.Using_Unit))
+                -- A test on R.Kind is useless, as long as every relation
+                -- allow X to use Y.
+            then
+               Put_Debug_Line ("      Is_Allowed (" & Unit_Name & ", For => "
+                               & For_Unit & ") return True (" & To_String (R.Used_Unit)
+                               & " is allowed for " & To_String (R.Using_Unit) & ")");
+               return True;
+            end if;
+         end;
 
-      else
-         Found := Dependencies.Is_Unit_In (Unit, Component);
+      end loop;
+      Put_Debug_Line ("Is_Allowed (" & Unit_Name & ", For => "
+                      & For_Unit & ") return False");
+      return False;
+   end Is_Allowed;
 
-      end if;
+   -- --------------------------------------------------------------------------
+   function Allowed_Users (Of_Unit : in String) return Relationship_Lists.List is
+      -- -----------------------------------------------------------------------
+      function To_Lower (Source  : String) return String is
+         use Ada.Strings;
+         use Ada.Strings.Fixed;
+      begin
+         return Translate (Source,
+                           Mapping => Ada.Strings.Maps.Constants.Lower_Case_Map);
+      end To_Lower;
+      Tmp  : Relationship_Lists.List;
+      Used : constant String := To_Lower (Of_Unit);
+   begin
+      for D of Relationships loop
+         if (D.Kind = Exclusive_Use or D.Kind = May_Use) -- Fixme:
+           and To_Lower (To_String (D.Used_Unit)) = Used
+         then
+            Tmp.Append (D);
+         end if;
+      end loop;
+      return Tmp;
+   end Allowed_Users;
 
-      if Found then
-         Put_Debug_Line ("Unit >" & Unit & "< is in component >" & Component & "< ");
-      else
-         Put_Debug_Line ("Unit >" & Unit & "< is NOT in component >" & Component & "< ");
-      end if;
-
-      return Found;
-
-   end Is_Unit_In_Component;
-
+   -- --------------------------------------------------------------------------
+   function Users_Image (List : in Relationship_Lists.List) return String is
+      Tmp : Unbounded_String := Null_Unbounded_String;
+      use Relationship_Lists;
+   begin
+      -- the output is of this kind : "X, Y, Z, and V"
+      for C in List.Iterate loop
+         if C = List.First then
+            Tmp := Element (C).Using_Unit;
+         elsif C = List.Last then
+            Tmp := Tmp & " and " & Element (C).Using_Unit;
+         else
+            Tmp := Tmp & ", " & Element (C).Using_Unit;
+         end if;
+      end loop;
+      return (To_String (Tmp));
+   end Users_Image;
 
 end Archicheck.Rules;

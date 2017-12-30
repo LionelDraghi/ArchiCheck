@@ -26,12 +26,13 @@ test1: ../../Obj/archicheck
 	${TR} cmt "> archicheck -I dir1 -I dir2 -I dir3 --list_files"
 	${TR} cmt "should put:"
 
-	> expected_file_list
-	@ echo $(CURDIR)"/dir1/a.adb" 		>> expected_file_list
-	@ echo $(CURDIR)"/dir1/a.ads" 		>> expected_file_list
-	@ echo $(CURDIR)"/dir2/b.ads" 		>> expected_file_list
-	@ echo $(CURDIR)"/dir3/c.ads" 		>> expected_file_list
-	@ echo $(CURDIR)"/dir3/c-d.ads" 	>> expected_file_list
+	# ls -1 dir?/* > expected_file_list
+	# > expected_file_list
+	# @ echo $(CURDIR)"/dir1/a.adb" 		>> expected_file_list
+	# @ echo $(CURDIR)"/dir1/a.ads" 		>> expected_file_list
+	# @ echo $(CURDIR)"/dir2/b.ads" 		>> expected_file_list
+	# @ echo $(CURDIR)"/dir3/c.ads" 		>> expected_file_list
+	# @ echo $(CURDIR)"/dir3/c-d.ads" 	>> expected_file_list
 
 	${TR} cmt '```'
 	cat expected_file_list >> testrec.md
@@ -50,7 +51,7 @@ test1: ../../Obj/archicheck
 	${TR} end
 
 clean:
-	- ${RM} -rf expected_file_list file_list dir[123]
+	- ${RM} -rf file_list dir[123]
 	${TR} clean
 
 doc:

@@ -2,12 +2,14 @@
 
 ## Successful
 
-   50 tests OK
+   58 tests OK
 
   - [Use rules test suite / May_Use rule, code compliant, no output expected]()
   - [Use rules test suite / Using a unit from a non allowed unit]()
   - [Use rules test suite / Forbidden use test]()
   - [Use rules test suite / Allowing use of an environnement package]()
+  - [Use rules test suite / Cumulative only ... may use X rules]()
+  - [Use rules test suite / Combining Allowed and Forbidden]()
   - [Layer rules test suite / Code is compliant with rules file, no output expected]()
   - [Layer rules test suite / Batik project architecture, code is compliant with rules file, no output expected]()
   - [Layer rules test suite / Reverse dependency test]()
@@ -17,6 +19,7 @@
   - [GtkAda test suite / File Identification]()
   - [GtkAda test suite / Unit Identification]()
   - [GtkAda test suite / A realistic GtkAda description file]()
+  - [GtkAda test suite / Another realistic GtkAda description file]()
   - [Java code test suite / --list_file test, recursive and non recursive]()
   - [Java code test suite / simple import]()
   - [Java code test suite / interface]()
@@ -24,6 +27,8 @@
   - [Java code test suite / no package]()
   - [Java code test suite / Let's add dependencies to Browser and Rasterizer into a Transcoder class]()
   - [Non recursive file identification test suite / Simple test]()
+  - [Precedence rules unit test / Declaration of a component already existing in code]()
+  - [Precedence rules unit test / Alowing a child of forbidden unit]()
   - [Dependencies identification simple test suite / Simple test]()
   - [Dependencies identification simple test suite / Source with weird formatted withed unit]()
   - [Rules file syntax test suite / Reference file]()
@@ -37,8 +42,11 @@
   - [Child packages test suite / Undescribed dependency test]()
   - [Child packages test suite / Packages in the same layer may with themself]()
   - [Child packages test suite / GUI.P1 is a GUI child, GUIP1 is not a GUI child pkg]()
+  - [Child packages test suite / Forbidding Interfaces but allowing Interfaces.C]()
   - [Component processing in rules unit test / Layer component]()
   - [Component processing in rules unit test / Env component allowed]()
+  - [Component processing in rules unit test / Trying to include a unit in more components]()
+  - [Component processing in rules unit test / Test on Components embedding components embedding components...]()
   - [Command line test suite / Help options]()
   - [Command line test suite / Version option]()
   - [Command line test suite / -I option without src dir]()
@@ -57,15 +65,8 @@
 
 ## Failed
 
-   7 tests failed
+   0 tests failed
 
-  - [Use rules test suite / Cumulative only ... may use X rules]()
-  - [GtkAda test suite / Another realistic GtkAda description file]()
-  - [Precedence rules unit test / Declaration of a component already existing in code]()
-  - [Precedence rules unit test / Alowing a child of forbidden unit]()
-  - [Child packages test suite / Forbidding Interfaces but allowing Interfaces.C]()
-  - [Component processing in rules unit test / Trying to include a unit in more components]()
-  - [Component processing in rules unit test / Test on Components embedding components embedding components...]()
 
 ## Empty
 

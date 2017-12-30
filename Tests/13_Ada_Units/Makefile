@@ -42,7 +42,7 @@ test1:
 	@ ${TR} cmt '```'
 	@ ${TR} cmt 
 
-	@ ../../Obj/archicheck -ld -I src > output.1
+	@ ../../Obj/archicheck -ld -I src | sort > output.1
 	${TR} assert true /usr/bin/sdiff "-s expected_output.1 output.1"
 
 	${TR} end

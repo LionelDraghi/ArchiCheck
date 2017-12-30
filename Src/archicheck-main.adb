@@ -17,16 +17,14 @@
 -- -----------------------------------------------------------------------------
 
 with Archicheck.Cmd_Line;
-with Archicheck.Settings;
-with Archicheck.Rules.Parser;
-with Archicheck.Rules.Check;
---  with Archicheck.Rules_Parser;
---  with Archicheck.Check_Layer_Rules;
-with Archicheck.Sources;
+with Archicheck.IO;
 with Archicheck.Lang;
 with Archicheck.Lang.Initialize;
-with Archicheck.Dependencies;
-with Archicheck.IO;
+with Archicheck.Rules.Parser;
+with Archicheck.Rules.Check;
+with Archicheck.Settings;
+with Archicheck.Sources;
+with Archicheck.Units;
 
 with Ada.Command_Line;
 
@@ -54,7 +52,7 @@ begin
       Lang.Analyze_Dependencies;
 
       if Settings.List_Dependencies then
-         Dependencies.Dump;
+         Units.Dump;
       end if;
 
       if Settings.Rules_File_Name /= "" then

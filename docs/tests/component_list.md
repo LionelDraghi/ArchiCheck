@@ -18,7 +18,7 @@ App contains Main
   should output :
 
 ```
-rules.1:1.18: Component App contains unit Main
+rules.1:1: Component App contains unit Main
 ```
 
 
@@ -41,10 +41,10 @@ GUI contains Pango
   should output :
 
 ```
-rules.2:2.1: Component App contains unit Main
-rules.2:3.1: Component GUI contains unit Gtk
-rules.2:4.1: Component GUI contains unit Glib
-rules.2:4.19: Component GUI contains unit Pango
+rules.2:2: Component App contains unit Main
+rules.2:3: Component GUI contains unit Gtk
+rules.2:4: Component GUI contains unit Glib
+rules.2:4: Component GUI contains unit Pango
 ```
 
 
@@ -65,10 +65,8 @@ GUI contains Gtk and Glib and Pango
   should output :
 
 ```
-rules.3:2.1: Component App contains unit Main
-rules.3:2.36: Component GUI contains unit Gtk
-rules.3:2.36: Component GUI contains unit Glib
-rules.3:2.36: Component GUI contains unit Pango
+rules.3:2: Component App contains unit Main
+rules.3:2: Component GUI contains unit Gtk, Glib and Pango
 ```
 
 
