@@ -464,3 +464,19 @@ Zip_with_many_files procedure body depends on Zip_Streams
 
 
  ZipAda code test suite / -ld test [Successful](tests_status.md#successful)
+
+##  ZipAda code test suite / rules test
+
+  > archicheck zipadarules.txt -r -I ./zip-ada
+
+  Rules (not much to test...) :
+
+```
+Zip   may use Zip_Streams
+UnZip may use Zip_Streams
+```
+
+  No error expected
+
+
+ ZipAda code test suite / rules test [Successful](tests_status.md#successful)

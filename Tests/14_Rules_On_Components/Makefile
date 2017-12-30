@@ -5,7 +5,7 @@ TR=../Tools/testrec
 
 ## .PHONY : clean
 
-check: ../../Obj/archicheck header test1 test2 test3 test4
+check: ../../Obj/archicheck header test1 test2 test3 test4 test5
 
 header:
 	@ #---------------------------------------------------------------------
@@ -147,6 +147,50 @@ test4:
 	> expected_output.4b 
 	@ ../../Obj/archicheck rules4.txt -I dir4 > output.4b
 	@ ${TR} assert true /usr/bin/sdiff "-s expected_output.4b output.4b"
+
+	@ ${TR} end
+
+test5:
+	@ #---------------------------------------------------------------------
+	${TR} start "Test A B C exemple posted on fr.comp.lang.ada..."
+
+	@ ${TR} cmt '  Except that as "A" is a reserved word, I use X Y Z instead :-)'
+
+	@ ${CREATE_PKG} X.P1 -in dir5 spec 
+	@ ${CREATE_PKG} Y.P1 -in dir5 spec -with X.P1
+	@ ${CREATE_PKG} Y.P2 -in dir5 spec -with Z.P1
+	@ ${CREATE_PKG} Z.P1 -in dir5 spec -with X
+	@ ${CREATE_PKG} Z.P2 -in dir5 spec -with Y.P2
+	@ ${CREATE_PKG} U    -in dir5 spec -with Z.P2
+	@ ${CREATE_PKG} V    -in dir5 spec -with Y.P1
+
+	@ ${TR} cmt 
+	@ ${TR} cmt '  +----------++------------+ '
+	@ ${TR} cmt '  |     X    ||     Y      | '
+	@ ${TR} cmt '  +----------++------------+ '
+	@ ${TR} cmt '  +------------------------+ '
+	@ ${TR} cmt '  |           Z            | '
+	@ ${TR} cmt '  +------------------------+ '
+	@ ${TR} cmt 	 
+
+	@ ${TR} cmt '```'
+	@ cat rules5.txt >> testrec.md
+	@ ${TR} cmt '```'
+	@ ${TR} cmt 
+	@ ${TR} cmt 'Running :  '
+	@ ${TR} cmt "> archicheck rules5.txt -I dir5"
+	@ ${TR} cmt 
+	@ ${TR} cmt '  With:        Expected:'
+	@ ${TR} cmt '  Y.P1 -> X.P1  OK'
+	@ ${TR} cmt '  Y.P2 -> Z.P1  OK'
+	@ ${TR} cmt '  Z.P1 -> X     Error'
+	@ ${TR} cmt '  Z.P2 -> Y.P2  Error'
+	@ ${TR} cmt '  U    -> Z.P2  Warning'
+	@ ${TR} cmt '  V    -> Y.P1  OK'
+	@ ${TR} cmt 
+
+	@ ../../Obj/archicheck rules5.txt -I dir5 > output.5
+	@ ${TR} assert true /usr/bin/sdiff "-s expected_output.5 output.5"
 
 	@ ${TR} end
 
