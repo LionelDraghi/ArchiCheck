@@ -3,7 +3,7 @@
 ## mkfile := $(abspath $(lastword $(MAKEFILE_LIST)))
 ## rootdir := $(dir $(patsubst %/,%,$(dir $(mkfile))))
 
-all: clean build check doc
+all: build check doc 
 
 release: build_release 
 	echo Make release build
@@ -11,9 +11,11 @@ release: build_release
 	> docs/download.md
 	echo "Download"			 										>> docs/download.md
 	echo "========"			 										>> docs/download.md
-	echo "" 														>> docs/download.md
+	echo 	 														>> docs/download.md
 	echo "[Here](http://lionel.draghi.free.fr/Archicheck/archicheck) is an exe build on my Debian amd64,"	>> docs/download.md
 	echo "with -O3 option." 										>> docs/download.md
+	echo 	 														>> docs/download.md
+	echo 'After download : `chmod +x archicheck`'					>> docs/download.md
 	echo 	 														>> docs/download.md
 	echo "Build :" 													>> docs/download.md
 	echo "-------" 													>> docs/download.md
@@ -21,13 +23,13 @@ release: build_release
 	echo "> date -r archicheck --iso-8601=seconds" 					>> docs/download.md
 	echo 	 														>> docs/download.md
 	echo '```' 														>> docs/download.md
-	date -r Linux_amd64_release/archicheck --iso-8601=seconds 		>> docs/download.md
+	date -r Obj/archicheck --iso-8601=seconds 						>> docs/download.md
 	echo '```' 														>> docs/download.md
 	echo 	 														>> docs/download.md
 	echo "> archicheck --version"				 					>> docs/download.md
 	echo 	 														>> docs/download.md
 	echo '```' 														>> docs/download.md
-	./Linux_amd64_release/archicheck --version				 		>> docs/download.md
+	Obj/archicheck --version				 						>> docs/download.md
 	echo '```' 														>> docs/download.md
 	echo 	 														>> docs/download.md
 	echo "Dependencies :" 											>> docs/download.md
@@ -36,7 +38,7 @@ release: build_release
 	echo "> readelf -d archicheck | grep 'NEEDED'" 					>> docs/download.md
 	echo 	 														>> docs/download.md
 	echo '```' 														>> docs/download.md
-	readelf -d Linux_amd64_release/archicheck | grep 'NEEDED'		>> docs/download.md
+	readelf -d Obj/archicheck | grep 'NEEDED'						>> docs/download.md
 	echo '```' 														>> docs/download.md
 	echo 	 														>> docs/download.md
 	echo "Tests :"		 											>> docs/download.md
@@ -44,12 +46,12 @@ release: build_release
 	echo 	 														>> docs/download.md
 	cat release_tests.txt											>> docs/download.md
 	
-	cp -rp Obj/archicheck Linux_amd64_release/
-	cp -rp Linux_amd64_release/archicheck site/
+	cp -rp Obj/archicheck site/
 	rm release_tests.txt
 
 build: 
 	echo Make debug build
+	@ - mkdir -p Obj lib
 
 	gprbuild -q -P patched_ot
 	gnat make -q -s -Xmode=debug -Parchicheck.gpr
@@ -79,6 +81,7 @@ build_release:
 check: Obj/archicheck
 	# depend on the exe, may be either build or build_release, test have to pass with both
 	echo Make check
+	@ - mkdir -p Tests/Tools/Obj 
 
 	echo - Initializing coverage data before run
 	lcov --quiet --capture --initial --directory Obj -o Obj/coverage.info
@@ -212,9 +215,9 @@ doc: dashboard cmd_line.md
 .PHONY : clean
 clean:
 	echo Make clean
-	gnat clean -q -Parchicheck.gpr
-	- ${RM} -rf Obj/* site/lcov/* tmp.txt *.lst *.dat cov_sum.txt site/* 
-	$(MAKE) --directory=Tests clean
-	gnat clean -q -P patched_ot
+	- gnat clean -q -Parchicheck.gpr
+	- ${RM} -rf Obj/* site/lcov/* tmp.txt *.lst *.dat cov_sum.txt  
+	- $(MAKE) --directory=Tests clean
+	- gnat clean -q -Ppatched_ot
     
     

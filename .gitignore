@@ -1,18 +1,12 @@
 site/
-
-docs/lcov
-
 Obj/
-
+lib/
 _darcs/
-
-Doc
 
 Tests/Tools/create_pkg
 Tests/Tools/testrec
+Tests/Tools/Obj/
 
-Linux_amd64_release/archicheck
-
-lib/
 docs/tests.png
 docs/sloc.png
+docs/lcov

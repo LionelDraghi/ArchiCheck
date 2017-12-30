@@ -4,19 +4,21 @@ Download
 [Here](http://lionel.draghi.free.fr/Archicheck/archicheck) is an exe build on my Debian amd64,
 with -O3 option.
 
+After download : `chmod +x archicheck`
+
 Build :
 -------
 
 > date -r archicheck --iso-8601=seconds
 
 ```
-2017-12-26T19:03:47+01:00
+2017-12-30T14:26:49+01:00
 ```
 
 > archicheck --version
 
 ```
-0.4.3
+0.5.0
 
 ```
 
@@ -32,8 +34,8 @@ Dependencies :
 Tests :
 -------
 
-Run 2017-12-26T19:19:22+01:00
+Run 2017-12-30T14:32:18+01:00
 
-- Successful  50
-- Failed      7
+- Successful  58
+- Failed      0
 - Empty       4
