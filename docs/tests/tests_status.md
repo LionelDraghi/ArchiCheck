@@ -2,7 +2,7 @@
 
 ## Successful
 
-   58 tests OK
+   60 tests OK
 
   - [Use rules test suite / May_Use rule, code compliant, no output expected]()
   - [Use rules test suite / Using a unit from a non allowed unit]()
@@ -36,6 +36,7 @@
   - [Rules file syntax test suite / Spacing and comments]()
   - [ZipAda code test suite / -lf test]()
   - [ZipAda code test suite / -ld test]()
+  - [ZipAda code test suite / rules test]()
   - [Child packages test suite / Rules OK test, no output expected]()
   - [Child packages test suite / Reverse dependency test]()
   - [Child packages test suite / Layer bridging test]()
@@ -47,6 +48,7 @@
   - [Component processing in rules unit test / Env component allowed]()
   - [Component processing in rules unit test / Trying to include a unit in more components]()
   - [Component processing in rules unit test / Test on Components embedding components embedding components...]()
+  - [Component processing in rules unit test / Test A B C exemple posted on fr.comp.lang.ada...]()
   - [Command line test suite / Help options]()
   - [Command line test suite / Version option]()
   - [Command line test suite / -I option without src dir]()

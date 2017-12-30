@@ -132,3 +132,34 @@ Z may use Interfaces.C
   No more Error expected.
 
  Component processing in rules unit test / Test on Components embedding components embedding components... [Successful](tests_status.md#successful)
+
+##  Component processing in rules unit test / Test A B C exemple posted on fr.comp.lang.ada...
+
+    Except that as "A" is a reserved word, I use X Y Z instead :-)
+
+    +----------++------------+ 
+    |     X    ||     Y      | 
+    +----------++------------+ 
+    +------------------------+ 
+    |           Z            | 
+    +------------------------+ 
+
+```
+My_Layer contains X and Y
+    
+My_Layer is a layer over Z
+```
+
+  Running :  
+  > archicheck rules5.txt -I dir5
+
+    With:        Expected:
+    Y.P1 -> X.P1  OK
+    Y.P2 -> Z.P1  OK
+    Z.P1 -> X     Error
+    Z.P2 -> Y.P2  Error
+    U    -> Z.P2  Warning
+    V    -> Y.P1  OK
+
+
+ Component processing in rules unit test / Test A B C exemple posted on fr.comp.lang.ada... [Successful](tests_status.md#successful)

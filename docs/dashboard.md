@@ -4,7 +4,7 @@ Dashboard
 Test results
 ------------
 ```
-Successful  58
+Successful  60
 Failed      0
 Empty       4
 ```
@@ -15,12 +15,12 @@ Coverage
 
 - Lines coverage rate
 ```
-  lines......: 79.9% (1070 of 1340 lines)
+  lines......: 92.9% (916 of 986 lines)
 ```
 
 - Function coverage rate
 ```
-  functions..: 78.0% (231 of 296 functions)
+  functions..: 85.7% (210 of 245 functions)
 ```
 
 - Coverage in the sources
