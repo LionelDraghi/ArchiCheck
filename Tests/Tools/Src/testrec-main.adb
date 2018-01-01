@@ -66,7 +66,6 @@ procedure Testrec.Main is
       Indent_1 : constant String := " ";
       Indent_2 : constant String := "  ";
    begin
-
       case Current_Indent is
          when 0 => return "";
          when 1 => return Indent_1;
@@ -352,7 +351,7 @@ procedure Testrec.Main is
       Common_Text : Unbounded_String;
 
    begin
-      Current_Indent := 1;
+      Current_Indent := 0;
       -- Test conclusion is at the same level than Test title
 
       if Current_State.Suite.Suite_Name = Null_Unbounded_String then

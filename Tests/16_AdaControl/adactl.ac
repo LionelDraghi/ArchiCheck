@@ -1,0 +1,15 @@
+Utilities contains Scope_Manager, Thick_Queries, A4G_Bugs, String_Matching, String_Matching_Gnat, String_Matching_Portable
+Utilities contains Linear_Queue, Binary_Map, Elements_Set, Adactl_Options, Implementation_Options, Options_Analyzer
+
+Rules may use Framework
+
+-- Exceptions :
+Framework.Plugs may use Rules
+Framework.Ruler may use Rules.Uncheckable
+
+Rules     may use Utilities
+Framework may use Utilities
+
+-- Exceptions :
+Adactl_Options  may use Framework.Reports
+Adactl_Options  may use Framework.Variables.Shared_Types
