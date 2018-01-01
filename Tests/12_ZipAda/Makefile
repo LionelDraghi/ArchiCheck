@@ -21,10 +21,12 @@ test1:
 
 	@ ${TR} cmt "> archicheck -lf -r -I ./zip-ada"
 	@ ${TR} cmt 
-	@ ${TR} cmt "Expected :"
+	@ ${TR} cmt "Expected (`cat expected_output.1 | wc -l` files) :"
 	@ ${TR} cmt 
 	@ ${TR} cmt '```'
-	cat expected_output.1 >> testrec.md
+	head -n 3 expected_output.1 >> testrec.md
+	echo '...'					>> testrec.md
+	tail -n 3 expected_output.1 >> testrec.md
 	@ ${TR} cmt '```'
 	@ ${TR} cmt 
 
@@ -39,10 +41,12 @@ test2:
 
 	@ ${TR} cmt "> archicheck -ld -r -I ./zip-ada"
 	@ ${TR} cmt 
-	@ ${TR} cmt "Expected :"
+	@ ${TR} cmt "`cat expected_output.2 | wc -l` dependencies expected :"
 	@ ${TR} cmt 
 	@ ${TR} cmt '```'
-	cat expected_output.2 >> testrec.md
+	head -n 10 expected_output.2 >> testrec.md
+	echo '...'				  	 >> testrec.md
+	tail -n 10 expected_output.2 >> testrec.md
 	@ ${TR} cmt '```'
 	@ ${TR} cmt 
 

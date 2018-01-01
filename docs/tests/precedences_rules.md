@@ -27,7 +27,7 @@ Warning : src/lb-y.ads:4: LB.Y (in LB layer) uses Interfaces.Java that is neithe
 Error : src/lb-y.ads:6: LB.Y is in LB layer, and so shall not use LA.X in the upper LA layer
 ```
 
- Precedence rules unit test / Declaration of a component already existing in code [Successful](tests_status.md#successful)
+Precedence rules unit test / Declaration of a component already existing in code [Successful](tests_status.md#successful)
 
 ##  Precedence rules unit test / Alowing a child of forbidden unit
 
@@ -49,4 +49,4 @@ Error : src/lb-y.ads:3: Interfaces use is forbidden
 Error : src/lb-y.ads:4: Interfaces.Java use is forbidden
 ```
 
- Precedence rules unit test / Alowing a child of forbidden unit [Successful](tests_status.md#successful)
+Precedence rules unit test / Alowing a child of forbidden unit [Successful](tests_status.md#successful)

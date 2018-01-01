@@ -1,18 +1,21 @@
 Download
 ========
 
-[Here](http://lionel.draghi.free.fr/Archicheck/archicheck) is an exe build on my Debian amd64,
+[Download Linux exe](http://lionel.draghi.free.fr/Archicheck/archicheck), build on my Debian amd64,
 with -O3 option.
 
-After download : `chmod +x archicheck`
-
-Build :
--------
+(May be necessary after download : `chmod +x archicheck`)
 
 > date -r archicheck --iso-8601=seconds
 
 ```
-2017-12-30T14:26:49+01:00
+2017-12-31T01:07:55+01:00
+```
+
+> readelf -d archicheck | grep 'NEEDED'
+
+```
+ 0x0000000000000001 (NEEDED)             Bibliothèque partagée: [libc.so.6]
 ```
 
 > archicheck --version
@@ -22,20 +25,11 @@ Build :
 
 ```
 
-Dependencies :
---------------
+Tests status on this exe :
+--------------------------
 
-> readelf -d archicheck | grep 'NEEDED'
+Run 2017-12-31T01:08:09+01:00
 
-```
- 0x0000000000000001 (NEEDED)             Bibliothèque partagée: [libc.so.6]
-```
-
-Tests :
--------
-
-Run 2017-12-30T14:32:18+01:00
-
-- Successful  58
+- Successful  60
 - Failed      0
 - Empty       4

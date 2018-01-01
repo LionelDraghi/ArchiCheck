@@ -18,7 +18,7 @@ C package spec depends on F
 ```
 
 
- Dependencies identification simple test suite / Simple test [Successful](tests_status.md#successful)
+Dependencies identification simple test suite / Simple test [Successful](tests_status.md#successful)
 
 ##  Dependencies identification simple test suite / Source with weird formatted withed unit
 
@@ -34,4 +34,4 @@ end C . D ;
 ```
 
 
- Dependencies identification simple test suite / Source with weird formatted withed unit [Successful](tests_status.md#successful)
+Dependencies identification simple test suite / Source with weird formatted withed unit [Successful](tests_status.md#successful)

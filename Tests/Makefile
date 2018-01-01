@@ -2,6 +2,8 @@ all: check doc
 
 .PHONY : clean
 
+TESTS=01_Command_Line 02_Source_List 03_Dependency_List 04_Component_List 05_Layer_Rule 06_Child_Packages 07_Rules_Files_Syntax 08_Globbing_Characters 09_GtkAda 10_Use_Rule 11_Batik 12_ZipAda 13_Ada_Units 14_Rules_On_Components 15_Precedences_Rules 16_AdaControl
+
 Tools/create_pkg:
 	@ $(MAKE) create_pkg --directory=Tools
 
@@ -9,6 +11,9 @@ Tools/testrec:
 	@ $(MAKE) testrec    --directory=Tools
 
 check: ../Obj/archicheck Tools/create_pkg Tools/testrec
+    # for TEST in $(TESTS); do \
+    #     $(MAKE) check $$TEST; \
+    # done
 	$(MAKE) check --directory=01_Command_Line
 	$(MAKE) check --directory=02_Source_List
 	$(MAKE) check --directory=03_Dependency_List
@@ -24,6 +29,7 @@ check: ../Obj/archicheck Tools/create_pkg Tools/testrec
 	$(MAKE) check --directory=13_Ada_Units
 	$(MAKE) check --directory=14_Rules_On_Components
 	$(MAKE) check --directory=15_Precedences_Rules
+	$(MAKE) check --directory=16_AdaControl
 
 doc:
 	cat `find . -name testrec.md` > tmp.txt
@@ -77,6 +83,7 @@ doc:
 	@ $(MAKE) doc --directory=13_Ada_Units
 	@ $(MAKE) doc --directory=14_Rules_On_Components
 	@ $(MAKE) doc --directory=15_Precedences_Rules
+	@ $(MAKE) doc --directory=16_AdaControl
 
 clean:
 	@ $(MAKE) clean --directory=Tools
@@ -96,6 +103,7 @@ clean:
 	@ $(MAKE) clean --directory=13_Ada_Units
 	@ $(MAKE) clean --directory=14_Rules_On_Components
 	@ $(MAKE) clean --directory=15_Precedences_Rules
+	@ $(MAKE) clean --directory=16_AdaControl
 
 	- ${RM} tests_status.md *.lst short_tests_status.md tests_count.txt
 

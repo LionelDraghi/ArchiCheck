@@ -22,11 +22,11 @@ Building :
 
   Needed external software : libopentoken, and gnat gcc Ada compiler. 
   
-  > On Debian Linux family : `apt install libopentoken6-dev gnat make` to install.
+  > On Debian Linux family : `apt install libopentoken6-dev gnat make`
 
   archicheck exe will be in the `Obj` directory.
 
-  To build ArchiCheck and test it : `make check`.
+  To run ArchiCheck tests : `make check`
   > Warning : tested on a Linux platform only
   
 Portability :
@@ -35,16 +35,6 @@ Portability :
   Note that the Ada code should be pretty platform independant, but I tested it only on my Linux/Intel platform.
   
   Makefiles are clearly not portable, and obviously need heavy refactoring to run on non Unix like system. 
-
-To build this documentation / web pages :
----------------------------------------------
-
-  `make doc`
-  > Warning : tested on a Linux platform only
-  
-  Needed external software : ploticus, NaturalDocs, sloccount and lcov. 
-
-  > On Debian Linux family : `apt install ploticus mkdocs sloccount lcov`
 
 
 

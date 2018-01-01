@@ -2,7 +2,7 @@
 
 ## Successful
 
-   58 tests OK
+   62 tests OK
 
   - [Use rules test suite / May_Use rule, code compliant, no output expected]()
   - [Use rules test suite / Using a unit from a non allowed unit]()
@@ -20,15 +20,17 @@
   - [GtkAda test suite / Unit Identification]()
   - [GtkAda test suite / A realistic GtkAda description file]()
   - [GtkAda test suite / Another realistic GtkAda description file]()
-  - [Java code test suite / --list_file test, recursive and non recursive]()
-  - [Java code test suite / simple import]()
-  - [Java code test suite / interface]()
-  - [Java code test suite / no import]()
-  - [Java code test suite / no package]()
-  - [Java code test suite / Let's add dependencies to Browser and Rasterizer into a Transcoder class]()
+  - [Batik test suite / --list_file test, recursive and non recursive]()
+  - [Batik test suite / simple import]()
+  - [Batik test suite / interface]()
+  - [Batik test suite / no import]()
+  - [Batik test suite / no package]()
+  - [Batik test suite / Let's add dependencies to Browser and Rasterizer into a Transcoder class]()
   - [Non recursive file identification test suite / Simple test]()
   - [Precedence rules unit test / Declaration of a component already existing in code]()
   - [Precedence rules unit test / Alowing a child of forbidden unit]()
+  - [AdaControl code test suite / -lf test]()
+  - [AdaControl code test suite / -ld test]()
   - [Dependencies identification simple test suite / Simple test]()
   - [Dependencies identification simple test suite / Source with weird formatted withed unit]()
   - [Rules file syntax test suite / Reference file]()
@@ -36,6 +38,7 @@
   - [Rules file syntax test suite / Spacing and comments]()
   - [ZipAda code test suite / -lf test]()
   - [ZipAda code test suite / -ld test]()
+  - [ZipAda code test suite / rules test]()
   - [Child packages test suite / Rules OK test, no output expected]()
   - [Child packages test suite / Reverse dependency test]()
   - [Child packages test suite / Layer bridging test]()
@@ -47,6 +50,7 @@
   - [Component processing in rules unit test / Env component allowed]()
   - [Component processing in rules unit test / Trying to include a unit in more components]()
   - [Component processing in rules unit test / Test on Components embedding components embedding components...]()
+  - [Component processing in rules unit test / Test A B C exemple posted on fr.comp.lang.ada...]()
   - [Command line test suite / Help options]()
   - [Command line test suite / Version option]()
   - [Command line test suite / -I option without src dir]()
@@ -65,8 +69,9 @@
 
 ## Failed
 
-   0 tests failed
+   1 tests failed
 
+**AdaControl code test suite / rules test]()
 
 ## Empty
 
@@ -74,5 +79,5 @@
 
   - [Globbing Character test suite / rules test]()
   - [Globbing Character test suite / illegal use of Interfaces from Application_Layer]()
-  - [Java code test suite / real Batik code]()
+  - [Batik test suite / real Batik code]()
   - [Rules file syntax test suite / Punctuation and syntaxic sugar]()

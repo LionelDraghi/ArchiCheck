@@ -10,19 +10,22 @@ use_directory_urls: true
 
 pages:
 - Quick start: index.md
-- Download: download.md
 - About: about.md
 
 - Documentation:
-  ## - [ArchiCheck overview](Archicheck_Overview.pdf)
-  - cmd_line.md
   - rules.md
-  - todo.md
+  - cmd_line.md
   - building.md
   - copying.md
   
-- Tests:
+- Current Status:
+  - dashboard.md
   - tests/tests_status.md
+  ## - fixme.md
+  - download.md
+  - todo.md
+  
+- Tests:
   - tests/command_line.md
   - tests/source_list.md
   - tests/dependency_list.md
@@ -31,20 +34,17 @@ pages:
   - tests/child_packages.md
   - tests/rules_files_syntax.md
   - tests/globbing_characters.md
-  - tests/gtkada.md
   - tests/use_rule.md
-  - tests/batik.md
-  - tests/zipada.md
   - tests/ada_units.md
   - tests/rules_on_components.md
   - tests/precedences_rules.md
-    
-- Status:
-  - dashboard.md
-  ## - [Code coverage](http://lionel.draghi.free.fr/Archicheck/lcov/index.html)
-  - tests/tests_status.md
-  ## - fixme.md
-  
+
+- Real software tests:
+  - tests/gtkada.md
+  - tests/batik.md
+  - tests/zipada.md
+  - tests/adactl.md
+
 ## - Tools:
 ##   - mdtags.md
 

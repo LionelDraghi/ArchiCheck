@@ -1,79 +1,40 @@
 
-# Java code test suite
+# Batik test suite
 
 
 
-##  Java code test suite / --list_file test, recursive and non recursive
+##  Batik test suite / --list_file test, recursive and non recursive
 
   > archicheck -lf -I ./batik-1.9/test-sources/org/apache/batik/dom
-  Expected :
+  Expected (25 files) :
 
 ```
 batik-1.9/test-sources/org/apache/batik/dom/ReplaceChildTest.java
 batik-1.9/test-sources/org/apache/batik/dom/ElementTraversalTest.java
 batik-1.9/test-sources/org/apache/batik/dom/NodeTextContentTest.java
-batik-1.9/test-sources/org/apache/batik/dom/HasChildNodesTest.java
-batik-1.9/test-sources/org/apache/batik/dom/GetElementsByTagNameNSTest.java
-batik-1.9/test-sources/org/apache/batik/dom/RemoveAttributeTest.java
-batik-1.9/test-sources/org/apache/batik/dom/TextWholeTextTest.java
-batik-1.9/test-sources/org/apache/batik/dom/DOMUtilitiesCharacterEscaping.java
-batik-1.9/test-sources/org/apache/batik/dom/AttrIsIdTest.java
-batik-1.9/test-sources/org/apache/batik/dom/DocumentRenameNodeTest.java
-batik-1.9/test-sources/org/apache/batik/dom/NodeCompareDocumentPositionTest.java
-batik-1.9/test-sources/org/apache/batik/dom/CloneElementTest.java
-batik-1.9/test-sources/org/apache/batik/dom/EcmaScriptDOMTest.java
-batik-1.9/test-sources/org/apache/batik/dom/AppendChildTest.java
-batik-1.9/test-sources/org/apache/batik/dom/ElementSetIdAttributeNSTest.java
-batik-1.9/test-sources/org/apache/batik/dom/SerializationTest.java
-batik-1.9/test-sources/org/apache/batik/dom/DocumentNormalizeDocumentTest.java
-batik-1.9/test-sources/org/apache/batik/dom/EventTargetAddEventListenerNSTest.java
-batik-1.9/test-sources/org/apache/batik/dom/SetAttributeTest.java
-batik-1.9/test-sources/org/apache/batik/dom/NullNamespaceTest.java
-batik-1.9/test-sources/org/apache/batik/dom/NodeGetUserDataTest.java
-batik-1.9/test-sources/org/apache/batik/dom/DOM3Test.java
+...
 batik-1.9/test-sources/org/apache/batik/dom/TextReplaceWholeTextTest.java
 batik-1.9/test-sources/org/apache/batik/dom/NodeBaseURITest.java
 batik-1.9/test-sources/org/apache/batik/dom/DocumentAdoptNodeTest.java
 ```
 
   > archicheck -lf -r -I ./batik-1.9/test-sources/org/apache/batik/dom
-  Expected :
+  Expected (28 files) :
 
 ```
 batik-1.9/test-sources/org/apache/batik/dom/ReplaceChildTest.java
 batik-1.9/test-sources/org/apache/batik/dom/ElementTraversalTest.java
 batik-1.9/test-sources/org/apache/batik/dom/NodeTextContentTest.java
-batik-1.9/test-sources/org/apache/batik/dom/HasChildNodesTest.java
-batik-1.9/test-sources/org/apache/batik/dom/GetElementsByTagNameNSTest.java
-batik-1.9/test-sources/org/apache/batik/dom/RemoveAttributeTest.java
-batik-1.9/test-sources/org/apache/batik/dom/TextWholeTextTest.java
-batik-1.9/test-sources/org/apache/batik/dom/DOMUtilitiesCharacterEscaping.java
-batik-1.9/test-sources/org/apache/batik/dom/AttrIsIdTest.java
-batik-1.9/test-sources/org/apache/batik/dom/DocumentRenameNodeTest.java
-batik-1.9/test-sources/org/apache/batik/dom/NodeCompareDocumentPositionTest.java
-batik-1.9/test-sources/org/apache/batik/dom/CloneElementTest.java
-batik-1.9/test-sources/org/apache/batik/dom/EcmaScriptDOMTest.java
-batik-1.9/test-sources/org/apache/batik/dom/AppendChildTest.java
-batik-1.9/test-sources/org/apache/batik/dom/ElementSetIdAttributeNSTest.java
-batik-1.9/test-sources/org/apache/batik/dom/SerializationTest.java
-batik-1.9/test-sources/org/apache/batik/dom/DocumentNormalizeDocumentTest.java
-batik-1.9/test-sources/org/apache/batik/dom/EventTargetAddEventListenerNSTest.java
-batik-1.9/test-sources/org/apache/batik/dom/SetAttributeTest.java
-batik-1.9/test-sources/org/apache/batik/dom/NullNamespaceTest.java
-batik-1.9/test-sources/org/apache/batik/dom/NodeGetUserDataTest.java
-batik-1.9/test-sources/org/apache/batik/dom/DOM3Test.java
-batik-1.9/test-sources/org/apache/batik/dom/TextReplaceWholeTextTest.java
-batik-1.9/test-sources/org/apache/batik/dom/NodeBaseURITest.java
-batik-1.9/test-sources/org/apache/batik/dom/DocumentAdoptNodeTest.java
+...
 batik-1.9/test-sources/org/apache/batik/dom/svg/EcmaScriptSVGDOMTest.java
 batik-1.9/test-sources/org/apache/batik/dom/svg/ImportNodeTest.java
 batik-1.9/test-sources/org/apache/batik/dom/svg/CloneNodeTest.java
 ```
 
 
- Java code test suite / --list_file test, recursive and non recursive [Successful](tests_status.md#successful)
+Batik test suite / --list_file test, recursive and non recursive [Successful](tests_status.md#successful)
 
-##  Java code test suite / simple import 
+##  Batik test suite / simple import 
 
 
 ```
@@ -117,9 +78,9 @@ org.apache.batik.apps.jsvg.JSVG class depends on org.apache.batik.swing.svg.SVGU
 ```
 
 
- Java code test suite / simple import [Successful](tests_status.md#successful)
+Batik test suite / simple import [Successful](tests_status.md#successful)
 
-##  Java code test suite / interface
+##  Batik test suite / interface
 
 
 ```
@@ -156,9 +117,9 @@ org.apache.batik.dom.events.NodeEventTarget interface depends on org.w3c.dom.eve
 ```
 
 
- Java code test suite / interface [Successful](tests_status.md#successful)
+Batik test suite / interface [Successful](tests_status.md#successful)
 
-##  Java code test suite / no import
+##  Batik test suite / no import
 
 
 ```
@@ -182,9 +143,9 @@ public class TriplyIndexedTable {
 ```
 
 
- Java code test suite / no import [Successful](tests_status.md#successful)
+Batik test suite / no import [Successful](tests_status.md#successful)
 
-##  Java code test suite / no package
+##  Batik test suite / no package
 
 
 ```
@@ -204,9 +165,9 @@ NodeEventTarget interface depends on org.w3c.dom.events.Event
 ```
 
 
- Java code test suite / no package [Successful](tests_status.md#successful)
+Batik test suite / no package [Successful](tests_status.md#successful)
 
-##  Java code test suite / real Batik code
+##  Batik test suite / real Batik code
 
 
   This class is in transcoder, and uses Bridge and GVT, and that's OK
@@ -274,9 +235,9 @@ public abstract class SVGAbstractTranscoder extends XMLAbstractTranscoder {
   > archicheck rules.B -I dir6
   No output expected
 
- Java code test suite / real Batik code [Empty](tests_status.md#empty)
+Batik test suite / real Batik code [Empty](tests_status.md#empty)
 
-##  Java code test suite / Let's add dependencies to Browser and Rasterizer into a Transcoder class
+##  Batik test suite / Let's add dependencies to Browser and Rasterizer into a Transcoder class
 
 
 ```
@@ -300,4 +261,4 @@ Error : dir7/MyClass.java:4: org.apache.batik.transcoder.NodeEventTarget is in C
 ```
 
 
- Java code test suite / Let's add dependencies to Browser and Rasterizer into a Transcoder class [Successful](tests_status.md#successful)
+Batik test suite / Let's add dependencies to Browser and Rasterizer into a Transcoder class [Successful](tests_status.md#successful)

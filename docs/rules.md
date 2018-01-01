@@ -1,7 +1,7 @@
 Rules File
 ==========
 
-Archicheck rules file uses a simple syntax to describe simple structural aspect of the software architecture.
+Archicheck rules file uses a simple syntax to describe structural aspects of a software architecture.
 
 This file may contains :  
 

@@ -19,11 +19,16 @@ test1:
 	${TR} cmt 
 	${TR} cmt "> archicheck -q -lf -r -I gtkada-master"							
 	${TR} cmt 
-	${TR} cmt "is identifying the same files (once sorted) than"							
+	${TR} cmt "is identifying the same `cat expected_output.1 | wc -l` files (once sorted) than"							
 	${TR} cmt 
-	${TR} cmt "> find gtkada-master -name ""*.ad[sb]"""							
+	${TR} cmt "> find gtkada-master -name ""*.ad[sb]"" | sort"							
+	@ ${TR} cmt '```'
+	head -n 3 expected_output.1 >> testrec.md
+	echo '...'					>> testrec.md
+	tail -n 3 expected_output.1 >> testrec.md
+	@ ${TR} cmt '```'
 	${TR} cmt 
-	find gtkada-master -name "*.ad[sb]"		| sort	> expected_output.1
+	find gtkada-master -name "*.ad[sb]"	| sort > expected_output.1
 	../../Obj/archicheck -q -lf -r -I gtkada-master	| sed "s/.*gtkada-master/gtkada-master/" | sort	> output.1
 	${TR} assert true /usr/bin/sdiff "-s expected_output.1 output.1"
 
@@ -33,13 +38,19 @@ test2:
 	${TR} start "Unit Identification"		
 	
 	# to do a real check here, I need as a reference an ASIS tools that list all dependency
-	../../Obj/archicheck -ld -r -I gtkada-master | sort > output.2
-	
 	${TR} cmt 
-	${TR} cmt "> archicheck -ld -r -I gtkada-master"							
+	${TR} cmt "> archicheck -ld -r -I gtkada-master | sort"							
 	${TR} cmt 
-	${TR} cmt "`cat expected_output.2 | wc -l` unit found, not detailed here"							
+	@ ${TR} cmt "`cat expected_output.2 | wc -l` dependencies expected :"
+	@ ${TR} cmt 
+	@ ${TR} cmt '```'
+	head -n 10 expected_output.2 >> testrec.md
+	echo '...'				  	 >> testrec.md
+	tail -n 10 expected_output.2 >> testrec.md
+	@ ${TR} cmt '```'
+	@ ${TR} cmt
 
+	../../Obj/archicheck -ld -r -I gtkada-master | sort > output.2
 	${TR} assert true /usr/bin/sdiff "-s expected_output.2 output.2"
 
 	${TR} end

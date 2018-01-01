@@ -4,8 +4,8 @@ Dashboard
 Test results
 ------------
 ```
-Successful  58
-Failed      0
+Successful  62
+Failed      1
 Empty       4
 ```
 ![](tests.png)
@@ -23,5 +23,5 @@ Coverage
   functions..: 78.0% (231 of 296 functions)
 ```
 
-- Coverage in the sources
-  [lcov generated](http://lionel.draghi.free.fr/Archicheck/lcov/index.html)
+- **Coverage in the sources**
+  [lcov generated](http://lionel.draghi.free.fr/Archicheck/lcov/home/lionel/Proj/Archicheck/Src/index-sort-f.html)

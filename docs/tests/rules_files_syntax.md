@@ -33,7 +33,7 @@ reference_rules.txt:4: Component GUI contains unit Pango
 ```
 
 
- Rules file syntax test suite / Reference file [Successful](tests_status.md#successful)
+Rules file syntax test suite / Reference file [Successful](tests_status.md#successful)
 
 ##  Rules file syntax test suite / Casing
 
@@ -47,7 +47,7 @@ GUI Contains Pango
 ```
 
 
- Rules file syntax test suite / Casing [Successful](tests_status.md#successful)
+Rules file syntax test suite / Casing [Successful](tests_status.md#successful)
 
 ##  Rules file syntax test suite / Spacing and comments
 
@@ -73,7 +73,7 @@ GUI contains Glib
 ```
 
 
- Rules file syntax test suite / Spacing and comments [Successful](tests_status.md#successful)
+Rules file syntax test suite / Spacing and comments [Successful](tests_status.md#successful)
 
 ##  Rules file syntax test suite / Punctuation and syntaxic sugar
 
@@ -89,4 +89,4 @@ GUI contains ATK GIO Gtk, Glib and Pango.
 ```
 
 
- Rules file syntax test suite / Punctuation and syntaxic sugar [Empty](tests_status.md#empty)
+Rules file syntax test suite / Punctuation and syntaxic sugar [Empty](tests_status.md#empty)

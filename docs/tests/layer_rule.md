@@ -15,7 +15,7 @@ Layer_A is a layer over Layer_B
 ```
 
 
- Layer rules test suite / Code is compliant with rules file, no output expected [Successful](tests_status.md#successful)
+Layer rules test suite / Code is compliant with rules file, no output expected [Successful](tests_status.md#successful)
 
 ##  Layer rules test suite / Batik project architecture, code is compliant with rules file, no output expected
 
@@ -35,7 +35,7 @@ Core_Modules is a layer over Low_Level_Modules
 ```
 
 
- Layer rules test suite / Batik project architecture, code is compliant with rules file, no output expected [Successful](tests_status.md#successful)
+Layer rules test suite / Batik project architecture, code is compliant with rules file, no output expected [Successful](tests_status.md#successful)
 
 ##  Layer rules test suite / Reverse dependency test
 
@@ -56,7 +56,7 @@ Error : dir2/p4.ads:1: P4 is in Layer_B layer, and so shall not use P5 in the up
 ```
 
 
- Layer rules test suite / Reverse dependency test [Successful](tests_status.md#successful)
+Layer rules test suite / Reverse dependency test [Successful](tests_status.md#successful)
 
 ##  Layer rules test suite / Layer bridging test
 
@@ -77,7 +77,7 @@ Warning : dir3c/p6.adb:1: P6 is neither in Layer_A or Layer_B layer, and so shal
 ```
 
 
- Layer rules test suite / Layer bridging test [Successful](tests_status.md#successful)
+Layer rules test suite / Layer bridging test [Successful](tests_status.md#successful)
 
 ##  Layer rules test suite / Using a package that is neither in the same layer, nor in the visible layer
 
@@ -98,4 +98,4 @@ Warning : dir4/p2.ads:3: P2 (in Layer_A layer) uses P7 that is neither in the sa
 ```
 
 
- Layer rules test suite / Using a package that is neither in the same layer, nor in the visible layer [Successful](tests_status.md#successful)
+Layer rules test suite / Using a package that is neither in the same layer, nor in the visible layer [Successful](tests_status.md#successful)

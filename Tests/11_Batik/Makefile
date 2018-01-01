@@ -10,7 +10,7 @@ check: ../../Obj/archicheck header test1 test2 test3 test4 test5 test6 test7
 header:
 	@ #---------------------------------------------------------------------
 	${TR} clean
-	${TR} create "Java code test suite"
+	${TR} create "Batik test suite"
 
 	@ # Creating the batik dir :
 	@ tar -xf batik-src-1.9.tar.gz
@@ -21,21 +21,25 @@ test1:
 	${TR} start "--list_file test, recursive and non recursive"
 
 	@ ${TR} cmt "> archicheck -lf -I ./batik-1.9/test-sources/org/apache/batik/dom"
-	@ ${TR} cmt "Expected :"
+	@ ${TR} cmt "Expected (`cat expected_output.1a | wc -l` files) :"
 	@ ${TR} cmt 
 	@ ${TR} cmt '```'
-	cat expected_output.1 >> testrec.md
+	head -n 3 expected_output.1a >> testrec.md
+	echo '...'					 >> testrec.md
+	tail -n 3 expected_output.1a >> testrec.md
 	@ ${TR} cmt '```'
 	@ ${TR} cmt 
 
-	@ ../../Obj/archicheck -lf -I ./batik-1.9/test-sources/org/apache/batik/dom > output.1
-	${TR} assert true /usr/bin/sdiff "-s expected_output.1 output.1"
+	@ ../../Obj/archicheck -lf -I ./batik-1.9/test-sources/org/apache/batik/dom > output.1a
+	${TR} assert true /usr/bin/sdiff "-s expected_output.1a output.1a"
 
 	@ ${TR} cmt "> archicheck -lf -r -I ./batik-1.9/test-sources/org/apache/batik/dom"
-	@ ${TR} cmt "Expected :"
+	@ ${TR} cmt "Expected (`cat expected_output.1b | wc -l` files) :"
 	@ ${TR} cmt 
 	@ ${TR} cmt '```'
-	cat expected_output.1b >> testrec.md
+	head -n 3 expected_output.1b >> testrec.md
+	echo '...'					 >> testrec.md
+	tail -n 3 expected_output.1b >> testrec.md
 	@ ${TR} cmt '```'
 	@ ${TR} cmt 
 

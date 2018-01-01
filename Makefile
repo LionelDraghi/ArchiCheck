@@ -12,18 +12,21 @@ release: build_release
 	echo "Download"			 										>> docs/download.md
 	echo "========"			 										>> docs/download.md
 	echo 	 														>> docs/download.md
-	echo "[Here](http://lionel.draghi.free.fr/Archicheck/archicheck) is an exe build on my Debian amd64,"	>> docs/download.md
+	echo "[Download Linux exe](http://lionel.draghi.free.fr/Archicheck/archicheck), build on my Debian amd64,"	>> docs/download.md
 	echo "with -O3 option." 										>> docs/download.md
 	echo 	 														>> docs/download.md
-	echo 'After download : `chmod +x archicheck`'					>> docs/download.md
-	echo 	 														>> docs/download.md
-	echo "Build :" 													>> docs/download.md
-	echo "-------" 													>> docs/download.md
+	echo '(May be necessary after download : `chmod +x archicheck`)'	>> docs/download.md
 	echo 	 														>> docs/download.md
 	echo "> date -r archicheck --iso-8601=seconds" 					>> docs/download.md
 	echo 	 														>> docs/download.md
 	echo '```' 														>> docs/download.md
 	date -r Obj/archicheck --iso-8601=seconds 						>> docs/download.md
+	echo '```' 														>> docs/download.md
+	echo 	 														>> docs/download.md
+	echo "> readelf -d archicheck | grep 'NEEDED'" 					>> docs/download.md
+	echo 	 														>> docs/download.md
+	echo '```' 														>> docs/download.md
+	readelf -d Obj/archicheck | grep 'NEEDED'						>> docs/download.md
 	echo '```' 														>> docs/download.md
 	echo 	 														>> docs/download.md
 	echo "> archicheck --version"				 					>> docs/download.md
@@ -32,21 +35,12 @@ release: build_release
 	Obj/archicheck --version				 						>> docs/download.md
 	echo '```' 														>> docs/download.md
 	echo 	 														>> docs/download.md
-	echo "Dependencies :" 											>> docs/download.md
-	echo "--------------" 											>> docs/download.md
-	echo 	 														>> docs/download.md
-	echo "> readelf -d archicheck | grep 'NEEDED'" 					>> docs/download.md
-	echo 	 														>> docs/download.md
-	echo '```' 														>> docs/download.md
-	readelf -d Obj/archicheck | grep 'NEEDED'						>> docs/download.md
-	echo '```' 														>> docs/download.md
-	echo 	 														>> docs/download.md
-	echo "Tests :"		 											>> docs/download.md
-	echo "-------" 													>> docs/download.md
+	echo "Tests status on this exe :"								>> docs/download.md
+	echo "--------------------------"								>> docs/download.md
 	echo 	 														>> docs/download.md
 	cat release_tests.txt											>> docs/download.md
 	
-	cp -rp Obj/archicheck site/
+	cp -rp Obj/archicheck docs/
 	rm release_tests.txt
 
 build: 
@@ -67,7 +61,8 @@ build_release:
 
 	# equal to check, but without coverage :
 	echo - Running tests :
-	$(MAKE) --ignore-errors --directory=Tests
+	## $(MAKE) --ignore-errors --directory=Tests
+	$(MAKE) --directory=Tests
 
 	echo "Run "`date --iso-8601=seconds` 	>  release_tests.txt
 	echo									>> release_tests.txt
@@ -90,6 +85,7 @@ check: Obj/archicheck
 
 	echo - Running tests :
 	$(MAKE) --ignore-errors --directory=Tests
+	## $(MAKE) --directory=Tests
 
 	echo
 	echo - Tests summary :
@@ -100,6 +96,7 @@ check: Obj/archicheck
 	lcov --quiet --capture --directory Obj -o Obj/coverage.info
 
 
+.PHONY : dashboard
 dashboard: Obj/coverage.info Tests/tests_count.txt
 	echo Make dashboard
 
@@ -120,9 +117,12 @@ dashboard: Obj/coverage.info Tests/tests_count.txt
 	@ # - libs (Standart and OpenToken) 
 
 	@ # --------------------------------------------------------------------
-	genhtml Obj/coverage.info -o site/lcov -t "ArchiCheck tests coverage" \
-		-p "/home/lionel/Proj/Archichek" | tail -n 2 > cov_sum.txt
-	
+	genhtml Obj/coverage.info -o docs/lcov --title "ArchiCheck tests coverage" \
+		--prefix "/home/lionel/Proj/Archichek" --frames | tail -n 2 > cov_sum.txt
+	# --title  : Display TITLE in header of all pages
+	# --prefix : Remove PREFIX from all directory names
+	# --frame  : Use HTML frames for source code view
+
 	# Processing the lines line :
 	@ # --------------------------------------------------------------------
 	# > lines_cov.dat
@@ -175,9 +175,10 @@ dashboard: Obj/coverage.info Tests/tests_count.txt
 	echo '```'			 			>> docs/dashboard.md
 	# echo "![](img/functions_coverage.png)"	>> docs/dashboard.md
 	echo 							>> docs/dashboard.md
-	echo '- Coverage in the sources'	>> docs/dashboard.md
-	echo '  [lcov generated](http://lionel.draghi.free.fr/Archicheck/lcov/index.html)'		>> docs/dashboard.md
+	echo '- **Coverage in the sources**'	>> docs/dashboard.md
+	echo '  [lcov generated](http://lionel.draghi.free.fr/Archicheck/lcov/home/lionel/Proj/Archicheck/Src/index-sort-f.html)'		>> docs/dashboard.md
 
+.PHONY : cmd_line.md
 cmd_line.md:
 	echo Make cmd_line.md
 	> docs/cmd_line.md
@@ -216,7 +217,7 @@ doc: dashboard cmd_line.md
 clean:
 	echo Make clean
 	- gnat clean -q -Parchicheck.gpr
-	- ${RM} -rf Obj/* site/lcov/* tmp.txt *.lst *.dat cov_sum.txt  
+	- ${RM} -rf Obj/* docs/lcov/* tmp.txt *.lst *.dat cov_sum.txt  
 	- $(MAKE) --directory=Tests clean
 	- gnat clean -q -Ppatched_ot
     

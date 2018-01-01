@@ -29,7 +29,7 @@ GUI is a layer over DB
 ```
 
 
- Child packages test suite / Rules OK test, no output expected [Successful](tests_status.md#successful)
+Child packages test suite / Rules OK test, no output expected [Successful](tests_status.md#successful)
 
 ##  Child packages test suite / Reverse dependency test
 
@@ -43,7 +43,7 @@ Error : dir2/db-p4.adb:1: DB.P4 is in DB layer, and so shall not use GUI.P5 in t
 ```
 
 
- Child packages test suite / Reverse dependency test [Successful](tests_status.md#successful)
+Child packages test suite / Reverse dependency test [Successful](tests_status.md#successful)
 
 ##  Child packages test suite / Layer bridging test
 
@@ -57,7 +57,7 @@ Warning : dir3/p6.ads:1: P6 is neither in GUI or DB layer, and so shall not dire
 ```
 
 
- Child packages test suite / Layer bridging test [Successful](tests_status.md#successful)
+Child packages test suite / Layer bridging test [Successful](tests_status.md#successful)
 
 ##  Child packages test suite / Undescribed dependency test
 
@@ -71,19 +71,19 @@ Warning : dir4/gui-p2.ads:3: GUI.P2 (in GUI layer) uses P7 that is neither in th
 ```
 
 
- Child packages test suite / Undescribed dependency test [Successful](tests_status.md#successful)
+Child packages test suite / Undescribed dependency test [Successful](tests_status.md#successful)
 
 ##  Child packages test suite / Packages in the same layer may with themself
 
 
- Child packages test suite / Packages in the same layer may with themself [Successful](tests_status.md#successful)
+Child packages test suite / Packages in the same layer may with themself [Successful](tests_status.md#successful)
 
 ##  Child packages test suite / GUI.P1 is a GUI child, GUIP1 is not a GUI child pkg
 
 
- Child packages test suite / GUI.P1 is a GUI child, GUIP1 is not a GUI child pkg [Successful](tests_status.md#successful)
+Child packages test suite / GUI.P1 is a GUI child, GUIP1 is not a GUI child pkg [Successful](tests_status.md#successful)
 
 ##  Child packages test suite / Forbidding Interfaces but allowing Interfaces.C
 
 
- Child packages test suite / Forbidding Interfaces but allowing Interfaces.C [Successful](tests_status.md#successful)
+Child packages test suite / Forbidding Interfaces but allowing Interfaces.C [Successful](tests_status.md#successful)
