@@ -75,7 +75,7 @@ test2:
 	@ ${TR} cmt '```'
 	@ ${TR} cmt 
 
-	@ ../../Obj/archicheck --quiet -I dir2 rules.txt > output.2
+	@ test ! `../../Obj/archicheck --quiet -I dir2 rules.txt > output.2`
 	${TR} assert true /usr/bin/sdiff "-s expected_output.2 output.2"
 
 	${TR} end
@@ -164,7 +164,7 @@ test7:
 	@ ${CREATE_PKG} P2 spec  -in dir7 -with Interfaces.C
 	@ ${CREATE_PKG} P3 spec  -in dir7 -with Interfaces.Java
 
-	@ ../../Obj/archicheck rules7.txt -I dir7   > output.7
+	@ test ! `../../Obj/archicheck rules7.txt -I dir7   > output.7`
 	${TR} assert true /usr/bin/sdiff "-s expected_output.7 output.7"
 
 	${TR} end

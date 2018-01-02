@@ -75,7 +75,7 @@ test3:
 	${TR} cmt '```'
 	${TR} cmt 
 								
-	../../Obj/archicheck GtkAda.rules -r -I gtkada-master	> output.3
+	test ! `../../Obj/archicheck GtkAda.rules -r -I gtkada-master	> output.3`
 	${TR} assert true /usr/bin/sdiff "-s expected_output.3 output.3"
 
 	${TR} end
@@ -99,7 +99,7 @@ test4:
 	${TR} cmt '```'
 	${TR} cmt 
 								
-	../../Obj/archicheck GtkAda2.rules -q -r -I gtkada-master	> output.4
+	test ! `../../Obj/archicheck GtkAda2.rules -q -r -I gtkada-master	> output.4`
 	# Fixme: -q is set to avoid warnings and focus on error till code is fixed
 	${TR} assert true /usr/bin/sdiff "-s expected_output.4 output.4"
 

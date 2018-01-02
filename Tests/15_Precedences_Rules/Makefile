@@ -35,7 +35,7 @@ test1:
 	@ cat expected_output.1 >> testrec.md
 	@ ${TR} cmt '```'
 	
-	@ ../../Obj/archicheck rules1.txt -I src > output.1
+	@ test ! `../../Obj/archicheck rules1.txt -I src > output.1`
 	@ ${TR} assert true /usr/bin/sdiff "-s expected_output.1 output.1"
 
 	@ ${TR} end
@@ -53,12 +53,12 @@ test2:
 	@ ${TR} cmt 'Running :  '
 	@ ${TR} cmt "> archicheck rules2.txt -I src"
 	@ ${TR} cmt 
-	@ ${TR} cmt "No more error/warning expected :"
+	@ ${TR} cmt "Expected :"
 	@ ${TR} cmt '```'
 	@ cat expected_output.2 >> testrec.md
 	@ ${TR} cmt '```'
 	
-	@ ../../Obj/archicheck rules2.txt -I src > output.2
+	@ test ! `../../Obj/archicheck rules2.txt -I src > output.2`
 	@ ${TR} assert true /usr/bin/sdiff "-s expected_output.2 output.2"
 
 	@ ${TR} end

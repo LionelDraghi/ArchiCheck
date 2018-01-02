@@ -91,7 +91,7 @@ test2:
 	@ ${TR} cmt '```'
 	@ ${TR} cmt
 
-	@ ../../Obj/archicheck --quiet -I dir2 rules.2 > output.2
+	@ test ! `../../Obj/archicheck --quiet -I dir2 rules.2 > output.2`
 	${TR} assert true /usr/bin/sdiff "-s expected_output.2 output.2"
 
 	${TR} end

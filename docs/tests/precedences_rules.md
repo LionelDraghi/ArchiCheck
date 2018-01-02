@@ -43,7 +43,7 @@ Interfaces.C use is allowed
   Running :  
   > archicheck rules2.txt -I src
 
-  No more error/warning expected :
+  Expected :
 ```
 Error : src/lb-y.ads:3: Interfaces use is forbidden
 Error : src/lb-y.ads:4: Interfaces.Java use is forbidden

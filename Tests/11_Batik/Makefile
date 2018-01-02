@@ -219,7 +219,7 @@ test7:
 	@ ${TR} cmt '```'
 	@ ${TR} cmt 
 
-	@ ../../Obj/archicheck rules.B -I dir7 > output.7
+	@ test ! `../../Obj/archicheck rules.B -I dir7 > output.7`
 	${TR} assert true /usr/bin/sdiff "-s expected_output.7 output.7"
 
 	${TR} end

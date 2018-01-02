@@ -57,7 +57,7 @@ test2:
 	@ ${TR} cmt '```'
 	@ ${TR} cmt 
 	
-	@ ../../Obj/archicheck -q -I dir2 rules.1 > output.2
+	@ test ! `../../Obj/archicheck -q -I dir2 rules.1 > output.2`
 	${TR} assert true /usr/bin/sdiff "-s expected_output.2 output.2"
 
 	${TR} end
@@ -83,7 +83,7 @@ test3:
 	@ ${TR} cmt '```'
 	@ ${TR} cmt 
 
-	@ ../../Obj/archicheck -q -I dir3 rules.3 > output.3
+	@ test ! `../../Obj/archicheck -q -I dir3 rules.3 > output.3`
 	${TR} assert true /usr/bin/sdiff "-s expected_output.3 output.3"
 
 	${TR} end
@@ -115,7 +115,7 @@ test4:
 	@ ${TR} cmt 
 	
 	@ ${TR} cmt "First test without the allowing rule : should complain"
-	@ ../../Obj/archicheck -I dir4 rules.4 > output.4a
+	@ test ! `../../Obj/archicheck -I dir4 rules.4 > output.4a`
 	${TR} assert true /usr/bin/sdiff "-s expected_output.4a output.4a"
 
 	@ ${TR} cmt "And now with the allowing rule :"
@@ -164,7 +164,7 @@ test5:
 	@ ${TR} cmt '```'
 	@ ${TR} cmt 
 	
-	@ ../../Obj/archicheck -I dir5 rules.5 > output.5
+	@ test ! `../../Obj/archicheck -I dir5 rules.5 > output.5`
 	${TR} assert true /usr/bin/sdiff "-sBW expected_output.5 output.5"
 
 	${TR} end
@@ -190,7 +190,7 @@ test6:
 	@ ${TR} cmt 
 	@ ${TR} cmt "Expected :"
 
-	@ ../../Obj/archicheck -I dir6 rules.6 > output.6
+	@ test ! `../../Obj/archicheck -I dir6 rules.6 > output.6`
 	${TR} assert true /usr/bin/sdiff "-sBW expected_output.6 output.6"
 
 	@ ${TR} cmt "And now inverting Allowed and Forbidden"

@@ -96,7 +96,7 @@ test3:
 	@ cat expected_output.3 >> testrec.md
 	@ ${TR} cmt '```'
 	
-	@ ../../Obj/archicheck rules3.txt -I src > output.3
+	@ test ! `../../Obj/archicheck rules3.txt -I src > output.3`
 	@ ${TR} assert true /usr/bin/sdiff "-s expected_output.3 output.3"
 
 	@ ${TR} end
@@ -127,7 +127,7 @@ test4:
 	@ cat expected_output.4a >> testrec.md
 	@ ${TR} cmt '```'
 	
-	@ ../../Obj/archicheck rules4.txt -I dir4 > output.4a
+	@ test ! `../../Obj/archicheck rules4.txt -I dir4 > output.4a`
 	@ ${TR} assert true /usr/bin/sdiff "-s expected_output.4a output.4a"
 
 	@ ${TR} cmt "Lets allow Interfaces.C use through Z components :"
@@ -189,7 +189,7 @@ test5:
 	@ ${TR} cmt '  V    -> Y.P1  OK'
 	@ ${TR} cmt 
 
-	@ ../../Obj/archicheck rules5.txt -I dir5 > output.5
+	@ test ! `../../Obj/archicheck rules5.txt -I dir5 > output.5`
 	@ ${TR} assert true /usr/bin/sdiff "-s expected_output.5 output.5"
 
 	@ ${TR} end

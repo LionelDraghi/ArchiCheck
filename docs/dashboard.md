@@ -15,7 +15,7 @@ Coverage
 
 - Lines coverage rate
 ```
-  lines......: 79.9% (1070 of 1340 lines)
+  lines......: 79.9% (1066 of 1334 lines)
 ```
 
 - Function coverage rate

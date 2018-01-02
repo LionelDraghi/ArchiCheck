@@ -7,7 +7,6 @@ Features:
 - Implement a command line way to pass simple rules
 - Implement globbing characters, for example `only *.Porting_Kit can use X`
 - Add localisation in src and rules files in error messages
-- Removing colun in error message (useless)
 
 Ada specifics:
 --------------
@@ -53,18 +52,19 @@ Documentation:
 --------------
 
 - Complete the 2004 slides! :-)
-- mv from NaturalDocs to md format, generate an home pag with a less obsole look, and build a pdf doc based on the same md files.
+- build a pdf doc based on the md files.
 - insert in the doc a tab describing for each langage what is checked, and what is not.
 
 Done:
 -----
 
+- Removing colun in error message (useless)
+- Implement an error return code when the rules are broken, to allow a normal use in Makefiles
+- mv from NaturalDocs to md format, generate an home pag with a less obsole look.
 - Change/Simplify the various options to know what the tool understand from the rules 
   file, and from analyzed sources 
 - Use [gnu error messages format]( https://www.gnu.org/prep/standards/html_node/Errors.html) (_sourcefile:lineno: message_) 
   when identifying a rule that breaks
-- Implement an error return code when the rules are broken, to allow a normal use in 
-  Makefiles, unless -no-error
 - Update the use of gnat (compiler option, gnatmake replacement))
 - Regroup test on Syntaxic sugar in the rule files, that is to show insensitivity to 
   casing, "," ";" "." Separators, comments, etc.

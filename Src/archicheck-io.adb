@@ -64,18 +64,23 @@ package body Archicheck.IO is
       -- Fixme: this dumb!
    end Put_Warning;
 
+   Errors : Natural := 0;
+
    -- -------------------------------------------------------------------------
    -- Procedure: Put_Error
    -- -------------------------------------------------------------------------
    procedure Put_Error (Msg       : in String  := "";
                         With_Help : in Boolean := False) is
    begin
+      Errors := Errors + 1;
       Ada.Text_IO.Put_Line ("Error : " & Msg);
       -- use the Text_IO Put_Line, so that error message are not filtered
       -- according to verbosity
       -- Fixme: this dumb!
       if With_Help then Put_Help; end if;
    end Put_Error;
+
+   function Error_Count return Natural is (Errors);
 
    -- -------------------------------------------------------------------------
    -- Procedure: Put_Debug_Line
@@ -167,17 +172,6 @@ package body Archicheck.IO is
       end if;
    end GNU_Prefix;
 
-   --     -- --------------------------------------------------------------------------
-   --     -- Function: GNU_Prefix
-   --     -- -------------------------------------------------------------------------
-   --     function GNU_Prefix (File   : in Ada.Text_IO.File_Type;
-   --                          Line   : in Positive;
-   --                          Column : in Integer := 0) return String is
-   --     begin
-   --        return GNU_Prefix (File   => Ada.Directories.Full_Name (Ada.Text_IO.Name (File)),
-   --                           Line   => Line,
-   --                           Column => Column);
-   --     end GNU_Prefix;
 
 end Archicheck.IO;
 
