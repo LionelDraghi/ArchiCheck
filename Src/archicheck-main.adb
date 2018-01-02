@@ -34,7 +34,7 @@ begin
    -- language specific processor pluggin:
    Lang.Initialize;
 
-   IO.Put_Line ("1. Starting src identification", Level => IO.Verbose);
+   -- 1. Starting src identification
    Cmd_Line.Analyze_Cmd_Line;
 
    if IO.Some_Error then
@@ -50,7 +50,7 @@ begin
       return;
    end if;
 
-   IO.Put_Line ("2. Starting src analyzis", Level => IO.Verbose);
+   -- 2. Starting src analyzis
    Lang.Analyze_Dependencies;
 
    if Settings.List_Dependencies then
@@ -60,16 +60,19 @@ begin
 
    if Settings.Rules_File_Name /= "" then
 
-      IO.Put_Line ("3. Reading rules file...", Level => IO.Verbose);
+      -- 3. Reading rules file
       Rules.Parser.Parse (Settings.Rules_File_Name);
 
       if IO.Some_Error then
          Ada.Command_Line.Set_Exit_Status (Ada.Command_Line.Failure);
          return;
 
+      elsif Settings.List_Rules then
+         -- this has been done during rules parsing, so we can quit
+         return;
+
       else
-         -- --------------------------------------------------------------------
-         IO.Put_Line ("4. Checking rules...", Level => IO.Verbose);
+         -- 4. Checking rules
          Rules.Check;
 
       end if;

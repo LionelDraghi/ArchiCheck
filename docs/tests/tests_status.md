@@ -2,7 +2,7 @@
 
 ## Successful
 
-   62 tests OK
+   63 tests OK
 
   - [Use rules test suite / May_Use rule, code compliant, no output expected]()
   - [Use rules test suite / Using a unit from a non allowed unit]()
@@ -31,6 +31,7 @@
   - [Precedence rules unit test / Alowing a child of forbidden unit]()
   - [AdaControl code test suite / -lf test]()
   - [AdaControl code test suite / -ld test]()
+  - [AdaControl code test suite / rules test]()
   - [Dependencies identification simple test suite / Simple test]()
   - [Dependencies identification simple test suite / Source with weird formatted withed unit]()
   - [Rules file syntax test suite / Reference file]()
@@ -69,9 +70,8 @@
 
 ## Failed
 
-   1 tests failed
+   0 tests failed
 
-**AdaControl code test suite / rules test]()
 
 ## Empty
 

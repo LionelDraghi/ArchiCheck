@@ -84,10 +84,10 @@ begin
                   declare
                      Client         : constant String := To_String (Rule.Using_Unit);
                      Server         : constant String := To_String (Rule.Used_Unit);
-                     Is_X_In_Client : constant Boolean := Units.Is_Unit_In_Component (Unit => From, Component => Client);
-                     Is_X_In_Server : constant Boolean := Units.Is_Unit_In_Component (Unit => From, Component => Server);
-                     Is_Y_In_Client : constant Boolean := Units.Is_Unit_In_Component (Unit => To, Component => Client);
-                     Is_Y_In_Server : constant Boolean := Units.Is_Unit_In_Component (Unit => To, Component => Server);
+                     Is_X_In_Client : constant Boolean := Units.Is_In (Unit => From, In_Unit => Client);
+                     Is_X_In_Server : constant Boolean := Units.Is_In (Unit => From, In_Unit => Server);
+                     Is_Y_In_Client : constant Boolean := Units.Is_In (Unit => To, In_Unit => Client);
+                     Is_Y_In_Server : constant Boolean := Units.Is_In (Unit => To, In_Unit => Server);
 
                   begin
                      IO.Put_Line ("- Checking relationship " & Relationship_Kind'Image (Rule.Kind)

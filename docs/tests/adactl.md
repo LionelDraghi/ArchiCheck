@@ -82,4 +82,4 @@ Adactl_Options  may use Framework.Variables.Shared_Types
   No error expected
 
 
-**AdaControl code test suite / rules test [Failed](tests_status.md#failed)**
+AdaControl code test suite / rules test [Successful](tests_status.md#successful)

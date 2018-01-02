@@ -52,8 +52,7 @@ package body Archicheck.Cmd_Line is
    -- -------------------------------------------------------------------------
    -- Procedure: Process_Directory_Option
    -- -------------------------------------------------------------------------
-   procedure Process_Directory_Option (-- Line_OK   :    out Boolean;
-                                       Recursive : in     Boolean) is
+   procedure Process_Directory_Option (Recursive : in Boolean) is
       use Archicheck.IO;
 
    begin
@@ -96,7 +95,7 @@ package body Archicheck.Cmd_Line is
    --    option implying source files, but no -I option is given, or no source
    --    files found.
    -- -------------------------------------------------------------------------
-   procedure Options_Coherency_Tests is -- (Line_OK : in out Boolean) is
+   procedure Options_Coherency_Tests is
       use Archicheck.IO;
 
    begin

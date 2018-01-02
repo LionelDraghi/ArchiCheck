@@ -110,24 +110,6 @@ private package Archicheck.Units is
    function Unit_Description (U : in Unit_Attributes) return String;
 
    -- --------------------------------------------------------------------------
-   -- Function: Is_Unit_In
-   -- Purpose:
-   --   Return True if Unit is equal to Component or is a child package of
-   --   component.
-   --   Note that the comparison is case insensitive.
-   --   Exemples :
-   --     Interfaces.C is     in Interfaces
-   --     Interfaces.C is     in INTERFACES
-   --     Interfaces.C is     in Interfaces.C
-   --     Interfaces.C is not in Interfaces.C.Utilities
-   --     Interfaces.C is not in Interfaces.Com
-   -- Exceptions:
-   --   None
-   -- -------------------------------------------------------------------------
-   function Is_A_Child (Unit      : String;
-                        Component : String) return Boolean;
-
-   -- --------------------------------------------------------------------------
    -- Procedure: Dump
    -- Purpose:
    --   Put all dependencies known at call time, one per line, in the following
@@ -148,7 +130,12 @@ private package Archicheck.Units is
                             Dependencies : Dependency_Lists.List);
 
    -- --------------------------------------------------------------------------
-   function Is_Unit_In_Component (Unit      : String;
-                                  Component : String) return Boolean;
+   -- return True if :
+   -- - A is B
+   -- - A is a child of B
+   -- - A is contained by B, even indirectly
+   -- Case Insensitive
+   function Is_In (Unit    : String;
+                   In_Unit : String) return Boolean;
 
 end Archicheck.Units;

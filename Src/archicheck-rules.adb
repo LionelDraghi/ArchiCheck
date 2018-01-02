@@ -22,8 +22,7 @@ with Archicheck.IO;
 with Archicheck.Units;
 with Archicheck.Settings;
 
-with Ada.Strings.Fixed;
-with Ada.Strings.Maps.Constants;
+with Ada.Strings.Equal_Case_Insensitive;
 
 package body Archicheck.Rules is
 
@@ -60,7 +59,7 @@ package body Archicheck.Rules is
       use Forbidden_Use_Lists;
    begin
       for U of Forbidden_Use_List loop
-         if Units.Is_Unit_In_Component (Unit_Name, To_String (U)) then
+         if Units.Is_In (Unit_Name, To_String (U)) then
             Put_Debug_Line ("Is_Forbidden (" & Unit_Name & ") return True (" & To_String (U) & " is forbidden)");
             return True;
          end if;
@@ -87,7 +86,7 @@ package body Archicheck.Rules is
       use Allowed_Use_Lists;
    begin
       for U of Allowed_Use_List loop
-         if Units.Is_Unit_In_Component (Unit_Name, To_String (U)) then
+         if Units.Is_In (Unit_Name, To_String (U)) then
             Put_Debug_Line ("Is_Allowed (" & Unit_Name & ") return True ("
                             & To_String (U) & " is allowed)");
             return True;
@@ -108,6 +107,9 @@ package body Archicheck.Rules is
    -- --------------------------------------------------------------------------
    function Is_Allowed (Unit_Name : in String;
                         For_Unit  : in String) return Boolean is
+--        procedure Put_Debug_Line (Msg    : in String  := "";
+--                                  Debug  : in Boolean := True;
+--                                  Prefix : in String  := "Is_Allowed") renames Archicheck.IO.Put_Debug_Line;
    begin
       Put_Debug_Line ("");
       Put_Debug_Line ("Is_Allowed (" & Unit_Name & ", For_Unit => " & For_Unit & ") ?");
@@ -117,8 +119,8 @@ package body Archicheck.Rules is
                          & " " & To_String (R.Used_Unit));
          declare
             -- B1 : constant Boolean := R.Kind = May_Use;
-            B2 : constant Boolean := Units.Is_Unit_In_Component (Unit_Name, To_String (R.Used_Unit));
-            B3 : constant Boolean := Units.Is_Unit_In_Component (For_Unit,  To_String (R.Using_Unit));
+            B2 : constant Boolean := Units.Is_In (Unit_Name, To_String (R.Used_Unit));
+            B3 : constant Boolean := Units.Is_In (For_Unit,  To_String (R.Using_Unit));
          begin
             -- if B1 then
             Put_Debug_Line ("      Relationship kind : " & Relationship_Kind'Image (R.Kind));
@@ -126,8 +128,8 @@ package body Archicheck.Rules is
             Put_Debug_Line ("      Is " & For_Unit & " in " & To_String (R.Using_Unit) & " : " & Boolean'Image (B3));
             -- end if;
 
-            if Units.Is_Unit_In_Component (Unit_Name, To_String (R.Used_Unit)) and then
-              Units.Is_Unit_In_Component (For_Unit,  To_String (R.Using_Unit))
+            if Units.Is_In (Unit_Name, To_String (R.Used_Unit)) and then
+              Units.Is_In (For_Unit,  To_String (R.Using_Unit))
                 -- A test on R.Kind is useless, as long as every relation
                 -- allow X to use Y.
             then
@@ -146,20 +148,10 @@ package body Archicheck.Rules is
 
    -- --------------------------------------------------------------------------
    function Allowed_Users (Of_Unit : in String) return Relationship_Lists.List is
-      -- -----------------------------------------------------------------------
-      function To_Lower (Source  : String) return String is
-         use Ada.Strings;
-         use Ada.Strings.Fixed;
-      begin
-         return Translate (Source,
-                           Mapping => Ada.Strings.Maps.Constants.Lower_Case_Map);
-      end To_Lower;
       Tmp  : Relationship_Lists.List;
-      Used : constant String := To_Lower (Of_Unit);
    begin
       for D of Relationships loop
-         if (D.Kind = Exclusive_Use or D.Kind = May_Use) -- Fixme:
-           and To_Lower (To_String (D.Used_Unit)) = Used
+         if Ada.Strings.Equal_Case_Insensitive (To_String (D.Used_Unit), Of_Unit)
          then
             Tmp.Append (D);
          end if;
