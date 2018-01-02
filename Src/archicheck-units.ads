@@ -23,7 +23,6 @@
 with Archicheck.Sources;
 
 with Ada.Containers.Doubly_Linked_Lists;
--- with Ada.Strings.Hash;
 with Ada.Strings.Unbounded;
 
 private package Archicheck.Units is
@@ -43,7 +42,18 @@ private package Archicheck.Units is
                       Interface_K,
                       Component,
                       Unknown) with Default_Value => Unknown;
-   function Image (Kind : Unit_Kind) return String;
+   -- --------------------------------------------------------------------------
+   function Image (Kind : Unit_Kind) return String is
+     (case Kind is
+         when Package_K   =>  "package",
+         when Procedure_K =>  "procedure",
+         when Function_K  =>  "function",
+         when Protected_K =>  "protected",
+         when Task_K      =>  "task",
+         when Class_K     =>  "class",
+         when Interface_K =>  "interface",
+         when Component   =>  "component",
+         when Unknown     =>  "Unknown") with inline;
 
    subtype Unit_Name is Ada.Strings.Unbounded.Unbounded_String;
 
@@ -117,25 +127,6 @@ private package Archicheck.Units is
    function Is_A_Child (Unit      : String;
                         Component : String) return Boolean;
 
---     -- --------------------------------------------------------------------------
---     type Dependency is record
---        From : Unit;
---        To   : Unit;
---     end record;
---     package Dependency_Lists is new Ada.Containers.Doubly_Linked_Lists (Dependency);
-
-   -- --------------------------------------------------------------------------
-   -- Function: Get_List
-   -- Purpose:
-   --   Returns the whole list of dependencies known at that time.
-   --
-   -- Exceptions:
-   --   None
-   -- --------------------------------------------------------------------------
-   -- function Get_List return Dependency_Lists.List;
-
-   -- procedure Append (Dep : Dependency);
-
    -- --------------------------------------------------------------------------
    -- Procedure: Dump
    -- Purpose:
@@ -159,17 +150,5 @@ private package Archicheck.Units is
    -- --------------------------------------------------------------------------
    function Is_Unit_In_Component (Unit      : String;
                                   Component : String) return Boolean;
-
--- private
-
-   -- function Hash (Key : Unit_Attributes) return Ada.Containers.Hash_Type;
-   -- --------------------------------------------------------------------------
---     package Unit_Maps is new Ada.Containers.Indefinite_Hashed_Maps
---       (Key_Type        => String, -- Unit_Attributes, --
---        Element_Type    => Dependency, -- Unit_Attributes, -- Dependency_Lists.List, --
---        Hash            => Ada.Strings.Hash, -- Hash,
---        Equivalent_Keys => "=",
---        "="             => "="); -- Dependency_Lists."=");
---     Unit_Map : Unit_Maps.Map; --** à déplacer dans le body
 
 end Archicheck.Units;

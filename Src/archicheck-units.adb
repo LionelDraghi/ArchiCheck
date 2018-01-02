@@ -54,27 +54,9 @@ package body Archicheck.Units is
    end To_Lower;
 
    -- --------------------------------------------------------------------------
-   function Image (Kind : Unit_Kind) return String is
-   begin
-      case Kind is
-         when Package_K   => return "package";
-         when Procedure_K => return "procedure";
-         when Function_K  => return "function";
-         when Protected_K => return "protected";
-         when Task_K      => return "task";
-         when Class_K     => return "class";
-         when Interface_K => return "interface";
-         when Component   => return "component";
-         when Unknown     => return "Unknown";
-      end case;
-   end Image;
-
-   -- --------------------------------------------------------------------------
    function Location_Image (Dep : Dependency) return String is
-   begin
-      return IO.GNU_Prefix (File => To_String (Dep.File),
-                            Line => Dep.Line);
-   end Location_Image;
+     (IO.GNU_Prefix (File => To_String (Dep.File),
+                     Line => Dep.Line));
 
    -- --------------------------------------------------------------------------
    -- Function: Unit_List_Image
@@ -169,17 +151,11 @@ package body Archicheck.Units is
    function Unit_Description (U : in Unit_Attributes) return String is
       use Archicheck.Sources;
    begin
-      case U.Lang is
-         when Java =>
-            return Image (U.Kind);
-
-         when Ada_2012 =>
-            if U.Implementation then
-               return Image (U.Kind) & " body";
-            else
-               return Image (U.Kind) & " spec";
-            end if;
-      end case;
+      return (case U.Lang is
+                 when Java     => Image (U.Kind),
+                 when Ada_2012 => (if U.Implementation
+                                   then Image (U.Kind) & " body"
+                                   else Image (U.Kind) & " spec"));
    end Unit_Description;
 
    -- --------------------------------------------------------------------------
