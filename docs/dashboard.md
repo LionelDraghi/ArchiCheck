@@ -15,12 +15,12 @@ Coverage
 
 - Lines coverage rate
 ```
-  lines......: 79.9% (1066 of 1334 lines)
+  lines......: 79.2% (1050 of 1326 lines)
 ```
 
 - Function coverage rate
 ```
-  functions..: 78.0% (231 of 296 functions)
+  functions..: 76.4% (227 of 297 functions)
 ```
 
 - **Coverage in the sources**

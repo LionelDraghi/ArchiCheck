@@ -85,7 +85,7 @@ test4:
 	${TR} cmt '```'								
 	${TR} cmt ""								
 
-	@ ../../Obj/archicheck -lr rules4.txt  > lc4.txt
+	@ #### ../../Obj/archicheck -lr rules4.txt  > lc4.txt
 	@ #### pas encore mur pour ce test (bug du blanc comme spéparateur) !!   	${TR} assert true /usr/bin/sdiff "-s lc4.txt expected_lc4.txt"
 
 	${TR} end

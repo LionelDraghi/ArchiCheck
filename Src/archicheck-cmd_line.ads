@@ -20,6 +20,6 @@
 
 private package Archicheck.Cmd_Line is
 
-   procedure Analyze_Cmd_Line (Line_OK : out Boolean);
+   procedure Analyze_Cmd_Line;
 
 end Archicheck.Cmd_Line;

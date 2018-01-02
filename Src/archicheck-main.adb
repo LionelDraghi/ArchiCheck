@@ -29,53 +29,57 @@ with Archicheck.Units;
 with Ada.Command_Line;
 
 procedure Archicheck.Main is
-   Cmd_Line_OK   : Boolean;
 
 begin
    -- language specific processor pluggin:
    Lang.Initialize;
 
-   IO.Put_Line ("Starting src identification", Level => IO.Verbose);
-   Cmd_Line.Analyze_Cmd_Line (Cmd_Line_OK);
+   IO.Put_Line ("1. Starting src identification", Level => IO.Verbose);
+   Cmd_Line.Analyze_Cmd_Line;
 
-   if not Cmd_Line_OK then
+   if IO.Some_Error then
+      -- Some error occurs during command line analisys, stop here.
       Ada.Command_Line.Set_Exit_Status (Ada.Command_Line.Failure);
       return;
    end if;
 
-   -- 1 - wanna see the sources? (Source_List is build during command_line analysis)
+   -- Wanna see the sources? (Source_List is build during command_line analysis)
    -- -----------------------------------------------------------------------
    if Settings.List_Files then
       Sources.Dump_Sources (Sources.Get_List);
+      return;
    end if;
 
-   -- 2 - let's extract dependencies from sources
-   -- -----------------------------------------------------------------------
-   IO.Put_Line ("Starting src analyzis", Level => IO.Verbose);
+   IO.Put_Line ("2. Starting src analyzis", Level => IO.Verbose);
    Lang.Analyze_Dependencies;
 
    if Settings.List_Dependencies then
       Units.Dump;
+      return;
    end if;
 
    if Settings.Rules_File_Name /= "" then
 
-      -- 3 - Rules file analyzis
-      -- --------------------------------------------------------------------
-      IO.Put_Line ("Reading rules file...", Level => IO.Verbose);
+      IO.Put_Line ("3. Reading rules file...", Level => IO.Verbose);
       Rules.Parser.Parse (Settings.Rules_File_Name);
 
-      -- 4 - let's run the checks
-      -- --------------------------------------------------------------------
-      IO.Put_Line ("Checking rules...", Level => IO.Verbose);
-      Rules.Check;
+      if IO.Some_Error then
+         Ada.Command_Line.Set_Exit_Status (Ada.Command_Line.Failure);
+         return;
+
+      else
+         -- --------------------------------------------------------------------
+         IO.Put_Line ("4. Checking rules...", Level => IO.Verbose);
+         Rules.Check;
+
+      end if;
 
    else
       IO.Put_Line ("No rules file provided", Level => IO.Verbose);
 
    end if;
 
-   if IO.Error_Count /= 0 then
+   if IO.Some_Error then
       Ada.Command_Line.Set_Exit_Status (Ada.Command_Line.Failure);
       return;
    end if;

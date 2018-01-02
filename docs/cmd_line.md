@@ -11,25 +11,32 @@ archicheck -h
 ```
 
 ArchiCheck normal use :
-   archicheck rules_file -I directory [-I directory]*
+   archicheck rules_file -r -I directory [-I directory]*
 
 General form :
-   archicheck [Options] [rules_file] [-I directory]*
+   archicheck [Action] [rules_file] [Options]* [-I directory]*
 
 Options :
-   -lf | --list_files        : list sources files analyzed
+   -r  | --recursive      : all following -I are recursive
+   -We | --Warnings=error : Treat warnings as errors
+   -v  | --verbose
+   -q  | --quiet          : no message unless error. Warning are also ignored.
+         --version        : archicheck version
+   -h  | --help           : this message
+
+Queries :
+   -lf | --list_files        : list analyzed sources files
    -ld | --list_dependencies : list identified units and dependencies in analyzed sources files
    -lr | --list_rules        : list rules in a rules file
-   -r  | --recursive         : all following -I are recursive
-   -v  | --verbose
-   -q  | --quiet             : no message unless error. Warning are also ignored.
-         --version           : archicheck version
-   -h  | --help              : this message
+   Only one of the queries is performed,
+   and the full analisys on sources is not performed.
 
 Examples:
    archicheck rules.txt -I ./src
    archicheck -lf -I ./src
    archicheck -lr rules.txt
+
+http://lionel.draghi.free.fr/Archicheck/index.html
 
 ```
 
@@ -41,7 +48,7 @@ archicheck --version
 ```
 
 ```
-0.5.1
+0.5.2
 
 ```
 

@@ -22,10 +22,11 @@ private package Archicheck.Settings is
 
    ArchiCheck_Version : constant String := "0.5.2";
 
-   List_Files        : Boolean := False;
-   List_Dependencies : Boolean := False;
-   List_Rules        : Boolean := False;
-   Recursive         : Boolean := False;
+   List_Files         : Boolean := False;
+   List_Dependencies  : Boolean := False;
+   List_Rules         : Boolean := False;
+   Recursive          : Boolean := False;
+   Warnings_As_Errors : Boolean := False;
 
    -- -------------------------------------------------------------------------
    type Print_Out_Level is (Debug, Verbose, Normal, Quiet);

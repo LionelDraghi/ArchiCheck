@@ -189,8 +189,15 @@ test9:
 	${TR} cmt 
  							
 	mkdir -p dir9
-	test ! `../../Obj/archicheck -lf -I dir9 	> err9.txt 2>&1`
+	../../Obj/archicheck -lf -I dir9 	> err9.txt
 	${TR} assert true /usr/bin/sdiff "-s expected_err9.txt err9.txt"
+
+	${TR} cmt "Test return 1 is -We or --Warnings=error"		
+	test ! `../../Obj/archicheck -We -lf -I dir9 	> err9.txt 2>&1`
+	${TR} assert true /usr/bin/sdiff "-s expected_err9.txt err9.txt"
+	test ! `../../Obj/archicheck --Warnings=error -lf -I dir9 	> err9.txt 2>&1`
+	${TR} assert true /usr/bin/sdiff "-s expected_err9.txt err9.txt"
+
 
 	${TR} end
 
@@ -237,7 +244,7 @@ test11:
 
 	echo "Interfaces use is forbidden" > rules.txt 
 	mkdir -p dir11
-	test ! `../../Obj/archicheck rules.txt -ld -I dir11 	> err11.txt 2>&1`
+	../../Obj/archicheck rules.txt -ld -I dir11 	> err11.txt 
 	${TR} assert true /usr/bin/sdiff "-s expected_err11.txt err11.txt"
   
 	${TR} end

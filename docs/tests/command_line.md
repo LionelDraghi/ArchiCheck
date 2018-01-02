@@ -19,25 +19,32 @@
 ```
 
 ArchiCheck normal use :
-   archicheck rules_file -I directory [-I directory]*
+   archicheck rules_file -r -I directory [-I directory]*
 
 General form :
-   archicheck [Options] [rules_file] [-I directory]*
+   archicheck [Action] [rules_file] [Options]* [-I directory]*
 
 Options :
-   -lf | --list_files        : list sources files analyzed
+   -r  | --recursive      : all following -I are recursive
+   -We | --Warnings=error : Treat warnings as errors
+   -v  | --verbose
+   -q  | --quiet          : no message unless error. Warning are also ignored.
+         --version        : archicheck version
+   -h  | --help           : this message
+
+Queries :
+   -lf | --list_files        : list analyzed sources files
    -ld | --list_dependencies : list identified units and dependencies in analyzed sources files
    -lr | --list_rules        : list rules in a rules file
-   -r  | --recursive         : all following -I are recursive
-   -v  | --verbose
-   -q  | --quiet             : no message unless error. Warning are also ignored.
-         --version           : archicheck version
-   -h  | --help              : this message
+   Only one of the queries is performed,
+   and the full analisys on sources is not performed.
 
 Examples:
    archicheck rules.txt -I ./src
    archicheck -lf -I ./src
    archicheck -lr rules.txt
+
+http://lionel.draghi.free.fr/Archicheck/index.html
 
 ```
 
@@ -50,7 +57,7 @@ Command line test suite / Help options [Successful](tests_status.md#successful)
   Test that the --version will put :
 
 ```
-0.5.1
+0.5.2
 ```
 
 
@@ -98,25 +105,32 @@ Command line test suite / -I option with an unknow dir [Successful](tests_status
 Error : Unknown rules file or unknow option -xzy
 
 ArchiCheck normal use :
-   archicheck rules_file -I directory [-I directory]*
+   archicheck rules_file -r -I directory [-I directory]*
 
 General form :
-   archicheck [Options] [rules_file] [-I directory]*
+   archicheck [Action] [rules_file] [Options]* [-I directory]*
 
 Options :
-   -lf | --list_files        : list sources files analyzed
+   -r  | --recursive      : all following -I are recursive
+   -We | --Warnings=error : Treat warnings as errors
+   -v  | --verbose
+   -q  | --quiet          : no message unless error. Warning are also ignored.
+         --version        : archicheck version
+   -h  | --help           : this message
+
+Queries :
+   -lf | --list_files        : list analyzed sources files
    -ld | --list_dependencies : list identified units and dependencies in analyzed sources files
    -lr | --list_rules        : list rules in a rules file
-   -r  | --recursive         : all following -I are recursive
-   -v  | --verbose
-   -q  | --quiet             : no message unless error. Warning are also ignored.
-         --version           : archicheck version
-   -h  | --help              : this message
+   Only one of the queries is performed,
+   and the full analisys on sources is not performed.
 
 Examples:
    archicheck rules.txt -I ./src
    archicheck -lf -I ./src
    archicheck -lr rules.txt
+
+http://lionel.draghi.free.fr/Archicheck/index.html
 
 ```
 
@@ -138,25 +152,32 @@ Command line test suite / unknown -xyz option [Successful](tests_status.md#succe
 Error : Nothing to do with those sources
 
 ArchiCheck normal use :
-   archicheck rules_file -I directory [-I directory]*
+   archicheck rules_file -r -I directory [-I directory]*
 
 General form :
-   archicheck [Options] [rules_file] [-I directory]*
+   archicheck [Action] [rules_file] [Options]* [-I directory]*
 
 Options :
-   -lf | --list_files        : list sources files analyzed
+   -r  | --recursive      : all following -I are recursive
+   -We | --Warnings=error : Treat warnings as errors
+   -v  | --verbose
+   -q  | --quiet          : no message unless error. Warning are also ignored.
+         --version        : archicheck version
+   -h  | --help           : this message
+
+Queries :
+   -lf | --list_files        : list analyzed sources files
    -ld | --list_dependencies : list identified units and dependencies in analyzed sources files
    -lr | --list_rules        : list rules in a rules file
-   -r  | --recursive         : all following -I are recursive
-   -v  | --verbose
-   -q  | --quiet             : no message unless error. Warning are also ignored.
-         --version           : archicheck version
-   -h  | --help              : this message
+   Only one of the queries is performed,
+   and the full analisys on sources is not performed.
 
 Examples:
    archicheck rules.txt -I ./src
    archicheck -lf -I ./src
    archicheck -lr rules.txt
+
+http://lionel.draghi.free.fr/Archicheck/index.html
 
 ```
 
@@ -175,25 +196,32 @@ Command line test suite / -I option with... nothing to do [Successful](tests_sta
 Error : No rules file given
 
 ArchiCheck normal use :
-   archicheck rules_file -I directory [-I directory]*
+   archicheck rules_file -r -I directory [-I directory]*
 
 General form :
-   archicheck [Options] [rules_file] [-I directory]*
+   archicheck [Action] [rules_file] [Options]* [-I directory]*
 
 Options :
-   -lf | --list_files        : list sources files analyzed
+   -r  | --recursive      : all following -I are recursive
+   -We | --Warnings=error : Treat warnings as errors
+   -v  | --verbose
+   -q  | --quiet          : no message unless error. Warning are also ignored.
+         --version        : archicheck version
+   -h  | --help           : this message
+
+Queries :
+   -lf | --list_files        : list analyzed sources files
    -ld | --list_dependencies : list identified units and dependencies in analyzed sources files
    -lr | --list_rules        : list rules in a rules file
-   -r  | --recursive         : all following -I are recursive
-   -v  | --verbose
-   -q  | --quiet             : no message unless error. Warning are also ignored.
-         --version           : archicheck version
-   -h  | --help              : this message
+   Only one of the queries is performed,
+   and the full analisys on sources is not performed.
 
 Examples:
    archicheck rules.txt -I ./src
    archicheck -lf -I ./src
    archicheck -lr rules.txt
+
+http://lionel.draghi.free.fr/Archicheck/index.html
 
 ```
 
@@ -213,6 +241,7 @@ Command line test suite / -lr option without rules file [Successful](tests_statu
 Warning : Cannot list files, no sources found to analyze
 ```
 
+  Test return 1 is -We or --Warnings=error
 
 Command line test suite / Legal line, but no src file in the given (existing) directory [Successful](tests_status.md#successful)
 
@@ -263,25 +292,32 @@ Command line test suite / -ld given, but no source found [Successful](tests_stat
 Error : Nothing to do with those sources
 
 ArchiCheck normal use :
-   archicheck rules_file -I directory [-I directory]*
+   archicheck rules_file -r -I directory [-I directory]*
 
 General form :
-   archicheck [Options] [rules_file] [-I directory]*
+   archicheck [Action] [rules_file] [Options]* [-I directory]*
 
 Options :
-   -lf | --list_files        : list sources files analyzed
+   -r  | --recursive      : all following -I are recursive
+   -We | --Warnings=error : Treat warnings as errors
+   -v  | --verbose
+   -q  | --quiet          : no message unless error. Warning are also ignored.
+         --version        : archicheck version
+   -h  | --help           : this message
+
+Queries :
+   -lf | --list_files        : list analyzed sources files
    -ld | --list_dependencies : list identified units and dependencies in analyzed sources files
    -lr | --list_rules        : list rules in a rules file
-   -r  | --recursive         : all following -I are recursive
-   -v  | --verbose
-   -q  | --quiet             : no message unless error. Warning are also ignored.
-         --version           : archicheck version
-   -h  | --help              : this message
+   Only one of the queries is performed,
+   and the full analisys on sources is not performed.
 
 Examples:
    archicheck rules.txt -I ./src
    archicheck -lf -I ./src
    archicheck -lr rules.txt
+
+http://lionel.draghi.free.fr/Archicheck/index.html
 
 ```
 
@@ -300,25 +336,32 @@ Command line test suite / src found, but nothing to do whith it [Successful](tes
 Error : Nothing to do with this rules file
 
 ArchiCheck normal use :
-   archicheck rules_file -I directory [-I directory]*
+   archicheck rules_file -r -I directory [-I directory]*
 
 General form :
-   archicheck [Options] [rules_file] [-I directory]*
+   archicheck [Action] [rules_file] [Options]* [-I directory]*
 
 Options :
-   -lf | --list_files        : list sources files analyzed
+   -r  | --recursive      : all following -I are recursive
+   -We | --Warnings=error : Treat warnings as errors
+   -v  | --verbose
+   -q  | --quiet          : no message unless error. Warning are also ignored.
+         --version        : archicheck version
+   -h  | --help           : this message
+
+Queries :
+   -lf | --list_files        : list analyzed sources files
    -ld | --list_dependencies : list identified units and dependencies in analyzed sources files
    -lr | --list_rules        : list rules in a rules file
-   -r  | --recursive         : all following -I are recursive
-   -v  | --verbose
-   -q  | --quiet             : no message unless error. Warning are also ignored.
-         --version           : archicheck version
-   -h  | --help              : this message
+   Only one of the queries is performed,
+   and the full analisys on sources is not performed.
 
 Examples:
    archicheck rules.txt -I ./src
    archicheck -lf -I ./src
    archicheck -lr rules.txt
+
+http://lionel.draghi.free.fr/Archicheck/index.html
 
 ```
 

@@ -52,7 +52,7 @@ package body Archicheck.Cmd_Line is
    -- -------------------------------------------------------------------------
    -- Procedure: Process_Directory_Option
    -- -------------------------------------------------------------------------
-   procedure Process_Directory_Option (Line_OK   :    out Boolean;
+   procedure Process_Directory_Option (-- Line_OK   :    out Boolean;
                                        Recursive : in     Boolean) is
       use Archicheck.IO;
 
@@ -60,7 +60,6 @@ package body Archicheck.Cmd_Line is
       Src_Dir_Given := True;
       if Ada.Command_Line.Argument_Count < Arg_Counter + 1 then
          Put_Error ("Sources directory expected after -I");
-         Line_OK := False;
 
       else
          declare
@@ -73,17 +72,14 @@ package body Archicheck.Cmd_Line is
                if Kind (Dir_Name) = Directory then
                   -- let's collect all sources in that dir:
                   Lang.Get_Src_List (Root_Dir => Dir_Name, Recursive => Recursive);
-                  Line_OK := True;
 
                else
                  Put_Error (Dir_Name & " is not a directory");
-                 Line_OK := False;
 
                end if;
 
             else
                Put_Error ("No " & Dir_Name & " directory");
-               Line_OK := False;
 
             end if;
          end;
@@ -100,12 +96,10 @@ package body Archicheck.Cmd_Line is
    --    option implying source files, but no -I option is given, or no source
    --    files found.
    -- -------------------------------------------------------------------------
-   procedure Options_Coherency_Tests (Line_OK : in out Boolean) is
+   procedure Options_Coherency_Tests is -- (Line_OK : in out Boolean) is
       use Archicheck.IO;
 
    begin
-      Line_OK := True;
-
       -- first, let's eliminate the normal situation :
       -- there is a rules file, and there are sources to analyze
       if Settings.Rules_File_Name = "" or Sources.Get_List.Is_Empty then
@@ -115,27 +109,21 @@ package body Archicheck.Cmd_Line is
 
          if Settings.Rules_File_Name = "" and Settings.List_Rules then
             Put_Error ("No rules file given", With_Help => True);
-            Line_OK := False;
 
          elsif not Sources.Get_List.Is_Empty and not Settings.Src_Needed then
             Put_Error ("Nothing to do with those sources", With_Help => True);
-            Line_OK := False;
 
          elsif Sources.Get_List.Is_Empty and Settings.List_Dependencies then
             Put_Warning ("Cannot list dependencies, no sources found");
-            Line_OK := True;
 
          elsif Sources.Get_List.Is_Empty and Settings.List_Files and Src_Dir_Given then
             Put_Warning ("Cannot list files, no sources found to analyze");
-            Line_OK := True;
 
          elsif Sources.Get_List.Is_Empty and Src_Dir_Given then
             Put_Warning ("No src found in those directories");
-            Line_OK := True;
 
          elsif Settings.Rules_File_Name /= "" and not Settings.Rules_File_Needed then
             Put_Error ("Nothing to do with this rules file", With_Help => True);
-            Line_OK := False;
 
          end if;
 
@@ -145,12 +133,10 @@ package body Archicheck.Cmd_Line is
    -- -------------------------------------------------------------------------
    -- Procedure: Analyze_Cmd_Line
    -- -------------------------------------------------------------------------
-   procedure Analyze_Cmd_Line (Line_OK : out Boolean) is
+   procedure Analyze_Cmd_Line is
       use Archicheck.IO;
 
    begin
-      Line_OK := True;
-
       if Ada.Command_Line.Argument_Count < 1 then
          Put_Help;
          return;
@@ -161,8 +147,8 @@ package body Archicheck.Cmd_Line is
             Opt : constant String := Ada.Command_Line.Argument (Arg_Counter);
          begin
             if Opt = "-I" then
-               Process_Directory_Option (Line_OK, Settings.Recursive);
-               if not Line_OK then return; end if;
+               Process_Directory_Option (Settings.Recursive);
+               if Some_Error then return; end if;
 
             elsif Opt = "-lf" or Opt = "--list_files" then
                Settings.List_Files := True;
@@ -192,6 +178,10 @@ package body Archicheck.Cmd_Line is
                Settings.Verbosity := Quiet;
                Next_Arg;
 
+            elsif Opt = "-We" or Opt = "--Warnings=error" then
+               Settings.Warnings_As_Errors := True;
+               Next_Arg;
+
             elsif Opt = "-v" or Opt = "--verbose" then
                Settings.Verbosity := Verbose;
                Next_Arg;
@@ -209,17 +199,17 @@ package body Archicheck.Cmd_Line is
 
             else
                Put_Error ("Unknown rules file or unknow option " & Opt, With_Help => True);
-               Line_OK := False;
 
             end if;
 
-            exit when not Line_OK;
-
+            if Some_Error then return; end if;
+            -- No need to further analyze command line, or to do
+            -- Options_Coherency_Tests.
          end;
 
       end loop;
 
-      Options_Coherency_Tests (Line_OK);
+      Options_Coherency_Tests;
 
    end Analyze_Cmd_Line;
 

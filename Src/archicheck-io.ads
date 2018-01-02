@@ -36,13 +36,6 @@ private package Archicheck.IO is
                         Prefix : in String);
    procedure New_Debug_Line (Debug  : in Boolean);
 
---     type Print_Out_Level is (Debug, Verbose, Normal, Quiet);
---     -- default: Normal messages are displayed, verbose messages are not displayed.
---     -- quiet:   Neither normal messages nor verbose messages are displayed.
---     --          This mode can be achieved using option --quiet.
---     -- verbose: Both normal messages and verbose messages are displayed.
---     --          This mode can be achieved using option --verbose.
-
    -- --------------------------------------------------------------------------
    use type Settings.Print_Out_Level;
    subtype Print_Out_Level is Settings.Print_Out_Level;
@@ -69,8 +62,15 @@ private package Archicheck.IO is
    procedure Put_Error   (Msg       : in String := "";
                           With_Help : in Boolean := False);
    -- --------------------------------------------------------------------------
-   -- Error_Count return the number of call to Put_Error.
-   function Error_Count return Natural;
+   -- Error_Count and Warning_Count return the number of call to Put_Error
+   -- and Put_Warning.
+   function Error_Count   return Natural;
+   function Warning_Count return Natural;
+
+   -- Some_Error return True if some error occured, or if some Warning
+   -- occured and option to treat warning as error is set.
+   function Some_Error return Boolean is
+      (Error_Count /= 0 or (Settings.Warnings_As_Errors and Warning_Count /= 0));
 
    -- --------------------------------------------------------------------------
    -- Function: GNU_Prefix
