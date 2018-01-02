@@ -2,7 +2,7 @@
 
 ## Successful
 
-   63 tests OK
+   66 tests OK
 
   - [Use rules test suite / May_Use rule, code compliant, no output expected]()
   - [Use rules test suite / Using a unit from a non allowed unit]()
@@ -20,6 +20,9 @@
   - [GtkAda test suite / Unit Identification]()
   - [GtkAda test suite / A realistic GtkAda description file]()
   - [GtkAda test suite / Another realistic GtkAda description file]()
+  - [ArchiCheck code test suite / -lf test]()
+  - [ArchiCheck code test suite / -ld test]()
+  - [ArchiCheck code test suite / rules test]()
   - [Batik test suite / --list_file test, recursive and non recursive]()
   - [Batik test suite / simple import]()
   - [Batik test suite / interface]()

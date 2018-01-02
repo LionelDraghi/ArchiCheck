@@ -30,6 +30,7 @@ check: ../Obj/archicheck Tools/create_pkg Tools/testrec
 	$(MAKE) check --directory=14_Rules_On_Components
 	$(MAKE) check --directory=15_Precedences_Rules
 	$(MAKE) check --directory=16_AdaControl
+	$(MAKE) check --directory=17_ArchiCheck
 
 doc:
 	cat `find . -name testrec.md` > tmp.txt
@@ -84,6 +85,7 @@ doc:
 	@ $(MAKE) doc --directory=14_Rules_On_Components
 	@ $(MAKE) doc --directory=15_Precedences_Rules
 	@ $(MAKE) doc --directory=16_AdaControl
+	@ $(MAKE) doc --directory=17_ArchiCheck
 
 clean:
 	@ $(MAKE) clean --directory=Tools
@@ -104,6 +106,7 @@ clean:
 	@ $(MAKE) clean --directory=14_Rules_On_Components
 	@ $(MAKE) clean --directory=15_Precedences_Rules
 	@ $(MAKE) clean --directory=16_AdaControl
+	@ $(MAKE) clean --directory=17_ArchiCheck
 
 	- ${RM} tests_status.md *.lst short_tests_status.md tests_count.txt
 

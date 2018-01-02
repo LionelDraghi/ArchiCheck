@@ -91,10 +91,24 @@ check: Obj/archicheck
 	echo - Tests summary :
 	cat Tests/tests_count.txt
 
+	# --------------------------------------------------------------------
 	echo
-	echo - Capturing coverage data
-	lcov --quiet --capture --directory Obj -o Obj/coverage.info
+	echo - Coverage report :
 
+	lcov --quiet --capture --directory Obj -o Obj/coverage.info
+	lcov -q --remove Obj/coverage.info -o Obj/coverage.info \
+		"/usr/*" "*.ads" "*/Obj/b__archicheck-main.adb"
+	# Ignoring :
+	# - spec (results are not consistent with current gcc version) 
+	# - the false main
+	# - libs (Standart and OpenToken) 
+
+	genhtml Obj/coverage.info -o docs/lcov --title "ArchiCheck tests coverage" \
+		--prefix "/home/lionel/Proj/Archichek" --frames | tail -n 2 > cov_sum.txt
+	# --title  : Display TITLE in header of all pages
+	# --prefix : Remove PREFIX from all directory names
+	# --frame  : Use HTML frames for source code view
+	cat cov_sum.txt
 
 .PHONY : dashboard
 dashboard: Obj/coverage.info Tests/tests_count.txt
@@ -108,20 +122,6 @@ dashboard: Obj/coverage.info Tests/tests_count.txt
 		-png -o docs/sloc.png
 
 	@ # Code coverage Pie
-	@ # --------------------------------------------------------------------
-	lcov -q --remove Obj/coverage.info -o Obj/coverage.info \
-		"/usr/*" "*.ads" "*/Obj/b__archicheck-main.adb"
-	# Ignoring :
-	@ # - spec (results are not consistent with current gcc version) 
-	@ # - the false main
-	@ # - libs (Standart and OpenToken) 
-
-	@ # --------------------------------------------------------------------
-	genhtml Obj/coverage.info -o docs/lcov --title "ArchiCheck tests coverage" \
-		--prefix "/home/lionel/Proj/Archichek" --frames | tail -n 2 > cov_sum.txt
-	# --title  : Display TITLE in header of all pages
-	# --prefix : Remove PREFIX from all directory names
-	# --frame  : Use HTML frames for source code view
 
 	# Processing the lines line :
 	@ # --------------------------------------------------------------------
@@ -153,6 +153,20 @@ dashboard: Obj/coverage.info Tests/tests_count.txt
 	echo "Dashboard"				>> docs/dashboard.md
 	echo "========="				>> docs/dashboard.md
 	echo 							>> docs/dashboard.md
+	echo "Version"					>> docs/dashboard.md
+	echo "-------"					>> docs/dashboard.md
+	echo "> archicheck --version"	>> docs/dashboard.md
+	echo 	 						>> docs/dashboard.md
+	echo '```' 						>> docs/dashboard.md
+	Obj/archicheck --version | head -n 1			>> docs/dashboard.md
+	echo '```' 										>> docs/dashboard.md
+	echo 	 										>> docs/dashboard.md
+	echo "> date -r archicheck --iso-8601=seconds" 	>> docs/dashboard.md
+	echo 	 										>> docs/dashboard.md
+	echo '```' 										>> docs/dashboard.md
+	date -r Obj/archicheck --iso-8601=seconds 		>> docs/dashboard.md
+	echo '```' 										>> docs/dashboard.md
+	echo 	 										>> docs/dashboard.md
 	echo "Test results"				>> docs/dashboard.md
 	echo "------------"				>> docs/dashboard.md
 	echo '```'			 			>> docs/dashboard.md
@@ -163,20 +177,12 @@ dashboard: Obj/coverage.info Tests/tests_count.txt
 	echo "Coverage"					>> docs/dashboard.md
 	echo "--------"					>> docs/dashboard.md
 	echo 							>> docs/dashboard.md
-	echo '- Lines coverage rate'	>> docs/dashboard.md
 	echo '```'			 			>> docs/dashboard.md
-	head -n 1 cov_sum.txt			>> docs/dashboard.md
+	cat cov_sum.txt					>> docs/dashboard.md
 	echo '```'			 			>> docs/dashboard.md
-	# echo "![](img/lines_coverage.png)"		>> docs/dashboard.md
 	echo 							>> docs/dashboard.md
-	echo '- Function coverage rate'	>> docs/dashboard.md
-	echo '```'			 			>> docs/dashboard.md
-	tail -n 1 cov_sum.txt			>> docs/dashboard.md
-	echo '```'			 			>> docs/dashboard.md
-	# echo "![](img/functions_coverage.png)"	>> docs/dashboard.md
+	echo '[**Coverage details in the sources**](http://lionel.draghi.free.fr/Archicheck/lcov/home/lionel/Proj/Archicheck/Src/index-sort-f.html)'	>> docs/dashboard.md
 	echo 							>> docs/dashboard.md
-	echo '- **Coverage in the sources**'	>> docs/dashboard.md
-	echo '  [lcov generated](http://lionel.draghi.free.fr/Archicheck/lcov/home/lionel/Proj/Archicheck/Src/index-sort-f.html)'		>> docs/dashboard.md
 
 .PHONY : cmd_line.md
 cmd_line.md:
