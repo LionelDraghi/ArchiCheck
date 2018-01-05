@@ -22,9 +22,9 @@ test1:
 
 	CMD="archicheck -lf -I src "
 
-
 	@ ${TR} cmt 'Executed:'
-	@ ${TR} cmt '`$CMD`'
+	@ ${TR} cmt 
+	@ ${TR} cmt '> archicheck -lf -I src'
 	@ ${TR} cmt 
 	@ ${TR} cmt "Expected (`cat expected_output.1 | wc -l` files) :"
 	@ ${TR} cmt 
@@ -72,6 +72,8 @@ test3:
 	cat archicheck.ac >> testrec.md
 	@ ${TR} cmt '```'
 	@ ${TR} cmt 
+	@ ${TR} cmt "![ArchiCheck dependencies view](ac_view.png)"
+	@ ${TR} cmt 
 	@ ${TR} cmt "No error expected"
 	@ ${TR} cmt 
 
@@ -82,9 +84,12 @@ test3:
 	${TR} end
 
 clean:
-	- ${RM} -rf output.* src
+	- ${RM} -rf output.* src ac_view.png
 	- ${TR} clean
 
 doc:
+	deplo config=archicheck.deplo | dot -Tpng -oac_view.png
 	cp testrec.md ../../docs/tests/archicheck.md
+	cp ac_view.png ../../docs/tests/
+
 

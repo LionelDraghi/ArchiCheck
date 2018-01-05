@@ -31,7 +31,7 @@ package body Archicheck.IO is
       Ada.Text_IO.Put_Line ("   archicheck rules_file -r -I directory [-I directory]*");
       Ada.Text_IO.New_Line;
       Ada.Text_IO.Put_Line ("General form :");
-      Ada.Text_IO.Put_Line ("   archicheck [Action] [rules_file] [Options]* [-I directory]*");
+      Ada.Text_IO.Put_Line ("   archicheck [Queries] [rules_file] [Options]* [-I directory]*");
       Ada.Text_IO.New_Line;
       Ada.Text_IO.Put_Line ("Options :");
       Ada.Text_IO.Put_Line ("   -r  | --recursive      : all following -I are recursive");
@@ -46,8 +46,8 @@ package body Archicheck.IO is
       Ada.Text_IO.Put_Line ("   -ld | --list_dependencies : list identified units and dependencies"
                             & " in analyzed sources files");
       Ada.Text_IO.Put_Line ("   -lr | --list_rules        : list rules in a rules file");
-      Ada.Text_IO.Put_Line ("   Only one of the queries is performed,");
-      Ada.Text_IO.Put_Line ("   and the full analisys on sources is not performed.");
+      Ada.Text_IO.Put_Line ("   If any, only one of the queries is performed,");
+      Ada.Text_IO.Put_Line ("   and then the full analisys on sources is not done.");
       Ada.Text_IO.New_Line;
       Ada.Text_IO.Put_Line ("Examples:");
       Ada.Text_IO.Put_Line ("   archicheck rules.txt -I ./src");

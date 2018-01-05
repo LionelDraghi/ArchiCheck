@@ -6,13 +6,13 @@ Version
 > archicheck --version
 
 ```
-0.5.2
+0.5.3
 ```
 
 > date -r archicheck --iso-8601=seconds
 
 ```
-2018-01-03T00:30:56+01:00
+2018-01-04T10:33:27+01:00
 ```
 
 Test results
@@ -28,7 +28,7 @@ Coverage
 --------
 
 ```
-  lines......: 93.1% (915 of 983 lines)
+  lines......: 93.0% (918 of 987 lines)
   functions..: 84.8% (207 of 244 functions)
 ```
 

@@ -123,9 +123,9 @@ Prefixing a normal `may use` rule with `only` make it possible to limit accesses
 ```
 only Low_Level_Layer may use Interfaces.C
 ```
-A restricted use will check that, like a normal use, `Interfaces.C` is not using `Low_Level_Layer`, but also that no other unit is using `Interfaces.C`.
+A restricted `use` will check that, like a normal `use`, `Interfaces.C` is not using `Low_Level_Layer`, but also that no other unit is using `Interfaces.C`.
 
-Note that multiple multiples restricted or non restricted use may apply cumulatively to a unit :
+Note that multiple restricted or non restricted `use` may apply cumulatively to a unit :
 ```
 only X may use P1
 only Y may use P1
@@ -187,15 +187,8 @@ For example, if there is a `Utility` compilation unit, with child units, and I d
 ```
 Utility contains Glib and Ada.Containers
 ```
-Two possible behavior here :
-
-- this is illegal and should be dealt with as an error when reading the rules file
-- this is is considered as an "Add" operation : `Glib`, `Ada.Containers` and there child packages should be considered as if there where actually `Utility.Glib` and `Utility.Ada.Containers`.
-  
-> As I am writing this (v0.5 january 2018), I'm trying the second way, altrough it smell very complex (and I hate that precise smell). 
-> 
-> Consider this as TBD.  
-> Any comment on that feature is welcome. 
+This is is considered as an "Add" operation : `Glib`, `Ada.Containers` and there child packages should be considered as if there where actually `Utility.Glib` and `Utility.Ada.Containers`.
+And obviously, the existing `Utility` compilation unit is also part of this `Utility` component.
 
 ### Rules precedence
 

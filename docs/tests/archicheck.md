@@ -6,7 +6,8 @@
 ##  ArchiCheck code test suite / -lf test
 
   Executed:
-  `MD`
+
+  > archicheck -lf -I src
 
   Expected (26 files) :
 
@@ -75,6 +76,8 @@ only Archicheck.Rules.Parser may use OpenToken
 
 GNAT use is forbidden
 ```
+
+  ![ArchiCheck dependencies view](ac_view.png)
 
   No error expected
 

@@ -22,8 +22,10 @@ pages:
   - dashboard.md
   - tests/tests_status.md
   ## - fixme.md
-  - download.md
   - todo.md
+
+- Linux bin download:
+  - download.md
   
 - Tests:
   - tests/command_line.md
@@ -44,6 +46,7 @@ pages:
   - tests/batik.md
   - tests/zipada.md
   - tests/adactl.md
+  - tests/archicheck.md
 
 ## - Tools:
 ##   - mdtags.md

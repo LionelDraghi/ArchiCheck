@@ -42,6 +42,7 @@ private package Archicheck.Units is
                       Interface_K,
                       Component,
                       Unknown) with Default_Value => Unknown;
+
    -- --------------------------------------------------------------------------
    function Image (Kind : Unit_Kind) return String is
      (case Kind is

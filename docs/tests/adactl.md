@@ -75,8 +75,8 @@ Rules     may use Utilities
 Framework may use Utilities
 
 -- Exceptions :
-Adactl_Options  may use Framework.Reports
-Adactl_Options  may use Framework.Variables.Shared_Types
+Adactl_Options may use Framework.Reports
+Adactl_Options may use Framework.Variables.Shared_Types
 ```
 
   No error expected

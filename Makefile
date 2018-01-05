@@ -41,6 +41,7 @@ release: build_release
 	cat release_tests.txt											>> docs/download.md
 	
 	cp -rp Obj/archicheck docs/
+	cp -rp Obj/archicheck ~/bin
 	rm release_tests.txt
 
 build: 
@@ -216,7 +217,6 @@ cmd_line.md:
 
 doc: dashboard cmd_line.md
 	echo Make Doc
-    
 	mkdocs build 
     
 .PHONY : clean

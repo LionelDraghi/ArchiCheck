@@ -56,6 +56,7 @@ package body Archicheck.Lang is
 
       -- -----------------------------------------------------------------------
       procedure Walk (Name : String; L : Sources.Language) is
+         -- code mostly from : https://rosettacode.org/wiki/Walk_a_directory/Recursively#Ada
 
          use Ada.Strings.Unbounded;
          Extension : constant String := File_Extensions (Processor_List (L).all); -- dispatching call
@@ -86,8 +87,7 @@ package body Archicheck.Lang is
          procedure Walk (Item : Directory_Entry_Type) is
          begin
             if Simple_Name (Item) /= "." and then Simple_Name (Item) /= ".." then
-               -- code found here : https://rosettacode.org/wiki/Walk_a_directory/Recursively#Ada
-               -- but isn't this Unix specific???
+               -- OK with Unix and Windows dir
                Dir_Count (L) := Dir_Count (L) + 1;
                Walk (Full_Name (Item), L);
             end if;

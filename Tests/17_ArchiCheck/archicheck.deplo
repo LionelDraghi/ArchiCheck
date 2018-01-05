@@ -1,0 +1,12 @@
+[input]
+../../Obj/ 
+
+[trim]
+opentoken 
+
+[ignore]
+html_lexer
+m3_lexer
+run_ada_lexer
+archicheck.settings
+# archicheck.io

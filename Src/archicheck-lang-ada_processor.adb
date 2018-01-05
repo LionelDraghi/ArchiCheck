@@ -77,8 +77,9 @@ package body Archicheck.Lang.Ada_Processor is
       use Ada.Strings.Unbounded;
       use Ada_Lexer;
 
-      Tmp2                 : Units.Dependency_Lists.List := Units.Dependency_Lists.Empty_List;
-      Unit_Kind2           : Units.Unit_Kind;
+      Dep_List             : Units.Dependency_Lists.List := Units.Dependency_Lists.Empty_List;
+      -- Dep_List store dependencies until we reach the package name, and can store the whole.
+      Unit_Kind            : Units.Unit_Kind;
       -- Fixme: to be renamed
 
       Unit_Type_Identified : Boolean               := False;
@@ -130,9 +131,9 @@ package body Archicheck.Lang.Ada_Processor is
             begin
                Put_Debug_Line ("   - withing " & Unit); -- , Level => Verbose);
 
-               Tmp2.Append ((To_Unit => To_Unbounded_String (Unit),
-                             File    => To_Unbounded_String (From_Source),
-                             Line    => Ada_Lexer.Line));
+               Dep_List.Append ((To_Unit => To_Unbounded_String (Unit),
+                                 File    => To_Unbounded_String (From_Source),
+                                 Line    => Ada_Lexer.Line));
 
                exit Unit_List when Token_ID /= Comma_T;
                -- otherwise, loop to continue in the list of comma separated withed unit
@@ -146,7 +147,7 @@ package body Archicheck.Lang.Ada_Processor is
          Unit_Type_Identified := True;
 
          Put_Debug_Line ("5 : found unit " &  Ada_Token'Image (Token_ID));
-         if Is_Empty (Tmp2) then
+         if Is_Empty (Dep_List) then
             -- we reach the unit name without meeting any "with"
             Put_Debug_Line ("No with");
          end if;
@@ -172,12 +173,12 @@ package body Archicheck.Lang.Ada_Processor is
                                              Lang           => Sources.Ada_2012,
                                              Kind           => Units.Package_K,
                                              Implementation => Implementation),
-                            Dependencies => Tmp2);
+                            Dependencies => Dep_List);
 
             -- Let's reset the tmp list. This should be usefull only when processing
             -- a source embedding multiple package declaration, so that the "with" of
             -- the first pkg will not be attributed to following pkg.
-            Clear (Tmp2);
+            Clear (Dep_List);
 
          end;
       end Process_Pkg;
@@ -186,12 +187,13 @@ package body Archicheck.Lang.Ada_Processor is
       procedure Process_Subroutine is
       begin
          Unit_Type_Identified := True;
-         if    Token_ID = Procedure_T then Unit_Kind2 := Units.Procedure_K;
-         elsif Token_ID = Function_T  then Unit_Kind2 := Units.Function_K;
-         end if;
+         Unit_Kind := (case Token_ID is -- Fixme: déclarer un sous-type de Ada_Token
+                          when Procedure_T => Units.Procedure_K,
+                          when Function_T  => Units.Function_K,
+                          when others      => Units.Unknown);
 
          Put_Debug_Line ("5 : found unit type : " &  Ada_Token'Image (Token_ID));
-         if Is_Empty (Tmp2) then
+         if Is_Empty (Dep_List) then
             -- we reach the unit name without meeting any "with"
             Put_Debug_Line ("No with ");
          end if;
@@ -232,27 +234,27 @@ package body Archicheck.Lang.Ada_Processor is
 
             Put_Debug_Line ("Implem : " & Boolean'Image (Implementation));
 
-            if Unit_Kind2 = Units.Procedure_K then
-               -- Fixme : utiliser la syntaxe 2012 pour faire une unique déclaration dans le declare
+            if Unit_Kind = Units.Procedure_K then
                Units.Add_Unit
                  (Unit => (Name           => To_Unbounded_String (Unit),
                            Lang           => Sources.Ada_2012,
                            Kind           => Units.Procedure_K,
                            Implementation => Implementation),
-                  Dependencies => Tmp2);
-            elsif  Unit_Kind2 = Units.Function_K   then
+                  Dependencies => Dep_List);
+            elsif  Unit_Kind = Units.Function_K   then
                Units.Add_Unit
                  (Unit => (Name           => To_Unbounded_String (Unit),
                            Lang           => Sources.Ada_2012,
                            Kind           => Units.Function_K,
                            Implementation => Implementation),
-                  Dependencies => Tmp2);
+                  Dependencies => Dep_List);
+               -- Fixme: case sur le sous-type!
             end if;
 
             -- Let's reset the tmp list. This should be usefull only when processing
             -- a source embedding multiple package declaration, so that the "with" of
             -- the first pkg will not be attributed to following pkg.
-            Clear (Tmp2);
+            Clear (Dep_List);
 
          end;
       end Process_Subroutine;
@@ -263,7 +265,7 @@ package body Archicheck.Lang.Ada_Processor is
          Unit_Type_Identified := True;
 
          Put_Debug_Line ("Found unit type : " &  Ada_Token'Image (Token_ID));
-         if Is_Empty (Tmp2) then
+         if Is_Empty (Dep_List) then
             -- we reach the unit name without meeting any "with"
             Put_Debug_Line ("No with ");
          end if;
@@ -285,12 +287,12 @@ package body Archicheck.Lang.Ada_Processor is
                                 Lang           => Sources.Ada_2012,
                                 Kind           => Units.Task_K,
                                 Implementation => True), -- separate task body
-               Dependencies => Tmp2);
+               Dependencies => Dep_List);
 
             -- Let's reset the tmp list. This should be usefull only when processing
             -- a source embedding multiple package declaration, so that the "with" of
             -- the first pkg will not be attributed to following pkg.
-            Clear (Tmp2);
+            Clear (Dep_List);
 
          end;
       end Process_Task;
@@ -301,7 +303,7 @@ package body Archicheck.Lang.Ada_Processor is
          Unit_Type_Identified := True;
 
          Put_Debug_Line ("Found unit type : " &  Ada_Token'Image (Token_ID));
-         if Is_Empty (Tmp2) then
+         if Is_Empty (Dep_List) then
             -- we reach the unit name without meeting any "with"
             Put_Debug_Line ("No with ");
          end if;
@@ -322,12 +324,12 @@ package body Archicheck.Lang.Ada_Processor is
                                 Lang           => Sources.Ada_2012,
                                 Kind           => Units.Protected_K,
                                 Implementation => True), -- separate protected body
-               Dependencies => Tmp2);
+               Dependencies => Dep_List);
 
             -- Let's reset the tmp list. This should be usefull only when processing
             -- a source embedding multiple package declaration, so that the "with" of
             -- the first pkg will not be attributed to following pkg.
-            Clear (Tmp2);
+            Clear (Dep_List);
 
          end;
       end Process_Protected;
@@ -349,7 +351,9 @@ package body Archicheck.Lang.Ada_Processor is
       Set_Input_Feeder (File);
 
       Source_Analysis : loop
-         Put_Debug_Line ("Loop : " &  Ada_Token'Image (Token_ID) & " [" & Natural'Image (Line) & "," & Natural'Image (Column) & "]"); -- & Lexeme);
+         Put_Debug_Line ("Loop : " &  Ada_Token'Image (Token_ID)
+                         & " [" & Natural'Image (Line) & ","
+                         & Natural'Image (Column) & "]"); -- & Lexeme);
 
          begin
             -- The withed units are first stored in
@@ -378,11 +382,8 @@ package body Archicheck.Lang.Ada_Processor is
             case Token_ID is
                when With_T =>
                   if In_Generic_Formal_Part then
-                     Put_Debug_Line ("skiping with in generic formal part");
                      Find_Next; -- To skip the "with"
-                     Put_Debug_Line ("Skip the with, token = " &  Ada_Token'Image (Token_ID));
                      Find_Next; -- To skip the following "procedure" or whatever
-                     Put_Debug_Line ("Skip what follow the with, token = " &  Ada_Token'Image (Token_ID));
                   else
                      Process_With;
                   end if;
@@ -411,7 +412,6 @@ package body Archicheck.Lang.Ada_Processor is
                   exit Source_Analysis; -- See optimization note above.
 
                when Generic_T =>
-                  Put_Debug_Line ("In_Generic_Formal_Part := True, token = " & Ada_Token'Image (Token_ID));
                   In_Generic_Formal_Part := True;
                   Find_Next; -- To skip the "generic" word
 

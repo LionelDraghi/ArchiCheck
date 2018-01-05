@@ -14,7 +14,7 @@ ArchiCheck normal use :
    archicheck rules_file -r -I directory [-I directory]*
 
 General form :
-   archicheck [Action] [rules_file] [Options]* [-I directory]*
+   archicheck [Queries] [rules_file] [Options]* [-I directory]*
 
 Options :
    -r  | --recursive      : all following -I are recursive
@@ -28,8 +28,8 @@ Queries :
    -lf | --list_files        : list analyzed sources files
    -ld | --list_dependencies : list identified units and dependencies in analyzed sources files
    -lr | --list_rules        : list rules in a rules file
-   Only one of the queries is performed,
-   and the full analisys on sources is not performed.
+   If any, only one of the queries is performed,
+   and then the full analisys on sources is not done.
 
 Examples:
    archicheck rules.txt -I ./src
@@ -48,7 +48,7 @@ archicheck --version
 ```
 
 ```
-0.5.2
+0.5.3
 
 ```
 

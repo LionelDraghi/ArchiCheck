@@ -174,8 +174,8 @@ package body Archicheck.Units is
       -- registered, as :
       -- 1. this is not supposed to occur : even if there is twice the same
       --    "import" in a file, it shouldn't be on the same line.
-      -- 2. it shouldn't cause any bug, at most a hardly measurable effect on
-      --    performance.
+      -- 2. it shouldn't cause any bug, and at most a hardly measurable effect
+      --    on performance.
 
    end Add_Unit;
 

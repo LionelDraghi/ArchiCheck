@@ -32,11 +32,10 @@ package body Archicheck.Rules is
    -- -------------------------------------------------------------------------
    procedure Put_Debug_Line (Msg    : in String  := "";
                              Debug  : in Boolean := Settings.Debug_Mode;
-                             Prefix : in String  := "Rules") renames Archicheck.IO.Put_Debug_Line;
+                             Prefix : in String  := "Rules")
+                             renames Archicheck.IO.Put_Debug_Line;
 
    -- --------------------------------------------------------------------------
-   --     package Relationship_Lists is
-   --       new Ada.Containers.Doubly_Linked_Lists (Relationship_Kind);
    Relationships : Relationship_Lists.List;
 
    -- --------------------------------------------------------------------------
@@ -47,7 +46,6 @@ package body Archicheck.Rules is
    begin
       Relationships.Append (R);
    end Add_Relationship;
-
 
    -- --------------------------------------------------------------------------
    package Forbidden_Use_Lists is new Ada.Containers.Doubly_Linked_Lists
@@ -60,7 +58,8 @@ package body Archicheck.Rules is
    begin
       for U of Forbidden_Use_List loop
          if Units.Is_In (Unit_Name, To_String (U)) then
-            Put_Debug_Line ("Is_Forbidden (" & Unit_Name & ") return True (" & To_String (U) & " is forbidden)");
+            Put_Debug_Line ("Is_Forbidden (" & Unit_Name & ") return True ("
+                            & To_String (U) & " is forbidden)");
             return True;
          end if;
       end loop;
@@ -74,7 +73,6 @@ package body Archicheck.Rules is
    begin
       Forbidden_Use_List.Append (To_Unbounded_String (Unit_Name));
    end Add_Forbidden_Unit;
-
 
    -- --------------------------------------------------------------------------
    package Allowed_Use_Lists is new Ada.Containers.Doubly_Linked_Lists
@@ -107,9 +105,10 @@ package body Archicheck.Rules is
    -- --------------------------------------------------------------------------
    function Is_Allowed (Unit_Name : in String;
                         For_Unit  : in String) return Boolean is
---        procedure Put_Debug_Line (Msg    : in String  := "";
---                                  Debug  : in Boolean := True;
---                                  Prefix : in String  := "Is_Allowed") renames Archicheck.IO.Put_Debug_Line;
+      -- procedure Put_Debug_Line (Msg    : in String  := "";
+      --                           Debug  : in Boolean := True;
+      --                           Prefix : in String  := "Is_Allowed")
+      --                           renames Archicheck.IO.Put_Debug_Line;
    begin
       Put_Debug_Line ("");
       Put_Debug_Line ("Is_Allowed (" & Unit_Name & ", For_Unit => " & For_Unit & ") ?");
@@ -123,9 +122,12 @@ package body Archicheck.Rules is
             B3 : constant Boolean := Units.Is_In (For_Unit,  To_String (R.Using_Unit));
          begin
             -- if B1 then
-            Put_Debug_Line ("      Relationship kind : " & Relationship_Kind'Image (R.Kind));
-            Put_Debug_Line ("      Is " & Unit_Name & " in " & To_String (R.Used_Unit) & " : " & Boolean'Image (B2));
-            Put_Debug_Line ("      Is " & For_Unit & " in " & To_String (R.Using_Unit) & " : " & Boolean'Image (B3));
+            Put_Debug_Line ("      Relationship kind : "
+                            & Relationship_Kind'Image (R.Kind));
+            Put_Debug_Line ("      Is " & Unit_Name & " in "
+                            & To_String (R.Used_Unit) & " : " & Boolean'Image (B2));
+            Put_Debug_Line ("      Is " & For_Unit & " in "
+                            & To_String (R.Using_Unit) & " : " & Boolean'Image (B3));
             -- end if;
 
             if Units.Is_In (Unit_Name, To_String (R.Used_Unit)) and then
