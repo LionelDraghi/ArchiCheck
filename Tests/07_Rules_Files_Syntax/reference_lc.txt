@@ -1,4 +1,7 @@
-reference_rules.txt:2: Component App contains unit Main
-reference_rules.txt:3: Component GUI contains unit Gtk
-reference_rules.txt:4: Component GUI contains unit Glib
-reference_rules.txt:4: Component GUI contains unit Pango
+reference_rules.txt:5: Component App contains unit Main
+reference_rules.txt:8: Component GUI contains unit Gtk, Glib and Pango
+reference_rules.txt:11: Layer Gtk is over layer GLib
+reference_rules.txt:14: Pango may use GLib
+reference_rules.txt:17: Only GLib may use Interfaces.C
+reference_rules.txt:20: Use of System is forbidden
+reference_rules.txt:20: Use of Ada allowed 

@@ -110,7 +110,7 @@ Interfaces.C use is forbidden
   Running :  
   > archicheck rules4.txt -I dir4
 
-  Error expected, as P1 is unsing a forbidden unit :
+  Error expected, as P1 is using a forbidden unit :
 ```
 Error : dir4/p1.ads:2: Interfaces.C use is forbidden
 ```

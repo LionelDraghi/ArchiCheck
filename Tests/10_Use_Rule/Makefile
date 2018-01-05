@@ -5,7 +5,7 @@ TR=../Tools/testrec
 
 .PHONY : clean
 
-check: ../../Obj/archicheck header test1 test2 test3 test4 test5 test6
+check: ../../Obj/archicheck header test1 test2 test3 test4 test5 test6 test7 test8
 
 header:
 	@ #---------------------------------------------------------------------
@@ -169,6 +169,30 @@ test5:
 
 	${TR} end
 
+	@ #---------------------------------------------------------------------
+	${TR} start "Unit_List may use ... rules"
+	@ ${TR} cmt 
+	@ ${TR} cmt "Same test with :"
+	@ ${TR} cmt 
+	@ ${TR} cmt '```'
+	cat rules.5b >> testrec.md
+	@ ${TR} cmt 
+	@ ${TR} cmt '```'
+	@ ${TR} cmt 
+	@ ${TR} cmt "Same output expected :"
+	@ ${TR} cmt 
+	@ ${TR} cmt '```'
+	cat expected_output.5	>> testrec.md
+	@ ${TR} cmt '```'
+	@ ${TR} cmt 
+	
+	@ ${TR} cmt '** Not yet implemented **'
+
+	## @ test ! `../../Obj/archicheck -I dir5 rules.5b > output.5b`
+	## ${TR} assert true /usr/bin/sdiff "-sBW expected_output.5 output.5b"
+
+	${TR} end
+
 test6:
 	@ #---------------------------------------------------------------------
 	${TR} start "Combining Allowed and Forbidden"
@@ -210,6 +234,71 @@ test6:
 
 	@ ../../Obj/archicheck -I dir6 rules.6b > output.6b
 	${TR} assert true /usr/bin/sdiff "-sBW expected_output.6b output.6b"
+
+	${TR} end
+
+test7:
+	@ #---------------------------------------------------------------------
+	${TR} start "X may use Unit List rules"
+	@ ${CREATE_PKG} P1 spec -in dir7 -with P2 -with P3 -with P4
+	@ ${CREATE_PKG} P2 spec -in dir7 -with P1
+	@ ${CREATE_PKG} P3 spec -in dir7 -with P1
+	@ ${CREATE_PKG} P4 spec -in dir7 -with P1
+
+	@ ${TR} cmt "P1 withing P2, P3, P4"
+	@ ${TR} cmt 
+	@ ${TR} cmt "rules7.txt contains :"
+	@ ${TR} cmt 
+	@ ${TR} cmt '```'
+	cat rules.7 >> testrec.md
+	@ ${TR} cmt 
+	@ ${TR} cmt '```'
+	@ ${TR} cmt 
+	@ ${TR} cmt "When running :"
+	@ ${TR} cmt 
+	@ ${TR} cmt '> archicheck -I dir7 rules.7'
+	@ ${TR} cmt 
+	@ ${TR} cmt "Expected"
+	@ ${TR} cmt 
+	@ ${TR} cmt '```'
+	cat expected_output.7	>> testrec.md
+	@ ${TR} cmt '```'
+	@ ${TR} cmt 
+	
+	@ test ! `../../Obj/archicheck -I dir7 rules.7 > output.7`
+	${TR} assert true /usr/bin/sdiff "-sBW expected_output.7 output.7"
+
+	${TR} end
+
+test8:
+	@ #---------------------------------------------------------------------
+	${TR} start "only X may use Unit List rules"
+	@ ${CREATE_PKG} P1 spec -in dir8 -with P2 -with P3 
+	@ ${CREATE_PKG} P4 spec -in dir8 -with P2 -with P3
+
+	@ ${TR} cmt "P1 withing P2 and P3"
+	@ ${TR} cmt "P4 withing P2 and P3"
+	@ ${TR} cmt 
+	@ ${TR} cmt "rules8.txt contains :"
+	@ ${TR} cmt 
+	@ ${TR} cmt '```'
+	cat rules.8 >> testrec.md
+	@ ${TR} cmt 
+	@ ${TR} cmt '```'
+	@ ${TR} cmt 
+	@ ${TR} cmt "When running :"
+	@ ${TR} cmt 
+	@ ${TR} cmt '> archicheck -I dir8 rules.8'
+	@ ${TR} cmt 
+	@ ${TR} cmt "Expected"
+	@ ${TR} cmt 
+	@ ${TR} cmt '```'
+	cat expected_output.8	>> testrec.md
+	@ ${TR} cmt '```'
+	@ ${TR} cmt 
+	
+	@ test ! `../../Obj/archicheck -I dir8 rules.8 > output.8`
+	${TR} assert true /usr/bin/sdiff "-sBW expected_output.8 output.8"
 
 	${TR} end
 

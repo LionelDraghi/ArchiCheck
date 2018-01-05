@@ -23,15 +23,27 @@ header:
 
 test1:
 	@ #---------------------------------------------------------------------
-	${TR} start "Subunits (separate) unit test"
+	${TR} start "Ada compilation units unit test"
 
 	@ ${TR} cmt "procedure Sub.Test has several separate units :"
 	@ ${TR} cmt 
+	@ ${TR} cmt "- procedure renaming"
+	@ ${TR} cmt "- generic package renaming"
+	@ ${TR} cmt 
+	@ ${TR} cmt "- package body"
+	@ ${TR} cmt "- package specification"
+	@ ${TR} cmt "- generic package"
+	@ ${TR} cmt 
+	@ ${TR} cmt "- child procedure"
+	@ ${TR} cmt 
 	@ ${TR} cmt "- separate procedure"
+	@ ${TR} cmt "- separate private procedure"
 	@ ${TR} cmt "- separate package"
 	@ ${TR} cmt "- separate function"
 	@ ${TR} cmt "- separate task"
 	@ ${TR} cmt "- separate protected"
+
+
 	@ ${TR} cmt 
 	@ ${TR} cmt "> archicheck -ld -I src"
 	@ ${TR} cmt 

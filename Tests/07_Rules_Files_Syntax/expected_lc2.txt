@@ -1,4 +1,7 @@
-rules2.txt:2: Component App contains unit Main
-rules2.txt:3: Component GUI contains unit Gtk
-rules2.txt:4: Component GUI contains unit Glib
-rules2.txt:4: Component GUI contains unit Pango
+rules2.txt:5: Component App contains unit Main
+rules2.txt:8: Component GUI contains unit Gtk, Glib and Pango
+rules2.txt:11: Layer Gtk is over layer GLib
+rules2.txt:14: Pango may use GLib
+rules2.txt:17: Only GLib may use Interfaces.C
+rules2.txt:20: Use of System is forbidden
+rules2.txt:20: Use of Ada allowed 

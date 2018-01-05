@@ -15,7 +15,7 @@ header:
 
 test1:
 	@ #---------------------------------------------------------------------
-	${TR} start "Code is compliant with rules file, no output expected"
+	${TR} start "Sanity test"
 	@ ${CREATE_PKG} P1 spec  -in dir1 -with P2
 	@ ${CREATE_PKG} P2 spec  -in dir1 -with P3
 	@ ${CREATE_PKG} P2 body  -in dir1 -with P4
@@ -30,6 +30,9 @@ test1:
 	@ ${TR} cmt '```'
 	@ ${TR} cmt
 
+	@ ${TR} cmt
+	@ ${TR} cmt "Code is compliant with rules file, no output expected"
+	@ ${TR} cmt
 	@ > expected_output.1
 	@ ../../Obj/archicheck -q -I dir1 rules.1 > output.1
 	${TR} assert true /usr/bin/sdiff "-s expected_output.1 output.1"
@@ -38,7 +41,7 @@ test1:
 
 Batik:
 	@ #---------------------------------------------------------------------
-	${TR} start "Batik project architecture, code is compliant with rules file, no output expected"
+	${TR} start "Batik project architecture"
 	@ ${CREATE_PKG} Browser       spec -in dirB -with UI_Component
 	@ ${CREATE_PKG} Rasterizer    spec -in dirB -with Transcoder
 	@ ${CREATE_PKG} UI_Component  spec -in dirB -with Bridge -with Renderer
@@ -59,6 +62,10 @@ Batik:
 	@ ${TR} cmt '```'
 	cat rules.B >> testrec.md
 	@ ${TR} cmt '```'
+	@ ${TR} cmt
+
+	@ ${TR} cmt
+	@ ${TR} cmt "Code is compliant with rules file, no output expected"
 	@ ${TR} cmt
 
 	@ > expected_output.B

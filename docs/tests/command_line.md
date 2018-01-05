@@ -57,7 +57,7 @@ Command line test suite / Help options [Successful](tests_status.md#successful)
   Test that the --version will put :
 
 ```
-0.5.3
+0.5.4
 ```
 
 

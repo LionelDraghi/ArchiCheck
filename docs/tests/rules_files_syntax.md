@@ -11,25 +11,30 @@
 
   Test: Reference file
 
-  This rules file will serve as reference for all folowing tests
-
 ```
-App contains Main
-GUI contains Gtk
-GUI contains Glib
-GUI contains Pango
-
+rules1.txt:5: Component App contains unit Main
+rules1.txt:8: Component GUI contains unit Gtk, Glib and Pango
+rules1.txt:11: Layer Gtk is over layer GLib
+rules1.txt:12: Pango may use GLib
+rules1.txt:15: Gtk may use GLib and Interfaces.C
+rules1.txt:16: Only GLib may use Interfaces.C
+rules1.txt:19: Only Gio may use Interfaces.C and System
+rules1.txt:22: Use of System is forbidden
+rules1.txt:22: Use of Ada allowed 
 ```
 
-  > archicheck -lr reference_rules.txt
+  > archicheck --list_rules expected_lc1.txt
 
   The reference result is :
 
 ```
-reference_rules.txt:2: Component App contains unit Main
-reference_rules.txt:3: Component GUI contains unit Gtk
-reference_rules.txt:4: Component GUI contains unit Glib
-reference_rules.txt:4: Component GUI contains unit Pango
+reference_rules.txt:5: Component App contains unit Main
+reference_rules.txt:8: Component GUI contains unit Gtk, Glib and Pango
+reference_rules.txt:11: Layer Gtk is over layer GLib
+reference_rules.txt:14: Pango may use GLib
+reference_rules.txt:17: Only GLib may use Interfaces.C
+reference_rules.txt:20: Use of System is forbidden
+reference_rules.txt:20: Use of Ada allowed 
 ```
 
 
@@ -39,11 +44,26 @@ Rules file syntax test suite / Reference file [Successful](tests_status.md#succe
 
 
 ```
-App contains Main
-GUI CONTAINS Gtk
-GUI coNTains Glib
-GUI Contains Pango
+-- Definitions from Grammar declaration in the Archicheck.Rules.Parser body
 
+-- 1. Component_Declaration, with a single Unit and a Unit_List
+App coNTains Main
+GUI contains Gtk, Glib and Pango
+
+-- 2. Layer_Declaration
+Gtk Is A layer over GLib
+
+-- 3. Use_Declaration
+Pango MAY use GLib
+
+-- 4. Restricted_Use_Declaration
+Only GLib may uSe Interfaces.C
+
+-- 5. Forbidden_Use_Declaration
+System use is forbidDen
+
+-- 6. Allowed_Use_Declaration
+Ada use is ALLOWED
 ```
 
 

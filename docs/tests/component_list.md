@@ -27,7 +27,7 @@ Component definition rules test suite / One component list [Successful](tests_st
 ##  Component definition rules test suite / GUI component contains 3 other components, declared one by one on the rules file
 
   Running
-  > archicheck --list_rules rules.2
+  > archicheck -lr rules.2
 
   with file rules.2 :
 
@@ -53,7 +53,7 @@ Component definition rules test suite / GUI component contains 3 other component
 ##  Component definition rules test suite / GUI component contains 3 other components, declared all in one line in the rules file
 
   Running
-  > archicheck --list_rules rules.3
+  > archicheck -lr rules.3
 
   with file rules.3 :
 

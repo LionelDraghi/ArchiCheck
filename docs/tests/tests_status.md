@@ -2,7 +2,7 @@
 
 ## Successful
 
-   66 tests OK
+   68 tests OK
 
   - [Use rules test suite / May_Use rule, code compliant, no output expected]()
   - [Use rules test suite / Using a unit from a non allowed unit]()
@@ -10,12 +10,14 @@
   - [Use rules test suite / Allowing use of an environnement package]()
   - [Use rules test suite / Cumulative only ... may use X rules]()
   - [Use rules test suite / Combining Allowed and Forbidden]()
-  - [Layer rules test suite / Code is compliant with rules file, no output expected]()
-  - [Layer rules test suite / Batik project architecture, code is compliant with rules file, no output expected]()
+  - [Use rules test suite / X may use Unit List rules]()
+  - [Use rules test suite / only X may use Unit List rules]()
+  - [Layer rules test suite / Sanity test]()
+  - [Layer rules test suite / Batik project architecture]()
   - [Layer rules test suite / Reverse dependency test]()
   - [Layer rules test suite / Layer bridging test]()
   - [Layer rules test suite / Using a package that is neither in the same layer, nor in the visible layer]()
-  - [Ada units test suite / Subunits (separate) unit test]()
+  - [Ada units test suite / Ada compilation units unit test]()
   - [GtkAda test suite / File Identification]()
   - [GtkAda test suite / Unit Identification]()
   - [GtkAda test suite / A realistic GtkAda description file]()
@@ -78,8 +80,9 @@
 
 ## Empty
 
-   4 empty tests
+   5 empty tests
 
+  - [Use rules test suite / Unit_List may use ... rules]()
   - [Globbing Character test suite / rules test]()
   - [Globbing Character test suite / illegal use of Interfaces from Application_Layer]()
   - [Batik test suite / real Batik code]()

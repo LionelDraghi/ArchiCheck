@@ -35,6 +35,8 @@ and (No more used, but still highly recommendable):
 ---
 **History:**
 
+- january 2018 : v0.5.x
+   
 - november / december 2017 : v0.4
 >  - Java processing added, and test on Batik code
 >  - -r option added (recursive -I) 

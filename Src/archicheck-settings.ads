@@ -20,7 +20,7 @@
 
 private package Archicheck.Settings is
 
-   ArchiCheck_Version : constant String := "0.5.3";
+   ArchiCheck_Version : constant String := "0.5.4";
 
    List_Files         : Boolean := False;
    List_Dependencies  : Boolean := False;

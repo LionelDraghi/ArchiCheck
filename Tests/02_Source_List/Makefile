@@ -15,15 +15,19 @@ header:
 test1: ../../Obj/archicheck 
 	@ #---------------------------------------------------------------------
 	${TR} start "Simple test"
-	${TR} cmt ""
+	${TR} cmt 
 	${TR} cmt "if sources :"
+	${TR} cmt 
 	${TR} cmt "> ./dir3/c-d.ads"
 	${TR} cmt "> ./dir3/c.ads"
 	${TR} cmt "> ./dir1/a.ads"
 	${TR} cmt "> ./dir1/a.adb"
 	${TR} cmt "> ./dir2/b.ads"
+	${TR} cmt 
 	${TR} cmt "then"
+	${TR} cmt 
 	${TR} cmt "> archicheck -I dir1 -I dir2 -I dir3 --list_files"
+	${TR} cmt 
 	${TR} cmt "should put:"
 
 	# ls -1 dir?/* > expected_file_list

@@ -3,11 +3,21 @@
 
 
 
-##  Ada units test suite / Subunits (separate) unit test
+##  Ada units test suite / Ada compilation units unit test
 
   procedure Sub.Test has several separate units :
 
+  - procedure renaming
+  - generic package renaming
+
+  - package body
+  - package specification
+  - generic package
+
+  - child procedure
+
   - separate procedure
+  - separate private procedure
   - separate package
   - separate function
   - separate task
@@ -39,4 +49,4 @@ Util.New_Page package spec depends on Interfaces.C
 ```
 
 
-Ada units test suite / Subunits (separate) unit test [Successful](tests_status.md#successful)
+Ada units test suite / Ada compilation units unit test [Successful](tests_status.md#successful)

@@ -1,5 +1,20 @@
-App contains Main
-GUI CONTAINS Gtk
-GUI coNTains Glib
-GUI Contains Pango
+-- Definitions from Grammar declaration in the Archicheck.Rules.Parser body
 
+-- 1. Component_Declaration, with a single Unit and a Unit_List
+App coNTains Main
+GUI contains Gtk, Glib and Pango
+
+-- 2. Layer_Declaration
+Gtk Is A layer over GLib
+
+-- 3. Use_Declaration
+Pango MAY use GLib
+
+-- 4. Restricted_Use_Declaration
+Only GLib may uSe Interfaces.C
+
+-- 5. Forbidden_Use_Declaration
+System use is forbidDen
+
+-- 6. Allowed_Use_Declaration
+Ada use is ALLOWED

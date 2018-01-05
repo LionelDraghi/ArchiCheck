@@ -42,7 +42,7 @@ test2:
 	${TR} start "GUI component contains 3 other components, declared one by one on the rules file"
 
 	${TR} cmt "Running"
-	${TR} cmt "> archicheck --list_rules rules.2"
+	${TR} cmt "> archicheck -lr rules.2"
 	@ ${TR} cmt 
 	${TR} cmt "with file rules.2 :"
 	@ ${TR} cmt 
@@ -67,7 +67,7 @@ test3:
 	${TR} start "GUI component contains 3 other components, declared all in one line in the rules file"
 
 	${TR} cmt "Running"
-	${TR} cmt "> archicheck --list_rules rules.3"
+	${TR} cmt "> archicheck -lr rules.3"
 	@ ${TR} cmt 
 	${TR} cmt "with file rules.3 :"
 	@ ${TR} cmt 

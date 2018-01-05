@@ -3,7 +3,7 @@
 
 
 
-##  Layer rules test suite / Code is compliant with rules file, no output expected
+##  Layer rules test suite / Sanity test
 
 
   ![](lr1.png)
@@ -15,9 +15,12 @@ Layer_A is a layer over Layer_B
 ```
 
 
-Layer rules test suite / Code is compliant with rules file, no output expected [Successful](tests_status.md#successful)
+  Code is compliant with rules file, no output expected
 
-##  Layer rules test suite / Batik project architecture, code is compliant with rules file, no output expected
+
+Layer rules test suite / Sanity test [Successful](tests_status.md#successful)
+
+##  Layer rules test suite / Batik project architecture
 
   Architecture of the The Apache Batik Project, available <here at https://xmlgraphics.apache.org/batik/using/architecture.html>.
 
@@ -35,7 +38,10 @@ Core_Modules is a layer over Low_Level_Modules
 ```
 
 
-Layer rules test suite / Batik project architecture, code is compliant with rules file, no output expected [Successful](tests_status.md#successful)
+  Code is compliant with rules file, no output expected
+
+
+Layer rules test suite / Batik project architecture [Successful](tests_status.md#successful)
 
 ##  Layer rules test suite / Reverse dependency test
 

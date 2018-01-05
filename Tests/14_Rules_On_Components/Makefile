@@ -122,7 +122,7 @@ test4:
 	@ ${TR} cmt 'Running :  '
 	@ ${TR} cmt "> archicheck rules4.txt -I dir4"
 	@ ${TR} cmt 
-	@ ${TR} cmt "Error expected, as P1 is unsing a forbidden unit :"
+	@ ${TR} cmt "Error expected, as P1 is using a forbidden unit :"
 	@ ${TR} cmt '```'
 	@ cat expected_output.4a >> testrec.md
 	@ ${TR} cmt '```'

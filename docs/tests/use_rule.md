@@ -98,6 +98,7 @@ P4 may use Interfaces.C
 -- As this situation (that is to have more than one "only" statement targetting
 -- the same unit) is not coherent, I won't change the code and try to fix that.
 -- It will remain a "feature".
+--
 -- The future syntax "only P1 and P2 may use Interfaces.C" could be a solution.
 --
 -- 29/12/2017, Lionel
@@ -116,6 +117,29 @@ Error : dir5/p3.ads:1: Only P1, P2 and P4 are allowed to use Interfaces.C, P3 is
 
 
 Use rules test suite / Cumulative only ... may use X rules [Successful](tests_status.md#successful)
+
+##  Use rules test suite / Unit_List may use ... rules
+
+
+  Same test with :
+
+```
+only P1 and P2 may use Interfaces.C
+
+P4 may use Interfaces.C
+
+```
+
+  Same output expected :
+
+```
+Error : dir5/p3.ads:1: Only P1, P2 and P4 are allowed to use Interfaces.C, P3 is not
+Error : dir5/p3.ads:1: Only P1, P2 and P4 are allowed to use Interfaces.C, P3 is not
+```
+
+  ** Not yet implemented **
+
+Use rules test suite / Unit_List may use ... rules [Empty](tests_status.md#empty)
 
 ##  Use rules test suite / Combining Allowed and Forbidden
 
@@ -150,3 +174,51 @@ Interfaces.C use is forbidden
   Expected :
 
 Use rules test suite / Combining Allowed and Forbidden [Successful](tests_status.md#successful)
+
+##  Use rules test suite / X may use Unit List rules
+
+  P1 withing P2, P3, P4
+
+  rules7.txt contains :
+
+```
+P1 may use P2 and P3
+```
+
+  When running :
+
+  > archicheck -I dir7 rules.7
+
+  Expected
+
+```
+Error : dir7/p3.ads:1: P1 may use P3, so P3 shall not use P1
+Error : dir7/p2.ads:1: P1 may use P2, so P2 shall not use P1
+```
+
+
+Use rules test suite / X may use Unit List rules [Successful](tests_status.md#successful)
+
+##  Use rules test suite / only X may use Unit List rules
+
+  P1 withing P2 and P3
+  P4 withing P2 and P3
+
+  rules8.txt contains :
+
+```
+only P1 may use P3
+```
+
+  When running :
+
+  > archicheck -I dir8 rules.8
+
+  Expected
+
+```
+Error : dir8/p4.ads:2: Only P1 is allowed to use P3, P4 is not
+```
+
+
+Use rules test suite / only X may use Unit List rules [Successful](tests_status.md#successful)

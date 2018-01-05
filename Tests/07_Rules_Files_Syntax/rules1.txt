@@ -1,0 +1,22 @@
+-- Definitions from Grammar declaration in the Archicheck.Rules.Parser body
+
+-- 1. Component_Declaration, with a single Unit and a Unit_List
+App contains Main
+GUI contains Gtk, Glib and Pango
+
+-- 2. Layer_Declaration
+Gtk is a layer over GLib
+
+-- 3. Use_Declaration, with a single Unit and a Unit_List
+Pango may use GLib
+Gtk   may use GLib and Interfaces.C
+
+-- 4. Restricted_Use_Declaration, with a single Unit and a Unit_List
+Only GLib may use Interfaces.C
+Only Gio  may use Interfaces.C and System
+
+-- 5. Forbidden_Use_Declaration
+System use is forbidden
+
+-- 6. Allowed_Use_Declaration
+Ada use is allowed
