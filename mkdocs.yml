@@ -17,6 +17,7 @@ pages:
   - cmd_line.md
   - building.md
   - copying.md
+  - Limitations and bugs: limitations.md
   
 - Current Status:
   - dashboard.md
