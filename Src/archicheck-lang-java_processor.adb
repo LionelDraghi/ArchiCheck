@@ -74,9 +74,8 @@ package body Archicheck.Lang.Java_Processor is
       -- Global text file for reading parse data
       File : Ada.Text_IO.File_Type;
 
-      Tmp2 : Units.Dependency_Lists.List := Units.Dependency_Lists.Empty_List;
-      -- Fixme: to be renamed
-
+      Dep_List : Units.Dependency_Targets.List := Units.Dependency_Targets.Empty_List;
+      
       use Ada.Strings.Unbounded;
       use Java_Lexer;
 
@@ -99,9 +98,8 @@ package body Archicheck.Lang.Java_Processor is
          return To_String (Name);
       end Get_Unit_Name;
 
-      Unit_Kind2           : Units.Unit_Kind;
-      -- Fixme: to be renamed
-      Pkg_Name             : Unbounded_String := Null_Unbounded_String;
+      Unit_Kind : Units.Unit_Kind;
+      Pkg_Name  : Unbounded_String := Null_Unbounded_String;
 
       -- détection de boucles infinies:
       Idem : Natural    := 0;
@@ -152,9 +150,9 @@ package body Archicheck.Lang.Java_Processor is
                      begin
                         IO.Put_Line ("   - depends on " & Withed_Unit, Level => IO.Verbose);
 
-                        Tmp2.Append ((To_Unit => To_Unbounded_String (Withed_Unit),
-                                      File    => To_Unbounded_String (From_Source),
-                                      Line    => Java_Lexer.Analyzer.Line));
+                        Dep_List.Append ((To_Unit => To_Unbounded_String (Withed_Unit),
+                                          File    => To_Unbounded_String (From_Source),
+                                          Line    => Java_Lexer.Analyzer.Line));
 
                         exit Unit_List when Analyzer.ID /= Comma_T;
                         --** not sure it's possible to have several unit behind a single import in Java
@@ -166,8 +164,8 @@ package body Archicheck.Lang.Java_Processor is
                   -- processing the class declaration
                   --     > [public] [abstract] [class|interface] ... ;
                   -- line
-                  if    Analyzer.ID = Class_T     then Unit_Kind2 := Units.Class_K;
-                  elsif Analyzer.ID = Interface_T then Unit_Kind2 := Units.Interface_K;
+                  if    Analyzer.ID = Class_T     then Unit_Kind := Units.Class_K;
+                  elsif Analyzer.ID = Interface_T then Unit_Kind := Units.Interface_K;
                   end if;
 
                   Analyzer.Find_Next;
@@ -184,24 +182,24 @@ package body Archicheck.Lang.Java_Processor is
                         Full_Name := Pkg_Name & '.' & From;
                      end if;
 
-                     IO.Put_Line ("   - defines " & Units.Unit_Kind'Image (Unit_Kind2)
+                     IO.Put_Line ("   - defines " & Units.Unit_Kind'Image (Unit_Kind)
                                   & " " & To_String (Full_Name),
                                   Level => IO.Verbose);
                      -- Fixme: utiliser 2012 pour éviter cette redondance :
-                     if Unit_Kind2 = Units.Class_K then
+                     if Unit_Kind = Units.Class_K then
                         Archicheck.Units.Add_Unit
-                          (Unit         => (Name           => Full_Name,
-                                            Lang           => Sources.Java,
-                                            Kind           => Units.Class_K,
-                                            Implementation => True),
-                           Dependencies => Tmp2);
-                     elsif Unit_Kind2 = Units.Interface_K then
+                          (Unit    => (Name           => Full_Name,
+                                       Lang           => Sources.Java,
+                                       Kind           => Units.Class_K,
+                                       Implementation => True),
+                           Targets => Dep_List);
+                     elsif Unit_Kind = Units.Interface_K then
                         Archicheck.Units.Add_Unit
-                          (Unit         => (Name           => Full_Name,
-                                            Lang           => Sources.Java,
-                                            Kind           => Units.Interface_K,
-                                            Implementation => True),
-                           Dependencies => Tmp2);
+                          (Unit    => (Name           => Full_Name,
+                                       Lang           => Sources.Java,
+                                       Kind           => Units.Interface_K,
+                                       Implementation => True),
+                           Targets => Dep_List);
                      end if;
 
                   end;

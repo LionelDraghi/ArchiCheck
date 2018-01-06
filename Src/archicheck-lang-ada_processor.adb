@@ -73,14 +73,13 @@ package body Archicheck.Lang.Ada_Processor is
 
       File : Ada.Text_IO.File_Type;
 
-      use Units.Dependency_Lists;
+      use Units.Dependency_Targets;
       use Ada.Strings.Unbounded;
       use Ada_Lexer;
 
-      Dep_List             : Units.Dependency_Lists.List := Units.Dependency_Lists.Empty_List;
+      Dep_List             : Units.Dependency_Targets.List := Units.Dependency_Targets.Empty_List;
       -- Dep_List store dependencies until we reach the package name, and can store the whole.
       Unit_Kind            : Units.Unit_Kind;
-      -- Fixme: to be renamed
 
       Unit_Type_Identified : Boolean               := False;
       Implementation       : Boolean               := True;
@@ -129,8 +128,6 @@ package body Archicheck.Lang.Ada_Processor is
                Unit : constant String := Get_Unit_Name;
                -- Fixme: to be replaced with the US version of Get_Unit_Name
             begin
-               Put_Debug_Line ("   - withing " & Unit); -- , Level => Verbose);
-
                Dep_List.Append ((To_Unit => To_Unbounded_String (Unit),
                                  File    => To_Unbounded_String (From_Source),
                                  Line    => Ada_Lexer.Line));
@@ -169,11 +166,11 @@ package body Archicheck.Lang.Ada_Processor is
          begin
             Put_Debug_Line ("in package " & Unit & " implem : " & Boolean'Image (Implementation));
 
-            Units.Add_Unit (Unit         => (Name           => To_Unbounded_String (Unit),
-                                             Lang           => Sources.Ada_2012,
-                                             Kind           => Units.Package_K,
-                                             Implementation => Implementation),
-                            Dependencies => Dep_List);
+            Units.Add_Unit (Unit    => (Name           => To_Unbounded_String (Unit),
+                                        Lang           => Sources.Ada_2012,
+                                        Kind           => Units.Package_K,
+                                        Implementation => Implementation),
+                            Targets => Dep_List);
 
             -- Let's reset the tmp list. This should be usefull only when processing
             -- a source embedding multiple package declaration, so that the "with" of
@@ -240,14 +237,14 @@ package body Archicheck.Lang.Ada_Processor is
                            Lang           => Sources.Ada_2012,
                            Kind           => Units.Procedure_K,
                            Implementation => Implementation),
-                  Dependencies => Dep_List);
+                  Targets => Dep_List);
             elsif  Unit_Kind = Units.Function_K   then
                Units.Add_Unit
                  (Unit => (Name           => To_Unbounded_String (Unit),
                            Lang           => Sources.Ada_2012,
                            Kind           => Units.Function_K,
                            Implementation => Implementation),
-                  Dependencies => Dep_List);
+                  Targets => Dep_List);
                -- Fixme: case sur le sous-type!
             end if;
 
@@ -283,11 +280,11 @@ package body Archicheck.Lang.Ada_Processor is
             Put_Debug_Line ("Task name : " & " " & Unit);
 
             Units.Add_Unit
-              (Unit         => (Name           => To_Unbounded_String (Unit),
-                                Lang           => Sources.Ada_2012,
-                                Kind           => Units.Task_K,
-                                Implementation => True), -- separate task body
-               Dependencies => Dep_List);
+              (Unit    => (Name           => To_Unbounded_String (Unit),
+                           Lang           => Sources.Ada_2012,
+                           Kind           => Units.Task_K,
+                           Implementation => True), -- separate task body
+               Targets => Dep_List);
 
             -- Let's reset the tmp list. This should be usefull only when processing
             -- a source embedding multiple package declaration, so that the "with" of
@@ -320,11 +317,11 @@ package body Archicheck.Lang.Ada_Processor is
             Put_Debug_Line ("Protected name : " & " " & Unit);
 
             Units.Add_Unit
-              (Unit         => (Name           => To_Unbounded_String (Unit),
-                                Lang           => Sources.Ada_2012,
-                                Kind           => Units.Protected_K,
-                                Implementation => True), -- separate protected body
-               Dependencies => Dep_List);
+              (Unit    => (Name           => To_Unbounded_String (Unit),
+                           Lang           => Sources.Ada_2012,
+                           Kind           => Units.Protected_K,
+                           Implementation => True), -- separate protected body
+               Targets => Dep_List);
 
             -- Let's reset the tmp list. This should be usefull only when processing
             -- a source embedding multiple package declaration, so that the "with" of

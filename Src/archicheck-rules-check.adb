@@ -37,17 +37,17 @@ procedure Archicheck.Rules.Check is
    use IO;
 
 begin
-   -- for each Dependancy, we checks each rule to see if the dependancy is compliant
-   for Rel of Units.Relationship_List loop
-      for D of Rel.Dependencies loop
+   -- for each Dependency, we checks each rule to see if the dependency is compliant
+   for Dep of Units.Dependency_List loop
+      for Target of Dep.Targets loop
 
          declare
-            From : constant String := To_String (Rel.From_Unit.Name);
-            To : constant String := To_String (D.To_Unit);
+            From : constant String := To_String (Dep.Source.Name);
+            To   : constant String := To_String (Target.To_Unit);
             use Units;
 
          begin
-            IO.Put_Line (Units.Location_Image (D) & "checking " & From
+            IO.Put_Line (Units.Location_Image (Target) & "checking " & From
                          & " dependence on " & To, Level => Verbose);
 
             -- Order is important in the following tests.
@@ -73,26 +73,26 @@ begin
                -- 3. Test if the target is forbidden.
                --    And if so, no need to further test relationships
 
-               IO.Put_Error (Location_Image (D) & To & " use is forbidden");
+               IO.Put_Error (Location_Image (Target) & To & " use is forbidden");
                -- More details if verbose :
                -- IO.Put_Line ("   according to " & Units.Location_Image (D),
                --             Level => Verbose);
 
             else
                -- 4. Let's test other rules
-               for Rule of Rules.Get_List loop
+               for Rule of Rules.Get_With_Object_Rule_List loop
                   declare
-                     Client         : constant String := To_String (Rule.Using_Unit);
-                     Server         : constant String := To_String (Rule.Used_Unit);
+                     Client         : constant String := To_String (Rule.Subject_Unit);
+                     Server         : constant String := To_String (Rule.Object_Unit);
                      Is_X_In_Client : constant Boolean := Units.Is_In (Unit => From, In_Unit => Client);
                      Is_X_In_Server : constant Boolean := Units.Is_In (Unit => From, In_Unit => Server);
                      Is_Y_In_Client : constant Boolean := Units.Is_In (Unit => To, In_Unit => Client);
                      Is_Y_In_Server : constant Boolean := Units.Is_In (Unit => To, In_Unit => Server);
 
                   begin
-                     IO.Put_Line ("- Checking relationship " & Relationship_Kind'Image (Rule.Kind)
-                                  & " : " & To_String (Rule.Using_Unit) & " -> "
-                                  & To_String (Rule.Used_Unit), Level => Verbose);
+                     IO.Put_Line ("- Checking relationship " & Rule_Kind'Image (Rule.Kind)
+                                  & " : " & To_String (Rule.Subject_Unit) & " -> "
+                                  & To_String (Rule.Object_Unit), Level => Verbose);
 
                      if (Is_X_In_Server and Is_Y_In_Server) or (Is_X_In_Client and Is_Y_In_Client) then
                         -- no check to do, as both unit are in the same component
@@ -103,7 +103,7 @@ begin
                            when Layer_Over =>
                               -- Error first, and if there is an error, following check should be useless
                               if Is_X_In_Server and Is_Y_In_Client then
-                                 IO.Put_Error (Units.Location_Image (D) & From & " is in " & Server
+                                 IO.Put_Error (Units.Location_Image (Target) & From & " is in " & Server
                                                & " layer, and so shall not use "
                                                & To & " in the upper "
                                                & Client & " layer");
@@ -113,13 +113,13 @@ begin
                                     null;
                                     -- This error case (lower using upper) is already reported in the previous "if"
                                  else
-                                    IO.Put_Warning (Units.Location_Image (D) & From & " (in " & Client & " layer) uses "
+                                    IO.Put_Warning (Units.Location_Image (Target) & From & " (in " & Client & " layer) uses "
                                                     & To & " that is neither in the same layer, nor in the lower "
                                                     & Server & " layer");
                                  end if;
 
                               elsif Is_Y_In_Server and not Is_X_In_Client then
-                                 IO.Put_Warning (Units.Location_Image (D) & From & " is neither in "
+                                 IO.Put_Warning (Units.Location_Image (Target) & From & " is neither in "
                                                  & Client & " or " & Server & " layer, and so shall not directly use "
                                                  & To & " in the "
                                                  & Server & " layer");
@@ -129,12 +129,12 @@ begin
                               if Is_Y_In_Server and not Is_X_In_Client then
                                  declare
                                     use type Ada.Containers.Count_Type;
-                                    Users : constant Relationship_Lists.List := Allowed_Users (Server);
+                                    Users : constant Rule_Lists.List := Allowed_Users (Server);
                                     Verb  : constant String := (if Users.Length = 1 then " is " else " are ");
 
                                  begin
                                     if not Is_Allowed (Client, Server) then
-                                       IO.Put_Error (Units.Location_Image (D) & "Only " & Users_Image (Users)
+                                       IO.Put_Error (Units.Location_Image (Target) & "Only " & Users_Image (Users)
                                                      & Verb & "allowed to use "
                                                      & Server & ", " & From & " is not");
                                     else
@@ -147,9 +147,12 @@ begin
                               -- X may use Y actually means that Y shall not use X,
                               -- and this is what we check here
                               if Is_X_In_Server and Is_Y_In_Client then
-                                 IO.Put_Error (Units.Location_Image (D) & Client & " may use " & Server
+                                 IO.Put_Error (Units.Location_Image (Target) & Client & " may use " & Server
                                                & ", so " & From & " shall not use " & To);
                               end if;
+
+                           when Forbidden_Use | Allowed_Use => null;
+                              -- Those possibility have been processed before.
 
                         end case;
                      end if;

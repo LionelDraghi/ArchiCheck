@@ -39,16 +39,16 @@ package body Archicheck.Units is
       Prefix : in String  := "Units") renames Archicheck.IO.Put_Debug_Line;
 
    -- --------------------------------------------------------------------------
-   function Location_Image (Dep : Dependency) return String is
+   function Location_Image (Dep : Dependency_Target) return String is
      (IO.GNU_Prefix (File => To_String (Dep.File),
                      Line => Dep.Line));
 
    -- --------------------------------------------------------------------------
    -- Function: Unit_List_Image
    -- --------------------------------------------------------------------------
-   function Unit_List_Image (List : Dependency_Lists.List) return String is
+   function Unit_List_Image (List : Dependency_Targets.List) return String is
       Tmp : Unbounded_String := Null_Unbounded_String;
-      use Dependency_Lists;
+      use Dependency_Targets;
    begin
       -- the output is of this kind : "X, Y, Z, and V"
       for C in List.Iterate loop
@@ -67,10 +67,10 @@ package body Archicheck.Units is
    -- --------------------------------------------------------------------------
    package Component_Maps is new Ada.Containers.Indefinite_Hashed_Maps
      (Key_Type        => String,
-      Element_Type    => Dependency_Lists.List,
+      Element_Type    => Dependency_Targets.List,
       Hash            => Ada.Strings.Hash_Case_Insensitive,
       Equivalent_Keys => "=",
-      "="             => Dependency_Lists."=");
+      "="             => Dependency_Targets."=");
    Component_Map : Component_Maps.Map;
    -- The component map is a fast way to find what contains a Component.
    -- Note that it is maintained in parallel with the Relationship_List.
@@ -78,7 +78,7 @@ package body Archicheck.Units is
    -- --------------------------------------------------------------------------
    package Owner_Maps is new Ada.Containers.Indefinite_Hashed_Maps
      (Key_Type        => String,
-      Element_Type    => Dependency,
+      Element_Type    => Dependency_Target,
       Hash            => Ada.Strings.Hash_Case_Insensitive,
       Equivalent_Keys => "=",
       "="             => "=");
@@ -143,10 +143,10 @@ package body Archicheck.Units is
    procedure Dump is
       use Archicheck.IO;
    begin
-      for R of Relationship_List loop
-         for D of R.Dependencies loop
-            Put_Line (Ada.Strings.Unbounded.To_String (R.From_Unit.Name)
-                      & " " & Unit_Description (R.From_Unit)
+      for R of Dependency_List loop
+         for D of R.Targets loop
+            Put_Line (Ada.Strings.Unbounded.To_String (R.Source.Name)
+                      & " " & Unit_Description (R.Source)
                       & " depends on "
                       & Ada.Strings.Unbounded.To_String (D.To_Unit),
                       Level => Quiet); --  & Image (D.To.Kind));
@@ -161,15 +161,15 @@ package body Archicheck.Units is
    end Dump;
 
    -- --------------------------------------------------------------------------
-   procedure Add_Unit (Unit         : Unit_Attributes;
-                       Dependencies : Dependency_Lists.List) is
+   procedure Add_Unit (Unit    : Unit_Attributes;
+                       Targets : Dependency_Targets.List) is
    begin
       pragma Assert (Unit not in Component_Attributes,
                      "Call Add_Component instead");
-      Put_Debug_Line ("Adding dependencies " & Unit_List_Image (Dependencies)
+      Put_Debug_Line ("Adding dependencies " & Unit_List_Image (Targets)
                       & " to unit " & To_String (Unit.Name));
 
-      Relationship_List.Append ((Unit, Dependencies));
+      Dependency_List.Append ((Unit, Targets));
       -- We do not verify that some of those dependencies are not already
       -- registered, as :
       -- 1. this is not supposed to occur : even if there is twice the same
@@ -180,18 +180,18 @@ package body Archicheck.Units is
    end Add_Unit;
 
    -- --------------------------------------------------------------------------
-   procedure Add_Component (Component    : Component_Attributes;
-                            Dependencies : Dependency_Lists.List) is
+   procedure Add_Component (Component : Component_Attributes;
+                            Targets   : Dependency_Targets.List) is
       use Component_Maps;
       Key    : constant String := To_String (Component.Name);
       Cursor : Component_Maps.Cursor;
-      Tmp_List : Dependency_Lists.List := Dependency_Lists.Empty_List;
+      Tmp_List : Dependency_Targets.List := Dependency_Targets.Empty_List;
 
    begin
-      Put_Debug_Line ("Adding " & Unit_List_Image (Dependencies)
+      Put_Debug_Line ("Adding " & Unit_List_Image (Targets)
                       & " to component " & To_String (Component.Name));
       -- 1. Relationship list management :
-      Relationship_List.Append ((Component, Dependencies));
+      Dependency_List.Append ((Component, Targets));
 
       -- 2. Dependency list init :
       Cursor := Component_Map.Find (Key);
@@ -206,23 +206,23 @@ package body Archicheck.Units is
       end if;
 
       -- 3. Owner_Key map management, and Tmp_List building :
-      for D of Dependencies loop
+      for D of Targets loop
          declare
             Owner_Key : constant String := To_String (D.To_Unit);
             C         : constant Owner_Maps.Cursor := Owner_Map.Find (Owner_Key);
             use Owner_Maps;
-            use type Dependency_Lists.List;
+            use type Dependency_Targets.List;
          begin
             if C = Owner_Maps.No_Element then
                -- normal case, the Unit is not already in a Component
-               Dependency_Lists.Append (Tmp_List, D);
+               Dependency_Targets.Append (Tmp_List, D);
                Owner_Map.Insert (Owner_Key,
                                  New_Item => (Component.Name, D.File, D.Line));
                Put_Debug_Line ("Adding " &  Owner_Key & " to Owner_Maps");
 
             else
                declare
-                  Dep : constant Dependency := Owner_Maps.Element (C);
+                  Dep : constant Dependency_Target := Owner_Maps.Element (C);
                begin
                   IO.Put_Error
                     (Location_Image (D) & To_String (D.To_Unit) & " already in "
@@ -255,7 +255,7 @@ package body Archicheck.Units is
    function Is_In (Unit    : String;
                    In_Unit : String) return Boolean
    is
-      Dep : Dependency;
+      Dep : Dependency_Target;
       Key : constant String := Unit;
       C   : Owner_Maps.Cursor;
       use Owner_Maps;

@@ -28,11 +28,11 @@ with Ada.Strings.Unbounded;
 private package Archicheck.Units is
 
    -- --------------------------------------------------------------------------
-   -- Unit_Kind are :
+   -- Units are either :
    -- 1. compilation units, common to more languages, like Packages, or
    --    specific to a language, like Protected records for Ada;
-   -- 2. virtual units (aka Components), that is units declared in rules
-   --    files.
+   -- 2. virtual units, hereafter "Components", that is units declared in rules
+   --    files, thanks to the "contains" declaration.
    type Unit_Kind is (Package_K,
                       Procedure_K,
                       Function_K,
@@ -58,20 +58,20 @@ private package Archicheck.Units is
 
    subtype Unit_Name is Ada.Strings.Unbounded.Unbounded_String;
 
-   type Dependency is record
+   type Dependency_Target is record
       To_Unit : Unit_Name;
       -- File & Line : where the dependency comes from
       File    : Ada.Strings.Unbounded.Unbounded_String;
       Line    : Natural;
    end record;
    -- --------------------------------------------------------------------------
-   function Location_Image (Dep : Dependency) return String;
+   function Location_Image (Dep : Dependency_Target) return String;
 
    -- --------------------------------------------------------------------------
-   package Dependency_Lists is new Ada.Containers.Doubly_Linked_Lists
-     (Dependency, "=");
+   package Dependency_Targets is new Ada.Containers.Doubly_Linked_Lists
+     (Dependency_Target, "=");
    -- --------------------------------------------------------------------------
-   function Unit_List_Image (List : Dependency_Lists.List) return String;
+   function Unit_List_Image (List : Dependency_Targets.List) return String;
 
    -- --------------------------------------------------------------------------
    type Unit_Attributes (Kind : Unit_Kind := Unknown) is record
@@ -90,14 +90,14 @@ private package Archicheck.Units is
    subtype Component_Attributes is Unit_Attributes (Kind => Component);
 
    -- --------------------------------------------------------------------------
-   type Relationship is record
-      From_Unit    : Unit_Attributes;
-      Dependencies : Dependency_Lists.List;
+   type Dependency is record
+      Source  : Unit_Attributes;
+      Targets : Dependency_Targets.List;
    end record;
    -- --------------------------------------------------------------------------
-   package Relationship_Lists is new Ada.Containers.Doubly_Linked_Lists
-     (Relationship, "=");
-   Relationship_List : Relationship_Lists.List;
+   package Dependency_Lists is new Ada.Containers.Doubly_Linked_Lists
+     (Dependency, "=");
+   Dependency_List : Dependency_Lists.List;
 
    -- --------------------------------------------------------------------------
    -- Function Unit_Description
@@ -123,12 +123,12 @@ private package Archicheck.Units is
    procedure Dump;
 
    -- --------------------------------------------------------------------------
-   procedure Add_Unit (Unit         : Unit_Attributes;
-                       Dependencies : Dependency_Lists.List);
+   procedure Add_Unit (Unit    : Unit_Attributes;
+                       Targets : Dependency_Targets.List);
 
    -- --------------------------------------------------------------------------
-   procedure Add_Component (Component    : Component_Attributes;
-                            Dependencies : Dependency_Lists.List);
+   procedure Add_Component (Component : Component_Attributes;
+                            Targets   : Dependency_Targets.List);
 
    -- --------------------------------------------------------------------------
    -- return True if :

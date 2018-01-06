@@ -295,8 +295,8 @@ package body Archicheck.Rules.Parser is
 
    -- --------------------------------------------------------------------------
    -- Fixme: Fonctionnement Très Spécial, À Commenter!
-   Left_List  : Units.Dependency_Lists.List;
-   Right_List : Units.Dependency_Lists.List;
+   Left_List  : Units.Dependency_Targets.List;
+   Right_List : Units.Dependency_Targets.List;
    -- To simplify the OpenToken mess, and avoid to creating new classes,
    -- Unit_List are stored here, at a global level.
    -- A maximum of two Unit_List is involved in each rule :
@@ -327,7 +327,7 @@ package body Archicheck.Rules.Parser is
       use Ada.Strings.Unbounded;
       Component_Name : constant String := To_String
         (Identifiers.Instance (Token_List.Token_Handle (Left).all).Identifier);
-      Dep : constant Units.Dependency :=
+      Dep            : constant Units.Dependency_Target :=
                          (To_Unit => To_Unbounded_String (Component_Name),
                           File    => To_Unbounded_String (Settings.Rules_File_Name),
                           Line    => Rules_File_Parser.Line);
@@ -360,9 +360,9 @@ package body Archicheck.Rules.Parser is
       use OpenToken.Buffers;
       use Ada.Strings.Unbounded;
       -- -----------------------------------------------------------------------
-      procedure Update_Last (List : in out Units.Dependency_Lists.List;
+      procedure Update_Last (List : in out Units.Dependency_Targets.List;
                              Name : in     String) is
-         Current : constant Units.Dependency := List.Last_Element;
+         Current : constant Units.Dependency_Target := List.Last_Element;
       begin
          List.Replace_Element
            (List.Last, (To_Unit => Current.To_Unit & "." & Name,
@@ -414,9 +414,9 @@ package body Archicheck.Rules.Parser is
                    Level => IO.Quiet);
       end if;
       Units.Add_Component
-        (Component    => (Name => Component_Name,
-                          Kind => Units.Component),
-         Dependencies => Right_List);
+        (Component => (Name => Component_Name,
+                       Kind => Units.Component),
+         Targets   => Right_List);
       Reset_Unit_Names;
    end Store_Component_Declaration;
 
@@ -444,9 +444,9 @@ package body Archicheck.Rules.Parser is
                    & " is over layer " & To_String (Used),
                    Level => IO.Quiet);
       end if;
-      Add_Relationship ((Using_Unit => Using,
-                         Used_Unit  => Used,
-                         Kind       => Layer_Over));
+      Add_Rule ((Subject_Unit => Using,
+                 Object_Unit  => Used,
+                 Kind         => Layer_Over));
       Reset_Unit_Names;
 
    end Store_Layer_Declaration;
@@ -475,9 +475,9 @@ package body Archicheck.Rules.Parser is
                    Level => IO.Quiet);
       end if;
       for U of Right_List loop
-         Add_Relationship ((Using_Unit => Using,
-                            Used_Unit  => U.To_Unit,
-                            Kind       => May_Use));
+         Add_Rule ((Subject_Unit => Using,
+                    Object_Unit  => U.To_Unit,
+                    Kind         => May_Use));
       end loop;
 
       Reset_Unit_Names;
@@ -488,8 +488,8 @@ package body Archicheck.Rules.Parser is
    -- Procedure: Store_Restricted_Use_Declaration
    -- -------------------------------------------------------------------------
    procedure Store_Restricted_Use_Declaration (New_Token : out Nonterminal.Class;
-                                                Source    : in  Token_List.Instance'Class;
-                                                To_ID     : in  Master_Token.Token_ID)
+                                               Source    : in  Token_List.Instance'Class;
+                                               To_ID     : in  Master_Token.Token_ID)
    is
       pragma Unreferenced (New_Token, Source, To_ID);
 
@@ -508,9 +508,9 @@ package body Archicheck.Rules.Parser is
                    Level => IO.Quiet);
       end if;
       for U of Right_List loop
-         Add_Relationship ((Using_Unit => Using,
-                            Used_Unit  => U.To_Unit,
-                            Kind       => Exclusive_Use));
+         Add_Rule ((Subject_Unit => Using,
+                    Object_Unit  => U.To_Unit,
+                    Kind         => Exclusive_Use));
       end loop;
 
       Reset_Unit_Names;
@@ -526,16 +526,17 @@ package body Archicheck.Rules.Parser is
       use Archicheck.IO;
       use OpenToken.Buffers;
       use Ada.Strings.Unbounded;
-      Unit : constant String := To_String (Left_List.First_Element.To_Unit);
+      Unit : constant Unbounded_String := Left_List.First_Element.To_Unit;
 
    begin
       if Settings.List_Rules then
          Put_Line (GNU_Prefix (File   => Settings.Rules_File_Name,
                                Line   => Analyzer.Line) &
-                     "Use of " & Unit & " allowed ",
+                     "Use of " & To_String (Unit) & " allowed ",
                    Level => IO.Quiet);
       end if;
-      Add_Allowed_Unit (Unit);
+      Add_Rule ((Kind         => Allowed_Use,
+                 Subject_Unit => Unit));
       Reset_Unit_Names;
 
    end Add_Allowed_Unit;
@@ -549,16 +550,17 @@ package body Archicheck.Rules.Parser is
       use Archicheck.IO;
       use OpenToken.Buffers;
       use Ada.Strings.Unbounded;
-      Unit : constant String := To_String (Left_List.First_Element.To_Unit);
+      Unit : constant Unbounded_String := Left_List.First_Element.To_Unit;
 
    begin
       if Settings.List_Rules then
          Put_Line (GNU_Prefix (File   => Settings.Rules_File_Name,
                                Line   => Analyzer.Line) &
-                     "Use of " & Unit & " is forbidden",
+                     "Use of " & To_String (Unit) & " is forbidden",
                    Level => IO.Quiet);
       end if;
-      Add_Forbidden_Unit (Unit);
+      Add_Rule ((Kind         => Forbidden_Use,
+                 Subject_Unit => Unit));
       Reset_Unit_Names;
 
    end Add_Forbbiden_Unit;
