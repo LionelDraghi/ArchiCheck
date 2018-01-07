@@ -34,16 +34,12 @@ package body Archicheck.Lang.Java_Processor is
    Processor : aliased Java_Interface;
 
    -- --------------------------------------------------------------------------
-   -- Procedure: Initialize
-   -- --------------------------------------------------------------------------
    procedure Initialize is
    begin
       Register (Language_Processor => Processor'Access,
                 For_Language       => Sources.Java);
    end Initialize;
 
-   -- --------------------------------------------------------------------------
-   -- Function: File_Extensions
    -- --------------------------------------------------------------------------
    function File_Extensions (Lang : in Java_Interface) return String is
       pragma Unreferenced (Lang);
@@ -52,37 +48,30 @@ package body Archicheck.Lang.Java_Processor is
    end File_Extensions;
 
    -- --------------------------------------------------------------------------
-   -- Procedure: Add_Dependencies
-   --
-   -- Implementation Notes:
-   --   - Based on OpenToken Java_Lexer
-   -- --------------------------------------------------------------------------
    procedure Analyze_Dependencies (Lang        : in Java_Interface;
                                    From_Source : in String) is
       pragma Unreferenced (Lang);
 
       -- Change default Debug parameter value to enable/disable Debug messages in this package
       -- -----------------------------------------------------------------------
-      procedure Put_Debug_Line (Msg    : in String  := "";
-                                Debug  : in Boolean := Settings.Debug_Mode;
-                                Prefix : in String  := "Java_Processor.Analyze_Dependencies") renames Archicheck.IO.Put_Debug_Line;
-      --        procedure Put_Debug (Msg    : in String  := "";
-      --                             Debug  : in Boolean := Settings.Verbosity = Settings.Debug;
-      --                             Prefix : in String  := "Java_Processor.Analyze_Dependencies") renames Archicheck.IO.Put_Debug;
-      -- procedure New_Debug_Line (Debug  : in Boolean := Settings.Verbosity = Settings.Debug) renames Archicheck.IO.New_Debug_Line;
+      procedure Put_Debug_Line
+        (Msg    : in String  := "";
+         Debug  : in Boolean := Settings.Debug_Mode;
+         Prefix : in String  := "Java_Processor.Analyze_Dependencies")
+         renames Archicheck.IO.Put_Debug_Line;
 
       -- Global text file for reading parse data
       File : Ada.Text_IO.File_Type;
 
       Dep_List : Units.Dependency_Targets.List := Units.Dependency_Targets.Empty_List;
-      
+
       use Ada.Strings.Unbounded;
       use Java_Lexer;
 
       -- -----------------------------------------------------------------------
       -- Procedure: Get_Unit_Name
       -- -----------------------------------------------------------------------
-      function Get_Unit_Name return String is
+      function Get_Unit_Name return Unbounded_String is
          Name : Unbounded_String := Null_Unbounded_String;
       begin
          Name := To_Unbounded_String (Analyzer.Lexeme);
@@ -95,18 +84,15 @@ package body Archicheck.Lang.Java_Processor is
                exit;
             end if;
          end loop;
-         return To_String (Name);
+         return Name;
       end Get_Unit_Name;
 
-      Unit_Kind : Units.Unit_Kind;
+      Unit_Kind : Units.Java_Unit_Kind;
       Pkg_Name  : Unbounded_String := Null_Unbounded_String;
 
-      -- détection de boucles infinies:
-      Idem : Natural    := 0;
-      Prev : Java_Token := End_of_File_T;
-
    begin
-      if Settings.Debug_Mode then OpenToken.Trace_Parse := 1; end if; -- value > 0 : debug level
+      if Settings.Debug_Mode then OpenToken.Trace_Parse := 1; end if;
+      -- value > 0 => debug level
 
       -- New_Debug_Line;
       IO.Put_Line ("Looking for dependencies in " & From_Source & " :", Level => IO.Verbose);
@@ -119,124 +105,131 @@ package body Archicheck.Lang.Java_Processor is
       Analyzer.Set_Text_Feeder (OpenToken.Text_Feeder.Text_IO.Create (Ada.Text_IO.Current_Input));
 
       Source_Analysis : loop
-         begin
-            Put_Debug_Line ("token to analyze : " & Java_Token'Image (Analyzer.ID));
-            case Analyzer.ID is
-               when Package_T =>
-                  -- processing the package declaration
-                  --     > package Java.Awt.Evt;
-                  -- line
+         Put_Debug_Line ("token to analyze : " & Java_Token'Image (Analyzer.ID));
+         case Analyzer.ID is
+            when Package_T =>
+               -- processing the package declaration
+               --     > package Java.Awt.Evt;
+               -- line
+               Analyzer.Find_Next;
+               Pkg_Name := Get_Unit_Name;
+
+            when Import_T =>
+               -- processing a
+               --     > import [static] Java.Awt.Evt;
+               --     > import [static] Java.Awt.*;
+               -- line
+               --
+               -- Cf. (for example) to
+               -- https://stackoverflow.com/questions/20777260/java-import-statement-syntax
+               -- for a discussion on package/class name in Java
+
+               Analyzer.Find_Next;
+               if Analyzer.ID = Static_T then
                   Analyzer.Find_Next;
-                  declare
-                     Pkg : constant String := Get_Unit_Name;
-                  begin
-                     Pkg_Name := To_Unbounded_String (Pkg);
-                     Put_Debug_Line ("Analyzing Java pkg " & Pkg);
-                  end;
+               end if;
 
-               when Import_T =>
-                  -- processing a
-                  --     > import [static] Java.Awt.Evt;
-                  -- line
-                  Unit_List : loop
-                     Analyzer.Find_Next;
-                     if Analyzer.ID = Static_T then
-                        Analyzer.Find_Next;
-                        Put_Debug_Line ("on saute static, token to analyze : " & Java_Token'Image (Analyzer.ID));
-                     end if;
+               declare
+                  Withed_Unit : constant Unbounded_String := Get_Unit_Name;
+               begin
+                  IO.Put_Line ("   - depends on " & To_String (Withed_Unit),
+                               Level => IO.Verbose);
 
-                     declare
-                        Withed_Unit : constant String := Get_Unit_Name;
-                     begin
-                        IO.Put_Line ("   - depends on " & Withed_Unit, Level => IO.Verbose);
+                  Dep_List.Append
+                    ((To_Unit => Withed_Unit,
+                      File    => To_Unbounded_String (From_Source),
+                      Line    => Java_Lexer.Analyzer.Line));
 
-                        Dep_List.Append ((To_Unit => To_Unbounded_String (Withed_Unit),
-                                          File    => To_Unbounded_String (From_Source),
-                                          Line    => Java_Lexer.Analyzer.Line));
+                  -- Only one unit name per import statement in Java,
+                  -- no need to loop.
+               end;
 
-                        exit Unit_List when Analyzer.ID /= Comma_T;
-                        --** not sure it's possible to have several unit behind a single import in Java
-                        -- otherwise, loop to continue in the list of comma separated withed unit
-                     end;
-                  end loop Unit_List;
+            when Class_T | Interface_T =>
+               -- processing the class declaration
+               --     > [public] [abstract] [class|interface] ... ;
+               -- line
+               if    Analyzer.ID = Class_T     then Unit_Kind := Units.Class_K;
+               elsif Analyzer.ID = Interface_T then Unit_Kind := Units.Interface_K;
+               end if;
 
-               when Class_T | Interface_T =>
-                  -- processing the class declaration
-                  --     > [public] [abstract] [class|interface] ... ;
-                  -- line
-                  if    Analyzer.ID = Class_T     then Unit_Kind := Units.Class_K;
-                  elsif Analyzer.ID = Interface_T then Unit_Kind := Units.Interface_K;
+               Analyzer.Find_Next;
+               declare
+                  From      : constant Unbounded_String := Get_Unit_Name;
+                  Full_Name : Unbounded_String;
+                  use type Units.Unit_Kind;
+
+               begin
+                  if Pkg_Name = Null_Unbounded_String then
+                     -- no Package, let's fall back on the class name
+                     Full_Name := From;
+                  else
+                     Full_Name := Pkg_Name & '.' & From;
                   end if;
 
-                  Analyzer.Find_Next;
-                  declare
-                     From      : constant String := Get_Unit_Name;
-                     Full_Name : Unbounded_String;
-                     use type Units.Unit_Kind;
-
-                  begin
-                     if Pkg_Name = Null_Unbounded_String then
-                        -- no Package, let's fall back on the class name
-                        Full_Name := To_Unbounded_String (From);
-                     else
-                        Full_Name := Pkg_Name & '.' & From;
-                     end if;
-
-                     IO.Put_Line ("   - defines " & Units.Unit_Kind'Image (Unit_Kind)
-                                  & " " & To_String (Full_Name),
-                                  Level => IO.Verbose);
-                     -- Fixme: utiliser 2012 pour éviter cette redondance :
-                     if Unit_Kind = Units.Class_K then
+                  IO.Put_Line ("   - defines " & Units.Unit_Kind'Image (Unit_Kind)
+                               & " " & To_String (Full_Name),
+                               Level => IO.Verbose);
+                  -- Fixme: utiliser 2012 pour éviter cette redondance :
+                  case Unit_Kind is
+                     when Units.Class_K =>
                         Archicheck.Units.Add_Unit
                           (Unit    => (Name           => Full_Name,
                                        Lang           => Sources.Java,
                                        Kind           => Units.Class_K,
                                        Implementation => True),
                            Targets => Dep_List);
-                     elsif Unit_Kind = Units.Interface_K then
+                     when Units.Interface_K =>
                         Archicheck.Units.Add_Unit
                           (Unit    => (Name           => Full_Name,
                                        Lang           => Sources.Java,
                                        Kind           => Units.Interface_K,
                                        Implementation => True),
                            Targets => Dep_List);
-                     end if;
+                  end case;
 
-                  end;
+               end;
 
-                  exit Source_Analysis;
-                  -- this exit is a risky optimization, as I am not sure it is possible to have multiple class in a single file...
-                  -- when End_of_File_T => exit Source_Analysis;
+               exit Source_Analysis;
+               -- Optimization : this exit cause the analysis to be stop
+               -- after discovery of the first class or interface.
+               --
+               -- According to Java standards and common Java practices,
+               -- every class stands in its own source file.
+               -- However, it is possible to have multiple class in a single
+               -- file, provided that there is only one public.
+               -- All the top-level non-public types will be package private.
+               --
+               -- Processing private classes is by definition of no interest
+               -- for ArchiCheck, so there is no problem in exiting here.
+               --
+               -- On the other hand, it is possible to import the public
+               -- nested classes of an enclosing class.
+               -- Not sure what can be the consequences of processing such an
+               -- import, but not processing nested classes in this parser.
+               -- But anyway, as it would be costly in time processing, and
+               -- would raise far more complex the lexer, I don't intend to
+               -- change this code for now.
+               --
 
-                  when others => Analyzer.Find_Next;
+               -- when End_of_File_T => exit Source_Analysis;
 
-            end case;
+               when others => Analyzer.Find_Next;
 
-            exit Source_Analysis when Analyzer.ID = End_of_File_T;
+         end case;
 
-            if Analyzer.ID = Prev then
-               Idem := Idem + 1;
-            else
-               Idem := 0;
-            end if;
-            Prev := Analyzer.ID;
-            if Idem > 10 then
-               IO.Put_Line ("   *** boucle infinie dans l'analyzer Java sur le lexeme " & Java_Token'Image (Analyzer.ID));
-               Analyzer.Find_Next;
-            end if;
-
-            -- Analyzer.Find_Next;
-
-         exception
-            when Error : others =>
-               IO.Put_Error
-                 (IO.GNU_Prefix (From_Source, Analyzer.Line, Analyzer.Column) & "parse exception:");
-               IO.Put_Error (Ada.Exceptions.Exception_Information (Error));
-         end;
+         exit Source_Analysis when Analyzer.ID = End_of_File_T;
 
       end loop Source_Analysis;
 
       Ada.Text_IO.Close (File => File);
+
+   exception
+      when Error : others =>
+         IO.Put_Exception
+           (IO.GNU_Prefix (From_Source, Analyzer.Line, Analyzer.Column)
+            & "parse exception:");
+         IO.Put_Exception (Ada.Exceptions.Exception_Information (Error));
+         Ada.Text_IO.Close (File => File);
 
    end Analyze_Dependencies;
 

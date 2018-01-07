@@ -9,7 +9,7 @@ with -O3 option.
 > date -r archicheck --iso-8601=seconds
 
 ```
-2018-01-05T23:07:07+01:00
+2018-01-06T00:07:23+01:00
 ```
 
 > readelf -d archicheck | grep 'NEEDED'
@@ -28,7 +28,7 @@ with -O3 option.
 Tests status on this exe :
 --------------------------
 
-Run 2018-01-05T23:07:21+01:00
+Run 2018-01-06T00:07:41+01:00
 
 - Successful  68
 - Failed      0

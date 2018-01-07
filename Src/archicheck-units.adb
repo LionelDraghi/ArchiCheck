@@ -44,8 +44,6 @@ package body Archicheck.Units is
                      Line => Dep.Line));
 
    -- --------------------------------------------------------------------------
-   -- Function: Unit_List_Image
-   -- --------------------------------------------------------------------------
    function Unit_List_Image (List : Dependency_Targets.List) return String is
       Tmp : Unbounded_String := Null_Unbounded_String;
       use Dependency_Targets;
@@ -89,9 +87,6 @@ package body Archicheck.Units is
    -- Component.
    -- Note that it is also maintained in parallel with the Relationship_List.
 
-
-   -- --------------------------------------------------------------------------
-   -- Function: Is_A_Child
    -- --------------------------------------------------------------------------
    function Is_A_Child (Unit      : String;
                         Component : String) return Boolean
@@ -125,8 +120,6 @@ package body Archicheck.Units is
    end Is_A_Child;
 
    -- --------------------------------------------------------------------------
-   -- Function Unit_Description
-   -- --------------------------------------------------------------------------
    function Unit_Description (U : in Unit_Attributes) return String is
       use Archicheck.Sources;
    begin
@@ -137,8 +130,6 @@ package body Archicheck.Units is
                                    else Image (U.Kind) & " spec"));
    end Unit_Description;
 
-   -- --------------------------------------------------------------------------
-   -- Procedure: Dump
    -- --------------------------------------------------------------------------
    procedure Dump is
       use Archicheck.IO;

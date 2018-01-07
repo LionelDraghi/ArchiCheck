@@ -58,9 +58,10 @@ private package Archicheck.IO is
                        Level   : Print_Out_Level := Normal);
 
    -- --------------------------------------------------------------------------
-   procedure Put_Warning (Msg       : in String := "");
-   procedure Put_Error   (Msg       : in String := "";
-                          With_Help : in Boolean := False);
+   procedure Put_Warning   (Msg       : in String := "");
+   procedure Put_Error     (Msg       : in String := "";
+                            With_Help : in Boolean := False);
+   procedure Put_Exception (Msg       : in String := "");
    -- --------------------------------------------------------------------------
    -- Error_Count and Warning_Count return the number of call to Put_Error
    -- and Put_Warning.

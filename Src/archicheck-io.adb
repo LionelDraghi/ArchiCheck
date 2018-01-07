@@ -22,8 +22,6 @@ with Ada.Strings.Fixed;
 package body Archicheck.IO is
 
    -- -------------------------------------------------------------------------
-   -- Procedure: Put_Help
-   -- -------------------------------------------------------------------------
    procedure Put_Help is
    begin
       Ada.Text_IO.New_Line;
@@ -61,38 +59,36 @@ package body Archicheck.IO is
    Warnings : Natural := 0;
 
    -- -------------------------------------------------------------------------
-   -- Procedure: Put_Warning
-   -- -------------------------------------------------------------------------
    procedure Put_Warning (Msg : in String := "") is
    begin
       Warnings := Warnings + 1;
       Put_Line ("Warning : " & Msg);
-      -- use the local version of Put_Line, and not the Ada.Text_IO one, so that
-      -- Warning messages are also ignored when --quiet.
-      -- Fixme: this dumb!
+      -- use the local version of Put_Line, and not the Ada.Text_IO one,
+      -- so that Warning messages are also ignored when --quiet.
    end Put_Warning;
 
    Errors : Natural := 0;
 
    -- -------------------------------------------------------------------------
-   -- Procedure: Put_Error
-   -- -------------------------------------------------------------------------
    procedure Put_Error (Msg       : in String  := "";
                         With_Help : in Boolean := False) is
    begin
       Errors := Errors + 1;
-      Ada.Text_IO.Put_Line ("Error : " & Msg);
-      -- use the Text_IO Put_Line, so that error message are not filtered
-      -- according to verbosity
-      -- Fixme: this dumb!
+      Put_Line ("Error : " & Msg, Level => Quiet);
+      -- Error Msg should not be ignored
       if With_Help then Put_Help; end if;
    end Put_Error;
 
+   -- -------------------------------------------------------------------------
+   procedure Put_Exception (Msg : in String := "") is
+   begin
+      Ada.Text_IO.Put_Line (Ada.Text_IO.Standard_Error, "Warning : " & Msg);
+   end Put_Exception;
+
+   -- -------------------------------------------------------------------------
    function Error_Count   return Natural is (Errors);
    function Warning_Count return Natural is (Warnings);
 
-   -- -------------------------------------------------------------------------
-   -- Procedure: Put_Debug_Line
    -- -------------------------------------------------------------------------
    procedure Put_Debug_Line (Msg    : in String := "";
                              Debug  : in Boolean;
@@ -103,8 +99,6 @@ package body Archicheck.IO is
       end if;
    end Put_Debug_Line;
 
-   -- --------------------------------------------------------------------------
-   -- Procedure: Put_Debug
    -- -------------------------------------------------------------------------
    procedure Put_Debug (Msg    : in String := "";
                         Debug  : in Boolean;
@@ -120,8 +114,6 @@ package body Archicheck.IO is
    end Put_Debug;
 
    -- -------------------------------------------------------------------------
-   -- Procedure: New_Debug_Line
-   -- -------------------------------------------------------------------------
    procedure New_Debug_Line (Debug  : in Boolean) is
    begin
       if Debug then
@@ -129,8 +121,6 @@ package body Archicheck.IO is
       end if;
    end New_Debug_Line;
 
-   -- -------------------------------------------------------------------------
-   -- Procedure: Put_Line
    -- -------------------------------------------------------------------------
    procedure Put_Line (Item  : String;
                        Level : Print_Out_Level := Normal) is
@@ -141,8 +131,6 @@ package body Archicheck.IO is
    end Put_Line;
 
    -- -------------------------------------------------------------------------
-   -- Procedure: Put
-   -- -------------------------------------------------------------------------
    procedure Put (Item  : String;
                   Level : Print_Out_Level := Normal) is
    begin
@@ -151,19 +139,15 @@ package body Archicheck.IO is
       end if;
    end Put;
 
-   -- --------------------------------------------------------------------------
-   -- Procedure: New_Line
    -- -------------------------------------------------------------------------
-   procedure New_Line (Spacing           : Ada.Text_IO.Positive_Count := 1;
-                       Level             : Print_Out_Level := Normal) is
+   procedure New_Line (Spacing : Ada.Text_IO.Positive_Count := 1;
+                       Level   : Print_Out_Level := Normal) is
    begin
       if Level >= Settings.Verbosity then
          Ada.Text_IO.New_Line (Spacing);
       end if;
    end New_Line;
 
-   -- -------------------------------------------------------------------------
-   -- Function: GNU_Prefix body
    -- -------------------------------------------------------------------------
    function GNU_Prefix (File   : in String;
                         Line   : in Positive;

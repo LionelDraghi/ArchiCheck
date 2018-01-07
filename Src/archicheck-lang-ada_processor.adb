@@ -79,7 +79,7 @@ package body Archicheck.Lang.Ada_Processor is
 
       Dep_List             : Units.Dependency_Targets.List := Units.Dependency_Targets.Empty_List;
       -- Dep_List store dependencies until we reach the package name, and can store the whole.
-      Unit_Kind            : Units.Unit_Kind;
+      Unit_Kind            : Units.Ada_Unit_Kind;
 
       Unit_Type_Identified : Boolean               := False;
       Implementation       : Boolean               := True;
@@ -89,7 +89,7 @@ package body Archicheck.Lang.Ada_Processor is
       -- -----------------------------------------------------------------------
       -- Procedure: Get_Unit_Name
       -- -----------------------------------------------------------------------
-      function Get_Unit_Name return String is
+      function Get_Unit_Name return Unbounded_String is
          Name : Unbounded_String := Null_Unbounded_String;
       begin
          Name := To_Unbounded_String (Lexeme);
@@ -103,7 +103,7 @@ package body Archicheck.Lang.Ada_Processor is
             end if;
          end loop;
          Put_Debug_Line ("Unit = " & To_String (Name));
-         return To_String (Name);
+         return Name;
       end Get_Unit_Name;
 
       -- -----------------------------------------------------------------------
@@ -112,10 +112,10 @@ package body Archicheck.Lang.Ada_Processor is
          Find_Next; -- jump over "("
          Find_Next;
          declare
-            Unit : constant String := Get_Unit_Name;
+            Unit : constant Unbounded_String := Get_Unit_Name;
          begin
-            Parent_Pkg_Name := To_Unbounded_String (Unit) & '.';
-            Put_Debug_Line ("   - separate from " & Unit); -- , Level => Verbose);
+            Parent_Pkg_Name := Unit & '.';
+            Put_Debug_Line ("   - separate from " & To_String (Unit)); -- , Level => Verbose);
          end;
       end Process_Subunit;
 
@@ -125,10 +125,10 @@ package body Archicheck.Lang.Ada_Processor is
          Unit_List : loop
             Find_Next;
             declare
-               Unit : constant String := Get_Unit_Name;
+               Unit : constant Unbounded_String := Get_Unit_Name;
                -- Fixme: to be replaced with the US version of Get_Unit_Name
             begin
-               Dep_List.Append ((To_Unit => To_Unbounded_String (Unit),
+               Dep_List.Append ((To_Unit => Unit,
                                  File    => To_Unbounded_String (From_Source),
                                  Line    => Ada_Lexer.Line));
 
@@ -162,11 +162,11 @@ package body Archicheck.Lang.Ada_Processor is
          end if;
 
          declare
-            Unit : constant String := To_String (Parent_Pkg_Name) & Get_Unit_Name;
+            Unit : constant Unbounded_String := Parent_Pkg_Name & Get_Unit_Name;
          begin
-            Put_Debug_Line ("in package " & Unit & " implem : " & Boolean'Image (Implementation));
+            Put_Debug_Line ("in package " & To_String (Unit) & " implem : " & Boolean'Image (Implementation));
 
-            Units.Add_Unit (Unit    => (Name           => To_Unbounded_String (Unit),
+            Units.Add_Unit (Unit    => (Name           => Unit,
                                         Lang           => Sources.Ada_2012,
                                         Kind           => Units.Package_K,
                                         Implementation => Implementation),
@@ -187,7 +187,8 @@ package body Archicheck.Lang.Ada_Processor is
          Unit_Kind := (case Token_ID is -- Fixme: déclarer un sous-type de Ada_Token
                           when Procedure_T => Units.Procedure_K,
                           when Function_T  => Units.Function_K,
-                          when others      => Units.Unknown);
+                          when others      => raise Program_Error with
+                            "calling Process_Subroutine with " & Ada_Token'Image (Token_ID));
 
          Put_Debug_Line ("5 : found unit type : " &  Ada_Token'Image (Token_ID));
          if Is_Empty (Dep_List) then
@@ -198,11 +199,11 @@ package body Archicheck.Lang.Ada_Processor is
          -- processing the subprogram declaration
          Find_Next;
          declare
-            Unit : constant String := To_String (Parent_Pkg_Name) & Get_Unit_Name;
+            Unit : constant Unbounded_String := Parent_Pkg_Name & Get_Unit_Name;
             use type Units.Unit_Kind;
          begin
-            Put_Debug_Line ("Unit name : " & " " & Unit);
-            Put_Debug_Line ("7 : after " & Unit & " : " &  Ada_Token'Image (Token_ID));
+            Put_Debug_Line ("Unit name : " & " " & To_String (Unit));
+            Put_Debug_Line ("7 : after " & To_String (Unit) & " : " &  Ada_Token'Image (Token_ID));
 
             case Token_ID is
                when Renames_T   => Implementation := False;
@@ -231,22 +232,22 @@ package body Archicheck.Lang.Ada_Processor is
 
             Put_Debug_Line ("Implem : " & Boolean'Image (Implementation));
 
-            if Unit_Kind = Units.Procedure_K then
-               Units.Add_Unit
-                 (Unit => (Name           => To_Unbounded_String (Unit),
-                           Lang           => Sources.Ada_2012,
-                           Kind           => Units.Procedure_K,
-                           Implementation => Implementation),
-                  Targets => Dep_List);
-            elsif  Unit_Kind = Units.Function_K   then
-               Units.Add_Unit
-                 (Unit => (Name           => To_Unbounded_String (Unit),
-                           Lang           => Sources.Ada_2012,
-                           Kind           => Units.Function_K,
-                           Implementation => Implementation),
-                  Targets => Dep_List);
-               -- Fixme: case sur le sous-type!
-            end if;
+            case Units.Ada_Subroutine_Kind (Unit_Kind) is
+               when Units.Procedure_K =>
+                  Units.Add_Unit
+                    (Unit => (Name           => Unit,
+                              Lang           => Sources.Ada_2012,
+                              Kind           => Units.Procedure_K,
+                              Implementation => Implementation),
+                     Targets => Dep_List);
+               when Units.Function_K  =>
+                  Units.Add_Unit
+                    (Unit => (Name           => Unit,
+                              Lang           => Sources.Ada_2012,
+                              Kind           => Units.Function_K,
+                              Implementation => Implementation),
+                     Targets => Dep_List);
+            end case;
 
             -- Let's reset the tmp list. This should be usefull only when processing
             -- a source embedding multiple package declaration, so that the "with" of
@@ -275,12 +276,12 @@ package body Archicheck.Lang.Ada_Processor is
 
          -- processing the task declaration
          declare
-            Unit : constant String := To_String (Parent_Pkg_Name) & Get_Unit_Name;
+            Unit : constant Unbounded_String := Parent_Pkg_Name & Get_Unit_Name;
          begin
-            Put_Debug_Line ("Task name : " & " " & Unit);
+            Put_Debug_Line ("Task name : " & " " & To_String (Unit));
 
             Units.Add_Unit
-              (Unit    => (Name           => To_Unbounded_String (Unit),
+              (Unit    => (Name           => Unit,
                            Lang           => Sources.Ada_2012,
                            Kind           => Units.Task_K,
                            Implementation => True), -- separate task body
@@ -312,12 +313,12 @@ package body Archicheck.Lang.Ada_Processor is
          end if;
 
          declare
-            Unit : constant String := To_String (Parent_Pkg_Name) & Get_Unit_Name;
+            Unit : constant Unbounded_String := Parent_Pkg_Name & Get_Unit_Name;
          begin
-            Put_Debug_Line ("Protected name : " & " " & Unit);
+            Put_Debug_Line ("Protected name : " & " " & To_String (Unit));
 
             Units.Add_Unit
-              (Unit    => (Name           => To_Unbounded_String (Unit),
+              (Unit    => (Name           => Unit,
                            Lang           => Sources.Ada_2012,
                            Kind           => Units.Protected_K,
                            Implementation => True), -- separate protected body
@@ -352,76 +353,69 @@ package body Archicheck.Lang.Ada_Processor is
                          & " [" & Natural'Image (Line) & ","
                          & Natural'Image (Column) & "]"); -- & Lexeme);
 
-         begin
-            -- The withed units are first stored in
-            -- a Tmp dependency list, with the Unit_Name left blank,
-            -- When the unit name is met, the Tmp list is modified to
-            -- set the Unit_Name, then added to the returned dependency list.
-            -- Limitation: only the fist Ada unit per source file is taken into account
-            -- Limitation: spec vs body recognition do not work for procedures, fonctions and so on.
+         -- The withed units are first stored in
+         -- a Tmp dependency list, with the Unit_Name left blank,
+         -- When the unit name is met, the Tmp list is modified to
+         -- set the Unit_Name, then added to the returned dependency list.
+         -- Limitation: only the fist Ada unit per source file is taken into account
+         -- Limitation: spec vs body recognition do not work for procedures, fonctions and so on.
 
-            -- Ada units are :
-            -- - procedure
-            -- - function
-            -- - package
-            -- Each of them can be spec, body, generic, instantiation or renaming (including generic renaming)
-            -- And body subunits, that is separate bodies for :
-            -- - procedure
-            -- - function
-            -- - package
-            -- - task
-            -- - protected
-            -- Exemple :
-            -- > separate (Y)
-            -- > protected body X is
-            --
+         -- Ada units are :
+         -- - procedure
+         -- - function
+         -- - package
+         -- Each of them can be spec, body, generic, instantiation or renaming (including generic renaming)
+         -- And body subunits, that is separate bodies for :
+         -- - procedure
+         -- - function
+         -- - package
+         -- - task
+         -- - protected
+         -- Exemple :
+         -- > separate (Y)
+         -- > protected body X is
+         --
 
-            case Token_ID is
-               when With_T =>
-                  if In_Generic_Formal_Part then
-                     Find_Next; -- To skip the "with"
-                     Find_Next; -- To skip the following "procedure" or whatever
-                  else
-                     Process_With;
-                  end if;
+         case Token_ID is
+            when With_T =>
+               if In_Generic_Formal_Part then
+                  Find_Next; -- To skip the "with"
+                  Find_Next; -- To skip the following "procedure" or whatever
+               else
+                  Process_With;
+               end if;
 
-               when Separate_T =>
-                  Process_Subunit;
+            when Separate_T =>
+               Process_Subunit;
 
-               when Package_T =>
-                  Process_Pkg;
-                  exit Source_Analysis;
-                  -- This optimization (exiting before end of file) prevents multiple pkg per file processing.
-                  -- On the other hand, GtkAda analysis drop from 8s to 0.7s when uncommenting this line.
-                  -- Chechekd with :
-                  -- > time ../../Obj/archicheck -lf -I gtkada
+            when Package_T =>
+               Process_Pkg;
+               exit Source_Analysis;
+               -- This optimization (exiting before end of file) prevents multiple pkg per file processing.
+               -- On the other hand, GtkAda analysis drop from 8s to 0.7s when uncommenting this line.
+               -- Chechekd with :
+               -- > time ../../Obj/archicheck -lf -I gtkada
 
                when Procedure_T | Function_T =>
-                  Process_Subroutine;
-                  exit Source_Analysis; -- See optimization note above.
+               Process_Subroutine;
+               exit Source_Analysis; -- See optimization note above.
 
                when Protected_T =>
-                  Process_Protected;
-                  exit Source_Analysis; -- See optimization note above.
+               Process_Protected;
+               exit Source_Analysis; -- See optimization note above.
 
                when Task_T =>
-                  Process_Task;
-                  exit Source_Analysis; -- See optimization note above.
+               Process_Task;
+               exit Source_Analysis; -- See optimization note above.
 
                when Generic_T =>
-                  In_Generic_Formal_Part := True;
-                  Find_Next; -- To skip the "generic" word
+               In_Generic_Formal_Part := True;
+               Find_Next; -- To skip the "generic" word
 
-               when others =>
-                  Find_Next;
+            when others =>
+               Find_Next;
 
-            end case;
-
-         exception
-            when Error : others =>
-               IO.Put_Error (IO.GNU_Prefix (From_Source, Line, Column) & "parse exception:");
-               IO.Put_Error (Ada.Exceptions.Exception_Information (Error));
-         end;
+         end case;
 
          exit Source_Analysis when Token_ID = End_of_File_T;
 
@@ -430,6 +424,13 @@ package body Archicheck.Lang.Ada_Processor is
       if not Unit_Type_Identified then IO.Put_Warning ("Unknown Ada Unit in " & From_Source); end if;
 
       Ada.Text_IO.Close (File);
+
+   exception
+      when Error : others =>
+         IO.Put_Exception (IO.GNU_Prefix (From_Source, Line, Column)
+                           & "parse exception:");
+         IO.Put_Exception (Ada.Exceptions.Exception_Information (Error));
+         Ada.Text_IO.Close (File);
 
    end Analyze_Dependencies;
 

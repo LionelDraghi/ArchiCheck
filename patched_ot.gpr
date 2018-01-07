@@ -5,5 +5,12 @@ library project patched_ot extends "/usr/share/ada/adainclude/opentoken" is
    for Object_Dir   use "Obj";
    for Externally_Built use "False";
 
+   package Compiler is
+      Debug_Switches := 
+        ("-g", "-O0",  "-gnatQ", "-gnatf",  "-gnato", "-fstack-check", "-gnata", "-gnateE", "-gnatVa", "-gnatwa");
+      for Switches ("ada") use Debug_Switches;
+      
+   end Compiler;
+   
 end patched_ot;
 

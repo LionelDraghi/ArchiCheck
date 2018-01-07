@@ -41,7 +41,10 @@ private package Archicheck.Units is
                       Class_K,
                       Interface_K,
                       Component,
-                      Unknown) with Default_Value => Unknown;
+                      Unknown); --  with Default_Value => Unknown;
+   subtype Java_Unit_Kind      is Unit_Kind range Class_K .. Interface_K;
+   subtype Ada_Unit_Kind       is Unit_Kind range Package_K .. Interface_K;
+   subtype Ada_Subroutine_Kind is Unit_Kind range Procedure_K .. Function_K;
 
    -- --------------------------------------------------------------------------
    function Image (Kind : Unit_Kind) return String is
@@ -100,27 +103,15 @@ private package Archicheck.Units is
    Dependency_List : Dependency_Lists.List;
 
    -- --------------------------------------------------------------------------
-   -- Function Unit_Description
-   -- Purpose:
-   --   Return a string describing the unit, depending on the language.
-   --   It can be "package body" for Ada
-   --   or "interface" for Java
-   -- Exceptions:
-   --   None
-   -- --------------------------------------------------------------------------
    function Unit_Description (U : in Unit_Attributes) return String;
+   --   Return a string describing the unit, depending on the language.
+   --   It can be for exemple "package body" for Ada or "interface" for Java.
 
    -- --------------------------------------------------------------------------
-   -- Procedure: Dump
-   -- Purpose:
-   --   Put all dependencies known at call time, one per line, in the following
-   --   format :
-   --   > P4 specification depends on P5
-   --
-   -- Exceptions:
-   --   None
-   -- --------------------------------------------------------------------------
    procedure Dump;
+   -- Put all dependencies known at call time, one per line, in the following
+   -- format :
+   -- > P4 specification depends on P5
 
    -- --------------------------------------------------------------------------
    procedure Add_Unit (Unit    : Unit_Attributes;
@@ -131,12 +122,12 @@ private package Archicheck.Units is
                             Targets   : Dependency_Targets.List);
 
    -- --------------------------------------------------------------------------
+   function Is_In (Unit    : String;
+                   In_Unit : String) return Boolean;
    -- return True if :
    -- - A is B
    -- - A is a child of B
    -- - A is contained by B, even indirectly
    -- Case Insensitive
-   function Is_In (Unit    : String;
-                   In_Unit : String) return Boolean;
 
 end Archicheck.Units;

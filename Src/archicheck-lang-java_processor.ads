@@ -20,6 +20,8 @@
 
 package Archicheck.Lang.Java_Processor is
 
+   -- Here is a tutorial on Java packages :
+   -- https://docs.oracle.com/javase/tutorial/java/package/packages.html
 
    type Java_Interface is new Lang_Interface with null record;
 

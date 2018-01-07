@@ -142,9 +142,9 @@ Command line test suite / unknown -xyz option [Successful](tests_status.md#succe
   (no rules file, no -ld or -lf, etc.)
 
   When running:
-  > mkdir -p dir6
-  > touch dir6/src.adb
-  > archicheck -I dir6
+  > mkdir -p dir6  
+  > touch dir6/src.adb  
+  > archicheck -I dir6  
 
   Expecting:
 
@@ -232,7 +232,7 @@ Command line test suite / -lr option without rules file [Successful](tests_statu
 
 
   When running:
-  > mkdir dir9
+  > mkdir dir9  
   > archicheck -lf -I dir9
 
   Expecting:
@@ -241,7 +241,7 @@ Command line test suite / -lr option without rules file [Successful](tests_statu
 Warning : Cannot list files, no sources found to analyze
 ```
 
-  Test return 1 is -We or --Warnings=error
+  archicheck return 1 if -We or --Warnings=error
 
 Command line test suite / Legal line, but no src file in the given (existing) directory [Successful](tests_status.md#successful)
 
@@ -249,7 +249,9 @@ Command line test suite / Legal line, but no src file in the given (existing) di
 
 
   When running:
+
   > touch rules.txt src.adb
+
   > archicheck rules.txt -I src.adb
 
   Expecting:
@@ -266,7 +268,9 @@ Command line test suite / file given to -I, instead of a directory [Successful](
 
   When running:
   > mkdir -p dir11
+
   > echo Interfaces use is forbidden > rules.txt
+
   > archicheck rules.txt -ld -I dir11
 
   Expecting:
@@ -283,7 +287,9 @@ Command line test suite / -ld given, but no source found [Successful](tests_stat
 
   When running:
   > mkdir -p dir12
+
   > touch dir12/src.adb
+
   > archicheck -I dir12
 
   Expecting:

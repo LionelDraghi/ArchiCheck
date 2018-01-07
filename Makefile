@@ -218,6 +218,7 @@ cmd_line.md:
 doc: dashboard cmd_line.md
 	echo Make Doc
 	mkdocs build 
+	chmod +x ./site/archicheck
     
 .PHONY : clean
 clean:

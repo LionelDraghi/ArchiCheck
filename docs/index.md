@@ -13,6 +13,7 @@ But `A` code just said `import B`, and what the software designer had in mind is
 
 The [Archicheck_Overview.pdf](Archicheck_Overview.pdf) provides you with some more details on that topic. 
 
+
 Run it!
 -------
 
@@ -32,9 +33,10 @@ GUI is a layer over DB
 
 Run ArchiCheck that way :  
 `archicheck -I My_Src_Dir My_Architecture.txt`  
-and it will for example checks that pkg_3 (in the lower layer) is not using pkg_2 (in the upper layer).
 
-And that's it!
+It will check that the code comply with your architecture.
+
+For example, here, it will check that pkg_3 or pkg_4 (in the lower layer) are not using pkg_1 or pkg_2 (in the upper layer).
 
 
 Further readings 
