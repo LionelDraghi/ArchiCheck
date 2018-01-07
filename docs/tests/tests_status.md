@@ -2,7 +2,7 @@
 
 ## Successful
 
-   68 tests OK
+   70 tests OK
 
   - [Use rules test suite / May_Use rule, code compliant, no output expected]()
   - [Use rules test suite / Using a unit from a non allowed unit]()
@@ -25,12 +25,14 @@
   - [ArchiCheck code test suite / -lf test]()
   - [ArchiCheck code test suite / -ld test]()
   - [ArchiCheck code test suite / rules test]()
-  - [Batik test suite / --list_file test, recursive and non recursive]()
-  - [Batik test suite / simple import]()
-  - [Batik test suite / interface]()
+  - [Batik test suite / --list_file test]()
+  - [Batik test suite / public class]()
+  - [Batik test suite / public interface class]()
   - [Batik test suite / no import]()
   - [Batik test suite / no package]()
+  - [Batik test suite / public abstract class]()
   - [Batik test suite / Let's add dependencies to Browser and Rasterizer into a Transcoder class]()
+  - [Batik test suite / -ld test]()
   - [Non recursive file identification test suite / Simple test]()
   - [Precedence rules unit test / Declaration of a component already existing in code]()
   - [Precedence rules unit test / Alowing a child of forbidden unit]()
@@ -80,10 +82,9 @@
 
 ## Empty
 
-   5 empty tests
+   4 empty tests
 
   - [Use rules test suite / Unit_List may use ... rules]()
   - [Globbing Character test suite / rules test]()
   - [Globbing Character test suite / illegal use of Interfaces from Application_Layer]()
-  - [Batik test suite / real Batik code]()
   - [Rules file syntax test suite / Punctuation and syntaxic sugar]()

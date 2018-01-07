@@ -17,12 +17,11 @@ test1: ../../Obj/archicheck
 	${TR} start "Simple test"
 	${TR} cmt 
 	${TR} cmt "if sources :"
-	${TR} cmt 
-	${TR} cmt "> ./dir3/c-d.ads"
-	${TR} cmt "> ./dir3/c.ads"
-	${TR} cmt "> ./dir1/a.ads"
-	${TR} cmt "> ./dir1/a.adb"
-	${TR} cmt "> ./dir2/b.ads"
+	${TR} cmt "> ./dir3/c-d.ads  "
+	${TR} cmt "> ./dir3/c.ads  "
+	${TR} cmt "> ./dir1/a.ads  "
+	${TR} cmt "> ./dir1/a.adb  "
+	${TR} cmt "> ./dir2/b.ads  "
 	${TR} cmt 
 	${TR} cmt "then"
 	${TR} cmt 

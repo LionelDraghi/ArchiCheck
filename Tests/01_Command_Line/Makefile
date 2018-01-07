@@ -125,9 +125,9 @@ test6:
 	${TR} cmt "(no rules file, no -ld or -lf, etc.)"	
 	${TR} cmt
 	${TR} cmt "When running:"		
-	${TR} cmt "> mkdir -p dir6"
-	${TR} cmt "> touch dir6/src.adb"
-	${TR} cmt "> archicheck -I dir6"		
+	${TR} cmt "> mkdir -p dir6  "
+	${TR} cmt "> touch dir6/src.adb  "
+	${TR} cmt "> archicheck -I dir6  "		
 	${TR} cmt 
 	${TR} cmt "Expecting:"		
 
@@ -175,8 +175,8 @@ test9:
 	${TR} start "Legal line, but no src file in the given (existing) directory"
 	${TR} cmt
 	${TR} cmt "When running:"		
-	${TR} cmt "> mkdir dir9"
-	${TR} cmt "> archicheck -lf -I dir9"		
+	${TR} cmt "> mkdir dir9  "
+	${TR} cmt "> archicheck -lf -I dir9  "		
 	${TR} cmt 
 	${TR} cmt "Expecting:"		
 
@@ -192,7 +192,7 @@ test9:
 	../../Obj/archicheck -lf -I dir9 	> err9.txt
 	${TR} assert true /usr/bin/sdiff "-s expected_err9.txt err9.txt"
 
-	${TR} cmt "Test return 1 is -We or --Warnings=error"		
+	${TR} cmt "archicheck return 1 if -We or --Warnings=error"		
 	test ! `../../Obj/archicheck -We -lf -I dir9 	> err9.txt 2>&1`
 	${TR} assert true /usr/bin/sdiff "-s expected_err9.txt err9.txt"
 	test ! `../../Obj/archicheck --Warnings=error -lf -I dir9 	> err9.txt 2>&1`
@@ -205,8 +205,8 @@ test10:
 	${TR} start "file given to -I, instead of a directory"
 	${TR} cmt
 	${TR} cmt "When running:"		
-	${TR} cmt "> touch rules.txt src.adb"
-	${TR} cmt "> archicheck rules.txt -I src.adb"		
+	${TR} cmt "> touch rules.txt src.adb  "
+	${TR} cmt "> archicheck rules.txt -I src.adb  "		
 	${TR} cmt 
 	${TR} cmt "Expecting:"		
 
@@ -229,7 +229,9 @@ test11:
 	${TR} cmt
 	${TR} cmt "When running:"		
 	${TR} cmt "> mkdir -p dir11"
+	${TR} cmt
 	${TR} cmt "> echo ""Interfaces use is forbidden"" > rules.txt"
+	${TR} cmt
 	${TR} cmt "> archicheck rules.txt -ld -I dir11"		
 	${TR} cmt 
 	${TR} cmt "Expecting:"		
@@ -253,9 +255,9 @@ test12:
 	${TR} start "src found, but nothing to do whith it"		
 	${TR} cmt
 	${TR} cmt "When running:"		
-	${TR} cmt "> mkdir -p dir12"
-	${TR} cmt "> touch dir12/src.adb"
-	${TR} cmt "> archicheck -I dir12"		
+	${TR} cmt "> mkdir -p dir12  "
+	${TR} cmt "> touch dir12/src.adb  "
+	${TR} cmt "> archicheck -I dir12  "		
 	${TR} cmt 
 	${TR} cmt "Expecting:"		
 

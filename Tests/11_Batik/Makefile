@@ -5,7 +5,7 @@ TR=../Tools/testrec
 
 .PHONY : clean header
 
-check: ../../Obj/archicheck header test1 test2 test3 test4 test5 test6 test7
+check: ../../Obj/archicheck header test1 test2 test3 test4 test5 test6 test7 test8
 
 header:
 	@ #---------------------------------------------------------------------
@@ -18,40 +18,27 @@ header:
 
 test1:
 	@ #---------------------------------------------------------------------
-	${TR} start "--list_file test, recursive and non recursive"
+	${TR} start "--list_file test"
 
-	@ ${TR} cmt "> archicheck -lf -I ./batik-1.9/test-sources/org/apache/batik/dom"
-	@ ${TR} cmt "Expected (`cat expected_output.1a | wc -l` files) :"
+	@ ${TR} cmt "> archicheck -lf -r -I ./batik-1.9"
+	@ ${TR} cmt "Expected (`cat expected_output.1 | wc -l` files) :"
 	@ ${TR} cmt 
 	@ ${TR} cmt '```'
-	head -n 3 expected_output.1a >> testrec.md
-	echo '...'					 >> testrec.md
-	tail -n 3 expected_output.1a >> testrec.md
-	@ ${TR} cmt '```'
-	@ ${TR} cmt 
-
-	@ ../../Obj/archicheck -lf -I ./batik-1.9/test-sources/org/apache/batik/dom > output.1a
-	${TR} assert true /usr/bin/sdiff "-s expected_output.1a output.1a"
-
-	@ ${TR} cmt "> archicheck -lf -r -I ./batik-1.9/test-sources/org/apache/batik/dom"
-	@ ${TR} cmt "Expected (`cat expected_output.1b | wc -l` files) :"
-	@ ${TR} cmt 
-	@ ${TR} cmt '```'
-	head -n 3 expected_output.1b >> testrec.md
-	echo '...'					 >> testrec.md
-	tail -n 3 expected_output.1b >> testrec.md
+	head -n 3 expected_output.1 >> testrec.md
+	echo '...'					>> testrec.md
+	tail -n 3 expected_output.1 >> testrec.md
 	@ ${TR} cmt '```'
 	@ ${TR} cmt 
 
-	@ ../../Obj/archicheck -lf -r -I ./batik-1.9/test-sources/org/apache/batik/dom > output.1b
-	${TR} assert true /usr/bin/sdiff "-s expected_output.1b output.1b"
+	@ ../../Obj/archicheck -lf -r -I ./batik-1.9 > output.1
+	${TR} assert true /usr/bin/sdiff "-s expected_output.1 output.1"
 
 	${TR} end
 
 
 test2:
 	@ #---------------------------------------------------------------------
-	${TR} start "simple import "
+	${TR} start "public class"
 
 	- @ mkdir -p dir2
 	@ cp ./batik-1.9/contrib/jsvg/JSVG.java dir2
@@ -79,7 +66,7 @@ test2:
 
 test3:
 	@ #---------------------------------------------------------------------
-	${TR} start "interface"
+	${TR} start "public interface class"
 
 	- @ mkdir -p dir3
 	@ cp ./batik-1.9/batik-dom/src/main/java/org/apache/batik/dom/events/NodeEventTarget.java dir3
@@ -138,12 +125,12 @@ test5:
 
 	- @ mkdir -p dir5
 	@ > dir5/MyClass.java
-	@ echo "import org.w3c.dom.DOMException;" 			>> dir5/MyClass.java
-	@ echo "import org.w3c.dom.events.Event;" 			>> dir5/MyClass.java
-	@ echo "" 							>> dir5/MyClass.java
+	@ echo "import org.w3c.dom.DOMException;" 						>> dir5/MyClass.java
+	@ echo "import org.w3c.dom.events.Event;" 						>> dir5/MyClass.java
+	@ echo "" 														>> dir5/MyClass.java
 	@ echo "public interface NodeEventTarget extends EventTarget {"	>> dir5/MyClass.java
-	@ echo ""				 			>> dir5/MyClass.java
-	@ echo "}" 							>> dir5/MyClass.java
+	@ echo ""				 										>> dir5/MyClass.java
+	@ echo "}" 														>> dir5/MyClass.java
 
 	@ ${TR} cmt 
 	@ ${TR} cmt '```'
@@ -167,7 +154,7 @@ test5:
 
 test6:
 	@ #---------------------------------------------------------------------
-	${TR} start "real Batik code"
+	${TR} start "public abstract class"
 
 	- @ mkdir -p dir6
 	@ cp ./batik-1.9/batik-transcoder/src/main/java/org/apache/batik/transcoder/SVGAbstractTranscoder.java dir6
@@ -181,11 +168,11 @@ test6:
 	@ ${TR} cmt 
 
 	> expected_output.6 
-	@ ${TR} cmt "> archicheck rules.B -I dir6"
+	@ ${TR} cmt "> archicheck rules.B -q -I dir6"
 	@ ${TR} cmt "No output expected"
 
-	### @ ../../Obj/archicheck rules.B -I dir6 > output.6
-	### ${TR} assert true /usr/bin/sdiff "-s expected_output.6 output.6"
+	@ ../../Obj/archicheck rules.B -q -I dir6 > output.6
+	${TR} assert true /usr/bin/sdiff "-s expected_output.6 output.6"
 
 	${TR} end
 
@@ -195,18 +182,18 @@ test7:
 
 	- @ mkdir -p dir7
 	@ > dir7/MyClass.java
-	@ echo "package org.apache.batik.transcoder;"			>> dir7/MyClass.java
-	@ echo "" 							>> dir7/MyClass.java
-	@ echo "import org.w3c.dom.Browser.Event;" 			>> dir7/MyClass.java
-	@ echo "import org.apache.batik.apps.Rasterizer;" 	  	>> dir7/MyClass.java
-	@ echo "" 							>> dir7/MyClass.java
+	@ echo "package org.apache.batik.transcoder;"					>> dir7/MyClass.java
+	@ echo "" 														>> dir7/MyClass.java
+	@ echo "import org.w3c.dom.Browser.Event;" 						>> dir7/MyClass.java
+	@ echo "import org.apache.batik.apps.Rasterizer;" 	  			>> dir7/MyClass.java
+	@ echo "" 														>> dir7/MyClass.java
 	@ echo "public interface NodeEventTarget extends EventTarget {"	>> dir7/MyClass.java
-	@ echo ""				 			>> dir7/MyClass.java
-	@ echo "}" 							>> dir7/MyClass.java
+	@ echo ""				 										>> dir7/MyClass.java
+	@ echo "}" 														>> dir7/MyClass.java
 
 	@ ${TR} cmt 
 	@ ${TR} cmt '```'
-	sed -n '/package /,/public abstract class/p' dir7/MyClass.java >> testrec.md
+	cat dir7/MyClass.java >> testrec.md
 	@ ${TR} cmt '```'
 	@ ${TR} cmt 
 
@@ -221,6 +208,26 @@ test7:
 
 	@ test ! `../../Obj/archicheck rules.B -I dir7 > output.7`
 	${TR} assert true /usr/bin/sdiff "-s expected_output.7 output.7"
+
+	${TR} end
+
+test8:
+	@ #---------------------------------------------------------------------
+	${TR} start "-ld test"
+
+	@ ${TR} cmt "> archicheck -ld -r -I ./batik-1.9 | sort"
+	@ ${TR} cmt 
+	@ ${TR} cmt "`cat expected_output.8 | wc -l` dependencies expected :"
+	@ ${TR} cmt 
+	@ ${TR} cmt '```'
+	head -n 10 expected_output.8 >> testrec.md
+	echo '...'				  	 >> testrec.md
+	tail -n 10 expected_output.8 >> testrec.md
+	@ ${TR} cmt '```'
+	@ ${TR} cmt 
+
+	@ ../../Obj/archicheck -ld -r -I ./batik-1.9 | sort > output.8
+	${TR} assert true /usr/bin/sdiff "-sbB expected_output.8 output.8"
 
 	${TR} end
 

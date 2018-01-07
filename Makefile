@@ -48,15 +48,15 @@ build:
 	echo Make debug build
 	@ - mkdir -p Obj lib
 
-	gprbuild -q -P patched_ot
-	gnat make -q -s -Xmode=debug -Parchicheck.gpr
+	gprbuild -P patched_ot
+	gprbuild -s -Xmode=debug -Parchicheck.gpr
 	# -q : quiet
 	# -s : recompile if compiler switches have changed
 
 .PHONY : build_release
 build_release:
-	gprbuild -q -P patched_ot
-	gnat make -q -s -Xmode=release -Parchicheck.gpr
+	gprbuild -P patched_ot
+	gprbuild -s -Xmode=release -Parchicheck.gpr
 	# -q : quiet
 	# -s : recompile if compiler switches have changed
 

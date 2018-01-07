@@ -233,7 +233,7 @@ Command line test suite / -lr option without rules file [Successful](tests_statu
 
   When running:
   > mkdir dir9  
-  > archicheck -lf -I dir9
+  > archicheck -lf -I dir9  
 
   Expecting:
 
@@ -249,10 +249,8 @@ Command line test suite / Legal line, but no src file in the given (existing) di
 
 
   When running:
-
-  > touch rules.txt src.adb
-
-  > archicheck rules.txt -I src.adb
+  > touch rules.txt src.adb  
+  > archicheck rules.txt -I src.adb  
 
   Expecting:
 
@@ -286,11 +284,9 @@ Command line test suite / -ld given, but no source found [Successful](tests_stat
 
 
   When running:
-  > mkdir -p dir12
-
-  > touch dir12/src.adb
-
-  > archicheck -I dir12
+  > mkdir -p dir12  
+  > touch dir12/src.adb  
+  > archicheck -I dir12  
 
   Expecting:
 

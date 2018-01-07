@@ -7,12 +7,11 @@
 
 
   if sources :
-
-  > ./dir3/c-d.ads
-  > ./dir3/c.ads
-  > ./dir1/a.ads
-  > ./dir1/a.adb
-  > ./dir2/b.ads
+  > ./dir3/c-d.ads  
+  > ./dir3/c.ads  
+  > ./dir1/a.ads  
+  > ./dir1/a.adb  
+  > ./dir2/b.ads  
 
   then
 

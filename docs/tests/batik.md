@@ -3,38 +3,25 @@
 
 
 
-##  Batik test suite / --list_file test, recursive and non recursive
+##  Batik test suite / --list_file test
 
-  > archicheck -lf -I ./batik-1.9/test-sources/org/apache/batik/dom
-  Expected (25 files) :
+  > archicheck -lf -r -I ./batik-1.9
+  Expected (1658 files) :
 
 ```
-batik-1.9/test-sources/org/apache/batik/dom/ReplaceChildTest.java
-batik-1.9/test-sources/org/apache/batik/dom/ElementTraversalTest.java
-batik-1.9/test-sources/org/apache/batik/dom/NodeTextContentTest.java
+batik-1.9/batik-transcoder/src/main/java/org/apache/batik/transcoder/TranscoderInput.java
+batik-1.9/batik-transcoder/src/main/java/org/apache/batik/transcoder/SVGAbstractTranscoder.java
+batik-1.9/batik-transcoder/src/main/java/org/apache/batik/transcoder/XMLAbstractTranscoder.java
 ...
-batik-1.9/test-sources/org/apache/batik/dom/TextReplaceWholeTextTest.java
-batik-1.9/test-sources/org/apache/batik/dom/NodeBaseURITest.java
-batik-1.9/test-sources/org/apache/batik/dom/DocumentAdoptNodeTest.java
-```
-
-  > archicheck -lf -r -I ./batik-1.9/test-sources/org/apache/batik/dom
-  Expected (28 files) :
-
-```
-batik-1.9/test-sources/org/apache/batik/dom/ReplaceChildTest.java
-batik-1.9/test-sources/org/apache/batik/dom/ElementTraversalTest.java
-batik-1.9/test-sources/org/apache/batik/dom/NodeTextContentTest.java
-...
-batik-1.9/test-sources/org/apache/batik/dom/svg/EcmaScriptSVGDOMTest.java
-batik-1.9/test-sources/org/apache/batik/dom/svg/ImportNodeTest.java
-batik-1.9/test-sources/org/apache/batik/dom/svg/CloneNodeTest.java
+batik-1.9/contrib/rasterizertask/sources/org/apache/tools/ant/taskdefs/optional/RasterizerTask.java
+batik-1.9/contrib/rasterizertask/sources/org/apache/tools/ant/taskdefs/optional/RasterizerTaskSVGConverterController.java
+batik-1.9/contrib/scroll/ScrollExample.java
 ```
 
 
-Batik test suite / --list_file test, recursive and non recursive [Successful](tests_status.md#successful)
+Batik test suite / --list_file test [Successful](tests_status.md#successful)
 
-##  Batik test suite / simple import 
+##  Batik test suite / public class
 
 
 ```
@@ -78,9 +65,9 @@ org.apache.batik.apps.jsvg.JSVG class depends on org.apache.batik.swing.svg.SVGU
 ```
 
 
-Batik test suite / simple import [Successful](tests_status.md#successful)
+Batik test suite / public class [Successful](tests_status.md#successful)
 
-##  Batik test suite / interface
+##  Batik test suite / public interface class
 
 
 ```
@@ -117,7 +104,7 @@ org.apache.batik.dom.events.NodeEventTarget interface depends on org.w3c.dom.eve
 ```
 
 
-Batik test suite / interface [Successful](tests_status.md#successful)
+Batik test suite / public interface class [Successful](tests_status.md#successful)
 
 ##  Batik test suite / no import
 
@@ -167,7 +154,7 @@ NodeEventTarget interface depends on org.w3c.dom.events.Event
 
 Batik test suite / no package [Successful](tests_status.md#successful)
 
-##  Batik test suite / real Batik code
+##  Batik test suite / public abstract class
 
 
   This class is in transcoder, and uses Bridge and GVT, and that's OK
@@ -232,10 +219,10 @@ import org.w3c.dom.svg.SVGSVGElement;
 public abstract class SVGAbstractTranscoder extends XMLAbstractTranscoder {
 ```
 
-  > archicheck rules.B -I dir6
+  > archicheck rules.B -q -I dir6
   No output expected
 
-Batik test suite / real Batik code [Empty](tests_status.md#empty)
+Batik test suite / public abstract class [Successful](tests_status.md#successful)
 
 ##  Batik test suite / Let's add dependencies to Browser and Rasterizer into a Transcoder class
 
@@ -262,3 +249,36 @@ Error : dir7/MyClass.java:4: org.apache.batik.transcoder.NodeEventTarget is in C
 
 
 Batik test suite / Let's add dependencies to Browser and Rasterizer into a Transcoder class [Successful](tests_status.md#successful)
+
+##  Batik test suite / -ld test
+
+  > archicheck -ld -r -I ./batik-1.9 | sort
+
+  10717 dependencies expected :
+
+```
+AppletDemo class depends on java.io.IOException
+AppletDemo class depends on java.net.URL
+AppletDemo class depends on javax.swing.JApplet
+AppletDemo class depends on org.apache.batik.dom.svg.SAXSVGDocumentFactory
+AppletDemo class depends on org.apache.batik.swing.JSVGCanvas
+AppletDemo class depends on org.apache.batik.util.XMLResourceDescriptor
+AppletDemo class depends on org.w3c.dom.Document
+AppletDemo class depends on org.w3c.dom.Element
+AppletDemo class depends on org.w3c.dom.Node
+com.test.script.EventListenerInitializerImpl class depends on org.w3c.dom.Element
+...
+org.test.ScrollExample class depends on javax.swing.WindowConstants
+org.test.ScrollExample class depends on org.apache.batik.swing.*
+org.w3c.dom.events.DocumentEvent interface depends on org.w3c.dom.DOMException
+org.w3c.dom.events.EventTarget interface depends on org.w3c.dom.DOMException
+org.w3c.dom.events.KeyboardEvent interface depends on org.w3c.dom.views.AbstractView
+org.w3c.dom.events.MouseEvent interface depends on org.w3c.dom.views.AbstractView
+org.w3c.dom.events.MutationEvent interface depends on org.w3c.dom.Node
+org.w3c.dom.events.MutationNameEvent interface depends on org.w3c.dom.Node
+org.w3c.dom.events.TextEvent interface depends on org.w3c.dom.views.AbstractView
+org.w3c.dom.events.UIEvent interface depends on org.w3c.dom.views.AbstractView
+```
+
+
+Batik test suite / -ld test [Successful](tests_status.md#successful)

@@ -19,7 +19,7 @@ Use rules test suite / May_Use rule, code compliant, no output expected [Success
 
 ##  Use rules test suite / Using a unit from a non allowed unit
 
-  P4 body is using Interfaces.C : OK
+  P4 body is using Interfaces.C : OK  
   P1 body is using Interfaces.C : should complain
 
   Expecting :

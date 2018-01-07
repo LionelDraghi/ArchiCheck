@@ -47,7 +47,7 @@ test2:
 	@ ${CREATE_PKG} P1 body  -in dir2 -with Interfaces.C
 	@ ${CREATE_PKG} P4 body  -in dir2 -with Interfaces.C
 	
-	@ ${TR} cmt "P4 body is using Interfaces.C : OK"
+	@ ${TR} cmt "P4 body is using Interfaces.C : OK  "
 	@ ${TR} cmt "P1 body is using Interfaces.C : should complain"
 	@ ${TR} cmt 
 	@ ${TR} cmt 'Expecting :'
