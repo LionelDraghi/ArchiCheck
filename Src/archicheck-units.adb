@@ -28,14 +28,15 @@ with Ada.Strings.Hash_Case_Insensitive;
 
 package body Archicheck.Units is
 
-   -- Change default Debug parameter value to enable/disable Debug messages in this package
+   -- Change default Debug parameter value to enable/disable Debug messages
+   -- in this package
    -- --------------------------------------------------------------------------
    procedure Put_Debug_Line
      (Msg    : in String  := "";
-      Debug  : in Boolean := Settings.Debug_Mode; --True; -- change to True to debug this package
+      Debug  : in Boolean := Settings.Debug_Mode; -- change to True to debug
       Prefix : in String  := "Units") renames Archicheck.IO.Put_Debug_Line;
 
-   -- -------------------------------------------------------------------------
+   -- --------------------------------------------------------------------------
    function "+" (Name : Unit_Name) return String is
      (To_String (Name));
    function "+" (Name : String) return Unit_Name is
@@ -44,11 +45,6 @@ package body Archicheck.Units is
      (Unbounded_String (Name));
    function "+" (Name : Unbounded_String) return Unit_Name is
      (Unit_Name (Name));
-
-   -- --------------------------------------------------------------------------
-   function Location_Image (Dep : Dependency_Target) return String is
-     (Sources.GNU_Prefix (File => Dep.File,
-                          Line => Dep.Line));
 
    -- --------------------------------------------------------------------------
    function Unit_List_Image (List : Dependency_Targets.List) return String is
@@ -152,11 +148,9 @@ package body Archicheck.Units is
                       & " " & Unit_Description (R.Source)
                       & " depends on "
                       & (+D.To_Unit),
-                      Level => Quiet); --  & Image (D.To.Kind));
-
+                      Level => Quiet);
             -- gives file details only when verbose :
-            Put_Line ("   Found line" & Natural'Image (D.Line)
-                      & " in " & (+D.File),
+            Put_Line ("   according to " & Location_Image (D.Location),
                       Level => Verbose);
          end loop;
       end loop;
@@ -200,8 +194,8 @@ package body Archicheck.Units is
       Cursor := Component_Map.Find (Key);
 
       if Component_Maps.Has_Element (Cursor) then
-         -- The component is already know
-         -- Let's initialize the dependency list with already known dependencies :
+         -- The component is already known
+         -- Initializing the dependency list with already known dependencies :
          Tmp_List := Component_Maps.Element (Position => Cursor);
          Put_Debug_Line (To_String (Component.Name)
                          & " already known, with dependencies : "
@@ -211,8 +205,8 @@ package body Archicheck.Units is
       -- 3. Owner_Key map management, and Tmp_List building :
       for D of Targets loop
          declare
-            Owner_Key : constant Unit_Name := D.To_Unit;
-            C         : constant Owner_Maps.Cursor := Owner_Map.Find (Owner_Key);
+            Owner : constant Unit_Name := D.To_Unit;
+            C     : constant Owner_Maps.Cursor := Owner_Map.Find (Owner);
             use Owner_Maps;
             use type Dependency_Targets.List;
             use Sources;
@@ -220,22 +214,22 @@ package body Archicheck.Units is
             if C = Owner_Maps.No_Element then
                -- normal case, the Unit is not already in a Component
                Dependency_Targets.Append (Tmp_List, D);
-               Owner_Map.Insert (Owner_Key,
-                                 New_Item => (Component.Name, D.File, D.Line));
-               Put_Debug_Line ("Adding " &  (+Owner_Key) & " to Owner_Maps");
+               Owner_Map.Insert (Owner,
+                                 New_Item => (Component.Name, D.Location));
+               Put_Debug_Line ("Adding " &  (+Owner) & " to Owner_Maps");
 
             else
                declare
                   Dep : constant Dependency_Target := Owner_Maps.Element (C);
                begin
                   IO.Put_Error
-                    (Location_Image (D) & To_String (D.To_Unit) & " already in "
-                     & To_String (Dep.To_Unit) & " (cf. "
-                     & Location_Image (Dep) & "), can't be added to "
+                    (Location_Image (D.Location) & To_String (D.To_Unit)
+                     & " already in " & To_String (Dep.To_Unit) & " (cf. "
+                     & Location_Image (Dep.Location) & "), can't be added to "
                      & To_String (Component.Name));
                end;
             end if;
-            -- We don't care if some dependencies are equals, it shouldn't occur.
+            -- We don't care if some dependencies are equals, it shouldn't occur
          end;
       end loop;
 
@@ -247,9 +241,9 @@ package body Archicheck.Units is
                            Unit_List_Image (Tmp_List));
       else
          Component_Map.Insert (Key => Key, New_Item => Tmp_List);
-         Put_Debug_Line ("Adding Component " &
-                           To_String (Component.Name) & " with dependencies = " &
-                           Unit_List_Image (Tmp_List));
+         Put_Debug_Line ("Adding Component "
+                         & To_String (Component.Name) & " with dependencies = "
+                         & Unit_List_Image (Tmp_List));
 
       end if;
 
@@ -307,15 +301,15 @@ package body Archicheck.Units is
                Put_Debug_Line
                  ((+Unit) & " is a child of " & (+Owner_Maps.Key (C))
                   & " that is owned by " & (+Dep.To_Unit));
-               Put_Debug_Line ("2 Recursive call to IUIC (" & (+Owner_Maps.Key (C))
-                               & ", " & (+In_Unit) & ")");
+               Put_Debug_Line ("2 Recursive call to IUIC ("
+                               & (+Owner_Maps.Key (C)) & ", "
+                               & (+In_Unit) & ")");
                return Is_In (Owner_Maps.Key (C), In_Unit); --recursive call
             end if;
          end loop;
 
          --   e. Unit is not claimed by a component
          Put_Debug_Line ((+Unit) & " not owned by a component.");
-         -- Component is not a component... Fixme: formal parameter name inconsistent
          return False;
 
       end if;

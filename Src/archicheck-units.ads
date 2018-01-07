@@ -70,19 +70,16 @@ private package Archicheck.Units is
          when Component   =>  "component",
          when Unknown     =>  "Unknown") with inline;
 
+   -- --------------------------------------------------------------------------
    type Dependency_Target is record
-      To_Unit : Unit_Name;
+      To_Unit  : Unit_Name;
       -- File & Line : where the dependency comes from
-      File    : Sources.Source_Name;
-      Line    : Natural;
+      Location : Sources.Location;
    end record;
-   -- --------------------------------------------------------------------------
-   function Location_Image (Dep : Dependency_Target) return String;
 
-   -- --------------------------------------------------------------------------
    package Dependency_Targets is new Ada.Containers.Doubly_Linked_Lists
      (Dependency_Target, "=");
-   -- --------------------------------------------------------------------------
+
    function Unit_List_Image (List : Dependency_Targets.List) return String;
 
    -- --------------------------------------------------------------------------
@@ -106,15 +103,16 @@ private package Archicheck.Units is
       Source  : Unit_Attributes;
       Targets : Dependency_Targets.List;
    end record;
-   -- --------------------------------------------------------------------------
+
    package Dependency_Lists is new Ada.Containers.Doubly_Linked_Lists
      (Dependency, "=");
+
    Dependency_List : Dependency_Lists.List;
 
    -- --------------------------------------------------------------------------
    function Unit_Description (U : in Unit_Attributes) return String;
-   --   Return a string describing the unit, depending on the language.
-   --   It can be for exemple "package body" for Ada or "interface" for Java.
+   -- Return a string describing the unit, depending on the language.
+   -- It can be for exemple "package body" for Ada or "interface" for Java.
 
    -- --------------------------------------------------------------------------
    procedure Dump;
@@ -138,5 +136,8 @@ private package Archicheck.Units is
    -- - A is a child of B
    -- - A is contained by B, even indirectly
    -- Case Insensitive
+
+   -- --------------------------------------------------------------------------
+   function Is_Involved_In_A_Component (Unit : in Unit_Name) return Boolean;
 
 end Archicheck.Units;

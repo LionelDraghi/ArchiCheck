@@ -28,6 +28,6 @@ package Archicheck.Rules.Parser is
    --    Components description are stored in the Components package,
    --    Layers description in  Layers package, and so on.
    -- -------------------------------------------------------------------------
-   procedure Parse (File_Name  : in  String);
+   procedure Parse (Rules_File : in Sources.File_Name);
 
 end Archicheck.Rules.Parser;

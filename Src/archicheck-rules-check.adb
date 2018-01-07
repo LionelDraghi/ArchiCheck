@@ -19,23 +19,27 @@
 with Archicheck.IO;
 with Archicheck.Units;
 with Archicheck.Settings;
--- with Ada.Strings;
 
 procedure Archicheck.Rules.Check is
 
-   -- Change default Debug parameter value to enable/disable Debug messages in this package
-   -- -------------------------------------------------------------------------
+   -- Change default Debug parameter value to enable/disable
+   -- Debug messages in this package
+   -- --------------------------------------------------------------------------
    procedure Put_Debug_Line (Msg    : in String  := "";
                              Debug  : in Boolean := Settings.Debug_Mode;
-                             Prefix : in String  := "Check_Rules") renames Archicheck.IO.Put_Debug_Line;
+                             Prefix : in String  := "Check_Rules")
+                             renames Archicheck.IO.Put_Debug_Line;
    --     procedure Put_Debug      (Msg    : in String  := "";
    --                               Debug  : in Boolean := Settings.Debug_Mode;
-   --                               Prefix : in String  := "") renames Archicheck.IO.Put_Debug;
+   --                               Prefix : in String  := "")
+   --                               renames Archicheck.IO.Put_Debug;
 
    use IO;
+   use Sources;
 
 begin
-   -- for each Dependency, we checks each rule to see if the dependency is compliant
+   -- for each Dependency, we checks each rule to see if the dependency
+   -- is compliant
    for Dep of Units.Dependency_List loop
       for Target of Dep.Targets loop
 
@@ -44,21 +48,23 @@ begin
             To   : constant Unit_Name := Target.To_Unit;
 
          begin
-            IO.Put_Line (Units.Location_Image (Target) & "checking " & (+From)
-                         & " dependence on " & (+To), Level => Verbose);
+            IO.Put_Line (Location_Image (Target.Location) & "checking "
+                         & (+From) & " dependence on " & (+To),
+                         Level => Verbose);
 
             -- Order is important in the following tests.
             -- As an explicit permission has precedence on an explicit
             -- interdiction, so Is_Allowed is tested first
 
             if Is_Allowed (To) then
-               -- 1. First test if the target use is OK, independently of the caller.
+               -- 1. First test if the target use is OK, independently
+               --    of the caller.
 
                Put_Debug_Line ("Unit " & (+To) & " is allowed");
                -- More details if verbose :
-               -- Fixme: il faut que Is_Allowed et les autres retourne un Rule_Location
-               -- pour pouvoir avoir un message helpful
-               -- IO.Put_Line ("   according to " & Units.Location_Image (D),
+               -- Fixme: il faut que Is_Allowed et les autres retourne un
+               -- Rule_Location pour pouvoir avoir un message helpful
+               -- IO.Put_Line ("   according to " & Location_Image (D),
                --             Level => Verbose);
                -- target is allowed, no further checks needed
 
@@ -70,9 +76,10 @@ begin
                -- 3. Test if the target is forbidden.
                --    And if so, no need to further test relationships
 
-               IO.Put_Error (Location_Image (Target) & (+To) & " use is forbidden");
+               IO.Put_Error (Location_Image (Target.Location) & (+To)
+                             & " use is forbidden");
                -- More details if verbose :
-               -- IO.Put_Line ("   according to " & Units.Location_Image (D),
+               -- IO.Put_Line ("   according to " & Location_Image (D),
                --             Level => Verbose);
 
             else
@@ -81,26 +88,35 @@ begin
                   declare
                      Client         : constant Unit_Name := Rule.Subject_Unit;
                      Server         : constant Unit_Name := Rule.Object_Unit;
-                     Is_X_In_Client : constant Boolean := Units.Is_In (Unit => From, In_Unit => Client);
-                     Is_X_In_Server : constant Boolean := Units.Is_In (Unit => From, In_Unit => Server);
-                     Is_Y_In_Client : constant Boolean := Units.Is_In (Unit => To, In_Unit => Client);
-                     Is_Y_In_Server : constant Boolean := Units.Is_In (Unit => To, In_Unit => Server);
+                     Is_X_In_Client : constant Boolean := Units.Is_In
+                       (Unit => From, In_Unit => Client);
+                     Is_X_In_Server : constant Boolean := Units.Is_In
+                       (Unit => From, In_Unit => Server);
+                     Is_Y_In_Client : constant Boolean := Units.Is_In
+                       (Unit => To, In_Unit => Client);
+                     Is_Y_In_Server : constant Boolean := Units.Is_In
+                       (Unit => To, In_Unit => Server);
 
                   begin
-                     IO.Put_Line ("- Checking relationship " & Rule_Kind'Image (Rule.Kind)
-                                  & " : " & To_String (Rule.Subject_Unit) & " -> "
-                                  & To_String (Rule.Object_Unit), Level => Verbose);
+                     IO.Put_Line ("- Checking relationship "
+                                  & Rule_Kind'Image (Rule.Kind) & " : "
+                                  & To_String (Rule.Subject_Unit) & " -> "
+                                  & To_String (Rule.Object_Unit),
+                                  Level => Verbose);
 
-                     if (Is_X_In_Server and Is_Y_In_Server) or (Is_X_In_Client and Is_Y_In_Client) then
+                     if (Is_X_In_Server and Is_Y_In_Server) or
+                       (Is_X_In_Client and Is_Y_In_Client)
+                     then
                         -- no check to do, as both unit are in the same component
                         null;
 
                      else
                         case Rule.Kind is
                            when Layer_Over =>
-                              -- Error first, and if there is an error, following check should be useless
+                              -- Error first, and if there is an error,
+                              -- following check should be useless
                               if Is_X_In_Server and Is_Y_In_Client then
-                                 IO.Put_Error (Units.Location_Image (Target) & (+From) & " is in " & (+Server)
+                                 IO.Put_Error (Location_Image (Target.Location) & (+From) & " is in " & (+Server)
                                                & " layer, and so shall not use "
                                                & (+To) & " in the upper "
                                                & (+Client) & " layer");
@@ -110,13 +126,13 @@ begin
                                     null;
                                     -- This error case (lower using upper) is already reported in the previous "if"
                                  else
-                                    IO.Put_Warning (Units.Location_Image (Target) & (+From) & " (in " & (+Client) & " layer) uses "
+                                    IO.Put_Warning (Location_Image (Target.Location) & (+From) & " (in " & (+Client) & " layer) uses "
                                                     & (+To) & " that is neither in the same layer, nor in the lower "
                                                     & (+Server) & " layer");
                                  end if;
 
                               elsif Is_Y_In_Server and not Is_X_In_Client then
-                                 IO.Put_Warning (Units.Location_Image (Target) & (+From) & " is neither in "
+                                 IO.Put_Warning (Location_Image (Target.Location) & (+From) & " is neither in "
                                                  & (+Client) & " or " & (+Server) & " layer, and so shall not directly use "
                                                  & (+To) & " in the "
                                                  & (+Server) & " layer");
@@ -131,7 +147,7 @@ begin
 
                                  begin
                                     if not Is_Allowed (Client, Server) then
-                                       IO.Put_Error (Units.Location_Image (Target) & "Only " & Users_Image (Users)
+                                       IO.Put_Error (Location_Image (Target.Location) & "Only " & Users_Image (Users)
                                                      & Verb & "allowed to use "
                                                      & (+Server) & ", " & (+From) & " is not");
                                     else
@@ -144,7 +160,7 @@ begin
                               -- X may use Y actually means that Y shall not use X,
                               -- and this is what we check here
                               if Is_X_In_Server and Is_Y_In_Client then
-                                 IO.Put_Error (Units.Location_Image (Target) & (+Client) & " may use " & (+Server)
+                                 IO.Put_Error (Location_Image (Target.Location) & (+Client) & " may use " & (+Server)
                                                & ", so " & (+From) & " shall not use " & (+To));
                               end if;
 

@@ -18,7 +18,7 @@
 -- Performance:
 -- -----------------------------------------------------------------------------
 
-with Archicheck.IO;
+with Archicheck.IO;                      use Archicheck.IO;
 with Archicheck.Settings;
 
 with Ada.Strings.Equal_Case_Insensitive;
@@ -28,8 +28,9 @@ package body Archicheck.Rules is
 
    use Ada.Strings.Unbounded;
 
-   -- Change default Debug parameter value to enable/disable Debug messages in this package
-   -- -------------------------------------------------------------------------
+   -- Change default Debug parameter value to enable/disable
+   -- Debug messages in this package
+   -- --------------------------------------------------------------------------
    procedure Put_Debug_Line (Msg    : in String  := "";
                              Debug  : in Boolean := Settings.Debug_Mode;
                              Prefix : in String  := "Rules")
@@ -43,6 +44,42 @@ package body Archicheck.Rules is
      (With_Object_Rule_List);
 
    -- --------------------------------------------------------------------------
+   procedure Print_Rule (R : in Rule) is
+      use Sources;
+   begin
+      case R.Kind is
+         when Layer_Over =>
+            Put_Line (Location_Image (R.Location)
+                      & "Layer " & (+R.Subject_Unit)
+                      & " is over layer " & (+R.Object_Unit),
+                      Level => IO.Quiet);
+
+         when May_Use =>
+            Put_Line (Location_Image (R.Location)
+                      & (+R.Subject_Unit) & " may use "
+                      & (+R.Object_Unit),
+                      Level => IO.Quiet);
+
+         when Exclusive_Use =>
+            Put_Line (Location_Image (R.Location)
+                      & "Only " & (+R.Subject_Unit) & " may use "
+                      & (+R.Object_Unit),
+                      Level => IO.Quiet);
+
+         when Forbidden_Use =>
+            Put_Line (Location_Image (R.Location)
+                      & "Use of " & (+R.Subject_Unit) & " is forbidden",
+                      Level => IO.Quiet);
+
+         when Allowed_Use =>
+            Put_Line (Location_Image (R.Location)
+                      & "Use of " & (+R.Subject_Unit) & " allowed ",
+                      Level => IO.Quiet);
+
+      end case;
+   end Print_Rule;
+
+   -- --------------------------------------------------------------------------
    procedure Add_Rule (R : in Rule) is
    begin
       if R.Kind in No_Object_Rule_Kind then
@@ -50,6 +87,9 @@ package body Archicheck.Rules is
       else
          With_Object_Rule_List.Append (R);
       end if;
+
+      if Settings.List_Rules then Print_Rule (R); end if;
+
    end Add_Rule;
 
    -- --------------------------------------------------------------------------
@@ -73,7 +113,6 @@ package body Archicheck.Rules is
 
    -- --------------------------------------------------------------------------
    function Is_Allowed (Unit : in Unit_Name) return Boolean is
-      -- use Allowed_Use_Lists;
    begin
       for R of Subject_Only_Rule_List loop
          declare
@@ -123,10 +162,11 @@ package body Archicheck.Rules is
 
    -- --------------------------------------------------------------------------
    function Allowed_Users (Of_Unit : in Unit_Name) return Rule_Lists.List is
-      Tmp  : Rule_Lists.List;
+      Tmp : Rule_Lists.List;
    begin
       for R of With_Object_Rule_List loop
-         if Ada.Strings.Equal_Case_Insensitive (To_String (R.Object_Unit), +Of_Unit)
+         if Ada.Strings.Equal_Case_Insensitive (To_String (R.Object_Unit),
+                                                +Of_Unit)
          then
             Tmp.Append (R);
          end if;
@@ -151,5 +191,6 @@ package body Archicheck.Rules is
       end loop;
       return (To_String (Tmp));
    end Users_Image;
+
 
 end Archicheck.Rules;

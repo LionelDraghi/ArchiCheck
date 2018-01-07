@@ -48,24 +48,33 @@ package body Archicheck.Lang.Java_Processor is
 
    -- --------------------------------------------------------------------------
    procedure Analyze_Dependencies (Lang        : in Java_Interface;
-                                   From_Source : in Sources.Source_Name)
+                                   From_Source : in Sources.File_Name)
    is
       pragma Unreferenced (Lang);
 
-      -- Change default Debug parameter value to enable/disable Debug messages in this package
+      -- Change default Debug parameter value to enable/disable
+      -- Debug messages in this package
       -- -----------------------------------------------------------------------
-      procedure Put_Debug_Line
-        (Msg    : in String  := "";
-         Debug  : in Boolean := Settings.Debug_Mode;
-         Prefix : in String  := "Java_Processor.Analyze_Dependencies")
-         renames Archicheck.IO.Put_Debug_Line;
+      -- procedure Put_Debug_Line
+      --   (Msg    : in String  := "";
+      --    Debug  : in Boolean := Settings.Debug_Mode;
+      --    Prefix : in String  := "Java_Processor.Analyze_Dependencies")
+      --    renames Archicheck.IO.Put_Debug_Line;
+      -- pragma Unreferenced (Put_Debug_Line);
 
       -- Global text file for reading parse data
       File : Ada.Text_IO.File_Type;
 
-      Dep_List : Units.Dependency_Targets.List := Units.Dependency_Targets.Empty_List;
+      Dep_List : Units.Dependency_Targets.List :=
+                   Units.Dependency_Targets.Empty_List;
 
       use Java_Lexer;
+
+      -- -----------------------------------------------------------------------
+      function Current_Location return Sources.Location is
+        (File   => From_Source,
+         Line   => Java_Lexer.Analyzer.Line,
+         Column => 0) with Inline;
 
       -- -----------------------------------------------------------------------
       -- Procedure: Get_Unit_Name
@@ -94,18 +103,18 @@ package body Archicheck.Lang.Java_Processor is
       if Settings.Debug_Mode then OpenToken.Trace_Parse := 1; end if;
       -- value > 0 => debug level
 
-      -- New_Debug_Line;
-      IO.Put_Line ("Looking for dependencies in " & (+From_Source) & " :", Level => IO.Verbose);
+      IO.Put_Line ("Looking for dependencies in " & (+From_Source) & " :",
+                   Level => IO.Verbose);
 
       Ada.Text_IO.Open (File => File,
                         Mode => Ada.Text_IO.In_File,
                         Name => +From_Source);
       Ada.Text_IO.Set_Input (File);
       Analyzer.Reset;
-      Analyzer.Set_Text_Feeder (OpenToken.Text_Feeder.Text_IO.Create (Ada.Text_IO.Current_Input));
+      Analyzer.Set_Text_Feeder
+        (OpenToken.Text_Feeder.Text_IO.Create (Ada.Text_IO.Current_Input));
 
       Source_Analysis : loop
-         Put_Debug_Line ("token to analyze : " & Java_Token'Image (Analyzer.ID));
          case Analyzer.ID is
             when Package_T =>
                -- processing the package declaration
@@ -135,11 +144,8 @@ package body Archicheck.Lang.Java_Processor is
                   IO.Put_Line ("   - depends on " & (+Withed_Unit),
                                Level => IO.Verbose);
 
-                  Dep_List.Append
-                    ((To_Unit => Withed_Unit,
-                      File    => From_Source,
-                      Line    => Java_Lexer.Analyzer.Line));
-
+                  Dep_List.Append ((To_Unit  => Withed_Unit,
+                                    Location => Current_Location));
                   -- Only one unit name per import statement in Java,
                   -- no need to loop.
                end;
@@ -165,10 +171,10 @@ package body Archicheck.Lang.Java_Processor is
                      Full_Name := Pkg_Name & '.' & From;
                   end if;
 
-                  IO.Put_Line ("   - defines " & Units.Unit_Kind'Image (Unit_Kind)
-                               & " " & (+Full_Name),
-                               Level => IO.Verbose);
-                  -- Fixme: utiliser 2012 pour éviter cette redondance :
+                  IO.Put_Line
+                    ("   - defines " & Units.Unit_Kind'Image (Unit_Kind) &
+                       " " & (+Full_Name),
+                     Level => IO.Verbose);
                   case Unit_Kind is
                      when Units.Class_K =>
                         Archicheck.Units.Add_Unit
@@ -225,11 +231,11 @@ package body Archicheck.Lang.Java_Processor is
    exception
       when Error : others =>
          IO.Put_Exception
-           (Sources.GNU_Prefix (From_Source, Analyzer.Line, Analyzer.Column)
-            & "parse exception:");
+           (Sources.Location_Image (Current_Location) & "parse exception:");
          IO.Put_Exception (Ada.Exceptions.Exception_Information (Error));
          Ada.Text_IO.Close (File => File);
 
    end Analyze_Dependencies;
+
 
 end Archicheck.Lang.Java_Processor;

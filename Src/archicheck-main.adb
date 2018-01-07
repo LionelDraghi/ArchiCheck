@@ -20,10 +20,11 @@ with Archicheck.Cmd_Line;
 with Archicheck.IO;
 with Archicheck.Lang;
 with Archicheck.Lang.Initialize;
-with Archicheck.Rules.Parser;
 with Archicheck.Rules.Check;
+with Archicheck.Rules.Parser;
+with Archicheck.Rules.Print_Non_Covered_Unit;
 with Archicheck.Settings;
-with Archicheck.Sources;
+with Archicheck.Sources;         use Archicheck.Sources;
 with Archicheck.Units;
 
 with Ada.Command_Line;
@@ -61,15 +62,24 @@ begin
    if Settings.Rules_File_Name /= "" then
 
       -- 3. Reading rules file
-      Rules.Parser.Parse (Settings.Rules_File_Name);
+      Rules.Parser.Parse (+Settings.Rules_File_Name);
 
       if IO.Some_Error then
          Ada.Command_Line.Set_Exit_Status (Ada.Command_Line.Failure);
          return;
 
       elsif Settings.List_Rules then
-         -- this has been done during rules parsing, so we can quit
+         -- This has been done during rules parsing, so we can quit.
+         --
+         -- For coherency purpose in debug and verbose messages
+         -- Rules are listed on the fly, as soon as detected during
+         -- the rules file parsing.
+         -- (This is why there is no Rules.Dump procedure).
+         --
          return;
+
+      elsif Settings.List_Non_Covered then
+         Rules.Print_Non_Covered;
 
       else
          -- 4. Checking rules

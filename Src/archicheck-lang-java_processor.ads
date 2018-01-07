@@ -35,12 +35,13 @@ package Archicheck.Lang.Java_Processor is
    -- --------------------------------------------------------------------------
    overriding procedure Analyze_Dependencies
      (Lang        : in Java_Interface;
-      From_Source : in Sources.Source_Name);
+      From_Source : in Sources.File_Name);
 
    -- --------------------------------------------------------------------------
    -- Function: File_Extensions
    -- --------------------------------------------------------------------------
-   overriding function File_Extensions (Lang : in Java_Interface) return String;
+   overriding function File_Extensions
+     (Lang : in Java_Interface) return String;
 
    -- --------------------------------------------------------------------------
    -- Procedure: Initialize

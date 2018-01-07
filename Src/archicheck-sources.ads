@@ -27,15 +27,15 @@ private package Archicheck.Sources is
    type Language is (Ada_2012, Java);
 
    -- --------------------------------------------------------------------------
-   type Source_Name is new Unbounded_String;
-   function "+" (Name : Source_Name) return String;
-   function "+" (Name : String) return Source_Name;
-   function "+" (Name : Source_Name) return Unbounded_String;
-   -- function "+" (Name : Unbounded_String) return Source_Name;
+   type File_Name is new Unbounded_String;
+   function "+" (Name : File_Name) return String;
+   function "+" (Name : String) return File_Name;
+   function "+" (Name : File_Name) return Unbounded_String;
+   -- function "+" (Name : Unbounded_String) return File_Name;
 
    -- --------------------------------------------------------------------------
    type Source is record
-      File : Source_Name;
+      File : File_Name;
       -- provision for "make like" analyzis : Time_Tag : Ada.Calendar.Time;
       Lang : Language;
    end record;
@@ -57,7 +57,7 @@ private package Archicheck.Sources is
    procedure Dump_Sources (Sources : in Archicheck.Sources.Source_Lists.List);
 
    -- --------------------------------------------------------------------------
-   -- Function: GNU_Prefix
+   -- Function: Location_Image
    --
    -- Purpose:
    --    This function return a source/line/column prefix to messages compatible
@@ -71,15 +71,16 @@ private package Archicheck.Sources is
    --
    --    Note that there is a trailing space, so that the message can be append
    --    directly.
-   --    With the first form of the function, the displayed file name is given
-   --    as an in string parameter.
-   --    It is recommanded to use this form for files given on command line,
-   --    to ease error msg understanding.
-   --    For example, a "../../rules.txt" command line parameter should be
-   --    displayed as is in case of messages regarding this rules.txt file.
    -- --------------------------------------------------------------------------
-   function GNU_Prefix (File   : in Source_Name;
-                        Line   : in Positive;
-                        Column : in Integer := 0) return String;
+   function Location_Image (File   : in File_Name;
+                            Line   : in Positive;
+                            Column : in Integer := 0) return String;
+
+   type Location is record
+      File   : File_Name;
+      Line   : Positive;
+      Column : Integer := 0;
+   end record;
+   function Location_Image (Loc : in Location) return String;
 
 end Archicheck.Sources;

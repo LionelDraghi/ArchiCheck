@@ -24,13 +24,13 @@ with Ada.Strings.Fixed;
 package body Archicheck.Sources is
 
    -- --------------------------------------------------------------------------
-   function "+" (Name : Source_Name) return String is
+   function "+" (Name : File_Name) return String is
      (To_String (Name));
-   function "+" (Name : String) return Source_Name is
-     (Source_Name'(To_Unbounded_String (Name)));
-   -- function "+" (Name : Unbounded_String) return Source_Name is
-   --   (Source_Name (Name));
-   function "+" (Name : Source_Name) return Unbounded_String is
+   function "+" (Name : String) return File_Name is
+     (File_Name'(To_Unbounded_String (Name)));
+   -- function "+" (Name : Unbounded_String) return File_Name is
+   --   (File_Name (Name));
+   function "+" (Name : File_Name) return Unbounded_String is
      (Unbounded_String (Name));
 
    -- --------------------------------------------------------------------------
@@ -60,21 +60,27 @@ package body Archicheck.Sources is
       end loop;
    end Dump_Sources;
 
-   -- -------------------------------------------------------------------------
-   function GNU_Prefix (File   : in Source_Name;
-                        Line   : in Positive;
-                        Column : in Integer := 0) return String is
+   -- --------------------------------------------------------------------------
+   function Location_Image (Loc : in Location) return String is
       use Ada.Strings;
       use Ada.Strings.Fixed;
-      Trimed_File   : constant String := Trim (+File, Side => Both);
-      Trimed_Line   : constant String := Trim (Positive'Image (Line), Side => Both);
-      Trimed_Column : constant String := Trim (Integer'Image (Column), Side => Both);
+      Trimed_File   : constant String := Trim (+Loc.File, Side => Both);
+      Trimed_Line   : constant String := Trim (Positive'Image (Loc.Line),
+                                               Side => Both);
+      Trimed_Column : constant String := Trim (Integer'Image (Loc.Column),
+                                               Side => Both);
    begin
-      if Column = 0 then
+      if Loc.Column = 0 then
          return Trimed_File & ":" & Trimed_Line & ": ";
       else
          return Trimed_File & ":" & Trimed_Line & "." & Trimed_Column & ": ";
       end if;
-   end GNU_Prefix;
+   end Location_Image;
+
+   -- --------------------------------------------------------------------------
+   function Location_Image (File   : in File_Name;
+                        Line   : in Positive;
+                        Column : in Integer := 0) return String is
+     (Location_Image (Loc => (File, Line, Column)));
 
 end Archicheck.Sources;

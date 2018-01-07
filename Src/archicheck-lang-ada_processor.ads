@@ -13,8 +13,6 @@
 --   This package implement the abstract interface for Ada sources.
 --
 -- Limitation:
---   Note that current implementation is limited to package processing, and that
---   Dependencies in separate procedure are ignored.
 --
 -- Performance:
 -- -----------------------------------------------------------------------------
@@ -34,7 +32,7 @@ package Archicheck.Lang.Ada_Processor is
    -- --------------------------------------------------------------------------
    overriding procedure Analyze_Dependencies
      (Lang        : in Ada_Interface;
-      From_Source : in Sources.Source_Name);
+      From_Source : in Sources.File_Name);
 
    -- --------------------------------------------------------------------------
    -- Function: File_Extensions

@@ -23,8 +23,10 @@
 -- Performance:
 -- -----------------------------------------------------------------------------
 
-with Ada.Containers.Indefinite_Doubly_Linked_Lists;
+with Archicheck.Sources;
 with Archicheck.Units; use Archicheck.Units;
+
+with Ada.Containers.Indefinite_Doubly_Linked_Lists;
 
 private package Archicheck.Rules is
 
@@ -35,32 +37,31 @@ private
                       Exclusive_Use, -- only X may use Y
                       Forbidden_Use, -- X use is forbidden
                       Allowed_Use);  -- Y use is allowed
-   subtype With_Object_Rule_Kind is Rule_Kind range Rule_Kind'First .. Exclusive_Use;
-   subtype No_Object_Rule_Kind is Rule_Kind range Forbidden_Use .. Rule_Kind'Last;
+   subtype With_Object_Rule_Kind is
+     Rule_Kind range Rule_Kind'First .. Exclusive_Use;
+   subtype No_Object_Rule_Kind is
+     Rule_Kind range Forbidden_Use .. Rule_Kind'Last;
    -- Some rules have a subject X and an object Y :
    --   X may use Y
    -- Some rules have only a subject X :
    --   X use is forbidden
 
    type Rule (Kind : Rule_Kind) is record
-      -- Line         : Natural;
-      -- Location : no need to store the file, there is only one for now,
-      --            available through Settings.Rules_File_Name
+      Location     : Sources.Location; -- where the rule comes from
       Subject_Unit : Unit_Name;
       case Kind is
-         when With_Object_Rule_Kind =>
-            Object_Unit : Unit_Name;
-         when No_Object_Rule_Kind => null;
+         when With_Object_Rule_Kind => Object_Unit : Unit_Name;
+         when No_Object_Rule_Kind   => null;
       end case;
    end record;
+
+   procedure Add_Rule (R : in Rule);
 
    -- --------------------------------------------------------------------------
    package Rule_Lists is
      new Ada.Containers.Indefinite_Doubly_Linked_Lists (Rule);
 
    function Get_With_Object_Rule_List return Rule_Lists.List;
-
-   procedure Add_Rule (R : in Rule);
 
    -- --------------------------------------------------------------------------
    function Is_Forbidden (Unit : in Unit_Name) return Boolean;
@@ -77,5 +78,8 @@ private
    -- returns the rules with object that have Of_Unit as target
    function Users_Image (List : in Rule_Lists.List) return String;
    -- returns "X and Y and Z" or "X" or ""
+
+   -- --------------------------------------------------------------------------
+   function Is_Involved_In_A_Rule (Unit : in Unit_Name) return Boolean;
 
 end Archicheck.Rules;

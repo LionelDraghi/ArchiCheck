@@ -62,6 +62,7 @@ private package Archicheck.IO is
    procedure Put_Error     (Msg       : in String := "";
                             With_Help : in Boolean := False);
    procedure Put_Exception (Msg       : in String := "");
+
    -- --------------------------------------------------------------------------
    -- Error_Count and Warning_Count return the number of call to Put_Error
    -- and Put_Warning.
@@ -71,6 +72,7 @@ private package Archicheck.IO is
    -- Some_Error return True if some error occured, or if some Warning
    -- occured and option to treat warning as error is set.
    function Some_Error return Boolean is
-      (Error_Count /= 0 or (Settings.Warnings_As_Errors and Warning_Count /= 0));
+     (Error_Count /= 0 or
+        (Settings.Warnings_As_Errors and Warning_Count /= 0));
 
 end Archicheck.IO;
