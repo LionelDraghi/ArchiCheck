@@ -33,8 +33,9 @@ package Archicheck.Lang.Java_Processor is
    -- Exceptions:
    --   Node_Already_Defined
    -- --------------------------------------------------------------------------
-   overriding procedure Analyze_Dependencies (Lang        : in Java_Interface;
-                                              From_Source : in String);
+   overriding procedure Analyze_Dependencies
+     (Lang        : in Java_Interface;
+      From_Source : in Sources.Source_Name);
 
    -- --------------------------------------------------------------------------
    -- Function: File_Extensions

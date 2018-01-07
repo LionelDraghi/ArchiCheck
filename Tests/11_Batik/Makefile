@@ -231,7 +231,6 @@ test8:
 
 	${TR} end
 
-
 clean:
 	- ${RM} -rf output.* dir? dir?? *.~ batik-1.9 *.java dir?
 	- ${TR} clean

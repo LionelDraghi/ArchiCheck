@@ -38,11 +38,11 @@ with OpenToken.Token.Enumerated.Nonterminal;
 with Archicheck.IO;
 with Archicheck.Units;
 with Archicheck.Settings;
+with Archicheck.Sources; use Archicheck.Sources;
 
 with Ada.Exceptions;
 with Ada.Text_IO;
 with Ada.Strings.Maps.Constants;
-with Ada.Strings.Unbounded;
 
 package body Archicheck.Rules.Parser is
 
@@ -324,24 +324,23 @@ package body Archicheck.Rules.Parser is
 
       use Archicheck.IO;
       use OpenToken.Buffers;
-      use Ada.Strings.Unbounded;
-      Component_Name : constant String := To_String
-        (Identifiers.Instance (Token_List.Token_Handle (Left).all).Identifier);
+      Component_Name : constant Unit_Name
+        := +(To_String (Identifiers.Instance (Token_List.Token_Handle (Left).all).Identifier));
       Dep            : constant Units.Dependency_Target :=
-                         (To_Unit => To_Unbounded_String (Component_Name),
-                          File    => To_Unbounded_String (Settings.Rules_File_Name),
+                         (To_Unit => Component_Name,
+                          File    => +Settings.Rules_File_Name, -- Source_Name'(To_Unbounded_String (Settings.Rules_File_Name)),
                           Line    => Rules_File_Parser.Line);
    begin
       if Left_List.Is_Empty then
          Left_List.Append (Dep);
-         IO.Put_Line (Units.Location_Image (Dep)
-                      & To_String (Dep.To_Unit) & " added to Left list",
-                      Level => Debug);
+         -- IO.Put_Line (Units.Location_Image (Dep)
+         --              & (+Dep.To_Unit) & " added to Left list",
+         --             Level => Debug);
       else
          Right_List.Append (Dep);
-         IO.Put_Line (Units.Location_Image (Dep)
-                      & To_String (Dep.To_Unit) & " added to Right list",
-                      Level => Debug);
+         -- IO.Put_Line (Units.Location_Image (Dep)
+         --              & (+Dep.To_Unit) & " added to Right list",
+         --              Level => Debug);
       end if;
 
    end Initialize_Unit_Name;
@@ -358,7 +357,6 @@ package body Archicheck.Rules.Parser is
 
       use Archicheck.IO;
       use OpenToken.Buffers;
-      use Ada.Strings.Unbounded;
       -- -----------------------------------------------------------------------
       procedure Update_Last (List : in out Units.Dependency_Targets.List;
                              Name : in     String) is
@@ -379,11 +377,11 @@ package body Archicheck.Rules.Parser is
            (Identifiers.Instance (Token_List.Token_Handle (Right).all).Identifier);
       begin
          if Right_List.Is_Empty then
-            -- Put_Line (Prefix & "Unit_Name_A = " & To_String (Unit_Name_A));
+            -- Put_Line (Prefix & "Unit_Name_A = " & (+Unit_Name_A));
             Update_Last (Left_List, Component_Name);
 
          else
-            -- Put_Line (Prefix & "Unit_Name_B = " & To_String (Unit_Name_B));
+            -- Put_Line (Prefix & "Unit_Name_B = " & (+Unit_Name_B));
             Update_Last (Right_List, Component_Name);
 
          end if;
@@ -401,17 +399,15 @@ package body Archicheck.Rules.Parser is
    is
       pragma Unreferenced (New_Token, Source, To_ID);
 
-      use Archicheck.IO;
       use OpenToken.Buffers;
-      use Ada.Strings.Unbounded;
-      Component_Name : constant Unbounded_String := Left_List.First_Element.To_Unit;
+      Component_Name : constant Unit_Name := Left_List.First_Element.To_Unit;
    begin
       if Settings.List_Rules then
-         Put_Line (GNU_Prefix (File   => Settings.Rules_File_Name,
-                               Line   => Rules_File_Parser.Line)
-                   & "Component " & To_String (Component_Name) & " contains unit "
-                   & Units.Unit_List_Image (Right_List),
-                   Level => IO.Quiet);
+         IO.Put_Line (GNU_Prefix (File   => +Settings.Rules_File_Name,
+                                  Line   => Rules_File_Parser.Line)
+                      & "Component " & (+Component_Name) & " contains unit "
+                      & Units.Unit_List_Image (Right_List),
+                      Level => IO.Quiet);
       end if;
       Units.Add_Component
         (Component => (Name => Component_Name,
@@ -431,17 +427,16 @@ package body Archicheck.Rules.Parser is
 
       use Archicheck.IO;
       use OpenToken.Buffers;
-      use Ada.Strings.Unbounded;
 
-      Using : constant Unbounded_String := Left_List.First_Element.To_Unit;
-      Used  : constant Unbounded_String := Right_List.First_Element.To_Unit;
+      Using : constant Unit_Name := Left_List.First_Element.To_Unit;
+      Used  : constant Unit_Name := Right_List.First_Element.To_Unit;
 
    begin
       if Settings.List_Rules then
-         Put_Line (GNU_Prefix (File   => Settings.Rules_File_Name,
+         Put_Line (GNU_Prefix (File   => +Settings.Rules_File_Name,
                                Line   => Analyzer.Line)
-                   & "Layer " & To_String (Using)
-                   & " is over layer " & To_String (Used),
+                   & "Layer " & (+Using)
+                   & " is over layer " & (+Used),
                    Level => IO.Quiet);
       end if;
       Add_Rule ((Subject_Unit => Using,
@@ -463,14 +458,13 @@ package body Archicheck.Rules.Parser is
       use Archicheck.IO;
       use OpenToken.Buffers;
 
-      use Ada.Strings.Unbounded;
-      Using : constant Unbounded_String := Left_List.First_Element.To_Unit;
+      Using : constant Unit_Name := Left_List.First_Element.To_Unit;
 
    begin
       if Settings.List_Rules then
-         Put_Line (GNU_Prefix (File   => Settings.Rules_File_Name,
+         Put_Line (GNU_Prefix (File   => +Settings.Rules_File_Name,
                                Line   => Analyzer.Line)
-                   & To_String (Using) & " may use " -- Used,
+                   & (+Using) & " may use " -- Used,
                    & Units.Unit_List_Image (Right_List),
                    Level => IO.Quiet);
       end if;
@@ -496,14 +490,13 @@ package body Archicheck.Rules.Parser is
       use Archicheck.IO;
       use OpenToken.Buffers;
 
-      use Ada.Strings.Unbounded;
-      Using : constant Unbounded_String := Left_List.First_Element.To_Unit;
+      Using : constant Unit_Name := Left_List.First_Element.To_Unit;
 
    begin
       if Settings.List_Rules then
-         Put_Line (GNU_Prefix (File   => Settings.Rules_File_Name,
+         Put_Line (GNU_Prefix (File   => +Settings.Rules_File_Name,
                                Line   => Analyzer.Line)
-                   & "Only " & To_String (Using) & " may use "
+                   & "Only " & (+Using) & " may use "
                    & Units.Unit_List_Image (Right_List),
                    Level => IO.Quiet);
       end if;
@@ -525,14 +518,13 @@ package body Archicheck.Rules.Parser is
 
       use Archicheck.IO;
       use OpenToken.Buffers;
-      use Ada.Strings.Unbounded;
-      Unit : constant Unbounded_String := Left_List.First_Element.To_Unit;
+      Unit : constant Unit_Name := Left_List.First_Element.To_Unit;
 
    begin
       if Settings.List_Rules then
-         Put_Line (GNU_Prefix (File   => Settings.Rules_File_Name,
+         Put_Line (GNU_Prefix (File   => +Settings.Rules_File_Name,
                                Line   => Analyzer.Line) &
-                     "Use of " & To_String (Unit) & " allowed ",
+                     "Use of " & (+Unit) & " allowed ",
                    Level => IO.Quiet);
       end if;
       Add_Rule ((Kind         => Allowed_Use,
@@ -549,14 +541,13 @@ package body Archicheck.Rules.Parser is
 
       use Archicheck.IO;
       use OpenToken.Buffers;
-      use Ada.Strings.Unbounded;
-      Unit : constant Unbounded_String := Left_List.First_Element.To_Unit;
+      Unit : constant Unit_Name := Left_List.First_Element.To_Unit;
 
    begin
       if Settings.List_Rules then
-         Put_Line (GNU_Prefix (File   => Settings.Rules_File_Name,
+         Put_Line (GNU_Prefix (File   => +Settings.Rules_File_Name,
                                Line   => Analyzer.Line) &
-                     "Use of " & To_String (Unit) & " is forbidden",
+                     "Use of " & (+Unit) & " is forbidden",
                    Level => IO.Quiet);
       end if;
       Add_Rule ((Kind         => Forbidden_Use,
@@ -587,7 +578,7 @@ package body Archicheck.Rules.Parser is
 
       exception
          when Error : others =>
-            IO.Put_Error (IO.GNU_Prefix (File_Name, Analyzer.Line)
+            IO.Put_Error (Sources.GNU_Prefix (+File_Name, Analyzer.Line)
                           & "parse exception");
             IO.Put_Error (Ada.Exceptions.Exception_Information (Error));
 

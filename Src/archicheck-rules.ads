@@ -23,14 +23,12 @@
 -- Performance:
 -- -----------------------------------------------------------------------------
 
-with Ada.Strings.Unbounded;
 with Ada.Containers.Indefinite_Doubly_Linked_Lists;
+with Archicheck.Units; use Archicheck.Units;
 
 private package Archicheck.Rules is
 
 private
-   subtype Unit_Name is Ada.Strings.Unbounded.Unbounded_String;
-
    -- --------------------------------------------------------------------------
    type Rule_Kind is (Layer_Over,    -- X is a layer over Y
                       May_Use,       -- X may use Y
@@ -45,6 +43,9 @@ private
    --   X use is forbidden
 
    type Rule (Kind : Rule_Kind) is record
+      -- Line         : Natural;
+      -- Location : no need to store the file, there is only one for now,
+      --            available through Settings.Rules_File_Name
       Subject_Unit : Unit_Name;
       case Kind is
          when With_Object_Rule_Kind =>
@@ -62,17 +63,17 @@ private
    procedure Add_Rule (R : in Rule);
 
    -- --------------------------------------------------------------------------
-   function Is_Forbidden (Unit_Name : in String) return Boolean;
-   function Is_Allowed   (Unit_Name : in String) return Boolean;
+   function Is_Forbidden (Unit : in Unit_Name) return Boolean;
+   function Is_Allowed   (Unit : in Unit_Name) return Boolean;
    -- Those functions check only rules without object.
 
    -- --------------------------------------------------------------------------
-   function Is_Allowed (Unit_Name : in String;
-                        For_Unit  : in String) return Boolean;
+   function Is_Allowed (Unit     : in Unit_Name;
+                        For_Unit : in Unit_Name) return Boolean;
    -- This function checks only rules with object.
 
    -- --------------------------------------------------------------------------
-   function Allowed_Users (Of_Unit : in String) return Rule_Lists.List;
+   function Allowed_Users (Of_Unit : in Unit_Name) return Rule_Lists.List;
    -- returns the rules with object that have Of_Unit as target
    function Users_Image (List : in Rule_Lists.List) return String;
    -- returns "X and Y and Z" or "X" or ""

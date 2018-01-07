@@ -21,7 +21,6 @@ with Archicheck.IO;
 with Archicheck.Settings;
 
 with Ada.Directories;
-with Ada.Strings.Unbounded;
 with Ada.Containers;
 
 package body Archicheck.Lang is
@@ -58,12 +57,14 @@ package body Archicheck.Lang is
       procedure Walk (Name : String; L : Sources.Language) is
          -- code mostly from : https://rosettacode.org/wiki/Walk_a_directory/Recursively#Ada
 
-         use Ada.Strings.Unbounded;
+         -- use Ada.Strings.Unbounded;
          Extension : constant String := File_Extensions (Processor_List (L).all); -- dispatching call
 
          -- --------------------------------------------------------------------
          procedure Print (Item : Directory_Entry_Type) is
+            -- Fixme: rename Print
             Name : constant String := Full_Name (Item);
+            use type Sources.Source_Name;
          begin
             if Name'Length > Current'Length
               and then Name (Name'First .. Name'First + Current'Length - 1) = Current
@@ -71,14 +72,16 @@ package body Archicheck.Lang is
             -- we only print the subdir
             then
                Sources.Add_Source
-                 (Src => (Name => To_Unbounded_String (Name (Name'First + Current'Length + 1 .. Name'Last)),
-                            -- Time_Tag => Modification_Time (Directory_Entry),
-                          Lang => L));
+                 (Src =>
+                    (File => +(Name (Name'First + Current'Length + 1 .. Name'Last)),
+                       -- Time_Tag => Modification_Time (Directory_Entry),
+                     Lang => L));
             else
                Sources.Add_Source
-                 (Src => (Name => To_Unbounded_String (Name),
-                          -- Time_Tag => Modification_Time (Directory_Entry),
-                          Lang => L));
+                 (Src =>
+                    (File => +(Name),
+                       -- Time_Tag => Modification_Time (Directory_Entry),
+                     Lang => L));
             end if;
             Src_Count (L) := Src_Count (L) + 1;
          end Print;
@@ -121,17 +124,18 @@ package body Archicheck.Lang is
    -- --------------------------------------------------------------------------
    procedure Analyze_Dependencies is
       Src_List : constant Sources.Source_Lists.List := Sources.Get_List;
-      use Ada.Strings.Unbounded;
+      -- use Ada.Strings.Unbounded;
+      use type Sources.Source_Name;
 
    begin
       Put_Debug_Line ("Analysing dependencies,"
                       & Ada.Containers.Count_Type'Image
                         (Sources.Source_Lists.Length (Src_List)) & " sources");
       for S of Src_List loop
-         Put_Debug_Line ("Analysing dependencies in " & To_String (S.Name));
+         Put_Debug_Line ("Analysing dependencies in " & (+S.File));
 
          Analyze_Dependencies (Processor_List (S.Lang).all, -- dispatching call
-                               From_Source => To_String (S.Name));
+                               From_Source => S.File);
       end loop;
 
    end Analyze_Dependencies;

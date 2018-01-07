@@ -20,12 +20,11 @@
 
 with Archicheck.IO;
 with Archicheck.Settings;
-with Archicheck.Units;
+with Archicheck.Units;      use Archicheck.Units;
 
 with Ada_Lexer;
 
 with Ada.Exceptions;
-with Ada.Strings.Unbounded;
 with Ada.Text_IO;
 
 package body Archicheck.Lang.Ada_Processor is
@@ -57,8 +56,10 @@ package body Archicheck.Lang.Ada_Processor is
    -- Implementation Notes:
    --   - Based on OpenToken Ada_Lexer
    -- --------------------------------------------------------------------------
-   procedure Analyze_Dependencies (Lang        : in Ada_Interface;
-                                   From_Source : in String) is
+   procedure Analyze_Dependencies
+     (Lang        : in Ada_Interface;
+      From_Source : in Sources.Source_Name)
+   is
       pragma Unreferenced (Lang);
 
       -- Change default Debug parameter value to enable/disable Debug messages in this package
@@ -74,25 +75,23 @@ package body Archicheck.Lang.Ada_Processor is
       File : Ada.Text_IO.File_Type;
 
       use Units.Dependency_Targets;
-      use Ada.Strings.Unbounded;
       use Ada_Lexer;
 
       Dep_List             : Units.Dependency_Targets.List := Units.Dependency_Targets.Empty_List;
       -- Dep_List store dependencies until we reach the package name, and can store the whole.
       Unit_Kind            : Units.Ada_Unit_Kind;
 
-      Unit_Type_Identified : Boolean               := False;
-      Implementation       : Boolean               := True;
-      Parent_Pkg_Name      : Unbounded_String      := Null_Unbounded_String;
+      Unit_Type_Identified : Boolean   := False;
+      Implementation       : Boolean   := True;
+      Parent_Pkg_Name      : Unit_Name;
       -- Parent_Pkg_Name should remain null unless subunits (that is "separate")
 
       -- -----------------------------------------------------------------------
       -- Procedure: Get_Unit_Name
       -- -----------------------------------------------------------------------
-      function Get_Unit_Name return Unbounded_String is
-         Name : Unbounded_String := Null_Unbounded_String;
+      function Get_Unit_Name return Unit_Name is
+         Name : Unit_Name := +Lexeme;
       begin
-         Name := To_Unbounded_String (Lexeme);
          loop
             Find_Next;
             if Token_ID = Dot_T then
@@ -102,7 +101,7 @@ package body Archicheck.Lang.Ada_Processor is
                exit;
             end if;
          end loop;
-         Put_Debug_Line ("Unit = " & To_String (Name));
+         Put_Debug_Line ("Unit = " & (+Name));
          return Name;
       end Get_Unit_Name;
 
@@ -112,7 +111,7 @@ package body Archicheck.Lang.Ada_Processor is
          Find_Next; -- jump over "("
          Find_Next;
          declare
-            Unit : constant Unbounded_String := Get_Unit_Name;
+            Unit : constant Unit_Name := Get_Unit_Name;
          begin
             Parent_Pkg_Name := Unit & '.';
             Put_Debug_Line ("   - separate from " & To_String (Unit)); -- , Level => Verbose);
@@ -125,11 +124,11 @@ package body Archicheck.Lang.Ada_Processor is
          Unit_List : loop
             Find_Next;
             declare
-               Unit : constant Unbounded_String := Get_Unit_Name;
+               Unit : constant Unit_Name := Get_Unit_Name;
                -- Fixme: to be replaced with the US version of Get_Unit_Name
             begin
                Dep_List.Append ((To_Unit => Unit,
-                                 File    => To_Unbounded_String (From_Source),
+                                 File    => From_Source,
                                  Line    => Ada_Lexer.Line));
 
                exit Unit_List when Token_ID /= Comma_T;
@@ -162,9 +161,9 @@ package body Archicheck.Lang.Ada_Processor is
          end if;
 
          declare
-            Unit : constant Unbounded_String := Parent_Pkg_Name & Get_Unit_Name;
+            Unit : constant Unit_Name := Parent_Pkg_Name & Get_Unit_Name;
          begin
-            Put_Debug_Line ("in package " & To_String (Unit) & " implem : " & Boolean'Image (Implementation));
+            Put_Debug_Line ("in package " & (+Unit) & " implem : " & Boolean'Image (Implementation));
 
             Units.Add_Unit (Unit    => (Name           => Unit,
                                         Lang           => Sources.Ada_2012,
@@ -199,8 +198,7 @@ package body Archicheck.Lang.Ada_Processor is
          -- processing the subprogram declaration
          Find_Next;
          declare
-            Unit : constant Unbounded_String := Parent_Pkg_Name & Get_Unit_Name;
-            use type Units.Unit_Kind;
+            Unit : constant Unit_Name := Parent_Pkg_Name & Get_Unit_Name;
          begin
             Put_Debug_Line ("Unit name : " & " " & To_String (Unit));
             Put_Debug_Line ("7 : after " & To_String (Unit) & " : " &  Ada_Token'Image (Token_ID));
@@ -276,7 +274,7 @@ package body Archicheck.Lang.Ada_Processor is
 
          -- processing the task declaration
          declare
-            Unit : constant Unbounded_String := Parent_Pkg_Name & Get_Unit_Name;
+            Unit : constant Unit_Name := Parent_Pkg_Name & Get_Unit_Name;
          begin
             Put_Debug_Line ("Task name : " & " " & To_String (Unit));
 
@@ -313,7 +311,7 @@ package body Archicheck.Lang.Ada_Processor is
          end if;
 
          declare
-            Unit : constant Unbounded_String := Parent_Pkg_Name & Get_Unit_Name;
+            Unit : constant Unit_Name := Parent_Pkg_Name & Get_Unit_Name;
          begin
             Put_Debug_Line ("Protected name : " & " " & To_String (Unit));
 
@@ -339,13 +337,15 @@ package body Archicheck.Lang.Ada_Processor is
       -- >   with procedure X;
       -- > package Y ...
 
+      use Sources;
+
    begin
       -- -----------------------------------------------------------------------
-      Put_Debug_Line ("Looking for dependencies in " & From_Source & " :"); -- , Level => Verbose);
+      Put_Debug_Line ("Looking for dependencies in " & (+From_Source) & " :"); -- , Level => Verbose);
 
       Ada.Text_IO.Open (File => File,
                         Mode => Ada.Text_IO.In_File,
-                        Name => From_Source);
+                        Name => (+From_Source));
       Set_Input_Feeder (File);
 
       Source_Analysis : loop
@@ -421,13 +421,13 @@ package body Archicheck.Lang.Ada_Processor is
 
       end loop Source_Analysis;
 
-      if not Unit_Type_Identified then IO.Put_Warning ("Unknown Ada Unit in " & From_Source); end if;
+      if not Unit_Type_Identified then IO.Put_Warning ("Unknown Ada Unit in " & (+From_Source)); end if;
 
       Ada.Text_IO.Close (File);
 
    exception
       when Error : others =>
-         IO.Put_Exception (IO.GNU_Prefix (From_Source, Line, Column)
+         IO.Put_Exception (Sources.GNU_Prefix (From_Source, Line, Column)
                            & "parse exception:");
          IO.Put_Exception (Ada.Exceptions.Exception_Information (Error));
          Ada.Text_IO.Close (File);

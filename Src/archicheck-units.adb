@@ -23,13 +23,10 @@ with Archicheck.IO;
 with Archicheck.Settings;
 
 with Ada.Containers.Indefinite_Hashed_Maps;
-with Ada.Strings.Equal_Case_Insensitive;
 with Ada.Strings.Fixed;
 with Ada.Strings.Hash_Case_Insensitive;
 
 package body Archicheck.Units is
-
-   use Ada.Strings.Unbounded;
 
    -- Change default Debug parameter value to enable/disable Debug messages in this package
    -- --------------------------------------------------------------------------
@@ -38,10 +35,20 @@ package body Archicheck.Units is
       Debug  : in Boolean := Settings.Debug_Mode; --True; -- change to True to debug this package
       Prefix : in String  := "Units") renames Archicheck.IO.Put_Debug_Line;
 
+   -- -------------------------------------------------------------------------
+   function "+" (Name : Unit_Name) return String is
+     (To_String (Name));
+   function "+" (Name : String) return Unit_Name is
+     (Unit_Name'(To_Unbounded_String (Name)));
+   function To_US (Name : Unit_Name) return Unbounded_String is
+     (Unbounded_String (Name));
+   function "+" (Name : Unbounded_String) return Unit_Name is
+     (Unit_Name (Name));
+
    -- --------------------------------------------------------------------------
    function Location_Image (Dep : Dependency_Target) return String is
-     (IO.GNU_Prefix (File => To_String (Dep.File),
-                     Line => Dep.Line));
+     (Sources.GNU_Prefix (File => Dep.File,
+                          Line => Dep.Line));
 
    -- --------------------------------------------------------------------------
    function Unit_List_Image (List : Dependency_Targets.List) return String is
@@ -51,22 +58,26 @@ package body Archicheck.Units is
       -- the output is of this kind : "X, Y, Z, and V"
       for C in List.Iterate loop
          if C = List.First then
-            Tmp := Element (C).To_Unit;
+            Tmp := To_US (Element (C).To_Unit);
          elsif C = List.Last then
-            Tmp := Tmp & " and " & Element (C).To_Unit;
+            Tmp := Tmp & " and " & To_US (Element (C).To_Unit);
          else
-            Tmp := Tmp & ", " & Element (C).To_Unit;
+            Tmp := Tmp & ", " & To_US (Element (C).To_Unit);
          end if;
       end loop;
       return (To_String (Tmp));
       -- Fixme: same code in Rules, deserve a generic
    end Unit_List_Image;
 
+   function Hash_Case_Insensitive
+     (Key : Unit_Name) return Ada.Containers.Hash_Type is
+     (Ada.Strings.Hash_Case_Insensitive (+Key));
+
    -- --------------------------------------------------------------------------
    package Component_Maps is new Ada.Containers.Indefinite_Hashed_Maps
-     (Key_Type        => String,
+     (Key_Type        => Unit_Name,
       Element_Type    => Dependency_Targets.List,
-      Hash            => Ada.Strings.Hash_Case_Insensitive,
+      Hash            => Hash_Case_Insensitive,
       Equivalent_Keys => "=",
       "="             => Dependency_Targets."=");
    Component_Map : Component_Maps.Map;
@@ -75,9 +86,9 @@ package body Archicheck.Units is
 
    -- --------------------------------------------------------------------------
    package Owner_Maps is new Ada.Containers.Indefinite_Hashed_Maps
-     (Key_Type        => String,
+     (Key_Type        => Unit_Name,
       Element_Type    => Dependency_Target,
-      Hash            => Ada.Strings.Hash_Case_Insensitive,
+      Hash            => Hash_Case_Insensitive,
       Equivalent_Keys => "=",
       "="             => "=");
    Owner_Map : Owner_Maps.Map;
@@ -88,32 +99,32 @@ package body Archicheck.Units is
    -- Note that it is also maintained in parallel with the Relationship_List.
 
    -- --------------------------------------------------------------------------
-   function Is_A_Child (Unit      : String;
-                        Component : String) return Boolean
+   function Is_A_Child (Unit      : Unit_Name;
+                        Component : Unit_Name) return Boolean
    is
+      U : constant String := +Unit;
+      C : constant String := +Component;
       use Ada.Strings;
       use Ada.Strings.Fixed;
 
    begin
-      if Ada.Strings.Equal_Case_Insensitive (Unit, Component) then
+      if Ada.Strings.Equal_Case_Insensitive (U, C) then
          -- The Unit is the component
-         Put_Debug_Line ("Unit " & Unit
-                         & " is (in) the component " & Component);
+         Put_Debug_Line ("Unit " & U & " is (in) the component " & C);
          return True;
 
-      elsif Unit'Length > Component'Length and then
+      elsif U'Length > C'Length and then
         (Ada.Strings.Equal_Case_Insensitive
-           (Head (Unit, Count => Component'Length), Component) and
-             Unit (Component'Length + 1) = '.')
+           (Head (U, Count => C'Length), C) and U (C'Length + 1) = '.')
       then
          -- The Unit is a child pkg of the component
-         Put_Debug_Line ("Unit " & Unit
-                         & " is (as child) in the component " & Component);
+         Put_Debug_Line ("Unit " & U
+                         & " is (as child) in the component " & C);
          return True;
 
       else
-         Put_Debug_Line ("Unit " & Unit
-                         & " not in component " & Component, Prefix => "");
+         Put_Debug_Line ("Unit " & U
+                         & " not in component " & C, Prefix => "");
          return False;
 
       end if;
@@ -133,18 +144,19 @@ package body Archicheck.Units is
    -- --------------------------------------------------------------------------
    procedure Dump is
       use Archicheck.IO;
+      use Sources;
    begin
       for R of Dependency_List loop
          for D of R.Targets loop
-            Put_Line (Ada.Strings.Unbounded.To_String (R.Source.Name)
+            Put_Line ((+R.Source.Name)
                       & " " & Unit_Description (R.Source)
                       & " depends on "
-                      & Ada.Strings.Unbounded.To_String (D.To_Unit),
+                      & (+D.To_Unit),
                       Level => Quiet); --  & Image (D.To.Kind));
 
             -- gives file details only when verbose :
             Put_Line ("   Found line" & Natural'Image (D.Line)
-                      & " in " & Ada.Strings.Unbounded.To_String (D.File),
+                      & " in " & (+D.File),
                       Level => Verbose);
          end loop;
       end loop;
@@ -174,8 +186,8 @@ package body Archicheck.Units is
    procedure Add_Component (Component : Component_Attributes;
                             Targets   : Dependency_Targets.List) is
       use Component_Maps;
-      Key    : constant String := To_String (Component.Name);
-      Cursor : Component_Maps.Cursor;
+      Key      : constant Unit_Name := Component.Name;
+      Cursor   : Component_Maps.Cursor;
       Tmp_List : Dependency_Targets.List := Dependency_Targets.Empty_List;
 
    begin
@@ -199,17 +211,18 @@ package body Archicheck.Units is
       -- 3. Owner_Key map management, and Tmp_List building :
       for D of Targets loop
          declare
-            Owner_Key : constant String := To_String (D.To_Unit);
+            Owner_Key : constant Unit_Name := D.To_Unit;
             C         : constant Owner_Maps.Cursor := Owner_Map.Find (Owner_Key);
             use Owner_Maps;
             use type Dependency_Targets.List;
+            use Sources;
          begin
             if C = Owner_Maps.No_Element then
                -- normal case, the Unit is not already in a Component
                Dependency_Targets.Append (Tmp_List, D);
                Owner_Map.Insert (Owner_Key,
                                  New_Item => (Component.Name, D.File, D.Line));
-               Put_Debug_Line ("Adding " &  Owner_Key & " to Owner_Maps");
+               Put_Debug_Line ("Adding " &  (+Owner_Key) & " to Owner_Maps");
 
             else
                declare
@@ -243,11 +256,11 @@ package body Archicheck.Units is
    end Add_Component;
 
    -- --------------------------------------------------------------------------
-   function Is_In (Unit    : String;
-                   In_Unit : String) return Boolean
+   function Is_In (Unit    : Unit_Name;
+                   In_Unit : Unit_Name) return Boolean
    is
       Dep : Dependency_Target;
-      Key : constant String := Unit;
+      Key : constant Unit_Name := Unit;
       C   : Owner_Maps.Cursor;
       use Owner_Maps;
       use Ada.Strings;
@@ -276,16 +289,15 @@ package body Archicheck.Units is
 
       if C /= No_Element then
          Dep := Element (C);
-         if Ada.Strings.Equal_Case_Insensitive (To_String (Dep.To_Unit), In_Unit) then
+         if Equal_Case_Insensitive (Dep.To_Unit, In_Unit) then
             -- b. the Unit is directly claimed by Dep.To_Unit
-            Put_Debug_Line (Unit & " owned by " & To_String (Dep.To_Unit));
+            Put_Debug_Line ((+Unit) & " owned by " & (+Dep.To_Unit));
             return True;
          else
             -- c. the Unit is claimed by another Component
-            Put_Debug_Line ("1 Recursive call to IUIC (" & To_String (Dep.To_Unit)
-                            &  ", " & In_Unit & ")");
-            return Is_In (To_String (Dep.To_Unit),
-                          In_Unit); --recursive call
+            Put_Debug_Line ("1 Recursive call to IUIC (" & (+Dep.To_Unit)
+                            &  ", " & (+In_Unit) & ")");
+            return Is_In (Dep.To_Unit, In_Unit); --recursive call
          end if;
 
       else
@@ -293,17 +305,16 @@ package body Archicheck.Units is
             if Is_A_Child (Unit, Owner_Maps.Key (C)) then
                -- d. the unit is a child of one of the owned unit.
                Put_Debug_Line
-                 (Unit & " is a child of " & Owner_Maps.Key (C)
-                  & " that is owned by " & To_String (Dep.To_Unit));
-               Put_Debug_Line ("2 Recursive call to IUIC (" & Owner_Maps.Key (C)
-                               & ", " & In_Unit & ")");
-               return Is_In (Owner_Maps.Key (C),
-                             In_Unit); --recursive call
+                 ((+Unit) & " is a child of " & (+Owner_Maps.Key (C))
+                  & " that is owned by " & (+Dep.To_Unit));
+               Put_Debug_Line ("2 Recursive call to IUIC (" & (+Owner_Maps.Key (C))
+                               & ", " & (+In_Unit) & ")");
+               return Is_In (Owner_Maps.Key (C), In_Unit); --recursive call
             end if;
          end loop;
 
          --   e. Unit is not claimed by a component
-         Put_Debug_Line (Unit & " not owned by a component.");
+         Put_Debug_Line ((+Unit) & " not owned by a component.");
          -- Component is not a component... Fixme: formal parameter name inconsistent
          return False;
 

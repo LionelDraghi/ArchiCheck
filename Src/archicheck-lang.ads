@@ -52,8 +52,9 @@ private package Archicheck.Lang is
    -- --------------------------------------------------------------------------
    type Lang_Interface is abstract tagged limited private;
    function File_Extensions (Lang : in Lang_Interface) return String is abstract;
-   procedure Analyze_Dependencies (Lang        : in Lang_Interface;
-                                   From_Source : in String) is abstract;
+   procedure Analyze_Dependencies
+     (Lang        : in Lang_Interface;
+      From_Source : in Sources.Source_Name) is abstract;
 
 private
    -- -------------------------------------------------------------------------

@@ -18,14 +18,13 @@
 -- -----------------------------------------------------------------------------
 
 with Archicheck.IO;
-with Archicheck.Units;
+with Archicheck.Units;              use Archicheck.Units;
 with Archicheck.Settings;
 
 with Java_Lexer;
 with OpenToken.Text_Feeder.Text_IO;
 
 with Ada.Exceptions;
-with Ada.Strings.Unbounded;
 with Ada.Text_IO;
 
 package body Archicheck.Lang.Java_Processor is
@@ -49,7 +48,8 @@ package body Archicheck.Lang.Java_Processor is
 
    -- --------------------------------------------------------------------------
    procedure Analyze_Dependencies (Lang        : in Java_Interface;
-                                   From_Source : in String) is
+                                   From_Source : in Sources.Source_Name)
+   is
       pragma Unreferenced (Lang);
 
       -- Change default Debug parameter value to enable/disable Debug messages in this package
@@ -65,16 +65,14 @@ package body Archicheck.Lang.Java_Processor is
 
       Dep_List : Units.Dependency_Targets.List := Units.Dependency_Targets.Empty_List;
 
-      use Ada.Strings.Unbounded;
       use Java_Lexer;
 
       -- -----------------------------------------------------------------------
       -- Procedure: Get_Unit_Name
       -- -----------------------------------------------------------------------
-      function Get_Unit_Name return Unbounded_String is
-         Name : Unbounded_String := Null_Unbounded_String;
+      function Get_Unit_Name return Unit_Name is
+         Name : Unit_Name := +Analyzer.Lexeme;
       begin
-         Name := To_Unbounded_String (Analyzer.Lexeme);
          loop
             Analyzer.Find_Next;
             if Analyzer.ID = Dot_T then
@@ -88,18 +86,20 @@ package body Archicheck.Lang.Java_Processor is
       end Get_Unit_Name;
 
       Unit_Kind : Units.Java_Unit_Kind;
-      Pkg_Name  : Unbounded_String := Null_Unbounded_String;
+      Pkg_Name  : Unit_Name := Null_Unit_Name;
+
+      use Sources;
 
    begin
       if Settings.Debug_Mode then OpenToken.Trace_Parse := 1; end if;
       -- value > 0 => debug level
 
       -- New_Debug_Line;
-      IO.Put_Line ("Looking for dependencies in " & From_Source & " :", Level => IO.Verbose);
+      IO.Put_Line ("Looking for dependencies in " & (+From_Source) & " :", Level => IO.Verbose);
 
       Ada.Text_IO.Open (File => File,
                         Mode => Ada.Text_IO.In_File,
-                        Name => From_Source);
+                        Name => +From_Source);
       Ada.Text_IO.Set_Input (File);
       Analyzer.Reset;
       Analyzer.Set_Text_Feeder (OpenToken.Text_Feeder.Text_IO.Create (Ada.Text_IO.Current_Input));
@@ -130,14 +130,14 @@ package body Archicheck.Lang.Java_Processor is
                end if;
 
                declare
-                  Withed_Unit : constant Unbounded_String := Get_Unit_Name;
+                  Withed_Unit : constant Unit_Name := Get_Unit_Name;
                begin
-                  IO.Put_Line ("   - depends on " & To_String (Withed_Unit),
+                  IO.Put_Line ("   - depends on " & (+Withed_Unit),
                                Level => IO.Verbose);
 
                   Dep_List.Append
                     ((To_Unit => Withed_Unit,
-                      File    => To_Unbounded_String (From_Source),
+                      File    => From_Source,
                       Line    => Java_Lexer.Analyzer.Line));
 
                   -- Only one unit name per import statement in Java,
@@ -154,12 +154,11 @@ package body Archicheck.Lang.Java_Processor is
 
                Analyzer.Find_Next;
                declare
-                  From      : constant Unbounded_String := Get_Unit_Name;
-                  Full_Name : Unbounded_String;
-                  use type Units.Unit_Kind;
+                  From      : constant Unit_Name := Get_Unit_Name;
+                  Full_Name : Unit_Name;
 
                begin
-                  if Pkg_Name = Null_Unbounded_String then
+                  if Pkg_Name = Null_Unit_Name then
                      -- no Package, let's fall back on the class name
                      Full_Name := From;
                   else
@@ -167,7 +166,7 @@ package body Archicheck.Lang.Java_Processor is
                   end if;
 
                   IO.Put_Line ("   - defines " & Units.Unit_Kind'Image (Unit_Kind)
-                               & " " & To_String (Full_Name),
+                               & " " & (+Full_Name),
                                Level => IO.Verbose);
                   -- Fixme: utiliser 2012 pour éviter cette redondance :
                   case Unit_Kind is
@@ -226,7 +225,7 @@ package body Archicheck.Lang.Java_Processor is
    exception
       when Error : others =>
          IO.Put_Exception
-           (IO.GNU_Prefix (From_Source, Analyzer.Line, Analyzer.Column)
+           (Sources.GNU_Prefix (From_Source, Analyzer.Line, Analyzer.Column)
             & "parse exception:");
          IO.Put_Exception (Ada.Exceptions.Exception_Information (Error));
          Ada.Text_IO.Close (File => File);

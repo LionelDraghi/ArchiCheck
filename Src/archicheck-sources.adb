@@ -18,7 +18,20 @@
 
 with Archicheck.IO;
 
+with Ada.Strings.Fixed;
+
+
 package body Archicheck.Sources is
+
+   -- --------------------------------------------------------------------------
+   function "+" (Name : Source_Name) return String is
+     (To_String (Name));
+   function "+" (Name : String) return Source_Name is
+     (Source_Name'(To_Unbounded_String (Name)));
+   -- function "+" (Name : Unbounded_String) return Source_Name is
+   --   (Source_Name (Name));
+   function "+" (Name : Source_Name) return Unbounded_String is
+     (Unbounded_String (Name));
 
    -- --------------------------------------------------------------------------
    Source_List : Source_Lists.List := Source_Lists.Empty_List;
@@ -38,14 +51,30 @@ package body Archicheck.Sources is
 
    -- --------------------------------------------------------------------------
    -- Procedure: Dump_Sources
-   -- -------------------------------------------------------------------------
+   -- --------------------------------------------------------------------------
    procedure Dump_Sources (Sources : in Source_Lists.List) is
-      use Ada.Strings.Unbounded;
       use Archicheck.IO;
    begin
       for Src of Sources loop
-         Put_Line (To_String (Src.Name), Level => Quiet);
+         Put_Line (+Src.File, Level => Quiet);
       end loop;
    end Dump_Sources;
+
+   -- -------------------------------------------------------------------------
+   function GNU_Prefix (File   : in Source_Name;
+                        Line   : in Positive;
+                        Column : in Integer := 0) return String is
+      use Ada.Strings;
+      use Ada.Strings.Fixed;
+      Trimed_File   : constant String := Trim (+File, Side => Both);
+      Trimed_Line   : constant String := Trim (Positive'Image (Line), Side => Both);
+      Trimed_Column : constant String := Trim (Integer'Image (Column), Side => Both);
+   begin
+      if Column = 0 then
+         return Trimed_File & ":" & Trimed_Line & ": ";
+      else
+         return Trimed_File & ":" & Trimed_Line & "." & Trimed_Column & ": ";
+      end if;
+   end GNU_Prefix;
 
 end Archicheck.Sources;

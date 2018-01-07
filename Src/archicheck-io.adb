@@ -17,8 +17,6 @@
 --
 -- -----------------------------------------------------------------------------
 
-with Ada.Strings.Fixed;
-
 package body Archicheck.IO is
 
    -- -------------------------------------------------------------------------
@@ -147,24 +145,6 @@ package body Archicheck.IO is
          Ada.Text_IO.New_Line (Spacing);
       end if;
    end New_Line;
-
-   -- -------------------------------------------------------------------------
-   function GNU_Prefix (File   : in String;
-                        Line   : in Positive;
-                        Column : in Integer := 0) return String is
-      use Ada.Strings;
-      use Ada.Strings.Fixed;
-      Trimed_File   : constant String := Trim (File, Side => Both);
-      Trimed_Line   : constant String := Trim (Positive'Image (Line), Side => Both);
-      Trimed_Column : constant String := Trim (Integer'Image (Column), Side => Both);
-   begin
-      if Column = 0 then
-         return Trimed_File & ":" & Trimed_Line & ": ";
-      else
-         return Trimed_File & ":" & Trimed_Line & "." & Trimed_Column & ": ";
-      end if;
-   end GNU_Prefix;
-
 
 end Archicheck.IO;
 

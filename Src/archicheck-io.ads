@@ -73,31 +73,4 @@ private package Archicheck.IO is
    function Some_Error return Boolean is
       (Error_Count /= 0 or (Settings.Warnings_As_Errors and Warning_Count /= 0));
 
-   -- --------------------------------------------------------------------------
-   -- Function: GNU_Prefix
-   --
-   -- Purpose:
-   --    This function return a source/line/column prefix to messages compatible
-   --    whith GNU Standard
-   --    (refer to <https://www.gnu.org/prep/standards/html_node/Errors.html>),
-   --    That is :
-   --       > sourcefile:lineno:
-   --    if no column, or
-   --       > sourcefile:lineno.column:
-   --    otherwise.
-   --
-   --    Note that there is a trailing space, so that the message can be append
-   --    directly.
-   --    With the first form of the function, the displayed file name is given
-   --    as an in string parameter.
-   --    It is recommanded to use this form for files given on command line,
-   --    to ease error msg understanding.
-   --    For example, a "../../rules.txt" command line parameter should be
-   --    displayed as is in case of messages regarding this rules.txt file.
-   -- --------------------------------------------------------------------------
-   function GNU_Prefix (File   : in String;
-                        Line   : in Positive;
-                        Column : in Integer := 0) return String;
-
-
 end Archicheck.IO;

@@ -23,9 +23,20 @@
 with Archicheck.Sources;
 
 with Ada.Containers.Doubly_Linked_Lists;
-with Ada.Strings.Unbounded;
+with Ada.Strings.Equal_Case_Insensitive;
+with Ada.Strings.Unbounded;              use Ada.Strings.Unbounded;
 
 private package Archicheck.Units is
+
+   -- --------------------------------------------------------------------------
+   type Unit_Name is new Unbounded_String;
+   function "+" (Name : Unit_Name) return String;
+   function "+" (Name : String) return Unit_Name;
+   function To_US (Name : Unit_Name) return Unbounded_String;
+   function "+" (Name : Unbounded_String) return Unit_Name;
+   function Equal_Case_Insensitive (X, Y : Unit_Name) return Boolean is
+      (Ada.Strings.Equal_Case_Insensitive (+X, +Y));
+   Null_Unit_Name : constant Unit_Name := Unit_Name (Null_Unbounded_String);
 
    -- --------------------------------------------------------------------------
    -- Units are either :
@@ -59,12 +70,10 @@ private package Archicheck.Units is
          when Component   =>  "component",
          when Unknown     =>  "Unknown") with inline;
 
-   subtype Unit_Name is Ada.Strings.Unbounded.Unbounded_String;
-
    type Dependency_Target is record
       To_Unit : Unit_Name;
       -- File & Line : where the dependency comes from
-      File    : Ada.Strings.Unbounded.Unbounded_String;
+      File    : Sources.Source_Name;
       Line    : Natural;
    end record;
    -- --------------------------------------------------------------------------
@@ -122,8 +131,8 @@ private package Archicheck.Units is
                             Targets   : Dependency_Targets.List);
 
    -- --------------------------------------------------------------------------
-   function Is_In (Unit    : String;
-                   In_Unit : String) return Boolean;
+   function Is_In (Unit    : Unit_Name;
+                   In_Unit : Unit_Name) return Boolean;
    -- return True if :
    -- - A is B
    -- - A is a child of B
