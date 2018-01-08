@@ -33,6 +33,7 @@ Archicheck.Main procedure body depends on Archicheck.Lang
 Archicheck.Main procedure body depends on Archicheck.Lang.Initialize
 Archicheck.Main procedure body depends on Archicheck.Rules.Check
 Archicheck.Main procedure body depends on Archicheck.Rules.Parser
+Archicheck.Main procedure body depends on Archicheck.Rules.Print_Non_Covered_Unit
 Archicheck.Main procedure body depends on Archicheck.Settings
 Archicheck.Main procedure body depends on Archicheck.Sources
 Archicheck.Main procedure body depends on Archicheck.Units
@@ -71,6 +72,10 @@ Archicheck.Rules.Parser package body depends on OpenToken.Token.Enumerated.Analy
 Archicheck.Rules.Parser package body depends on OpenToken.Token.Enumerated.Identifier
 Archicheck.Rules.Parser package body depends on OpenToken.Token.Enumerated.List
 Archicheck.Rules.Parser package body depends on OpenToken.Token.Enumerated.Nonterminal
+Archicheck.Rules.Print_Non_Covered_Unit procedure body depends on Ada.Containers.Indefinite_Hashed_Maps
+Archicheck.Rules.Print_Non_Covered_Unit procedure body depends on Ada.Strings
+Archicheck.Rules.Print_Non_Covered_Unit procedure body depends on Ada.Strings.Hash_Case_Insensitive
+Archicheck.Rules.Print_Non_Covered_Unit procedure body depends on Archicheck.IO
 Archicheck.Settings package body depends on Ada.Strings.Unbounded
 Archicheck.Sources package body depends on Ada.Strings.Fixed
 Archicheck.Sources package body depends on Archicheck.IO

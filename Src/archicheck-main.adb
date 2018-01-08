@@ -79,7 +79,7 @@ begin
          return;
 
       elsif Settings.List_Non_Covered then
-         Rules.Print_Non_Covered;
+         Rules.Print_Non_Covered_Unit;
 
       else
          -- 4. Checking rules

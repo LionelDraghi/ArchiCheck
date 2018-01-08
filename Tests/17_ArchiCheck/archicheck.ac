@@ -1,11 +1,20 @@
+Archicheck.Rules may use Archicheck.Lang
+Archicheck.Lang may  use Archicheck.Units
+Archicheck.Units may use Archicheck.Sources
+
 only Archicheck.Cmd_Line may use Ada.Command_Line
 only Archicheck.Main     may use Ada.Command_Line
 
 only Archicheck.Lang.Ada_Processor  may use Ada_Lexer 
-
 only Archicheck.Lang.Java_Processor may use Java_Lexer
 
 only Archicheck.Lang.Java_Processor may use OpenToken
-only Archicheck.Rules.Parser may use OpenToken
+only Archicheck.Rules.Parser        may use OpenToken
 
 GNAT use is forbidden
+
+Ada.Strings         use is allowed
+Ada.Containers      use is allowed
+Archicheck.IO       use is allowed
+Archicheck.Settings use is allowed
+

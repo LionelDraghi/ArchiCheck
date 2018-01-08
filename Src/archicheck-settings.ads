@@ -20,11 +20,12 @@
 
 private package Archicheck.Settings is
 
-   ArchiCheck_Version : constant String := "0.5.4";
+   ArchiCheck_Version : constant String := "0.5.5";
 
    List_Files         : Boolean := False;
    List_Dependencies  : Boolean := False;
    List_Rules         : Boolean := False;
+   List_Non_Covered   : Boolean := False;
    Recursive          : Boolean := False;
    Warnings_As_Errors : Boolean := False;
 

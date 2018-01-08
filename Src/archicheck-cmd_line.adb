@@ -27,21 +27,21 @@ with Ada.Directories;
 
 package body Archicheck.Cmd_Line is
 
-   -- -------------------------------------------------------------------------
+   -- --------------------------------------------------------------------------
    Arg_Counter   : Positive := 1;
    Src_Dir_Given : Boolean := False;
 
-   -- -------------------------------------------------------------------------
+   -- --------------------------------------------------------------------------
    -- Procedure: Next_Arg
-   -- -------------------------------------------------------------------------
+   -- --------------------------------------------------------------------------
    procedure Next_Arg is
    begin
       Arg_Counter := Arg_Counter + 1;
    end Next_Arg;
 
-   -- -------------------------------------------------------------------------
+   -- --------------------------------------------------------------------------
    -- Procedure: Put_Version
-   -- -------------------------------------------------------------------------
+   -- --------------------------------------------------------------------------
    procedure Put_Version is
       use Archicheck.IO;
    begin
@@ -49,9 +49,9 @@ package body Archicheck.Cmd_Line is
       New_Line;
    end Put_Version;
 
-   -- -------------------------------------------------------------------------
+   -- --------------------------------------------------------------------------
    -- Procedure: Process_Directory_Option
-   -- -------------------------------------------------------------------------
+   -- --------------------------------------------------------------------------
    procedure Process_Directory_Option (Recursive : in Boolean) is
       use Archicheck.IO;
 
@@ -70,8 +70,8 @@ package body Archicheck.Cmd_Line is
             if Exists (Dir_Name) then
                if Kind (Dir_Name) = Directory then
                   -- let's collect all sources in that dir:
-                  Lang.Get_Src_List (Root_Dir => Dir_Name, Recursive => Recursive);
-
+                  Lang.Get_Src_List (Root_Dir  => Dir_Name,
+                                     Recursive => Recursive);
                else
                  Put_Error (Dir_Name & " is not a directory");
 
@@ -87,14 +87,14 @@ package body Archicheck.Cmd_Line is
 
    end Process_Directory_Option;
 
-   -- -------------------------------------------------------------------------
+   -- --------------------------------------------------------------------------
    -- Procedure: Options_Coherency_Tests
    --
    -- Purpose:
    --    This procedure checks various pathologic situations, for example an
    --    option implying source files, but no -I option is given, or no source
    --    files found.
-   -- -------------------------------------------------------------------------
+   -- --------------------------------------------------------------------------
    procedure Options_Coherency_Tests is
       use Archicheck.IO;
 
@@ -115,13 +115,17 @@ package body Archicheck.Cmd_Line is
          elsif Sources.Get_List.Is_Empty and Settings.List_Dependencies then
             Put_Warning ("Cannot list dependencies, no sources found");
 
-         elsif Sources.Get_List.Is_Empty and Settings.List_Files and Src_Dir_Given then
+         elsif Sources.Get_List.Is_Empty and
+           Settings.List_Files and Src_Dir_Given
+         then
             Put_Warning ("Cannot list files, no sources found to analyze");
 
          elsif Sources.Get_List.Is_Empty and Src_Dir_Given then
             Put_Warning ("No src found in those directories");
 
-         elsif Settings.Rules_File_Name /= "" and not Settings.Rules_File_Needed then
+         elsif Settings.Rules_File_Name /= "" and not
+           Settings.Rules_File_Needed
+         then
             Put_Error ("Nothing to do with this rules file", With_Help => True);
 
          end if;
@@ -161,6 +165,10 @@ package body Archicheck.Cmd_Line is
                Settings.List_Rules := True;
                Next_Arg;
 
+            elsif Opt = "-lnc" or Opt = "--list_non_covered" then
+               Settings.List_Non_Covered := True;
+               Next_Arg;
+
             elsif Opt = "-r" or Opt = "--recursive" then
                Settings.Recursive := True;
                Next_Arg;
@@ -190,14 +198,14 @@ package body Archicheck.Cmd_Line is
                Settings.Verbosity := Debug;
                Next_Arg;
 
-               -- elsif Arg_Counter = Ada.Command_Line.Argument_Count then
             elsif Ada.Directories.Exists (Opt) then
                -- should be the rules file
                Settings.Set_Rules_File_Name (Opt);
                Next_Arg;
 
             else
-               Put_Error ("Unknown rules file or unknow option " & Opt, With_Help => True);
+               Put_Error ("Unknown rules file or unknow option " &
+                            Opt, With_Help => True);
 
             end if;
 

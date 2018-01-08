@@ -15,7 +15,6 @@
 --   None
 --
 -- Anticipated Changes:
---   - More more thorough Ada implementation needed
 --
 -- -----------------------------------------------------------------------------
 
@@ -316,5 +315,20 @@ package body Archicheck.Units is
 
    end Is_In;
 
+   -- --------------------------------------------------------------------------
+   function Is_Involved_In_A_Component (Unit : in Unit_Name) return Boolean is
+   begin
+      for C in Owner_Map.Iterate loop
+         if Is_In (Unit, In_Unit => Owner_Maps.Key (C)) then
+            return True;
+         end if;
+      end loop;
+      for C in Component_Map.Iterate loop
+         if Is_In (Unit, In_Unit => Component_Maps.Key (C)) then
+            return True;
+         end if;
+      end loop;
+      return False;
+   end Is_Involved_In_A_Component;
 
 end Archicheck.Units;

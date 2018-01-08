@@ -62,8 +62,8 @@ build_release:
 
 	# equal to check, but without coverage :
 	echo - Running tests :
-	## $(MAKE) --ignore-errors --directory=Tests
-	$(MAKE) --directory=Tests
+	$(MAKE) --ignore-errors --directory=Tests
+	## $(MAKE) --directory=Tests
 
 	echo "Run "`date --iso-8601=seconds` 	>  release_tests.txt
 	echo									>> release_tests.txt
@@ -85,8 +85,8 @@ check: Obj/archicheck
 	# coverage info generated
 
 	echo - Running tests :
-	$(MAKE) --ignore-errors --directory=Tests
-	## $(MAKE) --directory=Tests
+	## $(MAKE) --ignore-errors --directory=Tests
+	$(MAKE) --directory=Tests
 
 	echo
 	echo - Tests summary :

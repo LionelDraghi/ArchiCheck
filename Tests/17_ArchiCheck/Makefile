@@ -5,7 +5,7 @@ TR=../Tools/testrec
 
 .PHONY : clean
 
-check: ../../Obj/archicheck header test1 test2 test3
+check: ../../Obj/archicheck header test1 test2 test3 test4
 
 .PHONY : header
 header:
@@ -80,6 +80,28 @@ test3:
 	> expected_output.3
 	../../Obj/archicheck archicheck.ac -I ./src > output.3
 	${TR} assert true /usr/bin/sdiff "-sbB expected_output.3 output.3"
+
+	${TR} end
+
+test4:
+	@ #---------------------------------------------------------------------
+	${TR} start "--list_non_covered"
+
+	@ ${TR} cmt "> archicheck archicheck.ac -lnc -I ./src"
+	@ ${TR} cmt 
+	@ ${TR} cmt "Rules :"
+	@ ${TR} cmt 
+	@ ${TR} cmt '```'
+	cat archicheck.ac >> testrec.md
+	@ ${TR} cmt '```'
+	@ ${TR} cmt 
+	@ ${TR} cmt "![ArchiCheck dependencies view](ac_view.png)"
+	@ ${TR} cmt 
+	@ ${TR} cmt "No error expected"
+	@ ${TR} cmt 
+
+	../../Obj/archicheck archicheck.ac -lnc -I ./src > output.4
+	${TR} assert true /usr/bin/sdiff "-sbB expected_output.4 output.4"
 
 	${TR} end
 

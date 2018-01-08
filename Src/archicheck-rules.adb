@@ -192,5 +192,39 @@ package body Archicheck.Rules is
       return (To_String (Tmp));
    end Users_Image;
 
+   -- --------------------------------------------------------------------------
+   function Is_Involved_In_A_Rule (Unit : in Unit_Name) return Boolean is
+   begin
+      IO.Put_Line ("", Level => Verbose);
+      IO.Put_Line ("-----------------", Level => Verbose);
+      for R of Subject_Only_Rule_List loop
+         if Is_In (Unit, In_Unit => R.Subject_Unit) then
+            IO.Put_Line (Item  => "+ " & (+Unit) & " Involved in "
+                         & (+R.Subject_Unit),
+                         Level => Verbose);
+            return True;
+         end if;
+         IO.Put_Line (Item  => "- " & (+Unit) & " not Involved in "
+                      & (+R.Subject_Unit),
+                      Level => Verbose);
+      end loop;
+      for R of With_Object_Rule_List loop
+         if Is_In (Unit, In_Unit => R.Subject_Unit)
+           or else Is_In (Unit, In_Unit => R.Object_Unit)
+         then
+            IO.Put_Line (Item  => "+ " & (+Unit) & " Involved in "
+                         & (+R.Subject_Unit) & " or "
+                         & (+R.Object_Unit),
+                         Level => Verbose);
+            return True;
+         end if;
+         IO.Put_Line (Item  => "- " & (+Unit) & " not Involved in "
+                      & (+R.Subject_Unit) & " or "
+                      & (+R.Object_Unit),
+                      Level => Verbose);
+      end loop;
+      return False;
+   end Is_Involved_In_A_Rule;
+
 
 end Archicheck.Rules;

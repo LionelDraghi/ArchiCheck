@@ -2,7 +2,7 @@
 
 ## Successful
 
-   70 tests OK
+   71 tests OK
 
   - [Use rules test suite / May_Use rule, code compliant, no output expected]()
   - [Use rules test suite / Using a unit from a non allowed unit]()
@@ -25,6 +25,7 @@
   - [ArchiCheck code test suite / -lf test]()
   - [ArchiCheck code test suite / -ld test]()
   - [ArchiCheck code test suite / rules test]()
+  - [ArchiCheck code test suite / --list_non_covered]()
   - [Batik test suite / --list_file test]()
   - [Batik test suite / public class]()
   - [Batik test suite / public interface class]()
