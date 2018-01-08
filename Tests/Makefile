@@ -31,6 +31,7 @@ check: ../Obj/archicheck Tools/create_pkg Tools/testrec
 	$(MAKE) check --directory=15_Precedences_Rules
 	$(MAKE) check --directory=16_AdaControl
 	$(MAKE) check --directory=17_ArchiCheck
+	$(MAKE) check --directory=18_Spring_PetClinic
 
 doc:
 	cat `find . -name testrec.md` > tmp.txt
@@ -86,6 +87,7 @@ doc:
 	@ $(MAKE) doc --directory=15_Precedences_Rules
 	@ $(MAKE) doc --directory=16_AdaControl
 	@ $(MAKE) doc --directory=17_ArchiCheck
+	@ $(MAKE) doc --directory=18_Spring_PetClinic
 
 clean:
 	@ $(MAKE) clean --directory=Tools
@@ -107,7 +109,8 @@ clean:
 	@ $(MAKE) clean --directory=15_Precedences_Rules
 	@ $(MAKE) clean --directory=16_AdaControl
 	@ $(MAKE) clean --directory=17_ArchiCheck
-
+	@ $(MAKE) clean --directory=18_Spring_PetClinic
+	
 	- ${RM} tests_status.md *.lst short_tests_status.md tests_count.txt
 
 

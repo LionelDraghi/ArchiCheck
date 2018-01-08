@@ -42,12 +42,15 @@ pages:
   - tests/rules_on_components.md
   - tests/precedences_rules.md
 
-- Real software tests:
+- Ada software tests:
   - tests/gtkada.md
-  - tests/batik.md
   - tests/zipada.md
   - tests/adactl.md
   - tests/archicheck.md
+
+- Java software tests:
+  - tests/batik.md
+  - tests/petclinic.md
 
 ## - Tools:
 ##   - mdtags.md

@@ -10,9 +10,11 @@ Or more precisely, that are translated but with a semantic loss.
 The architect think `A is a layer over B`. 
 
 But `A` code just said `import B`, and what the software designer had in mind is just lost.  
+> **The code doesn't tell the whole story**
 
 The [Archicheck_Overview.pdf](Archicheck_Overview.pdf) provides you with some more details on that topic. 
 
+> **Archicheck proposal is to put once for all your architecture description in simple english sentences in a text file, and to check your code compliance with that description in your test suite.**
 
 Run it!
 -------
@@ -25,14 +27,16 @@ Archicheck needs :
 Let's consider the following file `My_Architecture.txt`, that describes a simple layered architecture :
 
 ```
-GUI contains pkg_1, pkg_2
-DB  contains pkg_3, pkg_4
+Presentation_Layer contains pkg_1, pkg_2
+Application_Layer  contains pkg_3, pkg_4
 
-GUI is a layer over DB
+Presentation_Layer is a layer over Application_Layer
 ```
 
-Run ArchiCheck that way :  
-`archicheck -I My_Src_Dir My_Architecture.txt`  
+Run ArchiCheck that way:  
+> _archicheck -I src My_Architecture.txt_  
+
+([`archicheck -h` for a complete list of options](cmd_line.md))
 
 It will check that the code comply with your architecture.
 

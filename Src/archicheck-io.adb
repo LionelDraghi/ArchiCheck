@@ -38,10 +38,11 @@ package body Archicheck.IO is
       Ada.Text_IO.Put_Line ("   -h  | --help           : this message");
       Ada.Text_IO.New_Line;
       Ada.Text_IO.Put_Line ("Queries :");
-      Ada.Text_IO.Put_Line ("   -lf | --list_files        : list analyzed sources files");
-      Ada.Text_IO.Put_Line ("   -ld | --list_dependencies : list identified units and dependencies"
+      Ada.Text_IO.Put_Line ("   -lf  | --list_files        : list analyzed sources files");
+      Ada.Text_IO.Put_Line ("   -ld  | --list_dependencies : list identified units and dependencies"
                             & " in analyzed sources files");
-      Ada.Text_IO.Put_Line ("   -lr | --list_rules        : list rules in a rules file");
+      Ada.Text_IO.Put_Line ("   -lr  | --list_rules        : list rules in a rules file");
+      Ada.Text_IO.Put_Line ("   -lnc | --list_non_covered  : list units not involved in rules file");
       Ada.Text_IO.Put_Line ("   If any, only one of the queries is performed,");
       Ada.Text_IO.Put_Line ("   and then the full analisys on sources is not done.");
       Ada.Text_IO.New_Line;

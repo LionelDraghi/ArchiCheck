@@ -2,7 +2,7 @@
 
 ## Successful
 
-   71 tests OK
+   74 tests OK
 
   - [Use rules test suite / May_Use rule, code compliant, no output expected]()
   - [Use rules test suite / Using a unit from a non allowed unit]()
@@ -45,6 +45,9 @@
   - [Rules file syntax test suite / Reference file]()
   - [Rules file syntax test suite / Casing]()
   - [Rules file syntax test suite / Spacing and comments]()
+  - [Spring Pet Clinic code test suite / -lf test]()
+  - [Spring Pet Clinic code test suite / -ld test]()
+  - [Spring Pet Clinic code test suite / rules test]()
   - [ZipAda code test suite / -lf test]()
   - [ZipAda code test suite / -ld test]()
   - [ZipAda code test suite / rules test]()
