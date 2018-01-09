@@ -26,23 +26,23 @@ Spring Pet Clinic code test suite / -lf test [Successful](tests_status.md#succes
 
   > archicheck -ld -r -I spring-petclinic-master
 
-  35 dependencies expected :
+  90 dependencies expected :
 
 ```
-org.springframework.samples.petclinic.model.ValidatorTests class depends on java.util.Locale
-org.springframework.samples.petclinic.model.ValidatorTests class depends on java.util.Set
-org.springframework.samples.petclinic.model.ValidatorTests class depends on javax.validation.ConstraintViolation
-org.springframework.samples.petclinic.model.ValidatorTests class depends on javax.validation.Validator
-org.springframework.samples.petclinic.model.ValidatorTests class depends on org.assertj.core.api.Assertions.assertThat
-org.springframework.samples.petclinic.model.ValidatorTests class depends on org.junit.Test
-org.springframework.samples.petclinic.model.ValidatorTests class depends on org.springframework.context.i18n.LocaleContextHolder
-org.springframework.samples.petclinic.model.ValidatorTests class depends on org.springframework.validation.beanvalidation.LocalValidatorFactoryBean
-org.springframework.samples.petclinic.owner.OwnerRepository interface depends on java.util.Collection
-org.springframework.samples.petclinic.owner.OwnerRepository interface depends on org.springframework.data.jpa.repository.Query
+org.springframework.samples.petclinic.model.BaseEntity class depends on java.io.Serializable
+org.springframework.samples.petclinic.model.BaseEntity class depends on javax.persistence.GeneratedValue
+org.springframework.samples.petclinic.model.BaseEntity class depends on javax.persistence.GenerationType
+org.springframework.samples.petclinic.model.BaseEntity class depends on javax.persistence.Id
+org.springframework.samples.petclinic.model.BaseEntity class depends on javax.persistence.MappedSuperclass
+org.springframework.samples.petclinic.model.NamedEntity class depends on javax.persistence.Column
+org.springframework.samples.petclinic.model.NamedEntity class depends on javax.persistence.MappedSuperclass
+org.springframework.samples.petclinic.model.Person class depends on javax.persistence.Column
+org.springframework.samples.petclinic.model.Person class depends on javax.persistence.MappedSuperclass
+org.springframework.samples.petclinic.model.Person class depends on org.hibernate.validator.constraints.NotEmpty
 ...
-org.springframework.samples.petclinic.vet.VetRepository interface depends on org.springframework.dao.DataAccessException
-org.springframework.samples.petclinic.vet.VetRepository interface depends on org.springframework.data.repository.Repository
-org.springframework.samples.petclinic.vet.VetRepository interface depends on org.springframework.transaction.annotation.Transactional
+org.springframework.samples.petclinic.vet.Vets class depends on java.util.List
+org.springframework.samples.petclinic.vet.Vets class depends on javax.xml.bind.annotation.XmlElement
+org.springframework.samples.petclinic.vet.Vets class depends on javax.xml.bind.annotation.XmlRootElement
 org.springframework.samples.petclinic.vet.VetTests class depends on org.assertj.core.api.Assertions.assertThat
 org.springframework.samples.petclinic.vet.VetTests class depends on org.junit.Test
 org.springframework.samples.petclinic.vet.VetTests class depends on org.springframework.util.SerializationUtils

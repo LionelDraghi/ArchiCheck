@@ -28,7 +28,7 @@ ArchiCheck code test suite / -lf test [Successful](tests_status.md#successful)
 
   > archicheck -ld -I ./src | sort
 
-  92 dependencies expected :
+  93 dependencies expected :
 
 ```
 Archicheck.Cmd_Line package body depends on Ada.Command_Line
@@ -74,6 +74,7 @@ only Archicheck.Main     may use Ada.Command_Line
 only Archicheck.Lang.Ada_Processor  may use Ada_Lexer 
 only Archicheck.Lang.Java_Processor may use Java_Lexer
 
+only Archicheck.Lang.Ada_Processor  may use OpenToken 
 only Archicheck.Lang.Java_Processor may use OpenToken
 only Archicheck.Rules.Parser        may use OpenToken
 
@@ -110,6 +111,7 @@ only Archicheck.Main     may use Ada.Command_Line
 only Archicheck.Lang.Ada_Processor  may use Ada_Lexer 
 only Archicheck.Lang.Java_Processor may use Java_Lexer
 
+only Archicheck.Lang.Ada_Processor  may use OpenToken 
 only Archicheck.Lang.Java_Processor may use OpenToken
 only Archicheck.Rules.Parser        may use OpenToken
 

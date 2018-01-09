@@ -23,6 +23,7 @@ with Archicheck.Settings;
 with Archicheck.Units;      use Archicheck.Units;
 
 with Ada_Lexer;
+with OpenToken;
 
 with Ada.Exceptions;
 with Ada.Text_IO;
@@ -344,6 +345,9 @@ package body Archicheck.Lang.Ada_Processor is
       -- -----------------------------------------------------------------------
       Put_Debug_Line ("Looking for dependencies in " & (+From_Source) & " :");
 
+      if Settings.Debug_Mode then OpenToken.Trace_Parse := 1; end if;
+      -- value > 0 => debug level
+
       Ada.Text_IO.Open (File => File,
                         Mode => Ada.Text_IO.In_File,
                         Name => (+From_Source));
@@ -351,8 +355,8 @@ package body Archicheck.Lang.Ada_Processor is
 
       Source_Analysis : loop
          Put_Debug_Line ("Loop : " &  Ada_Token'Image (Token_ID)
-                         & " [" & Natural'Image (Line) & ","
-                         & Natural'Image (Column) & "]"); -- & Lexeme);
+                         & Sources.Location_Image
+                           ((From_Source, Ada_Lexer.Line, Ada_Lexer.Column)));
 
          -- The withed units are first stored in
          -- a Tmp dependency list, with the Unit_Name left blank,

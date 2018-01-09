@@ -8,6 +8,7 @@ only Archicheck.Main     may use Ada.Command_Line
 only Archicheck.Lang.Ada_Processor  may use Ada_Lexer 
 only Archicheck.Lang.Java_Processor may use Java_Lexer
 
+only Archicheck.Lang.Ada_Processor  may use OpenToken 
 only Archicheck.Lang.Java_Processor may use OpenToken
 only Archicheck.Rules.Parser        may use OpenToken
 

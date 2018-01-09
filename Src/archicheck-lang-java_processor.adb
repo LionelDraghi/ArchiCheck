@@ -55,11 +55,11 @@ package body Archicheck.Lang.Java_Processor is
       -- Change default Debug parameter value to enable/disable
       -- Debug messages in this package
       -- -----------------------------------------------------------------------
-      -- procedure Put_Debug_Line
-      --   (Msg    : in String  := "";
-      --    Debug  : in Boolean := Settings.Debug_Mode;
-      --    Prefix : in String  := "Java_Processor.Analyze_Dependencies")
-      --    renames Archicheck.IO.Put_Debug_Line;
+      procedure Put_Debug_Line
+       (Msg    : in String  := "";
+        Debug  : in Boolean := Settings.Debug_Mode;
+        Prefix : in String  := "Java_Processor.Analyze_Dependencies")
+        renames Archicheck.IO.Put_Debug_Line;
       -- pragma Unreferenced (Put_Debug_Line);
 
       -- Global text file for reading parse data
@@ -115,6 +115,9 @@ package body Archicheck.Lang.Java_Processor is
         (OpenToken.Text_Feeder.Text_IO.Create (Ada.Text_IO.Current_Input));
 
       Source_Analysis : loop
+         Put_Debug_Line ("Loop : " &  Java_Token'Image (Analyzer.ID) & " "
+                         & Sources.Location_Image
+                           ((From_Source, Analyzer.Line, Analyzer.Column)));
          case Analyzer.ID is
             when Package_T =>
                -- processing the package declaration
@@ -149,6 +152,20 @@ package body Archicheck.Lang.Java_Processor is
                   -- Only one unit name per import statement in Java,
                   -- no need to loop.
                end;
+
+            when Annotation_T =>
+               -- Jump over this kind of declaration :
+               -- @RunWith(MockitoJUnitRunner.class)
+               -- Otherwise, the "class" occurence is interpreted as T_Class,
+               -- normally followed by the class name, and so we exit the loop
+               -- with ")" as class name.
+               Analyzer.Find_Next;
+               if Analyzer.ID = Left_Parenthesis_T then
+                  loop
+                     Analyzer.Find_Next;
+                     exit Source_Analysis when Analyzer.ID = Right_Parenthesis_T;
+                  end loop;
+               end if;
 
             when Class_T | Interface_T =>
                -- processing the class declaration
