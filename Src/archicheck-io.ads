@@ -24,8 +24,8 @@ with Ada.Text_IO;
 
 private package Archicheck.IO is
 
-   -- --------------------------------------------------------------------------
-   procedure Put_Help;
+--     -- --------------------------------------------------------------------------
+--     procedure Put_Help;
 
    -- --------------------------------------------------------------------------
    procedure Put_Debug_Line (Msg    : in String := "";
@@ -58,10 +58,9 @@ private package Archicheck.IO is
                        Level   : Print_Out_Level := Normal);
 
    -- --------------------------------------------------------------------------
-   procedure Put_Warning   (Msg       : in String := "");
-   procedure Put_Error     (Msg       : in String := "";
-                            With_Help : in Boolean := False);
-   procedure Put_Exception (Msg       : in String := "");
+   procedure Put_Warning   (Msg : in String := "");
+   procedure Put_Error     (Msg : in String := "");
+   procedure Put_Exception (Msg : in String := "");
 
    -- --------------------------------------------------------------------------
    -- Error_Count and Warning_Count return the number of call to Put_Error

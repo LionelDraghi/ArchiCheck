@@ -25,7 +25,9 @@ with Archicheck.Sources;
 with Ada.Command_Line;
 with Ada.Directories;
 
-package body Archicheck.Cmd_Line is
+separate (Archicheck.Main)
+
+procedure Analyze_Cmd_Line is
 
    -- --------------------------------------------------------------------------
    Arg_Counter   : Positive := 1;
@@ -53,8 +55,6 @@ package body Archicheck.Cmd_Line is
    -- Procedure: Process_Directory_Option
    -- --------------------------------------------------------------------------
    procedure Process_Directory_Option (Recursive : in Boolean) is
-      use Archicheck.IO;
-
    begin
       Src_Dir_Given := True;
       if Ada.Command_Line.Argument_Count < Arg_Counter + 1 then
@@ -73,7 +73,7 @@ package body Archicheck.Cmd_Line is
                   Lang.Get_Src_List (Root_Dir  => Dir_Name,
                                      Recursive => Recursive);
                else
-                 Put_Error (Dir_Name & " is not a directory");
+                  Put_Error (Dir_Name & " is not a directory");
 
                end if;
 
@@ -136,88 +136,91 @@ package body Archicheck.Cmd_Line is
    -- -------------------------------------------------------------------------
    -- Procedure: Analyze_Cmd_Line
    -- -------------------------------------------------------------------------
-   procedure Analyze_Cmd_Line is
-      use Archicheck.IO;
+   use Archicheck.IO;
 
-   begin
-      if Ada.Command_Line.Argument_Count < 1 then
-         Put_Help;
-         return;
-      end if;
+begin
+   if Ada.Command_Line.Argument_Count < 1 then
+      Put_Help;
+      return;
+   end if;
 
-      while Arg_Counter <= Ada.Command_Line.Argument_Count loop
-         declare
-            Opt : constant String := Ada.Command_Line.Argument (Arg_Counter);
-         begin
-            if Opt = "-I" then
-               Process_Directory_Option (Settings.Recursive);
-               if Some_Error then return; end if;
-
-            elsif Opt = "-lf" or Opt = "--list_files" then
-               Settings.List_Files := True;
-               Next_Arg;
-
-            elsif Opt = "-ld" or Opt = "--list_dependencies" then
-               Settings.List_Dependencies := True;
-               Next_Arg;
-
-            elsif Opt = "-lr" or Opt = "--list_rules" then
-               Settings.List_Rules := True;
-               Next_Arg;
-
-            elsif Opt = "-lnc" or Opt = "--list_non_covered" then
-               Settings.List_Non_Covered := True;
-               Next_Arg;
-
-            elsif Opt = "-r" or Opt = "--recursive" then
-               Settings.Recursive := True;
-               Next_Arg;
-
-            elsif Opt = "--version" then
-               Put_Version;
-               Next_Arg;
-
-            elsif Opt = "-h" or Opt = "--help" then
-               Put_Help;
-               Next_Arg;
-
-            elsif Opt = "-q" or Opt = "--quiet" then
-               Settings.Verbosity := Quiet;
-               Next_Arg;
-
-            elsif Opt = "-We" or Opt = "--Warnings=error" then
-               Settings.Warnings_As_Errors := True;
-               Next_Arg;
-
-            elsif Opt = "-v" or Opt = "--verbose" then
-               Settings.Verbosity := Verbose;
-               Next_Arg;
-
-            elsif Opt = "-d" then
-               -- undocumented option
-               Settings.Verbosity := Debug;
-               Next_Arg;
-
-            elsif Ada.Directories.Exists (Opt) then
-               -- should be the rules file
-               Settings.Set_Rules_File_Name (Opt);
-               Next_Arg;
-
-            else
-               Put_Error ("Unknown rules file or unknow option " &
-                            Opt, With_Help => True);
-
-            end if;
-
+   while Arg_Counter <= Ada.Command_Line.Argument_Count loop
+      declare
+         Opt : constant String := Ada.Command_Line.Argument (Arg_Counter);
+      begin
+         if Opt = "-I" then
+            Process_Directory_Option (Settings.Recursive);
             if Some_Error then return; end if;
-            -- No need to further analyze command line, or to do
-            -- Options_Coherency_Tests.
-         end;
 
-      end loop;
+         elsif Opt = "-lf" or Opt = "--list_files" then
+            Settings.List_Files := True;
+            Next_Arg;
 
-      Options_Coherency_Tests;
+         elsif Opt = "-ld" or Opt = "--list_dependencies" then
+            Settings.List_Dependencies := True;
+            Next_Arg;
 
-   end Analyze_Cmd_Line;
+         elsif Opt = "-lr" or Opt = "--list_rules" then
+            Settings.List_Rules := True;
+            Next_Arg;
 
-end Archicheck.Cmd_Line;
+         elsif Opt = "-lnc" or Opt = "--list_non_covered" then
+            Settings.List_Non_Covered := True;
+            Next_Arg;
+
+         elsif Opt = "-ct" or Opt = "--create_template" then
+            Settings.Create_Template := True;
+            Next_Arg;
+
+         elsif Opt = "-r" or Opt = "--recursive" then
+            Settings.Recursive := True;
+            Next_Arg;
+
+         elsif Opt = "--version" then
+            Put_Version;
+            Next_Arg;
+
+         elsif Opt = "-h" or Opt = "--help" then
+            Put_Help;
+            Next_Arg;
+
+         elsif Opt = "-q" or Opt = "--quiet" then
+            Settings.Verbosity := Quiet;
+            Next_Arg;
+
+         elsif Opt = "-We" or Opt = "--Warnings=error" then
+            Settings.Warnings_As_Errors := True;
+            Next_Arg;
+
+         elsif Opt = "-v" or Opt = "--verbose" then
+            Settings.Verbosity := Verbose;
+            Next_Arg;
+
+         elsif Opt = "-d" then
+            -- undocumented option
+            Settings.Verbosity := Debug;
+            Next_Arg;
+
+         elsif Ada.Directories.Exists (Opt) then
+            -- should be the rules file
+            Settings.Set_Rules_File_Name (Opt);
+            Next_Arg;
+
+         else
+            Put_Error ("Unknown rules file or unknow option " &
+                         Opt, With_Help => True);
+
+         end if;
+
+         if Some_Error then return; end if;
+         -- No need to further analyze command line, or to do
+         -- Options_Coherency_Tests.
+      end;
+
+   end loop;
+
+   Options_Coherency_Tests;
+
+end Analyze_Cmd_Line;
+
+

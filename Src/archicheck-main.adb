@@ -16,7 +16,6 @@
 -- Anticipated Changes:
 -- -----------------------------------------------------------------------------
 
-with Archicheck.Cmd_Line;
 with Archicheck.IO;
 with Archicheck.Lang;
 with Archicheck.Lang.Initialize;
@@ -24,23 +23,34 @@ with Archicheck.Rules.Check;
 with Archicheck.Rules.Parser;
 with Archicheck.Rules.Print_Non_Covered_Unit;
 with Archicheck.Settings;
-with Archicheck.Sources;         use Archicheck.Sources;
+with Archicheck.Sources;                      use Archicheck.Sources;
 with Archicheck.Units;
 
 with Ada.Command_Line;
 
 procedure Archicheck.Main is
+   procedure Put_Help         is separate;
+   procedure Put_Error (Msg       : in String  := "";
+                        With_Help : in Boolean := False) is separate;
+   procedure Create_Template  is separate;
+   procedure Analyze_Cmd_Line is separate;
 
 begin
    -- language specific processor pluggin:
    Lang.Initialize;
 
    -- 1. Starting src identification
-   Cmd_Line.Analyze_Cmd_Line;
+   Analyze_Cmd_Line;
 
    if IO.Some_Error then
       -- Some error occurs during command line analisys, stop here.
       Ada.Command_Line.Set_Exit_Status (Ada.Command_Line.Failure);
+      return;
+   end if;
+
+   -- 2. Starting src analyzis
+   if Settings.Create_Template then
+      Main.Create_Template;
       return;
    end if;
 

@@ -6,4 +6,14 @@
 -- Public License Versions 3, refer to the COPYING file.
 -- -----------------------------------------------------------------------------
 
-procedure Archicheck.Rules.Print_Non_Covered_Unit;
+with Ada.Text_IO; use Ada.Text_IO;
+
+separate (Archicheck.Main)
+
+-- --------------------------------------------------------------------------
+procedure Put_Error (Msg       : in String  := "";
+                     With_Help : in Boolean := False) is
+begin
+   IO.Put_Error ("Error : " & Msg);
+   if With_Help then Put_Help; end if;
+end Put_Error;

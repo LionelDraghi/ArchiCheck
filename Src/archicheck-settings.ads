@@ -28,6 +28,7 @@ private package Archicheck.Settings is
    List_Non_Covered   : Boolean := False;
    Recursive          : Boolean := False;
    Warnings_As_Errors : Boolean := False;
+   Create_Template    : Boolean := False;
 
    -- -------------------------------------------------------------------------
    type Print_Out_Level is (Debug, Verbose, Normal, Quiet);
