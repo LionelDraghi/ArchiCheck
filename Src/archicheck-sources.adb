@@ -77,10 +77,4 @@ package body Archicheck.Sources is
       end if;
    end Location_Image;
 
-   -- --------------------------------------------------------------------------
-   function Location_Image (File   : in File_Name;
-                        Line   : in Positive;
-                        Column : in Integer := 0) return String is
-     (Location_Image (Loc => (File, Line, Column)));
-
 end Archicheck.Sources;

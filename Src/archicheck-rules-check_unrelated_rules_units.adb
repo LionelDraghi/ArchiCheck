@@ -25,12 +25,6 @@ procedure Archicheck.Rules.Check_Unrelated_Rules_Units is
    function Match_A_Compilation_Unit (Unit : Unit_Name) return Boolean is
    begin
       Put_Debug_Line ("Matching " & (+Unit) & "...");
-      if Is_A_Component (Unit) then
-         Put_Debug_Line ("Match_A_Compilation_Unit " & (+Unit)
-                         & " return False => because is a component)");
-         return False;
-      end if;
-
       for D of Dependency_List loop
          if D.Source.Kind in Compilation_Unit then
             if Is_A_Child (D.Source.Name, Parent => Unit) then
@@ -39,9 +33,7 @@ procedure Archicheck.Rules.Check_Unrelated_Rules_Units is
                return True;
             end if;
             for T of D.Targets loop
-               if -- not Is_A_Component (T.To_Unit) and then
-                 Is_A_Child (T.To_Unit, Parent => Unit)
-               then
+               if Is_A_Child (T.To_Unit, Parent => Unit) then
                   Put_Debug_Line ("Match_A_Comp_Unit " & (+Unit)
                                   & " return True");
                   return True;

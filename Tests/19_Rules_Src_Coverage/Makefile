@@ -5,7 +5,7 @@ TR=../Tools/testrec
 
 .PHONY : clean
 
-check: ../../Obj/archicheck header test1 test2 
+check: ../../Obj/archicheck header test1 test2 test3
 
 header:
 	@ #---------------------------------------------------------------------
@@ -20,13 +20,22 @@ test1:
 	@ ${CREATE_PKG} P2 -in dir1
 	@ ${CREATE_PKG} P5 -in dir1
 
-	@ ${TR} cmt "> archicheck test1.ac -I ./dir1"
+	@ ${TR} cmt 
+	@ ${TR} cmt "Sources (`ls -1 dir1`) :"
+	@ ${TR} cmt 
+	@ ${TR} cmt '```'
+	ls -1 dir1	>> testrec.md
+	@ ${TR} cmt '```'
 	@ ${TR} cmt 
 	@ ${TR} cmt "Rules file :"
 	@ ${TR} cmt 
 	@ ${TR} cmt '```'
 	cat test1.ac	>> testrec.md
 	@ ${TR} cmt '```'
+	@ ${TR} cmt 
+	@ ${TR} cmt "When :"
+	@ ${TR} cmt 
+	@ ${TR} cmt "> archicheck test1.ac -I ./dir1"
 	@ ${TR} cmt 
 	@ ${TR} cmt "Expected :"
 	@ ${TR} cmt 
@@ -61,7 +70,7 @@ test2:
 	cat test1.ac	>> testrec.md
 	@ ${TR} cmt '```'
 	@ ${TR} cmt 
-	@ ${TR} cmt "Sources :"
+	@ ${TR} cmt "Sources (`ls -1 dir2`) :"
 	@ ${TR} cmt 
 	@ ${TR} cmt '```'
 	ls -1 dir2	>> testrec.md
@@ -74,13 +83,42 @@ test2:
 	@ ${TR} cmt "Expected :"
 	@ ${TR} cmt 
 	@ ${TR} cmt '```'
-	cat expected_output.1	>> testrec.md
+	cat expected_output.2	>> testrec.md
 	@ ${TR} cmt '```'
 	@ ${TR} cmt 
 
 	@ ../../Obj/archicheck -lnc test2.ac -I ./dir2 > output.2
 	${TR} assert true /usr/bin/sdiff "-sbB expected_output.2 output.2"
 
+
+	${TR} end
+
+test3:
+	@ #---------------------------------------------------------------------
+	${TR} start "Case insensitivity of Is_A_Component function (non reg)"
+
+	@ ${CREATE_PKG} P1 -in dir3
+	# useless package creation just to avoid warning
+
+	@ ${TR} cmt "Rules file :"
+	@ ${TR} cmt 
+	@ ${TR} cmt '```'
+	cat test3.ac	>> testrec.md
+	@ ${TR} cmt '```'
+	@ ${TR} cmt 
+	@ ${TR} cmt "When :"
+	@ ${TR} cmt 
+	@ ${TR} cmt "> archicheck test3.ac -I dir3"
+	@ ${TR} cmt 
+	@ ${TR} cmt "Expected :"
+	@ ${TR} cmt 
+	@ ${TR} cmt '```'
+	cat expected_output.3	>> testrec.md
+	@ ${TR} cmt '```'
+	@ ${TR} cmt 
+
+	@ ../../Obj/archicheck test3.ac -I dir3 > output.3
+	${TR} assert true /usr/bin/sdiff "-sbB expected_output.3 output.3"
 
 	${TR} end
 

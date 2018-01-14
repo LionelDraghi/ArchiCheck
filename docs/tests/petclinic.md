@@ -59,13 +59,125 @@ Spring Pet Clinic code test suite / -ld test [Successful](tests_status.md#succes
 
   > archicheck petclinic.ac -r -I ./src
 
-  Rules (not much to test...) :
-
 ```
 java use is allowed
+javax use is allowed
+org.springframework use is allowed
+org.hibernate.validator use is allowed
+
+-- This organisation in layer is described here : http://tidyjava.com/layered-architecture-good/
+
+Domain contains org.springframework.samples.petclinic.model.NamedEntity
+Domain contains org.springframework.samples.petclinic.owner
+Domain contains org.springframework.samples.petclinic.model.Person
+Domain contains org.springframework.samples.petclinic.owner.PetValidator
+
+Infrastructure contains org.springframework.samples.petclinic.model.BaseEntity
+Infrastructure contains org.springframework.samples.petclinic.owner.OwnerRepository
+Infrastructure contains org.springframework.samples.petclinic.owner.PetRepository
+Infrastructure contains org.springframework.samples.petclinic.visit.VisitRepository
+Infrastructure contains org.springframework.samples.petclinic.vet.VetRepository
+
+Presentation contains org.springframework.samples.petclinic.owner.PetTypeFormatter
+Presentation contains org.springframework.samples.petclinic.owner.VisitController
+Presentation contains org.springframework.samples.petclinic.owner.OwnerController
+Presentation contains org.springframework.samples.petclinic.system.WelcomeController
+Presentation contains org.springframework.samples.petclinic.system.CrashController
+Presentation contains org.springframework.samples.petclinic.vet.VetController
+Presentation contains org.springframework.samples.petclinic.vet.Vets
+
+Presentation is a layer over Domain
+Domain       is a layer over Infrastructure
+
+-- Application layer is normally between Presentation and Domain layer.
+-- But commented out because empty in this case, to avoid the warning.
+-- Application  is a layer over Domain 
 ```
 
   No error expected
 
 
 Spring Pet Clinic code test suite / rules test [Successful](tests_status.md#successful)
+
+##  Spring Pet Clinic code test suite / --list_non_covered
+
+  > archicheck petclinic.ac -lnc -r -I ./src
+
+  Rules :
+
+```
+java use is allowed
+javax use is allowed
+org.springframework use is allowed
+org.hibernate.validator use is allowed
+
+-- This organisation in layer is described here : http://tidyjava.com/layered-architecture-good/
+
+Domain contains org.springframework.samples.petclinic.model.NamedEntity
+Domain contains org.springframework.samples.petclinic.owner
+Domain contains org.springframework.samples.petclinic.model.Person
+Domain contains org.springframework.samples.petclinic.owner.PetValidator
+
+Infrastructure contains org.springframework.samples.petclinic.model.BaseEntity
+Infrastructure contains org.springframework.samples.petclinic.owner.OwnerRepository
+Infrastructure contains org.springframework.samples.petclinic.owner.PetRepository
+Infrastructure contains org.springframework.samples.petclinic.visit.VisitRepository
+Infrastructure contains org.springframework.samples.petclinic.vet.VetRepository
+
+Presentation contains org.springframework.samples.petclinic.owner.PetTypeFormatter
+Presentation contains org.springframework.samples.petclinic.owner.VisitController
+Presentation contains org.springframework.samples.petclinic.owner.OwnerController
+Presentation contains org.springframework.samples.petclinic.system.WelcomeController
+Presentation contains org.springframework.samples.petclinic.system.CrashController
+Presentation contains org.springframework.samples.petclinic.vet.VetController
+Presentation contains org.springframework.samples.petclinic.vet.Vets
+
+Presentation is a layer over Domain
+Domain       is a layer over Infrastructure
+
+-- Application layer is normally between Presentation and Domain layer.
+-- But commented out because empty in this case, to avoid the warning.
+-- Application  is a layer over Domain 
+```
+
+  No error expected
+
+
+Spring Pet Clinic code test suite / --list_non_covered [Successful](tests_status.md#successful)
+
+##  Spring Pet Clinic code test suite / alternative rules test
+
+  > archicheck 	alternative.ac -r -I ./src
+
+```
+java use is allowed
+javax use is allowed
+-- org.springframework use is allowed
+org.hibernate.validator use is allowed
+
+-- No definition of a model Model component, direct use in rule :
+org.springframework.samples.petclinic.model may use Org.SpringFramework
+
+-- Definition of Owner using a kind of rename :
+Owner contains org.springframework.samples.petclinic.owner
+
+-- Definition of System using individual "contains" :
+System contains org.springframework.samples.petclinic.system.WelcomeController
+System contains org.springframework.samples.petclinic.system.CrashController
+
+Vet contains org.springframework.samples.petclinic.vet.VetRepository
+Vet contains org.springframework.samples.petclinic.vet.VetController
+Vet contains org.springframework.samples.petclinic.vet.Vets
+
+Visit contains org.springframework.samples.petclinic.visit.VisitRepository
+
+Owner may use org.springframework.samples.petclinic.model
+Owner  may use Org.SpringFramework
+System may use Org.SpringFramework
+Org.SpringFramework may use System 
+```
+
+  No error expected
+
+
+Spring Pet Clinic code test suite / alternative rules test [Successful](tests_status.md#successful)

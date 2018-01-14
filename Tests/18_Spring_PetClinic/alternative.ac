@@ -1,0 +1,25 @@
+java use is allowed
+javax use is allowed
+-- org.springframework use is allowed
+org.hibernate.validator use is allowed
+
+-- No definition of a model Model component, direct use in rule :
+org.springframework.samples.petclinic.model may use Org.SpringFramework
+
+-- Definition of Owner using a kind of rename :
+Owner contains org.springframework.samples.petclinic.owner
+
+-- Definition of System using individual "contains" :
+System contains org.springframework.samples.petclinic.system.WelcomeController
+System contains org.springframework.samples.petclinic.system.CrashController
+
+Vet contains org.springframework.samples.petclinic.vet.VetRepository
+Vet contains org.springframework.samples.petclinic.vet.VetController
+Vet contains org.springframework.samples.petclinic.vet.Vets
+
+Visit contains org.springframework.samples.petclinic.visit.VisitRepository
+
+Owner may use org.springframework.samples.petclinic.model
+Owner  may use Org.SpringFramework
+System may use Org.SpringFramework
+Org.SpringFramework may use System 

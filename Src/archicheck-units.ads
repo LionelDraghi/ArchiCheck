@@ -23,9 +23,9 @@
 with Archicheck.Sources;
 
 with Ada.Containers.Doubly_Linked_Lists;
-with Ada.Strings.Equal_Case_Insensitive;
-with Ada.Strings.Unbounded;              use Ada.Strings.Unbounded;
 with Ada.Containers.Indefinite_Hashed_Maps;
+with Ada.Strings.Equal_Case_Insensitive;
+with Ada.Strings.Unbounded;                 use Ada.Strings.Unbounded;
 
 private package Archicheck.Units is
 
@@ -35,9 +35,16 @@ private package Archicheck.Units is
    function "+" (Name : String) return Unit_Name;
    function To_US (Name : Unit_Name) return Unbounded_String;
    function "+" (Name : Unbounded_String) return Unit_Name;
-   function Equal_Case_Insensitive (X, Y : Unit_Name) return Boolean is
-      (Ada.Strings.Equal_Case_Insensitive (+X, +Y));
+   function "=" (X, Y : Unit_Name) return Boolean is
+     (Ada.Strings.Equal_Case_Insensitive (+X, +Y));
+   -- Redefines = as case insensitive.
+   -- If a strict "=" is needed, "=" between Image could be used, or
+   -- a Equal_Case_Sensitive function defined.
+   -- But as it's to easy to use "=" in generic instantiation and cause a
+   -- subtle bug, I choose this solution.
    Null_Unit_Name : constant Unit_Name := Unit_Name (Null_Unbounded_String);
+
+
 
    -- --------------------------------------------------------------------------
    -- Units are either :

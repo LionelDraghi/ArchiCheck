@@ -57,6 +57,13 @@ private package Archicheck.Sources is
    procedure Dump_Sources (Sources : in Archicheck.Sources.Source_Lists.List);
 
    -- --------------------------------------------------------------------------
+   type Location is record
+      File   : File_Name;
+      Line   : Positive;
+      Column : Integer := 0;
+   end record;
+
+   -- --------------------------------------------------------------------------
    -- Function: Location_Image
    --
    -- Purpose:
@@ -72,15 +79,6 @@ private package Archicheck.Sources is
    --    Note that there is a trailing space, so that the message can be append
    --    directly.
    -- --------------------------------------------------------------------------
-   function Location_Image (File   : in File_Name;
-                            Line   : in Positive;
-                            Column : in Integer := 0) return String;
-
-   type Location is record
-      File   : File_Name;
-      Line   : Positive;
-      Column : Integer := 0;
-   end record;
    function Location_Image (Loc : in Location) return String;
 
 end Archicheck.Sources;

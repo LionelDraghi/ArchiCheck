@@ -5,7 +5,7 @@ TR=../Tools/testrec
 
 .PHONY : clean
 
-check: ../../Obj/archicheck header test1 test2 test3
+check: ../../Obj/archicheck header test1 test2 test3 test4 test5
 
 header:
 	@ #---------------------------------------------------------------------
@@ -64,8 +64,6 @@ test3:
 
 	@ ${TR} cmt "> archicheck petclinic.ac -r -I ./src"
 	@ ${TR} cmt 
-	@ ${TR} cmt "Rules (not much to test...) :"
-	@ ${TR} cmt 
 	@ ${TR} cmt '```'
 	cat petclinic.ac >> testrec.md
 	@ ${TR} cmt '```'
@@ -96,6 +94,25 @@ test4:
 
 	../../Obj/archicheck petclinic.ac -lnc -r -I ./src > output.4
 	${TR} assert true /usr/bin/sdiff "-sbB expected_output.4 output.4"
+
+	${TR} end
+
+test5:
+	@ #---------------------------------------------------------------------
+	${TR} start "alternative rules test"
+
+	@ ${TR} cmt "> archicheck 	alternative.ac -r -I ./src"
+	@ ${TR} cmt 
+	@ ${TR} cmt '```'
+	cat alternative.ac >> testrec.md
+	@ ${TR} cmt '```'
+	@ ${TR} cmt 
+	@ ${TR} cmt "No error expected"
+	@ ${TR} cmt 
+
+	> expected_output.5
+	@ ../../Obj/archicheck alternative.ac -r -I ./src > output.5
+	${TR} assert true /usr/bin/sdiff "-sbB expected_output.5 output.5"
 
 	${TR} end
 

@@ -70,7 +70,7 @@ package body Archicheck.Units is
    -- --------------------------------------------------------------------------
    Component_Map : Component_Maps.Map;
    function Get_Component_Map return Component_Maps.Map is
-      (Component_Map);
+     (Component_Map);
 
    -- --------------------------------------------------------------------------
    -- Owner map run the other way round of Component_Maps : the key is a Unit
@@ -292,7 +292,7 @@ package body Archicheck.Units is
 
       if C /= No_Element then
          Dep := Element (C);
-         if Equal_Case_Insensitive (Dep.To_Unit, In_Unit) then
+         if Dep.To_Unit = In_Unit then
             -- b. the Unit is directly claimed by Dep.To_Unit
             Put_Debug_Line ((+Unit) & " owned by " & (+Dep.To_Unit));
             return True;

@@ -2,7 +2,7 @@
 
 ## Successful
 
-   77 tests OK
+   80 tests OK
 
   - [Use rules test suite / May_Use rule, code compliant, no output expected]()
   - [Use rules test suite / Using a unit from a non allowed unit]()
@@ -28,6 +28,7 @@
   - [ArchiCheck code test suite / --list_non_covered]()
   - [Rules vs sources coverage test suite / Warnings on units appearing in rules file and not related to any source]()
   - [Rules vs sources coverage test suite / Non covered sources]()
+  - [Rules vs sources coverage test suite / Case insensitivity of Is_A_Component function (non reg)]()
   - [Batik test suite / --list_file test]()
   - [Batik test suite / public class]()
   - [Batik test suite / public interface class]()
@@ -50,6 +51,8 @@
   - [Spring Pet Clinic code test suite / -lf test]()
   - [Spring Pet Clinic code test suite / -ld test]()
   - [Spring Pet Clinic code test suite / rules test]()
+  - [Spring Pet Clinic code test suite / --list_non_covered]()
+  - [Spring Pet Clinic code test suite / alternative rules test]()
   - [ZipAda code test suite / -lf test]()
   - [ZipAda code test suite / -ld test]()
   - [ZipAda code test suite / rules test]()
