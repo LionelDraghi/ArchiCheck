@@ -8,11 +8,13 @@ Limitations
 - do not analyze C dependencies embedded in code, only "official" dependencies
   created by (depending on the language) "with", "use", "import", etc.
 
-- `Unrecognized character '@'` :  
-the Java lexer do not recognize @ character in code. It's Ok in comments, and so no problem with Javadoc tags, but it raises an `OpenToken.Syntax_Error` exception when met in code.  
-So, annotations like `@Override` cause the analysis interruption.
+- detection of visibility through Java fully qualified name ("import"
+  is not mandatory in Java to use classes) is **NOT** done at this stage.
+
+- Weird behavior : if all rules involves P childs, P will be reported as not covered by -lnc   
+  This is True, but not what is expected... Paradox.
 
 Known Bugs
 ==========
 
-
+- localization in rules files is sometimes a mess! (see 07_Rules_Files_Syntax test3)

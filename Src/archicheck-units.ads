@@ -25,6 +25,7 @@ with Archicheck.Sources;
 with Ada.Containers.Doubly_Linked_Lists;
 with Ada.Strings.Equal_Case_Insensitive;
 with Ada.Strings.Unbounded;              use Ada.Strings.Unbounded;
+with Ada.Containers.Indefinite_Hashed_Maps;
 
 private package Archicheck.Units is
 
@@ -56,6 +57,7 @@ private package Archicheck.Units is
    subtype Java_Unit_Kind      is Unit_Kind range Class_K .. Interface_K;
    subtype Ada_Unit_Kind       is Unit_Kind range Package_K .. Interface_K;
    subtype Ada_Subroutine_Kind is Unit_Kind range Procedure_K .. Function_K;
+   subtype Compilation_Unit    is Unit_Kind range Package_K .. Interface_K;
 
    -- --------------------------------------------------------------------------
    function Image (Kind : Unit_Kind) return String is
@@ -129,6 +131,13 @@ private package Archicheck.Units is
                             Targets   : Dependency_Targets.List);
 
    -- --------------------------------------------------------------------------
+   function Is_A_Child (Child  : Unit_Name;
+                        Parent : Unit_Name) return Boolean;
+
+   -- --------------------------------------------------------------------------
+   function Is_A_Component (Unit : Unit_Name) return Boolean;
+
+   -- --------------------------------------------------------------------------
    function Is_In (Unit    : Unit_Name;
                    In_Unit : Unit_Name) return Boolean;
    -- return True if :
@@ -139,5 +148,19 @@ private package Archicheck.Units is
 
    -- --------------------------------------------------------------------------
    function Is_Involved_In_A_Component (Unit : in Unit_Name) return Boolean;
+
+   -- --------------------------------------------------------------------------
+   function Hash_Case_Insensitive
+     (Key : Unit_Name) return Ada.Containers.Hash_Type;
+
+   -- The component map is a fast way to find what contains a Component.
+   -- Note that it is maintained in parallel with the Dependency_List.
+   package Component_Maps is new Ada.Containers.Indefinite_Hashed_Maps
+     (Key_Type        => Unit_Name,
+      Element_Type    => Dependency_Targets.List,
+      Hash            => Hash_Case_Insensitive,
+      Equivalent_Keys => "=",
+      "="             => Dependency_Targets."=");
+   function Get_Component_Map return Component_Maps.Map;
 
 end Archicheck.Units;

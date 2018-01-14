@@ -9,12 +9,12 @@
 
   > archicheck -lf -I src
 
-  Expected (28 files) :
+  Expected (32 files) :
 
 ```
 /home/lionel/Proj/Archicheck/Src/archicheck.ads
-/home/lionel/Proj/Archicheck/Src/archicheck-cmd_line.adb
-/home/lionel/Proj/Archicheck/Src/archicheck-cmd_line.ads
+/home/lionel/Proj/Archicheck/Src/archicheck-io.adb
+/home/lionel/Proj/Archicheck/Src/archicheck-io.ads
 ...
 /home/lionel/Proj/Archicheck/Src/archicheck-sources.ads
 /home/lionel/Proj/Archicheck/Src/archicheck-units.adb
@@ -28,27 +28,27 @@ ArchiCheck code test suite / -lf test [Successful](tests_status.md#successful)
 
   > archicheck -ld -I ./src | sort
 
-  93 dependencies expected :
+  103 dependencies expected :
 
 ```
-Archicheck.Cmd_Line package body depends on Ada.Command_Line
-Archicheck.Cmd_Line package body depends on Ada.Directories
-Archicheck.Cmd_Line package body depends on Archicheck.IO
-Archicheck.Cmd_Line package body depends on Archicheck.Lang
-Archicheck.Cmd_Line package body depends on Archicheck.Settings
-Archicheck.Cmd_Line package body depends on Archicheck.Sources
 Archicheck.IO package spec depends on Ada.Text_IO
 Archicheck.IO package spec depends on Archicheck.Settings
 Archicheck.Lang.Ada_Processor package body depends on Ada.Exceptions
 Archicheck.Lang.Ada_Processor package body depends on Ada_Lexer
+Archicheck.Lang.Ada_Processor package body depends on Ada.Text_IO
+Archicheck.Lang.Ada_Processor package body depends on Archicheck.IO
+Archicheck.Lang.Ada_Processor package body depends on Archicheck.Settings
+Archicheck.Lang.Ada_Processor package body depends on Archicheck.Units
+Archicheck.Lang.Ada_Processor package body depends on OpenToken
+Archicheck.Lang.Initialize procedure body depends on Archicheck.Lang.Ada_Processor
 ...
 Archicheck.Sources package spec depends on Ada.Strings.Unbounded
-Archicheck.Units package body depends on Ada.Containers.Indefinite_Hashed_Maps
 Archicheck.Units package body depends on Ada.Strings.Fixed
 Archicheck.Units package body depends on Ada.Strings.Hash_Case_Insensitive
 Archicheck.Units package body depends on Archicheck.IO
 Archicheck.Units package body depends on Archicheck.Settings
 Archicheck.Units package spec depends on Ada.Containers.Doubly_Linked_Lists
+Archicheck.Units package spec depends on Ada.Containers.Indefinite_Hashed_Maps
 Archicheck.Units package spec depends on Ada.Strings.Equal_Case_Insensitive
 Archicheck.Units package spec depends on Ada.Strings.Unbounded
 Archicheck.Units package spec depends on Archicheck.Sources
@@ -64,11 +64,13 @@ ArchiCheck code test suite / -ld test [Successful](tests_status.md#successful)
   Rules :
 
 ```
+only Archicheck.Main  may use Archicheck.Rules
+Archicheck.Main  may use Archicheck.Lang
+
 Archicheck.Rules may use Archicheck.Lang
-Archicheck.Lang may  use Archicheck.Units
+Archicheck.Lang  may use Archicheck.Units
 Archicheck.Units may use Archicheck.Sources
 
-only Archicheck.Cmd_Line may use Ada.Command_Line
 only Archicheck.Main     may use Ada.Command_Line
 
 only Archicheck.Lang.Ada_Processor  may use Ada_Lexer 
@@ -80,8 +82,7 @@ only Archicheck.Rules.Parser        may use OpenToken
 
 GNAT use is forbidden
 
-Ada.Strings         use is allowed
-Ada.Containers      use is allowed
+Ada                 use is allowed
 Archicheck.IO       use is allowed
 Archicheck.Settings use is allowed
 
@@ -101,11 +102,13 @@ ArchiCheck code test suite / rules test [Successful](tests_status.md#successful)
   Rules :
 
 ```
+only Archicheck.Main  may use Archicheck.Rules
+Archicheck.Main  may use Archicheck.Lang
+
 Archicheck.Rules may use Archicheck.Lang
-Archicheck.Lang may  use Archicheck.Units
+Archicheck.Lang  may use Archicheck.Units
 Archicheck.Units may use Archicheck.Sources
 
-only Archicheck.Cmd_Line may use Ada.Command_Line
 only Archicheck.Main     may use Ada.Command_Line
 
 only Archicheck.Lang.Ada_Processor  may use Ada_Lexer 
@@ -117,8 +120,7 @@ only Archicheck.Rules.Parser        may use OpenToken
 
 GNAT use is forbidden
 
-Ada.Strings         use is allowed
-Ada.Containers      use is allowed
+Ada                 use is allowed
 Archicheck.IO       use is allowed
 Archicheck.Settings use is allowed
 

@@ -20,7 +20,7 @@
 
 private package Archicheck.Settings is
 
-   ArchiCheck_Version : constant String := "0.5.5";
+   ArchiCheck_Version : constant String := "0.5.6";
 
    List_Files         : Boolean := False;
    List_Dependencies  : Boolean := False;
@@ -29,6 +29,8 @@ private package Archicheck.Settings is
    Recursive          : Boolean := False;
    Warnings_As_Errors : Boolean := False;
    Create_Template    : Boolean := False;
+
+   Template_Name : constant String := "template.ac";
 
    -- -------------------------------------------------------------------------
    type Print_Out_Level is (Debug, Verbose, Normal, Quiet);

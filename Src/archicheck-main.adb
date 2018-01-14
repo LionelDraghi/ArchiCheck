@@ -21,7 +21,8 @@ with Archicheck.Lang;
 with Archicheck.Lang.Initialize;
 with Archicheck.Rules.Check;
 with Archicheck.Rules.Parser;
-with Archicheck.Rules.Print_Non_Covered_Unit;
+with Archicheck.Rules.Check_Unrelated_Rules_Units;
+with Archicheck.Rules.Dump_Unrelated_Compilation_Units;
 with Archicheck.Settings;
 with Archicheck.Sources;                      use Archicheck.Sources;
 with Archicheck.Units;
@@ -48,7 +49,7 @@ begin
       return;
    end if;
 
-   -- 2. Starting src analyzis
+   -- 2. Create template rules file
    if Settings.Create_Template then
       Main.Create_Template;
       return;
@@ -61,7 +62,7 @@ begin
       return;
    end if;
 
-   -- 2. Starting src analyzis
+   -- 3. Starting src analyzis
    Lang.Analyze_Dependencies;
 
    if Settings.List_Dependencies then
@@ -71,8 +72,14 @@ begin
 
    if Settings.Rules_File_Name /= "" then
 
-      -- 3. Reading rules file
+      -- 4. Reading rules file
       Rules.Parser.Parse (+Settings.Rules_File_Name);
+      if not Sources.Get_List.Is_Empty then
+         -- We ensure that some sources where found, so that
+         -- to avoid useless warning on non matching sources
+         -- if the user just entended to check the rules file.
+         Rules.Check_Unrelated_Rules_Units;
+      end if;
 
       if IO.Some_Error then
          Ada.Command_Line.Set_Exit_Status (Ada.Command_Line.Failure);
@@ -89,10 +96,11 @@ begin
          return;
 
       elsif Settings.List_Non_Covered then
-         Rules.Print_Non_Covered_Unit;
+         -- 5. Checking compilation units not involved in rules
+         Rules.Dump_Unrelated_Compilation_Units;
 
       else
-         -- 4. Checking rules
+         -- 6. Checking rules
          Rules.Check;
 
       end if;

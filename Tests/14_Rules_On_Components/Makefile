@@ -13,6 +13,7 @@ header:
 	@ ${TR} create "Component processing in rules unit test"
 	@ ${CREATE_PKG} LA.X -in src -with LB.Y spec  
 	@ ${CREATE_PKG} LB.Y -in src -with Ada.Containers -with Interfaces.C body 
+	@ ${CREATE_PKG} LC   -in src 
 
 test1:
 	@ #---------------------------------------------------------------------
@@ -77,6 +78,11 @@ test2:
 test3:
 	@ #---------------------------------------------------------------------
 	${TR} start "Trying to include a unit in more components"
+
+	@ ${CREATE_PKG} P1 -in src 
+	@ ${CREATE_PKG} P2 -in src 
+	@ ${CREATE_PKG} P3 -in src 
+	@ ${CREATE_PKG} P4 -in src 
 
 	@ ${TR} cmt "P1 package is in X component, wha if I try to add it to another components?"
 	@ ${TR} cmt 

@@ -61,7 +61,8 @@ private
    package Rule_Lists is
      new Ada.Containers.Indefinite_Doubly_Linked_Lists (Rule);
 
-   function Get_With_Object_Rule_List return Rule_Lists.List;
+   function Get_With_Object_Rule_List  return Rule_Lists.List;
+   function Get_Subject_Only_Rule_List return Rule_Lists.List;
 
    -- --------------------------------------------------------------------------
    function Is_Forbidden (Unit : in Unit_Name) return Boolean;

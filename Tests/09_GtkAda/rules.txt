@@ -1,8 +1,0 @@
-Gtk is a layer over Gdk
-
-Gdk is a layer over Glib
-Gdk is a layer over Pango
-Gdk is a layer over Cairo
-
-Pango is a layer over Glib
-Cairo is a layer over Glib

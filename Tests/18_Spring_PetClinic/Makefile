@@ -12,7 +12,6 @@ header:
 	${TR} clean
 	${TR} create "Spring Pet Clinic code test suite"
 
-	@ # Creating the zipada dir :
 	@ unzip -q -o spring-petclinic-master.zip
 	- rm -rf src
 	mv --no-target-directory spring-petclinic-master src

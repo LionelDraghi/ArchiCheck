@@ -6,7 +6,6 @@ Features:
 
 - Implement a command line way to pass simple rules
 - Implement globbing characters, for example `only *.Porting_Kit can use X`
-- Add localisation in src and rules files in error messages
 
 Ada specifics:
 --------------
@@ -42,11 +41,6 @@ Development environment:
 - Use Livecoding? :-) (https://www.livecoding.tv/livestreams/)
 - considering flatpack / snap / AppImage / OrbitalApps to distribute archicheck
 
-Bug:
-----
-
-- bug in Java OpentToken lexer, that cause infinite loop on JavaDocs comments 
-- localization in rules files is a mess! (see 07_Rules_Files_Syntax test3
 
 Documentation:
 --------------
@@ -58,6 +52,8 @@ Documentation:
 Done:
 -----
 
+- v0.5.5 : Add localisation in src and rules files in error messages
+- v0.5.4 : bug in Java OpentToken lexer, that cause infinite loop on JavaDocs comments 
 - Removing colun in error message (useless)
 - Implement an error return code when the rules are broken, to allow a normal use in Makefiles
 - mv from NaturalDocs to md format, generate an home pag with a less obsole look.
@@ -73,7 +69,3 @@ Done:
 - Restructure the home page, to have a short intro and a "quick run" section that 
   summarize "Installing' and "Getting started", and split the rest in other text files.
 - Complete the link between NaturalDocs and Tests result, by adding a Result keyword 
-
- 
-
- 

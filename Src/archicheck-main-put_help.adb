@@ -33,9 +33,10 @@ begin
    Put_Line ("   -ld  | --list_dependencies : list identified units and dependencies"
              & " in analyzed sources files");
    Put_Line ("   -lr  | --list_rules        : list rules in a rules file");
-   Put_Line ("   -lnc | --list_non_covered  : list units not involved in rules file");
-   Put_Line ("   If any, only one of the queries is performed,");
-   Put_Line ("   and then the full analisys on sources is not done.");
+   Put_Line ("   -lnc | --list_non_covered  : list compilation units not involved in rules file");
+   Put_Line ("   -ct  | --create_template   : create a commented example of rules file");
+   Put_Line ("   If any, only one of the queries is performed");
+   Put_Line ("   and the full analisys on sources is not done.");
    New_Line;
    Put_Line ("Examples:");
    Put_Line ("   archicheck rules.txt -I ./src");

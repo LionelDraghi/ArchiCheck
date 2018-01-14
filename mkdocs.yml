@@ -28,7 +28,7 @@ pages:
 - Linux bin download:
   - download.md
   
-- Tests:
+- Common tests:
   - tests/command_line.md
   - tests/source_list.md
   - tests/dependency_list.md
@@ -38,17 +38,18 @@ pages:
   - tests/rules_files_syntax.md
   - tests/globbing_characters.md
   - tests/use_rule.md
-  - tests/ada_units.md
   - tests/rules_on_components.md
   - tests/precedences_rules.md
+  - tests/rules_src_coverage.md
 
-- Ada software tests:
+- Ada tests:
+  - tests/ada_units.md
   - tests/gtkada.md
   - tests/zipada.md
   - tests/adactl.md
   - tests/archicheck.md
 
-- Java software tests:
+- Java tests:
   - tests/batik.md
   - tests/petclinic.md
 

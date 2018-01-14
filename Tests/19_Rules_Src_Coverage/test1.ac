@@ -1,0 +1,13 @@
+Framework contains P1, P2 and P3
+-- no P3 src, should raise a warning
+
+P4 may use P1 
+-- no P4 src, should raise a warning
+
+Java.IO use is forbidden
+-- no Java.IO sources, but should not raise a warning
+
+P5 may use Framework
+-- Framework match no sources, but should not raise warning
+-- as it's a Component.
+

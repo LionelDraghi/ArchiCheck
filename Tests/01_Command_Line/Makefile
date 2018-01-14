@@ -4,7 +4,7 @@ TR=../Tools/testrec
 
 .PHONY : clean
 
-check: ../../Obj/archicheck header test1 test2 test3 test4 test5 test6 test8 test9 test10 test11 test12 test13 
+check: ../../Obj/archicheck header test1 test2 test3 test4 test5 test6 test8 test9 test10 test11 test12 test13 test14
 
 header:
 	@ #---------------------------------------------------------------------
@@ -46,7 +46,7 @@ test2:
 	${TR} cmt "Test that the --version will put :" 			
 	${TR} cmt 
 	${TR} cmt '```' 						
-	echo "0.5.5"		> expected_version.txt
+	echo "0.5.6"		> expected_version.txt
 	cat expected_version.txt >> testrec.md					
 	${TR} cmt '```' 						
 	${TR} cmt 
@@ -299,8 +299,40 @@ test13:
   
 	${TR} end
 	
+test14:
+	${TR} start "template creation (-ct and --create_template)"	
+	${TR} cmt
+	${TR} cmt "When running:"		
+	${TR} cmt "> archicheck -ct"		
+	${TR} cmt 
+	${TR} cmt "Expecting file template.ac:"		
+	${TR} cmt 
+	${TR} cmt '```' 						
+	cat expected_template.ac	>> testrec.md					
+	${TR} cmt '```' 						 	
+	${TR} cmt  
+
+	- rm  template.ac	
+	../../Obj/archicheck -ct
+	${TR} assert true /usr/bin/sdiff "-s expected_template.ac template.ac"
+
+	${TR} cmt "When running:"		
+	${TR} cmt "> archicheck --create_template"		
+	${TR} cmt "Expecting error:"		
+	${TR} cmt '```'
+	echo "Error : File template.ac already exists" > expected_err14.txt
+	cat expected_err14.txt	>> testrec.md					
+	${TR} cmt '```' 						 	
+	${TR} cmt  
+
+	../../Obj/archicheck --create_template
+	test ! `../../Obj/archicheck --create_template				> err14.txt 2>&1`
+	${TR} assert true /usr/bin/sdiff "-s expected_err14.txt err14.txt"
+  
+	${TR} end
+	
 clean:
-	- ${RM} -rf dir? dir?? err*.txt expected_*.txt src.adb rules.txt version1.txt help?.txt expected_*.txt 
+	- ${RM} -rf dir? dir?? err*.txt expected_err*.txt expected_help.txt expected_version.txt src.adb rules.txt version1.txt help?.txt template.ac 
 	${TR} clean
 
 doc:

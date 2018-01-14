@@ -42,6 +42,8 @@ package body Archicheck.Rules is
    -- --------------------------------------------------------------------------
    function Get_With_Object_Rule_List return Rule_Lists.List is
      (With_Object_Rule_List);
+   function Get_Subject_Only_Rule_List return Rule_Lists.List is
+     (Subject_Only_Rule_List);
 
    -- --------------------------------------------------------------------------
    procedure Print_Rule (R : in Rule) is

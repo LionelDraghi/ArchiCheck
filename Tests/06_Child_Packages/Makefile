@@ -160,9 +160,11 @@ test6:
 test7:
 	@ #---------------------------------------------------------------------
 	${TR} start "Forbidding Interfaces but allowing Interfaces.C"
-	@ ${CREATE_PKG} P1 spec  -in dir7 -with Interfaces
-	@ ${CREATE_PKG} P2 spec  -in dir7 -with Interfaces.C
-	@ ${CREATE_PKG} P3 spec  -in dir7 -with Interfaces.Java
+	@ ${CREATE_PKG} Interfaces   spec -in dir7
+	@ ${CREATE_PKG} Interfaces.C spec -in dir7
+	@ ${CREATE_PKG} P1           spec -in dir7 -with Interfaces
+	@ ${CREATE_PKG} P2           spec -in dir7 -with Interfaces.C
+	@ ${CREATE_PKG} P3           spec -in dir7 -with Interfaces.Java
 
 	@ test ! `../../Obj/archicheck rules7.txt -I dir7   > output.7`
 	${TR} assert true /usr/bin/sdiff "-s expected_output.7 output.7"

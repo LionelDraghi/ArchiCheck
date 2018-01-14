@@ -12,7 +12,7 @@ with Ada.Containers.Indefinite_Hashed_Maps;
 with Ada.Strings;
 with Ada.Strings.Hash_Case_Insensitive;
 
-procedure Archicheck.Rules.Print_Non_Covered_Unit is
+procedure Archicheck.Rules.Dump_Unrelated_Compilation_Units is
    -- --------------------------------------------------------------------------
    -- Fixme: Uggly solution to manage a unique item list
    function Hash_Case_Insensitive
@@ -26,9 +26,9 @@ procedure Archicheck.Rules.Print_Non_Covered_Unit is
       "="             => "=");
    Unit_Map : Maps.Map;
 
-
    use Archicheck.IO;
    use Sources;
+
 begin
    -- First, build a list of all Unit name to check
    for R of Dependency_List loop
@@ -51,4 +51,4 @@ begin
       end if;
    end loop;
 
-end Archicheck.Rules.Print_Non_Covered_Unit;
+end Archicheck.Rules.Dump_Unrelated_Compilation_Units;

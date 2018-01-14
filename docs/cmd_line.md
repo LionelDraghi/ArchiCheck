@@ -28,9 +28,10 @@ Queries :
    -lf  | --list_files        : list analyzed sources files
    -ld  | --list_dependencies : list identified units and dependencies in analyzed sources files
    -lr  | --list_rules        : list rules in a rules file
-   -lnc | --list_non_covered  : list units not involved in rules file
-   If any, only one of the queries is performed,
-   and then the full analisys on sources is not done.
+   -lnc | --list_non_covered  : list compilation units not involved in rules file
+   -ct  | --create_template   : create a commented example of rules file
+   If any, only one of the queries is performed
+   and the full analisys on sources is not done.
 
 Examples:
    archicheck rules.txt -I ./src
@@ -49,7 +50,7 @@ archicheck --version
 ```
 
 ```
-0.5.5
+0.5.6
 
 ```
 

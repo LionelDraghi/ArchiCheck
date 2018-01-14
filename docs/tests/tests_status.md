@@ -2,7 +2,7 @@
 
 ## Successful
 
-   74 tests OK
+   77 tests OK
 
   - [Use rules test suite / May_Use rule, code compliant, no output expected]()
   - [Use rules test suite / Using a unit from a non allowed unit]()
@@ -26,6 +26,8 @@
   - [ArchiCheck code test suite / -ld test]()
   - [ArchiCheck code test suite / rules test]()
   - [ArchiCheck code test suite / --list_non_covered]()
+  - [Rules vs sources coverage test suite / Warnings on units appearing in rules file and not related to any source]()
+  - [Rules vs sources coverage test suite / Non covered sources]()
   - [Batik test suite / --list_file test]()
   - [Batik test suite / public class]()
   - [Batik test suite / public interface class]()
@@ -75,6 +77,7 @@
   - [Command line test suite / -ld given, but no source found]()
   - [Command line test suite / src found, but nothing to do whith it]()
   - [Command line test suite / rules file found, but nothing to do whith it]()
+  - [Command line test suite / template creation (-ct and --create_template)]()
   - [Component definition rules test suite / One component list]()
   - [Component definition rules test suite / GUI component contains 3 other components, declared one by one on the rules file]()
   - [Component definition rules test suite / GUI component contains 3 other components, declared all in one line in the rules file]()

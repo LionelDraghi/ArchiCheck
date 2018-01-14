@@ -21,7 +21,6 @@
 with Archicheck.IO;
 with Archicheck.Settings;
 
-with Ada.Containers.Indefinite_Hashed_Maps;
 with Ada.Strings.Fixed;
 with Ada.Strings.Hash_Case_Insensitive;
 
@@ -69,61 +68,23 @@ package body Archicheck.Units is
      (Ada.Strings.Hash_Case_Insensitive (+Key));
 
    -- --------------------------------------------------------------------------
-   package Component_Maps is new Ada.Containers.Indefinite_Hashed_Maps
-     (Key_Type        => Unit_Name,
-      Element_Type    => Dependency_Targets.List,
-      Hash            => Hash_Case_Insensitive,
-      Equivalent_Keys => "=",
-      "="             => Dependency_Targets."=");
    Component_Map : Component_Maps.Map;
-   -- The component map is a fast way to find what contains a Component.
-   -- Note that it is maintained in parallel with the Relationship_List.
+   function Get_Component_Map return Component_Maps.Map is
+      (Component_Map);
 
    -- --------------------------------------------------------------------------
+   -- Owner map run the other way round of Component_Maps : the key is a Unit
+   -- that is contained in a component, and the Element_Type is this component.
+   -- Note that this is not a list, as a Unit is not supposed to be in more
+   -- Component.
+   -- Note that it is also maintained in parallel with the Dependency_List.
    package Owner_Maps is new Ada.Containers.Indefinite_Hashed_Maps
      (Key_Type        => Unit_Name,
       Element_Type    => Dependency_Target,
       Hash            => Hash_Case_Insensitive,
       Equivalent_Keys => "=",
       "="             => "=");
-   Owner_Map : Owner_Maps.Map;
-   -- Owner map run the other way round : the key is a Unit that is contained
-   -- in a component, and the Element_Type is this component.
-   -- Note that this is not a list, as a Unit is not supposed to be in more
-   -- Component.
-   -- Note that it is also maintained in parallel with the Relationship_List.
-
-   -- --------------------------------------------------------------------------
-   function Is_A_Child (Unit      : Unit_Name;
-                        Component : Unit_Name) return Boolean
-   is
-      U : constant String := +Unit;
-      C : constant String := +Component;
-      use Ada.Strings;
-      use Ada.Strings.Fixed;
-
-   begin
-      if Ada.Strings.Equal_Case_Insensitive (U, C) then
-         -- The Unit is the component
-         Put_Debug_Line ("Unit " & U & " is (in) the component " & C);
-         return True;
-
-      elsif U'Length > C'Length and then
-        (Ada.Strings.Equal_Case_Insensitive
-           (Head (U, Count => C'Length), C) and U (C'Length + 1) = '.')
-      then
-         -- The Unit is a child pkg of the component
-         Put_Debug_Line ("Unit " & U
-                         & " is (as child) in the component " & C);
-         return True;
-
-      else
-         Put_Debug_Line ("Unit " & U
-                         & " not in component " & C, Prefix => "");
-         return False;
-
-      end if;
-   end Is_A_Child;
+   Owner_Map     : Owner_Maps.Map;
 
    -- --------------------------------------------------------------------------
    function Unit_Description (U : in Unit_Attributes) return String is
@@ -141,15 +102,15 @@ package body Archicheck.Units is
       use Archicheck.IO;
       use Sources;
    begin
-      for R of Dependency_List loop
-         for D of R.Targets loop
-            Put_Line ((+R.Source.Name)
-                      & " " & Unit_Description (R.Source)
+      for D of Dependency_List loop
+         for T of D.Targets loop
+            Put_Line ((+D.Source.Name)
+                      & " " & Unit_Description (D.Source)
                       & " depends on "
-                      & (+D.To_Unit),
+                      & (+T.To_Unit),
                       Level => Quiet);
             -- gives file details only when verbose :
-            Put_Line ("   according to " & Location_Image (D.Location),
+            Put_Line ("   according to " & Location_Image (T.Location),
                       Level => Verbose);
          end loop;
       end loop;
@@ -249,6 +210,55 @@ package body Archicheck.Units is
    end Add_Component;
 
    -- --------------------------------------------------------------------------
+   function Is_A_Component (Unit : Unit_Name) return Boolean is
+     (Component_Map.Contains (Unit));
+
+   -- --------------------------------------------------------------------------
+   function Is_A_Child (Child  : Unit_Name;
+                        Parent : Unit_Name) return Boolean
+   is
+      C : constant String := +Child;
+      P : constant String := +Parent;
+      use Ada.Strings;
+      use Ada.Strings.Fixed;
+      -- procedure Put_Debug_Line
+      --   (Msg    : in String  := "";
+      --    Debug  : in Boolean := True;
+      --    Prefix : in String  := "Is_A_Child")
+      --    renames Archicheck.IO.Put_Debug_Line;
+
+   begin
+      -- Put_Debug_Line ("C = " & C & ", C'length =" & Natural'Image (C'Length));
+      -- Put_Debug_Line ("P = " & P & ", P'length =" & Natural'Image (P'Length));
+      -- Put_Debug_Line ("Ada.Strings.Equal_Case_Insensitive (C, P) = " & Boolean'Image (Ada.Strings.Equal_Case_Insensitive (C, P)));
+      -- Put_Debug_Line ("Ada.Strings.Equal_Case_Insensitive (Head (C, Count => P'Length), P) = " & Boolean'Image (Ada.Strings.Equal_Case_Insensitive
+      --     (Head (C, Count => P'Length), P)));
+      -- if C'Length > P'Length then
+      --    Put_Debug_Line ("C (P'Length + 1) = " & C (P'Length + 1));
+      --    Put_Debug_Line ("Head (C, Count => P'Length) = " & Head (C, Count => P'Length));
+      -- end if;
+
+      if Ada.Strings.Equal_Case_Insensitive (C, P) then
+         -- The Unit is the component
+         Put_Debug_Line ("Unit " & C & " = " & P);
+         return True;
+
+      elsif C'Length > P'Length and then
+        (Ada.Strings.Equal_Case_Insensitive
+           (Head (C, Count => P'Length), P) and C (P'Length + 1) = '.')
+      then
+         -- The Unit is a child pkg of the component
+         Put_Debug_Line ("Unit " & C & " is a child of " & P);
+         return True;
+
+      else
+         Put_Debug_Line ("Unit " & C & " not a child of " & P, Prefix => "");
+         return False;
+
+      end if;
+   end Is_A_Child;
+
+   -- --------------------------------------------------------------------------
    function Is_In (Unit    : Unit_Name;
                    In_Unit : Unit_Name) return Boolean
    is
@@ -273,7 +283,7 @@ package body Archicheck.Units is
       --   e. Unit is not claimed by a component
       --      => return False
 
-      if Is_A_Child (Unit, In_Unit) then
+      if Is_A_Child (Child  => Unit, Parent => In_Unit) then
          --   a. the unit IS the component, or a child of
          return True;
       end if;

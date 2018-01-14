@@ -36,9 +36,10 @@ Queries :
    -lf  | --list_files        : list analyzed sources files
    -ld  | --list_dependencies : list identified units and dependencies in analyzed sources files
    -lr  | --list_rules        : list rules in a rules file
-   -lnc | --list_non_covered  : list units not involved in rules file
-   If any, only one of the queries is performed,
-   and then the full analisys on sources is not done.
+   -lnc | --list_non_covered  : list compilation units not involved in rules file
+   -ct  | --create_template   : create a commented example of rules file
+   If any, only one of the queries is performed
+   and the full analisys on sources is not done.
 
 Examples:
    archicheck rules.txt -I ./src
@@ -58,7 +59,7 @@ Command line test suite / Help options [Successful](tests_status.md#successful)
   Test that the --version will put :
 
 ```
-0.5.5
+0.5.6
 ```
 
 
@@ -123,9 +124,10 @@ Queries :
    -lf  | --list_files        : list analyzed sources files
    -ld  | --list_dependencies : list identified units and dependencies in analyzed sources files
    -lr  | --list_rules        : list rules in a rules file
-   -lnc | --list_non_covered  : list units not involved in rules file
-   If any, only one of the queries is performed,
-   and then the full analisys on sources is not done.
+   -lnc | --list_non_covered  : list compilation units not involved in rules file
+   -ct  | --create_template   : create a commented example of rules file
+   If any, only one of the queries is performed
+   and the full analisys on sources is not done.
 
 Examples:
    archicheck rules.txt -I ./src
@@ -171,9 +173,10 @@ Queries :
    -lf  | --list_files        : list analyzed sources files
    -ld  | --list_dependencies : list identified units and dependencies in analyzed sources files
    -lr  | --list_rules        : list rules in a rules file
-   -lnc | --list_non_covered  : list units not involved in rules file
-   If any, only one of the queries is performed,
-   and then the full analisys on sources is not done.
+   -lnc | --list_non_covered  : list compilation units not involved in rules file
+   -ct  | --create_template   : create a commented example of rules file
+   If any, only one of the queries is performed
+   and the full analisys on sources is not done.
 
 Examples:
    archicheck rules.txt -I ./src
@@ -216,9 +219,10 @@ Queries :
    -lf  | --list_files        : list analyzed sources files
    -ld  | --list_dependencies : list identified units and dependencies in analyzed sources files
    -lr  | --list_rules        : list rules in a rules file
-   -lnc | --list_non_covered  : list units not involved in rules file
-   If any, only one of the queries is performed,
-   and then the full analisys on sources is not done.
+   -lnc | --list_non_covered  : list compilation units not involved in rules file
+   -ct  | --create_template   : create a commented example of rules file
+   If any, only one of the queries is performed
+   and the full analisys on sources is not done.
 
 Examples:
    archicheck rules.txt -I ./src
@@ -315,9 +319,10 @@ Queries :
    -lf  | --list_files        : list analyzed sources files
    -ld  | --list_dependencies : list identified units and dependencies in analyzed sources files
    -lr  | --list_rules        : list rules in a rules file
-   -lnc | --list_non_covered  : list units not involved in rules file
-   If any, only one of the queries is performed,
-   and then the full analisys on sources is not done.
+   -lnc | --list_non_covered  : list compilation units not involved in rules file
+   -ct  | --create_template   : create a commented example of rules file
+   If any, only one of the queries is performed
+   and the full analisys on sources is not done.
 
 Examples:
    archicheck rules.txt -I ./src
@@ -360,9 +365,10 @@ Queries :
    -lf  | --list_files        : list analyzed sources files
    -ld  | --list_dependencies : list identified units and dependencies in analyzed sources files
    -lr  | --list_rules        : list rules in a rules file
-   -lnc | --list_non_covered  : list units not involved in rules file
-   If any, only one of the queries is performed,
-   and then the full analisys on sources is not done.
+   -lnc | --list_non_covered  : list compilation units not involved in rules file
+   -ct  | --create_template   : create a commented example of rules file
+   If any, only one of the queries is performed
+   and the full analisys on sources is not done.
 
 Examples:
    archicheck rules.txt -I ./src
@@ -375,3 +381,50 @@ http://lionel.draghi.free.fr/Archicheck/index.html
 
 
 Command line test suite / rules file found, but nothing to do whith it [Successful](tests_status.md#successful)
+
+##  Command line test suite / template creation (-ct and --create_template)
+
+
+  When running:
+  > archicheck -ct
+
+  Expecting file template.ac:
+
+```
+-- ------------------------
+-- Template ArchiCheck file
+-- ------------------------
+
+-- ArchiCheck files contain :
+-- 1. Comments, prefixed by '--', '\\' or '#'
+
+-- 2. Component definitions, like: 
+Application_Layer contains pkg_1, pkg_2, pkg_3
+--    Application_Layer is the component name.
+--    It contains compilation units (pkg_1, etc.), or other
+--    components, meaning that you can define nested components.
+
+-- 3. Rules on units and components
+Layer_A is a layer over Layer_B            -- Layer declaration
+Pango may use Cairo                        -- Use declaration
+Only Layer_B may use Interfaces.C          -- Restricted use declaration
+Ada.Containers.Indefinite use is forbidden -- Forbidden use
+Java.IO use is allowed                     -- Allowed use
+
+--    Note that wildcard are not yet implemented, but
+--    Java.IO means Java.IO and Java.IO.*
+
+-- More exensive explanation : http://lionel.draghi.free.fr/Archicheck/rules/
+-- 
+-- File generated with ArchiCheck 0.5.6
+```
+
+  When running:
+  > archicheck --create_template
+  Expecting error:
+```
+Error : File template.ac already exists
+```
+
+
+Command line test suite / template creation (-ct and --create_template) [Successful](tests_status.md#successful)

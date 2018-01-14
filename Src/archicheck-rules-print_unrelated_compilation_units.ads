@@ -6,14 +6,9 @@
 -- Public License Versions 3, refer to the COPYING file.
 -- -----------------------------------------------------------------------------
 
-with Ada.Text_IO; use Ada.Text_IO;
-
-separate (Archicheck.Main)
-
--- --------------------------------------------------------------------------
-procedure Put_Error (Msg       : in String  := "";
-                     With_Help : in Boolean := False) is
-begin
-   IO.Put_Error (Msg);
-   if With_Help then Put_Help; end if;
-end Put_Error;
+procedure Archicheck.Rules.Check_Unrelated_Compilation_Units;
+-- This procedure will output units referenced in rules file that are
+-- not related to some source.
+-- This is intended to help users checking that there is no rules
+-- silently failling with no effect because of some typo, or because of some
+-- renaming in sources.

@@ -197,8 +197,14 @@ test7:
 	@ ${TR} cmt '```'
 	@ ${TR} cmt 
 
+	@ ${TR} cmt 'Rules:'
+	@ ${TR} cmt '```'
+	cat rules.7 >> testrec.md
+	@ ${TR} cmt '```'
+	@ ${TR} cmt 
+
 	@ ${TR} cmt 'Run:'
-	@ ${TR} cmt "> archicheck rules.B -I dir7"
+	@ ${TR} cmt "> archicheck rules.7 -I dir7"
 	@ ${TR} cmt 
 	@ ${TR} cmt 'Expected:'
 	@ ${TR} cmt '```'
@@ -206,7 +212,7 @@ test7:
 	@ ${TR} cmt '```'
 	@ ${TR} cmt 
 
-	@ test ! `../../Obj/archicheck rules.B -I dir7 > output.7`
+	@ test ! `../../Obj/archicheck rules.7 -I dir7 > output.7`
 	${TR} assert true /usr/bin/sdiff "-s expected_output.7 output.7"
 
 	${TR} end

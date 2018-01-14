@@ -238,12 +238,19 @@ public interface NodeEventTarget extends EventTarget {
 }
 ```
 
+  Rules:
+```
+Applications      contains org.apache.batik.apps.rasterizer
+Core_Modules      contains org.apache.batik.transcoder
+
+Applications is a layer over Core_Modules
+```
+
   Run:
-  > archicheck rules.B -I dir7
+  > archicheck rules.7 -I dir7
 
   Expected:
 ```
-Warning : dir7/MyClass.java:3: org.apache.batik.transcoder.NodeEventTarget (in Core_Modules layer) uses org.w3c.dom.Browser.Event that is neither in the same layer, nor in the lower Low_Level_Modules layer
 Error : dir7/MyClass.java:4: org.apache.batik.transcoder.NodeEventTarget is in Core_Modules layer, and so shall not use org.apache.batik.apps.Rasterizer in the upper Applications layer
 ```
 
