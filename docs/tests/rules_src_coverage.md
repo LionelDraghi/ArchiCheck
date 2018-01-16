@@ -5,7 +5,16 @@
 
 ##  Rules vs sources coverage test suite / Warnings on units appearing in rules file and not related to any source
 
-  > archicheck test1.ac -I ./dir1
+
+  Sources (p1.ads
+p2.ads
+p5.ads) :
+
+```
+p1.ads
+p2.ads
+p5.ads
+```
 
   Rules file :
 
@@ -24,6 +33,10 @@ P5 may use Framework
 -- as it's a Component.
 
 ```
+
+  When :
+
+  > archicheck test1.ac -I ./dir1
 
   Expected :
 
@@ -55,7 +68,16 @@ P5 may use Framework
 
 ```
 
-  Sources :
+  Sources (framework_utilities.ads
+framework-utilities.ads
+java.ads
+java-awt.ads
+p1-x.ads
+p2.ads
+p3.ads
+p4.ads
+p5.ads
+y-p1.ads) :
 
 ```
 framework_utilities.ads
@@ -77,9 +99,41 @@ y-p1.ads
   Expected :
 
 ```
-Warning : test1.ac:4: P3 do not match any compilation unit
-Warning : test1.ac:7: P4 do not match any compilation unit
+Y.P1
+Java.Awt
+Framework_Utilities
+Java
 ```
 
 
 Rules vs sources coverage test suite / Non covered sources [Successful](tests_status.md#successful)
+
+##  Rules vs sources coverage test suite / Case insensitivity of Is_A_Component function (non reg)
+
+  Rules file :
+
+```
+-- Check correction of a bug due to case sensitivity of Unit_Name default "="
+
+SYSTEM contains org.springframework.samples.petclinic.system.WelcomeController
+
+Org.SpringFramework may use Model, system
+-- Model is not a component => Warning beacause of no Matching sources
+-- system is a component    => no warning expected system should be identified as
+--                             the component declared in uppercase.
+```
+
+  When :
+
+  > archicheck test3.ac -I dir3
+
+  Expected :
+
+```
+Warning : test3.ac:8: Org.SpringFramework do not match any compilation unit
+Warning : test3.ac:5: org.springframework.samples.petclinic.system.WelcomeController do not match any compilation unit
+Warning : test3.ac:8: Model do not match any compilation unit
+```
+
+
+Rules vs sources coverage test suite / Case insensitivity of Is_A_Component function (non reg) [Successful](tests_status.md#successful)

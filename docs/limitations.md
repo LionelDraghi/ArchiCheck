@@ -18,3 +18,12 @@ Known Bugs
 ==========
 
 - localization in rules files is sometimes a mess! (see 07_Rules_Files_Syntax test3)
+
+ 
+> For fixed issues, have a look at the [Changelog](changelog.md)
+
+Submitting issues:
+==================
+
+Healthy criticism, discussion and suggestions for improvements [are welcome here](https://github.com/LionelDraghi/ArchiCheck/issues/new).
+

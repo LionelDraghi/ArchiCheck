@@ -5,18 +5,18 @@
 
 ##  Spring Pet Clinic code test suite / -lf test
 
-  > archicheck -lf -r -I ./src
+  > archicheck -lf -r -I ./src1
 
   Expected (36 files) :
 
 ```
-src/src/test/java/org/springframework/samples/petclinic/owner/PetTypeFormatterTests.java
-src/src/test/java/org/springframework/samples/petclinic/owner/VisitControllerTests.java
-src/src/test/java/org/springframework/samples/petclinic/owner/PetControllerTests.java
+src1/src/test/java/org/springframework/samples/petclinic/owner/PetTypeFormatterTests.java
+src1/src/test/java/org/springframework/samples/petclinic/owner/VisitControllerTests.java
+src1/src/test/java/org/springframework/samples/petclinic/owner/PetControllerTests.java
 ...
-src/src/main/java/org/springframework/samples/petclinic/vet/VetRepository.java
-src/src/main/java/org/springframework/samples/petclinic/vet/Vet.java
-src/src/main/java/org/springframework/samples/petclinic/vet/VetController.java
+src1/src/main/java/org/springframework/samples/petclinic/vet/VetRepository.java
+src1/src/main/java/org/springframework/samples/petclinic/vet/Vet.java
+src1/src/main/java/org/springframework/samples/petclinic/vet/VetController.java
 ```
 
 
@@ -57,7 +57,7 @@ Spring Pet Clinic code test suite / -ld test [Successful](tests_status.md#succes
 
 ##  Spring Pet Clinic code test suite / rules test
 
-  > archicheck petclinic.ac -r -I ./src
+  > archicheck petclinic.ac -r -I ./src1
 
 ```
 java use is allowed
@@ -101,7 +101,7 @@ Spring Pet Clinic code test suite / rules test [Successful](tests_status.md#succ
 
 ##  Spring Pet Clinic code test suite / --list_non_covered
 
-  > archicheck petclinic.ac -lnc -r -I ./src
+  > archicheck petclinic.ac -lnc -r -I ./src1
 
   Rules :
 
@@ -147,7 +147,7 @@ Spring Pet Clinic code test suite / --list_non_covered [Successful](tests_status
 
 ##  Spring Pet Clinic code test suite / alternative rules test
 
-  > archicheck 	alternative.ac -r -I ./src
+  > archicheck alternative.ac -r -I ./src1
 
 ```
 java use is allowed
@@ -181,3 +181,56 @@ Org.SpringFramework may use System
 
 
 Spring Pet Clinic code test suite / alternative rules test [Successful](tests_status.md#successful)
+
+##  Spring Pet Clinic code test suite / Layered version of petclinic test
+
+
+  [](https://github.com/spring-petclinic/spring-framework-petclinic)
+
+  > archicheck framework-petclinic.ac -r -I ./src2
+
+```
+-- This organisation in layer is described here : http://fr.slideshare.net/AntoineRey/spring-framework-petclinic-sample-application
+
+Web        contains org.springframework.samples.petclinic.web
+Service    contains org.springframework.samples.petclinic.service
+Model      contains org.springframework.samples.petclinic.model
+Repository contains org.springframework.samples.petclinic.repository
+Util       contains org.springframework.samples.petclinic.util
+
+-- Web  -> Serv
+-- Web  -> Model
+-- Serv -> Repo
+-- Serv -> Model
+-- Repo -> Model
+-- Repo -> Util
+Web        is a layer over Service
+Service    is a layer over Repository
+Repository is a layer over Util
+-- Model use is allowed
+
+java                            use is allowed
+javax                           use is allowed
+org.hibernate.validator         use is allowed
+org.assertj                     use is allowed
+org.junit                       use is allowed
+org.springframework.jdbc        use is allowed
+org.springframework.beans       use is allowed
+org.springframework.dao         use is allowed
+org.springframework.orm         use is allowed
+org.springframework.data        use is allowed
+org.springframework.stereotype  use is allowed
+org.springframework.validation  use is allowed
+org.springframework.web         use is allowed
+org.springframework.ui          use is allowed
+org.springframework.format      use is allowed
+org.springframework.util        use is allowed
+org.springframework.samples     use is allowed
+org.springframework.test        use is allowed
+org.springframework.cache       use is allowed
+org.springframework.transaction use is allowed```
+
+  No error expected
+
+
+Spring Pet Clinic code test suite / Layered version of petclinic test [Successful](tests_status.md#successful)
