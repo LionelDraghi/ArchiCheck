@@ -10,13 +10,39 @@ use_directory_urls: true
 
 pages:
 - Quick start: index.md
-- About: about.md
 
 - Documentation:
+  - why.md
   - rules.md
+  - rules_quick_ref.md
   - cmd_line.md
   - building.md
-  - copying.md
+  
+  - Tests:
+    - Common tests:
+      - tests/command_line.md
+      - tests/source_list.md
+      - tests/dependency_list.md
+      - tests/component_list.md
+      - tests/layer_rule.md
+      - tests/child_packages.md
+      - tests/rules_files_syntax.md
+      - tests/globbing_characters.md
+      - tests/use_rule.md
+      - tests/rules_on_components.md
+      - tests/precedences_rules.md
+      - tests/rules_src_coverage.md
+
+    - Ada tests:
+      - tests/ada_units.md
+      - tests/gtkada.md
+      - tests/zipada.md
+      - tests/adactl.md
+      - tests/archicheck.md
+
+    - Java tests:
+      - tests/batik.md
+      - tests/petclinic.md
   
 - Current Status:
   - dashboard.md
@@ -26,33 +52,11 @@ pages:
   - Limitations and bugs: limitations.md
   - changelog.md
 
-- Linux bin download:
-  - download.md
+- Contributing:
+  - contributing.md
   
-- Common tests:
-  - tests/command_line.md
-  - tests/source_list.md
-  - tests/dependency_list.md
-  - tests/component_list.md
-  - tests/layer_rule.md
-  - tests/child_packages.md
-  - tests/rules_files_syntax.md
-  - tests/globbing_characters.md
-  - tests/use_rule.md
-  - tests/rules_on_components.md
-  - tests/precedences_rules.md
-  - tests/rules_src_coverage.md
+- About: about.md
 
-- Ada tests:
-  - tests/ada_units.md
-  - tests/gtkada.md
-  - tests/zipada.md
-  - tests/adactl.md
-  - tests/archicheck.md
-
-- Java tests:
-  - tests/batik.md
-  - tests/petclinic.md
 
 ## - Tools:
 ##   - mdtags.md

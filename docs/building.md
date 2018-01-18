@@ -9,7 +9,7 @@ A Linux exe is available [here](download.md).
 Downloading sources :
 ---------------------
 
-  `git clone https://github.com/LionelDraghi/ArchiCheck.git`
+  With `git`: `git clone https://github.com/LionelDraghi/ArchiCheck.git`
 
   An Archicheck directory will be created.
 
@@ -32,7 +32,7 @@ Building :
 Portability :
 -------------
 
-  Note that the Ada code should be pretty platform independant, but I tested it only on my Linux/Intel platform.
+  Note that the Ada code should be pretty platform independant, but it is currently only tested on a Linux/Intel platform.
   
   Makefiles are clearly not portable, and obviously need heavy refactoring to run on non Unix like system. 
 

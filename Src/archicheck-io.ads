@@ -24,9 +24,6 @@ with Ada.Text_IO;
 
 private package Archicheck.IO is
 
---     -- --------------------------------------------------------------------------
---     procedure Put_Help;
-
    -- --------------------------------------------------------------------------
    procedure Put_Debug_Line (Msg    : in String := "";
                              Debug  : in Boolean;

@@ -3,19 +3,20 @@ About
 
 <script type='text/javascript' src='https://www.openhub.net/p/ArchiCheck/widgets/project_factoids_stats?format=js'></script>
 
----
-**License:**
+**License:**  
 
-  ArchiCheck is distributed under GPL version 3, refer to the usual [COPYING file](copying.md).
-Author & contact:
+ArchiCheck is distributed under GPL version 3, refer to the usual [COPYING file](copying.md).
+
+**Author & contact:**  
+
   ArchiCheck was created by [Lionel Draghi](mailto:lionel.draghi@free.fr).
 
----
-**Ada:**
+**Issues:**  
+Comments and issues are welcome [here](https://github.com/LionelDraghi/ArchiCheck/issues/new).
 
-  ArchiCheck is proudly written in [Ada](http://getadanow.com/)
+**Ada:**  
+ArchiCheck is proudly written in [Ada](http://getadanow.com/).
 
----
 **Special thanks to:**
 
 - [Ludovic and all the Ada in Debian team](https://people.debian.org/~lbrenta/debian-ada-policy.html#Introduction). 
