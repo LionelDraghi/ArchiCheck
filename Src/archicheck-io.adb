@@ -37,7 +37,7 @@ package body Archicheck.IO is
    begin
       Errors := Errors + 1;
       Put_Line ("Error : " & Msg, Level => Quiet);
-      -- Quiet beacause Error Msg should not be ignored
+      -- Quiet because Error Msg should not be ignored
    end Put_Error;
 
    -- --------------------------------------------------------------------------

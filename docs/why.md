@@ -1,35 +1,48 @@
 # Why ArchiCheck?
 
-The idea of ArchiCheck arose during my experience as software achitect on a software product line.
-I was frustrated that simple architecture and design decision where not followed.
-No matter how clever was the design or the use of the coding language, sooner or later someone was adding a quick and dirty "import" of a compilation unit to easily fix a bug, that was a clear violation of the architecture.
-It was not detected a compile time, and sometimes resulted in hard to detect subtle behavior changes, or elaboration order problems.
+The idea of ArchiCheck arose during my experience as software achitect on a large software product line.  
+I was frustrated that simple architecture and design decision where not followed : no matter how clever was the design or the use of the coding language, sooner or later someone was adding a quick and dirty "import" of a compilation unit to easily fix a bug, that was a clear violation of the architecture.  
+It was not detected a compile time, and sometimes resulted in hard to detect subtle behavior changes, or elaboration order problems.  
 And, at least, in progressive code spaghettization.
 
-[illustration de la degradation]
+[illustration de la degradation TBD]
 
-So, what could be the solution to this architecture and code degradation?   
-The solution was to add the missing semantic. But where?
-– Design : ADL, modelling tool and UML extension?
-– Code : external tool like ArchiCheck, or directly in future programming languages?
-As most of the semantic is already in the code, and beacause there is always code (but not always a model), the decision was to :  
-- provide a simple and natural language to describe a software architecture in terms of partition and dependencies;
-- have a tool that checks the conformance of sources with one of those description.
+The obvious solution to this architecture and code degradation was to add the missing semantic.  
+But where?
 
-Decision was made to have an easy to undestand textual language, that directly state common architecture Metaphors, like :
-- _Gtk is a layer over Gdk_
-or architecture decisions / elements of architecture, like :
-- _My_Component may only use Component_Framework_
-- _OS_Lib use allowed only in Hardware_Abstraction_Layer_
+- At design level : using an ADL, in modelling tool or UML extension?
+- At the code level : with an external tool like ArchiCheck, in special comments needing a preprocessor, directly in future programming languages?
 
-One important point is that sometimes a picture is worth a thousand words, sometimes not.  
+But there is not always a model, and even if so, the code is rarely generated from the model.
+On the other hand, there is always code, and most of the semantic is already in the code.  
+
+> So, the first decision was to stay at code level.  
+
+Because I wanted something simple, that don't interfer with existing tools, decision was made :  
+
+> To define a syntax to describe a software architecture in terms of partition and dependencies, in a file independent of sources, and a tool that checks the conformance of sources with this description.
+
+Sometimes a picture is worth a thousand words, sometimes not.  
 An architecture diagram hardly beat a simple metaphor.
 
-[illustration]
+[illustration TBD]
 
-So, let's keep it simple to use and to understand : no uggly XML or whatever specific cryptic format, no use of shell scripting or programming language, and no graphic tool : just plain english.
+So, let's keep it simple to use and to understand : no uggly XML or specific cryptic format, no need to use shell scripting or programming language, no "X -> Y" that could be interpreted in many ways, and no graphic tool : just a simple and natural english syntax.
 
-And, final decisions for architect piece of mind : 
-- the tool will be inserted in the test suite, and continuously enforces code coherency with your design;
-- the tool will play an architecture teaching role, by providing clear error messages refering to the faulty code, and to the violated rules. (Am I a lazzy architect? maybe...)
+> For the syntax, it was decided to stick with common architecture Metaphors, like :  
+>
+> - _Gtk is a layer over Gdk_
+>
+> or architecture decisions / elements of architecture, like :
+>
+> - _*_Component may only use Component_Framework_
+> - _OS_Lib use allowed only in Hardware_Abstraction_Layer_
+
+And, final decisions for architect peace of mind :  
+
+> The tool will aim at being inserted in the test suite (return status > 0 if some rule is broken), and continuously enforces code coherency with your design;
+
+> The tool will play an architecture teaching role, by providing clear error messages refering to the faulty code, and to the violated rules. 
+
+(Am I a lazzy architect? maybe... :-).
 
