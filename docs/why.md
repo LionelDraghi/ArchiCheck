@@ -2,16 +2,17 @@
 
 The idea of ArchiCheck arose during my experience as software achitect on a large software product line.  
 I was frustrated that simple architecture and design decision where not followed : no matter how clever was the design or the use of the coding language, sooner or later someone was adding a quick and dirty "import" of a compilation unit to easily fix a bug, that was a clear violation of the architecture.  
+
+![illustration de la degradation TBD](architecture_degradation.png)
+
 It was not detected a compile time, and sometimes resulted in hard to detect subtle behavior changes, or elaboration order problems.  
 And, at least, in progressive code spaghettization.
-
-[illustration de la degradation TBD]
 
 The obvious solution to this architecture and code degradation was to add the missing semantic.  
 But where?
 
-- At design level : using an ADL, in modelling tool or UML extension?
-- At the code level : with an external tool like ArchiCheck, in special comments needing a preprocessor, directly in future programming languages?
+- At design level, using an ADL, in modelling tool or UML extension?
+- At the code level, with an external tool like ArchiCheck, in special comments needing a preprocessor, directly in future programming languages?
 
 But there is not always a model, and even if so, the code is rarely generated from the model.
 On the other hand, there is always code, and most of the semantic is already in the code.  

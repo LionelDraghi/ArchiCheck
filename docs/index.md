@@ -6,14 +6,17 @@ Quick overview
 
 Simple structural aspect of the software architecture, metaphore like _My software is a layered system_, can not be fully translated at languages level. Even in languages like Ada, powerfull regarding description of the software structure, there is a semantic loss.
 
-> **The code doesn't tell the whole story!**
+![The code doesn't tell the whole story!](semantic_gap.png)
 
 Sooner or later, in large or complex developpement, someone will propose a patch adding an `ìmport` that compile fine, but is a complete violation of the architecture.
 
+![Architecture degradation over time](architecture_degradation.png)
+
 Archicheck is a simple [free software](copying.md) tool that :
-1. ease simple architecture description. 
-   > It's really as simple as: _Gtk is a layer over Gdk_. 
-2. enforce code compliance with that description. 
+
+1. ease simple architecture description.  
+   > It's really as simple as: _Gtk is a layer over Gdk_.
+2. enforce code compliance with that description.  
    > Put archicheck in your test suite, and let it be a vigilant teacher of your architecture over time.
 
 Get it!
