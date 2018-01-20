@@ -48,7 +48,6 @@ procedure Analyze_Cmd_Line is
       use Archicheck.IO;
    begin
       Put_Line (Settings.ArchiCheck_Version);
-      New_Line;
    end Put_Version;
 
    -- --------------------------------------------------------------------------

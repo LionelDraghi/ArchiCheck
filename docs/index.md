@@ -1,3 +1,5 @@
+![](version.svg) ![](tests_ok.svg) ![](tests_ko.svg)
+
 Quick Start
 ===========
 
