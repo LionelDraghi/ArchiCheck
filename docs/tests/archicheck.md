@@ -12,13 +12,13 @@
   Expected (32 files) :
 
 ```
-/home/lionel/Proj/Archicheck/Src/archicheck.ads
-/home/lionel/Proj/Archicheck/Src/archicheck-io.adb
-/home/lionel/Proj/Archicheck/Src/archicheck-io.ads
+src/archicheck.ads
+src/archicheck-io.adb
+src/archicheck-io.ads
 ...
-/home/lionel/Proj/Archicheck/Src/archicheck-sources.ads
-/home/lionel/Proj/Archicheck/Src/archicheck-units.adb
-/home/lionel/Proj/Archicheck/Src/archicheck-units.ads
+src/archicheck-sources.ads
+src/archicheck-units.adb
+src/archicheck-units.ads
 ```
 
 

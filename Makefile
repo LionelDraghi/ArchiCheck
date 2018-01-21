@@ -48,14 +48,12 @@ build:
 	echo Make debug build
 	@ - mkdir -p Obj lib
 
-	gprbuild -P patched_ot
 	gprbuild -s -Xmode=debug -Parchicheck.gpr
 	# -q : quiet
 	# -s : recompile if compiler switches have changed
 
 .PHONY : build_release
 build_release:
-	gprbuild -P patched_ot
 	gprbuild -s -Xmode=release -Parchicheck.gpr
 	# -q : quiet
 	# -s : recompile if compiler switches have changed
@@ -117,7 +115,7 @@ dashboard: Obj/coverage.info Tests/tests_count.txt
 
 	@ # Language pie
 	@ # --------------------------------------------------------------------
-	sloccount Src Tests/Tools | grep "ada=" |  ploticus  -prefab pie 	\
+	sloccount src Tests/Tools | grep "ada=" |  ploticus  -prefab pie 	\
 		data=stdin labels=2 colors="blue red green orange"		\
 		explode=0.1 values=1 title="Ada sloc `date +%x`"		\
 		-png -o docs/sloc.png
@@ -182,7 +180,7 @@ dashboard: Obj/coverage.info Tests/tests_count.txt
 	cat cov_sum.txt					>> docs/dashboard.md
 	echo '```'			 			>> docs/dashboard.md
 	echo 							>> docs/dashboard.md
-	echo '[**Coverage details in the sources**](http://lionel.draghi.free.fr/Archicheck/lcov/home/lionel/Proj/Archicheck/Src/index-sort-f.html)'	>> docs/dashboard.md
+	echo '[**Coverage details in the sources**](http://lionel.draghi.free.fr/Archicheck/lcov/home/lionel/Proj/Archicheck/src/index-sort-f.html)'	>> docs/dashboard.md
 	echo 							>> docs/dashboard.md
 
 	# badge making:
@@ -223,7 +221,7 @@ cmd_line.md:
 doc: dashboard cmd_line.md
 	echo Make Doc
 	mkdocs build 
-	chmod +x ./site/archicheck
+	@ - chmod --silent +x ./site/archicheck
     
 .PHONY : clean
 clean:
@@ -231,6 +229,5 @@ clean:
 	- gnat clean -q -Parchicheck.gpr
 	- ${RM} -rf Obj/* docs/lcov/* tmp.txt *.lst *.dat cov_sum.txt  
 	- $(MAKE) --directory=Tests clean
-	- gnat clean -q -Ppatched_ot
     
     
