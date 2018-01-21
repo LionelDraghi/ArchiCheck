@@ -30,7 +30,15 @@ Note that in the current version, ArchiCheck rely on OpenToken lib for rules fil
 
 # Tests Overview
 
-**TBD**
+The global intent is to have tests documenting the software behavior. Test execution result in a global count of passed/failed/empty tests, and in a text output in Markdown format, integrated in this documentation.
+
+Tests are at exe level, with no unit testing at this stage. To have tests in Makefile 
+
+Tests are defined in Tests subdirs, in (hopfully) coherent subsets.
+All tests directories are structured the same way, with Makefiles also structured the same way, and the same naming convention.
+
+
+Most are structured in the same way, and use coherent 
 
 # Submitting issues
 

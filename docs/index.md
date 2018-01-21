@@ -10,9 +10,9 @@ Simple structural aspect of the software architecture, metaphore like _My softwa
 
 Sooner or later, in large or complex developpement, someone will propose a patch adding an `ìmport` that compile fine, but is a complete violation of the architecture.
 
-Archicheck is a simple [free software](copying.md) tool that :
+Archicheck is a simple [free software](copying.md) tool that :  
 1. ease architecture description, with a simple language. 
-   > It's really as simple as: _Gtk is a layer over Gdk_. 
+   > It's really as simple as: _Gtk is a layer over Gdk_.  
 2. enforce code compliance with that description. 
    > Put archicheck in your test suite, and let it be a vigilant teacher of your architecture over time.
 
