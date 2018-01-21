@@ -1,12 +1,12 @@
 -- with "opentoken";
-with "patched_ot";
+-- with "patched_ot";
 
 project Archicheck is
 
    type Mode_Type is ("debug", "release");
    Mode : Mode_Type := external ("mode", "debug");
 
-   for Source_Dirs use ("Src");
+   for Source_Dirs use ("C:\Users\ldraghi\Proj\org.opentoken-6.0b", "Patch", "Src");
    for Object_Dir use "Obj";
    for Main use ("archicheck-main.adb");
 
@@ -22,7 +22,7 @@ project Archicheck is
 
    package Compiler is
       Common_Switches := ("-gnat2012");
-      Common_Debug_Switches := Common_Switches & 
+      Common_Debug_Switches := Common_Switches & -- ("-g");  
       ("-g", "-O0",  "-gnatQ", "-gnatf",  "-gnato", "-fstack-check", "-gnata", "-gnateE", "-gnatVa", "-gnatwa", "-gnatyabefhiklnprtx");
       -- -gnatQ : Don't quit
       -- -gnatf : Full errors

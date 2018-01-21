@@ -118,7 +118,7 @@ Rules vs sources coverage test suite / Non covered sources [Successful](tests_st
 SYSTEM contains org.springframework.samples.petclinic.system.WelcomeController
 
 Org.SpringFramework may use Model, system
--- Model is not a component => Warning beacause of no Matching sources
+-- Model is not a component => Warning because of no Matching sources
 -- system is a component    => no warning expected system should be identified as
 --                             the component declared in uppercase.
 ```

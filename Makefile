@@ -159,7 +159,7 @@ dashboard: Obj/coverage.info Tests/tests_count.txt
 	echo "> archicheck --version"	>> docs/dashboard.md
 	echo 	 						>> docs/dashboard.md
 	echo '```' 						>> docs/dashboard.md
-	Obj/archicheck --version | head -n 1			>> docs/dashboard.md
+	Obj/archicheck --version 						>> docs/dashboard.md
 	echo '```' 										>> docs/dashboard.md
 	echo 	 										>> docs/dashboard.md
 	echo "> date -r archicheck --iso-8601=seconds" 	>> docs/dashboard.md
@@ -184,6 +184,11 @@ dashboard: Obj/coverage.info Tests/tests_count.txt
 	echo 							>> docs/dashboard.md
 	echo '[**Coverage details in the sources**](http://lionel.draghi.free.fr/Archicheck/lcov/home/lionel/Proj/Archicheck/Src/index-sort-f.html)'	>> docs/dashboard.md
 	echo 							>> docs/dashboard.md
+
+	# badge making:
+	wget -q "https://img.shields.io/badge/Version-`./Obj/archicheck --version`-blue.svg" -O docs/version.svg
+	wget -q "https://img.shields.io/badge/Tests_OK-`cat Tests/tests_count.txt |sed -n "s/Successful  //p"`-green.svg" -O docs/tests_ok.svg
+	wget -q "https://img.shields.io/badge/Tests_KO-`cat Tests/tests_count.txt |sed -n "s/Failed      //p"`-green.svg" -O docs/tests_ko.svg
 
 .PHONY : cmd_line.md
 cmd_line.md:
