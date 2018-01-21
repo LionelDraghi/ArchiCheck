@@ -12,13 +12,14 @@ header:
 	@ #---------------------------------------------------------------------
 	${TR} clean
 	${TR} create "ArchiCheck code test suite"
-	@ - ln -s -t ./ ../../Src
+	@ - mkdir -p ./src
+	@ cp -rp ../../src/*.ad? src
 	
 test1:
 	@ #---------------------------------------------------------------------
 	${TR} start "-lf test"
 
-	ls /home/lionel/Proj/Archicheck/Src/*.ad? | sort > expected_output.1
+	ls src/*.ad? | sort > expected_output.1
 
 	CMD="archicheck -lf -I src "
 
@@ -35,7 +36,7 @@ test1:
 	@ ${TR} cmt '```'
 	@ ${TR} cmt 
 
-	../../Obj/archicheck -lf -I Src | sort > output.1
+	../../Obj/archicheck -lf -I src | sort > output.1
 	${TR} assert true /usr/bin/sdiff "-sbB expected_output.1 output.1"
 
 	${TR} end
@@ -55,7 +56,7 @@ test2:
 	@ ${TR} cmt '```'
 	@ ${TR} cmt 
 
-	../../Obj/archicheck -ld -I ./Src | sort > output.2
+	../../Obj/archicheck -ld -I ./src | sort > output.2
 	${TR} assert true /usr/bin/sdiff "-sbB expected_output.2 output.2"
 
 	${TR} end
@@ -78,7 +79,7 @@ test3:
 	@ ${TR} cmt 
 
 	> expected_output.3
-	../../Obj/archicheck archicheck.ac -I ./Src > output.3
+	../../Obj/archicheck archicheck.ac -I ./src > output.3
 	${TR} assert true /usr/bin/sdiff "-sbB expected_output.3 output.3"
 
 	${TR} end
@@ -100,13 +101,13 @@ test4:
 	@ ${TR} cmt "No error expected"
 	@ ${TR} cmt 
 
-	../../Obj/archicheck archicheck.ac -lnc -I ./Src > output.4
+	../../Obj/archicheck archicheck.ac -lnc -I ./src > output.4
 	${TR} assert true /usr/bin/sdiff "-sbB expected_output.4 output.4"
 
 	${TR} end
 
 clean:
-	- ${RM} -rf output.* Src ac_view.png
+	- ${RM} -rf output.* src ac_view.png
 	- ${TR} clean
 
 doc:
