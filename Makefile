@@ -96,11 +96,12 @@ check: Obj/archicheck
 
 	lcov --quiet --capture --directory Obj -o Obj/coverage.info
 	lcov -q --remove Obj/coverage.info -o Obj/coverage.info \
-		"/usr/*" "*.ads" "*/Obj/b__archicheck-main.adb"
+		"/usr/*" "*/src_opentoken-6.0b/*" "*/patch_opentoken/*" "*.ads" "*/Obj/b__archicheck-main.adb"
 	# Ignoring :
 	# - spec (results are not consistent with current gcc version) 
 	# - the false main
-	# - libs (Standart and OpenToken) 
+	# - libs (Standard)
+	# - OpenToken
 
 	genhtml Obj/coverage.info -o docs/lcov --title "ArchiCheck tests coverage" \
 		--prefix "/home/lionel/Proj/Archichek" --frames | tail -n 2 > cov_sum.txt
