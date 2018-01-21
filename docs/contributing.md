@@ -9,11 +9,12 @@ Use cases or features suggestions are also welcome.
 
 To propose some patch          | git command
 -------------------------------|-------------------------------------
- 1. Fork the project           | `git clone https://github.com/LionelDraghi/ArchiCheck.git`                                    
- 2. Create your feature branch | `git checkout -b my-new-feature`    
- 3. Commit your changes        | `git commit -am 'Add some feature'` 
- 4. Push to the branch         | `git push origin my-new-feature`    
- 5. Create new Pull Request    |                                     
+ 1. Fork the project           | fork button on https://github.com/LionelDraghi/ArchiCheck
+ 2. Clone your own copy        | `git clone https://github.com/your_user_name/ArchiCheck.git`
+ 3. Create your feature branch | `git checkout -b my-new-feature`    
+ 4. Commit your changes        | `git commit -am 'Add some feature'` 
+ 5. Push to the branch         | `git push origin my-new-feature`    
+ 6. Create new Pull Request    | on your GitHub fork, go to "Compare & pull request".
 
 # Design Overview
 

@@ -24,7 +24,7 @@ Building :
   
   > On Debian Linux family : `apt install gnat make`  
 
-  NB : libopentoken6-dev is no more needed, to ease building on non Debian platform, I integrated OpenToken sources.
+  **NB : libopentoken6.1-dev is no more needed. To ease building on non Debian platform, I integrated OpenToken sources.**
 
   archicheck exe will be in the `Obj` directory.
 
@@ -36,7 +36,7 @@ Portability :
 
   Note that the Ada code should be pretty platform independant, but it is currently only tested on a Linux/Intel platform.
   
-  Makefiles are clearly not portable, and obviously need heavy refactoring to run on non Unix like system. 
+  Makefiles are clearly not portable, and obviously need heavy refactoring to run on non Unix systems. 
 
 
 
