@@ -12,7 +12,7 @@ Version
 > date -r archicheck --iso-8601=seconds
 
 ```
-2018-01-21T21:49:08+01:00
+2018-01-21T22:14:54+01:00
 ```
 
 Test results
@@ -28,8 +28,8 @@ Coverage
 --------
 
 ```
-  lines......: 63.1% (2126 of 3371 lines)
-  functions..: 59.7% (408 of 683 functions)
+  lines......: 63.0% (2123 of 3371 lines)
+  functions..: 59.6% (407 of 683 functions)
 ```
 
 [**Coverage details in the sources**](http://lionel.draghi.free.fr/Archicheck/lcov/home/lionel/Proj/Archicheck/src/index-sort-f.html)

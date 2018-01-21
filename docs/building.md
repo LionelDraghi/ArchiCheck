@@ -20,9 +20,11 @@ Building :
 
   To build ArchiCheck, just run `make build` in the root directory.
 
-  Needed external software : libopentoken, and gnat gcc Ada compiler. 
+  Needed external software : gnat gcc Ada compiler. 
   
-  > On Debian Linux family : `apt install libopentoken6-dev gnat make`
+  > On Debian Linux family : `apt install gnat make`  
+
+  NB : libopentoken6-dev is no more needed, to ease building on non Debian platform, I integrated OpenToken sources.
 
   archicheck exe will be in the `Obj` directory.
 
