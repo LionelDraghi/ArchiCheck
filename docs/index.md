@@ -3,7 +3,7 @@
 Quick Start
 ===========
 
-Quick overview
+Overview
 -------------------
 
 Simple structural aspect of the software architecture, metaphore like _My software is a layered system_, can not be fully translated at languages level. Even in languages like Ada, powerfull regarding description of the software structure, there is a semantic loss.

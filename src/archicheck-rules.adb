@@ -22,11 +22,8 @@ with Archicheck.IO;                      use Archicheck.IO;
 with Archicheck.Settings;
 
 with Ada.Strings.Equal_Case_Insensitive;
-with Ada.Strings.Unbounded;
 
 package body Archicheck.Rules is
-
-   use Ada.Strings.Unbounded;
 
    -- Change default Debug parameter value to enable/disable
    -- Debug messages in this package
@@ -175,24 +172,6 @@ package body Archicheck.Rules is
       end loop;
       return Tmp;
    end Allowed_Users;
-
-   -- --------------------------------------------------------------------------
-   function Users_Image (List : in Rule_Lists.List) return String is
-      Tmp : Unbounded_String := Null_Unbounded_String;
-      use Rule_Lists;
-   begin
-      -- the output is of this kind : "X, Y, Z, and V"
-      for C in List.Iterate loop
-         if C = List.First then
-            Tmp := To_US (Element (C).Subject_Unit);
-         elsif C = List.Last then
-            Tmp := Tmp & " and " & To_US (Element (C).Subject_Unit);
-         else
-            Tmp := Tmp & ", " & To_US (Element (C).Subject_Unit);
-         end if;
-      end loop;
-      return (To_String (Tmp));
-   end Users_Image;
 
    -- --------------------------------------------------------------------------
    function Is_Involved_In_A_Rule (Unit : in Unit_Name) return Boolean is

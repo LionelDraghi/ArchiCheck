@@ -22,6 +22,8 @@
 
 with Archicheck.Sources;
 
+with List_Image;
+
 with Ada.Containers.Doubly_Linked_Lists;
 with Ada.Containers.Indefinite_Hashed_Maps;
 with Ada.Strings.Equal_Case_Insensitive;
@@ -89,7 +91,19 @@ private package Archicheck.Units is
    package Dependency_Targets is new Ada.Containers.Doubly_Linked_Lists
      (Dependency_Target, "=");
 
-   function Unit_List_Image (List : Dependency_Targets.List) return String;
+   -- --------------------------------------------------------------------------
+   use Dependency_Targets;
+   function Iterator (L : List) return
+     List_Iterator_Interfaces.Forward_Iterator'Class is (Iterate (L));
+   function Image (C : Cursor) return String is
+      (+(Element (C).To_Unit));
+   function Unit_List_Image is new List_Image.Image
+     (Cursor      => Cursor,
+      Image       => Image,
+      Iterator_If => List_Iterator_Interfaces,
+      Container   => List,
+      Iterator    => Iterator,
+      Style       => List_Image.English_Style);
 
    -- --------------------------------------------------------------------------
    type Unit_Attributes (Kind : Unit_Kind := Unknown) is record

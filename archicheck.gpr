@@ -16,18 +16,18 @@ project Archicheck is
    for Main use ("archicheck-main.adb");
 
    package Ide is
-      for Vcs_Kind use "Git";
       -- for Documentation_Dir use "./html";
+      for Vcs_Kind use "Git";
    end Ide;
 
    package Builder is
       for Executable ("archicheck-main.adb") use "archicheck";
-      for Default_Switches ("ada") use ("-j2");
+      for Default_Switches ("ada") use ("-j2", "-g", "-m");
    end Builder;
 
    package Compiler is
       Common_Switches := ("-gnat2012");
-      Common_Debug_Switches := Common_Switches & -- ("-g");  
+      Common_Debug_Switches := Common_Switches &
       ("-g", "-O0",  "-gnatQ", "-gnatf",  "-gnato", "-fstack-check", "-gnata", "-gnateE", "-gnatVa", "-gnatwa", "-gnatyabefhiklnprtx");
       -- -gnatQ : Don't quit
       -- -gnatf : Full errors
@@ -40,7 +40,9 @@ project Archicheck is
       --
       -- Style checking : 
       -- a : Check attribute casing
-      -- b : Blanks not allowed at statement end
+      -- removed b : Blanks not allowed at statement end
+      --         (Because of Markdown processing for comments : double
+      --          final blank is used in MD to force a newline)
       -- e : Check end/exit labels
       -- f : No form feeds or vertical tabs
       -- h : No horizontal tabs
@@ -70,15 +72,6 @@ project Archicheck is
 
    end Compiler;
 
-   package Linker is
-      case Mode is
-         when "debug"   => for Switches ("ada") use ("-g", "-lgcov");
-            -- lgcov = -fprofile-arcs for coverage
-         when "release" =>  for Switches ("ada") use ("-flto");
-            -- -flto : link time optimization 
-      end case;
-   end Linker;
-
    package Binder is
       case Mode is
          when "debug"   => for Switches ("ada") use ("-Es");
@@ -87,6 +80,15 @@ project Archicheck is
             -- -static : link against a static GNAT run time.
       end case;
    end Binder;
+
+   package Linker is
+      case Mode is
+         when "debug"   => for Switches ("ada") use ("-g", "-lgcov");
+            -- lgcov = -fprofile-arcs for coverage
+         when "release" =>  for Switches ("ada") use ("-flto");
+            -- -flto : link time optimization 
+      end case;
+   end Linker;
 
    package Pretty_Printer is
       for Switches ("ada") use ("-M100", "-l2", "-A1", "-A2", "-A3", "-A4");

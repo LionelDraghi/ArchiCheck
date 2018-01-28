@@ -9,16 +9,16 @@
 
   > archicheck -lf -I src
 
-  Expected (32 files) :
+  Expected (34 files) :
 
 ```
 src/archicheck.ads
 src/archicheck-io.adb
 src/archicheck-io.ads
 ...
-src/archicheck-sources.ads
-src/archicheck-units.adb
 src/archicheck-units.ads
+src/list_image.adb
+src/list_image.ads
 ```
 
 
@@ -28,7 +28,7 @@ ArchiCheck code test suite / -lf test [Successful](tests_status.md#successful)
 
   > archicheck -ld -I ./src | sort
 
-  103 dependencies expected :
+  106 dependencies expected :
 
 ```
 Archicheck.IO package spec depends on Ada.Text_IO
@@ -42,9 +42,6 @@ Archicheck.Lang.Ada_Processor package body depends on Archicheck.Units
 Archicheck.Lang.Ada_Processor package body depends on OpenToken
 Archicheck.Lang.Initialize procedure body depends on Archicheck.Lang.Ada_Processor
 ...
-Archicheck.Sources package spec depends on Ada.Strings.Unbounded
-Archicheck.Units package body depends on Ada.Strings.Fixed
-Archicheck.Units package body depends on Ada.Strings.Hash_Case_Insensitive
 Archicheck.Units package body depends on Archicheck.IO
 Archicheck.Units package body depends on Archicheck.Settings
 Archicheck.Units package spec depends on Ada.Containers.Doubly_Linked_Lists
@@ -52,6 +49,9 @@ Archicheck.Units package spec depends on Ada.Containers.Indefinite_Hashed_Maps
 Archicheck.Units package spec depends on Ada.Strings.Equal_Case_Insensitive
 Archicheck.Units package spec depends on Ada.Strings.Unbounded
 Archicheck.Units package spec depends on Archicheck.Sources
+Archicheck.Units package spec depends on List_Image
+List_Image package body depends on Ada.Strings.Unbounded
+List_Image package spec depends on Ada.Iterator_Interfaces
 ```
 
 
@@ -85,7 +85,7 @@ GNAT use is forbidden
 Ada                 use is allowed
 Archicheck.IO       use is allowed
 Archicheck.Settings use is allowed
-
+List_Image          use is allowed
 ```
 
   ![ArchiCheck dependencies view](ac_view.png)
@@ -123,7 +123,7 @@ GNAT use is forbidden
 Ada                 use is allowed
 Archicheck.IO       use is allowed
 Archicheck.Settings use is allowed
-
+List_Image          use is allowed
 ```
 
   ![ArchiCheck dependencies view](ac_view.png)

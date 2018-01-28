@@ -9,4 +9,5 @@ html_lexer
 m3_lexer
 run_ada_lexer
 archicheck.settings
+list_image
 # archicheck.io

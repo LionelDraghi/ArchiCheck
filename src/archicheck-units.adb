@@ -44,25 +44,6 @@ package body Archicheck.Units is
    function "+" (Name : Unbounded_String) return Unit_Name is
      (Unit_Name (Name));
 
-   -- --------------------------------------------------------------------------
-   function Unit_List_Image (List : Dependency_Targets.List) return String is
-      Tmp : Unbounded_String := Null_Unbounded_String;
-      use Dependency_Targets;
-   begin
-      -- the output is of this kind : "X, Y, Z, and V"
-      for C in List.Iterate loop
-         if C = List.First then
-            Tmp := To_US (Element (C).To_Unit);
-         elsif C = List.Last then
-            Tmp := Tmp & " and " & To_US (Element (C).To_Unit);
-         else
-            Tmp := Tmp & ", " & To_US (Element (C).To_Unit);
-         end if;
-      end loop;
-      return (To_String (Tmp));
-      -- Fixme: same code in Rules, deserve a generic
-   end Unit_List_Image;
-
    function Hash_Case_Insensitive
      (Key : Unit_Name) return Ada.Containers.Hash_Type is
      (Ada.Strings.Hash_Case_Insensitive (+Key));
@@ -168,7 +149,6 @@ package body Archicheck.Units is
             Owner : constant Unit_Name := D.To_Unit;
             C     : constant Owner_Maps.Cursor := Owner_Map.Find (Owner);
             use Owner_Maps;
-            use type Dependency_Targets.List;
             use Sources;
          begin
             if C = Owner_Maps.No_Element then
@@ -228,16 +208,6 @@ package body Archicheck.Units is
       --    renames Archicheck.IO.Put_Debug_Line;
 
    begin
-      -- Put_Debug_Line ("C = " & C & ", C'length =" & Natural'Image (C'Length));
-      -- Put_Debug_Line ("P = " & P & ", P'length =" & Natural'Image (P'Length));
-      -- Put_Debug_Line ("Ada.Strings.Equal_Case_Insensitive (C, P) = " & Boolean'Image (Ada.Strings.Equal_Case_Insensitive (C, P)));
-      -- Put_Debug_Line ("Ada.Strings.Equal_Case_Insensitive (Head (C, Count => P'Length), P) = " & Boolean'Image (Ada.Strings.Equal_Case_Insensitive
-      --     (Head (C, Count => P'Length), P)));
-      -- if C'Length > P'Length then
-      --    Put_Debug_Line ("C (P'Length + 1) = " & C (P'Length + 1));
-      --    Put_Debug_Line ("Head (C, Count => P'Length) = " & Head (C, Count => P'Length));
-      -- end if;
-
       if Ada.Strings.Equal_Case_Insensitive (C, P) then
          -- The Unit is the component
          Put_Debug_Line ("Unit " & C & " = " & P);
@@ -290,7 +260,7 @@ package body Archicheck.Units is
 
       C := Owner_Map.Find (Key);
 
-      if C /= No_Element then
+      if C /= Owner_Maps.No_Element then
          Dep := Element (C);
          if Dep.To_Unit = In_Unit then
             -- b. the Unit is directly claimed by Dep.To_Unit

@@ -56,12 +56,12 @@ Archicheck.Rules.Dump_Unrelated_Compilation_Units procedure body depends on Ada.
 Archicheck.Rules.Dump_Unrelated_Compilation_Units procedure body depends on Ada.Strings.Hash_Case_Insensitive
 Archicheck.Rules.Dump_Unrelated_Compilation_Units procedure body depends on Archicheck.IO
 Archicheck.Rules package body depends on Ada.Strings.Equal_Case_Insensitive
-Archicheck.Rules package body depends on Ada.Strings.Unbounded
 Archicheck.Rules package body depends on Archicheck.IO
 Archicheck.Rules package body depends on Archicheck.Settings
 Archicheck.Rules package spec depends on Ada.Containers.Indefinite_Doubly_Linked_Lists
 Archicheck.Rules package spec depends on Archicheck.Sources
 Archicheck.Rules package spec depends on Archicheck.Units
+Archicheck.Rules package spec depends on List_Image
 Archicheck.Rules.Parser package body depends on Ada.Exceptions
 Archicheck.Rules.Parser package body depends on Ada.Strings.Maps.Constants
 Archicheck.Rules.Parser package body depends on Ada.Text_IO
@@ -101,3 +101,6 @@ Archicheck.Units package spec depends on Ada.Containers.Indefinite_Hashed_Maps
 Archicheck.Units package spec depends on Ada.Strings.Equal_Case_Insensitive
 Archicheck.Units package spec depends on Ada.Strings.Unbounded
 Archicheck.Units package spec depends on Archicheck.Sources
+Archicheck.Units package spec depends on List_Image
+List_Image package body depends on Ada.Strings.Unbounded
+List_Image package spec depends on Ada.Iterator_Interfaces

@@ -26,6 +26,8 @@
 with Archicheck.Sources;
 with Archicheck.Units; use Archicheck.Units;
 
+with List_Image;
+
 with Ada.Containers.Indefinite_Doubly_Linked_Lists;
 
 private package Archicheck.Rules is
@@ -77,8 +79,21 @@ private
    -- --------------------------------------------------------------------------
    function Allowed_Users (Of_Unit : in Unit_Name) return Rule_Lists.List;
    -- returns the rules with object that have Of_Unit as target
-   function Users_Image (List : in Rule_Lists.List) return String;
-   -- returns "X and Y and Z" or "X" or ""
+
+   -- --------------------------------------------------------------------------
+   use Rule_Lists;
+   function Iterator (L : List) return
+     List_Iterator_Interfaces.Forward_Iterator'Class is (Iterate (L));
+   function Image (C : Cursor) return String is
+     (+(Element (C).Subject_Unit));
+   function Users_Image is new List_Image.Image
+   -- returns "X, Y and Z" or "X and Y" or "X" or ""
+     (Cursor      => Cursor,
+      Image       => Image,
+      Iterator_If => List_Iterator_Interfaces,
+      Container   => List,
+      Iterator    => Iterator,
+      Style       => List_Image.English_Style);
 
    -- --------------------------------------------------------------------------
    function Is_Involved_In_A_Rule (Unit : in Unit_Name) return Boolean;

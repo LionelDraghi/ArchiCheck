@@ -19,4 +19,4 @@ GNAT use is forbidden
 Ada                 use is allowed
 Archicheck.IO       use is allowed
 Archicheck.Settings use is allowed
-
+List_Image          use is allowed
