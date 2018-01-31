@@ -28,7 +28,7 @@ ArchiCheck code test suite / -lf test [Successful](tests_status.md#successful)
 
   > archicheck -ld -I ./src | sort
 
-  106 dependencies expected :
+  105 dependencies expected :
 
 ```
 Archicheck.IO package spec depends on Ada.Text_IO
@@ -42,6 +42,7 @@ Archicheck.Lang.Ada_Processor package body depends on Archicheck.Units
 Archicheck.Lang.Ada_Processor package body depends on OpenToken
 Archicheck.Lang.Initialize procedure body depends on Archicheck.Lang.Ada_Processor
 ...
+Archicheck.Units package body depends on Ada.Strings.Hash_Case_Insensitive
 Archicheck.Units package body depends on Archicheck.IO
 Archicheck.Units package body depends on Archicheck.Settings
 Archicheck.Units package spec depends on Ada.Containers.Doubly_Linked_Lists
@@ -51,7 +52,6 @@ Archicheck.Units package spec depends on Ada.Strings.Unbounded
 Archicheck.Units package spec depends on Archicheck.Sources
 Archicheck.Units package spec depends on List_Image
 List_Image package body depends on Ada.Strings.Unbounded
-List_Image package spec depends on Ada.Iterator_Interfaces
 ```
 
 

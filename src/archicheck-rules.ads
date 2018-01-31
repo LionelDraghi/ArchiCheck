@@ -82,18 +82,15 @@ private
 
    -- --------------------------------------------------------------------------
    use Rule_Lists;
-   function Iterator (L : List) return
-     List_Iterator_Interfaces.Forward_Iterator'Class is (Iterate (L));
+   package Rule_Lists_Cursors is new List_Image.Cursors_Signature
+     (Container => List,
+      Cursor    => Cursor);
    function Image (C : Cursor) return String is
      (+(Element (C).Subject_Unit));
    function Users_Image is new List_Image.Image
    -- returns "X, Y and Z" or "X and Y" or "X" or ""
-     (Cursor      => Cursor,
-      Image       => Image,
-      Iterator_If => List_Iterator_Interfaces,
-      Container   => List,
-      Iterator    => Iterator,
-      Style       => List_Image.English_Style);
+     (Cursors => Rule_Lists_Cursors,
+      Style   => List_Image.English_Style);
 
    -- --------------------------------------------------------------------------
    function Is_Involved_In_A_Rule (Unit : in Unit_Name) return Boolean;

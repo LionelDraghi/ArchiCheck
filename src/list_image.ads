@@ -17,8 +17,6 @@
 -- available here https://github.com/LionelDraghi/List_Image
 -- -----------------------------------------------------------------------------
 
-with Ada.Iterator_Interfaces;
-
 package List_Image is
 
    EOL : constant String := ASCII.CR & ASCII.LF;
@@ -28,8 +26,8 @@ package List_Image is
    -- --------------------------------------------------------------------------
    --                               Style
    -- --------------------------------------------------------------------------
-   -- This signature package defines the style used by the Image function to
-   -- print the list.
+   -- This signature package defines the style of the String returned by the
+   -- Image function.
    --
    -- Prefix, Postfix and Separator parameters are self explaining.
    -- If Prefix = '(', Postfix = ')', and Separator = ',', Image will be of
@@ -41,7 +39,7 @@ package List_Image is
    -- This is usefull when you want to want "[A,B,C]" as an image, but you don't
    -- want "[]" when the list is empty.
    --
-   -- A funny application of this feature is to have well written comments
+   -- A usefull application of this feature is to have well written comments
    -- regarding singular and plural.
    -- If you want your image to be "A item found" but "A, B, C items found",
    -- just set Postfix to " items found", and Postfix_If_Single to
@@ -49,7 +47,7 @@ package List_Image is
    -- And by the way, if you want the Image to be "No item found" when the
    -- list is emtpy, Prefix_If_Empty and Postfix_If_Empty are here for you.
    --
-   -- Last_Separator allows to have a different last separator, as in :
+   -- Last_Separator allows to have this kind of output :
    -- "A, B, C and D"
    --
    -- Note that Separator may be whatever String. You may want to insert an End
@@ -69,8 +67,7 @@ package List_Image is
 
       EOL               : String := List_Image.EOL;
 
-   package List_Style is
-   end List_Style;
+   package Image_Style is end;
 
    -- --------------------------------------------------------------------------
    --                         Predefined style
@@ -78,6 +75,9 @@ package List_Image is
    --
    -- - Default_Style :
    --   > A, B, C
+   --
+   -- - English_Style :
+   --   > A, B and C
    --
    -- - Bracketed_List_Style :
    --   > [A, B, C]
@@ -109,37 +109,37 @@ package List_Image is
    --          like in Github Flavored Markdown for example.
    --
    -- --------------------------------------------------------------------------
-   package Default_Style is new List_Style (Separator => ", ");
+   package Default_Style is new Image_Style (Separator => ", ");
 
-   package English_Style is new List_Style (Separator      => ", ",
+   package English_Style is new Image_Style (Separator      => ", ",
                                             Last_Separator => " and ");
 
-   package Bracketed_List_Style is new List_Style (Prefix    => "[",
+   package Bracketed_List_Style is new Image_Style (Prefix    => "[",
                                                    Postfix   => "]",
                                                    Separator => ", ");
 
-   package Bulleted_List_Style is new List_Style
+   package Bulleted_List_Style is new Image_Style
      (Prefix           => EOL & "- ",
       Separator        => EOL & "- ",
       Postfix          => EOL,
       Prefix_If_Empty  => "",
       Postfix_If_Empty => "");
 
-   package Markdown_Bulleted_List_Style is new List_Style
+   package Markdown_Bulleted_List_Style is new Image_Style
      (Prefix           => EOL & EOL & "- ",
       Separator        => EOL & "- ",
       Postfix          => EOL & EOL,
       Prefix_If_Empty  => EOL,
       Postfix_If_Empty => "");
 
-   package HTML_Bulleted_List_Style is new List_Style
+   package HTML_Bulleted_List_Style is new Image_Style
      (Prefix           => "<ul>"  & EOL & "  <li>",
       Separator        => "</li>" & EOL & "  <li>",
       Postfix          => "</li>" & EOL & "</ul>",
       Prefix_If_Empty  => "",
       Postfix_If_Empty => "");
 
-   package Markdown_Table_Style is new List_Image.List_Style
+   package Markdown_Table_Style is new List_Image.Image_Style
      (Prefix           => "|",
       Separator        => "|",
       Postfix          => "|",
@@ -147,36 +147,23 @@ package List_Image is
       Postfix_If_Empty => "");
 
    -- --------------------------------------------------------------------------
-   --                         The Image function
+   --                             Cursors
    -- --------------------------------------------------------------------------
    generic
+      type Container (<>) is limited private;
       type Cursor is private;
-      with function Image (C : Cursor) return String is <>;
+      with function First (Self : Container) return Cursor is <>;
+      with function Has_Element (Pos : Cursor) return Boolean is <>;
+      with function Next        (Pos : Cursor) return Cursor  is <>;
+   package Cursors_Signature is end;
 
-      with package Iterator_If is
-        new Ada.Iterator_Interfaces (Cursor, others => <>);
-
-      type Container (<>) is private;
-      with function Iterator
-        (C : Container) return Iterator_If.Forward_Iterator'Class;
-      -- - For Multiway_Trees and Hashed Maps/Sets/Trees, this should
-      --   simply be set to Container.Iterate.
-      --
-      -- - For Vectors, Multisets, Doubly_Linked_Lists,
-      --   and Ordered_Maps / Sets, the Iterate function returns
-      --   Reversible_Iterator'Class, and not Forward_Iterator'Class.
-      --
-      --   User needs then to provide an Iterator function with the
-      --   expected signature :
-      --     package Tests_Lists is
-      --       new Ada.Containers.Indefinite_Doubly_Linked_Lists
-      --     ...
-      --     use Tests_Lists;
-      --     function Iterator (L : List) return
-      --       List_Iterator_Interfaces.Forward_Iterator'Class is (Iterate (L));
-      --
-      with package Style is new List_Style (<>);
-
-   function Image (Cont : in Container) return String;
+   -- --------------------------------------------------------------------------
+   --                       The Image function
+   -- --------------------------------------------------------------------------
+   generic
+      with package Cursors is new Cursors_Signature (<>);
+      with function Image (C : Cursors.Cursor) return String is <>;
+      with package Style is new Image_Style (<>);
+   function Image (Cont : in Cursors.Container) return String;
 
 end List_Image;

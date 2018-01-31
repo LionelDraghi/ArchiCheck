@@ -36,7 +36,7 @@ So, let's keep it simple to use and to understand : no uggly XML or specific cry
 >
 > or architecture decisions / elements of architecture, like :
 >
-> - _*_Component may only use Component_Framework_
+> - _only *\_Component may use Component_Framework_
 > - _OS_Lib use allowed only in Hardware_Abstraction_Layer_
 
 And, final decisions for architect peace of mind :  

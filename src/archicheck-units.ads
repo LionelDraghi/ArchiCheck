@@ -93,17 +93,14 @@ private package Archicheck.Units is
 
    -- --------------------------------------------------------------------------
    use Dependency_Targets;
-   function Iterator (L : List) return
-     List_Iterator_Interfaces.Forward_Iterator'Class is (Iterate (L));
+   package Cursors is new List_Image.Cursors_Signature
+     (Container => List,
+      Cursor    => Cursor);
    function Image (C : Cursor) return String is
       (+(Element (C).To_Unit));
    function Unit_List_Image is new List_Image.Image
-     (Cursor      => Cursor,
-      Image       => Image,
-      Iterator_If => List_Iterator_Interfaces,
-      Container   => List,
-      Iterator    => Iterator,
-      Style       => List_Image.English_Style);
+     (Cursors => Cursors,
+      Style   => List_Image.English_Style);
 
    -- --------------------------------------------------------------------------
    type Unit_Attributes (Kind : Unit_Kind := Unknown) is record
