@@ -16,6 +16,12 @@ To propose some patch          | git command
  5. Push to the branch         | `git push origin my-new-feature`    
  6. Create new Pull Request    | on your GitHub fork, go to "Compare & pull request".
 
+The project policy is that code shall be 100% covered (except debug or error specific lines).
+
+Coverage is computed on each `make check`, and non covered code is easy to check with (for example) `chromium docs/lcov/index.html`.  
+
+> **NB : please note that code proposed with matching tests, doc and complete coverage is very appreciated!**  
+
 # Design Overview
 
 Main ArchiCheck components are :

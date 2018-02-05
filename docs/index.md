@@ -1,4 +1,4 @@
-![](version.svg) ![](tests_ok.svg) ![](tests_ko.svg)
+![](version.svg) ![](tests_ok.svg) ![](tests_ko.svg) [![CII Best Practices](https://bestpractices.coreinfrastructure.org/projects/1625/badge)](https://bestpractices.coreinfrastructure.org/projects/1625)
 
 Quick Start
 ===========
