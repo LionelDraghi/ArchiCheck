@@ -5,7 +5,7 @@
 
 ##  Batik test suite / --list_file test
 
-  > archicheck -lf -r -I ./batik-1.9
+  > archicheck -lf -Ir ./batik-1.9
   Expected (1658 files) :
 
 ```
@@ -259,7 +259,7 @@ Batik test suite / Let's add dependencies to Browser and Rasterizer into a Trans
 
 ##  Batik test suite / -ld test
 
-  > archicheck -ld -r -I ./batik-1.9 | sort
+  > archicheck -ld -Ir ./batik-1.9 | sort
 
   10717 dependencies expected :
 

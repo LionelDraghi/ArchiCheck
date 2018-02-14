@@ -20,18 +20,16 @@
 
 with Archicheck.Settings;
 
-with Ada.Text_IO;
-
 private package Archicheck.IO is
 
    -- --------------------------------------------------------------------------
    procedure Put_Debug_Line (Msg    : in String := "";
                              Debug  : in Boolean;
                              Prefix : in String);
-   procedure Put_Debug (Msg    : in String := "";
-                        Debug  : in Boolean;
-                        Prefix : in String);
-   procedure New_Debug_Line (Debug  : in Boolean);
+   -- procedure Put_Debug (Msg    : in String := "";
+   --                      Debug  : in Boolean;
+   --                      Prefix : in String);
+   -- procedure New_Debug_Line (Debug  : in Boolean);
 
    -- --------------------------------------------------------------------------
    use type Settings.Print_Out_Level;
@@ -49,10 +47,10 @@ private package Archicheck.IO is
    --     unless --verbose is set on command line
    procedure Put_Line (Item  : String;
                        Level : Print_Out_Level := Normal);
-   procedure Put      (Item  : String;
-                       Level : Print_Out_Level := Normal);
-   procedure New_Line (Spacing : Ada.Text_IO.Positive_Count := 1;
-                       Level   : Print_Out_Level := Normal);
+   -- procedure Put      (Item  : String;
+   --                     Level : Print_Out_Level := Normal);
+   -- procedure New_Line (Spacing : Ada.Text_IO.Positive_Count := 1;
+   --                     Level   : Print_Out_Level := Normal);
 
    -- --------------------------------------------------------------------------
    procedure Put_Warning   (Msg : in String := "");

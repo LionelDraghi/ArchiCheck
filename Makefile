@@ -1,3 +1,12 @@
+#-- -----------------------------------------------------------------------------
+#-- ArchiCheck, the software architecture compliance verifier
+#-- Copyright (C) 2005-2018 - Lionel Draghi
+#-- This program is free software;
+#-- you can redistribute it and/or modify it under the terms of the GNU General
+#-- Public License Versions 3, refer to the COPYING file.
+#-- This file is part of ArchiCheck : http://lionel.draghi.free.fr/Archicheck/archicheck
+#-- -----------------------------------------------------------------------------
+
 .SILENT:
 
 ## mkfile := $(abspath $(lastword $(MAKEFILE_LIST)))
@@ -109,6 +118,7 @@ check: Obj/archicheck
 	# --prefix : Remove PREFIX from all directory names
 	# --frame  : Use HTML frames for source code view
 	cat cov_sum.txt
+	echo
 
 .PHONY : dashboard
 dashboard: Obj/coverage.info Tests/tests_count.txt
@@ -221,14 +231,14 @@ cmd_line.md:
 
 doc: dashboard cmd_line.md
 	echo Make Doc
-	mkdocs build 
+	mkdocs build --clean --theme material # windmill
 	@ - chmod --silent +x ./site/archicheck
     
 .PHONY : clean
 clean:
 	echo Make clean
 	- gnat clean -q -Parchicheck.gpr
-	- ${RM} -rf Obj/* docs/lcov/* tmp.txt *.lst *.dat cov_sum.txt  
+	- ${RM} -rf Obj/* docs/lcov/* tmp.txt *.lst *.dat cov_sum.txt gmon.out
 	- $(MAKE) --directory=Tests clean
     
     

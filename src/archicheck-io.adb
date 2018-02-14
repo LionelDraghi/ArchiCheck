@@ -17,6 +17,8 @@
 --
 -- -----------------------------------------------------------------------------
 
+with Ada.Text_IO;
+
 package body Archicheck.IO is
 
    Warnings : Natural := 0;
@@ -61,26 +63,26 @@ package body Archicheck.IO is
    end Put_Debug_Line;
 
    -- --------------------------------------------------------------------------
-   procedure Put_Debug (Msg    : in String := "";
-                        Debug  : in Boolean;
-                        Prefix : in String) is
-   begin
-      if Debug then
-         if Prefix = "" then
-            Ada.Text_IO.Put (Msg);
-         else
-            Ada.Text_IO.Put (Prefix & " | " & Msg);
-         end if;
-      end if;
-   end Put_Debug;
+   --     procedure Put_Debug (Msg    : in String := "";
+   --                          Debug  : in Boolean;
+   --                          Prefix : in String) is
+   --     begin
+   --        if Debug then
+   --           if Prefix = "" then
+   --              Ada.Text_IO.Put (Msg);
+   --           else
+   --              Ada.Text_IO.Put (Prefix & " | " & Msg);
+   --           end if;
+   --        end if;
+   --     end Put_Debug;
 
    -- --------------------------------------------------------------------------
-   procedure New_Debug_Line (Debug  : in Boolean) is
-   begin
-      if Debug then
-         Ada.Text_IO.New_Line;
-      end if;
-   end New_Debug_Line;
+   --     procedure New_Debug_Line (Debug  : in Boolean) is
+   --     begin
+   --        if Debug then
+   --           Ada.Text_IO.New_Line;
+   --        end if;
+   --     end New_Debug_Line;
 
    -- --------------------------------------------------------------------------
    procedure Put_Line (Item  : String;
@@ -92,22 +94,21 @@ package body Archicheck.IO is
    end Put_Line;
 
    -- --------------------------------------------------------------------------
-   procedure Put (Item  : String;
-                  Level : Print_Out_Level := Normal) is
-   begin
-      if Level >= Settings.Verbosity then
-         Ada.Text_IO.Put (Item);
-      end if;
-   end Put;
+   --     procedure Put (Item  : String;
+   --                    Level : Print_Out_Level := Normal) is
+   --     begin
+   --        if Level >= Settings.Verbosity then
+   --           Ada.Text_IO.Put (Item);
+   --        end if;
+   --     end Put;
 
    -- --------------------------------------------------------------------------
-   procedure New_Line (Spacing : Ada.Text_IO.Positive_Count := 1;
-                       Level   : Print_Out_Level := Normal) is
-   begin
-      if Level >= Settings.Verbosity then
-         Ada.Text_IO.New_Line (Spacing);
-      end if;
-   end New_Line;
+   --     procedure New_Line (Spacing : Ada.Text_IO.Positive_Count := 1;
+   --                         Level   : Print_Out_Level := Normal) is
+   --     begin
+   --        if Level >= Settings.Verbosity then
+   --           Ada.Text_IO.New_Line (Spacing);
+   --        end if;
+   --     end New_Line;
 
 end Archicheck.IO;
-

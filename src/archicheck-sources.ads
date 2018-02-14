@@ -10,8 +10,8 @@
 -- Package: Archicheck.Sources
 --
 -- Purpose:
---   This package defines Source, manage the Source list, and provides utilities
---   to print this list.
+--   This package defines Source, manage the Source list, and provides
+--   utilities to print this list.
 --
 -- Effects:
 --
@@ -67,8 +67,8 @@ private package Archicheck.Sources is
    -- Function: Location_Image
    --
    -- Purpose:
-   --    This function return a source/line/column prefix to messages compatible
-   --    whith GNU Standard
+   --    This function return a source/line/column prefix to messages
+   --    compatible whith GNU Standard
    --    (refer to <https://www.gnu.org/prep/standards/html_node/Errors.html>),
    --    That is :
    --       > sourcefile:lineno:
@@ -76,8 +76,8 @@ private package Archicheck.Sources is
    --       > sourcefile:lineno.column:
    --    otherwise.
    --
-   --    Note that there is a trailing space, so that the message can be append
-   --    directly.
+   --    Note that there is a trailing space, so that the message can be
+   --    append directly.
    -- --------------------------------------------------------------------------
    function Location_Image (Loc : in Location) return String;
 

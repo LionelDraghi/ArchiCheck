@@ -31,7 +31,7 @@ ArchiCheck code test suite / -lf test [Successful](tests_status.md#successful)
   105 dependencies expected :
 
 ```
-Archicheck.IO package spec depends on Ada.Text_IO
+Archicheck.IO package body depends on Ada.Text_IO
 Archicheck.IO package spec depends on Archicheck.Settings
 Archicheck.Lang.Ada_Processor package body depends on Ada.Exceptions
 Archicheck.Lang.Ada_Processor package body depends on Ada_Lexer

@@ -11,14 +11,17 @@ archicheck -h
 ```
 
 ArchiCheck normal use :
-   archicheck rules_file -r -I directory [-I directory]*
+   archicheck rules_file -Ir directory [-Ir directory]*
 
 General form :
-   archicheck [Queries] [rules_file] [Options]* [-I directory]*
+   archicheck [Queries] [rules_file] [Options]* [-I[r] directory]*
+
+   -I  src : looks for sources in src dir
+   -Ir src : looks for sources in src dir and subdirs
 
 Options :
    -r  | --recursive      : all following -I are recursive
-   -We | --Warnings=error : Treat warnings as errors
+   -We | --Warnings=error : treat warnings as errors
    -v  | --verbose
    -q  | --quiet          : no message unless error. Warning are also ignored.
          --version        : archicheck version
@@ -33,10 +36,15 @@ Queries :
    If any, only one of the queries is performed
    and the full analisys on sources is not done.
 
-Examples:
-   archicheck rules.txt -I ./src
-   archicheck -lf -I ./src
+Use examples:
+   archicheck rules.txt -I src
+   archicheck -lf -Ir src
    archicheck -lr rules.txt
+
+Rules file:
+   To start a new rules file, run:
+   archicheck -ct
+   A commented template.ac file will be created : rename it and edit it.
 
 http://lionel.draghi.free.fr/Archicheck/index.html
 
@@ -50,6 +58,6 @@ archicheck --version
 ```
 
 ```
-0.5.6
+0.5.7
 ```
 

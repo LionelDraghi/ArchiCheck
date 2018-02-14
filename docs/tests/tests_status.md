@@ -2,7 +2,7 @@
 
 ## Successful
 
-   81 tests OK
+   82 tests OK
 
   - [Use rules test suite / May_Use rule, code compliant, no output expected]()
   - [Use rules test suite / Using a unit from a non allowed unit]()
@@ -37,7 +37,8 @@
   - [Batik test suite / public abstract class]()
   - [Batik test suite / Let's add dependencies to Browser and Rasterizer into a Transcoder class]()
   - [Batik test suite / -ld test]()
-  - [Non recursive file identification test suite / Simple test]()
+  - [File identification test suite / Non recursive file identification test]()
+  - [File identification test suite / Mixt recursive and non-recursive file identification test]()
   - [Precedence rules unit test / Declaration of a component already existing in code]()
   - [Precedence rules unit test / Alowing a child of forbidden unit]()
   - [AdaControl code test suite / -lf test]()
