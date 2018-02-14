@@ -16,3 +16,5 @@ archicheck
 
 gmon.out
 hugo/
+docs/version.svg
+docs/tests_ok.svg
