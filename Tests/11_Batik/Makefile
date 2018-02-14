@@ -20,7 +20,7 @@ test1:
 	@ #---------------------------------------------------------------------
 	${TR} start "--list_file test"
 
-	@ ${TR} cmt "> archicheck -lf -r -I ./batik-1.9"
+	@ ${TR} cmt "> archicheck -lf -Ir ./batik-1.9"
 	@ ${TR} cmt "Expected (`cat expected_output.1 | wc -l` files) :"
 	@ ${TR} cmt 
 	@ ${TR} cmt '```'
@@ -30,7 +30,7 @@ test1:
 	@ ${TR} cmt '```'
 	@ ${TR} cmt 
 
-	@ ../../Obj/archicheck -lf -r -I ./batik-1.9 > output.1
+	@ ../../Obj/archicheck -lf -Ir ./batik-1.9 > output.1
 	${TR} assert true /usr/bin/sdiff "-s expected_output.1 output.1"
 
 	${TR} end
@@ -221,7 +221,7 @@ test8:
 	@ #---------------------------------------------------------------------
 	${TR} start "-ld test"
 
-	@ ${TR} cmt "> archicheck -ld -r -I ./batik-1.9 | sort"
+	@ ${TR} cmt "> archicheck -ld -Ir ./batik-1.9 | sort"
 	@ ${TR} cmt 
 	@ ${TR} cmt "`cat expected_output.8 | wc -l` dependencies expected :"
 	@ ${TR} cmt 
@@ -232,7 +232,7 @@ test8:
 	@ ${TR} cmt '```'
 	@ ${TR} cmt 
 
-	@ ../../Obj/archicheck -ld -r -I ./batik-1.9 | sort > output.8
+	@ ../../Obj/archicheck -ld -Ir ./batik-1.9 | sort > output.8
 	${TR} assert true /usr/bin/sdiff "-sbB expected_output.8 output.8"
 
 	${TR} end

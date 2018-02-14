@@ -2,7 +2,7 @@ all: check doc
 
 .PHONY : clean
 
-check: ../../Obj/archicheck header test1 
+check: ../../Obj/archicheck header test1 test2
 
 CREATE_PKG=../Tools/create_pkg
 TR=../Tools/testrec
@@ -10,11 +10,11 @@ TR=../Tools/testrec
 header:
 	@ #---------------------------------------------------------------------
 	${TR} clean
-	${TR} create "Non recursive file identification test suite"
+	${TR} create "File identification test suite"
 
 test1: ../../Obj/archicheck 
 	@ #---------------------------------------------------------------------
-	${TR} start "Simple test"
+	${TR} start "Non recursive file identification test"
 	${TR} cmt 
 	${TR} cmt "if sources :"
 	${TR} cmt "> ./dir3/c-d.ads  "
@@ -29,16 +29,8 @@ test1: ../../Obj/archicheck
 	${TR} cmt 
 	${TR} cmt "should put:"
 
-	# ls -1 dir?/* > expected_file_list
-	# > expected_file_list
-	# @ echo $(CURDIR)"/dir1/a.adb" 		>> expected_file_list
-	# @ echo $(CURDIR)"/dir1/a.ads" 		>> expected_file_list
-	# @ echo $(CURDIR)"/dir2/b.ads" 		>> expected_file_list
-	# @ echo $(CURDIR)"/dir3/c.ads" 		>> expected_file_list
-	# @ echo $(CURDIR)"/dir3/c-d.ads" 	>> expected_file_list
-
 	${TR} cmt '```'
-	cat expected_file_list >> testrec.md
+	cat expected_file_list.1 >> testrec.md
 	${TR} cmt '```'
 	${TR} cmt ""
 
@@ -48,13 +40,44 @@ test1: ../../Obj/archicheck
 	@ ${CREATE_PKG} C spec -in dir3 -with A
 	@ ${CREATE_PKG} C.D spec -in dir3 -with B
 
-	@ ../../Obj/archicheck -I dir1 -I dir2 -I dir3 --list_files | sort > file_list
-	${TR} assert true /usr/bin/sdiff "-sbB expected_file_list file_list"
+	@ ../../Obj/archicheck -I dir1 -I dir2 -I dir3 --list_files | sort > file_list.1
+	${TR} assert true /usr/bin/sdiff "-sbB expected_file_list.1 file_list.1"
+
+	${TR} end
+
+test2: ../../Obj/archicheck 
+	@ #---------------------------------------------------------------------
+	${TR} start "Mixt recursive and non-recursive file identification test"
+	${TR} cmt 
+	${TR} cmt "if sources :"
+	${TR} cmt "> ./dira/a.ads  "
+	${TR} cmt "> ./dira/dira1/c-d.ads  "
+	${TR} cmt "> ./dirb/b.ads  "
+	${TR} cmt "> ./dirb/dirb1/c.ads  "
+	${TR} cmt 
+	${TR} cmt "then"
+	${TR} cmt 
+	${TR} cmt "> archicheck -I dira -Ir dirb --list_files"
+	${TR} cmt 
+	${TR} cmt "should put:"
+
+	${TR} cmt '```'
+	cat expected_file_list.2 >> testrec.md
+	${TR} cmt '```'
+	${TR} cmt ""
+
+	@ ${CREATE_PKG} A spec   -in dira -with B
+	@ ${CREATE_PKG} B spec   -in dirb -with K
+	@ ${CREATE_PKG} C spec   -in dirb/dirb1 -with A
+	@ ${CREATE_PKG} C.D spec -in dira/dira1 -with B
+
+	@ ../../Obj/archicheck -I dira -Ir dirb --list_files | sort > file_list.2
+	${TR} assert true /usr/bin/sdiff "-sbB expected_file_list.2 file_list.2"
 
 	${TR} end
 
 clean:
-	- ${RM} -rf file_list dir[123]
+	- ${RM} -rf file_list.? dir?
 	${TR} clean
 
 doc:

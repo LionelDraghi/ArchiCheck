@@ -19,14 +19,17 @@
 ```
 
 ArchiCheck normal use :
-   archicheck rules_file -r -I directory [-I directory]*
+   archicheck rules_file -Ir directory [-Ir directory]*
 
 General form :
-   archicheck [Queries] [rules_file] [Options]* [-I directory]*
+   archicheck [Queries] [rules_file] [Options]* [-I[r] directory]*
+
+   -I  src : looks for sources in src dir
+   -Ir src : looks for sources in src dir and subdirs
 
 Options :
    -r  | --recursive      : all following -I are recursive
-   -We | --Warnings=error : Treat warnings as errors
+   -We | --Warnings=error : treat warnings as errors
    -v  | --verbose
    -q  | --quiet          : no message unless error. Warning are also ignored.
          --version        : archicheck version
@@ -41,10 +44,15 @@ Queries :
    If any, only one of the queries is performed
    and the full analisys on sources is not done.
 
-Examples:
-   archicheck rules.txt -I ./src
-   archicheck -lf -I ./src
+Use examples:
+   archicheck rules.txt -Ir src
+   archicheck -lf -Ir src
    archicheck -lr rules.txt
+
+Rules file:
+   To start a new rules file, run:
+   archicheck -ct
+   A commented template.ac file will be created : rename it and edit it.
 
 http://lionel.draghi.free.fr/Archicheck/index.html
 
@@ -59,7 +67,7 @@ Command line test suite / Help options [Successful](tests_status.md#successful)
   Test that the --version will put :
 
 ```
-0.5.6
+0.5.7
 ```
 
 
@@ -107,14 +115,17 @@ Command line test suite / -I option with an unknow dir [Successful](tests_status
 Error : Unknown rules file or unknow option -xzy
 
 ArchiCheck normal use :
-   archicheck rules_file -r -I directory [-I directory]*
+   archicheck rules_file -Ir directory [-Ir directory]*
 
 General form :
-   archicheck [Queries] [rules_file] [Options]* [-I directory]*
+   archicheck [Queries] [rules_file] [Options]* [-I[r] directory]*
+
+   -I  src : looks for sources in src dir
+   -Ir src : looks for sources in src dir and subdirs
 
 Options :
    -r  | --recursive      : all following -I are recursive
-   -We | --Warnings=error : Treat warnings as errors
+   -We | --Warnings=error : treat warnings as errors
    -v  | --verbose
    -q  | --quiet          : no message unless error. Warning are also ignored.
          --version        : archicheck version
@@ -129,10 +140,15 @@ Queries :
    If any, only one of the queries is performed
    and the full analisys on sources is not done.
 
-Examples:
-   archicheck rules.txt -I ./src
-   archicheck -lf -I ./src
+Use examples:
+   archicheck rules.txt -Ir src
+   archicheck -lf -Ir src
    archicheck -lr rules.txt
+
+Rules file:
+   To start a new rules file, run:
+   archicheck -ct
+   A commented template.ac file will be created : rename it and edit it.
 
 http://lionel.draghi.free.fr/Archicheck/index.html
 
@@ -156,14 +172,17 @@ Command line test suite / unknown -xyz option [Successful](tests_status.md#succe
 Error : Nothing to do with those sources
 
 ArchiCheck normal use :
-   archicheck rules_file -r -I directory [-I directory]*
+   archicheck rules_file -Ir directory [-Ir directory]*
 
 General form :
-   archicheck [Queries] [rules_file] [Options]* [-I directory]*
+   archicheck [Queries] [rules_file] [Options]* [-I[r] directory]*
+
+   -I  src : looks for sources in src dir
+   -Ir src : looks for sources in src dir and subdirs
 
 Options :
    -r  | --recursive      : all following -I are recursive
-   -We | --Warnings=error : Treat warnings as errors
+   -We | --Warnings=error : treat warnings as errors
    -v  | --verbose
    -q  | --quiet          : no message unless error. Warning are also ignored.
          --version        : archicheck version
@@ -178,10 +197,15 @@ Queries :
    If any, only one of the queries is performed
    and the full analisys on sources is not done.
 
-Examples:
-   archicheck rules.txt -I ./src
-   archicheck -lf -I ./src
+Use examples:
+   archicheck rules.txt -Ir src
+   archicheck -lf -Ir src
    archicheck -lr rules.txt
+
+Rules file:
+   To start a new rules file, run:
+   archicheck -ct
+   A commented template.ac file will be created : rename it and edit it.
 
 http://lionel.draghi.free.fr/Archicheck/index.html
 
@@ -202,14 +226,17 @@ Command line test suite / -I option with... nothing to do [Successful](tests_sta
 Error : No rules file given
 
 ArchiCheck normal use :
-   archicheck rules_file -r -I directory [-I directory]*
+   archicheck rules_file -Ir directory [-Ir directory]*
 
 General form :
-   archicheck [Queries] [rules_file] [Options]* [-I directory]*
+   archicheck [Queries] [rules_file] [Options]* [-I[r] directory]*
+
+   -I  src : looks for sources in src dir
+   -Ir src : looks for sources in src dir and subdirs
 
 Options :
    -r  | --recursive      : all following -I are recursive
-   -We | --Warnings=error : Treat warnings as errors
+   -We | --Warnings=error : treat warnings as errors
    -v  | --verbose
    -q  | --quiet          : no message unless error. Warning are also ignored.
          --version        : archicheck version
@@ -224,10 +251,15 @@ Queries :
    If any, only one of the queries is performed
    and the full analisys on sources is not done.
 
-Examples:
-   archicheck rules.txt -I ./src
-   archicheck -lf -I ./src
+Use examples:
+   archicheck rules.txt -Ir src
+   archicheck -lf -Ir src
    archicheck -lr rules.txt
+
+Rules file:
+   To start a new rules file, run:
+   archicheck -ct
+   A commented template.ac file will be created : rename it and edit it.
 
 http://lionel.draghi.free.fr/Archicheck/index.html
 
@@ -302,14 +334,17 @@ Command line test suite / -ld given, but no source found [Successful](tests_stat
 Error : Nothing to do with those sources
 
 ArchiCheck normal use :
-   archicheck rules_file -r -I directory [-I directory]*
+   archicheck rules_file -Ir directory [-Ir directory]*
 
 General form :
-   archicheck [Queries] [rules_file] [Options]* [-I directory]*
+   archicheck [Queries] [rules_file] [Options]* [-I[r] directory]*
+
+   -I  src : looks for sources in src dir
+   -Ir src : looks for sources in src dir and subdirs
 
 Options :
    -r  | --recursive      : all following -I are recursive
-   -We | --Warnings=error : Treat warnings as errors
+   -We | --Warnings=error : treat warnings as errors
    -v  | --verbose
    -q  | --quiet          : no message unless error. Warning are also ignored.
          --version        : archicheck version
@@ -324,10 +359,15 @@ Queries :
    If any, only one of the queries is performed
    and the full analisys on sources is not done.
 
-Examples:
-   archicheck rules.txt -I ./src
-   archicheck -lf -I ./src
+Use examples:
+   archicheck rules.txt -Ir src
+   archicheck -lf -Ir src
    archicheck -lr rules.txt
+
+Rules file:
+   To start a new rules file, run:
+   archicheck -ct
+   A commented template.ac file will be created : rename it and edit it.
 
 http://lionel.draghi.free.fr/Archicheck/index.html
 
@@ -348,14 +388,17 @@ Command line test suite / src found, but nothing to do whith it [Successful](tes
 Error : Nothing to do with this rules file
 
 ArchiCheck normal use :
-   archicheck rules_file -r -I directory [-I directory]*
+   archicheck rules_file -Ir directory [-Ir directory]*
 
 General form :
-   archicheck [Queries] [rules_file] [Options]* [-I directory]*
+   archicheck [Queries] [rules_file] [Options]* [-I[r] directory]*
+
+   -I  src : looks for sources in src dir
+   -Ir src : looks for sources in src dir and subdirs
 
 Options :
    -r  | --recursive      : all following -I are recursive
-   -We | --Warnings=error : Treat warnings as errors
+   -We | --Warnings=error : treat warnings as errors
    -v  | --verbose
    -q  | --quiet          : no message unless error. Warning are also ignored.
          --version        : archicheck version
@@ -370,10 +413,15 @@ Queries :
    If any, only one of the queries is performed
    and the full analisys on sources is not done.
 
-Examples:
-   archicheck rules.txt -I ./src
-   archicheck -lf -I ./src
+Use examples:
+   archicheck rules.txt -Ir src
+   archicheck -lf -Ir src
    archicheck -lr rules.txt
+
+Rules file:
+   To start a new rules file, run:
+   archicheck -ct
+   A commented template.ac file will be created : rename it and edit it.
 
 http://lionel.draghi.free.fr/Archicheck/index.html
 
@@ -414,9 +462,9 @@ Java.IO use is allowed                     -- Allowed use
 --    Note that wildcard are not yet implemented, but
 --    Java.IO means Java.IO and Java.IO.*
 
--- More exensive explanation : http://lionel.draghi.free.fr/Archicheck/rules/
+-- More exensive explanations : http://lionel.draghi.free.fr/Archicheck/rules/
 -- 
--- File generated with ArchiCheck 0.5.6
+-- File generated with ArchiCheck 0.5.7
 ```
 
   When running:

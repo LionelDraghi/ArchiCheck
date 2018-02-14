@@ -67,7 +67,7 @@ package List_Image is
 
       EOL               : String := List_Image.EOL;
 
-   package Image_Style is end;
+   package Image_Style is end Image_Style;
 
    -- --------------------------------------------------------------------------
    --                         Predefined style
@@ -155,7 +155,7 @@ package List_Image is
       with function First (Self : Container) return Cursor is <>;
       with function Has_Element (Pos : Cursor) return Boolean is <>;
       with function Next        (Pos : Cursor) return Cursor  is <>;
-   package Cursors_Signature is end;
+   package Cursors_Signature is end Cursors_Signature;
 
    -- --------------------------------------------------------------------------
    --                       The Image function

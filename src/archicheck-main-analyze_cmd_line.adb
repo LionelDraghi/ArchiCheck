@@ -151,6 +151,10 @@ begin
             Process_Directory_Option (Settings.Recursive);
             if Some_Error then return; end if;
 
+         elsif Opt = "-Ir" then
+            Process_Directory_Option (Recursive => True);
+            if Some_Error then return; end if;
+
          elsif Opt = "-lf" or Opt = "--list_files" then
             Settings.List_Files := True;
             Next_Arg;
@@ -221,5 +225,3 @@ begin
    Options_Coherency_Tests;
 
 end Analyze_Cmd_Line;
-
-

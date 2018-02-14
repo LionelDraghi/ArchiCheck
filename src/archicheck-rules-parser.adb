@@ -56,6 +56,11 @@ package body Archicheck.Rules.Parser is
    --                          Debug  : in Boolean := True;
    --                          Prefix : in String  := "Rules_Parser") renames Archicheck.IO.Put_Debug;
 
+   -- NB : Steps here after are references to the OpenToken documentation,
+   --      chapter Table-Driven Parsing.
+
+   -- Step 1: Creating an Enumeration of Token IDs
+   -- --------------------------------------------------------------------------
 
    -- The list of tokens, without non-terminals in recursive descent.
    type Token_Ids is
@@ -103,7 +108,8 @@ package body Archicheck.Rules.Parser is
    First_Terminal : constant Token_Ids := A_Id;
    Last_Terminal  : constant Token_Ids := Identifier_Id;
 
-   -- private
+   -- Step 2: Instantiate Your Token Packages
+   -- --------------------------------------------------------------------------
 
    package Master_Token is new OpenToken.Token.Enumerated
      (Token_Ids, First_Terminal, Last_Terminal, Token_Ids'Image);
@@ -121,6 +127,13 @@ package body Archicheck.Rules.Parser is
    package Parser is new Production.Parser (Tokenizer);
 
    package LALRs is new Parser.LALR (First_State_Index => 1);
+
+   --  Allow infix operators for building productions
+   use type Token_List.Instance;
+   use type Production.Right_Hand_Side;
+   use type Production.Instance;
+   use type Production_List.Instance;
+
    First_Parser_Label : constant := 1;
    package Parser_Lists is new LALRs.Parser_Lists (First_Parser_Label);
    package LALR_Parser is new LALRs.Parser (First_Parser_Label,
@@ -129,8 +142,44 @@ package body Archicheck.Rules.Parser is
    package LALR_Generator is new LALRs.Generator (Token_Image_Width,
                                                   Production_List);
 
+   -- Step 3: create the Token
+   -- --------------------------------------------------------------------------
 
-   -- Step 3: Map the Terminal Token ID's to their recognizers and tokens
+   -- Terminal tokens
+   A_T          : constant Master_Token.Class := Master_Token.Get (A_Id);
+   And_T        : constant Master_Token.Class := Master_Token.Get (And_Id);
+   Contains_T   : constant Master_Token.Class := Master_Token.Get (Contains_Id);
+   Comma_T      : constant Master_Token.Class := Master_Token.Get (Comma_Id);
+   Dot_T        : constant Master_Token.Class := Master_Token.Get (Dot_Id);
+   Identifier_T : constant Master_Token.Class := Master_Token.Get (Identifier_Id);
+   Is_T         : constant Master_Token.Class := Master_Token.Get (Is_Id);
+   EoF_T        : constant Master_Token.Class := Master_Token.Get (EoF_Id);
+   Layer_T      : constant Master_Token.Class := Master_Token.Get (Layer_Id);
+   Only_T       : constant Master_Token.Class := Master_Token.Get (Only_Id);
+   May_T        : constant Master_Token.Class := Master_Token.Get (May_Id);
+   Use_T        : constant Master_Token.Class := Master_Token.Get (Use_Id);
+   Forbidden_T  : constant Master_Token.Class := Master_Token.Get (Forbidden_Id);
+   Allowed_T    : constant Master_Token.Class := Master_Token.Get (Allowed_Id);
+   Over_T       : constant Master_Token.Class := Master_Token.Get (Over_Id);
+   Semicolon_T  : constant Master_Token.Class := Master_Token.Get (Semicolon_Id);
+
+   -- Non-terminal tokens, which define the grammar.
+   Use_Declaration            : constant Nonterminal.Class := Nonterminal.Get (Use_Declaration_Id);
+   Restricted_Use_Declaration : constant Nonterminal.Class := Nonterminal.Get (Restricted_Use_Declaration_Id);
+   Forbidden_Use_Declaration  : constant Nonterminal.Class := Nonterminal.Get (Forbidden_Use_Declaration_Id);
+   Allowed_Use_Declaration    : constant Nonterminal.Class := Nonterminal.Get (Allowed_Used_Declaration_Id);
+   Layer_Declaration          : constant Nonterminal.Class := Nonterminal.Get (Layer_Declaration_Id);
+   Component_Declaration      : constant Nonterminal.Class := Nonterminal.Get (Component_Declaration_Id);
+   Rule                       : constant Nonterminal.Class := Nonterminal.Get (Rule_Id);
+   Rule_List                  : constant Nonterminal.Class := Nonterminal.Get (Rule_List_Id);
+   Rules_File                 : constant Nonterminal.Class := Nonterminal.Get (Rules_File_Id);
+   Unit                       : constant Nonterminal.Class := Nonterminal.Get (Unit_Id);
+   Unit_List                  : constant Nonterminal.Class := Nonterminal.Get (Unit_List_Id);
+
+
+   -- Step 4: Map the Terminal Token ID's to their recognizers and tokens
+   -- --------------------------------------------------------------------------
+
    Syntax : constant Tokenizer.Syntax :=
               (Whitespace_Id    => Tokenizer.Get (OpenToken.Recognizer.Character_Set.Get (OpenToken.Recognizer.Character_Set.Standard_Whitespace)),
                --
@@ -166,42 +215,19 @@ package body Archicheck.Rules.Parser is
                -- EoL_Id        => Tokenizer.Get (OpenToken.Recognizer.Separator.Get ((1 => OpenToken.EOL_Character))),
                 );
 
-   --  Terminal tokens
-   A_T          : constant Master_Token.Class := Master_Token.Get (A_Id);
-   And_T        : constant Master_Token.Class := Master_Token.Get (And_Id);
-   Contains_T   : constant Master_Token.Class := Master_Token.Get (Contains_Id);
-   Comma_T      : constant Master_Token.Class := Master_Token.Get (Comma_Id);
-   Dot_T        : constant Master_Token.Class := Master_Token.Get (Dot_Id);
-   Identifier_T : constant Master_Token.Class := Master_Token.Get (Identifier_Id);
-   Is_T         : constant Master_Token.Class := Master_Token.Get (Is_Id);
-   EoF_T        : constant Master_Token.Class := Master_Token.Get (EoF_Id);
-   Layer_T      : constant Master_Token.Class := Master_Token.Get (Layer_Id);
-   Only_T       : constant Master_Token.Class := Master_Token.Get (Only_Id);
-   May_T        : constant Master_Token.Class := Master_Token.Get (May_Id);
-   Use_T        : constant Master_Token.Class := Master_Token.Get (Use_Id);
-   Forbidden_T  : constant Master_Token.Class := Master_Token.Get (Forbidden_Id);
-   Allowed_T    : constant Master_Token.Class := Master_Token.Get (Allowed_Id);
-   Over_T       : constant Master_Token.Class := Master_Token.Get (Over_Id);
-   Semicolon_T  : constant Master_Token.Class := Master_Token.Get (Semicolon_Id);
+   -- Step 5: Define a Lexical Analyzer
+   -- --------------------------------------------------------------------------
 
-   -- Non-terminal tokens, which define the grammar.
-   Use_Declaration            : constant Nonterminal.Class := Nonterminal.Get (Use_Declaration_Id);
-   Restricted_Use_Declaration : constant Nonterminal.Class := Nonterminal.Get (Restricted_Use_Declaration_Id);
-   Forbidden_Use_Declaration  : constant Nonterminal.Class := Nonterminal.Get (Forbidden_Use_Declaration_Id);
-   Allowed_Use_Declaration    : constant Nonterminal.Class := Nonterminal.Get (Allowed_Used_Declaration_Id);
-   Layer_Declaration          : constant Nonterminal.Class := Nonterminal.Get (Layer_Declaration_Id);
-   Component_Declaration      : constant Nonterminal.Class := Nonterminal.Get (Component_Declaration_Id);
-   Rule                       : constant Nonterminal.Class := Nonterminal.Get (Rule_Id);
-   Rule_List                  : constant Nonterminal.Class := Nonterminal.Get (Rule_List_Id);
-   Rules_File                 : constant Nonterminal.Class := Nonterminal.Get (Rules_File_Id);
-   Unit                       : constant Nonterminal.Class := Nonterminal.Get (Unit_Id);
-   Unit_List                  : constant Nonterminal.Class := Nonterminal.Get (Unit_List_Id);
+   --  Create a text feeder for our Input_File.
+   Input_File : aliased Ada.Text_IO.File_Type;
+   Feeder     : aliased OpenToken.Text_Feeder.Text_IO.Instance :=
+                  OpenToken.Text_Feeder.Text_IO.Create (Input_File'Access);
 
-   --  Allow infix operators for building productions
-   use type Token_List.Instance;
-   use type Production.Right_Hand_Side;
-   use type Production.Instance;
-   use type Production_List.Instance;
+   Analyzer   : constant Tokenizer.Handle :=
+                  Tokenizer.Initialize (Syntax, Feeder'Access);
+
+   -- Step 6: Creating a Grammar
+   -- --------------------------------------------------------------------------
 
    -- --------------------------------------------------------------------------
    procedure Initialize_Unit_Name
@@ -293,13 +319,9 @@ package body Archicheck.Rules.Parser is
                Unit                        <= Unit & Dot_T & Identifier_T                   + Add_To_Unit_Name'Access                 and
                Unit                        <= Identifier_T                                  + Initialize_Unit_Name'Access;
 
-   --  Create a text feeder for our Input_File.
-   Input_File : aliased Ada.Text_IO.File_Type;
-   Feeder     : aliased OpenToken.Text_Feeder.Text_IO.Instance :=
-                  OpenToken.Text_Feeder.Text_IO.Create (Input_File'Access);
 
-   Analyzer   : constant Tokenizer.Handle :=
-                  Tokenizer.Initialize (Syntax, Feeder'Access);
+   -- Step 7: Generating a parser
+   -- --------------------------------------------------------------------------
 
    --  The LALR parser instance.
    Rules_File_Parser : LALR_Parser.Instance := LALR_Parser.Initialize

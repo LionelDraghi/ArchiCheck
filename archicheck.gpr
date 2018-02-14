@@ -28,17 +28,19 @@ project Archicheck is
    package Compiler is
       Common_Switches := ("-gnat2012");
       Common_Debug_Switches := Common_Switches &
-      ("-g", "-O0",  "-gnatQ", "-gnatf",  "-gnato", "-fstack-check", "-gnata", "-gnateE", "-gnatVa", "-gnatwa", "-gnatyabefhiklnprtx");
-      -- -gnatQ : Don't quit
-      -- -gnatf : Full errors
-      -- -gnato : Intermediate overflows to be handled in strict mode.
+      ("-g", "-O0",  "-gnatQ", "-gnatf",
+       "-gnato", "-fstack-check", "-gnata",
+       "-gnateE", "-gnatVa", "-gnatwae", "-gnatyaefhiklnprtx");
+      -- -gnatQ   : Don't quit
+      -- -gnatf   : Full errors
+      -- -gnato   : Intermediate overflows to be handled in strict mode.
       -- -fstack-check : stack checking
-      -- -gnata : assertions
-      -- -gnateE : extra infos in exception messages
-      -- -gnatVa : all validity checks
-      -- -gnatwa : activate most optional warning messages
+      -- -gnata   : assertions
+      -- -gnateE  : extra infos in exception messages
+      -- -gnatVa  : all validity checks
+      -- -gnatwae : activate most optional warning messages, and treat warnings as errors
       --
-      -- Style checking : 
+      -- Style checking :
       -- a : Check attribute casing
       -- removed b : Blanks not allowed at statement end
       --         (Because of Markdown processing for comments : double
@@ -53,12 +55,13 @@ project Archicheck is
       -- p : Check pragma casing
       -- r : Check references
       -- t : Check token spacing
-      --removed  M100 : Set maximum line length
+      -- removed M100 : Set maximum line length
       -- x : Check extra parentheses.
-     
+
       case Mode is
          when "debug"   =>
-            for Switches ("ada") use Common_Debug_Switches;
+            for Switches ("ada") use Common_Debug_Switches & "-pg";
+            -- -pg : profiling
 
             -- coverage only for archicheck src files :
             for Switches ("archicheck*") use Common_Debug_Switches & "--coverage";
@@ -66,7 +69,7 @@ project Archicheck is
 
          when "release" =>
             for Switches ("ada") use Common_Switches & ("-O3", "-flto");
-            -- -flto : link time optimization 
+            -- -flto : link time optimization
 
       end case;
 
@@ -83,10 +86,11 @@ project Archicheck is
 
    package Linker is
       case Mode is
-         when "debug"   => for Switches ("ada") use ("-g", "-lgcov");
+         when "debug"   => for Switches ("ada") use ("-g", "-lgcov", "-fprofile-arcs", "-pg");
             -- lgcov = -fprofile-arcs for coverage
+            -- pg : profiling
          when "release" =>  for Switches ("ada") use ("-flto");
-            -- -flto : link time optimization 
+            -- -flto : link time optimization
       end case;
    end Linker;
 
@@ -95,4 +99,3 @@ project Archicheck is
    end Pretty_Printer;
 
 end Archicheck;
-

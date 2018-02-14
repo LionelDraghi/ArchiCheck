@@ -1,12 +1,14 @@
-![](version.svg) ![](tests_ok.svg) ![](tests_ko.svg)
+[ArchiCheck](http://lionel.draghi.free.fr/Archicheck/index.html)
+================================================================
 
-Quick Start
-===========
+![](version.svg) ![](tests_ok.svg) ![](tests_ko.svg) [![CII Best Practices](https://bestpractices.coreinfrastructure.org/projects/1625/badge)](https://bestpractices.coreinfrastructure.org/projects/1625)
+
+---------------------------------------------------------------------
 
 Overview
--------------------
+--------
 
-Simple structural aspect of the software architecture, metaphore like _My software is a layered system_, can not be fully translated at languages level. Even in languages like Ada, powerfull regarding description of the software structure, there is a semantic loss.
+Simple structural aspect of the software architecture, metaphore like _My software is a layered system_, can not be fully translated at programming languages level. Even in languages like Ada, powerfull regarding description of the software structure, there is a semantic loss.
 
 ![The code doesn't tell the whole story!](semantic_gap.png)
 
@@ -21,10 +23,14 @@ Archicheck is a simple [free software](copying.md) tool that :
 2. enforce code compliance with that description.  
    > Put archicheck in your test suite, and let it be a vigilant teacher of your architecture over time.
 
+---------------------------------------------------------------------
+
 Get it!
 -------
 
 [Source or exe download](building.md)
+
+---------------------------------------------------------------------
 
 Run it!
 -------
@@ -46,12 +52,22 @@ Presentation_Layer is a layer over Application_Layer
 Run ArchiCheck that way:  
 > _archicheck -I src My_Architecture.txt_  
 
-([`archicheck -h` for a complete list of options](cmd_line.md))
-
 It will check that the code comply with your architecture.
 
 For example, here, it will check that pkg_3 or pkg_4 (in the lower layer) are not using pkg_1 or pkg_2 (in the upper layer).
 
+---------------------------------------------------------------------
+
+Helpful hints
+-------------
+
+- `archicheck --create_template` will create a `template.ac` file,
+embedding explanations on rules file syntax. 
+Rename it and edit it!
+- [`archicheck -h` for a complete list of options](cmd_line.md)
+
+
+---------------------------------------------------------------------
 
 Further readings 
 ----------------

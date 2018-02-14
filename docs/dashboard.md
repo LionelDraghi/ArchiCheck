@@ -6,19 +6,19 @@ Version
 > archicheck --version
 
 ```
-0.5.6
+0.5.7
 ```
 
 > date -r archicheck --iso-8601=seconds
 
 ```
-2018-01-29T00:55:57+01:00
+2018-02-14T23:08:15+01:00
 ```
 
 Test results
 ------------
 ```
-Successful  81
+Successful  82
 Failed      0
 Empty       4
 ```
@@ -28,8 +28,8 @@ Coverage
 --------
 
 ```
-  lines......: 93.6% (1089 of 1163 lines)
-  functions..: 85.9% (263 of 306 functions)
+  lines......: 95.2% (1103 of 1159 lines)
+  functions..: 87.1% (263 of 302 functions)
 ```
 
 [**Coverage details in the sources**](http://lionel.draghi.free.fr/Archicheck/lcov/home/lionel/Proj/Archicheck/src/index-sort-f.html)

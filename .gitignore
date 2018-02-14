@@ -13,3 +13,6 @@ docs/lcov
 docs/archicheck
 
 archicheck
+
+gmon.out
+hugo/
