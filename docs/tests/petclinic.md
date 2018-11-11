@@ -10,13 +10,13 @@
   Expected (36 files) :
 
 ```
-src1/src/test/java/org/springframework/samples/petclinic/owner/PetTypeFormatterTests.java
-src1/src/test/java/org/springframework/samples/petclinic/owner/VisitControllerTests.java
-src1/src/test/java/org/springframework/samples/petclinic/owner/PetControllerTests.java
+src1/src/main/java/org/springframework/samples/petclinic/PetClinicApplication.java
+src1/src/main/java/org/springframework/samples/petclinic/model/BaseEntity.java
+src1/src/main/java/org/springframework/samples/petclinic/model/NamedEntity.java
 ...
-src1/src/main/java/org/springframework/samples/petclinic/vet/VetRepository.java
-src1/src/main/java/org/springframework/samples/petclinic/vet/Vet.java
-src1/src/main/java/org/springframework/samples/petclinic/vet/VetController.java
+src1/src/test/java/org/springframework/samples/petclinic/system/ProductionConfigurationTests.java
+src1/src/test/java/org/springframework/samples/petclinic/vet/VetControllerTests.java
+src1/src/test/java/org/springframework/samples/petclinic/vet/VetTests.java
 ```
 
 

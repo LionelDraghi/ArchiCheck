@@ -34,10 +34,10 @@ Queries :
    -lnc | --list_non_covered  : list compilation units not involved in rules file
    -ct  | --create_template   : create a commented example of rules file
    If any, only one of the queries is performed
-   and the full analisys on sources is not done.
+   and the full analysis on sources is not done.
 
 Use examples:
-   archicheck rules.txt -I src
+   archicheck rules.txt -Ir src
    archicheck -lf -Ir src
    archicheck -lr rules.txt
 
@@ -58,6 +58,6 @@ archicheck --version
 ```
 
 ```
-0.5.7
+0.5.8
 ```
 

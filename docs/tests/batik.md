@@ -9,13 +9,13 @@
   Expected (1658 files) :
 
 ```
-batik-1.9/batik-transcoder/src/main/java/org/apache/batik/transcoder/TranscoderInput.java
-batik-1.9/batik-transcoder/src/main/java/org/apache/batik/transcoder/SVGAbstractTranscoder.java
-batik-1.9/batik-transcoder/src/main/java/org/apache/batik/transcoder/XMLAbstractTranscoder.java
+batik-1.9/batik-anim/src/main/java/org/apache/batik/anim/AbstractAnimation.java
+batik-1.9/batik-anim/src/main/java/org/apache/batik/anim/AnimationEngine.java
+batik-1.9/batik-anim/src/main/java/org/apache/batik/anim/AnimationException.java
 ...
-batik-1.9/contrib/rasterizertask/sources/org/apache/tools/ant/taskdefs/optional/RasterizerTask.java
-batik-1.9/contrib/rasterizertask/sources/org/apache/tools/ant/taskdefs/optional/RasterizerTaskSVGConverterController.java
-batik-1.9/contrib/scroll/ScrollExample.java
+batik-1.9/test-sources/org/apache/batik/transcoder/wmf/Messages.java
+batik-1.9/test-sources/org/apache/batik/transcoder/wmf/WMFAccuracyTest.java
+batik-1.9/test-sources/org/apache/batik/util/ApplicationSecurityEnforcerTest.java
 ```
 
 

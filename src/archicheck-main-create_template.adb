@@ -46,7 +46,7 @@ begin
       Put_Line ("--    Note that wildcard are not yet implemented, but");
       Put_Line ("--    Java.IO means Java.IO and Java.IO.*");
       New_Line;
-      Put_Line ("-- More exensive explanations : http://lionel.draghi.free.fr/Archicheck/rules/");
+      Put_Line ("-- More extensive explanations : http://lionel.draghi.free.fr/Archicheck/rules/");
       Put_Line ("-- ");
       Put_Line ("-- File generated with ArchiCheck " & Settings.ArchiCheck_Version);
 

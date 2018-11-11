@@ -608,7 +608,7 @@ package body OpenToken.Production.Parser.LRk_Item is
      return Item_Set
    is
       use Token_List;
-      use type Token.Handle;
+      -- use type Token.Handle;
       use type Token.Token_ID;
 
       Goto_Set : Item_Set;

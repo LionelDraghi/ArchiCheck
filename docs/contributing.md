@@ -28,7 +28,7 @@ Main ArchiCheck components are :
 
 - **ArchiCheck.Main** procedure is the controller, in charge (with separate units) of running operation according to the command line analysis;
 
-- **ArchiCheck.Rules** and child packages defines the rules related types, rules file analisys, rules storage and rules checking. The (to complex) rules file grammar is implemented in Rules.Parser by using the OpenToken lib;
+- **ArchiCheck.Rules** and child packages defines the rules related types, rules file analysis, rules storage and rules checking. The (to complex) rules file grammar is implemented in Rules.Parser by using the OpenToken lib;
 
 - **ArchiCheck.Lang** defines the abstract language parser interface, and child packages define Ada, Java, etc. implementations. Those packages are in charge of sources analysis to find compilation units dependencies. When a new language processor is added, it shall be registered into Archicheck.Lang.Initialize to be called;
 

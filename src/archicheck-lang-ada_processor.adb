@@ -229,7 +229,7 @@ package body Archicheck.Lang.Ada_Processor is
                   -- "package body X is ..." vs "package X is ..."
                   -- But analyzis is more complex for procedures and functions :
                   -- "procedure X (...) is ..." / "procedure X (...);" / "procedure X (...) renames ...;"
-                  -- Due to the complex lexical procedure parameters analisys,
+                  -- Due to the complex lexical procedure parameters analysis,
                   -- implementation is delayed until...
 
             end case;

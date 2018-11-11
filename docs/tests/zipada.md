@@ -10,13 +10,13 @@
   Expected (102 files) :
 
 ```
-zip-ada/extras/lzma_dec.adb
-zip-ada/extras/dual_io.adb
-zip-ada/extras/win32-crt-stat.ads
-...
 zip-ada/demo/demo_csv_into_zip.adb
 zip-ada/demo/demo_unzip.adb
-zip-ada/demo/zip_with_many_files.adb
+zip-ada/demo/demo_zip.adb
+...
+zip-ada/zip_lib/zip.ads
+zip-ada/zip_lib/zip_streams.adb
+zip-ada/zip_lib/zip_streams.ads
 ```
 
 

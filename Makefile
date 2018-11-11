@@ -12,7 +12,7 @@
 ## mkfile := $(abspath $(lastword $(MAKEFILE_LIST)))
 ## rootdir := $(dir $(patsubst %/,%,$(dir $(mkfile))))
 
-all: build check doc 
+all: build check doc
 
 release: build_release 
 	echo Make release build
@@ -129,7 +129,7 @@ dashboard: Obj/coverage.info Tests/tests_count.txt
 	sloccount src Tests/Tools | grep "ada=" |  ploticus  -prefab pie 	\
 		data=stdin labels=2 colors="blue red green orange"		\
 		explode=0.1 values=1 title="Ada sloc `date +%x`"		\
-		-png -o docs/sloc.png
+		-png -o docs/img/sloc.png
 
 	@ # Code coverage Pie
 
@@ -157,7 +157,7 @@ dashboard: Obj/coverage.info Tests/tests_count.txt
 	ploticus -prefab pie legend=yes							\
 		data=Tests/tests_count.txt labels=1 colors="green red orange"	\
 		explode=0.1 values=2 title="Tests results `date +%x`"			\
-		-png -o docs/tests.png
+		-png -o docs/img/tests.png
 
 	>  docs/dashboard.md
 	echo "Dashboard"				>> docs/dashboard.md
@@ -182,7 +182,7 @@ dashboard: Obj/coverage.info Tests/tests_count.txt
 	echo '```'			 			>> docs/dashboard.md
 	cat Tests/tests_count.txt		>> docs/dashboard.md
 	echo '```'			 			>> docs/dashboard.md
-	echo "![](tests.png)"			>> docs/dashboard.md
+	echo "![](img/tests.png)"		>> docs/dashboard.md
 	echo 							>> docs/dashboard.md
 	echo "Coverage"					>> docs/dashboard.md
 	echo "--------"					>> docs/dashboard.md
@@ -195,9 +195,9 @@ dashboard: Obj/coverage.info Tests/tests_count.txt
 	echo 							>> docs/dashboard.md
 
 	# badge making:
-	wget -q "https://img.shields.io/badge/Version-`./Obj/archicheck --version`-blue.svg" -O docs/version.svg
-	wget -q "https://img.shields.io/badge/Tests_OK-`cat Tests/tests_count.txt |sed -n "s/Successful  //p"`-green.svg" -O docs/tests_ok.svg
-	wget -q "https://img.shields.io/badge/Tests_KO-`cat Tests/tests_count.txt |sed -n "s/Failed      //p"`-green.svg" -O docs/tests_ko.svg
+	wget -q "https://img.shields.io/badge/Version-`./Obj/archicheck --version`-blue.svg" -O docs/img/version.svg
+	wget -q "https://img.shields.io/badge/Tests_OK-`cat Tests/tests_count.txt |sed -n "s/Successful  //p"`-green.svg" -O docs/img/tests_ok.svg
+	wget -q "https://img.shields.io/badge/Tests_KO-`cat Tests/tests_count.txt |sed -n "s/Failed      //p"`-green.svg" -O docs/img/tests_ko.svg
 
 .PHONY : cmd_line.md
 cmd_line.md:
@@ -231,14 +231,14 @@ cmd_line.md:
 
 doc: dashboard cmd_line.md
 	echo Make Doc
-	mkdocs build --clean --theme material # windmill
+	mkdocs build --clean --theme bootstrap # material # windmill
 	@ - chmod --silent +x ./site/archicheck
     
 .PHONY : clean
 clean:
 	echo Make clean
 	- gnat clean -q -Parchicheck.gpr
-	- ${RM} -rf Obj/* docs/lcov/* tmp.txt *.lst *.dat cov_sum.txt gmon.out
+	- ${RM} -rf Obj/* docs/lcov/* docs/img/* tmp.txt *.lst *.dat cov_sum.txt gmon.out gh-md-toc
 	- $(MAKE) --directory=Tests clean
     
     

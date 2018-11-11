@@ -140,7 +140,7 @@ procedure Testrec.Main is
       Put_Line ("   > testrec clean");
       Put_Line ("   NB : a single test should be run at a time in a directory.");
       New_Line;
-      Put_Line ("Makefile exemple:");
+      Put_Line ("Makefile example:");
       Put_Line ("   ./testrec start ""diff test""");
       Put_Line ("   echo ""First file content"" > file1");
       Put_Line ("   echo ""Second file content"" > file2");
@@ -154,7 +154,6 @@ procedure Testrec.Main is
    -- --------------------------------------------------------------------------
    procedure Put_Line (Text         : String;
                        At_Verbosity : Verbosity := Default) is
-      use Ada.Text_IO;
    begin
       if (At_Verbosity = Verbose and (Settings.Verbose)) or
         (At_Verbosity = Default and (not Settings.Quiet)) or
@@ -166,7 +165,6 @@ procedure Testrec.Main is
 
    -- --------------------------------------------------------------------------
    procedure New_Line (At_Verbosity : Verbosity := Default) is
-      use Ada.Text_IO;
    begin
       if (At_Verbosity = Verbose and (Settings.Verbose)) or
         (At_Verbosity = Default and (not Settings.Quiet)) or
@@ -548,5 +546,3 @@ exception
       Put_Line (Ada.Exceptions.Exception_Information (Error));
 
 end Testrec.Main;
-
-

@@ -381,10 +381,18 @@ package body OpenToken.Production.Parser.LALR.Parser_Lists is
             Next (Iter);
          end loop;
 
+         --           Enqueue
+         --             (New_Action_Tokens,
+         --              Action_Token_Free,
+         --              (J.Item.Action, Nonterminal.Handle (New_Token_Items (Action_Pos).New_Pointer), New_Tokens));
          Enqueue
-           (New_Action_Tokens,
-            Action_Token_Free,
-            (J.Item.Action, Nonterminal.Handle (New_Token_Items (Action_Pos).New_Pointer), New_Tokens));
+           (List              => New_Action_Tokens,
+            Action_Token_Free => Action_Token_Free,
+            Action_Token      => (J.Item.Action, Nonterminal.Handle (New_Token_Items (Action_Pos).New_Pointer), New_Tokens));
+         --           procedure Enqueue
+         --             (List              : in out Action_Token_List;
+         --              Action_Token_Free : in out Action_Token_Node_Access;
+         --              Action_Token      : in     Parser_Lists.Action_Token)
 
          J          := J.Next;
          Action_Pos := Action_Pos + 1;

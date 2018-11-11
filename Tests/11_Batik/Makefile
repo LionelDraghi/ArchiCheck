@@ -30,7 +30,7 @@ test1:
 	@ ${TR} cmt '```'
 	@ ${TR} cmt 
 
-	@ ../../Obj/archicheck -lf -Ir ./batik-1.9 > output.1
+	@ ../../Obj/archicheck -lf -Ir ./batik-1.9 | sort > output.1
 	${TR} assert true /usr/bin/sdiff "-s expected_output.1 output.1"
 
 	${TR} end

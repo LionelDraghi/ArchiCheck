@@ -30,7 +30,7 @@
 pragma License (Modified_GPL);
 
 with Ada.Strings.Fixed;
-with Ada.Strings.Unbounded;
+-- with Ada.Strings.Unbounded;
 with Ada.Text_IO;
 with Ada.Unchecked_Deallocation;
 package body OpenToken.Production.Parser.LALR.Generator is
@@ -147,7 +147,7 @@ package body OpenToken.Production.Parser.LALR.Generator is
    is
       use Ada.Text_IO;
       use Ada.Strings.Fixed;
-      use LRk;
+      -- use LRk;
       Action_Ptr : Action_Node_Ptr := State.Action_List;
       Goto_Ptr   : Goto_Node_Ptr   := State.Goto_List;
    begin
@@ -228,7 +228,7 @@ package body OpenToken.Production.Parser.LALR.Generator is
       Propagations : in out Item_Item_List_Mapping_Ptr)
    is
       use type Token_List.List_Iterator;
-      use type LRk.Item_Set_Ptr;
+      -- use type LRk.Item_Set_Ptr;
       use type LRk.Item_Ptr;
 
       To_Kernel : constant LRk.Item_Ptr := LRk.Find (To, LRk.Goto_Set (From_Set, For_Token).all);
@@ -301,7 +301,7 @@ package body OpenToken.Production.Parser.LALR.Generator is
 
       use type LRk.Item_Lookahead_Ptr;
       use type LRk.Item_Ptr;
-      use type LRk.Item_Set_Ptr;
+      -- use type LRk.Item_Set_Ptr;
       use type Token_List.List_Iterator;
    begin
       if Trace then
@@ -535,7 +535,7 @@ package body OpenToken.Production.Parser.LALR.Generator is
    is
       --  Return LHS of production that matches Action, Lookahead
       use Token_List;
-      use type LRk.Item_Set;
+      -- use type LRk.Item_Set;
       use type Token.Token_ID;
       use type LRk.Item_Ptr;
       use type LRk.Item_Set_Ptr;
@@ -623,7 +623,7 @@ package body OpenToken.Production.Parser.LALR.Generator is
       Conflicts            : in out Conflict_Lists.List;
       Trace                : in     Boolean)
    is
-      use type Ada.Strings.Unbounded.Unbounded_String;
+      -- use type Ada.Strings.Unbounded.Unbounded_String;
       Matching_Action : constant Action_Node_Ptr := Find (Symbol, Action_List);
    begin
       if Trace then
@@ -767,7 +767,7 @@ package body OpenToken.Production.Parser.LALR.Generator is
       use type LRk.Item_Ptr;
       use type LRk.Set_Reference_Ptr;
       use type Token_List.List_Iterator;
-      use type Token.Handle;
+      -- use type Token.Handle;
    begin
       if Trace then
          Ada.Text_IO.Put_Line ("adding actions for kernel" & State_Index'Image (Kernel.State));

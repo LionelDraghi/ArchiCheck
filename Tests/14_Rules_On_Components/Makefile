@@ -158,7 +158,7 @@ test4:
 
 test5:
 	@ #---------------------------------------------------------------------
-	${TR} start "Test A B C exemple posted on fr.comp.lang.ada..."
+	${TR} start "Test A B C example posted on fr.comp.lang.ada..."
 
 	@ ${TR} cmt '  Except that as "A" is a reserved word, I use X Y Z instead :-)'
 
@@ -195,7 +195,7 @@ test5:
 	@ ${TR} cmt '  V    -> Y.P1  OK'
 	@ ${TR} cmt 
 
-	@ test ! `../../Obj/archicheck rules5.txt -I dir5 > output.5`
+	@ test ! `../../Obj/archicheck rules5.txt -I dir5 | sort > output.5`
 	@ ${TR} assert true /usr/bin/sdiff "-s expected_output.5 output.5"
 
 	@ ${TR} end

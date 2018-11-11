@@ -44,7 +44,7 @@ begin
    Analyze_Cmd_Line;
 
    if IO.Some_Error then
-      -- Some error occurs during command line analisys, stop here.
+      -- Some error occurs during command line analysis, stop here.
       Ada.Command_Line.Set_Exit_Status (Ada.Command_Line.Failure);
       return;
    end if;
@@ -58,7 +58,7 @@ begin
    -- Wanna see the sources? (Source_List is build during command_line analysis)
    -- -----------------------------------------------------------------------
    if Settings.List_Files then
-      Sources.Dump_Sources (Sources.Get_List);
+      Sources.Sort_And_Dump_Sources;
       return;
    end if;
 

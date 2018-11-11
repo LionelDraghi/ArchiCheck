@@ -52,9 +52,9 @@ private package Archicheck.Sources is
    procedure Add_Source (Src : in Source);
 
    -- --------------------------------------------------------------------------
-   -- Procedure: Dump_Sources
+   -- Procedure: Sort_And_Dump_Sources
    -- --------------------------------------------------------------------------
-   procedure Dump_Sources (Sources : in Archicheck.Sources.Source_Lists.List);
+   procedure Sort_And_Dump_Sources; -- (Sources : in out Archicheck.Sources.Source_Lists.List);
 
    -- --------------------------------------------------------------------------
    type Location is record

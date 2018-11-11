@@ -112,7 +112,7 @@ package body OpenToken.Production.Parser.LALR.Parser is
       New_Token      : in Nonterminal.Handle;
       Action         : in Reduce_Action_Rec)
    is
-      use type Nonterminal.Synthesize;
+      -- use type Nonterminal.Synthesize;
 
       Tokens : Token_List.Instance;
    begin

@@ -9,7 +9,7 @@ date: 21 Pluviôse, an 226
 The idea of ArchiCheck arose during my experience as software achitect on a large software product line.  
 I was frustrated that simple architecture and design decision where not followed : no matter how clever was the design or the use of the coding language, sooner or later someone was adding a quick and dirty "import" of a compilation unit to easily fix a bug, that was a clear violation of the architecture.  
 
-![illustration de la degradation TBD](architecture_degradation.png)
+![illustration de la degradation TBD](img/architecture_degradation.png)
 
 It was not detected a compile time, and sometimes resulted in hard to detect subtle behavior changes, or elaboration order problems.  
 And, at least, in progressive code spaghettization.

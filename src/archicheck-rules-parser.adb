@@ -287,7 +287,7 @@ package body Archicheck.Rules.Parser is
    -- Unit_List                   -> Unit [[Separator]* Unit]*                    Unit_List = Unit & Unit & Unit etc.
    -- Component_Declaration       -> Component contains Unit_List                 Insert [Component, Unit_List] in Component_List
    -- Layer_Declaration           -> Layer is a layer over Layer                  Insert [Layer, Layer]         in Layer_List
-   -- Restricted_Use_Declaration -> only Component1 may use component2
+   -- Restricted_Use_Declaration  -> only Component1 may use component2
    -- Use_Declaration             -> Component1 uses Component2
    -- Rule                        -> Component_Declaration | Layer_Declaration | Use_Declaration | Restricted_Use_Declaration
 
@@ -362,7 +362,6 @@ package body Archicheck.Rules.Parser is
       Left  : constant Token_List.List_Iterator :=
                 Token_List.Initial_Iterator (Source);
 
-      use Archicheck.IO;
       use OpenToken.Buffers;
       Component_Name : constant Unit_Name
         := +(To_String (Identifiers.Instance
@@ -395,7 +394,6 @@ package body Archicheck.Rules.Parser is
       pragma Unreferenced (New_Token, To_ID);
       Right : Token_List.List_Iterator := Token_List.Initial_Iterator (Source);
 
-      use Archicheck.IO;
       use OpenToken.Buffers;
       -- -----------------------------------------------------------------------
       procedure Update_Last (List : in out Units.Dependency_Targets.List;
@@ -440,7 +438,6 @@ package body Archicheck.Rules.Parser is
    is
       pragma Unreferenced (New_Token, Source, To_ID);
 
-      use OpenToken.Buffers;
       Component_Name : constant Unit_Name := Left_List.First_Element.To_Unit;
    begin
       if Settings.List_Rules then
@@ -448,8 +445,8 @@ package body Archicheck.Rules.Parser is
                       & "Component " & (+Component_Name) & " contains unit "
                       & Units.Unit_List_Image (Right_List),
                       Level => IO.Quiet);
+         -- Fixme: put_line à déplacer dans rules, ou dans units
       end if;
-      -- Fixme: put_line à déplacer dans rules, ou dans units
       Units.Add_Component
         (Component => (Name => Component_Name,
                        Kind => Units.Component),
@@ -465,9 +462,6 @@ package body Archicheck.Rules.Parser is
                                       To_ID     : in  Master_Token.Token_ID)
    is
       pragma Unreferenced (New_Token, To_ID, Source);
-
-      use Archicheck.IO;
-      use OpenToken.Buffers;
 
       Using : constant Unit_Name := Left_List.First_Element.To_Unit;
       Used  : constant Unit_Name := Right_List.First_Element.To_Unit;
@@ -489,9 +483,6 @@ package body Archicheck.Rules.Parser is
                                     To_ID     : in  Master_Token.Token_ID)
    is
       pragma Unreferenced (New_Token, Source, To_ID);
-
-      use Archicheck.IO;
-      use OpenToken.Buffers;
 
       Using : constant Unit_Name := Left_List.First_Element.To_Unit;
 
@@ -517,9 +508,6 @@ package body Archicheck.Rules.Parser is
    is
       pragma Unreferenced (New_Token, Source, To_ID);
 
-      use Archicheck.IO;
-      use OpenToken.Buffers;
-
       Using : constant Unit_Name := Left_List.First_Element.To_Unit;
 
    begin
@@ -541,8 +529,6 @@ package body Archicheck.Rules.Parser is
    is
       pragma Unreferenced (New_Token, Source, To_ID);
 
-      use Archicheck.IO;
-      use OpenToken.Buffers;
       Unit : constant Unit_Name := Left_List.First_Element.To_Unit;
 
    begin
@@ -560,8 +546,6 @@ package body Archicheck.Rules.Parser is
    is
       pragma Unreferenced (New_Token, Source, To_ID);
 
-      use Archicheck.IO;
-      use OpenToken.Buffers;
       Unit : constant Unit_Name := Left_List.First_Element.To_Unit;
 
    begin

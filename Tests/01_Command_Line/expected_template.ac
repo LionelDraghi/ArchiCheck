@@ -21,6 +21,6 @@ Java.IO use is allowed                     -- Allowed use
 --    Note that wildcard are not yet implemented, but
 --    Java.IO means Java.IO and Java.IO.*
 
--- More exensive explanations : http://lionel.draghi.free.fr/Archicheck/rules/
+-- More extensive explanations : http://lionel.draghi.free.fr/Archicheck/rules/
 -- 
 -- File generated with ArchiCheck 0.5.8

@@ -92,8 +92,6 @@ doc:
 	@ $(MAKE) doc --directory=19_Rules_Src_Coverage
 
 clean:
-	@ $(MAKE) clean --directory=Tools
-
 	@ $(MAKE) clean --directory=01_Command_Line
 	@ $(MAKE) clean --directory=02_Source_List
 	@ $(MAKE) clean --directory=03_Dependency_List
@@ -114,6 +112,9 @@ clean:
 	@ $(MAKE) clean --directory=18_Spring_PetClinic
 	@ $(MAKE) clean --directory=19_Rules_Src_Coverage
 	
+	@ $(MAKE) clean --directory=Tools
+	# Should be called last, because "testrec clean" is called in others Makefile's clean
+
 	- ${RM} tests_status.md *.lst short_tests_status.md tests_count.txt
 
 

@@ -133,7 +133,7 @@ Z may use Interfaces.C
 
 Component processing in rules unit test / Test on Components embedding components embedding components... [Successful](tests_status.md#successful)
 
-##  Component processing in rules unit test / Test A B C exemple posted on fr.comp.lang.ada...
+##  Component processing in rules unit test / Test A B C example posted on fr.comp.lang.ada...
 
     Except that as "A" is a reserved word, I use X Y Z instead :-)
 
@@ -162,4 +162,4 @@ My_Layer is a layer over Z
     V    -> Y.P1  OK
 
 
-Component processing in rules unit test / Test A B C exemple posted on fr.comp.lang.ada... [Successful](tests_status.md#successful)
+Component processing in rules unit test / Test A B C example posted on fr.comp.lang.ada... [Successful](tests_status.md#successful)

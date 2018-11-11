@@ -214,7 +214,7 @@ test6:
 	@ ${TR} cmt 
 	@ ${TR} cmt "Expected :"
 
-	@ test ! `../../Obj/archicheck -I dir6 rules.6 > output.6`
+	@ test ! `../../Obj/archicheck -I dir6 rules.6 | sort > output.6`
 	${TR} assert true /usr/bin/sdiff "-sBW expected_output.6 output.6"
 
 	@ ${TR} cmt "And now inverting Allowed and Forbidden"

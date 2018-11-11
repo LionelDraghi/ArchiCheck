@@ -94,9 +94,9 @@ Gtk.Arguments   use is allowed -- This package is obsolete and replaced by Glib.
   Expected output:
 
 ```
+Error : gtkada-master/src/gdk-dnd.adb:29: Gtk may use Gdk, so Gdk.Dnd shall not use Gtk
 Error : gtkada-master/src/gdk-dnd.ads:29: Gtk may use Gdk, so Gdk.Dnd shall not use Gtk
 Error : gtkada-master/src/gdk-dnd.ads:30: Gtk may use Gdk, so Gdk.Dnd shall not use Gtk.Target_List
-Error : gtkada-master/src/gdk-dnd.adb:29: Gtk may use Gdk, so Gdk.Dnd shall not use Gtk
 Error : gtkada-master/src/opengl/gtk-glarea.adb:26: GtkAda may use Gtk, so Gtk.GLArea shall not use Gtkada.Handlers
 ```
 
@@ -137,12 +137,12 @@ Gtk.Arguments   use is allowed -- This package is obsolete and replaced by Glib.
   Expected output:
 
 ```
+Error : gtkada-master/src/gdk-dnd.adb:29: Gdk.Dnd is in Utilities layer, and so shall not use Gtk in the upper Gtk layer
+Error : gtkada-master/src/gdk-dnd.adb:29: Gtk may use Utilities, so Gdk.Dnd shall not use Gtk
 Error : gtkada-master/src/gdk-dnd.ads:29: Gdk.Dnd is in Utilities layer, and so shall not use Gtk in the upper Gtk layer
 Error : gtkada-master/src/gdk-dnd.ads:29: Gtk may use Utilities, so Gdk.Dnd shall not use Gtk
 Error : gtkada-master/src/gdk-dnd.ads:30: Gdk.Dnd is in Utilities layer, and so shall not use Gtk.Target_List in the upper Gtk layer
 Error : gtkada-master/src/gdk-dnd.ads:30: Gtk may use Utilities, so Gdk.Dnd shall not use Gtk.Target_List
-Error : gtkada-master/src/gdk-dnd.adb:29: Gdk.Dnd is in Utilities layer, and so shall not use Gtk in the upper Gtk layer
-Error : gtkada-master/src/gdk-dnd.adb:29: Gtk may use Utilities, so Gdk.Dnd shall not use Gtk
 Error : gtkada-master/src/opengl/gtk-glarea.adb:26: GtkAda may use Gtk, so Gtk.GLArea shall not use Gtkada.Handlers
 ```
 

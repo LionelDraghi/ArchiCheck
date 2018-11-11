@@ -50,15 +50,27 @@ package body Archicheck.Sources is
    end Add_Source;
 
    -- --------------------------------------------------------------------------
-   -- Procedure: Dump_Sources
+   -- Procedure: Sort_And_Dump_Sources
    -- --------------------------------------------------------------------------
-   procedure Dump_Sources (Sources : in Source_Lists.List) is
+   procedure Sort_And_Dump_Sources is
+      function "<" (L, R : Source) return Boolean is
+      begin
+         if L.Lang = R.Lang then
+            return L.File < R.File;
+         else
+            return Language'Pos (L.Lang) < Language'Pos (R.Lang);
+         end if;
+      end "<";
+      package Sorting is new Source_Lists.Generic_Sorting ("<");
       use Archicheck.IO;
+
    begin
-      for Src of Sources loop
+      Sorting.Sort (Source_List);
+      for Src of Source_List loop
          Put_Line (+Src.File, Level => Quiet);
       end loop;
-   end Dump_Sources;
+
+   end Sort_And_Dump_Sources;
 
    -- --------------------------------------------------------------------------
    function Location_Image (Loc : in Location) return String is

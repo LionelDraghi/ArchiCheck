@@ -87,7 +87,7 @@ test2:
 	@ ${TR} cmt '```'
 	@ ${TR} cmt 
 
-	@ ../../Obj/archicheck -lnc test2.ac -I ./dir2 > output.2
+	@ ../../Obj/archicheck -lnc test2.ac -I ./dir2 | sort > output.2
 	${TR} assert true /usr/bin/sdiff "-sbB expected_output.2 output.2"
 
 

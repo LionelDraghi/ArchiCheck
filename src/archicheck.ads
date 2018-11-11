@@ -22,7 +22,7 @@
 -- Fixme: obsolete description!
 --    Package <Archicheck.Rules_Parser> - encapsulates the rule file analysis
 --    procedure <Archicheck.Check_*_Rules> - analyzes the rules file and run
---       the verifications using OpenToken for rules file analisys
+--       the verifications using OpenToken for rules file analysis
 --
 -- Effects:
 --

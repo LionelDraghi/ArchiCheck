@@ -42,7 +42,7 @@ Queries :
    -lnc | --list_non_covered  : list compilation units not involved in rules file
    -ct  | --create_template   : create a commented example of rules file
    If any, only one of the queries is performed
-   and the full analisys on sources is not done.
+   and the full analysis on sources is not done.
 
 Use examples:
    archicheck rules.txt -Ir src
@@ -67,7 +67,7 @@ Command line test suite / Help options [Successful](tests_status.md#successful)
   Test that the --version will put :
 
 ```
-0.5.7
+0.5.8
 ```
 
 
@@ -138,7 +138,7 @@ Queries :
    -lnc | --list_non_covered  : list compilation units not involved in rules file
    -ct  | --create_template   : create a commented example of rules file
    If any, only one of the queries is performed
-   and the full analisys on sources is not done.
+   and the full analysis on sources is not done.
 
 Use examples:
    archicheck rules.txt -Ir src
@@ -195,7 +195,7 @@ Queries :
    -lnc | --list_non_covered  : list compilation units not involved in rules file
    -ct  | --create_template   : create a commented example of rules file
    If any, only one of the queries is performed
-   and the full analisys on sources is not done.
+   and the full analysis on sources is not done.
 
 Use examples:
    archicheck rules.txt -Ir src
@@ -249,7 +249,7 @@ Queries :
    -lnc | --list_non_covered  : list compilation units not involved in rules file
    -ct  | --create_template   : create a commented example of rules file
    If any, only one of the queries is performed
-   and the full analisys on sources is not done.
+   and the full analysis on sources is not done.
 
 Use examples:
    archicheck rules.txt -Ir src
@@ -357,7 +357,7 @@ Queries :
    -lnc | --list_non_covered  : list compilation units not involved in rules file
    -ct  | --create_template   : create a commented example of rules file
    If any, only one of the queries is performed
-   and the full analisys on sources is not done.
+   and the full analysis on sources is not done.
 
 Use examples:
    archicheck rules.txt -Ir src
@@ -411,7 +411,7 @@ Queries :
    -lnc | --list_non_covered  : list compilation units not involved in rules file
    -ct  | --create_template   : create a commented example of rules file
    If any, only one of the queries is performed
-   and the full analisys on sources is not done.
+   and the full analysis on sources is not done.
 
 Use examples:
    archicheck rules.txt -Ir src
@@ -462,9 +462,9 @@ Java.IO use is allowed                     -- Allowed use
 --    Note that wildcard are not yet implemented, but
 --    Java.IO means Java.IO and Java.IO.*
 
--- More exensive explanations : http://lionel.draghi.free.fr/Archicheck/rules/
+-- More extensive explanations : http://lionel.draghi.free.fr/Archicheck/rules/
 -- 
--- File generated with ArchiCheck 0.5.7
+-- File generated with ArchiCheck 0.5.8
 ```
 
   When running:

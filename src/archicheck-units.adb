@@ -236,7 +236,6 @@ package body Archicheck.Units is
       Key : constant Unit_Name := Unit;
       C   : Owner_Maps.Cursor;
       use Owner_Maps;
-      use Ada.Strings;
 
    begin
       -- 5 cases here :

@@ -27,7 +27,6 @@ procedure Archicheck.Rules.Dump_Unrelated_Compilation_Units is
    Unit_Map : Maps.Map;
 
    use Archicheck.IO;
-   use Sources;
 
 begin
    -- First, build a list of all Unit name to check
