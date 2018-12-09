@@ -3,20 +3,20 @@
 
 
 
- This test check that illegal command lines cause archicheck to
- exit with a non null return code.
- - Note that normal use is overly tested in other tests,
-   so here mainly error situations are tested.
- - Note also that quiet and verbose mode (-q / -v) are also tested
-   in other tests.
+ This test check that illegal command lines cause archicheck to  
+ exit with a non null return code.  
+ - Note that normal use is overly tested in other tests,  
+   so here mainly error situations are tested.  
+ - Note also that quiet and verbose mode (-q / -v) are also tested  
+   in other tests.  
 
 
 ##  Command line test suite / Help options
 
 
-  Test that the -h, --help or no command line will output :
+  Test that the -h, --help or no command line will output :  
 
-```
+```  
 
 ArchiCheck normal use :
    archicheck rules_file -Ir directory [-Ir directory]*
@@ -56,7 +56,7 @@ Rules file:
 
 http://lionel.draghi.free.fr/Archicheck/index.html
 
-```
+```  
 
 
 Command line test suite / Help options [Successful](tests_status.md#successful)
@@ -64,11 +64,11 @@ Command line test suite / Help options [Successful](tests_status.md#successful)
 ##  Command line test suite / Version option
 
 
-  Test that the --version will put :
+  Test that the --version will put :  
 
-```
+```  
 0.5.8
-```
+```  
 
 
 Command line test suite / Version option [Successful](tests_status.md#successful)
@@ -76,14 +76,14 @@ Command line test suite / Version option [Successful](tests_status.md#successful
 ##  Command line test suite / -I option without src dir
 
 
-  When running:
-  > archicheck -I
+  When running:  
+  > archicheck -I  
 
-  Expecting:
+  Expecting:  
 
-```
+```  
 Error : Sources directory expected after -I
-```
+```  
 
 
 Command line test suite / -I option without src dir [Successful](tests_status.md#successful)
@@ -91,14 +91,14 @@ Command line test suite / -I option without src dir [Successful](tests_status.md
 ##  Command line test suite / -I option with an unknow dir
 
 
-  When running:
-  > archicheck -I qsdqjh
+  When running:  
+  > archicheck -I qsdqjh  
 
-  Expecting:
+  Expecting:  
 
-```
+```  
 Error : No qsdqjh directory
-```
+```  
 
 
 Command line test suite / -I option with an unknow dir [Successful](tests_status.md#successful)
@@ -106,12 +106,12 @@ Command line test suite / -I option with an unknow dir [Successful](tests_status
 ##  Command line test suite / unknown -xyz option
 
 
-  When running:
-  > archicheck -xzy
+  When running:  
+  > archicheck -xzy  
 
-  Expecting:
+  Expecting:  
 
-```
+```  
 Error : Unknown rules file or unknow option -xzy
 
 ArchiCheck normal use :
@@ -152,23 +152,23 @@ Rules file:
 
 http://lionel.draghi.free.fr/Archicheck/index.html
 
-```
+```  
 
 
 Command line test suite / unknown -xyz option [Successful](tests_status.md#successful)
 
 ##  Command line test suite / -I option with... nothing to do
 
-  (no rules file, no -ld or -lf, etc.)
+  (no rules file, no -ld or -lf, etc.)  
 
-  When running:
-  > mkdir -p dir6  
-  > touch dir6/src.adb  
-  > archicheck -I dir6  
+  When running:  
+  > mkdir -p dir6    
+  > touch dir6/src.adb    
+  > archicheck -I dir6    
 
-  Expecting:
+  Expecting:  
 
-```
+```  
 Error : Nothing to do with those sources
 
 ArchiCheck normal use :
@@ -209,7 +209,7 @@ Rules file:
 
 http://lionel.draghi.free.fr/Archicheck/index.html
 
-```
+```  
 
 
 Command line test suite / -I option with... nothing to do [Successful](tests_status.md#successful)
@@ -217,12 +217,12 @@ Command line test suite / -I option with... nothing to do [Successful](tests_sta
 ##  Command line test suite / -lr option without rules file
 
 
-  When running:
-  > archicheck -lr
+  When running:  
+  > archicheck -lr  
 
-  Expecting:
+  Expecting:  
 
-```
+```  
 Error : No rules file given
 
 ArchiCheck normal use :
@@ -263,7 +263,7 @@ Rules file:
 
 http://lionel.draghi.free.fr/Archicheck/index.html
 
-```
+```  
 
 
 Command line test suite / -lr option without rules file [Successful](tests_status.md#successful)
@@ -271,32 +271,32 @@ Command line test suite / -lr option without rules file [Successful](tests_statu
 ##  Command line test suite / Legal line, but no src file in the given (existing) directory
 
 
-  When running:
-  > mkdir dir9  
-  > archicheck -lf -I dir9  
+  When running:  
+  > mkdir dir9    
+  > archicheck -lf -I dir9    
 
-  Expecting:
+  Expecting:  
 
-```
+```  
 Warning : Cannot list files, no sources found to analyze
-```
+```  
 
-  archicheck return 1 if -We or --Warnings=error
+  archicheck return 1 if -We or --Warnings=error  
 
 Command line test suite / Legal line, but no src file in the given (existing) directory [Successful](tests_status.md#successful)
 
 ##  Command line test suite / file given to -I, instead of a directory
 
 
-  When running:
-  > touch rules.txt src.adb  
-  > archicheck rules.txt -I src.adb  
+  When running:  
+  > touch rules.txt src.adb    
+  > archicheck rules.txt -I src.adb    
 
-  Expecting:
+  Expecting:  
 
-```
+```  
 Error : src.adb is not a directory
-```
+```  
 
 
 Command line test suite / file given to -I, instead of a directory [Successful](tests_status.md#successful)
@@ -304,18 +304,18 @@ Command line test suite / file given to -I, instead of a directory [Successful](
 ##  Command line test suite / -ld given, but no source found
 
 
-  When running:
-  > mkdir -p dir11
+  When running:  
+  > mkdir -p dir11  
 
-  > echo Interfaces use is forbidden > rules.txt
+  > echo Interfaces use is forbidden > rules.txt  
 
-  > archicheck rules.txt -ld -I dir11
+  > archicheck rules.txt -ld -I dir11  
 
-  Expecting:
+  Expecting:  
 
-```
+```  
 Warning : Cannot list dependencies, no sources found
-```
+```  
 
 
 Command line test suite / -ld given, but no source found [Successful](tests_status.md#successful)
@@ -323,14 +323,14 @@ Command line test suite / -ld given, but no source found [Successful](tests_stat
 ##  Command line test suite / src found, but nothing to do whith it
 
 
-  When running:
-  > mkdir -p dir12  
-  > touch dir12/src.adb  
-  > archicheck -I dir12  
+  When running:  
+  > mkdir -p dir12    
+  > touch dir12/src.adb    
+  > archicheck -I dir12    
 
-  Expecting:
+  Expecting:  
 
-```
+```  
 Error : Nothing to do with those sources
 
 ArchiCheck normal use :
@@ -371,7 +371,7 @@ Rules file:
 
 http://lionel.draghi.free.fr/Archicheck/index.html
 
-```
+```  
 
 
 Command line test suite / src found, but nothing to do whith it [Successful](tests_status.md#successful)
@@ -379,12 +379,12 @@ Command line test suite / src found, but nothing to do whith it [Successful](tes
 ##  Command line test suite / rules file found, but nothing to do whith it
 
 
-  When running:
-  > archicheck rules.txt
+  When running:  
+  > archicheck rules.txt  
 
-  Expecting:
+  Expecting:  
 
-```
+```  
 Error : Nothing to do with this rules file
 
 ArchiCheck normal use :
@@ -425,7 +425,7 @@ Rules file:
 
 http://lionel.draghi.free.fr/Archicheck/index.html
 
-```
+```  
 
 
 Command line test suite / rules file found, but nothing to do whith it [Successful](tests_status.md#successful)
@@ -433,12 +433,12 @@ Command line test suite / rules file found, but nothing to do whith it [Successf
 ##  Command line test suite / template creation (-ct and --create_template)
 
 
-  When running:
-  > archicheck -ct
+  When running:  
+  > archicheck -ct  
 
-  Expecting file template.ac:
+  Expecting file template.ac:  
 
-```
+```  
 -- ------------------------
 -- Template ArchiCheck file
 -- ------------------------
@@ -465,14 +465,14 @@ Java.IO use is allowed                     -- Allowed use
 -- More extensive explanations : http://lionel.draghi.free.fr/Archicheck/rules/
 -- 
 -- File generated with ArchiCheck 0.5.8
-```
+```  
 
-  When running:
-  > archicheck --create_template
-  Expecting error:
-```
+  When running:  
+  > archicheck --create_template  
+  Expecting error:  
+```  
 Error : File template.ac already exists
-```
+```  
 
 
 Command line test suite / template creation (-ct and --create_template) [Successful](tests_status.md#successful)

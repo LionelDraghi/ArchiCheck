@@ -5,11 +5,11 @@
 
 ##  ZipAda code test suite / -lf test
 
-  > archicheck -lf -r -I ./zip-ada
+  > archicheck -lf -r -I ./zip-ada  
 
-  Expected (102 files) :
+  Expected (102 files) :  
 
-```
+```  
 zip-ada/demo/demo_csv_into_zip.adb
 zip-ada/demo/demo_unzip.adb
 zip-ada/demo/demo_zip.adb
@@ -17,18 +17,18 @@ zip-ada/demo/demo_zip.adb
 zip-ada/zip_lib/zip.ads
 zip-ada/zip_lib/zip_streams.adb
 zip-ada/zip_lib/zip_streams.ads
-```
+```  
 
 
 ZipAda code test suite / -lf test [Successful](tests_status.md#successful)
 
 ##  ZipAda code test suite / -ld test
 
-  > archicheck -ld -r -I ./zip-ada
+  > archicheck -ld -r -I ./zip-ada  
 
-  336 dependencies expected :
+  336 dependencies expected :  
 
-```
+```  
 Ada_Directories_Extensions package body depends on Ada.Exceptions 
 Ada_Directories_Extensions package body depends on Ada.Unchecked_Conversion 
 Ada_Directories_Extensions package body depends on GNAT.Calendar 
@@ -50,23 +50,23 @@ Zip_with_many_files procedure body depends on Ada.Strings.Fixed
 Zip_with_many_files procedure body depends on Zip.Compress 
 Zip_with_many_files procedure body depends on Zip.Create 
 Zip_with_many_files procedure body depends on Zip_Streams 
-```
+```  
 
 
 ZipAda code test suite / -ld test [Successful](tests_status.md#successful)
 
 ##  ZipAda code test suite / rules test
 
-  > archicheck zipadarules.txt -r -I ./zip-ada
+  > archicheck zipadarules.txt -r -I ./zip-ada  
 
-  Rules (not much to test...) :
+  Rules (not much to test...) :  
 
-```
+```  
 Zip   may use Zip_Streams
 UnZip may use Zip_Streams
-```
+```  
 
-  No error expected
+  No error expected  
 
 
 ZipAda code test suite / rules test [Successful](tests_status.md#successful)

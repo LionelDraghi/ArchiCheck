@@ -5,14 +5,14 @@
 
 ##  GtkAda test suite / File Identification
 
-  Checking that
+  Checking that  
 
-  > archicheck -q -lf -r -I gtkada-master
+  > archicheck -q -lf -r -I gtkada-master  
 
-  is identifying the same 862 files (once sorted) than
+  is identifying the same 862 files (once sorted) than  
 
-  > find gtkada-master -name *.ad[sb] | sort
-```
+  > find gtkada-master -name *.ad[sb] | sort  
+```  
 gtkada-master/src/cairo.adb
 gtkada-master/src/cairo.ads
 gtkada-master/src/cairo-font_face.ads
@@ -20,7 +20,7 @@ gtkada-master/src/cairo-font_face.ads
 gtkada-master/testgtk/testcairo_drawing.ads
 gtkada-master/testgtk/testgtk.adb
 gtkada-master/testgtk/test_rtree.adb
-```
+```  
 
 
 GtkAda test suite / File Identification [Successful](tests_status.md#successful)
@@ -28,11 +28,11 @@ GtkAda test suite / File Identification [Successful](tests_status.md#successful)
 ##  GtkAda test suite / Unit Identification
 
 
-  > archicheck -ld -r -I gtkada-master | sort
+  > archicheck -ld -r -I gtkada-master | sort  
 
-  4785 dependencies expected :
+  4785 dependencies expected :  
 
-```
+```  
 Cairo.Font_Face package spec depends on Interfaces.C.Strings
 Cairo.Font_Face package spec depends on System
 Cairo package spec depends on Ada.Unchecked_Deallocation
@@ -54,7 +54,7 @@ Test_Rtree procedure body depends on Gtkada.Canvas_View.Rtrees
 Test_Rtree procedure body depends on Gtkada.Style
 Trackball package body depends on Ada.Numerics.Aux
 View_Gl package spec depends on Gtk.Frame
-```
+```  
 
 
 GtkAda test suite / Unit Identification [Successful](tests_status.md#successful)
@@ -62,11 +62,11 @@ GtkAda test suite / Unit Identification [Successful](tests_status.md#successful)
 ##  GtkAda test suite / A realistic GtkAda description file
 
 
-  ![](gtk.png)
+  ![](gtk.png)  
 
-  Checking those rules over GtkAda:
+  Checking those rules over GtkAda:  
 
-```
+```  
 Interfaces use is allowed
 System     use is allowed 
 Ada        use is allowed
@@ -89,16 +89,16 @@ GtkAda.Bindings use is allowed
 GtkAda.Types    use is allowed
 GtkAda.C        use is allowed
 Gtk.Arguments   use is allowed -- This package is obsolete and replaced by Glib.Values
-```
+```  
 
-  Expected output:
+  Expected output:  
 
-```
+```  
 Error : gtkada-master/src/gdk-dnd.adb:29: Gtk may use Gdk, so Gdk.Dnd shall not use Gtk
 Error : gtkada-master/src/gdk-dnd.ads:29: Gtk may use Gdk, so Gdk.Dnd shall not use Gtk
 Error : gtkada-master/src/gdk-dnd.ads:30: Gtk may use Gdk, so Gdk.Dnd shall not use Gtk.Target_List
 Error : gtkada-master/src/opengl/gtk-glarea.adb:26: GtkAda may use Gtk, so Gtk.GLArea shall not use Gtkada.Handlers
-```
+```  
 
 
 GtkAda test suite / A realistic GtkAda description file [Successful](tests_status.md#successful)
@@ -106,9 +106,9 @@ GtkAda test suite / A realistic GtkAda description file [Successful](tests_statu
 ##  GtkAda test suite / Another realistic GtkAda description file
 
 
-  Checking those rules over GtkAda:
+  Checking those rules over GtkAda:  
 
-```
+```  
 Interfaces use is allowed
 System     use is allowed 
 Ada        use is allowed
@@ -132,11 +132,11 @@ GtkAda.Bindings use is allowed
 GtkAda.Types    use is allowed
 GtkAda.C        use is allowed
 Gtk.Arguments   use is allowed -- This package is obsolete and replaced by Glib.Values
-```
+```  
 
-  Expected output:
+  Expected output:  
 
-```
+```  
 Error : gtkada-master/src/gdk-dnd.adb:29: Gdk.Dnd is in Utilities layer, and so shall not use Gtk in the upper Gtk layer
 Error : gtkada-master/src/gdk-dnd.adb:29: Gtk may use Utilities, so Gdk.Dnd shall not use Gtk
 Error : gtkada-master/src/gdk-dnd.ads:29: Gdk.Dnd is in Utilities layer, and so shall not use Gtk in the upper Gtk layer
@@ -144,7 +144,7 @@ Error : gtkada-master/src/gdk-dnd.ads:29: Gtk may use Utilities, so Gdk.Dnd shal
 Error : gtkada-master/src/gdk-dnd.ads:30: Gdk.Dnd is in Utilities layer, and so shall not use Gtk.Target_List in the upper Gtk layer
 Error : gtkada-master/src/gdk-dnd.ads:30: Gtk may use Utilities, so Gdk.Dnd shall not use Gtk.Target_List
 Error : gtkada-master/src/opengl/gtk-glarea.adb:26: GtkAda may use Gtk, so Gtk.GLArea shall not use Gtkada.Handlers
-```
+```  
 
 
 GtkAda test suite / Another realistic GtkAda description file [Successful](tests_status.md#successful)

@@ -33,29 +33,37 @@ procedure Testrec.Main is
    function Empty_Tag      return String is
    begin
       case Settings.Output_Format is
-         when Settings.NaturalDocs     => return "<Empty>";
-         when Settings.Markdown        => return "[Empty](tests_status.md#empty)"; -- Fixme: hard coded reference to a tests_status.md file
-         -- when Settings.Standard_Output => return "[Empty]";
+         when Settings.NaturalDocs => return "<Empty>";
+         when Settings.Markdown    => return "[Empty](tests_status.md#empty)";
+            -- Fixme: hard coded reference to a tests_status.md file
       end case;
    end Empty_Tag;
    -- --------------------------------------------------------------------------
    function Fail_Tag       return String is
    begin
       case Settings.Output_Format is
-         when Settings.NaturalDocs     => return "<Failed>";
-         when Settings.Markdown        => return "[Failed](tests_status.md#failed)";
-         -- when Settings.Standard_Output => return "[Failed]";
+         when Settings.NaturalDocs => return "<Failed>";
+         when Settings.Markdown    => return "[Failed](tests_status.md#failed)";
       end case;
    end Fail_Tag;
    -- --------------------------------------------------------------------------
    function Successful_Tag return String is
    begin
       case Settings.Output_Format is
-         when Settings.NaturalDocs     => return "<Successful>";
-         when Settings.Markdown        => return "[Successful](tests_status.md#successful)";
-         -- when Settings.Standard_Output => return "[Successful]";
+         when Settings.NaturalDocs => return "<Successful>";
+         when Settings.Markdown    => return "[Successful](tests_status.md#successful)";
       eNd case;
    end Successful_Tag;
+
+   -- --------------------------------------------------------------------------
+   function Line_End return String is
+   begin
+      case Settings.Output_Format is
+         when Settings.NaturalDocs => return "";
+         when Settings.Markdown    => return "  ";
+            -- "  " to ensure a newline in MD format
+      end case;
+   end Line_End;
 
    -- --------------------------------------------------------------------------
    type Indent_Level is range 0 .. 2;
@@ -215,12 +223,13 @@ procedure Testrec.Main is
          -- Log file:
          if Text = "" then
             New_Line (Log_File);
-         elsif Text = "```" and Settings.Output_Format = Settings.Markdown then -- no indentation for this MD code marker
+         elsif Text = "```" and Settings.Output_Format = Settings.Markdown then
+            -- In MD format, code marker ``` should not be indented
             Arg_Counter := Arg_Counter + 1;
-            Put_Line (Log_File, Text);
+            Put_Line (Log_File, Text & Line_End);
          else
             Arg_Counter := Arg_Counter + 1;
-            Put_Line (Log_File, Indent & Text);
+            Put_Line (Log_File, Indent & Text & Line_End);
          end if;
       end;
 

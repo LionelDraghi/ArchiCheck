@@ -1,15 +1,32 @@
 Download
 ========
 
-[Download Linux exe](http://lionel.draghi.free.fr/Archicheck/archicheck), build on my Debian amd64,
-with -O3 option.
+[Download Linux exe](http://lionel.draghi.free.fr/Archicheck/archicheck)
+
+build on :
+----------
+
+> uname -orm
+
+```
+4.18.0-2-amd64 x86_64 GNU/Linux
+```
+
+> gnat --version | head -1
+
+```
+GNAT Community 2018 (20180524-73)
+```
 
 (May be necessary after download : `chmod +x archicheck`)
+
+Exe check :
+-----------
 
 > date -r archicheck --iso-8601=seconds
 
 ```
-2018-10-28T19:45:38+01:00
+2018-11-11T05:34:52+01:00
 ```
 
 > readelf -d archicheck | grep 'NEEDED'
@@ -29,7 +46,7 @@ with -O3 option.
 Tests status on this exe :
 --------------------------
 
-Run 2018-10-28T19:45:48+01:00
+Run 2018-11-11T11:20:19+01:00
 
 - Successful  82
 - Failed      0

@@ -5,11 +5,11 @@
 
 ##  Spring Pet Clinic code test suite / -lf test
 
-  > archicheck -lf -r -I ./src1
+  > archicheck -lf -r -I ./src1  
 
-  Expected (36 files) :
+  Expected (36 files) :  
 
-```
+```  
 src1/src/main/java/org/springframework/samples/petclinic/PetClinicApplication.java
 src1/src/main/java/org/springframework/samples/petclinic/model/BaseEntity.java
 src1/src/main/java/org/springframework/samples/petclinic/model/NamedEntity.java
@@ -17,18 +17,18 @@ src1/src/main/java/org/springframework/samples/petclinic/model/NamedEntity.java
 src1/src/test/java/org/springframework/samples/petclinic/system/ProductionConfigurationTests.java
 src1/src/test/java/org/springframework/samples/petclinic/vet/VetControllerTests.java
 src1/src/test/java/org/springframework/samples/petclinic/vet/VetTests.java
-```
+```  
 
 
 Spring Pet Clinic code test suite / -lf test [Successful](tests_status.md#successful)
 
 ##  Spring Pet Clinic code test suite / -ld test
 
-  > archicheck -ld -r -I spring-petclinic-master
+  > archicheck -ld -r -I spring-petclinic-master  
 
-  90 dependencies expected :
+  90 dependencies expected :  
 
-```
+```  
 org.springframework.samples.petclinic.model.BaseEntity class depends on java.io.Serializable
 org.springframework.samples.petclinic.model.BaseEntity class depends on javax.persistence.GeneratedValue
 org.springframework.samples.petclinic.model.BaseEntity class depends on javax.persistence.GenerationType
@@ -50,16 +50,16 @@ org.springframework.samples.petclinic.visit.VisitRepository interface depends on
 org.springframework.samples.petclinic.visit.VisitRepository interface depends on org.springframework.dao.DataAccessException
 org.springframework.samples.petclinic.visit.VisitRepository interface depends on org.springframework.data.repository.Repository
 org.springframework.samples.petclinic.visit.VisitRepository interface depends on org.springframework.samples.petclinic.model.BaseEntity
-```
+```  
 
 
 Spring Pet Clinic code test suite / -ld test [Successful](tests_status.md#successful)
 
 ##  Spring Pet Clinic code test suite / rules test
 
-  > archicheck petclinic.ac -r -I ./src1
+  > archicheck petclinic.ac -r -I ./src1  
 
-```
+```  
 java use is allowed
 javax use is allowed
 org.springframework use is allowed
@@ -92,20 +92,20 @@ Domain       is a layer over Infrastructure
 -- Application layer is normally between Presentation and Domain layer.
 -- But commented out because empty in this case, to avoid the warning.
 -- Application  is a layer over Domain 
-```
+```  
 
-  No error expected
+  No error expected  
 
 
 Spring Pet Clinic code test suite / rules test [Successful](tests_status.md#successful)
 
 ##  Spring Pet Clinic code test suite / --list_non_covered
 
-  > archicheck petclinic.ac -lnc -r -I ./src1
+  > archicheck petclinic.ac -lnc -r -I ./src1  
 
-  Rules :
+  Rules :  
 
-```
+```  
 java use is allowed
 javax use is allowed
 org.springframework use is allowed
@@ -138,18 +138,18 @@ Domain       is a layer over Infrastructure
 -- Application layer is normally between Presentation and Domain layer.
 -- But commented out because empty in this case, to avoid the warning.
 -- Application  is a layer over Domain 
-```
+```  
 
-  No error expected
+  No error expected  
 
 
 Spring Pet Clinic code test suite / --list_non_covered [Successful](tests_status.md#successful)
 
 ##  Spring Pet Clinic code test suite / alternative rules test
 
-  > archicheck alternative.ac -r -I ./src1
+  > archicheck alternative.ac -r -I ./src1  
 
-```
+```  
 java use is allowed
 javax use is allowed
 -- org.springframework use is allowed
@@ -175,9 +175,9 @@ Owner may use org.springframework.samples.petclinic.model
 Owner  may use Org.SpringFramework
 System may use Org.SpringFramework
 Org.SpringFramework may use System 
-```
+```  
 
-  No error expected
+  No error expected  
 
 
 Spring Pet Clinic code test suite / alternative rules test [Successful](tests_status.md#successful)
@@ -185,11 +185,11 @@ Spring Pet Clinic code test suite / alternative rules test [Successful](tests_st
 ##  Spring Pet Clinic code test suite / Layered version of petclinic test
 
 
-  [](https://github.com/spring-petclinic/spring-framework-petclinic)
+  [](https://github.com/spring-petclinic/spring-framework-petclinic)  
 
-  > archicheck framework-petclinic.ac -r -I ./src2
+  > archicheck framework-petclinic.ac -r -I ./src2  
 
-```
+```  
 -- This organisation in layer is described here : http://fr.slideshare.net/AntoineRey/spring-framework-petclinic-sample-application
 
 Web        contains org.springframework.samples.petclinic.web
@@ -228,9 +228,9 @@ org.springframework.util        use is allowed
 org.springframework.samples     use is allowed
 org.springframework.test        use is allowed
 org.springframework.cache       use is allowed
-org.springframework.transaction use is allowed```
+org.springframework.transaction use is allowed```  
 
-  No error expected
+  No error expected  
 
 
 Spring Pet Clinic code test suite / Layered version of petclinic test [Successful](tests_status.md#successful)

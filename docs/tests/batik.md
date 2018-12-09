@@ -5,10 +5,10 @@
 
 ##  Batik test suite / --list_file test
 
-  > archicheck -lf -Ir ./batik-1.9
-  Expected (1658 files) :
+  > archicheck -lf -Ir ./batik-1.9  
+  Expected (1658 files) :  
 
-```
+```  
 batik-1.9/batik-anim/src/main/java/org/apache/batik/anim/AbstractAnimation.java
 batik-1.9/batik-anim/src/main/java/org/apache/batik/anim/AnimationEngine.java
 batik-1.9/batik-anim/src/main/java/org/apache/batik/anim/AnimationException.java
@@ -16,7 +16,7 @@ batik-1.9/batik-anim/src/main/java/org/apache/batik/anim/AnimationException.java
 batik-1.9/test-sources/org/apache/batik/transcoder/wmf/Messages.java
 batik-1.9/test-sources/org/apache/batik/transcoder/wmf/WMFAccuracyTest.java
 batik-1.9/test-sources/org/apache/batik/util/ApplicationSecurityEnforcerTest.java
-```
+```  
 
 
 Batik test suite / --list_file test [Successful](tests_status.md#successful)
@@ -24,7 +24,7 @@ Batik test suite / --list_file test [Successful](tests_status.md#successful)
 ##  Batik test suite / public class
 
 
-```
+```  
 package org.apache.batik.apps.jsvg;
 
 import javax.swing.JFrame;
@@ -47,14 +47,14 @@ import org.apache.batik.swing.svg.SVGUserAgentGUIAdapter;
  * @version $Id: JSVG.java 1733420 2016-03-03 07:41:59Z gadams $
  */
 public class JSVG extends JFrame{
-```
+```  
 
 
-  > archicheck -ld -I dir2
+  > archicheck -ld -I dir2  
 
-  Expected :
+  Expected :  
 
-```
+```  
 org.apache.batik.apps.jsvg.JSVG class depends on javax.swing.JFrame
 org.apache.batik.apps.jsvg.JSVG class depends on java.awt.BorderLayout
 org.apache.batik.apps.jsvg.JSVG class depends on java.awt.Dimension
@@ -62,7 +62,7 @@ org.apache.batik.apps.jsvg.JSVG class depends on java.awt.event.WindowAdapter
 org.apache.batik.apps.jsvg.JSVG class depends on java.awt.event.WindowEvent
 org.apache.batik.apps.jsvg.JSVG class depends on org.apache.batik.swing.JSVGCanvas
 org.apache.batik.apps.jsvg.JSVG class depends on org.apache.batik.swing.svg.SVGUserAgentGUIAdapter
-```
+```  
 
 
 Batik test suite / public class [Successful](tests_status.md#successful)
@@ -70,7 +70,7 @@ Batik test suite / public class [Successful](tests_status.md#successful)
 ##  Batik test suite / public interface class
 
 
-```
+```  
 package org.apache.batik.dom.events;
 
 import org.w3c.dom.DOMException;
@@ -88,20 +88,20 @@ import org.w3c.dom.events.EventTarget;
  * @version $Id: NodeEventTarget.java 1733416 2016-03-03 07:07:13Z gadams $
  */
 public interface NodeEventTarget extends EventTarget {
-```
+```  
 
 
-  > archicheck -ld -I dir3
+  > archicheck -ld -I dir3  
 
-  Expected :
+  Expected :  
 
-```
+```  
 org.apache.batik.dom.events.NodeEventTarget interface depends on org.w3c.dom.DOMException
 org.apache.batik.dom.events.NodeEventTarget interface depends on org.w3c.dom.events.Event
 org.apache.batik.dom.events.NodeEventTarget interface depends on org.w3c.dom.events.EventException
 org.apache.batik.dom.events.NodeEventTarget interface depends on org.w3c.dom.events.EventListener
 org.apache.batik.dom.events.NodeEventTarget interface depends on org.w3c.dom.events.EventTarget
-```
+```  
 
 
 Batik test suite / public interface class [Successful](tests_status.md#successful)
@@ -109,7 +109,7 @@ Batik test suite / public interface class [Successful](tests_status.md#successfu
 ##  Batik test suite / no import
 
 
-```
+```  
 package org.apache.batik.dom.util;
 
 /**
@@ -120,14 +120,14 @@ package org.apache.batik.dom.util;
  * @version $Id: TriplyIndexedTable.java 1733416 2016-03-03 07:07:13Z gadams $
  */
 public class TriplyIndexedTable {
-```
+```  
 
-  > archicheck -ld -I dir4
+  > archicheck -ld -I dir4  
 
-  Expected :
+  Expected :  
 
-```
-```
+```  
+```  
 
 
 Batik test suite / no import [Successful](tests_status.md#successful)
@@ -135,21 +135,21 @@ Batik test suite / no import [Successful](tests_status.md#successful)
 ##  Batik test suite / no package
 
 
-```
+```  
 import org.w3c.dom.DOMException;
 import org.w3c.dom.events.Event;
 
 public interface NodeEventTarget extends EventTarget {
-```
+```  
 
-  > archicheck -ld -I dir5
+  > archicheck -ld -I dir5  
 
-  Expected :
+  Expected :  
 
-```
+```  
 NodeEventTarget interface depends on org.w3c.dom.DOMException
 NodeEventTarget interface depends on org.w3c.dom.events.Event
-```
+```  
 
 
 Batik test suite / no package [Successful](tests_status.md#successful)
@@ -157,9 +157,9 @@ Batik test suite / no package [Successful](tests_status.md#successful)
 ##  Batik test suite / public abstract class
 
 
-  This class is in transcoder, and uses Bridge and GVT, and that's OK
+  This class is in transcoder, and uses Bridge and GVT, and that's OK  
 
-```
+```  
 package org.apache.batik.transcoder;
 
 import java.awt.Dimension;
@@ -217,17 +217,17 @@ import org.w3c.dom.svg.SVGSVGElement;
  * @version $Id: SVGAbstractTranscoder.java 1733416 2016-03-03 07:07:13Z gadams $
  */
 public abstract class SVGAbstractTranscoder extends XMLAbstractTranscoder {
-```
+```  
 
-  > archicheck rules.B -q -I dir6
-  No output expected
+  > archicheck rules.B -q -I dir6  
+  No output expected  
 
 Batik test suite / public abstract class [Successful](tests_status.md#successful)
 
 ##  Batik test suite / Let's add dependencies to Browser and Rasterizer into a Transcoder class
 
 
-```
+```  
 package org.apache.batik.transcoder;
 
 import org.w3c.dom.Browser.Event;
@@ -236,34 +236,34 @@ import org.apache.batik.apps.Rasterizer;
 public interface NodeEventTarget extends EventTarget {
 
 }
-```
+```  
 
-  Rules:
-```
+  Rules:  
+```  
 Applications      contains org.apache.batik.apps.rasterizer
 Core_Modules      contains org.apache.batik.transcoder
 
 Applications is a layer over Core_Modules
-```
+```  
 
-  Run:
-  > archicheck rules.7 -I dir7
+  Run:  
+  > archicheck rules.7 -I dir7  
 
-  Expected:
-```
+  Expected:  
+```  
 Error : dir7/MyClass.java:4: org.apache.batik.transcoder.NodeEventTarget is in Core_Modules layer, and so shall not use org.apache.batik.apps.Rasterizer in the upper Applications layer
-```
+```  
 
 
 Batik test suite / Let's add dependencies to Browser and Rasterizer into a Transcoder class [Successful](tests_status.md#successful)
 
 ##  Batik test suite / -ld test
 
-  > archicheck -ld -Ir ./batik-1.9 | sort
+  > archicheck -ld -Ir ./batik-1.9 | sort  
 
-  10717 dependencies expected :
+  10717 dependencies expected :  
 
-```
+```  
 AppletDemo class depends on java.io.IOException
 AppletDemo class depends on java.net.URL
 AppletDemo class depends on javax.swing.JApplet
@@ -285,7 +285,7 @@ org.w3c.dom.events.MutationEvent interface depends on org.w3c.dom.Node
 org.w3c.dom.events.MutationNameEvent interface depends on org.w3c.dom.Node
 org.w3c.dom.events.TextEvent interface depends on org.w3c.dom.views.AbstractView
 org.w3c.dom.events.UIEvent interface depends on org.w3c.dom.views.AbstractView
-```
+```  
 
 
 Batik test suite / -ld test [Successful](tests_status.md#successful)

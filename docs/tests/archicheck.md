@@ -5,13 +5,13 @@
 
 ##  ArchiCheck code test suite / -lf test
 
-  Executed:
+  Executed:  
 
-  > archicheck -lf -I src
+  > archicheck -lf -I src  
 
-  Expected (34 files) :
+  Expected (34 files) :  
 
-```
+```  
 src/archicheck.ads
 src/archicheck-io.adb
 src/archicheck-io.ads
@@ -19,18 +19,18 @@ src/archicheck-io.ads
 src/archicheck-units.ads
 src/list_image.adb
 src/list_image.ads
-```
+```  
 
 
 ArchiCheck code test suite / -lf test [Successful](tests_status.md#successful)
 
 ##  ArchiCheck code test suite / -ld test
 
-  > archicheck -ld -I ./src | sort
+  > archicheck -ld -I ./src | sort  
 
-  105 dependencies expected :
+  105 dependencies expected :  
 
-```
+```  
 Archicheck.IO package body depends on Ada.Text_IO
 Archicheck.IO package spec depends on Archicheck.Settings
 Archicheck.Lang.Ada_Processor package body depends on Ada.Exceptions
@@ -52,18 +52,18 @@ Archicheck.Units package spec depends on Ada.Strings.Unbounded
 Archicheck.Units package spec depends on Archicheck.Sources
 Archicheck.Units package spec depends on List_Image
 List_Image package body depends on Ada.Strings.Unbounded
-```
+```  
 
 
 ArchiCheck code test suite / -ld test [Successful](tests_status.md#successful)
 
 ##  ArchiCheck code test suite / rules test
 
-  > archicheck archicheck.ac -I ./src
+  > archicheck archicheck.ac -I ./src  
 
-  Rules :
+  Rules :  
 
-```
+```  
 only Archicheck.Main  may use Archicheck.Rules
 Archicheck.Main  may use Archicheck.Lang
 
@@ -86,22 +86,22 @@ Ada                 use is allowed
 Archicheck.IO       use is allowed
 Archicheck.Settings use is allowed
 List_Image          use is allowed
-```
+```  
 
-  ![ArchiCheck dependencies view](ac_view.png)
+  ![ArchiCheck dependencies view](ac_view.png)  
 
-  No error expected
+  No error expected  
 
 
 ArchiCheck code test suite / rules test [Successful](tests_status.md#successful)
 
 ##  ArchiCheck code test suite / --list_non_covered
 
-  > archicheck archicheck.ac -lnc -I ./src
+  > archicheck archicheck.ac -lnc -I ./src  
 
-  Rules :
+  Rules :  
 
-```
+```  
 only Archicheck.Main  may use Archicheck.Rules
 Archicheck.Main  may use Archicheck.Lang
 
@@ -124,11 +124,11 @@ Ada                 use is allowed
 Archicheck.IO       use is allowed
 Archicheck.Settings use is allowed
 List_Image          use is allowed
-```
+```  
 
-  ![ArchiCheck dependencies view](ac_view.png)
+  ![ArchiCheck dependencies view](ac_view.png)  
 
-  No error expected
+  No error expected  
 
 
 ArchiCheck code test suite / --list_non_covered [Successful](tests_status.md#successful)

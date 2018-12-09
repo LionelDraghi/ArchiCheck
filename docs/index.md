@@ -3,10 +3,16 @@
 
 ![](img/version.svg) ![](img/tests_ok.svg) ![](img/tests_ko.svg) [![CII Best Practices](https://bestpractices.coreinfrastructure.org/projects/1625/badge)](https://bestpractices.coreinfrastructure.org/projects/1625)
 
+Contents:
+- [Overview](#overview)
+- [Get it!](#get-it)
+- [Run it!](#run-it)
+- [Helpful hints](#helpful-hints)
+- [Further reading](#further-reading)
+
 ---------------------------------------------------------------------
 
-Overview
---------
+## Overview
 
 Simple structural aspect of the software architecture, metaphore like _My software is a layered system_, can not be fully translated at programming languages level. Even in languages like Ada, powerfull regarding description of the software structure, there is a semantic loss.
 
@@ -25,15 +31,13 @@ Archicheck is a simple [free software](copying.md) tool that :
 
 ---------------------------------------------------------------------
 
-Get it!
--------
+## Get it!
 
 [Source or exe download](building.md)
 
 ---------------------------------------------------------------------
 
-Run it!
--------
+## Run it!
 
 Archicheck needs :
 
@@ -58,8 +62,7 @@ For example, here, it will check that pkg_3 or pkg_4 (in the lower layer) are no
 
 ---------------------------------------------------------------------
 
-Helpful hints
--------------
+## Helpful hints
 
 - `archicheck --create_template` will create a `template.ac` file,
 embedding explanations on rules file syntax. 
@@ -69,8 +72,7 @@ Rename it and edit it!
 
 ---------------------------------------------------------------------
 
-Further readings 
-----------------
+## Further reading
 
 - [ArchiCheck command line](cmd_line.md)
 - [More on rules and rules files](rules.md)

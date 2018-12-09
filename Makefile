@@ -21,10 +21,28 @@ release: build_release
 	echo "Download"			 										>> docs/download.md
 	echo "========"			 										>> docs/download.md
 	echo 	 														>> docs/download.md
-	echo "[Download Linux exe](http://lionel.draghi.free.fr/Archicheck/archicheck), build on my Debian amd64,"	>> docs/download.md
-	echo "with -O3 option." 										>> docs/download.md
+	echo "[Download Linux exe](http://lionel.draghi.free.fr/Archicheck/archicheck)"	>> docs/download.md
+	echo 	 														>> docs/download.md
+	echo "build on :"												>> docs/download.md
+	echo "----------"												>> docs/download.md
+	echo 	 														>> docs/download.md
+	echo "> uname -orm" 											>> docs/download.md
+	echo 	 														>> docs/download.md
+	echo '```' 														>> docs/download.md
+	uname -orm		 												>> docs/download.md
+	echo '```' 														>> docs/download.md
+	echo 	 														>> docs/download.md
+	echo "> gnat --version | head -1"								>> docs/download.md
+	echo 	 														>> docs/download.md
+	echo '```' 														>> docs/download.md
+	gnat --version | head -1										>> docs/download.md
+	echo '```' 														>> docs/download.md
+	echo "and -O3 option." 											>> docs/download.md
 	echo 	 														>> docs/download.md
 	echo '(May be necessary after download : `chmod +x archicheck`)'	>> docs/download.md
+	echo 	 														>> docs/download.md
+	echo "Exe check :"												>> docs/download.md
+	echo "-----------"												>> docs/download.md
 	echo 	 														>> docs/download.md
 	echo "> date -r archicheck --iso-8601=seconds" 					>> docs/download.md
 	echo 	 														>> docs/download.md
@@ -104,8 +122,8 @@ check: Obj/archicheck
 	echo - Coverage report :
 
 	lcov --quiet --capture --directory Obj -o Obj/coverage.info
-	lcov -q --remove Obj/coverage.info -o Obj/coverage.info \
-		"/usr/*" "*/src_opentoken-6.0b/*" "*/patch_opentoken/*" "*.ads" "*/Obj/b__archicheck-main.adb"
+	lcov --quiet --remove Obj/coverage.info -o Obj/coverage.info \
+		"*/adainclude/*" "*/src_opentoken-6.0b/*" "*/patch_opentoken/*" "*.ads" "*/Obj/b__archicheck-main.adb"
 	# Ignoring :
 	# - spec (results are not consistent with current gcc version) 
 	# - the false main
@@ -231,6 +249,13 @@ cmd_line.md:
 
 doc: dashboard cmd_line.md
 	echo Make Doc
+	echo 'Fixme in current version:'		>  docs/fixme.md
+	echo '-------------------------'		>> docs/fixme.md
+	echo                            		>> docs/fixme.md
+	echo 'Location | Text'             		>> docs/fixme.md
+	echo '---------|-----'             		>> docs/fixme.md
+	rgrep -ni "Fixme" src/* |sed "s/:/|/2"	>> docs/fixme.md
+
 	mkdocs build --clean --theme bootstrap # material # windmill
 	@ - chmod --silent +x ./site/archicheck
     
