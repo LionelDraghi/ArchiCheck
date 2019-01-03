@@ -215,7 +215,7 @@ dashboard: Obj/coverage.info Tests/tests_count.txt
 	# badge making:
 	wget -q "https://img.shields.io/badge/Version-`./Obj/archicheck --version`-blue.svg" -O docs/img/version.svg
 	wget -q "https://img.shields.io/badge/Tests_OK-`cat Tests/tests_count.txt |sed -n "s/Successful  //p"`-green.svg" -O docs/img/tests_ok.svg
-	wget -q "https://img.shields.io/badge/Tests_KO-`cat Tests/tests_count.txt |sed -n "s/Failed      //p"`-green.svg" -O docs/img/tests_ko.svg
+	wget -q "https://img.shields.io/badge/Tests_KO-`cat Tests/tests_count.txt |sed -n "s/Failed      //p"`-red.svg" -O docs/img/tests_ko.svg
 
 .PHONY : cmd_line.md
 cmd_line.md:
