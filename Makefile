@@ -249,21 +249,28 @@ cmd_line.md:
 
 doc: dashboard cmd_line.md
 	echo Make Doc
-	echo 'Fixme in current version:'		>  docs/fixme.md
+	
+	>  docs/fixme.md
+	rgrep -ni "Fixme" docs/*.md | sed "s/:/|/2"	>> /tmp/fixme.md
+
+	echo 'Fixme in current version:'		>> docs/fixme.md
 	echo '-------------------------'		>> docs/fixme.md
 	echo                            		>> docs/fixme.md
 	echo 'Location | Text'             		>> docs/fixme.md
 	echo '---------|-----'             		>> docs/fixme.md
-	rgrep -ni "Fixme" src/* |sed "s/:/|/2"	>> docs/fixme.md
+	cat /tmp/fixme.md                       >> docs/fixme.md
+	rm /tmp/fixme.md
+	rgrep -ni "Fixme" src/*   | sed "s/:/|/2"	>> docs/fixme.md
+	rgrep -ni "Fixme" tests/* | sed "s/:/|/2"	>> docs/fixme.md
 
-	mkdocs build --clean --theme bootstrap # material # windmill
+	mkdocs build --clean
 	@ - chmod --silent +x ./site/archicheck
     
 .PHONY : clean
 clean:
 	echo Make clean
 	- gnat clean -q -Parchicheck.gpr
-	- ${RM} -rf Obj/* docs/lcov/* docs/img/* tmp.txt *.lst *.dat cov_sum.txt gmon.out gh-md-toc
+	- ${RM} -rf Obj/* docs/lcov/* tmp.txt *.lst *.dat cov_sum.txt gmon.out gh-md-toc
 	- $(MAKE) --directory=Tests clean
     
     

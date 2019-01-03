@@ -12,7 +12,7 @@ Version
 > date -r archicheck --iso-8601=seconds
 
 ```
-2018-12-08T11:24:18+01:00
+2018-12-09T02:15:14+01:00
 ```
 
 Test results
