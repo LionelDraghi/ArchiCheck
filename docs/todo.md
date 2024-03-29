@@ -52,11 +52,11 @@ Documentation:
 Done:
 -----
 
-- v0.5.5 : Add localisation in src and rules files in error messages
-- v0.5.4 : bug in Java OpentToken lexer, that cause infinite loop on JavaDocs comments 
+- v0.5.5 : add localisation in src and rules files in error messages
+- v0.5.4 : fixed bug in Java OpentToken lexer, that cause infinite loop on JavaDocs comments 
 - Removing colun in error message (useless)
 - Implement an error return code when the rules are broken, to allow a normal use in Makefiles
-- mv from NaturalDocs to md format, generate an home pag with a less obsole look.
+- mv from NaturalDocs to md format, generate an home pag with a less obsolet look.
 - Change/Simplify the various options to know what the tool understand from the rules 
   file, and from analyzed sources 
 - Use [gnu error messages format]( https://www.gnu.org/prep/standards/html_node/Errors.html) (_sourcefile:lineno: message_) 
