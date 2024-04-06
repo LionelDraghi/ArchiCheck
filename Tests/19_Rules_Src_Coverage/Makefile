@@ -1,20 +1,20 @@
 all: check doc
 
-CREATE_PKG=../Tools/create_pkg
-TR=../Tools/testrec
+CREATE_PKG=../../Tools/create_pkg
+TR=../../Tools/testrec
 
 .PHONY : clean
 
-check: ../../Obj/archicheck header test1 test2 test3
+check: ../../obj/archicheck header test1 test2 test3
 
 header:
 	@ #---------------------------------------------------------------------
-	${TR} clean
-	${TR} create "Rules vs sources coverage test suite"
+	@ ${TR} clean
+	@ ${TR} create "Rules vs sources coverage test suite"
 
 test1:
 	@ #---------------------------------------------------------------------
-	${TR} start "Warnings on units appearing in rules file and not related to any source"
+	@ ${TR} start "Warnings on units appearing in rules file and not related to any source"
 
 	@ ${CREATE_PKG} P1 -in dir1
 	@ ${CREATE_PKG} P2 -in dir1
@@ -24,13 +24,13 @@ test1:
 	@ ${TR} cmt "Sources (`ls -1 dir1`) :"
 	@ ${TR} cmt 
 	@ ${TR} cmt '```'
-	ls -1 dir1	>> testrec.md
+	@ ls -1 dir1	>> testrec.md
 	@ ${TR} cmt '```'
 	@ ${TR} cmt 
 	@ ${TR} cmt "Rules file :"
 	@ ${TR} cmt 
 	@ ${TR} cmt '```'
-	cat test1.ac	>> testrec.md
+	@ cat test1.ac	>> testrec.md
 	@ ${TR} cmt '```'
 	@ ${TR} cmt 
 	@ ${TR} cmt "When :"
@@ -40,18 +40,18 @@ test1:
 	@ ${TR} cmt "Expected :"
 	@ ${TR} cmt 
 	@ ${TR} cmt '```'
-	cat expected_output.1	>> testrec.md
+	@ cat expected_output.1	>> testrec.md
 	@ ${TR} cmt '```'
 	@ ${TR} cmt 
 
-	@ ../../Obj/archicheck test1.ac -I ./dir1 > output.1
-	${TR} assert true /usr/bin/sdiff "-sbB expected_output.1 output.1"
+	@ ../../obj/archicheck test1.ac -I ./dir1 > output.1
+	@ ${TR} assert true /usr/bin/sdiff "-sbB expected_output.1 output.1"
 
-	${TR} end
+	@ ${TR} end
 
 test2:
 	@ #---------------------------------------------------------------------
-	${TR} start "Non covered sources"
+	@ ${TR} start "Non covered sources"
 
 	@ ${CREATE_PKG} P2   -in dir2
 	@ ${CREATE_PKG} P3   -in dir2
@@ -67,13 +67,13 @@ test2:
 	@ ${TR} cmt "Rules file :"
 	@ ${TR} cmt 
 	@ ${TR} cmt '```'
-	cat test1.ac	>> testrec.md
+	@ cat test1.ac	>> testrec.md
 	@ ${TR} cmt '```'
 	@ ${TR} cmt 
 	@ ${TR} cmt "Sources (`ls -1 dir2`) :"
 	@ ${TR} cmt 
 	@ ${TR} cmt '```'
-	ls -1 dir2	>> testrec.md
+	@ ls -1 dir2	>> testrec.md
 	@ ${TR} cmt '```'
 	@ ${TR} cmt 
 	@ ${TR} cmt "When :"
@@ -83,27 +83,27 @@ test2:
 	@ ${TR} cmt "Expected :"
 	@ ${TR} cmt 
 	@ ${TR} cmt '```'
-	cat expected_output.2	>> testrec.md
+	@ cat expected_output.2	>> testrec.md
 	@ ${TR} cmt '```'
 	@ ${TR} cmt 
 
-	@ ../../Obj/archicheck -lnc test2.ac -I ./dir2 | sort > output.2
-	${TR} assert true /usr/bin/sdiff "-sbB expected_output.2 output.2"
+	@ ../../obj/archicheck -lnc test2.ac -I ./dir2 | sort > output.2
+	@ ${TR} assert true /usr/bin/sdiff "-sbB expected_output.2 output.2"
 
 
-	${TR} end
+	@ ${TR} end
 
 test3:
 	@ #---------------------------------------------------------------------
-	${TR} start "Case insensitivity of Is_A_Component function (non reg)"
+	@ ${TR} start "Case insensitivity of Is_A_Component function (non reg)"
 
 	@ ${CREATE_PKG} P1 -in dir3
-	# useless package creation just to avoid warning
+	@ # useless package creation just to avoid warning
 
 	@ ${TR} cmt "Rules file :"
 	@ ${TR} cmt 
 	@ ${TR} cmt '```'
-	cat test3.ac	>> testrec.md
+	@ cat test3.ac	>> testrec.md
 	@ ${TR} cmt '```'
 	@ ${TR} cmt 
 	@ ${TR} cmt "When :"
@@ -113,19 +113,19 @@ test3:
 	@ ${TR} cmt "Expected :"
 	@ ${TR} cmt 
 	@ ${TR} cmt '```'
-	cat expected_output.3	>> testrec.md
+	@ cat expected_output.3	>> testrec.md
 	@ ${TR} cmt '```'
 	@ ${TR} cmt 
 
-	@ ../../Obj/archicheck test3.ac -I dir3 > output.3
-	${TR} assert true /usr/bin/sdiff "-sbB expected_output.3 output.3"
+	@ ../../obj/archicheck test3.ac -I dir3 > output.3
+	@ ${TR} assert true /usr/bin/sdiff "-sbB expected_output.3 output.3"
 
-	${TR} end
+	@ ${TR} end
 
 clean:
-	- ${RM} -rf output.* *.~ dir?
-	- ${TR} clean
+	@ - ${RM} -rf output.* *.~ dir?
+	@ - ${TR} clean
 
 doc:
-	cp testrec.md ../../docs/tests/rules_src_coverage.md
+	@ cp testrec.md ../../docs/tests/rules_src_coverage.md
 

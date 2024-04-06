@@ -1,11 +1,11 @@
 all: check doc
 
-CREATE_PKG=../Tools/create_pkg
-TR=../Tools/testrec
+CREATE_PKG=../../Tools/create_pkg
+TR=../../Tools/testrec
 
 ## .PHONY : clean
 
-check: ../../Obj/archicheck header test1 test2
+check: ../../obj/archicheck header test1 test2
 
 header:
 	@ #---------------------------------------------------------------------
@@ -17,7 +17,7 @@ header:
 
 test1:
 	@ #---------------------------------------------------------------------
-	${TR} start "Declaration of a component already existing in code"
+	@ ${TR} start "Declaration of a component already existing in code"
 
 	@ ${TR} cmt "Here is the rules file :"
 	@ ${TR} cmt 
@@ -35,14 +35,14 @@ test1:
 	@ cat expected_output.1 >> testrec.md
 	@ ${TR} cmt '```'
 	
-	@ test ! `../../Obj/archicheck rules1.txt -I src > output.1`
+	@ test ! `../../obj/archicheck rules1.txt -I src > output.1`
 	@ ${TR} assert true /usr/bin/sdiff "-s expected_output.1 output.1"
 
 	@ ${TR} end
 
 test2:
 	@ #---------------------------------------------------------------------
-	${TR} start "Alowing a child of forbidden unit"
+	@ ${TR} start "Alowing a child of forbidden unit"
 
 	@ ${TR} cmt "Let's forbid Interfaces and allow Interfaces.C"
 	@ ${TR} cmt 
@@ -58,16 +58,16 @@ test2:
 	@ cat expected_output.2 >> testrec.md
 	@ ${TR} cmt '```'
 	
-	@ test ! `../../Obj/archicheck rules2.txt -I src > output.2`
+	@ test ! `../../obj/archicheck rules2.txt -I src > output.2`
 	@ ${TR} assert true /usr/bin/sdiff "-s expected_output.2 output.2"
 
 	@ ${TR} end
 
 clean:
-	- ${RM} -rf output.* src *.~ 
-	@gnat clean -q sub-test
-	- ${TR} clean
+	@ - ${RM} -rf output.* src *.~ 
+	@ gnat clean -q sub-test
+	@ - ${TR} clean
 
 doc:
-	cp testrec.md ../../docs/tests/precedences_rules.md
+	@ cp testrec.md ../../docs/tests/precedences_rules.md
 

@@ -1,14 +1,15 @@
 TODO list
 =========
 
-Features:
----------
+Features
+--------
 
 - Implement a command line way to pass simple rules
 - Implement globbing characters, for example `only *.Porting_Kit can use X`
 
-Ada specifics:
---------------
+
+Ada specifics
+-------------
 
 - Exclude "limited with" from dependencies (or consider it as warning?)
 - use Type processing
@@ -21,20 +22,22 @@ Ada specifics:
 
 - Implement the _only X can use pragma import_ rule
 
-Java specifics:
----------------
+
+Java specifics
+--------------
 
 - detection of visibility through Java fully qualified name ("import"
   is not mandatory in Java to use classes)
 
-Development environment:
-------------------------
 
-- update NaturalDocs with markdown and mkdocs in the greatings
+Development environment
+-----------------------
+
+- update NaturalDocs with markdown and mkdocs in the greetings
 - decide for file casing!
 - Implement a git connected version id in the source and helper
-- Have the tests OS agnostics (test depending on the path of Ada file analyzed, that fail   if runned on Windows)
-- And why not, have the test runned on each target plateform automaticaly (how to do that?  Docking, VM...) 
+- Have the tests OS agnostics (test depending on the path of Ada file analyzed, that fail if runned on Windows)
+- And why not, have the test runned on each target platform automatically (how to do that?  Docking, VM...) 
 - Consider replacement of the documentation tools (Dia for UML diagrams, NaturalDocs,  
   etc.)
   for NaturalDocs : https://daringfireball.net/projects/markdown/, reST/sphinx http://www.sphinx-doc.org/en/stable/, http://pandoc.org/index.html
@@ -42,21 +45,22 @@ Development environment:
 - considering flatpack / snap / AppImage / OrbitalApps to distribute archicheck
 
 
-Documentation:
---------------
+Documentation
+-------------
 
 - Complete the 2004 slides! :-)
 - build a pdf doc based on the md files.
-- insert in the doc a tab describing for each langage what is checked, and what is not.
+- insert in the doc a tab describing for each language what is checked, and what is not.
 
-Done:
------
 
-- v0.5.5 : add localisation in src and rules files in error messages
-- v0.5.4 : fixed bug in Java OpentToken lexer, that cause infinite loop on JavaDocs comments 
-- Removing colun in error message (useless)
+Done
+----
+
+- v0.5.5 : add localization in src and rules files in error messages
+- v0.5.4 : bug in Java OpenToken lexer, that cause infinite loop on JavaDocs comments 
+- Removing column in error message (useless)
 - Implement an error return code when the rules are broken, to allow a normal use in Makefiles
-- mv from NaturalDocs to md format, generate an home pag with a less obsolet look.
+- mv from NaturalDocs to md format, generate an home pag with a less obsolete look.
 - Change/Simplify the various options to know what the tool understand from the rules 
   file, and from analyzed sources 
 - Use [gnu error messages format]( https://www.gnu.org/prep/standards/html_node/Errors.html) (_sourcefile:lineno: message_) 

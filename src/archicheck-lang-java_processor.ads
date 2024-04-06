@@ -1,6 +1,6 @@
 -- -----------------------------------------------------------------------------
 -- ArchiCheck, the software architecture compliance verifier
--- Copyright (C) 2005, 2006, 2009 - Lionel Draghi
+-- Copyright (C) Lionel Draghi
 -- This program is free software;
 -- you can redistribute it and/or modify it under the terms of the GNU General
 -- Public License Versions 3, refer to the COPYING file.
@@ -41,7 +41,7 @@ package Archicheck.Lang.Java_Processor is
    -- Function: File_Extensions
    -- --------------------------------------------------------------------------
    overriding function File_Extensions
-     (Lang : in Java_Interface) return String;
+     (Lang : in Java_Interface) return String is ("*.java");
 
    -- --------------------------------------------------------------------------
    -- Procedure: Initialize

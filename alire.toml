@@ -1,0 +1,19 @@
+name = "archicheck"
+description = "code checker"
+version = "0.1.0-dev"
+
+authors = ["Lionel Draghi"]
+maintainers = ["Lionel Draghi <lionel.draghi@free.fr>"]
+maintainers-logins = ["LionelDraghi"]
+licenses = "GPL-3.0-or-later"
+website = "https://github.com/LionelDraghi/ArchiCheck"
+tags = ["code", "architecture", "checker", "static-analysis"]
+
+executables = ["archicheck"]
+
+[[depends-on]]
+gnatcov = "^22.0.1"
+
+[[depends-on]]
+gprbuild = "^2023.0.0"
+

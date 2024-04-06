@@ -1,6 +1,6 @@
 -- -----------------------------------------------------------------------------
 -- ArchiCheck, the software architecture compliance verifier
--- Copyright (C) 2005, 2006, 2009 - Lionel Draghi
+-- Copyright (C) Lionel Draghi
 -- This program is free software;
 -- you can redistribute it and/or modify it under the terms of the GNU General
 -- Public License Versions 3, refer to the COPYING file.
@@ -61,25 +61,28 @@ private package Archicheck.Units is
                       Protected_K,
                       Class_K,
                       Interface_K,
+                      Implementation,
                       Component,
                       Unknown); --  with Default_Value => Unknown;
-   subtype Java_Unit_Kind      is Unit_Kind range Class_K .. Interface_K;
    subtype Ada_Unit_Kind       is Unit_Kind range Package_K .. Interface_K;
    subtype Ada_Subroutine_Kind is Unit_Kind range Procedure_K .. Function_K;
-   subtype Compilation_Unit    is Unit_Kind range Package_K .. Interface_K;
+   subtype Java_Unit_Kind      is Unit_Kind range Class_K .. Interface_K;
+   subtype C_Unit_Kind         is Unit_Kind range Interface_K .. Implementation;
+   subtype Compilation_Unit    is Unit_Kind range Package_K .. Implementation; -- Interface_K;
 
    -- --------------------------------------------------------------------------
    function Image (Kind : Unit_Kind) return String is
      (case Kind is
-         when Package_K   =>  "package",
-         when Procedure_K =>  "procedure",
-         when Function_K  =>  "function",
-         when Protected_K =>  "protected",
-         when Task_K      =>  "task",
-         when Class_K     =>  "class",
-         when Interface_K =>  "interface",
-         when Component   =>  "component",
-         when Unknown     =>  "Unknown") with inline;
+         when Package_K      =>  "package",
+         when Procedure_K    =>  "procedure",
+         when Function_K     =>  "function",
+         when Protected_K    =>  "protected",
+         when Task_K         =>  "task",
+         when Class_K        =>  "class",
+         when Interface_K    =>  "interface",
+         when Implementation =>  "implementation",
+         when Component      =>  "component",
+         when Unknown        =>  "Unknown") with inline;
 
    -- --------------------------------------------------------------------------
    type Dependency_Target is record
@@ -106,7 +109,7 @@ private package Archicheck.Units is
    type Unit_Attributes (Kind : Unit_Kind := Unknown) is record
       Name : Unit_Name;
       case Kind is
-         when Package_K .. Interface_K =>
+         when Compilation_Unit =>
             Lang           : Sources.Language;
             Implementation : Boolean;
             -- False if Specification, or Interface,

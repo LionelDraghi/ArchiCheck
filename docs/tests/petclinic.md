@@ -5,7 +5,7 @@
 
 ##  Spring Pet Clinic code test suite / -lf test
 
-  > archicheck -lf -r -I ./src1  
+  > archicheck -lf -r -I src1  
 
   Expected (36 files) :  
 
@@ -228,7 +228,8 @@ org.springframework.util        use is allowed
 org.springframework.samples     use is allowed
 org.springframework.test        use is allowed
 org.springframework.cache       use is allowed
-org.springframework.transaction use is allowed```  
+org.springframework.transaction use is allowed
+```  
 
   No error expected  
 

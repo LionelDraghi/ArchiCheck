@@ -1,29 +1,29 @@
 all: check doc
 
-CREATE_PKG=../Tools/create_pkg
-TR=../Tools/testrec
+CREATE_PKG=../../Tools/create_pkg
+TR=../../Tools/testrec
 
 .PHONY : clean
 
-check: ../../Obj/archicheck header test1 test2
+check: ../../obj/archicheck header test1 test2
 
 header:
 	@ #---------------------------------------------------------------------
-	${TR} clean
-	${TR} create "Dependencies identification simple test suite"
+	@ ${TR} clean
+	@ ${TR} create "Dependencies identification simple test suite"
 
 
 test1: 
 	@ #---------------------------------------------------------------------
-	${TR} start "Simple test"
-	${TR} cmt "(src not detailed here)"
-	${TR} cmt "> archicheck -I dir1 --list_dependencies"
-	${TR} cmt "should put:"
+	@ ${TR} start "Simple test"
+	@ ${TR} cmt "(src not detailed here)"
+	@ ${TR} cmt "> archicheck -I dir1 --list_dependencies"
+	@ ${TR} cmt "should put:"
 	@ ${TR} cmt 
-	${TR} cmt '```'
-	cat expected_output.1 >> testrec.md
-	${TR} cmt '```'
-	${TR} cmt ""
+	@ ${TR} cmt '```'
+	@ cat expected_output.1 >> testrec.md
+	@ ${TR} cmt '```'
+	@ ${TR} cmt ""
 
 	@ ${CREATE_PKG} A spec -in dir1 -with B
 	@ ${CREATE_PKG} A body -in dir1 -with C
@@ -36,14 +36,14 @@ test1:
 	@ echo "   null;"		>> dir1/c-d.adb
 	@ echo "end C . D ;"		>> dir1/c-d.adb
 
-	@ ../../Obj/archicheck -I dir1 --list_dependencies | sort > output.1
-	${TR} assert true /usr/bin/sdiff "-sbB expected_output.1 output.1"
+	@ ../../obj/archicheck -I dir1 --list_dependencies | sort > output.1
+	@ ${TR} assert true /usr/bin/sdiff "-sbB expected_output.1 output.1"
 
-	${TR} end
+	@ ${TR} end
 
 test2:
 	@ #---------------------------------------------------------------------
-	${TR} start "Source with weird formatted withed unit"
+	@ ${TR} start "Source with weird formatted withed unit"
 
 
 	@ ${CREATE_PKG} A spec -in dir2 -with B
@@ -59,22 +59,22 @@ test2:
 	@ echo "   null;"		>> dir2/c-d.adb
 	@ echo "end C . D ;"		>> dir2/c-d.adb
 
-	${TR} cmt 'same test here, but `c-d.adb` if formated this way :'
+	@ ${TR} cmt 'same test here, but `c-d.adb` if formated this way :'
 	@ ${TR} cmt 
-	${TR} cmt '```'
+	@ ${TR} cmt '```'
 	cat dir2/c-d.adb 	>> testrec.md
-	${TR} cmt '```'
+	@ ${TR} cmt '```'
 	@ ${TR} cmt 
 
-	@ ../../Obj/archicheck -I dir2 --list_dependencies | sort > output.2
-	${TR} assert true /usr/bin/sdiff "-sbB expected_output.2 output.2"
+	@ ../../obj/archicheck -I dir2 --list_dependencies | sort > output.2
+	@ ${TR} assert true /usr/bin/sdiff "-sbB expected_output.2 output.2"
 
-	${TR} end
+	@ ${TR} end
 
 
 clean:
 	- ${RM} -rf output.? dir?
-	${TR} clean
+	@ ${TR} clean
 
 doc:
 	cp testrec.md ../../docs/tests/dependency_list.md

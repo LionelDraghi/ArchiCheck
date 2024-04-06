@@ -6,13 +6,15 @@
 -- Public License Versions 3, refer to the COPYING file.
 -- -----------------------------------------------------------------------------
 
+with "opentoken.gpr";
+
 project Archicheck is
 
    type Mode_Type is ("debug", "release");
    Mode : Mode_Type := external ("mode", "debug");
 
-   for Source_Dirs use ("src_opentoken-6.0b", "patch_opentoken", "src");
-   for Object_Dir use "Obj";
+   for Source_Dirs use ("src"); -- "src_opentoken-6.0b", "patch_opentoken", "src");
+   for Object_Dir use "obj";
    for Main use ("archicheck-main.adb");
 
    package Ide is
@@ -30,7 +32,7 @@ project Archicheck is
       Common_Debug_Switches := Common_Switches &
       ("-g", "-O0",  "-gnatQ", "-gnatf",
        "-gnato", "-fstack-check", "-gnata",
-       "-gnateE", "-gnatVa", "-gnatwae", "-gnatyaefhiklnprtx");
+       "-gnateE", "-gnatVa", "-gnatwa", "-gnatyaefhiklnprtx");
       -- -gnatQ   : Don't quit
       -- -gnatf   : Full errors
       -- -gnato   : Intermediate overflows to be handled in strict mode.
@@ -38,7 +40,7 @@ project Archicheck is
       -- -gnata   : assertions
       -- -gnateE  : extra infos in exception messages
       -- -gnatVa  : all validity checks
-      -- -gnatwae : activate most optional warning messages, and treat warnings as errors
+      -- -gnatwa  : activate most optional warning messages
       --
       -- Style checking :
       -- a : Check attribute casing
@@ -86,8 +88,7 @@ project Archicheck is
 
    package Linker is
       case Mode is
-         when "debug"   => for Switches ("ada") use ("-g", "-lgcov", "-fprofile-arcs", "-pg");
-            -- lgcov = -fprofile-arcs for coverage
+         when "debug"   => for Switches ("ada") use ("-g", "--coverage", "-pg");
             -- pg : profiling
          when "release" =>  for Switches ("ada") use ("-flto");
             -- -flto : link time optimization

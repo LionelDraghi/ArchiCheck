@@ -1,0 +1,5 @@
+Spawning: alr -d -n build --release
+Note: Building archicheck=0.1.0-dev/archicheck.gpr...
+gprbuild: "archicheck" up to date
+Success: Build finished successfully in 0.32 seconds.
+Found declared GPR file: archicheck.gpr

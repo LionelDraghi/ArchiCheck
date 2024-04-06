@@ -1,21 +1,21 @@
 all: check doc
 
-CREATE_PKG=../Tools/create_pkg
-TR=../Tools/testrec
+CREATE_PKG=../../Tools/create_pkg
+TR=../../Tools/testrec
 
 .PHONY : clean
 
-check: ../../Obj/archicheck header test1 Batik test2 test3 test4
+check: ../../obj/archicheck header test1 Batik test2 test3 test4
 
 header:
 	@ #---------------------------------------------------------------------
-	${TR} clean
-	${TR} create "Layer rules test suite"
+	@ ${TR} clean
+	@ ${TR} create "Layer rules test suite"
 
 
 test1:
 	@ #---------------------------------------------------------------------
-	${TR} start "Sanity test"
+	@ ${TR} start "Sanity test"
 	@ ${CREATE_PKG} P1 spec  -in dir1 -with P2
 	@ ${CREATE_PKG} P2 spec  -in dir1 -with P3
 	@ ${CREATE_PKG} P2 body  -in dir1 -with P4
@@ -26,7 +26,7 @@ test1:
 	@ ${TR} cmt '![](lr1.png)'
 	@ ${TR} cmt
 	@ ${TR} cmt '```'
-	cat rules.1 >> testrec.md
+	@ cat rules.1 >> testrec.md
 	@ ${TR} cmt '```'
 	@ ${TR} cmt
 
@@ -34,14 +34,14 @@ test1:
 	@ ${TR} cmt "Code is compliant with rules file, no output expected"
 	@ ${TR} cmt
 	@ > expected_output.1
-	@ ../../Obj/archicheck -q -I dir1 rules.1 > output.1
-	${TR} assert true /usr/bin/sdiff "-s expected_output.1 output.1"
+	@ ../../obj/archicheck -q -I dir1 rules.1 > output.1
+	@ ${TR} assert true /usr/bin/sdiff "-s expected_output.1 output.1"
 
-	${TR} end
+	@ ${TR} end
 
 Batik:
 	@ #---------------------------------------------------------------------
-	${TR} start "Batik project architecture"
+	@ ${TR} start "Batik project architecture"
 	@ ${CREATE_PKG} Browser       spec -in dirB -with UI_Component
 	@ ${CREATE_PKG} Rasterizer    spec -in dirB -with Transcoder
 	@ ${CREATE_PKG} UI_Component  spec -in dirB -with Bridge -with Renderer
@@ -60,7 +60,7 @@ Batik:
 	@ ${TR} cmt "Described by this rules file :"
 	@ ${TR} cmt
 	@ ${TR} cmt '```'
-	cat rules.B >> testrec.md
+	@ cat rules.B >> testrec.md
 	@ ${TR} cmt '```'
 	@ ${TR} cmt
 
@@ -69,14 +69,14 @@ Batik:
 	@ ${TR} cmt
 
 	@ > expected_output.B
-	@ ../../Obj/archicheck -q -I dir1 rules.B > output.B
-	${TR} assert true /usr/bin/sdiff "-s expected_output.B output.B"
+	@ ../../obj/archicheck -q -I dir1 rules.B > output.B
+	@ ${TR} assert true /usr/bin/sdiff "-s expected_output.B output.B"
 
-	${TR} end
+	@ ${TR} end
 
 test2:
 	@ #---------------------------------------------------------------------
-	${TR} start "Reverse dependency test"
+	@ ${TR} start "Reverse dependency test"
 	@ ${CREATE_PKG} P1 spec  -in dir2 -with P2
 	@ ${CREATE_PKG} P2 spec  -in dir2 -with P3 -with P4
 	@ ${CREATE_PKG} P3 spec  -in dir2
@@ -88,24 +88,24 @@ test2:
 	@ ${TR} cmt "![](lr2.png)"
 	@ ${TR} cmt
 	@ ${TR} cmt '```'
-	cat rules.2 >> testrec.md
+	@ cat rules.2 >> testrec.md
 	@ ${TR} cmt '```'
 	@ ${TR} cmt
 	@ ${TR} cmt "Expected output :"
 	@ ${TR} cmt
 	@ ${TR} cmt '```'
-	cat expected_output.2 >> testrec.md
+	@ cat expected_output.2 >> testrec.md
 	@ ${TR} cmt '```'
 	@ ${TR} cmt
 
-	@ test ! `../../Obj/archicheck --quiet -I dir2 rules.2 > output.2`
-	${TR} assert true /usr/bin/sdiff "-s expected_output.2 output.2"
+	@ test ! `../../obj/archicheck --quiet -I dir2 rules.2 > output.2`
+	@ ${TR} assert true /usr/bin/sdiff "-s expected_output.2 output.2"
 
-	${TR} end
+	@ ${TR} end
 
 test3:
 	@ #---------------------------------------------------------------------
-	${TR} start "Layer bridging test"
+	@ ${TR} start "Layer bridging test"
 	@ ${CREATE_PKG} P1 spec  -in dir3a -with P2
 	@ ${CREATE_PKG} P2 spec  -in dir3a
 	@ ${CREATE_PKG} P2 body  -in dir3a -with P3 -with P4
@@ -119,24 +119,24 @@ test3:
 	@ ${TR} cmt "![](lr3.png)"
 	@ ${TR} cmt
 	@ ${TR} cmt '```'
-	cat rules.1 >> testrec.md
+	@ cat rules.1 >> testrec.md
 	@ ${TR} cmt '```'
 	@ ${TR} cmt
 	@ ${TR} cmt "Expected output :"
 	@ ${TR} cmt
 	@ ${TR} cmt '```'
-	cat expected_output.3 >> testrec.md
+	@ cat expected_output.3 >> testrec.md
 	@ ${TR} cmt '```'
 	@ ${TR} cmt
 
-	@ ../../Obj/archicheck -I dir3a -I dir3b -I dir3c rules.1 > output.3
-	${TR} assert true /usr/bin/sdiff "-s expected_output.3 output.3"
+	@ ../../obj/archicheck -I dir3a -I dir3b -I dir3c rules.1 > output.3
+	@ ${TR} assert true /usr/bin/sdiff "-s expected_output.3 output.3"
 
-	${TR} end
+	@ ${TR} end
 
 test4:
 	@ #---------------------------------------------------------------------
-	${TR} start "Using a package that is neither in the same layer, nor in the visible layer"
+	@ ${TR} start "Using a package that is neither in the same layer, nor in the visible layer"
 	@ ${CREATE_PKG} P1 spec  -in dir4 -with P2
 	@ ${CREATE_PKG} P2 spec  -in dir4 -with P3 -with P4 -with P7
 	@ ${CREATE_PKG} P3 spec  -in dir4
@@ -148,26 +148,26 @@ test4:
 	@ ${TR} cmt "![](lr4.png)"
 	@ ${TR} cmt
 	@ ${TR} cmt '```'
-	cat rules.1 >> testrec.md
+	@ cat rules.1 >> testrec.md
 	@ ${TR} cmt '```'
 	@ ${TR} cmt
 	@ ${TR} cmt "Expected output :"
 	@ ${TR} cmt
 	@ ${TR} cmt '```'
-	cat expected_output.4 >> testrec.md
+	@ cat expected_output.4 >> testrec.md
 	@ ${TR} cmt '```'
 	@ ${TR} cmt
 
-	@ ../../Obj/archicheck -I dir4 rules.1 > output.4
-	${TR} assert true /usr/bin/sdiff "-s expected_output.4 output.4"
+	@ ../../obj/archicheck -I dir4 rules.1 > output.4
+	@ ${TR} assert true /usr/bin/sdiff "-s expected_output.4 output.4"
 
-	${TR} end
+	@ ${TR} end
 
 clean:
-	- ${RM} -rf output.* dir? dir?? *.~
-	${TR} clean
+	@ - ${RM} -rf output.* dir? dir?? *.~
+	@ ${TR} clean
 
 doc:
-	cp testrec.md 	../../docs/tests/layer_rule.md
-	cp lr?.png 	../../docs/tests/
-	cp batik.png 	../../docs/tests/
+	@ cp testrec.md 	../../docs/tests/layer_rule.md
+	@ cp lr?.png 	../../docs/tests/
+	@ cp batik.png 	../../docs/tests/

@@ -1,6 +1,6 @@
 -- -----------------------------------------------------------------------------
 -- ArchiCheck, the software architecture compliance verifier
--- Copyright (C) 2005, 2006, 2009 - Lionel Draghi
+-- Copyright (C) Lionel Draghi
 -- This program is free software;
 -- you can redistribute it and/or modify it under the terms of the GNU General
 -- Public License Versions 3, refer to the COPYING file.
@@ -37,7 +37,9 @@ package Archicheck.Lang.Ada_Processor is
    -- --------------------------------------------------------------------------
    -- Function: File_Extensions
    -- --------------------------------------------------------------------------
-   overriding function File_Extensions (Lang : in Ada_Interface) return String;
+   overriding function File_Extensions 
+     (Lang : in Ada_Interface) return String is ("*.ad[asb]");
+
 
    -- --------------------------------------------------------------------------
    -- Procedure: Initialize

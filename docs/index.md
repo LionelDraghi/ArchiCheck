@@ -1,14 +1,15 @@
 [ArchiCheck](http://lionel.draghi.free.fr/Archicheck/index.html)
 ================================================================
 
-![](img/version.svg) ![](img/tests_ok.svg) ![](img/tests_ko.svg) [![CII Best Practices](https://bestpractices.coreinfrastructure.org/projects/1625/badge)](https://bestpractices.coreinfrastructure.org/projects/1625)
+![](img/version.svg) ![](img/tests_ok.svg) ![](img/tests_ko.svg) [![CII Best Practices](https://bestpractices.coreinfrastructure.org/projects/1625/badge)](https://bestpractices.coreinfrastructure.org/projects/1625) [![Alire](https://img.shields.io/endpoint?url=https://alire.ada.dev/badges/archicheck.json)](https://alire.ada.dev/crates/archicheck.html)
 
 Contents:
-- [Overview](#overview)
-- [Get it!](#get-it)
-- [Run it!](#run-it)
-- [Helpful hints](#helpful-hints)
-- [Further reading](#further-reading)
+- [ArchiCheck](#archicheck)
+  - [Overview](#overview)
+  - [Get it!](#get-it)
+  - [Run it!](#run-it)
+  - [Helpful hints](#helpful-hints)
+  - [Further reading](#further-reading)
 
 ---------------------------------------------------------------------
 
@@ -16,11 +17,11 @@ Contents:
 
 Simple structural aspect of the software architecture, metaphore like _My software is a layered system_, can not be fully translated at programming languages level. Even in languages like Ada, powerfull regarding description of the software structure, there is a semantic loss.
 
-![The code doesn't tell the whole story!](img/semantic_gap.png)
+![The code doesn't tell the whole story!](semantic_gap.png)
 
 Sooner or later, in large or complex developpement, someone will propose a patch adding an `ìmport` that compile fine, but is a complete violation of the architecture.
 
-![Architecture degradation over time](img/architecture_degradation.png)
+![Architecture degradation over time](architecture_degradation.png)
 
 Archicheck is a simple [free software](copying.md) tool that :
 
@@ -74,6 +75,7 @@ Rename it and edit it!
 
 ## Further reading
 
-- [ArchiCheck command line](cmd_line.md)
+- [Languages concepts related to Components / Modules / Visibily](languages_concepts.md)
 - [More on rules and rules files](rules.md)
 - [More on the project genesis](why.md)
+- [ArchiCheck command line](cmd_line.md)

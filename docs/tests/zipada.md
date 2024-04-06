@@ -5,7 +5,7 @@
 
 ##  ZipAda code test suite / -lf test
 
-  > archicheck -lf -r -I ./zip-ada  
+  > archicheck -lf -r -I zip-ada  
 
   Expected (102 files) :  
 

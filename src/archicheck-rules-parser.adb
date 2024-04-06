@@ -1,6 +1,6 @@
 -- -----------------------------------------------------------------------------
 -- ArchiCheck, the software architecture compliance verifier
--- Copyright (C) 2005, 2006, 2009 - Lionel Draghi
+-- Copyright (C) Lionel Draghi
 -- This program is free software;
 -- you can redistribute it and/or modify it under the terms of the GNU General
 -- Public License Versions 3, refer to the COPYING file.
@@ -337,7 +337,7 @@ package body Archicheck.Rules.Parser is
    -- --------------------------------------------------------------------------
    Left_List  : Units.Dependency_Targets.List;
    Right_List : Units.Dependency_Targets.List;
-   -- To simplify the OpenToken mess, and avoid to creating new classes,
+   -- To simplify the OpenToken mess, and avoid to create new classes,
    -- Unit_List are stored here, at a global level.
    -- A maximum of two Unit_List is involved in each rule :
    -- unit1 and unit2 may use unit3 and unit4

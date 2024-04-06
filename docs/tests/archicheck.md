@@ -9,7 +9,7 @@
 
   > archicheck -lf -I src  
 
-  Expected (34 files) :  
+  Expected (36 files) :  
 
 ```  
 src/archicheck.ads
@@ -28,7 +28,7 @@ ArchiCheck code test suite / -lf test [Successful](tests_status.md#successful)
 
   > archicheck -ld -I ./src | sort  
 
-  105 dependencies expected :  
+  113 dependencies expected :  
 
 ```  
 Archicheck.IO package body depends on Ada.Text_IO
@@ -40,7 +40,7 @@ Archicheck.Lang.Ada_Processor package body depends on Archicheck.IO
 Archicheck.Lang.Ada_Processor package body depends on Archicheck.Settings
 Archicheck.Lang.Ada_Processor package body depends on Archicheck.Units
 Archicheck.Lang.Ada_Processor package body depends on OpenToken
-Archicheck.Lang.Initialize procedure body depends on Archicheck.Lang.Ada_Processor
+Archicheck.Lang.C_Processor package body depends on Ada.Exceptions
 ...
 Archicheck.Units package body depends on Ada.Strings.Hash_Case_Insensitive
 Archicheck.Units package body depends on Archicheck.IO
@@ -64,8 +64,8 @@ ArchiCheck code test suite / -ld test [Successful](tests_status.md#successful)
   Rules :  
 
 ```  
-only Archicheck.Main  may use Archicheck.Rules
-Archicheck.Main  may use Archicheck.Lang
+only Archicheck.Main may use Archicheck.Rules
+Archicheck.Main      may use Archicheck.Lang
 
 Archicheck.Rules may use Archicheck.Lang
 Archicheck.Lang  may use Archicheck.Units
@@ -102,8 +102,8 @@ ArchiCheck code test suite / rules test [Successful](tests_status.md#successful)
   Rules :  
 
 ```  
-only Archicheck.Main  may use Archicheck.Rules
-Archicheck.Main  may use Archicheck.Lang
+only Archicheck.Main may use Archicheck.Rules
+Archicheck.Main      may use Archicheck.Lang
 
 Archicheck.Rules may use Archicheck.Lang
 Archicheck.Lang  may use Archicheck.Units

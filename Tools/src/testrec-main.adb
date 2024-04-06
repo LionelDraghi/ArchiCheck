@@ -52,7 +52,7 @@ procedure Testrec.Main is
       case Settings.Output_Format is
          when Settings.NaturalDocs => return "<Successful>";
          when Settings.Markdown    => return "[Successful](tests_status.md#successful)";
-      eNd case;
+      end case;
    end Successful_Tag;
 
    -- --------------------------------------------------------------------------

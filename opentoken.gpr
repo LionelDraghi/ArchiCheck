@@ -1,0 +1,49 @@
+-- -----------------------------------------------------------------------------
+-- ArchiCheck, the software architecture compliance verifier
+-- Copyright (C) 2005, 2006, 2009, 2017, 2018, 2022 - Lionel Draghi
+-- This program is free software;
+-- you can redistribute it and/or modify it under the terms of the GNU General
+-- Public License Versions 3, refer to the COPYING file.
+-- -----------------------------------------------------------------------------
+
+project OpenToken is
+
+   type Mode_Type is ("debug", "release");
+   Mode : Mode_Type := external ("mode", "debug");
+
+   for Source_Dirs use ("src_opentoken-6.0b", "patch_opentoken");
+   for Object_Dir use "obj";
+
+   package Compiler is
+      Common_Switches := ("-gnat2012");
+      Common_Debug_Switches := Common_Switches &
+      ("-g", "-O0",  "-gnatQ", "-gnatf",
+       "-gnato", "-fstack-check", "-gnata",
+       "-gnateE", "-gnatVa", "-gnatwa");
+      -- -gnatQ   : Don't quit
+      -- -gnatf   : Full errors
+      -- -gnato   : Intermediate overflows to be handled in strict mode.
+      -- -fstack-check : stack checking
+      -- -gnata   : assertions
+      -- -gnateE  : extra infos in exception messages
+      -- -gnatVa  : all validity checks
+      -- -gnatwa : activate most optional warning messages, and treat warnings as errors
+
+      case Mode is
+         when "debug"   =>
+            for Switches ("ada") use Common_Debug_Switches & "-pg";
+            -- -pg : profiling
+
+            -- coverage only for archicheck src files :
+            for Switches ("archicheck*") use Common_Debug_Switches & "--coverage";
+            -- --coverage = -fprofile-arcs and -ftest-coverage
+
+         when "release" =>
+            for Switches ("ada") use Common_Switches & ("-O3", "-flto");
+            -- -flto : link time optimization
+
+      end case;
+
+   end Compiler;
+
+end OpenToken;

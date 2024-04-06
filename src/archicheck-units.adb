@@ -72,10 +72,12 @@ package body Archicheck.Units is
       use Archicheck.Sources;
    begin
       return (case U.Lang is
-                 when Java     => Image (U.Kind),
-                 when Ada_2012 => (if U.Implementation
+               when C        => (Image (U.Kind)),
+               when Ada_2012 => (if U.Implementation
                                    then Image (U.Kind) & " body"
-                                   else Image (U.Kind) & " spec"));
+                                   else Image (U.Kind) & " spec"),
+               when Java     => Image (U.Kind));
+                 
    end Unit_Description;
 
    -- --------------------------------------------------------------------------

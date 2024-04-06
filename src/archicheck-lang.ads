@@ -1,6 +1,6 @@
 -- -----------------------------------------------------------------------------
 -- ArchiCheck, the software architecture compliance verifier
--- Copyright (C) 2005, 2006, 2009 - Lionel Draghi
+-- Copyright (C) Lionel Draghi
 -- This program is free software;
 -- you can redistribute it and/or modify it under the terms of the GNU General
 -- Public License Versions 3, refer to the COPYING file.
@@ -26,15 +26,15 @@ private package Archicheck.Lang is
    -- --------------------------------------------------------------------------
    -- procedure: Get_Src_List
    -- Purpose: return all sources in Root_Dir and surbdirs that is recognized
-   -- by one of the langage processor.
+   --    by one of the langage processor.
    -- --------------------------------------------------------------------------
    procedure Get_Src_List (Root_Dir  : in String;
-                           Recursive : in Boolean); --** to be renamed
+                           Recursive : in Boolean); --** Fixme: to be renamed
 
    -- --------------------------------------------------------------------------
    -- procedure: Analyze_Dependencies
-   -- Purpose: dispatch to to the right language anlyzer the processing of each
-   --   identified source
+   -- Purpose: dispatch to to the right language analyzer the processing of each
+   --    identified source
    -- --------------------------------------------------------------------------
    procedure Analyze_Dependencies;
 

@@ -20,7 +20,7 @@ The project policy is that code shall be 100% covered (except debug or error spe
 
 Coverage is computed on each `make check`, and non covered code is easy to check with (for example) `chromium docs/lcov/index.html`.  
 
-> **NB : please note that code proposed with matching tests, doc and complete coverage is very appreciated!**  
+> **NB : please note that code proposed with matching tests, doc and complete coverage is appreciated!**  
 
 # Design Overview
 
@@ -34,14 +34,14 @@ Main ArchiCheck components are :
 
 - **ArchiCheck.Settings** defines various application wide constant, and stores various parameters set on command line;
 
-- **ArchiCheck.Units** is an important (and complex) piece of ArchiCheck, definig Unit, Unit attributes, Dependencies, Unit list. It provides services to store Dependencies (typically during sources parsing in Lang child packages), and to retrieve dependencies or analyse relatioship between Units;
+- **ArchiCheck.Units** is an important (and complex) piece of ArchiCheck, defining Unit, Unit attributes, Dependencies, Unit list. It provides services to store Dependencies (typically during sources parsing in Lang child packages), and to retrieve dependencies or analyze relationship between Units;
 
 - **ArchiCheck.Sources** stores the list of sources found during directories analysis, and defines the location types and services to print this location according to GNU convention;
 
 ![A view on dependencies](tests/ac_view.png)
 
-ArchiCheck was designed to process multiple languages, and AchiCheck vocabulary (Units, Component, Sources, etc.) is as much as possible language agnostic.
-Never the less, semantic is different in languages regarding those aspects, and this is an interresting exploration perspective for the ArchiCheck project.  
+ArchiCheck was designed to process multiple languages, and ArchiCheck vocabulary (Units, Component, Sources, etc.) is as much as possible language agnostic.
+Never the less, semantic is different in languages regarding those aspects, and this is an interesting exploration perspective for the ArchiCheck project.  
 For example : what is a child unit in C?
 
 Note that in the current version, ArchiCheck rely on OpenToken lib for rules file parsing, and for Ada and Java sources parsing. There is no obligation to do so for other language processor as long as the processor comply with the required abstract interface.
@@ -54,7 +54,7 @@ Tests are at exe level, with no unit testing at this stage. To have tests in Mak
 This utility is build before test execution, and record in a local testrec.md file : comments, test suite start, test start, assertion result, etc.
 This is how the test documentation is created, and how I can compile a global tests results (like if it was a single Ada unit test), despite multiple Makefiles and executions.
 
-Tests are defined in Tests subdirs, in (hopfully) coherent subsets.
+Tests are defined in Tests subdirs, in (hopefully) coherent subsets.
 All tests directories are structured the same way, with Makefiles also structured the same way, and the same naming convention.
 
 Most of the Makefile code aim at documentation production. 
@@ -84,8 +84,8 @@ Execution is typically :
 
 The test result may be : 
 
-- _Successul_, if all Assert are verified,
+- _Successful_, if all Assert are verified,
 - _Failed_, if at least one is not,
-- and _Empty_, if no Assert is called between test start and test end. This is usefull when starting to write a test in the Makefile before code exists : it wouldn't be fair to have those test "Failed".
+- and _Empty_, if no Assert is called between test start and test end. This is useful when starting to write a test in the Makefile before code exists : it wouldn't be fair to have those test "Failed".
 
 After all tests execution, `testrec clean` is called to remove the hidden file that stores intermediate results and state, and the `testrec.md` file is moved in the docs directory under a name matching the test suite name, where it will be automatically taken into account.

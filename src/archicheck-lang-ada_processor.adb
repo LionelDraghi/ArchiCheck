@@ -1,6 +1,6 @@
 -- -----------------------------------------------------------------------------
 -- ArchiCheck, the software architecture compliance verifier
--- Copyright (C) 2005, 2006, 2009 - Lionel Draghi
+-- Copyright (C) Lionel Draghi
 -- This program is free software;
 -- you can redistribute it and/or modify it under the terms of the GNU General
 -- Public License Versions 3, refer to the COPYING file.
@@ -41,15 +41,6 @@ package body Archicheck.Lang.Ada_Processor is
       Register (Language_Processor => Processor'Access,
                 For_Language       => Sources.Ada_2012);
    end Initialize;
-
-   -- --------------------------------------------------------------------------
-   -- Function: File_Extensions
-   -- --------------------------------------------------------------------------
-   function File_Extensions (Lang : in Ada_Interface) return String is
-      pragma Unreferenced (Lang);
-   begin
-      return Settings.Ada_Files_Pattern;
-   end File_Extensions;
 
    -- --------------------------------------------------------------------------
    -- Procedure: Add_Dependencies
@@ -181,7 +172,7 @@ package body Archicheck.Lang.Ada_Processor is
                                         Implementation => Implementation),
                             Targets => Dep_List);
 
-            -- Let's reset the tmp list. This should be usefull only when
+            -- Let's reset the tmp list. This should be useful only when
             -- processing a source embedding multiple package declaration,
             -- so that the "with" of the first pkg will not be attributed
             -- to following pkg.
@@ -253,7 +244,7 @@ package body Archicheck.Lang.Ada_Processor is
                      Targets => Dep_List);
             end case;
 
-            -- Let's reset the tmp list. This should be usefull only when
+            -- Let's reset the tmp list. This should be useful only when
             -- processing a source embedding multiple package declaration,
             -- so that the "with" of the first pkg will not be attributed
             -- to following pkg.
@@ -285,7 +276,7 @@ package body Archicheck.Lang.Ada_Processor is
                            Implementation => True), -- separate task body
                Targets => Dep_List);
 
-            -- Let's reset the tmp list. This should be usefull only when
+            -- Let's reset the tmp list. This should be useful only when
             -- processinga source embedding multiple package declaration,
             -- so that the "with" of the first pkg will not be attributed
             -- to following pkg.
@@ -323,7 +314,7 @@ package body Archicheck.Lang.Ada_Processor is
                            Implementation => True), -- separate protected body
                Targets => Dep_List);
 
-            -- Let's reset the tmp list. This should be usefull only when
+            -- Let's reset the tmp list. This should be useful only when
             -- processinga source embedding multiple package declaration,
             -- so that the "with" of the first pkg will not be attributed
             -- to following pkg.
@@ -404,7 +395,7 @@ package body Archicheck.Lang.Ada_Processor is
                -- On the other hand, GtkAda analysis drop from 8s to 0.7s when
                -- uncommenting this line.
                -- Chechekd with :
-               -- > time ../../Obj/archicheck -lf -I gtkada
+               -- > time ../../obj/archicheck -lf -I gtkada
 
                when Procedure_T | Function_T =>
                Process_Subroutine;

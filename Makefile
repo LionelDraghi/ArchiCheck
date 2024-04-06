@@ -1,6 +1,6 @@
 #-- -----------------------------------------------------------------------------
 #-- ArchiCheck, the software architecture compliance verifier
-#-- Copyright (C) 2005-2018 - Lionel Draghi
+#-- Copyright (C) Lionel Draghi
 #-- This program is free software;
 #-- you can redistribute it and/or modify it under the terms of the GNU General
 #-- Public License Versions 3, refer to the COPYING file.
@@ -12,72 +12,72 @@
 ## mkfile := $(abspath $(lastword $(MAKEFILE_LIST)))
 ## rootdir := $(dir $(patsubst %/,%,$(dir $(mkfile))))
 
-all: build check doc
+all: build tools check doc
 
 release: build_release 
-	echo Make release build
+	@ echo Make release build
 
-	> docs/download.md
-	echo "Download"			 										>> docs/download.md
-	echo "========"			 										>> docs/download.md
-	echo 	 														>> docs/download.md
-	echo "[Download Linux exe](http://lionel.draghi.free.fr/Archicheck/archicheck)"	>> docs/download.md
-	echo 	 														>> docs/download.md
-	echo "build on :"												>> docs/download.md
-	echo "----------"												>> docs/download.md
-	echo 	 														>> docs/download.md
-	echo "> uname -orm" 											>> docs/download.md
-	echo 	 														>> docs/download.md
-	echo '```' 														>> docs/download.md
-	uname -orm		 												>> docs/download.md
-	echo '```' 														>> docs/download.md
-	echo 	 														>> docs/download.md
-	echo "> gnat --version | head -1"								>> docs/download.md
-	echo 	 														>> docs/download.md
-	echo '```' 														>> docs/download.md
-	gnat --version | head -1										>> docs/download.md
-	echo '```' 														>> docs/download.md
-	echo "and -O3 option." 											>> docs/download.md
-	echo 	 														>> docs/download.md
-	echo '(May be necessary after download : `chmod +x archicheck`)'	>> docs/download.md
-	echo 	 														>> docs/download.md
-	echo "Exe check :"												>> docs/download.md
-	echo "-----------"												>> docs/download.md
-	echo 	 														>> docs/download.md
-	echo "> date -r archicheck --iso-8601=seconds" 					>> docs/download.md
-	echo 	 														>> docs/download.md
-	echo '```' 														>> docs/download.md
-	date -r Obj/archicheck --iso-8601=seconds 						>> docs/download.md
-	echo '```' 														>> docs/download.md
-	echo 	 														>> docs/download.md
-	echo "> readelf -d archicheck | grep 'NEEDED'" 					>> docs/download.md
-	echo 	 														>> docs/download.md
-	echo '```' 														>> docs/download.md
-	readelf -d Obj/archicheck | grep 'NEEDED'						>> docs/download.md
-	echo '```' 														>> docs/download.md
-	echo 	 														>> docs/download.md
-	echo "> archicheck --version"				 					>> docs/download.md
-	echo 	 														>> docs/download.md
-	echo '```' 														>> docs/download.md
-	Obj/archicheck --version				 						>> docs/download.md
-	echo '```' 														>> docs/download.md
-	echo 	 														>> docs/download.md
-	echo "Tests status on this exe :"								>> docs/download.md
-	echo "--------------------------"								>> docs/download.md
-	echo 	 														>> docs/download.md
-	cat release_tests.txt											>> docs/download.md
+	@ > docs/download.md
+	@ echo "Download"			 									>> docs/download.md
+	@ echo "========"			 									>> docs/download.md
+	@ echo 	 														>> docs/download.md
+	@ echo "[Download Linux exe](http://lionel.draghi.free.fr/Archicheck/archicheck)"	>> docs/download.md
+	@ echo 	 														>> docs/download.md
+	@ echo "build on :"												>> docs/download.md
+	@ echo "----------"												>> docs/download.md
+	@ echo 	 														>> docs/download.md
+	@ echo "> uname -orm" 											>> docs/download.md
+	@ echo 	 														>> docs/download.md
+	@ echo '```' 													>> docs/download.md
+	@ uname -orm		 											>> docs/download.md
+	@ echo '```' 													>> docs/download.md
+	@ echo 	 														>> docs/download.md
+	@ echo "> gnat --version | head -1"								>> docs/download.md
+	@ echo 	 														>> docs/download.md
+	@ echo '```' 													>> docs/download.md
+	@ gnat --version | head -1										>> docs/download.md
+	@ echo '```' 													>> docs/download.md
+	@ echo "and -O3 option." 										>> docs/download.md
+	@ echo 	 														>> docs/download.md
+	@ echo '(May be necessary after download : `chmod +x archicheck`)'	>> docs/download.md
+	@ echo 	 														>> docs/download.md
+	@ echo "Exe check :"											>> docs/download.md
+	@ echo "-----------"											>> docs/download.md
+	@ echo 	 														>> docs/download.md
+	@ echo "> date -r archicheck --iso-8601=seconds" 				>> docs/download.md
+	@ echo 	 														>> docs/download.md
+	@ echo '```' 													>> docs/download.md
+	@ date -r obj/archicheck --iso-8601=seconds 					>> docs/download.md
+	@ echo '```' 													>> docs/download.md
+	@ echo 	 														>> docs/download.md
+	@ echo "> readelf -d archicheck | grep 'NEEDED'" 				>> docs/download.md
+	@ echo 	 														>> docs/download.md
+	@ echo '```' 													>> docs/download.md
+	@ readelf -d obj/archicheck | grep 'NEEDED'						>> docs/download.md
+	@ echo '```' 													>> docs/download.md
+	@ echo 	 														>> docs/download.md
+	@ echo "> archicheck --version"				 					>> docs/download.md
+	@ echo 	 														>> docs/download.md
+	@ echo '```' 													>> docs/download.md
+	@ obj/archicheck --version				 						>> docs/download.md
+	@ echo '```' 													>> docs/download.md
+	@ echo 	 														>> docs/download.md
+	@ echo "Tests status on this exe :"								>> docs/download.md
+	@ echo "--------------------------"								>> docs/download.md
+	@ echo 	 														>> docs/download.md
+	@ cat release_tests.txt											>> docs/download.md
 	
-	cp -rp Obj/archicheck docs/
-	cp -rp Obj/archicheck ~/bin
-	rm release_tests.txt
+	@ cp -rp obj/archicheck docs/
+	@ cp -rp obj/archicheck ~/bin
+	@ rm release_tests.txt
 
 build: 
-	echo Make debug build
-	@ - mkdir -p Obj lib
+	@ echo Make debug build
+	@ - mkdir -p obj lib
 
-	gprbuild -s -Xmode=debug -Parchicheck.gpr
-	# -q : quiet
-	# -s : recompile if compiler switches have changed
+	@ gprbuild -s -Xmode=debug -Parchicheck.gpr
+	@ # -q : quiet
+	@ # -s : recompile if compiler switches have changed
 
 .PHONY : build_release
 build_release:
@@ -86,68 +86,77 @@ build_release:
 	# -s : recompile if compiler switches have changed
 
 	# equal to check, but without coverage :
-	echo - Running tests :
-	$(MAKE) --ignore-errors --directory=Tests
-	## $(MAKE) --directory=Tests
+	@ echo - Running tests :
+	@ ## $(MAKE) --ignore-errors --directory=Tests
+	@ $(MAKE) --directory=Tests
 
-	echo "Run "`date --iso-8601=seconds` 	>  release_tests.txt
-	echo									>> release_tests.txt
-	sed "s/^/- /" Tests/tests_count.txt		>> release_tests.txt
+	@ echo "Run "`date --iso-8601=seconds` 	>  release_tests.txt
+	@ echo									>> release_tests.txt
+	@ sed "s/^/- /" Tests/tests_count.txt	>> release_tests.txt
 
 	echo
-	echo - Tests summary :
-	cat Tests/tests_count.txt
+	@ echo - Tests summary :
+	@ cat Tests/tests_count.txt
 
+tools: 
+	@ $(MAKE) create_pkg --directory=Tools
+	@ $(MAKE) testrec    --directory=Tools
 
-check: Obj/archicheck
+check: obj/archicheck
 	# depend on the exe, may be either build or build_release, test have to pass with both
-	echo Make check
-	@ - mkdir -p Tests/Tools/Obj 
+	@ echo Make check
+	@ - mkdir -p Tools/obj 
 
-	echo - Initializing coverage data before run
-	lcov --quiet --capture --initial --directory Obj -o Obj/coverage.info
-	# lcov error are ignored because this is also runned when in release mode, without 
-	# coverage info generated
+	@ echo - Initializing coverage data before run
+	lcov --quiet --capture --initial --directory obj -o obj/coverage.info --ignore-errors source
+	# lcov error are ignored because this is also runned when in release mode,  
+	# without coverage info generated
 
-	echo - Running tests :
+	@ echo - Running tests :
 	## $(MAKE) --ignore-errors --directory=Tests
 	$(MAKE) --directory=Tests
 
 	echo
-	echo - Tests summary :
-	cat Tests/tests_count.txt
+	@ echo - Tests summary :
+	@ cat Tests/tests_count.txt
 
 	# --------------------------------------------------------------------
 	echo
-	echo - Coverage report :
+	@ echo - Coverage report :
 
-	lcov --quiet --capture --directory Obj -o Obj/coverage.info
-	lcov --quiet --remove Obj/coverage.info -o Obj/coverage.info \
-		"*/adainclude/*" "*/src_opentoken-6.0b/*" "*/patch_opentoken/*" "*.ads" "*/Obj/b__archicheck-main.adb"
+	@ lcov --quiet --capture --directory obj -o obj/coverage.info --ignore-errors source
+	@ lcov --quiet --remove obj/coverage.info -o obj/coverage.info \
+		"*/adainclude/*" "*/src_opentoken-6.0b/*" "*.ads" "*/obj/b__archicheck-main.adb"
+		# "*/patch_opentoken/*" 
 	# Ignoring :
 	# - spec (results are not consistent with current gcc version) 
 	# - the false main
 	# - libs (Standard)
 	# - OpenToken
 
-	genhtml Obj/coverage.info -o docs/lcov --title "ArchiCheck tests coverage" \
-		--prefix "/home/lionel/Proj/Archichek" --frames | tail -n 2 > cov_sum.txt
+	@ # Summary table in md format :
+	@ lcov --list obj/coverage.info > docs/coverage_summary.md
+
+
+	@ genhtml obj/coverage.info -o docs/lcov --title "ArchiCheck tests coverage" \
+		--show-navigation --function-coverage --branch-coverage \
+		--prefix "/home/lionel/Projets/Logiciels/Archicheck" --frames | tail -n 2 > cov_sum.txt
 	# --title  : Display TITLE in header of all pages
 	# --prefix : Remove PREFIX from all directory names
 	# --frame  : Use HTML frames for source code view
-	cat cov_sum.txt
-	echo
+	@ cat cov_sum.txt
+	@ echo
 
 .PHONY : dashboard
-dashboard: Obj/coverage.info Tests/tests_count.txt
-	echo Make dashboard
+dashboard: obj/coverage.info Tests/tests_count.txt
+	@ echo Make dashboard
 
 	@ # Language pie
 	@ # --------------------------------------------------------------------
-	sloccount src Tests/Tools | grep "ada=" |  ploticus  -prefab pie 	\
+	@ sloccount src Tests/Tools | grep "ada=" |  ploticus  -prefab pie 	\
 		data=stdin labels=2 colors="blue red green orange"		\
 		explode=0.1 values=1 title="Ada sloc `date +%x`"		\
-		-png -o docs/img/sloc.png
+		-png -o docs/generated_img/sloc.png
 
 	@ # Code coverage Pie
 
@@ -159,7 +168,7 @@ dashboard: Obj/coverage.info Tests/tests_count.txt
 	# ploticus -prefab pie 						\
 	# 	data=lines_cov.dat labels=1 colors="green blue" 	\
 	# 	explode=0.1 values=2 title="Lines coverage `date +%x`"	\
-	# 	labelfmtstring=@2 -png -o docs/lines_coverage.png
+	# 	labelfmtstring=@2 -png -o docs/generated_img/lines_coverage.png
 	
 	# Processing the functions line :
 	@ # --------------------------------------------------------------------
@@ -168,109 +177,114 @@ dashboard: Obj/coverage.info Tests/tests_count.txt
 	# tail -n 1 cov_sum.txt | sed "s/.* of /\"Total   functions\" /" | sed "s/ functions)//"	>> functions_cov.dat
 	# ploticus -prefab pie data=functions_cov.dat labels=1 colors="green blue" 	\
 	# 	explode=0.1 values=2 title="Functions coverage `date +%x`"		\
-	# 	labelfmtstring=" @2\\n (@PCT%)" -png -o docs/functions_coverage.png
+	# 	labelfmtstring=" @2\\n (@PCT%)" -png -o docs/generated_img/functions_coverage.png
 	
 	@ # Test pie	
 	@ # --------------------------------------------------------------------
-	ploticus -prefab pie legend=yes							\
+	@ ploticus -prefab pie legend=yes							\
 		data=Tests/tests_count.txt labels=1 colors="green red orange"	\
 		explode=0.1 values=2 title="Tests results `date +%x`"			\
-		-png -o docs/img/tests.png
+		-png -o docs/generated_img/tests.png
 
 	>  docs/dashboard.md
-	echo "Dashboard"				>> docs/dashboard.md
-	echo "========="				>> docs/dashboard.md
-	echo 							>> docs/dashboard.md
-	echo "Version"					>> docs/dashboard.md
-	echo "-------"					>> docs/dashboard.md
-	echo "> archicheck --version"	>> docs/dashboard.md
-	echo 	 						>> docs/dashboard.md
-	echo '```' 						>> docs/dashboard.md
-	Obj/archicheck --version 						>> docs/dashboard.md
-	echo '```' 										>> docs/dashboard.md
-	echo 	 										>> docs/dashboard.md
-	echo "> date -r archicheck --iso-8601=seconds" 	>> docs/dashboard.md
-	echo 	 										>> docs/dashboard.md
-	echo '```' 										>> docs/dashboard.md
-	date -r Obj/archicheck --iso-8601=seconds 		>> docs/dashboard.md
-	echo '```' 										>> docs/dashboard.md
-	echo 	 										>> docs/dashboard.md
-	echo "Test results"				>> docs/dashboard.md
-	echo "------------"				>> docs/dashboard.md
-	echo '```'			 			>> docs/dashboard.md
-	cat Tests/tests_count.txt		>> docs/dashboard.md
-	echo '```'			 			>> docs/dashboard.md
-	echo "![](img/tests.png)"		>> docs/dashboard.md
-	echo 							>> docs/dashboard.md
-	echo "Coverage"					>> docs/dashboard.md
-	echo "--------"					>> docs/dashboard.md
-	echo 							>> docs/dashboard.md
-	echo '```'			 			>> docs/dashboard.md
-	cat cov_sum.txt					>> docs/dashboard.md
-	echo '```'			 			>> docs/dashboard.md
-	echo 							>> docs/dashboard.md
-	echo '[**Coverage details in the sources**](http://lionel.draghi.free.fr/Archicheck/lcov/home/lionel/Proj/Archicheck/src/index-sort-f.html)'	>> docs/dashboard.md
-	echo 							>> docs/dashboard.md
+	@ echo "Dashboard"				>> docs/dashboard.md
+	@ echo "========="				>> docs/dashboard.md
+	@ echo 							>> docs/dashboard.md
+	@ echo "Version"				>> docs/dashboard.md
+	@ echo "-------"				>> docs/dashboard.md
+	@ echo "> archicheck --version"	>> docs/dashboard.md
+	@ echo 	 						>> docs/dashboard.md
+	@ echo '```' 					>> docs/dashboard.md
+	@ obj/archicheck --version 						>> docs/dashboard.md
+	@ echo '```' 									>> docs/dashboard.md
+	@ echo 	 										>> docs/dashboard.md
+	@ echo "> date -r archicheck --iso-8601=seconds" 	>> docs/dashboard.md
+	@ echo 	 										>> docs/dashboard.md
+	@ echo '```' 									>> docs/dashboard.md
+	@ date -r obj/archicheck --iso-8601=seconds 	>> docs/dashboard.md
+	@ echo '```' 									>> docs/dashboard.md
+	@ echo 	 										>> docs/dashboard.md
+	@ echo "Test results"			>> docs/dashboard.md
+	@ echo "------------"			>> docs/dashboard.md
+	@ echo '```'			 		>> docs/dashboard.md
+	@ cat Tests/tests_count.txt		>> docs/dashboard.md
+	@ echo '```'			 		>> docs/dashboard.md
+	@ echo "![](img/tests.png)"		>> docs/dashboard.md
+	@ echo 							>> docs/dashboard.md
+	@ echo "Coverage"				>> docs/dashboard.md
+	@ echo "--------"				>> docs/dashboard.md
+	@ echo 							>> docs/dashboard.md
+	@ echo '```'			 		>> docs/dashboard.md
+	@ cat cov_sum.txt				>> docs/dashboard.md
+	@ echo '```'			 		>> docs/dashboard.md
+	@ echo 							>> docs/dashboard.md
+	@ cat docs/coverage_summary.md	>> docs/dashboard.md
+	@ echo 							>> docs/dashboard.md
+	@ echo '[**Coverage details in the sources**](http://lionel.draghi.free.fr/Archicheck/lcov/home/lionel/Proj/Archicheck/src/index-sort-f.html)'	>> docs/dashboard.md
+	@ echo 							>> docs/dashboard.md
 
 	# badge making:
-	wget -q "https://img.shields.io/badge/Version-`./Obj/archicheck --version`-blue.svg" -O docs/img/version.svg
-	wget -q "https://img.shields.io/badge/Tests_OK-`cat Tests/tests_count.txt |sed -n "s/Successful  //p"`-green.svg" -O docs/img/tests_ok.svg
-	wget -q "https://img.shields.io/badge/Tests_KO-`cat Tests/tests_count.txt |sed -n "s/Failed      //p"`-red.svg" -O docs/img/tests_ko.svg
+	@ wget -q "https://generated_img.shields.io/badge/Version-`./obj/archicheck --version`-blue.svg" -O docs/generated_img/version.svg
+	@ wget -q "https://generated_img.shields.io/badge/Tests_OK-`cat Tests/tests_count.txt |sed -n "s/Successful  //p"`-green.svg" -O docs/generated_img/tests_ok.svg
+	@ wget -q "https://generated_img.shields.io/badge/Tests_KO-`cat Tests/tests_count.txt |sed -n "s/Failed      //p"`-red.svg" -O docs/generated_img/tests_ko.svg
 
 .PHONY : cmd_line.md
 cmd_line.md:
-	echo Make cmd_line.md
-	> docs/cmd_line.md
-	echo "Archicheck command line"		>> docs/cmd_line.md
-	echo "======================="		>> docs/cmd_line.md
-	echo ""								>> docs/cmd_line.md
-	echo "Archicheck command line"		>> docs/cmd_line.md
-	echo "-----------------------"		>> docs/cmd_line.md
-	echo ""								>> docs/cmd_line.md
-	echo '```'							>> docs/cmd_line.md
-	echo "$ archicheck -h" 				>> docs/cmd_line.md
-	echo '```'							>> docs/cmd_line.md
-	echo ""								>> docs/cmd_line.md
-	echo '```'							>> docs/cmd_line.md
-	Obj/archicheck -h 					>> docs/cmd_line.md
-	echo '```'							>> docs/cmd_line.md
-	echo ""								>> docs/cmd_line.md
-	echo "Archicheck current version"	>> docs/cmd_line.md
-	echo "--------------------------"	>> docs/cmd_line.md
-	echo ""								>> docs/cmd_line.md
-	echo '```'							>> docs/cmd_line.md
-	echo "$ archicheck --version"		>> docs/cmd_line.md
-	echo '```'							>> docs/cmd_line.md
-	echo ""								>> docs/cmd_line.md
-	echo '```'							>> docs/cmd_line.md
-	Obj/archicheck --version			>> docs/cmd_line.md
-	echo '```'							>> docs/cmd_line.md
-	echo ""								>> docs/cmd_line.md
+	@ echo Make cmd_line.md
+	@ > docs/cmd_line.md
+	@ echo "Archicheck command line"	>> docs/cmd_line.md
+	@ echo "======================="	>> docs/cmd_line.md
+	@ echo ""							>> docs/cmd_line.md
+	@ echo "Archicheck command line"	>> docs/cmd_line.md
+	@ echo "-----------------------"	>> docs/cmd_line.md
+	@ echo ""							>> docs/cmd_line.md
+	@ echo '```'						>> docs/cmd_line.md
+	@ echo "$ archicheck -h" 			>> docs/cmd_line.md
+	@ echo '```'						>> docs/cmd_line.md
+	@ echo ""							>> docs/cmd_line.md
+	@ echo '```'						>> docs/cmd_line.md
+	@ obj/archicheck -h 				>> docs/cmd_line.md
+	@ echo '```'						>> docs/cmd_line.md
+	@ echo ""							>> docs/cmd_line.md
+	@ echo "Archicheck current version"	>> docs/cmd_line.md
+	@ echo "--------------------------"	>> docs/cmd_line.md
+	@ echo ""							>> docs/cmd_line.md
+	@ echo '```'						>> docs/cmd_line.md
+	@ echo "$ archicheck --version"		>> docs/cmd_line.md
+	@ echo '```'						>> docs/cmd_line.md
+	@ echo ""							>> docs/cmd_line.md
+	@ echo '```'						>> docs/cmd_line.md
+	@ obj/archicheck --version			>> docs/cmd_line.md
+	@ echo '```'						>> docs/cmd_line.md
+	@ echo ""							>> docs/cmd_line.md
 
 doc: dashboard cmd_line.md
-	echo Make Doc
+	@ echo Make Doc
 	
-	>  docs/fixme.md
-	rgrep -ni "Fixme" docs/*.md | sed "s/:/|/2"	>> /tmp/fixme.md
+	@ >  docs/fixme.md
+	@ rgrep -ni "Fixme" docs/*.md | sed "s/:/|/2"	>> /tmp/fixme.md
 
-	echo 'Fixme in current version:'		>> docs/fixme.md
-	echo '-------------------------'		>> docs/fixme.md
-	echo                            		>> docs/fixme.md
-	echo 'Location | Text'             		>> docs/fixme.md
-	echo '---------|-----'             		>> docs/fixme.md
-	cat /tmp/fixme.md                       >> docs/fixme.md
-	rm /tmp/fixme.md
-	rgrep -ni "Fixme" src/*   | sed "s/:/|/2"	>> docs/fixme.md
-	rgrep -ni "Fixme" tests/* | sed "s/:/|/2"	>> docs/fixme.md
+	@ echo 'Fixme in current version:'		>> docs/fixme.md
+	@ echo '-------------------------'		>> docs/fixme.md
+	@ echo                            		>> docs/fixme.md
+	@ echo 'Location | Text'             	>> docs/fixme.md
+	@ echo '---------|-----'             	>> docs/fixme.md
+	@ cat /tmp/fixme.md                     >> docs/fixme.md
+	@ rm /tmp/fixme.md
+	@ rgrep -ni              "Fixme" src/*     | sed "s/:/|/2"	>> docs/fixme.md
+	@ grep -ni --no-messages "Fixme" Tests/*/* | sed "s/:/|/2"	>> docs/fixme.md
 
-	mkdocs build --clean
+	@ mkdocs build --clean
 	@ - chmod --silent +x ./site/archicheck
     
 .PHONY : clean
 clean:
-	echo Make clean
-	- gnat clean -q -Parchicheck.gpr
-	- ${RM} -rf Obj/* docs/lcov/* tmp.txt *.lst *.dat cov_sum.txt gmon.out gh-md-toc
-	- $(MAKE) --directory=Tests clean
+	@ echo Make clean
+	@ - gnat clean -q -Parchicheck.gpr
+	@ - ${RM} -rf obj/* docs/lcov/* tmp.txt *.lst *.dat cov_sum.txt gmon.out gh-md-toc docs/generated_img/*
+	@ - $(MAKE) --directory=Tests clean
+	@ - $(MAKE) --directory=Tools clean
+	
+
     
     
