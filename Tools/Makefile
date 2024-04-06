@@ -108,13 +108,11 @@ check_clean: ${TR}
 	sdiff -sB state.ref state.12
 
 doc:
-	# cp tools.md ../../docs/tests/
+	# cp tools.md ../docs/tests/
 
 .PHONY : clean
 clean:
 	gnat clean -q -Pcreate_pkg.gpr
 	gnat clean -q -Ptestrec.gpr
-	# -c : Only delete compiler generated files
-	#      exec should not be removed, because "testrec clean" is called in Makefile's clean
 	- ${RM} .testrec state.? state.?? testrec.md diff.? diff.?? file? state.ref
 

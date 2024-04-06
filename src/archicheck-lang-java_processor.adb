@@ -1,6 +1,6 @@
 -- -----------------------------------------------------------------------------
 -- ArchiCheck, the software architecture compliance verifier
--- Copyright (C) 2005, 2006, 2009 - Lionel Draghi
+-- Copyright (C) Lionel Draghi
 -- This program is free software;
 -- you can redistribute it and/or modify it under the terms of the GNU General
 -- Public License Versions 3, refer to the COPYING file.
@@ -38,13 +38,6 @@ package body Archicheck.Lang.Java_Processor is
       Register (Language_Processor => Processor'Access,
                 For_Language       => Sources.Java);
    end Initialize;
-
-   -- --------------------------------------------------------------------------
-   function File_Extensions (Lang : in Java_Interface) return String is
-      pragma Unreferenced (Lang);
-   begin
-      return Settings.Java_Files_Pattern;
-   end File_Extensions;
 
    -- --------------------------------------------------------------------------
    procedure Analyze_Dependencies (Lang        : in Java_Interface;
@@ -212,12 +205,12 @@ package body Archicheck.Lang.Java_Processor is
                end;
 
                exit Source_Analysis;
-               -- Optimization : this exit cause the analysis to be stop
+               -- Optimization : this exit cause the analysis to be stopped
                -- after discovery of the first class or interface.
                --
                -- According to Java standards and common Java practices,
                -- every class stands in its own source file.
-               -- However, it is possible to have multiple class in a single
+               -- However, it is possible to have multiple classes in a single
                -- file, provided that there is only one public.
                -- All the top-level non-public types will be package private.
                --

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<testsuites>
+   <testsuite name="/backup/cloud2/Projets/Logiciels/Archicheck/alire/alr_test_local" id="0" tests="1" errors="0" failures="0" skipped="0">
+      <testcase name="archicheck=0.1.0-dev" status="PASS">
+      
+      </testcase>
+   </testsuite>
+</testsuites>

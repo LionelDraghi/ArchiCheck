@@ -1,6 +1,6 @@
 -- -----------------------------------------------------------------------------
 -- ArchiCheck, the software architecture compliance verifier
--- Copyright (C) 2005, 2006, 2009 - Lionel Draghi
+-- Copyright (C) Lionel Draghi
 -- This program is free software;
 -- you can redistribute it and/or modify it under the terms of the GNU General
 -- Public License Versions 3, refer to the COPYING file.
@@ -49,7 +49,8 @@ private package Archicheck.Settings is
    -- -------------------------------------------------------------------------
    Ada_Files_Pattern  : constant String := "*.ad[asb]";
    Java_Files_Pattern : constant String := "*.java";
-   -- Not sure that case independance would be usefull here
+   C_Files_Pattern    : constant String := "*.[ch]";
+   -- Not sure that case independance would be useful here
 
    -- -------------------------------------------------------------------------
    -- Procedure: Set_Rules_File_Name

@@ -5,13 +5,20 @@ Archicheck rules file uses a simple syntax to describe structural aspects of a s
 
 This file may contains :  
 
-- [Comments](#comments)
-- [Layer declaration](#layer)
-- [Component declaration](#components-declaration)
-- [Allowed use declaration](#environnement-packages)
-- [Forbidden use declaration](#forbidden-use)
-- [Restricted use declaration](#restricted-use)
-- [Use declaration](#use-declaration)     
+- [Rules File](#rules-file)
+  - [Layer](#layer)
+  - [Use declaration](#use-declaration)
+  - [Components declaration](#components-declaration)
+  - [An example with layers and components](#an-example-with-layers-and-components)
+  - [Environnement packages](#environnement-packages)
+  - [Forbidden use](#forbidden-use)
+  - [Restricted use](#restricted-use)
+  - [Syntactic sugar](#syntactic-sugar)
+  - [Comments](#comments)
+  - [Reserved words](#reserved-words)
+  - [More complex and open issues](#more-complex-and-open-issues)
+    - [Adding virtual units to an existing one](#adding-virtual-units-to-an-existing-one)
+    - [Rules precedence](#rules-precedence)
 
 Here is a first example :
 ```
@@ -83,7 +90,7 @@ An example with layers and components
 -------------------------------------
 
 Let's consider this [Batik architecture](https://xmlgraphics.apache.org/batik/using/architecture.html) :  
-![](img/Batik.png)
+![](Batik.png)
 
 It could be described this way :
 
@@ -99,7 +106,7 @@ Core_Modules is a layer over Low_Level_Modules
 Environnement packages
 ----------------------
 
-Some packages are used everywhere in your application, and you don't wan to be flooded by useless warning.
+Some packages are used everywhere in your application, and you don't want to be flooded by useless warnings.
 
 Use the `allowed` syntax :
 ```
@@ -156,9 +163,9 @@ Comments
 
 As you may have noticed in the previous example, comments are possible in several formats (but single line comments only), so keep your own habit :
 
-- the Ada way, that is starting with `--`, 
-- the Java / C# way, starting with `//`, 
-- the Shell way, starting with `#`.
+- the Ada way, that is lines starting with `--`, 
+- the Java / C# way, lines starting with  `//`, 
+- the Shell way, lines starting with  `#`.
 
 (Those format seems to be the most popular for single line comments in programming languages, according to [Rosetta Code](https://rosettacode.org/wiki/Comments))
 

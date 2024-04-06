@@ -1,11 +1,10 @@
 site/
-Obj/
+obj/
 lib/
-_darcs/
 
 Tests/Tools/create_pkg
 Tests/Tools/testrec
-Tests/Tools/Obj/
+Tests/Tools/obj/
 
 docs/tests.png
 docs/sloc.png

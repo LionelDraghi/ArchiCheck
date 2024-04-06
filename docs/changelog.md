@@ -6,7 +6,10 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and version numbering adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 - [Unreleased]
+
+- [0.5.8] - 2024-04-06
   > - [Changed] The -lf / --list_files output is now sorted by language and then by file name
+  > - [Added] First C language "quick and dirty" implementation
 
 - [0.5.7] - 2018-02-14
   > - [Added] `-Ir` option, equivalent to `-r -I`

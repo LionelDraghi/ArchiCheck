@@ -1,3 +1,0 @@
-# Rules Quick Ref
-
-**TBD**

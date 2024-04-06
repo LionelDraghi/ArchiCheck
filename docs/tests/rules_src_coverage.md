@@ -68,8 +68,8 @@ P5 may use Framework
 
 ```  
 
-  Sources (framework_utilities.ads
-framework-utilities.ads
+  Sources (framework-utilities.ads
+framework_utilities.ads
 java.ads
 java-awt.ads
 p1-x.ads
@@ -80,8 +80,8 @@ p5.ads
 y-p1.ads) :  
 
 ```  
-framework_utilities.ads
 framework-utilities.ads
+framework_utilities.ads
 java.ads
 java-awt.ads
 p1-x.ads

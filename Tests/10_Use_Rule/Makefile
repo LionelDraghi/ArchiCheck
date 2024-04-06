@@ -1,21 +1,21 @@
 all: check doc
 
-CREATE_PKG=../Tools/create_pkg
-TR=../Tools/testrec
+CREATE_PKG=../../Tools/create_pkg
+TR=../../Tools/testrec
 
 .PHONY : clean
 
-check: ../../Obj/archicheck header test1 test2 test3 test4 test5 test6 test7 test8
+check: ../../obj/archicheck header test1 test2 test3 test4 test5 test6 test7 test8
 
 header:
 	@ #---------------------------------------------------------------------
-	${TR} clean
-	${TR} create "Use rules test suite"
+	@ ${TR} clean
+	@ ${TR} create "Use rules test suite"
 
 
 test1:
 	@ #---------------------------------------------------------------------
-	${TR} start "May_Use rule, code compliant, no output expected"
+	@ ${TR} start "May_Use rule, code compliant, no output expected"
 	@ ${CREATE_PKG} P1 spec  -in dir1 -with P2
 	@ ${CREATE_PKG} P2 spec  -in dir1 -with P3
 	@ ${CREATE_PKG} P2 body  -in dir1 -with P4
@@ -25,20 +25,20 @@ test1:
 	@ ${TR} cmt "Code compliant with the rules, should be OK"
 	@ ${TR} cmt 
 	@ ${TR} cmt '```'
-	cat rules.1 >> testrec.md
+	@ cat rules.1 >> testrec.md
 	@ ${TR} cmt 
 	@ ${TR} cmt '```'
 	@ ${TR} cmt 
 
 	@ > expected_output.1
-	@ ../../Obj/archicheck -q -I dir1 rules.1 > output.1
-	${TR} assert true /usr/bin/sdiff "-s expected_output.1 output.1"
+	@ ../../obj/archicheck -q -I dir1 rules.1 > output.1
+	@ ${TR} assert true /usr/bin/sdiff "-s expected_output.1 output.1"
 
-	${TR} end
+	@ ${TR} end
 
 test2:
 	@ #---------------------------------------------------------------------
-	${TR} start "Using a unit from a non allowed unit"
+	@ ${TR} start "Using a unit from a non allowed unit"
 	@ ${CREATE_PKG} P1 spec  -in dir2 -with P2
 	@ ${CREATE_PKG} P2 spec  -in dir2 -with P3
 	@ ${CREATE_PKG} P2 body  -in dir2 -with P4
@@ -53,18 +53,18 @@ test2:
 	@ ${TR} cmt 'Expecting :'
 	@ ${TR} cmt 
 	@ ${TR} cmt '```'
-	cat expected_output.2 >> testrec.md
+	@ cat expected_output.2 >> testrec.md
 	@ ${TR} cmt '```'
 	@ ${TR} cmt 
 	
-	@ test ! `../../Obj/archicheck -q -I dir2 rules.1 > output.2`
-	${TR} assert true /usr/bin/sdiff "-s expected_output.2 output.2"
+	@ test ! `../../obj/archicheck -q -I dir2 rules.1 > output.2`
+	@ ${TR} assert true /usr/bin/sdiff "-s expected_output.2 output.2"
 
-	${TR} end
+	@ ${TR} end
 
 test3:
 	@ #---------------------------------------------------------------------
-	${TR} start "Forbidden use test"
+	@ ${TR} start "Forbidden use test"
 	@ ${CREATE_PKG} P1 spec  -in dir3 -with P2
 	@ ${CREATE_PKG} P2 spec  -in dir3 -with P3
 	@ ${CREATE_PKG} P2 body  -in dir3 -with P4
@@ -73,30 +73,30 @@ test3:
 
 	@ ${TR} cmt 
 	@ ${TR} cmt '```'
-	cat rules.3 		>> testrec.md
+	@ cat rules.3 		>> testrec.md
 	@ ${TR} cmt '```'
 	@ ${TR} cmt 
 	@ ${TR} cmt 'Expecting :'
 	@ ${TR} cmt 
 	@ ${TR} cmt '```'
-	cat expected_output.3	>> testrec.md
+	@ cat expected_output.3	>> testrec.md
 	@ ${TR} cmt '```'
 	@ ${TR} cmt 
 
-	@ test ! `../../Obj/archicheck -q -I dir3 rules.3 > output.3`
-	${TR} assert true /usr/bin/sdiff "-s expected_output.3 output.3"
+	@ test ! `../../obj/archicheck -q -I dir3 rules.3 > output.3`
+	@ ${TR} assert true /usr/bin/sdiff "-s expected_output.3 output.3"
 
-	${TR} end
+	@ ${TR} end
 
 test4:
 	@ #---------------------------------------------------------------------
-	${TR} start "Allowing use of an environnement package"
+	@ ${TR} start "Allowing use of an environnement package"
 	@ ${CREATE_PKG} P1 spec  -in dir4 -with P2
 	@ ${CREATE_PKG} P2 spec  -in dir4 -with Containers.Generic_Sort
 	@ ${CREATE_PKG} P3 spec  -in dir4
 	@ ${CREATE_PKG} P4 spec  -in dir4
 	
-	> rules.4
+	@ > rules.4
 	@ echo "Layer_A contains P1 and P2" 		>> rules.4
 	@ echo "Layer_B contains P3 and P4" 		>> rules.4
 	@ echo "Layer_A is a layer over Layer_B"	>> rules.4
@@ -104,19 +104,19 @@ test4:
 	@ ${TR} cmt 'Rules :'
 	@ ${TR} cmt 
 	@ ${TR} cmt '```'
-	cat rules.4 	      	>> testrec.md
+	@ cat rules.4 	      	>> testrec.md
 	@ ${TR} cmt '```'
 	@ ${TR} cmt 'Expecting :'
 	@ ${TR} cmt 
 	@ ${TR} cmt 
 	@ ${TR} cmt '```'
-	cat expected_output.4a	>> testrec.md
+	@ cat expected_output.4a	>> testrec.md
 	@ ${TR} cmt '```'
 	@ ${TR} cmt 
 	
 	@ ${TR} cmt "First test without the allowing rule : should complain"
-	@ test ! `../../Obj/archicheck -I dir4 rules.4 > output.4a`
-	${TR} assert true /usr/bin/sdiff "-s expected_output.4a output.4a"
+	@ test ! `../../obj/archicheck -I dir4 rules.4 > output.4a`
+	@ ${TR} assert true /usr/bin/sdiff "-s expected_output.4a output.4a"
 
 	@ ${TR} cmt "And now with the allowing rule :"
 	@ echo "Containers use is allowed"	>> rules.4
@@ -124,21 +124,21 @@ test4:
 	@ ${TR} cmt 'Rules :'
 	@ ${TR} cmt 
 	@ ${TR} cmt '```'
-	cat rules.4 	      	>> testrec.md
+	@ cat rules.4 	      	>> testrec.md
 	@ ${TR} cmt '```'
 	@ ${TR} cmt 
 	@ ${TR} cmt 'No error expected.'
 	@ ${TR} cmt 
 
-	> expected_output.4b
-	@ ../../Obj/archicheck -I dir4 rules.4 > output.4b
-	${TR} assert true /usr/bin/sdiff "-s expected_output.4b output.4b"
+	@ > expected_output.4b
+	@ ../../obj/archicheck -I dir4 rules.4 > output.4b
+	@ ${TR} assert true /usr/bin/sdiff "-s expected_output.4b output.4b"
 
-	${TR} end
+	@ ${TR} end
 
 test5:
 	@ #---------------------------------------------------------------------
-	${TR} start "Cumulative only ... may use X rules"
+	@ ${TR} start "Cumulative only ... may use X rules"
 	@ ${CREATE_PKG} P1 spec  -in dir5 -with Interfaces.C
 	@ ${CREATE_PKG} P2 spec  -in dir5 -with Interfaces.C
 	@ ${CREATE_PKG} P3 spec  -in dir5 -with Interfaces.C
@@ -149,7 +149,7 @@ test5:
 	@ ${TR} cmt "rules5.txt contains :"
 	@ ${TR} cmt 
 	@ ${TR} cmt '```'
-	cat rules.5 >> testrec.md
+	@ cat rules.5 >> testrec.md
 	@ ${TR} cmt 
 	@ ${TR} cmt '```'
 	@ ${TR} cmt 
@@ -160,42 +160,42 @@ test5:
 	@ ${TR} cmt "Expected :"
 	@ ${TR} cmt 
 	@ ${TR} cmt '```'
-	cat expected_output.5	>> testrec.md
+	@ cat expected_output.5	>> testrec.md
 	@ ${TR} cmt '```'
 	@ ${TR} cmt 
 	
-	@ test ! `../../Obj/archicheck -I dir5 rules.5 > output.5`
-	${TR} assert true /usr/bin/sdiff "-sBW expected_output.5 output.5"
+	@ test ! `../../obj/archicheck -I dir5 rules.5 > output.5`
+	@ ${TR} assert true /usr/bin/sdiff "-sBW expected_output.5 output.5"
 
-	${TR} end
+	@ ${TR} end
 
 	@ #---------------------------------------------------------------------
-	${TR} start "Unit_List may use ... rules"
+	@ ${TR} start "Unit_List may use ... rules"
 	@ ${TR} cmt 
 	@ ${TR} cmt "Same test with :"
 	@ ${TR} cmt 
 	@ ${TR} cmt '```'
-	cat rules.5b >> testrec.md
+	@ cat rules.5b >> testrec.md
 	@ ${TR} cmt 
 	@ ${TR} cmt '```'
 	@ ${TR} cmt 
 	@ ${TR} cmt "Same output expected :"
 	@ ${TR} cmt 
 	@ ${TR} cmt '```'
-	cat expected_output.5	>> testrec.md
+	@ cat expected_output.5	>> testrec.md
 	@ ${TR} cmt '```'
 	@ ${TR} cmt 
 	
 	@ ${TR} cmt '** Not yet implemented **'
 
-	## @ test ! `../../Obj/archicheck -I dir5 rules.5b > output.5b`
-	## ${TR} assert true /usr/bin/sdiff "-sBW expected_output.5 output.5b"
+	@ ## Fixme: @ test ! `../../obj/archicheck -I dir5 rules.5b > output.5b`
+	@ ## ${TR} assert true /usr/bin/sdiff "-sBW expected_output.5 output.5b"
 
 	${TR} end
 
 test6:
 	@ #---------------------------------------------------------------------
-	${TR} start "Combining Allowed and Forbidden"
+	@ ${TR} start "Combining Allowed and Forbidden"
 	@ ${CREATE_PKG} P1 spec  -in dir6 -with Interfaces
 	@ ${CREATE_PKG} P2 spec  -in dir6 -with Interfaces.C
 	@ ${CREATE_PKG} P3 spec  -in dir6 -with Interfaces.Java
@@ -205,7 +205,7 @@ test6:
 	@ ${TR} cmt "rules6.txt contains :"
 	@ ${TR} cmt 
 	@ ${TR} cmt '```'
-	cat rules.6 >> testrec.md
+	@ cat rules.6 >> testrec.md
 	@ ${TR} cmt '```'
 	@ ${TR} cmt 
 	@ ${TR} cmt "When running :"
@@ -214,15 +214,15 @@ test6:
 	@ ${TR} cmt 
 	@ ${TR} cmt "Expected :"
 
-	@ test ! `../../Obj/archicheck -I dir6 rules.6 | sort > output.6`
-	${TR} assert true /usr/bin/sdiff "-sBW expected_output.6 output.6"
+	@ test ! `../../obj/archicheck -I dir6 rules.6 | sort > output.6`
+	@ ${TR} assert true /usr/bin/sdiff "-sBW expected_output.6 output.6"
 
 	@ ${TR} cmt "And now inverting Allowed and Forbidden"
 	@ ${TR} cmt 
 	@ ${TR} cmt "rules6b.txt contains :"
 	@ ${TR} cmt 
 	@ ${TR} cmt '```'
-	cat rules.6b >> testrec.md
+	@ cat rules.6b >> testrec.md
 	@ ${TR} cmt 
 	@ ${TR} cmt '```'
 	@ ${TR} cmt 
@@ -232,14 +232,14 @@ test6:
 	@ ${TR} cmt 
 	@ ${TR} cmt "Expected :"
 
-	@ ../../Obj/archicheck -I dir6 rules.6b > output.6b
-	${TR} assert true /usr/bin/sdiff "-sBW expected_output.6b output.6b"
+	@ ../../obj/archicheck -I dir6 rules.6b > output.6b
+	@ ${TR} assert true /usr/bin/sdiff "-sBW expected_output.6b output.6b"
 
-	${TR} end
+	@ ${TR} end
 
 test7:
 	@ #---------------------------------------------------------------------
-	${TR} start "X may use Unit List rules"
+	@ ${TR} start "X may use Unit List rules"
 	@ ${CREATE_PKG} P1 spec -in dir7 -with P2 -with P3 -with P4
 	@ ${CREATE_PKG} P2 spec -in dir7 -with P1
 	@ ${CREATE_PKG} P3 spec -in dir7 -with P1
@@ -250,7 +250,7 @@ test7:
 	@ ${TR} cmt "rules7.txt contains :"
 	@ ${TR} cmt 
 	@ ${TR} cmt '```'
-	cat rules.7 >> testrec.md
+	@ cat rules.7 >> testrec.md
 	@ ${TR} cmt 
 	@ ${TR} cmt '```'
 	@ ${TR} cmt 
@@ -261,18 +261,18 @@ test7:
 	@ ${TR} cmt "Expected"
 	@ ${TR} cmt 
 	@ ${TR} cmt '```'
-	cat expected_output.7	>> testrec.md
+	@ cat expected_output.7	>> testrec.md
 	@ ${TR} cmt '```'
 	@ ${TR} cmt 
 	
-	@ test ! `../../Obj/archicheck -I dir7 rules.7 > output.7`
-	${TR} assert true /usr/bin/sdiff "-sBW expected_output.7 output.7"
+	@ test ! `../../obj/archicheck -I dir7 rules.7 > output.7`
+	@ ${TR} assert true /usr/bin/sdiff "-sBW expected_output.7 output.7"
 
-	${TR} end
+	@ ${TR} end
 
 test8:
 	@ #---------------------------------------------------------------------
-	${TR} start "only X may use Unit List rules"
+	@ ${TR} start "only X may use Unit List rules"
 	@ ${CREATE_PKG} P1 spec -in dir8 -with P2 -with P3 
 	@ ${CREATE_PKG} P4 spec -in dir8 -with P2 -with P3
 
@@ -282,7 +282,7 @@ test8:
 	@ ${TR} cmt "rules8.txt contains :"
 	@ ${TR} cmt 
 	@ ${TR} cmt '```'
-	cat rules.8 >> testrec.md
+	@ cat rules.8 >> testrec.md
 	@ ${TR} cmt 
 	@ ${TR} cmt '```'
 	@ ${TR} cmt 
@@ -293,18 +293,18 @@ test8:
 	@ ${TR} cmt "Expected"
 	@ ${TR} cmt 
 	@ ${TR} cmt '```'
-	cat expected_output.8	>> testrec.md
+	@ cat expected_output.8	>> testrec.md
 	@ ${TR} cmt '```'
 	@ ${TR} cmt 
 	
-	@ test ! `../../Obj/archicheck -I dir8 rules.8 > output.8`
-	${TR} assert true /usr/bin/sdiff "-sBW expected_output.8 output.8"
+	@ test ! `../../obj/archicheck -I dir8 rules.8 > output.8`
+	@ ${TR} assert true /usr/bin/sdiff "-sBW expected_output.8 output.8"
 
-	${TR} end
+	@ ${TR} end
 
 clean:
-	- ${RM} -rf output.* dir? dir?? *.~
-	${TR} clean
+	@ - ${RM} -rf output.* dir? dir?? *.~
+	@ ${TR} clean
 
 doc:
-	cp testrec.md ../../docs/tests/use_rule.md
+	@ cp testrec.md ../../docs/tests/use_rule.md

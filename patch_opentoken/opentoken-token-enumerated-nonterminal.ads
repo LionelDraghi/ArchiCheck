@@ -25,7 +25,7 @@
 --
 -------------------------------------------------------------------------------
 
-with OpenToken.Token.Enumerated;
+-- with OpenToken.Token.Enumerated;
 with OpenToken.Token.Enumerated.List;
 
 -----------------------------------------------------------------------------

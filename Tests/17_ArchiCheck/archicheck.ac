@@ -1,5 +1,5 @@
-only Archicheck.Main  may use Archicheck.Rules
-Archicheck.Main  may use Archicheck.Lang
+only Archicheck.Main may use Archicheck.Rules
+Archicheck.Main      may use Archicheck.Lang
 
 Archicheck.Rules may use Archicheck.Lang
 Archicheck.Lang  may use Archicheck.Units

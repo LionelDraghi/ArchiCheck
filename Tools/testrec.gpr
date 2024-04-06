@@ -1,21 +1,21 @@
-project Create_Pkg is
+project Testrec is
 
    type Mode_Type is ("debug", "release");
    Mode : Mode_Type := external ("mode", "debug");
 
-   for Source_Dirs use ("Src");
-   for Object_Dir use "Obj";
+   for Source_Dirs use ("src");
+   for Object_Dir use "obj";
    for Exec_Dir use ".";
-   for Main use ("create_pkg.adb");
+   for Main use ("testrec-main.adb");
 
    package Builder is
-      for Executable ("create_pkg.adb") use "create_pkg";
+      for Executable ("testrec-main.adb") use "testrec";
       for Default_Switches ("ada") use ("-j2");
    end Builder;
 
    package Compiler is
       Common_Switches := ("-gnat2012");
-      Common_Debug_Switches := Common_Switches &
+      Common_Debug_Switches := Common_Switches & 
       ("-g", "-O0",  "-gnatQ", "-gnatf",  "-gnato", "-fstack-check", "-gnata", "-gnateE", "-gnatVa", "-gnatwa", "-gnatyabefhiklnprtx");
       -- -gnatQ : Don't quit
       -- -gnatf : Full errors
@@ -26,7 +26,7 @@ project Create_Pkg is
       -- -gnatVa : all validity checks
       -- -gnatwa : activate most optional warning messages
       --
-      -- Style checking :
+      -- Style checking : 
       -- a : Check attribute casing
       -- b : Blanks not allowed at statement end
       -- e : Check end/exit labels
@@ -41,7 +41,7 @@ project Create_Pkg is
       -- t : Check token spacing
       --removed  M100 : Set maximum line length
       -- x : Check extra parentheses.
-
+     
       case Mode is
          when "debug"   =>
             for Switches ("ada") use Common_Debug_Switches;
@@ -52,7 +52,7 @@ project Create_Pkg is
 
          when "release" =>
             for Switches ("ada") use Common_Switches & ("-O3", "-flto");
-            -- -flto : link time optimization
+            -- -flto : link time optimization 
 
       end case;
 
@@ -63,7 +63,7 @@ project Create_Pkg is
          when "debug"   => for Switches ("ada") use ("-g", "-lgcov");
             -- lgcov = -fprofile-arcs for coverage
          when "release" =>  for Switches ("ada") use ("-flto");
-            -- -flto : link time optimization
+            -- -flto : link time optimization 
       end case;
    end Linker;
 
@@ -83,4 +83,5 @@ project Create_Pkg is
       for Switches ("ada") use ("-M100", "-l2", "-A1", "-A2", "-A3", "-A4");
    end Pretty_Printer;
 
-end Create_Pkg;
+end Testrec ;
+

@@ -7,7 +7,15 @@ Archicheck.Lang.Ada_Processor package body depends on Archicheck.IO
 Archicheck.Lang.Ada_Processor package body depends on Archicheck.Settings
 Archicheck.Lang.Ada_Processor package body depends on Archicheck.Units
 Archicheck.Lang.Ada_Processor package body depends on OpenToken
+Archicheck.Lang.C_Processor package body depends on Ada.Exceptions
+Archicheck.Lang.C_Processor package body depends on Ada.Strings.Fixed
+Archicheck.Lang.C_Processor package body depends on Ada.Strings.Maps.Constants
+Archicheck.Lang.C_Processor package body depends on Ada.Text_IO
+Archicheck.Lang.C_Processor package body depends on Archicheck.IO
+Archicheck.Lang.C_Processor package body depends on Archicheck.Settings
+Archicheck.Lang.C_Processor package body depends on Archicheck.Units
 Archicheck.Lang.Initialize procedure body depends on Archicheck.Lang.Ada_Processor
+Archicheck.Lang.Initialize procedure body depends on Archicheck.Lang.C_Processor
 Archicheck.Lang.Initialize procedure body depends on Archicheck.Lang.Java_Processor
 Archicheck.Lang.Java_Processor package body depends on Ada.Exceptions
 Archicheck.Lang.Java_Processor package body depends on Ada.Text_IO

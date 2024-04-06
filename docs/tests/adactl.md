@@ -5,7 +5,7 @@
 
 ##  AdaControl code test suite / -lf test
 
-  > archicheck -lf -r -I ./adactl-1.19r10/src  
+  > archicheck -lf -r -I adactl-1.19r10/src  
 
   Expected (229 files) :  
 

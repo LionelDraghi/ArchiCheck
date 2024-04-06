@@ -1,16 +1,16 @@
 all: check doc
 
-CREATE_PKG=../Tools/create_pkg
-TR=../Tools/testrec
+CREATE_PKG=../../Tools/create_pkg
+TR=../../Tools/testrec
 
 .PHONY : clean
 
-check: ../../Obj/archicheck header test1 
+check: ../../obj/archicheck header test1 
 
 header:
 	@ #---------------------------------------------------------------------
-	${TR} clean
-	${TR} create "Ada units test suite"
+	@ ${TR} clean
+	@ ${TR} create "Ada units test suite"
 	@ ${CREATE_PKG} Sub spec -in src 
 	@ ${CREATE_PKG} A1  spec -in src 
 	@ ${CREATE_PKG} A2  spec -in src 
@@ -23,7 +23,7 @@ header:
 
 test1:
 	@ #---------------------------------------------------------------------
-	${TR} start "Ada compilation units unit test"
+	@ ${TR} start "Ada compilation units unit test"
 
 	@ ${TR} cmt "procedure Sub.Test has several separate units :"
 	@ ${TR} cmt 
@@ -50,21 +50,21 @@ test1:
 	@ ${TR} cmt "Expected :"
 	@ ${TR} cmt 
 	@ ${TR} cmt '```'
-	cat expected_output.1 >> testrec.md
+	@ cat expected_output.1 >> testrec.md
 	@ ${TR} cmt '```'
 	@ ${TR} cmt 
 
-	@ ../../Obj/archicheck -ld -I src | sort > output.1
-	${TR} assert true /usr/bin/sdiff "-s expected_output.1 output.1"
+	@ ../../obj/archicheck -ld -I src | sort > output.1
+	@ ${TR} assert true /usr/bin/sdiff "-s expected_output.1 output.1"
 
-	${TR} end
+	@ ${TR} end
 
 
 clean:
-	- ${RM} -rf output.* *.~ zip-ada 
-	@gnat clean -q sub-test
-	- ${TR} clean
+	@ - ${RM} -rf output.* *.~ zip-ada 
+	@ gnat clean -q sub-test
+	@ - ${TR} clean
 
 doc:
-	cp testrec.md ../../docs/tests/ada_units.md
+	@ cp testrec.md ../../docs/tests/ada_units.md
 

@@ -1,11 +1,11 @@
 all: check doc
 
-CREATE_PKG=../Tools/create_pkg
-TR=../Tools/testrec
+CREATE_PKG=../../Tools/create_pkg
+TR=../../Tools/testrec
 
 ## .PHONY : clean
 
-check: ../../Obj/archicheck header test1 test2 test3 test4 test5
+check: ../../obj/archicheck header test1 test2 test3 test4 test5
 
 header:
 	@ #---------------------------------------------------------------------
@@ -17,7 +17,7 @@ header:
 
 test1:
 	@ #---------------------------------------------------------------------
-	${TR} start "Layer component"
+	@ ${TR} start "Layer component"
 
 	@ ${TR} cmt "Here is the rules file :"
 	@ ${TR} cmt 
@@ -33,7 +33,7 @@ test1:
 	@ cat expected_output.1a >> testrec.md
 	@ ${TR} cmt '```'
 	
-	@ ../../Obj/archicheck rules1a.txt -I src > output.1a
+	@ ../../obj/archicheck rules1a.txt -I src > output.1a
 	@ ${TR} assert true /usr/bin/sdiff "-s expected_output.1a output.1a"
 
 	@ ${TR} cmt "Let's now add faulty units in LC layer :"
@@ -54,7 +54,7 @@ test1:
 
 test2:
 	@ #---------------------------------------------------------------------
-	${TR} start "Env component allowed"
+	@ ${TR} start "Env component allowed"
 
 	@ ${TR} cmt "Let's add faulty units in an Env component, and allow Env use :"
 	@ ${TR} cmt 
@@ -70,14 +70,14 @@ test2:
 	@ cat expected_output.2 >> testrec.md
 	@ ${TR} cmt '```'
 	
-	@ ../../Obj/archicheck rules2.txt -I src > output.2
+	@ ../../obj/archicheck rules2.txt -I src > output.2
 	@ ${TR} assert true /usr/bin/sdiff "-s expected_output.2 output.2"
 
 	@ ${TR} end
 
 test3:
 	@ #---------------------------------------------------------------------
-	${TR} start "Trying to include a unit in more components"
+	@ ${TR} start "Trying to include a unit in more components"
 
 	@ ${CREATE_PKG} P1 -in src 
 	@ ${CREATE_PKG} P2 -in src 
@@ -102,18 +102,18 @@ test3:
 	@ cat expected_output.3 >> testrec.md
 	@ ${TR} cmt '```'
 	
-	@ test ! `../../Obj/archicheck rules3.txt -I src > output.3`
+	@ test ! `../../obj/archicheck rules3.txt -I src > output.3`
 	@ ${TR} assert true /usr/bin/sdiff "-s expected_output.3 output.3"
 
 	@ ${TR} end
 
 test4:
 	@ #---------------------------------------------------------------------
-	${TR} start "Test on Components embedding components embedding components..."
+	@ ${TR} start "Test on Components embedding components embedding components..."
 
 	@ ${CREATE_PKG} P1 -in dir4 -with Ada.Containers -with Interfaces.C spec
 
-	> rules4.txt
+	@ > rules4.txt
 	@ echo "X contains P1"					>> rules4.txt
 	@ echo "Y contains X"					>> rules4.txt
 	@ echo "Z contains Y"					>> rules4.txt
@@ -133,7 +133,7 @@ test4:
 	@ cat expected_output.4a >> testrec.md
 	@ ${TR} cmt '```'
 	
-	@ test ! `../../Obj/archicheck rules4.txt -I dir4 > output.4a`
+	@ test ! `../../obj/archicheck rules4.txt -I dir4 > output.4a`
 	@ ${TR} assert true /usr/bin/sdiff "-s expected_output.4a output.4a"
 
 	@ ${TR} cmt "Lets allow Interfaces.C use through Z components :"
@@ -150,15 +150,15 @@ test4:
 	@ ${TR} cmt 
 	@ ${TR} cmt "No more Error expected."
 
-	> expected_output.4b 
-	@ ../../Obj/archicheck rules4.txt -I dir4 > output.4b
+	@ > expected_output.4b 
+	@ ../../obj/archicheck rules4.txt -I dir4 > output.4b
 	@ ${TR} assert true /usr/bin/sdiff "-s expected_output.4b output.4b"
 
 	@ ${TR} end
 
 test5:
 	@ #---------------------------------------------------------------------
-	${TR} start "Test A B C example posted on fr.comp.lang.ada..."
+	@ ${TR} start "Test A B C example posted on fr.comp.lang.ada..."
 
 	@ ${TR} cmt '  Except that as "A" is a reserved word, I use X Y Z instead :-)'
 
@@ -195,16 +195,16 @@ test5:
 	@ ${TR} cmt '  V    -> Y.P1  OK'
 	@ ${TR} cmt 
 
-	@ test ! `../../Obj/archicheck rules5.txt -I dir5 | sort > output.5`
+	@ test ! `../../obj/archicheck rules5.txt -I dir5 | sort > output.5`
 	@ ${TR} assert true /usr/bin/sdiff "-s expected_output.5 output.5"
 
 	@ ${TR} end
 
 clean:
-	- ${RM} -rf output.* src *.~ dir?
-	@gnat clean -q sub-test
-	- ${TR} clean
+	@ - ${RM} -rf output.* src *.~ dir?
+	@ gnat clean -q sub-test
+	@ - ${TR} clean
 
 doc:
-	cp testrec.md ../../docs/tests/rules_on_components.md
+	@ cp testrec.md ../../docs/tests/rules_on_components.md
 
