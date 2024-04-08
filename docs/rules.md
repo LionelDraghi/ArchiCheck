@@ -175,14 +175,17 @@ Reserved words
 Words used in rules syntax are reserved, and can't be used as unit name in rules file (but obviously no problem to use them as file or compilation unit name) : 
 
 1. `a`
+1. `Allowed`
 1. `and`
 1. `contains`
+1. `Forbidden`
 1. `is`
 1. `layer`
 1. `may`
 1. `only`
 1. `over`
 1. `use`
+1. `Forbidden`
 
 More complex and open issues
 ----------------------------
