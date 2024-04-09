@@ -45,15 +45,15 @@ package body Archicheck.Lang.C_Processor is
    is
       pragma Unreferenced (Lang);
 
-        -- Change default Debug parameter value to enable/disable
-        -- Debug messages in this package
-        -- -----------------------------------------------------------------------
-        procedure Put_Debug_Line
-         (Msg    : in String  := "";
-          Debug  : in Boolean := Settings.Debug_Mode;
-          Prefix : in String  := "C_Processor.Analyze_Dependencies")
-          renames Archicheck.IO.Put_Debug_Line;
-        -- pragma Unreferenced (Put_Debug_Line);
+      -- Change default Debug parameter value to enable/disable
+      -- Debug messages in this package
+      -- -----------------------------------------------------------------------
+      procedure Put_Debug_Line
+        (Msg    : in String  := "";
+         Debug  : in Boolean := Settings.Debug_Mode;
+         Prefix : in String  := "C_Processor.Analyze_Dependencies")
+         renames Archicheck.IO.Put_Debug_Line;
+      pragma Unreferenced (Put_Debug_Line);
 
       -- Global text file for reading parse data
       File : Ada.Text_IO.File_Type;
@@ -94,7 +94,7 @@ package body Archicheck.Lang.C_Processor is
             Line : constant String := Trim (Ada.Text_IO.Get_Line (File), Side => Both);
             F    : Positive;
             L    : Natural;
-            Include_token : constant String := "#include ";
+            Include_Token : constant String := "#include ";
             -- We are processing lines of that kind : 
             -- #include <stdio.h> 
             -- #include "square_root.h"
@@ -103,11 +103,11 @@ package body Archicheck.Lang.C_Processor is
             -- Cf. https://www.gnu.org/software/c-intro-and-ref/manual/html_node/include-Syntax.html
          begin
             Col := Index (Source  => Line,
-                          Pattern => Include_token,
+                          Pattern => Include_Token,
                           Going   => Forward,
                           Mapping => Ada.Strings.Maps.Constants.Lower_Case_Map);
             if Col /= 0 then
-               Col := Col + Include_token'length + 1;
+               Col := Col + Include_Token'Length + 1;
                Find_Token (Source  => Line,
                            Set     => Ada.Strings.Maps.To_Set ("<>"""),
                            From    => Col,

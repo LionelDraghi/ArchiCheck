@@ -2,10 +2,14 @@
 
 All notable changes to this project will be documented in this file.
 
-The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
+The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.1.0/)
 and version numbering adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 - [Unreleased]
+  > - [Added] new rule `X, Y, Z are independent` created
+  > - [Added] ArchiCheck is now an Alire crate
+  > - [Changed] OpenToken src removed, and added as an Alire dependency
+    
 
 - [0.5.8] - 2024-04-06
   > - [Changed] The -lf / --list_files output is now sorted by language and then by file name

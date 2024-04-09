@@ -18,9 +18,11 @@
 --
 -- -----------------------------------------------------------------------------
 
+with Archicheck_Config; -- Alire generated package
+
 private package Archicheck.Settings is
 
-   ArchiCheck_Version : constant String := "0.5.8";
+   ArchiCheck_Version : constant String := Archicheck_Config.Crate_Version; -- "0.5.9";
 
    List_Files         : Boolean := False;
    List_Dependencies  : Boolean := False;
@@ -50,7 +52,7 @@ private package Archicheck.Settings is
    Ada_Files_Pattern  : constant String := "*.ad[asb]";
    Java_Files_Pattern : constant String := "*.java";
    C_Files_Pattern    : constant String := "*.[ch]";
-   -- Not sure that case independance would be useful here
+   -- Fixme: Not sure that case independance would be useful here
 
    -- -------------------------------------------------------------------------
    -- Procedure: Set_Rules_File_Name

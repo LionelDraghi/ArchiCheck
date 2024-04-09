@@ -115,4 +115,6 @@ begin
       return;
    end if;
 
+   Ada.Command_Line.Set_Exit_Status (Ada.Command_Line.Success);
+
 end Archicheck.Main;

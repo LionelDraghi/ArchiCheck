@@ -28,6 +28,7 @@ check: ../obj/archicheck ../Tools/create_pkg ../Tools/testrec
 	@ $(MAKE) check --directory=18_Spring_PetClinic
 	@ $(MAKE) check --directory=19_Rules_Src_Coverage
 	@ $(MAKE) check --directory=20_C_Sanity_Tests
+	@ $(MAKE) check --directory=21_Independent_Components
 
 doc:
 	@ cat `find . -name testrec.md` > tmp.txt
@@ -86,6 +87,7 @@ doc:
 	@ $(MAKE) doc --directory=18_Spring_PetClinic
 	@ $(MAKE) doc --directory=19_Rules_Src_Coverage
 	@ $(MAKE) doc --directory=20_C_Sanity_Tests
+	@ $(MAKE) doc --directory=21_Independent_Components
 
 clean:
 	@ $(MAKE) clean --directory=01_Command_Line
@@ -108,6 +110,7 @@ clean:
 	@ $(MAKE) clean --directory=18_Spring_PetClinic
 	@ $(MAKE) clean --directory=19_Rules_Src_Coverage
 	@ $(MAKE) clean --directory=20_C_Sanity_Tests
+	@ $(MAKE) clean --directory=21_Independent_Components
 	
 	@ - ${RM} tests_status.md *.lst short_tests_status.md tests_count.txt
 

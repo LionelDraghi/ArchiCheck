@@ -34,19 +34,23 @@ private package Archicheck.Rules is
 
 private
    -- --------------------------------------------------------------------------
-   type Rule_Kind is (Layer_Over,    -- X is a layer over Y
-                      May_Use,       -- X may use Y
-                      Exclusive_Use, -- only X may use Y
-                      Forbidden_Use, -- X use is forbidden
-                      Allowed_Use);  -- Y use is allowed
-   subtype With_Object_Rule_Kind is
-     Rule_Kind range Rule_Kind'First .. Exclusive_Use;
-   subtype No_Object_Rule_Kind is
-     Rule_Kind range Forbidden_Use .. Rule_Kind'Last;
    -- Some rules have a subject X and an object Y :
    --   X may use Y
    -- Some rules have only a subject X :
    --   X use is forbidden
+   type Rule_Kind is (-- without object
+                      Allowed_Use,     -- Y use is allowed
+                      Forbidden_Use,   -- X use is forbidden
+                      -- with object
+                      Exclusive_Use,   -- only X may use Y
+                      Are_Independent, -- X and Y are independent
+                      Layer_Over,      -- X is a layer over Y
+                      May_Use          -- X may use Y
+                      );
+   subtype No_Object_Rule_Kind is
+     Rule_Kind range Rule_Kind'First .. Forbidden_Use;
+   subtype With_Object_Rule_Kind is
+     Rule_Kind range Exclusive_Use .. Rule_Kind'Last;
 
    type Rule (Kind : Rule_Kind) is record
       Location     : Sources.Location; -- where the rule comes from

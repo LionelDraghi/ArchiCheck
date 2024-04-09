@@ -12,13 +12,13 @@ Version
 > date -r archicheck --iso-8601=seconds
 
 ```
-2024-04-06T11:29:10+02:00
+2024-04-09T14:16:49+02:00
 ```
 
 Test results
 ------------
 ```
-Successful  84
+Successful  86
 Failed      0
 Empty       4
 ```
@@ -28,8 +28,6 @@ Coverage
 --------
 
 ```
-Message summary:
-  no messages were reported
 ```
 
                                                |Lines      |Functions|Branches  

@@ -3,10 +3,10 @@ all: create_pkg testrec check_suite check_test run_test check_clean doc
 TR=./testrec
 
 create_pkg:
-	gnat make -q -Pcreate_pkg.gpr
+	gprbuild -q -Pcreate_pkg.gpr
 
 testrec:
-	gnat make -q -Ptestrec.gpr
+	gprbuild -q -Ptestrec.gpr
 
 check_suite: ${TR}
 	${TR} clean
@@ -112,7 +112,5 @@ doc:
 
 .PHONY : clean
 clean:
-	gnat clean -q -Pcreate_pkg.gpr
-	gnat clean -q -Ptestrec.gpr
-	- ${RM} .testrec state.? state.?? testrec.md diff.? diff.?? file? state.ref
+	- ${RM} obj/* .testrec state.? state.?? testrec.md diff.? diff.?? file? state.ref
 

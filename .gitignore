@@ -1,19 +1,23 @@
 site/
+hugo/
 obj/
 lib/
 
-Tests/Tools/create_pkg
-Tests/Tools/testrec
-Tests/Tools/obj/
+Tools/create_pkg
+Tools/testrec
+Tools/obj/
 
 docs/tests.png
 docs/sloc.png
 docs/lcov
 docs/archicheck
+docs/version.svg
+docs/tests_ok.svg
 
 archicheck
 
 gmon.out
-hugo/
-docs/version.svg
-docs/tests_ok.svg
+
+alire.toml
+alire/
+src/Alire_config

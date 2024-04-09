@@ -47,16 +47,14 @@ package body Archicheck.Rules is
       use Sources;
    begin
       case R.Kind is
-         when Layer_Over =>
+         when Allowed_Use =>
             Put_Line (Location_Image (R.Location)
-                      & "Layer " & (+R.Subject_Unit)
-                      & " is over layer " & (+R.Object_Unit),
+                      & "Use of " & (+R.Subject_Unit) & " allowed ",
                       Level => IO.Quiet);
 
-         when May_Use =>
+         when Are_Independent =>
             Put_Line (Location_Image (R.Location)
-                      & (+R.Subject_Unit) & " may use "
-                      & (+R.Object_Unit),
+                      & (+R.Subject_Unit) & " and " & (+R.Object_Unit) & " are independent",
                       Level => IO.Quiet);
 
          when Exclusive_Use =>
@@ -70,9 +68,16 @@ package body Archicheck.Rules is
                       & "Use of " & (+R.Subject_Unit) & " is forbidden",
                       Level => IO.Quiet);
 
-         when Allowed_Use =>
+         when Layer_Over =>
             Put_Line (Location_Image (R.Location)
-                      & "Use of " & (+R.Subject_Unit) & " allowed ",
+                      & "Layer " & (+R.Subject_Unit)
+                      & " is over layer " & (+R.Object_Unit),
+                      Level => IO.Quiet);
+
+         when May_Use =>
+            Put_Line (Location_Image (R.Location)
+                      & (+R.Subject_Unit) & " may use "
+                      & (+R.Object_Unit),
                       Level => IO.Quiet);
 
       end case;

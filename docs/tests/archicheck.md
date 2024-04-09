@@ -28,7 +28,7 @@ ArchiCheck code test suite / -lf test [Successful](tests_status.md#successful)
 
   > archicheck -ld -I ./src | sort  
 
-  113 dependencies expected :  
+  114 dependencies expected :  
 
 ```  
 Archicheck.IO package body depends on Ada.Text_IO
@@ -85,6 +85,7 @@ GNAT use is forbidden
 Ada                 use is allowed
 Archicheck.IO       use is allowed
 Archicheck.Settings use is allowed
+Archicheck_Config   use is allowed
 List_Image          use is allowed
 ```  
 
@@ -123,6 +124,7 @@ GNAT use is forbidden
 Ada                 use is allowed
 Archicheck.IO       use is allowed
 Archicheck.Settings use is allowed
+Archicheck_Config   use is allowed
 List_Image          use is allowed
 ```  
 

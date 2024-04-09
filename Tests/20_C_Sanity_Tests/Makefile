@@ -89,7 +89,7 @@ test2:
 	@ ${TR} cmt '```'
 	@ ${TR} cmt 
 
-	@ ../../obj/archicheck -ld -I include -I src > output.2
+	@ ../../obj/archicheck -ld -I include -I src | sort > output.2
 	@ ${TR} assert true /usr/bin/sdiff "-sbB expected_output.2 output.2"
 
 

@@ -61,8 +61,8 @@ include/newton_method.h:
   Expected :  
 
 ```  
-main implementation depends on stdio
 main implementation depends on square_root
+main implementation depends on stdio
 square_root implementation depends on newton_method
 ```  
 

@@ -77,4 +77,4 @@ clean:
 	@ ${TR} clean
 
 doc:
-	cp testrec.md ../../docs/tests/dependency_list.md
+	@ cp testrec.md ../../docs/tests/dependency_list.md

@@ -100,8 +100,8 @@ begin
                   begin
                      IO.Put_Line ("- Checking relationship "
                                   & Rule_Kind'Image (Rule.Kind) & " : "
-                                  & To_String (Rule.Subject_Unit) & " -> "
-                                  & To_String (Rule.Object_Unit),
+                                  & To_String (Client) & " -> "
+                                  & To_String (Server),
                                   Level => Verbose);
 
                      if (Is_X_In_Server and Is_Y_In_Server) or
@@ -112,6 +112,35 @@ begin
 
                      else
                         case Rule.Kind is
+                           when Allowed_Use | Forbidden_Use => null;
+                              -- Those possibility have been processed before.
+
+                           when Are_Independent =>
+                              if (Is_Y_In_Server and Is_X_In_Client) or else 
+                                 (Is_X_In_Server and Is_Y_In_Client)
+                              then
+                                 IO.Put_Error (Location_Image (Target.Location) & To_String (Rule.Subject_Unit) 
+                                   & " and " & To_String (Rule.Object_Unit) & " must be independent");
+                              end if;
+
+                           when Exclusive_Use =>
+                              if Is_Y_In_Server and not Is_X_In_Client then
+                                 declare
+                                    use type Ada.Containers.Count_Type;
+                                    Users : constant Rule_Lists.List := Allowed_Users (Server);
+                                    Verb  : constant String := (if Users.Length = 1 then " is " else " are ");
+
+                                 begin
+                                    if not Is_Allowed (Client, Server) then
+                                       IO.Put_Error (Location_Image (Target.Location) & "Only " & Users_Image (Users)
+                                                     & Verb & "allowed to use "
+                                                     & (+Server) & ", " & (+From) & " is not");
+                                    else
+                                       IO.Put_Error ((+Client) & " is allowed to use " & (+Server));
+                                    end if;
+                                 end;
+                              end if;
+
                            when Layer_Over =>
                               -- Error first, and if there is an error,
                               -- following check should be useless
@@ -138,24 +167,6 @@ begin
                                                  & (+Server) & " layer");
                               end if;
 
-                           when Exclusive_Use =>
-                              if Is_Y_In_Server and not Is_X_In_Client then
-                                 declare
-                                    use type Ada.Containers.Count_Type;
-                                    Users : constant Rule_Lists.List := Allowed_Users (Server);
-                                    Verb  : constant String := (if Users.Length = 1 then " is " else " are ");
-
-                                 begin
-                                    if not Is_Allowed (Client, Server) then
-                                       IO.Put_Error (Location_Image (Target.Location) & "Only " & Users_Image (Users)
-                                                     & Verb & "allowed to use "
-                                                     & (+Server) & ", " & (+From) & " is not");
-                                    else
-                                       IO.Put_Error ((+Client) & " is allowed to use " & (+Server));
-                                    end if;
-                                 end;
-                              end if;
-
                            when May_Use =>
                               -- X may use Y actually means that Y shall not use X,
                               -- and this is what we check here
@@ -163,9 +174,6 @@ begin
                                  IO.Put_Error (Location_Image (Target.Location) & (+Client) & " may use " & (+Server)
                                                & ", so " & (+From) & " shall not use " & (+To));
                               end if;
-
-                           when Forbidden_Use | Allowed_Use => null;
-                              -- Those possibility have been processed before.
 
                         end case;
                      end if;

@@ -75,13 +75,15 @@ build:
 	@ echo Make debug build
 	@ - mkdir -p obj lib
 
-	@ gprbuild -s -Xmode=debug -Parchicheck.gpr
+	## @ alr gnatcov instrument --no-subprojects -Parchicheck.gpr --level=stmt
+	@ alr build -- -s -Xmode=debug 
+	## --src-subdirs=gnatcov-instr --implicit-with=gnatcov_rts.gpr 
 	@ # -q : quiet
 	@ # -s : recompile if compiler switches have changed
 
 .PHONY : build_release
 build_release:
-	gprbuild -s -Xmode=release -Parchicheck.gpr
+	alr build -- -s -Xmode=release
 	# -q : quiet
 	# -s : recompile if compiler switches have changed
 
@@ -108,7 +110,7 @@ check: obj/archicheck
 	@ - mkdir -p Tools/obj 
 
 	@ echo - Initializing coverage data before run
-	lcov --quiet --capture --initial --directory obj -o obj/coverage.info --ignore-errors source
+	# lcov --quiet --capture --initial --directory obj -o obj/coverage.info --ignore-errors source
 	# lcov error are ignored because this is also runned when in release mode,  
 	# without coverage info generated
 
@@ -124,10 +126,10 @@ check: obj/archicheck
 	echo
 	@ echo - Coverage report :
 
-	@ lcov --quiet --capture --directory obj -o obj/coverage.info --ignore-errors source
-	@ lcov --quiet --remove obj/coverage.info -o obj/coverage.info \
-		"*/adainclude/*" "*/src_opentoken-6.0b/*" "*.ads" "*/obj/b__archicheck-main.adb"
-		# "*/patch_opentoken/*" 
+	# @ lcov --quiet --capture --directory obj -o obj/coverage.info --ignore-errors source
+	# @ lcov --quiet --remove obj/coverage.info -o obj/coverage.info \
+	# 	"*/adainclude/*" "*/src_opentoken-6.0b/*" "*.ads" "*/obj/b__archicheck-main.adb"
+	# 	# "*/patch_opentoken/*" 
 	# Ignoring :
 	# - spec (results are not consistent with current gcc version) 
 	# - the false main
@@ -135,20 +137,20 @@ check: obj/archicheck
 	# - OpenToken
 
 	@ # Summary table in md format :
-	@ lcov --list obj/coverage.info > docs/coverage_summary.md
+	# @ lcov --list obj/coverage.info > docs/coverage_summary.md
 
 
-	@ genhtml obj/coverage.info -o docs/lcov --title "ArchiCheck tests coverage" \
-		--show-navigation --function-coverage --branch-coverage \
-		--prefix "/home/lionel/Projets/Logiciels/Archicheck" --frames | tail -n 2 > cov_sum.txt
+	# @ genhtml obj/coverage.info -o docs/lcov --title "ArchiCheck tests coverage" \
+	# 	--show-navigation --function-coverage --branch-coverage \
+	# 	--prefix "/home/lionel/Projets/Logiciels/Archicheck" --frames | tail -n 2 > cov_sum.txt
 	# --title  : Display TITLE in header of all pages
 	# --prefix : Remove PREFIX from all directory names
 	# --frame  : Use HTML frames for source code view
-	@ cat cov_sum.txt
+	# @ cat cov_sum.txt
 	@ echo
 
 .PHONY : dashboard
-dashboard: obj/coverage.info Tests/tests_count.txt
+dashboard: Tests/tests_count.txt
 	@ echo Make dashboard
 
 	@ # Language pie
@@ -215,7 +217,7 @@ dashboard: obj/coverage.info Tests/tests_count.txt
 	@ echo "--------"				>> docs/dashboard.md
 	@ echo 							>> docs/dashboard.md
 	@ echo '```'			 		>> docs/dashboard.md
-	@ cat cov_sum.txt				>> docs/dashboard.md
+	#### @ cat cov_sum.txt				>> docs/dashboard.md
 	@ echo '```'			 		>> docs/dashboard.md
 	@ echo 							>> docs/dashboard.md
 	@ cat docs/coverage_summary.md	>> docs/dashboard.md
@@ -280,7 +282,7 @@ doc: dashboard cmd_line.md
 .PHONY : clean
 clean:
 	@ echo Make clean
-	@ - gnat clean -q -Parchicheck.gpr
+	@ ## - gnat clean -q -Parchicheck.gpr
 	@ - ${RM} -rf obj/* docs/lcov/* tmp.txt *.lst *.dat cov_sum.txt gmon.out gh-md-toc docs/generated_img/*
 	@ - $(MAKE) --directory=Tests clean
 	@ - $(MAKE) --directory=Tools clean

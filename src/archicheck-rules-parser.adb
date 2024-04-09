@@ -49,9 +49,9 @@ package body Archicheck.Rules.Parser is
    -- Change default Debug parameter value to enable/disable
    -- Debug messages in this package
    -- --------------------------------------------------------------------------
-   --     procedure Put_Debug_Line (Msg    : in String  := "";
-   --                               Debug  : in Boolean := Settings.Debug_Mode; -- change to True to debug this package
-   --                               Prefix : in String  := "Rules_Parser") renames Archicheck.IO.Put_Debug_Line;
+   --  procedure Put_Debug_Line (Msg    : in String  := "";
+   --                            Debug  : in Boolean := Settings.Debug_Mode; -- change to True to debug this package
+   --                            Prefix : in String  := "Rules_Parser") renames Archicheck.IO.Put_Debug_Line;
    --     procedure Put_Debug (Msg    : in String  := "";
    --                          Debug  : in Boolean := True;
    --                          Prefix : in String  := "Rules_Parser") renames Archicheck.IO.Put_Debug;
@@ -74,7 +74,9 @@ package body Archicheck.Rules.Parser is
       -- Keywords
       A_Id, -- first terminal
       And_Id,
+      Are_Id,
       Contains_Id,
+      Independent_Id,
       Is_Id,
       Layer_Id,
       Only_Id,
@@ -99,6 +101,7 @@ package body Archicheck.Rules.Parser is
       Unit_Id,
       Unit_List_Id,
       Component_Declaration_Id,
+      Independent_Components_Declaration_Id,
       Layer_Declaration_Id,
       Use_Declaration_Id,
       Restricted_Use_Declaration_Id,
@@ -146,22 +149,24 @@ package body Archicheck.Rules.Parser is
    -- --------------------------------------------------------------------------
 
    -- Terminal tokens
-   A_T          : constant Master_Token.Class := Master_Token.Get (A_Id);
-   And_T        : constant Master_Token.Class := Master_Token.Get (And_Id);
-   Contains_T   : constant Master_Token.Class := Master_Token.Get (Contains_Id);
-   Comma_T      : constant Master_Token.Class := Master_Token.Get (Comma_Id);
-   Dot_T        : constant Master_Token.Class := Master_Token.Get (Dot_Id);
-   Identifier_T : constant Master_Token.Class := Master_Token.Get (Identifier_Id);
-   Is_T         : constant Master_Token.Class := Master_Token.Get (Is_Id);
-   EoF_T        : constant Master_Token.Class := Master_Token.Get (EoF_Id);
-   Layer_T      : constant Master_Token.Class := Master_Token.Get (Layer_Id);
-   Only_T       : constant Master_Token.Class := Master_Token.Get (Only_Id);
-   May_T        : constant Master_Token.Class := Master_Token.Get (May_Id);
-   Use_T        : constant Master_Token.Class := Master_Token.Get (Use_Id);
-   Forbidden_T  : constant Master_Token.Class := Master_Token.Get (Forbidden_Id);
-   Allowed_T    : constant Master_Token.Class := Master_Token.Get (Allowed_Id);
-   Over_T       : constant Master_Token.Class := Master_Token.Get (Over_Id);
-   Semicolon_T  : constant Master_Token.Class := Master_Token.Get (Semicolon_Id);
+   A_T           : constant Master_Token.Class := Master_Token.Get (A_Id);
+   And_T         : constant Master_Token.Class := Master_Token.Get (And_Id);
+   Are_T         : constant Master_Token.Class := Master_Token.Get (Are_Id);
+   Contains_T    : constant Master_Token.Class := Master_Token.Get (Contains_Id);
+   Comma_T       : constant Master_Token.Class := Master_Token.Get (Comma_Id);
+   Dot_T         : constant Master_Token.Class := Master_Token.Get (Dot_Id);
+   Identifier_T  : constant Master_Token.Class := Master_Token.Get (Identifier_Id);
+   Independent_T : constant Master_Token.Class := Master_Token.Get (Independent_Id);
+   Is_T          : constant Master_Token.Class := Master_Token.Get (Is_Id);
+   EoF_T         : constant Master_Token.Class := Master_Token.Get (EoF_Id);
+   Layer_T       : constant Master_Token.Class := Master_Token.Get (Layer_Id);
+   Only_T        : constant Master_Token.Class := Master_Token.Get (Only_Id);
+   May_T         : constant Master_Token.Class := Master_Token.Get (May_Id);
+   Use_T         : constant Master_Token.Class := Master_Token.Get (Use_Id);
+   Forbidden_T   : constant Master_Token.Class := Master_Token.Get (Forbidden_Id);
+   Allowed_T     : constant Master_Token.Class := Master_Token.Get (Allowed_Id);
+   Over_T        : constant Master_Token.Class := Master_Token.Get (Over_Id);
+   Semicolon_T   : constant Master_Token.Class := Master_Token.Get (Semicolon_Id);
 
    -- Non-terminal tokens, which define the grammar.
    Use_Declaration            : constant Nonterminal.Class := Nonterminal.Get (Use_Declaration_Id);
@@ -170,6 +175,7 @@ package body Archicheck.Rules.Parser is
    Allowed_Use_Declaration    : constant Nonterminal.Class := Nonterminal.Get (Allowed_Used_Declaration_Id);
    Layer_Declaration          : constant Nonterminal.Class := Nonterminal.Get (Layer_Declaration_Id);
    Component_Declaration      : constant Nonterminal.Class := Nonterminal.Get (Component_Declaration_Id);
+   Independent_Components_Declaration : constant Nonterminal.Class := Nonterminal.Get (Independent_Components_Declaration_Id);
    Rule                       : constant Nonterminal.Class := Nonterminal.Get (Rule_Id);
    Rule_List                  : constant Nonterminal.Class := Nonterminal.Get (Rule_List_Id);
    Rules_File                 : constant Nonterminal.Class := Nonterminal.Get (Rules_File_Id);
@@ -185,7 +191,9 @@ package body Archicheck.Rules.Parser is
                --
                A_Id             => Tokenizer.Get (OpenToken.Recognizer.Keyword.Get ("a")),
                And_Id           => Tokenizer.Get (OpenToken.Recognizer.Keyword.Get ("and")),
+               Are_Id           => Tokenizer.Get (OpenToken.Recognizer.Keyword.Get ("are")),
                Contains_Id      => Tokenizer.Get (OpenToken.Recognizer.Keyword.Get ("contains")),
+               Independent_Id   => Tokenizer.Get (OpenToken.Recognizer.Keyword.Get ("independent")),
                Is_Id            => Tokenizer.Get (OpenToken.Recognizer.Keyword.Get ("is")),
                Layer_Id         => Tokenizer.Get (OpenToken.Recognizer.Keyword.Get ("layer")),
                Only_Id          => Tokenizer.Get (OpenToken.Recognizer.Keyword.Get ("only")),
@@ -213,7 +221,7 @@ package body Archicheck.Rules.Parser is
                   New_Token  => Identifiers.Get (Identifier_Id))
 
                -- EoL_Id        => Tokenizer.Get (OpenToken.Recognizer.Separator.Get ((1 => OpenToken.EOL_Character))),
-                );
+              );
 
    -- Step 5: Define a Lexical Analyzer
    -- --------------------------------------------------------------------------
@@ -277,6 +285,12 @@ package body Archicheck.Rules.Parser is
       Source    : in  Token_List.Instance'Class;
       To_ID     : in  Master_Token.Token_ID);
 
+   -- --------------------------------------------------------------------------
+   procedure Store_Independent_Components
+     (New_Token : out Nonterminal.Class;
+      Source    : in  Token_List.Instance'Class;
+      To_ID     : in  Master_Token.Token_ID);
+
 
    -- Grammar:
    -- --------------------------------------------------------------------------
@@ -289,7 +303,7 @@ package body Archicheck.Rules.Parser is
    -- Layer_Declaration           -> Layer is a layer over Layer                  Insert [Layer, Layer]         in Layer_List
    -- Restricted_Use_Declaration  -> only Component1 may use component2
    -- Use_Declaration             -> Component1 uses Component2
-   -- Rule                        -> Component_Declaration | Layer_Declaration | Use_Declaration | Restricted_Use_Declaration
+   -- Rule                        -> Independent_Components_Declaration | Component_Declaration | Layer_Declaration | Use_Declaration | Restricted_Use_Declaration
 
    Grammar : constant Production_List.Instance :=
                Rules_File                  <= Rule_List & EoF_T              and
@@ -304,7 +318,9 @@ package body Archicheck.Rules.Parser is
                Rule                        <= Forbidden_Use_Declaration      and
                Rule                        <= Allowed_Use_Declaration        and
                Rule                        <= Component_Declaration          and
+               Rule                        <= Independent_Components_Declaration          and
 
+               Independent_Components_Declaration <= Unit_List & Are_T & Independent_T      + Store_Independent_Components'Access     and
                Component_Declaration       <= Unit & Contains_T & Unit_List                 + Store_Component_Declaration'Access      and
                Layer_Declaration           <= Unit & Is_T & A_T & Layer_T & Over_T & Unit   + Store_Layer_Declaration'Access          and
                Use_Declaration             <= Unit & May_T & Use_T & Unit_List              + Store_Use_Declaration'Access            and
@@ -326,7 +342,7 @@ package body Archicheck.Rules.Parser is
    --  The LALR parser instance.
    Rules_File_Parser : LALR_Parser.Instance := LALR_Parser.Initialize
      (Analyzer,
-      LALR_Generator.Generate (Grammar));
+      Table => LALR_Generator.Generate (Grammar));
 
    -- --------------------------------------------------------------------------
    function Current_Location return Sources.Location is
@@ -556,6 +572,51 @@ package body Archicheck.Rules.Parser is
 
    end Add_Forbbiden_Unit;
 
+   -- --------------------------------------------------------------------------
+   procedure Store_Independent_Components 
+     (New_Token : out Nonterminal.Class;
+      Source    : in  Token_List.Instance'Class;
+      To_ID     : in  Master_Token.Token_ID)
+   is
+      pragma Unreferenced (New_Token, Source, To_ID);
+
+      use Units.Dependency_Targets;
+
+      --  Global_List : Units.Dependency_Targets.List := Right_List;
+      --  First  : constant Units.Dependency_Targets.Cursor 
+      --    := Left_List.First;
+      --  Last   : constant Units.Dependency_Targets.Cursor 
+      --    := Left_List.Last;
+      --  Penultimate : constant Units.Dependency_Targets.Cursor 
+      --    := Units.Dependency_Targets.Previous (Last);
+      I, J : Units.Dependency_Targets.Cursor;
+
+   begin
+      -- For the "A, B, C are independent" rule, Left_List will contains A,
+      -- and Right B, C, etc.
+      -- So, lets merge both
+      Right_List.Prepend (Left_List.First_Element);
+      -- Put_Debug_Line ("Right_List = " & Right_List'Image);
+      -- To check the "A, B, C are independent" rule, we have 
+      -- to register all possible couple : AB, AC, BC
+      I := Right_List.First;
+      loop
+         exit when I = Right_List.Last;
+         J := Next (I);
+         loop
+            Add_Rule ((Subject_Unit => Right_List (I).To_Unit,
+                       Object_Unit  => Right_List (J).To_Unit,
+                       Kind         => Are_Independent,
+                       Location     => Current_Location));
+            exit when J = Right_List.Last;
+            Next (J);
+         end loop;
+         Next (I);
+      end loop;
+
+      Reset_Unit_Names;
+
+   end Store_Independent_Components;
 
    -- -------------------------------------------------------------------------
    -- Procedure: Parse
