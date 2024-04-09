@@ -19,3 +19,5 @@ output_dir   = "src/Alire_config"
 generate_C   = false
 generate_gpr = false
 
+[[pins]]
+opentoken = { path = "../opentoken" } 
