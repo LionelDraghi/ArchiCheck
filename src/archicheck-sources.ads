@@ -54,13 +54,15 @@ private package Archicheck.Sources is
    -- --------------------------------------------------------------------------
    -- Procedure: Sort_And_Dump_Sources
    -- --------------------------------------------------------------------------
-   procedure Sort_And_Dump_Sources; -- (Sources : in out Archicheck.Sources.Source_Lists.List);
+   procedure Sort_And_Dump_Sources;
 
    -- --------------------------------------------------------------------------
+   type Parsing_Context is (In_File, In_Command_Line);
    type Location is record
-      File   : File_Name;
-      Line   : Positive;
-      Column : Integer := 0;
+      File    : File_Name;
+      Context : Parsing_Context; -- := In_File;
+      Line    : Positive;
+      Column  : Integer := 0;
    end record;
 
    -- --------------------------------------------------------------------------
@@ -68,13 +70,17 @@ private package Archicheck.Sources is
    --
    -- Purpose:
    --    This function return a source/line/column prefix to messages
-   --    compatible whith GNU Standard
+   --    compatible with GNU Standard
    --    (refer to <https://www.gnu.org/prep/standards/html_node/Errors.html>),
    --    That is :
    --       > sourcefile:lineno:
    --    if no column, or
    --       > sourcefile:lineno.column:
    --    otherwise.
+   --    
+   --    In the special case where the Lexer is parsing the command line, 
+   --    (Context set to Cmd_Line), the function return a constant
+   --    "Cmd_Line :" string.
    --
    --    Note that there is a trailing space, so that the message can be
    --    appended directly.

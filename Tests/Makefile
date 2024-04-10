@@ -4,7 +4,7 @@ all: check doc
 
 # TESTS=01_Command_Line 02_Source_List 03_Dependency_List 04_Component_List 05_Layer_Rule 06_Child_Packages 07_Rules_Files_Syntax 08_Globbing_Characters 09_GtkAda 10_Use_Rule 11_Batik 12_ZipAda 13_Ada_Units 14_Rules_On_Components 15_Precedences_Rules 16_AdaControl
 
-check: ../obj/archicheck ../Tools/create_pkg ../Tools/testrec
+check: ../obj/acc ../Tools/create_pkg ../Tools/testrec
     # for TEST in $(TESTS); do \
     #     $(MAKE) check $$TEST; \
     # done

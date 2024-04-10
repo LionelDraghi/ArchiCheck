@@ -19,20 +19,24 @@
 ```  
 
 ArchiCheck normal use :
-   archicheck rules_file -Ir directory [-Ir directory]*
+   acc rules_file -Ir directory [-Ir directory]*
 
 General form :
-   archicheck [Queries] [rules_file] [Options]* [-I[r] directory]*
+   acc [Options]* [Queries] [-ar | --append_rule 'some rule']* [rules_file] [-I[r] directory]*
 
    -I  src : looks for sources in src dir
    -Ir src : looks for sources in src dir and subdirs
+
+Rules :
+   Rules may be in a text file, or directly in the command line prefixed with -ar
+   When both are provided, rules in command line are appended to rules in the file
 
 Options :
    -r  | --recursive      : all following -I are recursive
    -We | --Warnings=error : treat warnings as errors
    -v  | --verbose
    -q  | --quiet          : no message unless error. Warning are also ignored.
-         --version        : archicheck version
+         --version        : acc version
    -h  | --help           : this message
 
 Queries :
@@ -45,13 +49,14 @@ Queries :
    and the full analysis on sources is not done.
 
 Use examples:
-   archicheck rules.txt -Ir src
-   archicheck -lf -Ir src
-   archicheck -lr rules.txt
+   acc rules.txt -Ir src
+   acc -lf -Ir src
+   acc -lr rules.txt
+   acc -ar 'Java.IO use is forbidden' -Ir src
 
 Rules file:
    To start a new rules file, run:
-   archicheck -ct
+   acc -ct
    A commented template.ac file will be created : rename it and edit it.
 
 http://lionel.draghi.free.fr/Archicheck/index.html
@@ -77,7 +82,7 @@ Command line test suite / Version option [Successful](tests_status.md#successful
 
 
   When running:  
-  > archicheck -I  
+  > acc -I  
 
   Expecting:  
 
@@ -88,11 +93,11 @@ Error : Sources directory expected after -I
 
 Command line test suite / -I option without src dir [Successful](tests_status.md#successful)
 
-##  Command line test suite / -I option with an unknow dir
+##  Command line test suite / -I option with an unknown dir
 
 
   When running:  
-  > archicheck -I qsdqjh  
+  > acc -I qsdqjh  
 
   Expecting:  
 
@@ -101,57 +106,18 @@ Error : No qsdqjh directory
 ```  
 
 
-Command line test suite / -I option with an unknow dir [Successful](tests_status.md#successful)
+Command line test suite / -I option with an unknown dir [Successful](tests_status.md#successful)
 
 ##  Command line test suite / unknown -xyz option
 
 
   When running:  
-  > archicheck -xzy  
+  > acc -xzy  
 
   Expecting:  
 
 ```  
-Error : Unknown rules file or unknow option -xzy
-
-ArchiCheck normal use :
-   archicheck rules_file -Ir directory [-Ir directory]*
-
-General form :
-   archicheck [Queries] [rules_file] [Options]* [-I[r] directory]*
-
-   -I  src : looks for sources in src dir
-   -Ir src : looks for sources in src dir and subdirs
-
-Options :
-   -r  | --recursive      : all following -I are recursive
-   -We | --Warnings=error : treat warnings as errors
-   -v  | --verbose
-   -q  | --quiet          : no message unless error. Warning are also ignored.
-         --version        : archicheck version
-   -h  | --help           : this message
-
-Queries :
-   -lf  | --list_files        : list analyzed sources files
-   -ld  | --list_dependencies : list identified units and dependencies in analyzed sources files
-   -lr  | --list_rules        : list rules in a rules file
-   -lnc | --list_non_covered  : list compilation units not involved in rules file
-   -ct  | --create_template   : create a commented example of rules file
-   If any, only one of the queries is performed
-   and the full analysis on sources is not done.
-
-Use examples:
-   archicheck rules.txt -Ir src
-   archicheck -lf -Ir src
-   archicheck -lr rules.txt
-
-Rules file:
-   To start a new rules file, run:
-   archicheck -ct
-   A commented template.ac file will be created : rename it and edit it.
-
-http://lionel.draghi.free.fr/Archicheck/index.html
-
+Error : Unknown rules file or unknown option -xzy
 ```  
 
 
@@ -164,7 +130,7 @@ Command line test suite / unknown -xyz option [Successful](tests_status.md#succe
   When running:  
   > mkdir -p dir6    
   > touch dir6/src.adb    
-  > archicheck -I dir6    
+  > acc -I dir6    
 
   Expecting:  
 
@@ -172,20 +138,24 @@ Command line test suite / unknown -xyz option [Successful](tests_status.md#succe
 Error : Nothing to do with those sources
 
 ArchiCheck normal use :
-   archicheck rules_file -Ir directory [-Ir directory]*
+   acc rules_file -Ir directory [-Ir directory]*
 
 General form :
-   archicheck [Queries] [rules_file] [Options]* [-I[r] directory]*
+   acc [Options]* [Queries] [-ar | --append_rule 'some rule']* [rules_file] [-I[r] directory]*
 
    -I  src : looks for sources in src dir
    -Ir src : looks for sources in src dir and subdirs
+
+Rules :
+   Rules may be in a text file, or directly in the command line prefixed with -ar
+   When both are provided, rules in command line are appended to rules in the file
 
 Options :
    -r  | --recursive      : all following -I are recursive
    -We | --Warnings=error : treat warnings as errors
    -v  | --verbose
    -q  | --quiet          : no message unless error. Warning are also ignored.
-         --version        : archicheck version
+         --version        : acc version
    -h  | --help           : this message
 
 Queries :
@@ -198,13 +168,14 @@ Queries :
    and the full analysis on sources is not done.
 
 Use examples:
-   archicheck rules.txt -Ir src
-   archicheck -lf -Ir src
-   archicheck -lr rules.txt
+   acc rules.txt -Ir src
+   acc -lf -Ir src
+   acc -lr rules.txt
+   acc -ar 'Java.IO use is forbidden' -Ir src
 
 Rules file:
    To start a new rules file, run:
-   archicheck -ct
+   acc -ct
    A commented template.ac file will be created : rename it and edit it.
 
 http://lionel.draghi.free.fr/Archicheck/index.html
@@ -218,7 +189,7 @@ Command line test suite / -I option with... nothing to do [Successful](tests_sta
 
 
   When running:  
-  > archicheck -lr  
+  > acc -lr  
 
   Expecting:  
 
@@ -226,20 +197,24 @@ Command line test suite / -I option with... nothing to do [Successful](tests_sta
 Error : No rules file given
 
 ArchiCheck normal use :
-   archicheck rules_file -Ir directory [-Ir directory]*
+   acc rules_file -Ir directory [-Ir directory]*
 
 General form :
-   archicheck [Queries] [rules_file] [Options]* [-I[r] directory]*
+   acc [Options]* [Queries] [-ar | --append_rule 'some rule']* [rules_file] [-I[r] directory]*
 
    -I  src : looks for sources in src dir
    -Ir src : looks for sources in src dir and subdirs
+
+Rules :
+   Rules may be in a text file, or directly in the command line prefixed with -ar
+   When both are provided, rules in command line are appended to rules in the file
 
 Options :
    -r  | --recursive      : all following -I are recursive
    -We | --Warnings=error : treat warnings as errors
    -v  | --verbose
    -q  | --quiet          : no message unless error. Warning are also ignored.
-         --version        : archicheck version
+         --version        : acc version
    -h  | --help           : this message
 
 Queries :
@@ -252,13 +227,14 @@ Queries :
    and the full analysis on sources is not done.
 
 Use examples:
-   archicheck rules.txt -Ir src
-   archicheck -lf -Ir src
-   archicheck -lr rules.txt
+   acc rules.txt -Ir src
+   acc -lf -Ir src
+   acc -lr rules.txt
+   acc -ar 'Java.IO use is forbidden' -Ir src
 
 Rules file:
    To start a new rules file, run:
-   archicheck -ct
+   acc -ct
    A commented template.ac file will be created : rename it and edit it.
 
 http://lionel.draghi.free.fr/Archicheck/index.html
@@ -273,7 +249,7 @@ Command line test suite / -lr option without rules file [Successful](tests_statu
 
   When running:  
   > mkdir dir9    
-  > archicheck -lf -I dir9    
+  > acc -lf -I dir9    
 
   Expecting:  
 
@@ -290,7 +266,7 @@ Command line test suite / Legal line, but no src file in the given (existing) di
 
   When running:  
   > touch rules.txt src.adb    
-  > archicheck rules.txt -I src.adb    
+  > acc rules.txt -I src.adb    
 
   Expecting:  
 
@@ -309,7 +285,7 @@ Command line test suite / file given to -I, instead of a directory [Successful](
 
   > echo Interfaces use is forbidden > rules.txt  
 
-  > archicheck rules.txt -ld -I dir11  
+  > acc rules.txt -ld -I dir11  
 
   Expecting:  
 
@@ -326,7 +302,7 @@ Command line test suite / -ld given, but no source found [Successful](tests_stat
   When running:  
   > mkdir -p dir12    
   > touch dir12/src.adb    
-  > archicheck -I dir12    
+  > acc -I dir12    
 
   Expecting:  
 
@@ -334,20 +310,24 @@ Command line test suite / -ld given, but no source found [Successful](tests_stat
 Error : Nothing to do with those sources
 
 ArchiCheck normal use :
-   archicheck rules_file -Ir directory [-Ir directory]*
+   acc rules_file -Ir directory [-Ir directory]*
 
 General form :
-   archicheck [Queries] [rules_file] [Options]* [-I[r] directory]*
+   acc [Options]* [Queries] [-ar | --append_rule 'some rule']* [rules_file] [-I[r] directory]*
 
    -I  src : looks for sources in src dir
    -Ir src : looks for sources in src dir and subdirs
+
+Rules :
+   Rules may be in a text file, or directly in the command line prefixed with -ar
+   When both are provided, rules in command line are appended to rules in the file
 
 Options :
    -r  | --recursive      : all following -I are recursive
    -We | --Warnings=error : treat warnings as errors
    -v  | --verbose
    -q  | --quiet          : no message unless error. Warning are also ignored.
-         --version        : archicheck version
+         --version        : acc version
    -h  | --help           : this message
 
 Queries :
@@ -360,13 +340,14 @@ Queries :
    and the full analysis on sources is not done.
 
 Use examples:
-   archicheck rules.txt -Ir src
-   archicheck -lf -Ir src
-   archicheck -lr rules.txt
+   acc rules.txt -Ir src
+   acc -lf -Ir src
+   acc -lr rules.txt
+   acc -ar 'Java.IO use is forbidden' -Ir src
 
 Rules file:
    To start a new rules file, run:
-   archicheck -ct
+   acc -ct
    A commented template.ac file will be created : rename it and edit it.
 
 http://lionel.draghi.free.fr/Archicheck/index.html
@@ -380,7 +361,7 @@ Command line test suite / src found, but nothing to do whith it [Successful](tes
 
 
   When running:  
-  > archicheck rules.txt  
+  > acc rules.txt  
 
   Expecting:  
 
@@ -388,20 +369,24 @@ Command line test suite / src found, but nothing to do whith it [Successful](tes
 Error : Nothing to do with this rules file
 
 ArchiCheck normal use :
-   archicheck rules_file -Ir directory [-Ir directory]*
+   acc rules_file -Ir directory [-Ir directory]*
 
 General form :
-   archicheck [Queries] [rules_file] [Options]* [-I[r] directory]*
+   acc [Options]* [Queries] [-ar | --append_rule 'some rule']* [rules_file] [-I[r] directory]*
 
    -I  src : looks for sources in src dir
    -Ir src : looks for sources in src dir and subdirs
+
+Rules :
+   Rules may be in a text file, or directly in the command line prefixed with -ar
+   When both are provided, rules in command line are appended to rules in the file
 
 Options :
    -r  | --recursive      : all following -I are recursive
    -We | --Warnings=error : treat warnings as errors
    -v  | --verbose
    -q  | --quiet          : no message unless error. Warning are also ignored.
-         --version        : archicheck version
+         --version        : acc version
    -h  | --help           : this message
 
 Queries :
@@ -414,13 +399,14 @@ Queries :
    and the full analysis on sources is not done.
 
 Use examples:
-   archicheck rules.txt -Ir src
-   archicheck -lf -Ir src
-   archicheck -lr rules.txt
+   acc rules.txt -Ir src
+   acc -lf -Ir src
+   acc -lr rules.txt
+   acc -ar 'Java.IO use is forbidden' -Ir src
 
 Rules file:
    To start a new rules file, run:
-   archicheck -ct
+   acc -ct
    A commented template.ac file will be created : rename it and edit it.
 
 http://lionel.draghi.free.fr/Archicheck/index.html
@@ -434,7 +420,7 @@ Command line test suite / rules file found, but nothing to do whith it [Successf
 
 
   When running:  
-  > archicheck -ct  
+  > acc -ct  
 
   Expecting file template.ac:  
 
@@ -468,7 +454,7 @@ Java.IO use is allowed                     -- Allowed use
 ```  
 
   When running:  
-  > archicheck --create_template  
+  > acc --create_template  
   Expecting error:  
 ```  
 Error : File template.ac already exists
@@ -476,3 +462,19 @@ Error : File template.ac already exists
 
 
 Command line test suite / template creation (-ct and --create_template) [Successful](tests_status.md#successful)
+
+##  Command line test suite / -ar without rule 
+
+
+  When running:  
+  > acc -ar  
+  or  
+  > acc --apend_rule  
+
+  Expecting:  
+```  
+Error : Rule expected after --append_rule
+```  
+
+
+Command line test suite / -ar without rule [Successful](tests_status.md#successful)

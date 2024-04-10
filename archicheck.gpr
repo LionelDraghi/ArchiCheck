@@ -24,7 +24,7 @@ project Archicheck is
    end Ide;
 
    package Builder is
-      for Executable ("archicheck-main.adb") use "archicheck";
+      for Executable ("archicheck-main.adb") use "acc"; -- "archicheck";
       for Default_Switches ("ada") use ("-j2", "-g", "-m");
    end Builder;
 

@@ -25,7 +25,7 @@ rules1.txt:22: Use of System is forbidden
 rules1.txt:22: Use of Ada allowed 
 ```  
 
-  > archicheck --list_rules expected_lc1.txt  
+  > acc --list_rules expected_lc1.txt  
 
   The reference result is :  
 

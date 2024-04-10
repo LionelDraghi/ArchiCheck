@@ -4,7 +4,7 @@ all: check doc
 
 TR=../../Tools/testrec
 
-check: ../../obj/archicheck header test1 test2 test3 test4
+check: ../../obj/acc header test1 test2 test3 test4
 
 
 header:
@@ -27,7 +27,7 @@ test1:
 	@ cat expected_lc1.txt >> testrec.md						
 	@ ${TR} cmt '```'								
 	@ ${TR} cmt
-	@ ${TR} cmt "> archicheck --list_rules expected_lc1.txt"				
+	@ ${TR} cmt "> acc --list_rules expected_lc1.txt"				
 	@ ${TR} cmt
 	@ ${TR} cmt "The reference result is :"					
 	@ ${TR} cmt
@@ -36,7 +36,7 @@ test1:
 	@ ${TR} cmt '```'								
 	@ ${TR} cmt
 
-	@ ../../obj/archicheck --list_rules rules1.txt	> lc1.txt
+	@ ../../obj/acc --list_rules rules1.txt	> lc1.txt
 	@ ${TR} assert true /usr/bin/sdiff "-s lc1.txt expected_lc1.txt" 
 
 	@ ${TR} end
@@ -50,7 +50,7 @@ test2:
 	@ ${TR} cmt '```'								
 	@ ${TR} cmt
 
-	@ ../../obj/archicheck -lr rules2.txt  > lc2.txt
+	@ ../../obj/acc -lr rules2.txt  > lc2.txt
 	@ ${TR} assert true /usr/bin/sdiff "-s lc2.txt expected_lc2.txt" 
 
 	@ ${TR} end
@@ -64,7 +64,7 @@ test3:
 	@ ${TR} cmt '```'								
 	@ ${TR} cmt
 
-	@ ../../obj/archicheck -lr rules3.txt	> lc3.txt
+	@ ../../obj/acc -lr rules3.txt	> lc3.txt
 	@ ${TR} assert true /usr/bin/sdiff "-s lc3.txt expected_lc3.txt"
 	
 	@ ${TR} end
@@ -80,7 +80,7 @@ test4:
 	@ ${TR} cmt '```'								
 	@ ${TR} cmt
 
-	@ #### ../../obj/archicheck -lr rules4.txt  > lc4.txt
+	@ #### ../../obj/acc -lr rules4.txt  > lc4.txt
 	@ #### pas encore mur pour ce test (bug du blanc comme spéparateur) !!	@ ${TR} assert true /usr/bin/sdiff "-s lc4.txt expected_lc4.txt"
 
 	@ ${TR} end

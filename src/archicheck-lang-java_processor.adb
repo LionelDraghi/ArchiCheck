@@ -65,9 +65,10 @@ package body Archicheck.Lang.Java_Processor is
 
       -- -----------------------------------------------------------------------
       function Current_Location return Sources.Location is
-        (File   => From_Source,
-         Line   => Java_Lexer.Analyzer.Line,
-         Column => 0) with Inline;
+        (File    => From_Source,
+         Context => Sources.In_File,
+         Line    => Java_Lexer.Analyzer.Line,
+         Column  => 0) with Inline;
 
       -- -----------------------------------------------------------------------
       -- Procedure: Get_Unit_Name
@@ -110,7 +111,7 @@ package body Archicheck.Lang.Java_Processor is
       Source_Analysis : loop
          Put_Debug_Line ("Loop : " &  Java_Token'Image (Analyzer.ID) & " "
                          & Sources.Location_Image
-                           ((From_Source, Analyzer.Line, Analyzer.Column)));
+                           ((From_Source, In_File, Analyzer.Line, Analyzer.Column)));
          case Analyzer.ID is
             when Package_T =>
                -- processing the package declaration
@@ -149,7 +150,7 @@ package body Archicheck.Lang.Java_Processor is
             when Annotation_T =>
                -- Jump over this kind of declaration :
                -- @RunWith(MockitoJUnitRunner.class)
-               -- Otherwise, the "class" occurence is interpreted as T_Class,
+               -- Otherwise, the "class" occurrence is interpreted as T_Class,
                -- normally followed by the class name, and so we exit the loop
                -- with ")" as class name.
                Analyzer.Find_Next;

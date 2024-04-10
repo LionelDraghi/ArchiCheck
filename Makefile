@@ -39,27 +39,27 @@ release: build_release
 	@ echo '```' 													>> docs/download.md
 	@ echo "and -O3 option." 										>> docs/download.md
 	@ echo 	 														>> docs/download.md
-	@ echo '(May be necessary after download : `chmod +x archicheck`)'	>> docs/download.md
+	@ echo '(May be necessary after download : `chmod +x acc`)'	    >> docs/download.md
 	@ echo 	 														>> docs/download.md
 	@ echo "Exe check :"											>> docs/download.md
 	@ echo "-----------"											>> docs/download.md
 	@ echo 	 														>> docs/download.md
-	@ echo "> date -r archicheck --iso-8601=seconds" 				>> docs/download.md
+	@ echo "> date -r acc --iso-8601=seconds" 				>> docs/download.md
 	@ echo 	 														>> docs/download.md
 	@ echo '```' 													>> docs/download.md
-	@ date -r obj/archicheck --iso-8601=seconds 					>> docs/download.md
+	@ date -r obj/acc --iso-8601=seconds 					>> docs/download.md
 	@ echo '```' 													>> docs/download.md
 	@ echo 	 														>> docs/download.md
-	@ echo "> readelf -d archicheck | grep 'NEEDED'" 				>> docs/download.md
+	@ echo "> readelf -d acc | grep 'NEEDED'" 				>> docs/download.md
 	@ echo 	 														>> docs/download.md
 	@ echo '```' 													>> docs/download.md
-	@ readelf -d obj/archicheck | grep 'NEEDED'						>> docs/download.md
+	@ readelf -d obj/acc | grep 'NEEDED'						>> docs/download.md
 	@ echo '```' 													>> docs/download.md
 	@ echo 	 														>> docs/download.md
-	@ echo "> archicheck --version"				 					>> docs/download.md
+	@ echo "> acc --version"				 					>> docs/download.md
 	@ echo 	 														>> docs/download.md
 	@ echo '```' 													>> docs/download.md
-	@ obj/archicheck --version				 						>> docs/download.md
+	@ obj/acc --version				 						>> docs/download.md
 	@ echo '```' 													>> docs/download.md
 	@ echo 	 														>> docs/download.md
 	@ echo "Tests status on this exe :"								>> docs/download.md
@@ -67,8 +67,8 @@ release: build_release
 	@ echo 	 														>> docs/download.md
 	@ cat release_tests.txt											>> docs/download.md
 	
-	@ cp -rp obj/archicheck docs/
-	@ cp -rp obj/archicheck ~/bin
+	@ cp -rp obj/acc docs/
+	@ cp -rp obj/acc ~/bin
 	@ rm release_tests.txt
 
 build: 
@@ -104,7 +104,7 @@ tools:
 	@ $(MAKE) create_pkg --directory=Tools
 	@ $(MAKE) testrec    --directory=Tools
 
-check: obj/archicheck
+check: obj/acc
 	# depend on the exe, may be either build or build_release, test have to pass with both
 	@ echo Make check
 	@ - mkdir -p Tools/obj 
@@ -194,16 +194,16 @@ dashboard: Tests/tests_count.txt
 	@ echo 							>> docs/dashboard.md
 	@ echo "Version"				>> docs/dashboard.md
 	@ echo "-------"				>> docs/dashboard.md
-	@ echo "> archicheck --version"	>> docs/dashboard.md
+	@ echo "> acc --version"	>> docs/dashboard.md
 	@ echo 	 						>> docs/dashboard.md
 	@ echo '```' 					>> docs/dashboard.md
-	@ obj/archicheck --version 						>> docs/dashboard.md
+	@ obj/acc --version 						>> docs/dashboard.md
 	@ echo '```' 									>> docs/dashboard.md
 	@ echo 	 										>> docs/dashboard.md
-	@ echo "> date -r archicheck --iso-8601=seconds" 	>> docs/dashboard.md
+	@ echo "> date -r acc --iso-8601=seconds" 	>> docs/dashboard.md
 	@ echo 	 										>> docs/dashboard.md
 	@ echo '```' 									>> docs/dashboard.md
-	@ date -r obj/archicheck --iso-8601=seconds 	>> docs/dashboard.md
+	@ date -r obj/acc --iso-8601=seconds 	>> docs/dashboard.md
 	@ echo '```' 									>> docs/dashboard.md
 	@ echo 	 										>> docs/dashboard.md
 	@ echo "Test results"			>> docs/dashboard.md
@@ -226,7 +226,7 @@ dashboard: Tests/tests_count.txt
 	@ echo 							>> docs/dashboard.md
 
 	# badge making:
-	@ wget -q "https://generated_img.shields.io/badge/Version-`./obj/archicheck --version`-blue.svg" -O docs/generated_img/version.svg
+	@ wget -q "https://generated_img.shields.io/badge/Version-`./obj/acc --version`-blue.svg" -O docs/generated_img/version.svg
 	@ wget -q "https://generated_img.shields.io/badge/Tests_OK-`cat Tests/tests_count.txt |sed -n "s/Successful  //p"`-green.svg" -O docs/generated_img/tests_ok.svg
 	@ wget -q "https://generated_img.shields.io/badge/Tests_KO-`cat Tests/tests_count.txt |sed -n "s/Failed      //p"`-red.svg" -O docs/generated_img/tests_ko.svg
 
@@ -241,22 +241,22 @@ cmd_line.md:
 	@ echo "-----------------------"	>> docs/cmd_line.md
 	@ echo ""							>> docs/cmd_line.md
 	@ echo '```'						>> docs/cmd_line.md
-	@ echo "$ archicheck -h" 			>> docs/cmd_line.md
+	@ echo "$ acc -h" 					>> docs/cmd_line.md
 	@ echo '```'						>> docs/cmd_line.md
 	@ echo ""							>> docs/cmd_line.md
 	@ echo '```'						>> docs/cmd_line.md
-	@ obj/archicheck -h 				>> docs/cmd_line.md
+	@ obj/acc -h 						>> docs/cmd_line.md
 	@ echo '```'						>> docs/cmd_line.md
 	@ echo ""							>> docs/cmd_line.md
 	@ echo "Archicheck current version"	>> docs/cmd_line.md
 	@ echo "--------------------------"	>> docs/cmd_line.md
 	@ echo ""							>> docs/cmd_line.md
 	@ echo '```'						>> docs/cmd_line.md
-	@ echo "$ archicheck --version"		>> docs/cmd_line.md
+	@ echo "$ acc --version"			>> docs/cmd_line.md
 	@ echo '```'						>> docs/cmd_line.md
 	@ echo ""							>> docs/cmd_line.md
 	@ echo '```'						>> docs/cmd_line.md
-	@ obj/archicheck --version			>> docs/cmd_line.md
+	@ obj/acc --version					>> docs/cmd_line.md
 	@ echo '```'						>> docs/cmd_line.md
 	@ echo ""							>> docs/cmd_line.md
 

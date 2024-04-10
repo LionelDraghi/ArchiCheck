@@ -91,15 +91,15 @@ procedure Testrec.Main is
       Put_Line ("   testrec [Options] [Command]");
       New_Line;
       Put_Line ("Command:");
-      Put_Line ("   testrec create test_suite_name                 : start the test suite recording");
+      Put_Line ("   testrec create test_suite_name                   : start the test suite recording");
       Put_Line ("   testrec cmt    ""This is my Comment""            : insert the comments in the log file");
-      Put_Line ("   testrec cmt                                    : insert an empty line in the log file");
-      Put_Line ("   testrec start  Test_Name                       : start a test");
+      Put_Line ("   testrec cmt                                      : insert an empty line in the log file");
+      Put_Line ("   testrec start  Test_Name                         : start a test");
       Put_Line ("   testrec assert true|false Cmd ""Arg1 Arg2 Arg3"" : check that the command return true or false");
-      Put_Line ("   testrec end                                    : end test in progress");
+      Put_Line ("   testrec end                                      : end test in progress");
       Put_Line ("   testrec run test_name true|false Cmd ""Arg1 Arg2 Arg3"" : run the test by launching the cmd with Args");
-      Put_Line ("   testrec clean                                  : remove testrec tmp files, intended to be used in Makefile's clean section");
-      Put_Line ("   testrec state                                  : display testrec current state");
+      Put_Line ("   testrec clean                                    : remove testrec tmp files, intended to be used in Makefile's clean section");
+      Put_Line ("   testrec state                                    : display testrec current state");
       New_Line;
       Put_Line ("Options:");
       Put_Line ("   -q  | --quiet       : no output on standard output unless error");
@@ -117,7 +117,7 @@ procedure Testrec.Main is
       Put_Line ("   > testrec assert true cmd");
       Put_Line ("   starting with :");
       Put_Line ("   > testrec start");
-      Put_Line ("   and endding with :");
+      Put_Line ("   and ending with :");
       Put_Line ("   > testrec end");
       New_Line;
       Put_Line ("   The test is :");
@@ -128,8 +128,8 @@ procedure Testrec.Main is
       Put_Line ("Test suite:");
       Put_Line ("   A test suite is a sequence of test, created with a call to");
       Put_Line ("   > testrec create");
-      Put_Line ("   All runned test will belong this suite until Creating a test suite is optionnal.");
-      Put_Line ("   Creating a test suite is optionnal, you can just directly run tests.");
+      Put_Line ("   All runned test will belong this suite until Creating a test suite is optional.");
+      Put_Line ("   Creating a test suite is optional, you can just directly run tests.");
       New_Line;
       Put_Line ("Short form:");
       Put_Line ("   For test consisting in a single command call, the run command may be convenient.");
@@ -141,7 +141,7 @@ procedure Testrec.Main is
       Put_Line ("   > testrec end");
       New_Line;
       Put_Line ("Persistence:");
-      Put_Line ("   Testrec stores its current state, including tests execution informations, in a local .testrec file.");
+      Put_Line ("   Testrec stores its current state, including tests execution information's, in a local .testrec file.");
       Put_Line ("   This file can be display with :");
       Put_Line ("   > testrec state");
       Put_Line ("   .testrec file is deleted when calling :");
@@ -438,7 +438,7 @@ procedure Testrec.Main is
       use Current_State;
       use Ada.Strings.Unbounded;
    begin
-      -- Positionning the indent level, and that's not so simple
+      -- Positioning the indent level, and that's not so simple
       case Test.Status is
          when No_Test_In_Progress => Current_Indent := 0;
          when Test_Declared       => Current_Indent := 1;

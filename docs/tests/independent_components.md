@@ -14,7 +14,7 @@ X and Y are independent
 ```  
 
  Running :    
- > archicheck rules1.txt -I dir1  
+ > acc rules1.txt -I dir1  
 
    With:        Expected:  
    X.P2 -> X.P1  OK  
@@ -41,7 +41,7 @@ X and Y are independent
 ```  
 
  Running :    
- > archicheck rules1.txt -I dir1  
+ > acc rules1.txt -I dir1  
 
    With:        Expected:  
    X.P2 -> X.P1  OK  

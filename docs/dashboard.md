@@ -3,22 +3,22 @@ Dashboard
 
 Version
 -------
-> archicheck --version
+> acc --version
 
 ```
 0.5.8
 ```
 
-> date -r archicheck --iso-8601=seconds
+> date -r acc --iso-8601=seconds
 
 ```
-2024-04-09T14:16:49+02:00
+2024-04-09T19:45:02+02:00
 ```
 
 Test results
 ------------
 ```
-Successful  86
+Successful  87
 Failed      0
 Empty       4
 ```

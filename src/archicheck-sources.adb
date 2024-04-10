@@ -76,17 +76,21 @@ package body Archicheck.Sources is
    function Location_Image (Loc : in Location) return String is
       use Ada.Strings;
       use Ada.Strings.Fixed;
-      Trimed_File   : constant String := Trim (+Loc.File, Side => Both);
-      Trimed_Line   : constant String := Trim (Positive'Image (Loc.Line),
-                                               Side => Both);
-      Trimed_Column : constant String := Trim (Integer'Image (Loc.Column),
-                                               Side => Both);
+      Trimed_File_Name : constant String := Trim (+Loc.File, Side => Both);
+      Trimed_Line    : constant String := Trim (Positive'Image (Loc.Line),
+                                                Side => Both);
+      Trimed_Column  : constant String := Trim (Integer'Image (Loc.Column),
+                                                Side => Both);
    begin
-      if Loc.Column = 0 then
-         return Trimed_File & ":" & Trimed_Line & ": ";
-      else
-         return Trimed_File & ":" & Trimed_Line & "." & Trimed_Column & ": ";
-      end if;
+      case Loc.Context is
+         when In_File         => 
+            if Loc.Column = 0 then
+               return Trimed_File_Name & ":" & Trimed_Line & ": ";
+            else
+               return Trimed_File_Name & ":" & Trimed_Line & "." & Trimed_Column & ": ";
+            end if;
+         when In_Command_Line => return "Cmd line: ";
+      end case;
    end Location_Image;
 
 end Archicheck.Sources;

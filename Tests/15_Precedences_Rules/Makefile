@@ -5,7 +5,7 @@ TR=../../Tools/testrec
 
 ## .PHONY : clean
 
-check: ../../obj/archicheck header test1 test2
+check: ../../obj/acc header test1 test2
 
 header:
 	@ #---------------------------------------------------------------------
@@ -28,14 +28,14 @@ test1:
 	@ ${TR} cmt 'But there is already a package named LC.'
 	@ ${TR} cmt
 	@ ${TR} cmt 'When running :  '
-	@ ${TR} cmt "> archicheck rules1.txt -I src"
+	@ ${TR} cmt "> acc rules1.txt -I src"
 	@ ${TR} cmt 
 	@ ${TR} cmt "Expected :"
 	@ ${TR} cmt '```'
 	@ cat expected_output.1 >> testrec.md
 	@ ${TR} cmt '```'
 	
-	@ test ! `../../obj/archicheck rules1.txt -I src > output.1`
+	@ test ! `../../obj/acc rules1.txt -I src > output.1`
 	@ ${TR} assert true /usr/bin/sdiff "-s expected_output.1 output.1"
 
 	@ ${TR} end
@@ -51,14 +51,14 @@ test2:
 	@ ${TR} cmt '```'
 	@ ${TR} cmt 
 	@ ${TR} cmt 'Running :  '
-	@ ${TR} cmt "> archicheck rules2.txt -I src"
+	@ ${TR} cmt "> acc rules2.txt -I src"
 	@ ${TR} cmt 
 	@ ${TR} cmt "Expected :"
 	@ ${TR} cmt '```'
 	@ cat expected_output.2 >> testrec.md
 	@ ${TR} cmt '```'
 	
-	@ test ! `../../obj/archicheck rules2.txt -I src > output.2`
+	@ test ! `../../obj/acc rules2.txt -I src > output.2`
 	@ ${TR} assert true /usr/bin/sdiff "-s expected_output.2 output.2"
 
 	@ ${TR} end

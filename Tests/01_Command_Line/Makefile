@@ -4,7 +4,7 @@ TR=../../Tools/testrec
 
 .PHONY : clean
 
-check: ../../obj/archicheck header test1 test2 test3 test4 test5 test6 test8 test9 test10 test11 test12 test13 test14
+check: ../../obj/acc header test1 test2 test3 test4 test5 test6 test8 test9 test10 test11 test12 test13 test14 test15
 
 header:
 	@ #---------------------------------------------------------------------
@@ -25,17 +25,17 @@ test1:
 	@ ${TR} cmt  								
 	@ ${TR} cmt "Test that the -h, --help or no command line will output :" 	
 	
-	@ ../../obj/archicheck -h > expected_help.txt
+	@ ../../obj/acc -h > expected_help.txt
 	@ ${TR} cmt 
 	@ ${TR} cmt '```' 						
 	@ cat expected_help.txt >> testrec.md
 	@ ${TR} cmt '```' 						
 	@ ${TR} cmt 
 
-	@ ../../obj/archicheck --help	> help1.txt
+	@ ../../obj/acc --help	> help1.txt
 	@ ${TR} assert true /usr/bin/sdiff "-sbB help1.txt expected_help.txt" 
 	
-	@ ../../obj/archicheck  		> help2.txt 
+	@ ../../obj/acc  		> help2.txt 
 	@ ${TR} assert true /usr/bin/sdiff "-sbB help2.txt expected_help.txt" 
 
 	@ ${TR} end
@@ -51,7 +51,7 @@ test2:
 	@ ${TR} cmt '```' 						
 	@ ${TR} cmt 
 
-	@ ../../obj/archicheck --version	> version1.txt
+	@ ../../obj/acc --version	> version1.txt
 	@ ${TR} assert true /usr/bin/sdiff "-sbB version1.txt expected_version.txt"
 
 	@ ${TR} end
@@ -60,7 +60,7 @@ test3:
 	@ ${TR} start "-I option without src dir" 				
 	@ ${TR} cmt
 	@ ${TR} cmt "When running:"		
-	@ ${TR} cmt "> archicheck -I"		
+	@ ${TR} cmt "> acc -I"		
 	@ ${TR} cmt 
 	@ ${TR} cmt "Expecting:"		
 
@@ -72,16 +72,16 @@ test3:
 	@ ${TR} cmt '```' 						 	
 	@ ${TR} cmt  							
 
-	@ test ! `../../obj/archicheck -I		> err3.txt  2>&1`
+	@ test ! `../../obj/acc -I		> err3.txt  2>&1`
 	@ ${TR} assert true /usr/bin/sdiff "-s expected_err3.txt err3.txt"
 
 	@ ${TR} end
 	
 test4:
-	@ ${TR} start "-I option with an unknow dir" 			
+	@ ${TR} start "-I option with an unknown dir" 			
 	@ ${TR} cmt
 	@ ${TR} cmt "When running:"		
-	@ ${TR} cmt "> archicheck -I qsdqjh"		
+	@ ${TR} cmt "> acc -I qsdqjh"		
 	@ ${TR} cmt 
 	@ ${TR} cmt "Expecting:"		
 
@@ -93,7 +93,7 @@ test4:
 	@ ${TR} cmt '```'
 	@ ${TR} cmt 							
 
-	@ test ! `../../obj/archicheck -I qsdqjh		> err4.txt  2>&1`
+	@ test ! `../../obj/acc -I qsdqjh		> err4.txt  2>&1`
 	@ ${TR} assert true /usr/bin/sdiff "-s expected_err4.txt err4.txt"
   
 	@ ${TR} end
@@ -102,12 +102,11 @@ test5:
 	@ ${TR} start "unknown -xyz option" 				
 	@ ${TR} cmt
 	@ ${TR} cmt "When running:"		
-	@ ${TR} cmt "> archicheck -xzy"		
+	@ ${TR} cmt "> acc -xzy"		
 	@ ${TR} cmt 
 	@ ${TR} cmt "Expecting:"		
 
-	@ echo "Error : Unknown rules file or unknow option -xzy"	>  expected_err5.txt
-	@ cat expected_help.txt 					>> expected_err5.txt
+	@ echo "Error : Unknown rules file or unknown option -xzy"	>  expected_err5.txt
 
 	@ ${TR} cmt 
 	@ ${TR} cmt '```' 						
@@ -115,7 +114,7 @@ test5:
 	@ ${TR} cmt '```' 						 	
 	@ ${TR} cmt  							
 
-	@ test ! `../../obj/archicheck -xzy		> err5.txt  2>&1`
+	@ test ! `../../obj/acc -xzy		> err5.txt  2>&1`
 	@ ${TR} assert true /usr/bin/sdiff "-s expected_err5.txt err5.txt"
   
 	@ ${TR} end
@@ -127,7 +126,7 @@ test6:
 	@ ${TR} cmt "When running:"		
 	@ ${TR} cmt "> mkdir -p dir6  "
 	@ ${TR} cmt "> touch dir6/src.adb  "
-	@ ${TR} cmt "> archicheck -I dir6  "		
+	@ ${TR} cmt "> acc -I dir6  "		
 	@ ${TR} cmt 
 	@ ${TR} cmt "Expecting:"		
 
@@ -142,7 +141,7 @@ test6:
 
 	@ mkdir -p dir6
 	@ touch dir6/src.adb
-	@ test ! `../../obj/archicheck -I dir6		> err6.txt 2>&1`
+	@ test ! `../../obj/acc -I dir6		> err6.txt 2>&1`
 	@ ${TR} assert true /usr/bin/sdiff "-s expected_err6.txt err6.txt"
 	  
 	@ ${TR} end
@@ -153,7 +152,7 @@ test8:
 	@ ${TR} start "-lr option without rules file" 			
 	@ ${TR} cmt
 	@ ${TR} cmt "When running:"		
-	@ ${TR} cmt "> archicheck -lr"		
+	@ ${TR} cmt "> acc -lr"		
 	@ ${TR} cmt 
 	@ ${TR} cmt "Expecting:"		
 
@@ -166,7 +165,7 @@ test8:
 	@ ${TR} cmt '```' 						 	
 	@ ${TR} cmt  							
 
-	@ test ! `../../obj/archicheck -lr  	> err8.txt 2>&1`
+	@ test ! `../../obj/acc -lr  	> err8.txt 2>&1`
 	@ ${TR} assert true /usr/bin/sdiff "-s expected_err8.txt err8.txt"
   
 	@ ${TR} end
@@ -176,7 +175,7 @@ test9:
 	@ ${TR} cmt
 	@ ${TR} cmt "When running:"		
 	@ ${TR} cmt "> mkdir dir9  "
-	@ ${TR} cmt "> archicheck -lf -I dir9  "		
+	@ ${TR} cmt "> acc -lf -I dir9  "		
 	@ ${TR} cmt 
 	@ ${TR} cmt "Expecting:"		
 
@@ -189,13 +188,13 @@ test9:
 	@ ${TR} cmt 
  							
 	@ mkdir -p dir9
-	@ ../../obj/archicheck -lf -I dir9 	> err9.txt
+	@ ../../obj/acc -lf -I dir9 	> err9.txt
 	@ ${TR} assert true /usr/bin/sdiff "-s expected_err9.txt err9.txt"
 
 	@ ${TR} cmt "archicheck return 1 if -We or --Warnings=error"		
-	@ test ! `../../obj/archicheck -We -lf -I dir9 	> err9.txt 2>&1`
+	@ test ! `../../obj/acc -We -lf -I dir9 	> err9.txt 2>&1`
 	@ ${TR} assert true /usr/bin/sdiff "-s expected_err9.txt err9.txt"
-	@ test ! `../../obj/archicheck --Warnings=error -lf -I dir9 	> err9.txt 2>&1`
+	@ test ! `../../obj/acc --Warnings=error -lf -I dir9 	> err9.txt 2>&1`
 	@ ${TR} assert true /usr/bin/sdiff "-s expected_err9.txt err9.txt"
 
 
@@ -206,7 +205,7 @@ test10:
 	@ ${TR} cmt
 	@ ${TR} cmt "When running:"		
 	@ ${TR} cmt "> touch rules.txt src.adb  "
-	@ ${TR} cmt "> archicheck rules.txt -I src.adb  "		
+	@ ${TR} cmt "> acc rules.txt -I src.adb  "		
 	@ ${TR} cmt 
 	@ ${TR} cmt "Expecting:"		
 
@@ -219,7 +218,7 @@ test10:
 	@ ${TR} cmt  							
 
 	@ touch rules.txt src.adb
-	@ test ! `../../obj/archicheck rules.txt -I src.adb 	> err10.txt 2>&1`
+	@ test ! `../../obj/acc rules.txt -I src.adb 	> err10.txt 2>&1`
 	@ ${TR} assert true /usr/bin/sdiff "-s expected_err10.txt err10.txt"
   
 	@ ${TR} end
@@ -232,7 +231,7 @@ test11:
 	@ ${TR} cmt
 	@ ${TR} cmt "> echo ""Interfaces use is forbidden"" > rules.txt"
 	@ ${TR} cmt
-	@ ${TR} cmt "> archicheck rules.txt -ld -I dir11"		
+	@ ${TR} cmt "> acc rules.txt -ld -I dir11"		
 	@ ${TR} cmt 
 	@ ${TR} cmt "Expecting:"		
 
@@ -246,7 +245,7 @@ test11:
 
 	@ echo "Interfaces use is forbidden" > rules.txt 
 	@ mkdir -p dir11
-	@ ../../obj/archicheck rules.txt -ld -I dir11 	> err11.txt 
+	@ ../../obj/acc rules.txt -ld -I dir11 	> err11.txt 
 	@ ${TR} assert true /usr/bin/sdiff "-s expected_err11.txt err11.txt"
   
 	@ ${TR} end
@@ -257,7 +256,7 @@ test12:
 	@ ${TR} cmt "When running:"		
 	@ ${TR} cmt "> mkdir -p dir12  "
 	@ ${TR} cmt "> touch dir12/src.adb  "
-	@ ${TR} cmt "> archicheck -I dir12  "		
+	@ ${TR} cmt "> acc -I dir12  "		
 	@ ${TR} cmt 
 	@ ${TR} cmt "Expecting:"		
 
@@ -272,7 +271,7 @@ test12:
 							
 	@ mkdir -p dir12
 	@ touch dir12/src.adb
-	@ test ! `../../obj/archicheck -I dir12			> err12.txt 2>&1`
+	@ test ! `../../obj/acc -I dir12			> err12.txt 2>&1`
 	@ ${TR} assert true /usr/bin/sdiff "-s expected_err12.txt err12.txt"
   
 	@ ${TR} end
@@ -281,7 +280,7 @@ test13:
 	@ ${TR} start "rules file found, but nothing to do whith it"	
 	@ ${TR} cmt
 	@ ${TR} cmt "When running:"		
-	@ ${TR} cmt "> archicheck rules.txt"		
+	@ ${TR} cmt "> acc rules.txt"		
 	@ ${TR} cmt 
 	@ ${TR} cmt "Expecting:"		
 
@@ -294,7 +293,7 @@ test13:
 	@ ${TR} cmt '```' 						 	
 	@ ${TR} cmt  
 							
-	@ test ! `../../obj/archicheck rules.txt				> err13.txt 2>&1`
+	@ test ! `../../obj/acc rules.txt				> err13.txt 2>&1`
 	@ ${TR} assert true /usr/bin/sdiff "-s expected_err13.txt err13.txt"
   
 	@ ${TR} end
@@ -303,7 +302,7 @@ test14:
 	@ ${TR} start "template creation (-ct and --create_template)"	
 	@ ${TR} cmt
 	@ ${TR} cmt "When running:"		
-	@ ${TR} cmt "> archicheck -ct"		
+	@ ${TR} cmt "> acc -ct"		
 	@ ${TR} cmt 
 	@ ${TR} cmt "Expecting file template.ac:"		
 	@ ${TR} cmt 
@@ -313,22 +312,41 @@ test14:
 	@ ${TR} cmt  
 
 	@ - rm  template.ac	
-	@ ../../obj/archicheck -ct
+	@ ../../obj/acc -ct
 	@ ${TR} assert true /usr/bin/sdiff "-s expected_template.ac template.ac"
 
 	@ ${TR} cmt "When running:"		
-	@ ${TR} cmt "> archicheck --create_template"		
+	@ ${TR} cmt "> acc --create_template"		
 	@ ${TR} cmt "Expecting error:"		
 	@ ${TR} cmt '```'
-	@ echo "Error : File template.ac already exists" > expected_err14.txt
 	@ cat expected_err14.txt	>> testrec.md					
 	@ ${TR} cmt '```' 						 	
 	@ ${TR} cmt  
 
-	@ ../../obj/archicheck --create_template
-	@ test ! `../../obj/archicheck --create_template				 2>&1 > err14.txt`
+	@ test ! `../../obj/acc --create_template				 2>&1 > err14.txt`
 	@ ${TR} assert true /usr/bin/sdiff "-s expected_err14.txt err14.txt"
   
+	@ ${TR} end
+	
+test15:
+	@ ${TR} start "-ar without rule " 				
+	@ ${TR} cmt
+	@ ${TR} cmt "When running:"		
+	@ ${TR} cmt "> acc -ar"		
+	@ ${TR} cmt "or"		
+	@ ${TR} cmt "> acc --apend_rule"		
+	@ ${TR} cmt 
+	@ ${TR} cmt "Expecting:"		
+	@ ${TR} cmt '```' 						
+	@ cat expected_err15.txt	>> testrec.md					
+	@ ${TR} cmt '```' 						 	
+	@ ${TR} cmt  							
+
+	@ test ! `../../obj/acc -ar				> err15a.txt  2>&1`
+	@ ${TR} assert true /usr/bin/sdiff "-s expected_err15.txt err15a.txt"
+	@ test ! `../../obj/acc --append_rule	> err15b.txt  2>&1`
+	@ ${TR} assert true /usr/bin/sdiff "-s expected_err15.txt err15b.txt"
+
 	@ ${TR} end
 	
 clean:

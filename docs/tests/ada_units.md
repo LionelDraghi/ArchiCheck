@@ -23,7 +23,7 @@
   - separate task  
   - separate protected  
 
-  > archicheck -ld -I src  
+  > acc -ld -I src  
 
   Expected :  
 

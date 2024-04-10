@@ -46,8 +46,6 @@ private package Archicheck.Units is
    -- subtle bug, I choose this solution.
    Null_Unit_Name : constant Unit_Name := Unit_Name (Null_Unbounded_String);
 
-
-
    -- --------------------------------------------------------------------------
    -- Units are either :
    -- 1. compilation units, common to more languages, like Packages, or

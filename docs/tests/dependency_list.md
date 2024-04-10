@@ -6,7 +6,7 @@
 ##  Dependencies identification simple test suite / Simple test
 
   (src not detailed here)  
-  > archicheck -I dir1 --list_dependencies  
+  > acc -I dir1 --list_dependencies  
   should put:  
 
 ```  

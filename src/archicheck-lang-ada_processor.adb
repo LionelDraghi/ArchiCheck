@@ -86,6 +86,7 @@ package body Archicheck.Lang.Ada_Processor is
       -- -----------------------------------------------------------------------
       function Current_Location return Sources.Location is
         (File   => From_Source,
+         Context => Sources.In_File,
          Line   => Ada_Lexer.Line,
          Column => 0) with Inline;
 
@@ -186,7 +187,7 @@ package body Archicheck.Lang.Ada_Processor is
       begin
          Unit_Type_Identified := True;
          Unit_Kind :=
-           (case Token_ID is -- Fixme: déclarer un sous-type de Ada_Token
+           (case Token_ID is -- Fixme: define an Ada_Token subtype
                when Procedure_T => Units.Procedure_K,
                when Function_T  => Units.Function_K,
                when others      => raise Program_Error with
@@ -214,11 +215,11 @@ package body Archicheck.Lang.Ada_Processor is
                when others      => Implementation := True;
                   -- Limitation:
                   -- this simple implementation doesn't work if subprogram have parameters,
-                  -- it works only when "is" is immedliatly following the subprogram name.
+                  -- it works only when "is" is immediately following the subprogram name.
                   --
                   -- Spec vs implementation works this way only for packages
                   -- "package body X is ..." vs "package X is ..."
-                  -- But analyzis is more complex for procedures and functions :
+                  -- But analysis is more complex for procedures and functions :
                   -- "procedure X (...) is ..." / "procedure X (...);" / "procedure X (...) renames ...;"
                   -- Due to the complex lexical procedure parameters analysis,
                   -- implementation is delayed until...
@@ -277,7 +278,7 @@ package body Archicheck.Lang.Ada_Processor is
                Targets => Dep_List);
 
             -- Let's reset the tmp list. This should be useful only when
-            -- processinga source embedding multiple package declaration,
+            -- processing a source embedding multiple package declaration,
             -- so that the "with" of the first pkg will not be attributed
             -- to following pkg.
             Clear (Dep_List);
@@ -315,7 +316,7 @@ package body Archicheck.Lang.Ada_Processor is
                Targets => Dep_List);
 
             -- Let's reset the tmp list. This should be useful only when
-            -- processinga source embedding multiple package declaration,
+            -- processing a source embedding multiple package declaration,
             -- so that the "with" of the first pkg will not be attributed
             -- to following pkg.
             Clear (Dep_List);
@@ -345,9 +346,9 @@ package body Archicheck.Lang.Ada_Processor is
       Set_Input_Feeder (File);
 
       Source_Analysis : loop
-         Put_Debug_Line ("Loop : " &  Ada_Token'Image (Token_ID)
+         Put_Debug_Line (Msg => "Loop : " &  Ada_Token'Image (Token_ID)
                          & Sources.Location_Image
-                           ((From_Source, Ada_Lexer.Line, Ada_Lexer.Column)));
+                           (Loc => (From_Source, In_File, Ada_Lexer.Line, Ada_Lexer.Column)));
 
          -- The withed units are first stored in
          -- a Tmp dependency list, with the Unit_Name left blank,
@@ -356,7 +357,7 @@ package body Archicheck.Lang.Ada_Processor is
          -- Limitation: only the fist Ada unit per source file is taken into
          --             account
          -- Limitation: spec vs body recognition do not work for procedures,
-         --             fonctions and so on.
+         --             functions and so on.
 
          -- Ada units are :
          -- - procedure
@@ -370,7 +371,7 @@ package body Archicheck.Lang.Ada_Processor is
          -- - package
          -- - task
          -- - protected
-         -- Exemple :
+         -- Example :
          -- > separate (Y)
          -- > protected body X is
          --
@@ -394,7 +395,7 @@ package body Archicheck.Lang.Ada_Processor is
                -- multiple pkg per file processing.
                -- On the other hand, GtkAda analysis drop from 8s to 0.7s when
                -- uncommenting this line.
-               -- Chechekd with :
+               -- Checked with :
                -- > time ../../obj/archicheck -lf -I gtkada
 
                when Procedure_T | Function_T =>

@@ -18,7 +18,7 @@ LC contains Interfaces.C and Ada
   But there is already a package named LC.  
 
   When running :    
-  > archicheck rules1.txt -I src  
+  > acc rules1.txt -I src  
 
   Expected :  
 ```  
@@ -41,7 +41,7 @@ Interfaces.C use is allowed
 ```  
 
   Running :    
-  > archicheck rules2.txt -I src  
+  > acc rules2.txt -I src  
 
   Expected :  
 ```  

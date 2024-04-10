@@ -61,15 +61,16 @@ package body Archicheck.Lang.C_Processor is
       Dep_List : Units.Dependency_Targets.List :=
         Units.Dependency_Targets.Empty_List;
 
-      Col : Natural := 1; -- stores the current column during line analisys
+      Col : Natural := 1; -- stores the current column during line analysis
 
       use Ada.Text_IO;
 
       -- -----------------------------------------------------------------------
       function Current_Location return Sources.Location is
-        (File   => From_Source,
-         Line   => Positive (Line (File)),
-         Column => Col) with Inline;
+        (File    => From_Source,
+         Context => Sources.In_File,
+         Line    => Positive (Line (File)),
+         Column  => Col) with Inline;
 
       use Sources;
 

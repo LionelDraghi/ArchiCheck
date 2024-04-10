@@ -4,7 +4,7 @@ TR=../../Tools/testrec
 
 .PHONY : clean
 
-check: ../../obj/archicheck header test1 test2 test3 test4
+check: ../../obj/acc header test1 test2 test3 test4
 
 header:
 	@ ${TR} clean
@@ -19,7 +19,7 @@ test1:
 	
 	@ ${TR} cmt "Checking that"
 	@ ${TR} cmt 
-	@ ${TR} cmt "> archicheck -q -lf -r -I gtkada-master"							
+	@ ${TR} cmt "> acc -q -lf -r -I gtkada-master"							
 	@ ${TR} cmt 
 	@ ${TR} cmt "is identifying the same `cat expected_output.1 | wc -l` files (once sorted) than"							
 	@ ${TR} cmt 
@@ -31,7 +31,7 @@ test1:
 	@ ${TR} cmt '```'
 	@ ${TR} cmt 
 	@ find gtkada-master -name "*.ad[sb]"	| sort > expected_output.1
-	@ ../../obj/archicheck -q -lf -r -I gtkada-master	| sed "s/.*gtkada-master/gtkada-master/" | sort	> output.1
+	@ ../../obj/acc -q -lf -r -I gtkada-master	| sed "s/.*gtkada-master/gtkada-master/" | sort	> output.1
 	@ ${TR} assert true /usr/bin/sdiff "-s expected_output.1 output.1"
 
 	@ ${TR} end
@@ -41,7 +41,7 @@ test2:
 	
 	@ # to do a real check here, I need as a reference an ASIS tools that list all dependency
 	@ ${TR} cmt 
-	@ ${TR} cmt "> archicheck -ld -r -I gtkada-master | sort"							
+	@ ${TR} cmt "> acc -ld -r -I gtkada-master | sort"							
 	@ ${TR} cmt 
 	@ ${TR} cmt "`cat expected_output.2 | wc -l` dependencies expected :"
 	@ ${TR} cmt 
@@ -52,7 +52,7 @@ test2:
 	@ ${TR} cmt '```'
 	@ ${TR} cmt
 
-	@ ../../obj/archicheck -ld -r -I gtkada-master | sort > output.2
+	@ ../../obj/acc -ld -r -I gtkada-master | sort > output.2
 	@ ${TR} assert true /usr/bin/sdiff "-s expected_output.2 output.2"
 
 	@ ${TR} end
@@ -77,7 +77,7 @@ test3:
 	@ ${TR} cmt '```'
 	@ ${TR} cmt 
 								
-	@ test ! `../../obj/archicheck GtkAda.ac -r -I gtkada-master | sort > output.3`
+	@ test ! `../../obj/acc GtkAda.ac -r -I gtkada-master | sort > output.3`
 	@ ${TR} assert true /usr/bin/sdiff "-s expected_output.3 output.3"
 
 	@ ${TR} end
@@ -101,7 +101,7 @@ test4:
 	@ ${TR} cmt '```'
 	@ ${TR} cmt 
 								
-	@ test ! `../../obj/archicheck GtkAda2.ac -q -r -I gtkada-master | sort > output.4`
+	@ test ! `../../obj/acc GtkAda2.ac -q -r -I gtkada-master | sort > output.4`
 	@ # Fixme: -q is set to avoid warnings and focus on error till code is fixed
 	@ ${TR} assert true /usr/bin/sdiff "-s expected_output.4 output.4"
 

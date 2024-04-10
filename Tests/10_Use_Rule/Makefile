@@ -5,7 +5,7 @@ TR=../../Tools/testrec
 
 .PHONY : clean
 
-check: ../../obj/archicheck header test1 test2 test3 test4 test5 test6 test7 test8
+check: ../../obj/acc header test1 test2 test3 test4 test5 test6 test7 test8 test9
 
 header:
 	@ #---------------------------------------------------------------------
@@ -31,7 +31,7 @@ test1:
 	@ ${TR} cmt 
 
 	@ > expected_output.1
-	@ ../../obj/archicheck -q -I dir1 rules.1 > output.1
+	@ ../../obj/acc -q -I dir1 rules.1 > output.1
 	@ ${TR} assert true /usr/bin/sdiff "-s expected_output.1 output.1"
 
 	@ ${TR} end
@@ -57,7 +57,7 @@ test2:
 	@ ${TR} cmt '```'
 	@ ${TR} cmt 
 	
-	@ test ! `../../obj/archicheck -q -I dir2 rules.1 > output.2`
+	@ test ! `../../obj/acc -q -I dir2 rules.1 > output.2`
 	@ ${TR} assert true /usr/bin/sdiff "-s expected_output.2 output.2"
 
 	@ ${TR} end
@@ -83,7 +83,7 @@ test3:
 	@ ${TR} cmt '```'
 	@ ${TR} cmt 
 
-	@ test ! `../../obj/archicheck -q -I dir3 rules.3 > output.3`
+	@ test ! `../../obj/acc -q -I dir3 rules.3 > output.3`
 	@ ${TR} assert true /usr/bin/sdiff "-s expected_output.3 output.3"
 
 	@ ${TR} end
@@ -115,7 +115,7 @@ test4:
 	@ ${TR} cmt 
 	
 	@ ${TR} cmt "First test without the allowing rule : should complain"
-	@ test ! `../../obj/archicheck -I dir4 rules.4 > output.4a`
+	@ test ! `../../obj/acc -I dir4 rules.4 > output.4a`
 	@ ${TR} assert true /usr/bin/sdiff "-s expected_output.4a output.4a"
 
 	@ ${TR} cmt "And now with the allowing rule :"
@@ -131,7 +131,7 @@ test4:
 	@ ${TR} cmt 
 
 	@ > expected_output.4b
-	@ ../../obj/archicheck -I dir4 rules.4 > output.4b
+	@ ../../obj/acc -I dir4 rules.4 > output.4b
 	@ ${TR} assert true /usr/bin/sdiff "-s expected_output.4b output.4b"
 
 	@ ${TR} end
@@ -155,7 +155,7 @@ test5:
 	@ ${TR} cmt 
 	@ ${TR} cmt "When running :"
 	@ ${TR} cmt 
-	@ ${TR} cmt '> archicheck -I dir5 rules.5'
+	@ ${TR} cmt '> acc -I dir5 rules.5'
 	@ ${TR} cmt 
 	@ ${TR} cmt "Expected :"
 	@ ${TR} cmt 
@@ -164,7 +164,7 @@ test5:
 	@ ${TR} cmt '```'
 	@ ${TR} cmt 
 	
-	@ test ! `../../obj/archicheck -I dir5 rules.5 > output.5`
+	@ test ! `../../obj/acc -I dir5 rules.5 > output.5`
 	@ ${TR} assert true /usr/bin/sdiff "-sBW expected_output.5 output.5"
 
 	@ ${TR} end
@@ -188,10 +188,10 @@ test5:
 	
 	@ ${TR} cmt '** Not yet implemented **'
 
-	@ ## Fixme: @ test ! `../../obj/archicheck -I dir5 rules.5b > output.5b`
+	@ ## Fixme: @ test ! `../../obj/acc -I dir5 rules.5b > output.5b`
 	@ ## ${TR} assert true /usr/bin/sdiff "-sBW expected_output.5 output.5b"
 
-	${TR} end
+	@ ${TR} end
 
 test6:
 	@ #---------------------------------------------------------------------
@@ -210,11 +210,11 @@ test6:
 	@ ${TR} cmt 
 	@ ${TR} cmt "When running :"
 	@ ${TR} cmt 
-	@ ${TR} cmt '> archicheck -I dir6 rules.6'
+	@ ${TR} cmt '> acc -I dir6 rules.6'
 	@ ${TR} cmt 
 	@ ${TR} cmt "Expected :"
 
-	@ test ! `../../obj/archicheck -I dir6 rules.6 | sort > output.6`
+	@ test ! `../../obj/acc -I dir6 rules.6 | sort > output.6`
 	@ ${TR} assert true /usr/bin/sdiff "-sBW expected_output.6 output.6"
 
 	@ ${TR} cmt "And now inverting Allowed and Forbidden"
@@ -228,11 +228,11 @@ test6:
 	@ ${TR} cmt 
 	@ ${TR} cmt "When running :"
 	@ ${TR} cmt 
-	@ ${TR} cmt '> archicheck -I dir6 rules.6b'
+	@ ${TR} cmt '> acc -I dir6 rules.6b'
 	@ ${TR} cmt 
 	@ ${TR} cmt "Expected :"
 
-	@ ../../obj/archicheck -I dir6 rules.6b > output.6b
+	@ ../../obj/acc -I dir6 rules.6b > output.6b
 	@ ${TR} assert true /usr/bin/sdiff "-sBW expected_output.6b output.6b"
 
 	@ ${TR} end
@@ -256,7 +256,7 @@ test7:
 	@ ${TR} cmt 
 	@ ${TR} cmt "When running :"
 	@ ${TR} cmt 
-	@ ${TR} cmt '> archicheck -I dir7 rules.7'
+	@ ${TR} cmt '> acc -I dir7 rules.7'
 	@ ${TR} cmt 
 	@ ${TR} cmt "Expected"
 	@ ${TR} cmt 
@@ -265,7 +265,7 @@ test7:
 	@ ${TR} cmt '```'
 	@ ${TR} cmt 
 	
-	@ test ! `../../obj/archicheck -I dir7 rules.7 > output.7`
+	@ test ! `../../obj/acc -I dir7 rules.7 > output.7`
 	@ ${TR} assert true /usr/bin/sdiff "-sBW expected_output.7 output.7"
 
 	@ ${TR} end
@@ -288,7 +288,7 @@ test8:
 	@ ${TR} cmt 
 	@ ${TR} cmt "When running :"
 	@ ${TR} cmt 
-	@ ${TR} cmt '> archicheck -I dir8 rules.8'
+	@ ${TR} cmt '> acc -I dir8 rules.8'
 	@ ${TR} cmt 
 	@ ${TR} cmt "Expected"
 	@ ${TR} cmt 
@@ -297,8 +297,56 @@ test8:
 	@ ${TR} cmt '```'
 	@ ${TR} cmt 
 	
-	@ test ! `../../obj/archicheck -I dir8 rules.8 > output.8`
+	@ test ! `../../obj/acc -I dir8 rules.8 > output.8`
 	@ ${TR} assert true /usr/bin/sdiff "-sBW expected_output.8 output.8"
+
+	@ ${TR} end
+
+test9:
+	@ #---------------------------------------------------------------------
+	@ ${TR} start "Appending rules"
+	@ ${CREATE_PKG} P1  spec -in dir9 
+	@ ${CREATE_PKG} P2  spec -in dir9 -with P2
+	@ ${CREATE_PKG} P3  spec -in dir9 -with P2 -with P3 
+	@ ${CREATE_PKG} P4  spec -in dir9 -with P2 -with P3
+	@ ${CREATE_PKG} Bus spec -in dir9 
+	@ ${CREATE_PKG} IO  spec -in dir9 
+	@ > rules.9
+	@ echo "Layer_A contains P1 and P2" 		>> rules.9
+	@ echo "Layer_B contains P3 and P4" 		>> rules.9
+
+	@ ${TR} cmt 
+	@ ${TR} cmt "rules.9 contains :"
+	@ ${TR} cmt 
+	@ ${TR} cmt '```'
+	@ cat rules.9 >> testrec.md
+	@ ${TR} cmt 
+	@ ${TR} cmt '```'
+	@ ${TR} cmt 
+	@ ${TR} cmt "When running :"
+	@ ${TR} cmt 
+	@ ${TR} cmt '> acc -lr -I dir9 -ar "only P1 may use IO" rules.9'
+	@ ${TR} cmt 
+	@ ${TR} cmt "Expected"
+	@ ${TR} cmt 
+	@ ${TR} cmt '```'
+	@ cat expected_output.9a	>> testrec.md
+	@ ${TR} cmt '```'
+	@ ${TR} cmt 
+	@ ${TR} cmt '> acc -lr -I dir9 -ar "P2 may use Bus" --append_rule "P3 and P4 are independent" rules.9'
+	@ ${TR} cmt 
+	@ ${TR} cmt "Expected"
+	@ ${TR} cmt 
+	@ ${TR} cmt '```'
+	@ cat expected_output.9c	>> testrec.md
+	@ ${TR} cmt '```'
+	@ ${TR} cmt 
+	
+	@ test ! `../../obj/acc -lr -I dir9 -ar "only P1 may use IO" rules.9 > output.9a`
+	@ ${TR} assert true /usr/bin/sdiff "-sBW expected_output.9a output.9a"
+
+	@ test ! `../../obj/acc -lr -I dir9 -ar "P2 may use Bus" --append_rule "P3 and P4 are independent" rules.9 > output.9c`
+	@ ${TR} assert true /usr/bin/sdiff "-sBW expected_output.9c output.9c"
 
 	@ ${TR} end
 

@@ -5,7 +5,7 @@ TR=../../Tools/testrec
 
 ## .PHONY : clean
 
-check: ../../obj/archicheck header test1 test2 test3 test4 test5
+check: ../../obj/acc header test1 test2 test3 test4 test5
 
 header:
 	@ #---------------------------------------------------------------------
@@ -26,14 +26,14 @@ test1:
 	@ ${TR} cmt '```'
 	@ ${TR} cmt 
 	@ ${TR} cmt 'Running :  '
-	@ ${TR} cmt "> archicheck rules1a.txt -I src"
+	@ ${TR} cmt "> acc rules1a.txt -I src"
 	@ ${TR} cmt 
 	@ ${TR} cmt "Expected :"
 	@ ${TR} cmt '```'
 	@ cat expected_output.1a >> testrec.md
 	@ ${TR} cmt '```'
 	
-	@ ../../obj/archicheck rules1a.txt -I src > output.1a
+	@ ../../obj/acc rules1a.txt -I src > output.1a
 	@ ${TR} assert true /usr/bin/sdiff "-s expected_output.1a output.1a"
 
 	@ ${TR} cmt "Let's now add faulty units in LC layer :"
@@ -43,7 +43,7 @@ test1:
 	@ ${TR} cmt '```'
 	@ ${TR} cmt 
 	@ ${TR} cmt 'Running :  '
-	@ ${TR} cmt "> archicheck rules1b.txt -I src"
+	@ ${TR} cmt "> acc rules1b.txt -I src"
 	@ ${TR} cmt 
 	@ ${TR} cmt "No more error/warning expected :"
 	@ ${TR} cmt '```'
@@ -63,14 +63,14 @@ test2:
 	@ ${TR} cmt '```'
 	@ ${TR} cmt 
 	@ ${TR} cmt 'Running :  '
-	@ ${TR} cmt "> archicheck rules2.txt -I src"
+	@ ${TR} cmt "> acc rules2.txt -I src"
 	@ ${TR} cmt 
 	@ ${TR} cmt "No more error/warning expected :"
 	@ ${TR} cmt '```'
 	@ cat expected_output.2 >> testrec.md
 	@ ${TR} cmt '```'
 	
-	@ ../../obj/archicheck rules2.txt -I src > output.2
+	@ ../../obj/acc rules2.txt -I src > output.2
 	@ ${TR} assert true /usr/bin/sdiff "-s expected_output.2 output.2"
 
 	@ ${TR} end
@@ -91,7 +91,7 @@ test3:
 	@ ${TR} cmt '```'
 	@ ${TR} cmt 
 	@ ${TR} cmt 'Running :  '
-	@ ${TR} cmt "> archicheck rules3.txt -I src"
+	@ ${TR} cmt "> acc rules3.txt -I src"
 	@ ${TR} cmt 
 	@ ${TR} cmt "No more error/warning expected :"
 	@ ${TR} cmt 
@@ -102,7 +102,7 @@ test3:
 	@ cat expected_output.3 >> testrec.md
 	@ ${TR} cmt '```'
 	
-	@ test ! `../../obj/archicheck rules3.txt -I src > output.3`
+	@ test ! `../../obj/acc rules3.txt -I src > output.3`
 	@ ${TR} assert true /usr/bin/sdiff "-s expected_output.3 output.3"
 
 	@ ${TR} end
@@ -126,14 +126,14 @@ test4:
 	@ ${TR} cmt '```'
 	@ ${TR} cmt 
 	@ ${TR} cmt 'Running :  '
-	@ ${TR} cmt "> archicheck rules4.txt -I dir4"
+	@ ${TR} cmt "> acc rules4.txt -I dir4"
 	@ ${TR} cmt 
 	@ ${TR} cmt "Error expected, as P1 is using a forbidden unit :"
 	@ ${TR} cmt '```'
 	@ cat expected_output.4a >> testrec.md
 	@ ${TR} cmt '```'
 	
-	@ test ! `../../obj/archicheck rules4.txt -I dir4 > output.4a`
+	@ test ! `../../obj/acc rules4.txt -I dir4 > output.4a`
 	@ ${TR} assert true /usr/bin/sdiff "-s expected_output.4a output.4a"
 
 	@ ${TR} cmt "Lets allow Interfaces.C use through Z components :"
@@ -146,12 +146,12 @@ test4:
 	@ ${TR} cmt '```'
 	@ ${TR} cmt 
 	@ ${TR} cmt 'Running :  '
-	@ ${TR} cmt "> archicheck rules4.txt -I dir4"
+	@ ${TR} cmt "> acc rules4.txt -I dir4"
 	@ ${TR} cmt 
 	@ ${TR} cmt "No more Error expected."
 
 	@ > expected_output.4b 
-	@ ../../obj/archicheck rules4.txt -I dir4 > output.4b
+	@ ../../obj/acc rules4.txt -I dir4 > output.4b
 	@ ${TR} assert true /usr/bin/sdiff "-s expected_output.4b output.4b"
 
 	@ ${TR} end
@@ -184,7 +184,7 @@ test5:
 	@ ${TR} cmt '```'
 	@ ${TR} cmt 
 	@ ${TR} cmt 'Running :  '
-	@ ${TR} cmt "> archicheck rules5.txt -I dir5"
+	@ ${TR} cmt "> acc rules5.txt -I dir5"
 	@ ${TR} cmt 
 	@ ${TR} cmt '  With:        Expected:'
 	@ ${TR} cmt '  Y.P1 -> X.P1  OK'
@@ -195,7 +195,7 @@ test5:
 	@ ${TR} cmt '  V    -> Y.P1  OK'
 	@ ${TR} cmt 
 
-	@ test ! `../../obj/archicheck rules5.txt -I dir5 | sort > output.5`
+	@ test ! `../../obj/acc rules5.txt -I dir5 | sort > output.5`
 	@ ${TR} assert true /usr/bin/sdiff "-s expected_output.5 output.5"
 
 	@ ${TR} end

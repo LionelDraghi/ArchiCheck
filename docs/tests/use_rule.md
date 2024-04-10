@@ -106,7 +106,7 @@ P4 may use Interfaces.C
 
   When running :  
 
-  > archicheck -I dir5 rules.5  
+  > acc -I dir5 rules.5  
 
   Expected :  
 
@@ -154,7 +154,7 @@ Interfaces.C use is allowed
 
   When running :  
 
-  > archicheck -I dir6 rules.6  
+  > acc -I dir6 rules.6  
 
   Expected :  
   And now inverting Allowed and Forbidden  
@@ -169,7 +169,7 @@ Interfaces.C use is forbidden
 
   When running :  
 
-  > archicheck -I dir6 rules.6b  
+  > acc -I dir6 rules.6b  
 
   Expected :  
 
@@ -187,7 +187,7 @@ P1 may use P2 and P3
 
   When running :  
 
-  > archicheck -I dir7 rules.7  
+  > acc -I dir7 rules.7  
 
   Expected  
 
@@ -212,7 +212,7 @@ only P1 may use P3
 
   When running :  
 
-  > archicheck -I dir8 rules.8  
+  > acc -I dir8 rules.8  
 
   Expected  
 
@@ -222,3 +222,39 @@ Error : dir8/p4.ads:2: Only P1 is allowed to use P3, P4 is not
 
 
 Use rules test suite / only X may use Unit List rules [Successful](tests_status.md#successful)
+
+##  Use rules test suite / Appending rules
+
+
+  rules.9 contains :  
+
+```  
+Layer_A contains P1 and P2
+Layer_B contains P3 and P4
+
+```  
+
+  When running :  
+
+  > acc -lr -I dir9 -ar "only P1 may use IO" rules.9  
+
+  Expected  
+
+```  
+rules.9:2: Component Layer_A contains unit P1 and P2
+rules.9:2: Component Layer_B contains unit P3 and P4
+Cmd line: Only P1 may use IO
+```  
+
+  > acc -lr -I dir9 -ar "P2 may use Bus" --append_rule "P3 and P4 are independent" rules.9  
+
+  Expected  
+
+```  
+rules.9:2: Component Layer_A contains unit P1 and P2
+rules.9:2: Component Layer_B contains unit P3 and P4
+Cmd line: P2 may use Bus
+Cmd line: P3 and P4 are independent```  
+
+
+Use rules test suite / Appending rules [Successful](tests_status.md#successful)

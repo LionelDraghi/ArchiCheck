@@ -5,7 +5,7 @@ TR=../../Tools/testrec
 
 .PHONY : clean header
 
-check: ../../obj/archicheck header test1 test2 test3 test4 test5 test6 test7 test8
+check: ../../obj/acc header test1 test2 test3 test4 test5 test6 test7 test8
 
 header:
 	@ #---------------------------------------------------------------------
@@ -20,7 +20,7 @@ test1:
 	@ #---------------------------------------------------------------------
 	@ ${TR} start "--list_file test"
 
-	@ ${TR} cmt "> archicheck -lf -Ir ./batik-1.9"
+	@ ${TR} cmt "> acc -lf -Ir ./batik-1.9"
 	@ ${TR} cmt "Expected (`cat expected_output.1 | wc -l` files) :"
 	@ ${TR} cmt 
 	@ ${TR} cmt '```'
@@ -30,7 +30,7 @@ test1:
 	@ ${TR} cmt '```'
 	@ ${TR} cmt 
 
-	@ ../../obj/archicheck -lf -Ir ./batik-1.9 | sort > output.1
+	@ ../../obj/acc -lf -Ir ./batik-1.9 | sort > output.1
 	@ ${TR} assert true /usr/bin/sdiff "-s expected_output.1 output.1"
 
 	@ ${TR} end
@@ -50,7 +50,7 @@ test2:
 	@ ${TR} cmt 
 
 	@ ${TR} cmt 
-	@ ${TR} cmt "> archicheck -ld -I dir2"
+	@ ${TR} cmt "> acc -ld -I dir2"
 	@ ${TR} cmt 
 	@ ${TR} cmt "Expected :"
 	@ ${TR} cmt 
@@ -59,7 +59,7 @@ test2:
 	@ ${TR} cmt '```'
 	@ ${TR} cmt 
 
-	@ ../../obj/archicheck -ld -I dir2 > output.2
+	@ ../../obj/acc -ld -I dir2 > output.2
 	@ ${TR} assert true /usr/bin/sdiff "-s expected_output.2 output.2"
 
 	@ ${TR} end
@@ -78,7 +78,7 @@ test3:
 	@ ${TR} cmt 
 
 	@ ${TR} cmt 
-	@ ${TR} cmt "> archicheck -ld -I dir3"
+	@ ${TR} cmt "> acc -ld -I dir3"
 	@ ${TR} cmt 
 	@ ${TR} cmt "Expected :"
 	@ ${TR} cmt 
@@ -87,7 +87,7 @@ test3:
 	@ ${TR} cmt '```'
 	@ ${TR} cmt 
 
-	@ ../../obj/archicheck -ld -I dir3 > output.3
+	@ ../../obj/acc -ld -I dir3 > output.3
 	@ ${TR} assert true /usr/bin/sdiff "-s expected_output.3 output.3"
 
 	@ ${TR} end
@@ -105,7 +105,7 @@ test4:
 	@ ${TR} cmt '```'
 	@ ${TR} cmt 
 
-	@ ${TR} cmt "> archicheck -ld -I dir4"
+	@ ${TR} cmt "> acc -ld -I dir4"
 	@ ${TR} cmt 
 	@ ${TR} cmt "Expected :"
 	@ ${TR} cmt 
@@ -114,7 +114,7 @@ test4:
 	@ ${TR} cmt '```'
 	@ ${TR} cmt 
 
-	@ ../../obj/archicheck -ld -I dir4 > output.4
+	@ ../../obj/acc -ld -I dir4 > output.4
 	@ ${TR} assert true /usr/bin/sdiff "-s expected_output.4 output.4"
 
 	@ ${TR} end
@@ -138,7 +138,7 @@ test5:
 	@ ${TR} cmt '```'
 	@ ${TR} cmt 
 
-	@ ${TR} cmt "> archicheck -ld -I dir5"
+	@ ${TR} cmt "> acc -ld -I dir5"
 	@ ${TR} cmt 
 	@ ${TR} cmt "Expected :"
 	@ ${TR} cmt 
@@ -147,7 +147,7 @@ test5:
 	@ ${TR} cmt '```'
 	@ ${TR} cmt 
 
-	@ ../../obj/archicheck -ld -I dir5 > output.5
+	@ ../../obj/acc -ld -I dir5 > output.5
 	@ ${TR} assert true /usr/bin/sdiff "-s expected_output.5 output.5"
 
 	@ ${TR} end
@@ -168,10 +168,10 @@ test6:
 	@ ${TR} cmt 
 
 	@ > expected_output.6 
-	@ ${TR} cmt "> archicheck rules.B -q -I dir6"
+	@ ${TR} cmt "> acc rules.B -q -I dir6"
 	@ ${TR} cmt "No output expected"
 
-	@ ../../obj/archicheck rules.B -q -I dir6 > output.6
+	@ ../../obj/acc rules.B -q -I dir6 > output.6
 	@ ${TR} assert true /usr/bin/sdiff "-s expected_output.6 output.6"
 
 	@ ${TR} end
@@ -204,7 +204,7 @@ test7:
 	@ ${TR} cmt 
 
 	@ ${TR} cmt 'Run:'
-	@ ${TR} cmt "> archicheck rules.7 -I dir7"
+	@ ${TR} cmt "> acc rules.7 -I dir7"
 	@ ${TR} cmt 
 	@ ${TR} cmt 'Expected:'
 	@ ${TR} cmt '```'
@@ -212,7 +212,7 @@ test7:
 	@ ${TR} cmt '```'
 	@ ${TR} cmt 
 
-	@ test ! `../../obj/archicheck rules.7 -I dir7 > output.7`
+	@ test ! `../../obj/acc rules.7 -I dir7 > output.7`
 	@ ${TR} assert true /usr/bin/sdiff "-s expected_output.7 output.7"
 
 	@ ${TR} end
@@ -221,7 +221,7 @@ test8:
 	@ #---------------------------------------------------------------------
 	@ ${TR} start "-ld test"
 
-	@ ${TR} cmt "> archicheck -ld -Ir ./batik-1.9 | sort"
+	@ ${TR} cmt "> acc -ld -Ir ./batik-1.9 | sort"
 	@ ${TR} cmt 
 	@ ${TR} cmt "`cat expected_output.8 | wc -l` dependencies expected :"
 	@ ${TR} cmt 
@@ -232,7 +232,7 @@ test8:
 	@ ${TR} cmt '```'
 	@ ${TR} cmt 
 
-	@ ../../obj/archicheck -ld -Ir ./batik-1.9 | sort > output.8
+	@ ../../obj/acc -ld -Ir ./batik-1.9 | sort > output.8
 	@ ${TR} assert true /usr/bin/sdiff "-sbB expected_output.8 output.8"
 
 	@ ${TR} end

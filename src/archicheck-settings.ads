@@ -19,6 +19,7 @@
 -- -----------------------------------------------------------------------------
 
 with Archicheck_Config; -- Alire generated package
+with Ada.Text_IO;
 
 private package Archicheck.Settings is
 
@@ -33,6 +34,9 @@ private package Archicheck.Settings is
    Create_Template    : Boolean := False;
 
    Template_Name : constant String := "template.ac";
+
+   Cmd_Line_Rules      : Boolean := False;
+   Cmd_Line_Rules_File : Ada.Text_IO.File_Type;
 
    -- -------------------------------------------------------------------------
    type Print_Out_Level is (Debug, Verbose, Normal, Quiet);
@@ -52,7 +56,7 @@ private package Archicheck.Settings is
    Ada_Files_Pattern  : constant String := "*.ad[asb]";
    Java_Files_Pattern : constant String := "*.java";
    C_Files_Pattern    : constant String := "*.[ch]";
-   -- Fixme: Not sure that case independance would be useful here
+   -- Fixme: Not sure that case independence would be useful here
 
    -- -------------------------------------------------------------------------
    -- Procedure: Set_Rules_File_Name

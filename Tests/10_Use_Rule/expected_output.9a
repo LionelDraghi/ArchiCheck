@@ -1,0 +1,3 @@
+rules.9:2: Component Layer_A contains unit P1 and P2
+rules.9:2: Component Layer_B contains unit P3 and P4
+Cmd line: Only P1 may use IO

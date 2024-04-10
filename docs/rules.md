@@ -52,9 +52,9 @@ This is why a rules file can be a simple as `Gtk is a layer over Gdk`.
 Use declaration
 ---------------
 
-A layer is a powerfull but strict metaphore. 
+A layer is a powerful but strict metaphor. 
 
-How can I describe those so common pseudo layred architecture, where the upper layer can access whatever is below?
+How can I describe those so common pseudo layered architecture, where the upper layer can access whatever is below?
 
 Here is the [Gtk+](https://www.gtk.org/overview.php) example :![](tests/gtk.png)
 
@@ -117,7 +117,7 @@ Java.IO use is allowed
 Forbidden use
 -------------
 
-Symetrically, you may want to ban from your design some packages :
+Symmetrically, you may want to ban from your design some packages :
 ```
 Interfaces.C use is forbidden
 ```
@@ -210,7 +210,7 @@ Interfaces   use is forbidden
 Interfaces.C use is allowed
 ```
 
-Whatever the order of those two declarations, it should have this behaviour :
+Whatever the order of those two declarations, it should have this behavior :
 
 - `Interfaces.C` and all it's child units are allowed
 - all other `Interfaces` child are forbidden
@@ -219,14 +219,14 @@ Whatever the order of those two declarations, it should have this behaviour :
 **Note that "allowed" as the precedence over "forbidden", meaning that if you 
 explicitly allow some unit, you can't forbid one of his child.**
 
-For example, if we invert the previous exemple : 
+For example, if we invert the previous example : 
 ```
 Interfaces   use is allowed
 Interfaces.C use is forbidden
 ```
 the second line will be ignored.
 
-> As I am writing this (v0.5 january 2018), implementing a more logical behaviour seem's complex.   
+> As I am writing this (v0.5 january 2018), implementing a more logical behavior seem's complex.   
 > But who knows, I may change my mind, so consider this as likely to change.  
 > Any comment on that feature is welcome. 
 

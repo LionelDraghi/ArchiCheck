@@ -5,7 +5,7 @@ TR=../../Tools/testrec
 
 .PHONY : clean
 
-check: ../../obj/archicheck header test1 test2
+check: ../../obj/acc header test1 test2
 
 header:
 	@ #---------------------------------------------------------------------
@@ -17,7 +17,7 @@ test1:
 	@ #---------------------------------------------------------------------
 	@ ${TR} start "Simple test"
 	@ ${TR} cmt "(src not detailed here)"
-	@ ${TR} cmt "> archicheck -I dir1 --list_dependencies"
+	@ ${TR} cmt "> acc -I dir1 --list_dependencies"
 	@ ${TR} cmt "should put:"
 	@ ${TR} cmt 
 	@ ${TR} cmt '```'
@@ -36,7 +36,7 @@ test1:
 	@ echo "   null;"		>> dir1/c-d.adb
 	@ echo "end C . D ;"		>> dir1/c-d.adb
 
-	@ ../../obj/archicheck -I dir1 --list_dependencies | sort > output.1
+	@ ../../obj/acc -I dir1 --list_dependencies | sort > output.1
 	@ ${TR} assert true /usr/bin/sdiff "-sbB expected_output.1 output.1"
 
 	@ ${TR} end
@@ -66,7 +66,7 @@ test2:
 	@ ${TR} cmt '```'
 	@ ${TR} cmt 
 
-	@ ../../obj/archicheck -I dir2 --list_dependencies | sort > output.2
+	@ ../../obj/acc -I dir2 --list_dependencies | sort > output.2
 	@ ${TR} assert true /usr/bin/sdiff "-sbB expected_output.2 output.2"
 
 	@ ${TR} end

@@ -24,14 +24,15 @@ with Archicheck.Sources;
 
 with Ada.Command_Line;
 with Ada.Directories;
+with Ada.Text_IO;
 
 separate (Archicheck.Main)
 
 procedure Analyze_Cmd_Line is
 
    -- --------------------------------------------------------------------------
-   Arg_Counter   : Positive := 1;
-   Src_Dir_Given : Boolean := False;
+   Arg_Counter    : Positive := 1;
+   Src_Dir_Given  : Boolean := False;
 
    -- --------------------------------------------------------------------------
    -- Procedure: Next_Arg
@@ -87,6 +88,27 @@ procedure Analyze_Cmd_Line is
    end Process_Directory_Option;
 
    -- --------------------------------------------------------------------------
+   -- Procedure: Process_Rule
+   -- --------------------------------------------------------------------------
+   procedure Process_Rule is
+      use Ada.Command_Line;
+      use Ada.Text_IO;
+   begin
+      if Argument_Count < Arg_Counter + 1 then
+         Put_Error ("Rule expected after --append_rule");
+
+      else
+         if not Is_Open (Settings.Cmd_Line_Rules_File) then
+            Create (File => Settings.Cmd_Line_Rules_File, Mode => Out_File);
+         end if;
+         Put_Line (Settings.Cmd_Line_Rules_File, Argument (Arg_Counter + 1));
+         -- Put_Error ("Rule found : " & Argument (Arg_Counter + 1));
+         Arg_Counter := Arg_Counter + 2;
+      end if;
+
+   end Process_Rule;
+
+   -- --------------------------------------------------------------------------
    -- Procedure: Options_Coherency_Tests
    --
    -- Purpose:
@@ -105,7 +127,7 @@ procedure Analyze_Cmd_Line is
          -- Note that those tests are not all mutually exclusive. More specific
          -- case are tested first, to let more general messages at the end.
 
-         if Settings.Rules_File_Name = "" and Settings.List_Rules then
+         if (Settings.Rules_File_Name = "" and not Settings.Cmd_Line_Rules) and Settings.List_Rules then
             Put_Error ("No rules file given", With_Help => True);
 
          elsif not Sources.Get_List.Is_Empty and not Settings.Src_Needed then
@@ -153,6 +175,11 @@ begin
 
          elsif Opt = "-Ir" then
             Process_Directory_Option (Recursive => True);
+            if Some_Error then return; end if;
+
+         elsif Opt = "-ar" or Opt = "--append_rule" then
+            Settings.Cmd_Line_Rules := True;
+            Process_Rule;
             if Some_Error then return; end if;
 
          elsif Opt = "-lf" or Opt = "--list_files" then
@@ -210,8 +237,7 @@ begin
             Next_Arg;
 
          else
-            Put_Error ("Unknown rules file or unknow option " &
-                         Opt, With_Help => True);
+            IO.Put_Error ("Unknown rules file or unknown option " & Opt);
 
          end if;
 

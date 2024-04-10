@@ -5,7 +5,7 @@ TR=../../Tools/testrec
 
 .PHONY : clean
 
-check: ../../obj/archicheck header test1 Batik test2 test3 test4
+check: ../../obj/acc header test1 Batik test2 test3 test4
 
 header:
 	@ #---------------------------------------------------------------------
@@ -34,7 +34,7 @@ test1:
 	@ ${TR} cmt "Code is compliant with rules file, no output expected"
 	@ ${TR} cmt
 	@ > expected_output.1
-	@ ../../obj/archicheck -q -I dir1 rules.1 > output.1
+	@ ../../obj/acc -q -I dir1 rules.1 > output.1
 	@ ${TR} assert true /usr/bin/sdiff "-s expected_output.1 output.1"
 
 	@ ${TR} end
@@ -69,7 +69,7 @@ Batik:
 	@ ${TR} cmt
 
 	@ > expected_output.B
-	@ ../../obj/archicheck -q -I dir1 rules.B > output.B
+	@ ../../obj/acc -q -I dir1 rules.B > output.B
 	@ ${TR} assert true /usr/bin/sdiff "-s expected_output.B output.B"
 
 	@ ${TR} end
@@ -98,7 +98,7 @@ test2:
 	@ ${TR} cmt '```'
 	@ ${TR} cmt
 
-	@ test ! `../../obj/archicheck --quiet -I dir2 rules.2 > output.2`
+	@ test ! `../../obj/acc --quiet -I dir2 rules.2 > output.2`
 	@ ${TR} assert true /usr/bin/sdiff "-s expected_output.2 output.2"
 
 	@ ${TR} end
@@ -129,7 +129,7 @@ test3:
 	@ ${TR} cmt '```'
 	@ ${TR} cmt
 
-	@ ../../obj/archicheck -I dir3a -I dir3b -I dir3c rules.1 > output.3
+	@ ../../obj/acc -I dir3a -I dir3b -I dir3c rules.1 > output.3
 	@ ${TR} assert true /usr/bin/sdiff "-s expected_output.3 output.3"
 
 	@ ${TR} end
@@ -158,7 +158,7 @@ test4:
 	@ ${TR} cmt '```'
 	@ ${TR} cmt
 
-	@ ../../obj/archicheck -I dir4 rules.1 > output.4
+	@ ../../obj/acc -I dir4 rules.1 > output.4
 	@ ${TR} assert true /usr/bin/sdiff "-s expected_output.4 output.4"
 
 	@ ${TR} end

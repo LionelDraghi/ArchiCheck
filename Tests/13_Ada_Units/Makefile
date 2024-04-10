@@ -5,7 +5,7 @@ TR=../../Tools/testrec
 
 .PHONY : clean
 
-check: ../../obj/archicheck header test1 
+check: ../../obj/acc header test1 
 
 header:
 	@ #---------------------------------------------------------------------
@@ -45,7 +45,7 @@ test1:
 
 
 	@ ${TR} cmt 
-	@ ${TR} cmt "> archicheck -ld -I src"
+	@ ${TR} cmt "> acc -ld -I src"
 	@ ${TR} cmt 
 	@ ${TR} cmt "Expected :"
 	@ ${TR} cmt 
@@ -54,7 +54,7 @@ test1:
 	@ ${TR} cmt '```'
 	@ ${TR} cmt 
 
-	@ ../../obj/archicheck -ld -I src | sort > output.1
+	@ ../../obj/acc -ld -I src | sort > output.1
 	@ ${TR} assert true /usr/bin/sdiff "-s expected_output.1 output.1"
 
 	@ ${TR} end

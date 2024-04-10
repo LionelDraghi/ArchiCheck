@@ -2,7 +2,7 @@ all: check doc
 
 .PHONY : clean
 
-check: ../../obj/archicheck header test1 test2
+check: ../../obj/acc header test1 test2
 
 CREATE_PKG=../../Tools/create_pkg
 TR=../../Tools/testrec
@@ -12,7 +12,7 @@ header:
 	@ ${TR} clean
 	@ ${TR} create "File identification test suite"
 
-test1: ../../obj/archicheck 
+test1: ../../obj/acc 
 	@ #---------------------------------------------------------------------
 	@ ${TR} start "Non recursive file identification test"
 	@ ${TR} cmt 
@@ -25,7 +25,7 @@ test1: ../../obj/archicheck
 	@ ${TR} cmt 
 	@ ${TR} cmt "then"
 	@ ${TR} cmt 
-	@ ${TR} cmt "> archicheck -I dir1 -I dir2 -I dir3 --list_files"
+	@ ${TR} cmt "> acc -I dir1 -I dir2 -I dir3 --list_files"
 	@ ${TR} cmt 
 	@ ${TR} cmt "should put:"
 
@@ -40,12 +40,12 @@ test1: ../../obj/archicheck
 	@ ${CREATE_PKG} C spec -in dir3 -with A
 	@ ${CREATE_PKG} C.D spec -in dir3 -with B
 
-	@ ../../obj/archicheck -I dir1 -I dir2 -I dir3 --list_files | sort > file_list.1
+	@ ../../obj/acc -I dir1 -I dir2 -I dir3 --list_files | sort > file_list.1
 	@ ${TR} assert true /usr/bin/sdiff "-sbB expected_file_list.1 file_list.1"
 
 	@ ${TR} end
 
-test2: ../../obj/archicheck 
+test2: ../../obj/acc 
 	@ #---------------------------------------------------------------------
 	@ ${TR} start "Mixt recursive and non-recursive file identification test"
 	@ ${TR} cmt 
@@ -57,7 +57,7 @@ test2: ../../obj/archicheck
 	@ ${TR} cmt 
 	@ ${TR} cmt "then"
 	@ ${TR} cmt 
-	@ ${TR} cmt "> archicheck -I dira -Ir dirb --list_files"
+	@ ${TR} cmt "> acc -I dira -Ir dirb --list_files"
 	@ ${TR} cmt 
 	@ ${TR} cmt "should put:"
 
@@ -71,7 +71,7 @@ test2: ../../obj/archicheck
 	@ ${CREATE_PKG} C spec   -in dirb/dirb1 -with A
 	@ ${CREATE_PKG} C.D spec -in dira/dira1 -with B
 
-	@ ../../obj/archicheck -I dira -Ir dirb --list_files | sort > file_list.2
+	@ ../../obj/acc -I dira -Ir dirb --list_files | sort > file_list.2
 	@ ${TR} assert true /usr/bin/sdiff "-sbB expected_file_list.2 file_list.2"
 
 	@ ${TR} end

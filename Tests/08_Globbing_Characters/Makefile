@@ -5,7 +5,7 @@ TR=../../Tools/testrec
 
 .PHONY : clean
 
-check: ../../obj/archicheck header test1 test2
+check: ../../obj/acc header test1 test2
 
 header:
 	@ ${TR} clean
@@ -38,7 +38,7 @@ test1:
 	@ ${TR} cmt "No expected output (no error)"
 
 	@ > expected_output.1
-	@ ## Fixme: pas encore assez robuste pour ce test!! @ ../../obj/archicheck -I dir1 rules.1 > output.1
+	@ ## Fixme: pas encore assez robuste pour ce test!! @ ../../obj/acc -I dir1 rules.1 > output.1
 	@ ## Fixme: pas encore assez robuste pour ce test!! ${TR} assert true /usr/bin/sdiff "-s expected_output.1 output.1"
 
 	@ ${TR} end
@@ -75,7 +75,7 @@ test2:
 	@ cat expected_output.2 >> testrec.md
 	@ ${TR} cmt '```'
 
-	@ ## Fixme: pas encore assez robuste pour ce test!! @ ../../obj/archicheck -I dir2 rules.2 > output.2
+	@ ## Fixme: pas encore assez robuste pour ce test!! @ ../../obj/acc -I dir2 rules.2 > output.2
 	@ ## Fixme: pas encore assez robuste pour ce test!! ${TR} assert true /usr/bin/sdiff "-s expected_output.2 output.2"
 
 	@ ${TR} end

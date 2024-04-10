@@ -47,8 +47,8 @@ package body Archicheck.Lang is
                            Recursive : in Boolean) is
 
       -- -----------------------------------------------------------------------
-      Src_Count : array (Sources.Language) of Natural := (others => 0);
-      Dir_Count : array (Sources.Language) of Natural := (others => 1);
+      Src_Count : array (Sources.Language) of Natural := [others => 0];
+      Dir_Count : array (Sources.Language) of Natural := [others => 1];
 
       use Ada.Directories;
 
@@ -70,7 +70,7 @@ package body Archicheck.Lang is
          begin
             if Name'Length > Current'Length and then
               Name (Name'First .. Name'First + Current'Length - 1) = Current
-            -- Simple optimisation : if the long path is a subdir of the
+            -- Simple optimization : if the long path is a subdir of the
             -- current one, we only print the subdir
             then
                Sources.Add_Source
@@ -103,15 +103,15 @@ package body Archicheck.Lang is
          end Walk;
 
       begin
-         Search (Name, Extension, (Directory => False, others => True), Print'Access);
+         Search (Name, Extension, [Directory => False, others => True], Print'Access);
          if Recursive then
-            Search (Name, "", (Directory => True, others => False), Walk'Access);
+            Search (Name, "", [Directory => True, others => False], Walk'Access);
          end if;
       end Walk;
 
    begin
       for L in Sources.Language loop
-         Put_Debug_Line (Msg => "Analysing directory " & Root_Dir
+         Put_Debug_Line (Msg => "Analyzing directory " & Root_Dir
                           & " for language : " & Sources.Language'Image (L));
          Walk (Root_Dir, L);
          if Src_Count (L) /= 0 then
@@ -132,11 +132,11 @@ package body Archicheck.Lang is
       use type Sources.File_Name;
 
    begin
-      Put_Debug_Line ("Analysing dependencies," &
+      Put_Debug_Line ("Analyzing dependencies," &
                         Ada.Containers.Count_Type'Image
                         (Sources.Source_Lists.Length (Src_List)) & " sources");
       for S of Src_List loop
-         Put_Debug_Line ("Analysing dependencies in " & (+S.File));
+         Put_Debug_Line ("Analyzing dependencies in " & (+S.File));
          Analyze_Dependencies (Processor_List (S.Lang).all, -- dispatching call
                                From_Source => S.File);
       end loop;

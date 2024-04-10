@@ -15,7 +15,7 @@
 
   then  
 
-  > archicheck -I dir1 -I dir2 -I dir3 --list_files  
+  > acc -I dir1 -I dir2 -I dir3 --list_files  
 
   should put:  
 ```  
@@ -40,7 +40,7 @@ File identification test suite / Non recursive file identification test [Success
 
   then  
 
-  > archicheck -I dira -Ir dirb --list_files  
+  > acc -I dira -Ir dirb --list_files  
 
   should put:  
 ```  

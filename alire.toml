@@ -21,3 +21,6 @@ generate_gpr = false
 
 [[pins]]
 opentoken = { path = "../opentoken" } 
+
+[[depends-on]]
+ini_files = "^10.0.0"

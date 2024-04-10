@@ -5,7 +5,7 @@ TR=../../Tools/testrec
 
 .PHONY : clean
 
-check: ../../obj/archicheck header test1 test2 test3 test4
+check: ../../obj/acc header test1 test2 test3 test4
 
 .PHONY : header
 header:
@@ -25,7 +25,7 @@ test1:
 
 	@ ${TR} cmt 'Executed:'
 	@ ${TR} cmt 
-	@ ${TR} cmt '> archicheck -lf -I src'
+	@ ${TR} cmt '> acc -lf -I src'
 	@ ${TR} cmt 
 	@ ${TR} cmt "Expected (`cat expected_output.1 | wc -l` files) :"
 	@ ${TR} cmt 
@@ -36,7 +36,7 @@ test1:
 	@ ${TR} cmt '```'
 	@ ${TR} cmt 
 
-	@ ../../obj/archicheck -lf -I src | sort > output.1
+	@ ../../obj/acc -lf -I src | sort > output.1
 	@ ${TR} assert true /usr/bin/sdiff "-sbB expected_output.1 output.1"
 
 	@ ${TR} end
@@ -45,7 +45,7 @@ test2:
 	@ #---------------------------------------------------------------------
 	@ ${TR} start "-ld test"
 
-	@ ${TR} cmt "> archicheck -ld -I ./src | sort"
+	@ ${TR} cmt "> acc -ld -I ./src | sort"
 	@ ${TR} cmt 
 	@ ${TR} cmt "`cat expected_output.2 | wc -l` dependencies expected :"
 	@ ${TR} cmt 
@@ -56,7 +56,7 @@ test2:
 	@ ${TR} cmt '```'
 	@ ${TR} cmt 
 
-	@ ../../obj/archicheck -ld -I ./src | sort > output.2
+	@ ../../obj/acc -ld -I ./src | sort > output.2
  
 	@ ${TR} assert true /usr/bin/sdiff "-sbB expected_output.2 output.2"
 
@@ -66,7 +66,7 @@ test3:
 	@ #---------------------------------------------------------------------
 	@ ${TR} start "rules test"
 
-	@ ${TR} cmt "> archicheck archicheck.ac -I ./src"
+	@ ${TR} cmt "> acc archicheck.ac -I ./src"
 	@ ${TR} cmt 
 	@ ${TR} cmt "Rules :"
 	@ ${TR} cmt 
@@ -80,7 +80,7 @@ test3:
 	@ ${TR} cmt 
 
 	@ > expected_output.3
-	@ ../../obj/archicheck archicheck.ac -I ./src > output.3
+	@ ../../obj/acc archicheck.ac -I ./src > output.3
 	@ ${TR} assert true /usr/bin/sdiff "-sbB expected_output.3 output.3"
 
 	@ ${TR} end
@@ -89,7 +89,7 @@ test4:
 	@ #---------------------------------------------------------------------
 	@ ${TR} start "--list_non_covered"
 
-	@ ${TR} cmt "> archicheck archicheck.ac -lnc -I ./src"
+	@ ${TR} cmt "> acc archicheck.ac -lnc -I ./src"
 	@ ${TR} cmt 
 	@ ${TR} cmt "Rules :"
 	@ ${TR} cmt 
@@ -102,7 +102,7 @@ test4:
 	@ ${TR} cmt "No error expected"
 	@ ${TR} cmt 
 
-	@ ../../obj/archicheck archicheck.ac -lnc -I ./src > output.4
+	@ ../../obj/acc archicheck.ac -lnc -I ./src > output.4
 	@ ${TR} assert true /usr/bin/sdiff "-sbB expected_output.4 output.4"
 
 	@ ${TR} end

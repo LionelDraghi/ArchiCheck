@@ -5,7 +5,7 @@ TR=../../Tools/testrec
 
 .PHONY : clean
 
-check: ../../obj/archicheck header test1 test2 test3 test4 test5 test6 test7
+check: ../../obj/acc header test1 test2 test3 test4 test5 test6 test7
 
 header:
 	@ #---------------------------------------------------------------------
@@ -49,7 +49,7 @@ test1:
 	@ ${TR} cmt 
 
 	@ > expected_output.1
-	@ ../../obj/archicheck -q -I dir1 rules.txt > output.1
+	@ ../../obj/acc -q -I dir1 rules.txt > output.1
 	@ ${TR} assert true /usr/bin/sdiff "-s expected_output.1 output.1"
 
 	@ ${TR} end
@@ -75,7 +75,7 @@ test2:
 	@ ${TR} cmt '```'
 	@ ${TR} cmt 
 
-	@ test ! `../../obj/archicheck --quiet -I dir2 rules.txt > output.2`
+	@ test ! `../../obj/acc --quiet -I dir2 rules.txt > output.2`
 	@ ${TR} assert true /usr/bin/sdiff "-s expected_output.2 output.2"
 
 	@ ${TR} end
@@ -99,7 +99,7 @@ test3:
 	@ ${TR} cmt '```'
 	@ ${TR} cmt 
 
-	@ ../../obj/archicheck -I dir3 rules.txt > output.3
+	@ ../../obj/acc -I dir3 rules.txt > output.3
 	@ ${TR} assert true /usr/bin/sdiff "-s expected_output.3 output.3"
 
 	@ ${TR} end
@@ -123,7 +123,7 @@ test4:
 	@ ${TR} cmt '```'
 	@ ${TR} cmt 
 
-	@ ../../obj/archicheck -I dir4 rules.txt > output.4
+	@ ../../obj/acc -I dir4 rules.txt > output.4
 	@ ${TR} assert true /usr/bin/sdiff "-s expected_output.4 output.4"
 
 	@ ${TR} end
@@ -138,7 +138,7 @@ test5:
 	@ ${CREATE_PKG} DB.P4  spec  -in dir5 -with DB.P3
 
 	@ > expected_output.5
-	@ ../../obj/archicheck -I dir5 rules.txt 	> output.5
+	@ ../../obj/acc -I dir5 rules.txt 	> output.5
 	@ ${TR} assert true /usr/bin/sdiff "-s expected_output.5 output.5"
 
 	@ ${TR} end
@@ -152,7 +152,7 @@ test6:
 	@ ${CREATE_PKG} DB.P1  spec  -in dir6
 	@ ${CREATE_PKG} DBP2   spec  -in dir6 -with DB.P1
 
-	@ ../../obj/archicheck rules.txt -I dir6   > output.6
+	@ ../../obj/acc rules.txt -I dir6   > output.6
 	@ ${TR} assert true /usr/bin/sdiff "-s expected_output.6 output.6"
 
 	@ ${TR} end
@@ -166,7 +166,7 @@ test7:
 	@ ${CREATE_PKG} P2           spec -in dir7 -with Interfaces.C
 	@ ${CREATE_PKG} P3           spec -in dir7 -with Interfaces.Java
 
-	@ test ! `../../obj/archicheck rules7.txt -I dir7   > output.7`
+	@ test ! `../../obj/acc rules7.txt -I dir7   > output.7`
 	@ ${TR} assert true /usr/bin/sdiff "-s expected_output.7 output.7"
 
 	@ ${TR} end

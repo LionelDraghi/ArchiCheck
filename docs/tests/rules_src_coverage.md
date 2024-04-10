@@ -36,7 +36,7 @@ P5 may use Framework
 
   When :  
 
-  > archicheck test1.ac -I ./dir1  
+  > acc test1.ac -I ./dir1  
 
   Expected :  
 
@@ -94,7 +94,7 @@ y-p1.ads
 
   When :  
 
-  > archicheck -lnc test2.ac -I ./dir2  
+  > acc -lnc test2.ac -I ./dir2  
 
   Expected :  
 
@@ -125,7 +125,7 @@ Org.SpringFramework may use Model, system
 
   When :  
 
-  > archicheck test3.ac -I dir3  
+  > acc test3.ac -I dir3  
 
   Expected :  
 

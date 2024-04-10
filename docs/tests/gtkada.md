@@ -7,7 +7,7 @@
 
   Checking that  
 
-  > archicheck -q -lf -r -I gtkada-master  
+  > acc -q -lf -r -I gtkada-master  
 
   is identifying the same 862 files (once sorted) than  
 
@@ -28,7 +28,7 @@ GtkAda test suite / File Identification [Successful](tests_status.md#successful)
 ##  GtkAda test suite / Unit Identification
 
 
-  > archicheck -ld -r -I gtkada-master | sort  
+  > acc -ld -r -I gtkada-master | sort  
 
   4785 dependencies expected :  
 

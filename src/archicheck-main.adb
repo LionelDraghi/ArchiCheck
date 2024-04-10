@@ -37,7 +37,7 @@ procedure Archicheck.Main is
    procedure Analyze_Cmd_Line is separate;
 
 begin
-   -- language specific processor pluggin:
+   -- language specific processor plugin:
    Lang.Initialize;
 
    -- 1. Starting src identification
@@ -62,7 +62,7 @@ begin
       return;
    end if;
 
-   -- 3. Starting src analyzis
+   -- 3. Starting src analysis
    Lang.Analyze_Dependencies;
 
    if Settings.List_Dependencies then
@@ -72,12 +72,12 @@ begin
 
    if Settings.Rules_File_Name /= "" then
 
-      -- 4. Reading rules file
+      -- 4. Reading rules from file and command line
       Rules.Parser.Parse (+Settings.Rules_File_Name);
       if not Sources.Get_List.Is_Empty then
          -- We ensure that some sources where found, so that
          -- to avoid useless warning on non matching sources
-         -- if the user just entended to check the rules file.
+         -- if the user just intended to check the rules file.
          Rules.Check_Unrelated_Rules_Units;
       end if;
 

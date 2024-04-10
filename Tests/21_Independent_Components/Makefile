@@ -5,7 +5,7 @@ TR=../../Tools/testrec
 
 ## .PHONY : clean
 
-check: ../../obj/archicheck header test1 test2
+check: ../../obj/acc header test1 test2
 
 header:
 	@ #---------------------------------------------------------------------
@@ -39,7 +39,7 @@ test1: clean
 	@ ${TR} cmt '```'
 	@ ${TR} cmt 
 	@ ${TR} cmt 'Running :  '
-	@ ${TR} cmt "> archicheck rules1.txt -I dir1"
+	@ ${TR} cmt "> acc rules1.txt -I dir1"
 	@ ${TR} cmt 
 	@ ${TR} cmt '  With:        Expected:'
 	@ ${TR} cmt '  X.P2 -> X.P1  OK'
@@ -49,7 +49,7 @@ test1: clean
 	@ ${TR} cmt '  V    -> Y     OK'
 	@ ${TR} cmt 
 
-	@ test ! `../../obj/archicheck rules1.txt -I dir1 | sort > output.1`
+	@ test ! `../../obj/acc rules1.txt -I dir1 | sort > output.1`
 	@ ${TR} assert true /usr/bin/sdiff "-s expected_output.1 output.1"
 
 	@ ${TR} end
@@ -74,7 +74,7 @@ test2:
 	@ ${TR} cmt '```'
 	@ ${TR} cmt 
 	@ ${TR} cmt 'Running :  '
-	@ ${TR} cmt "> archicheck rules1.txt -I dir1"
+	@ ${TR} cmt "> acc rules1.txt -I dir1"
 	@ ${TR} cmt 
 	@ ${TR} cmt '  With:        Expected:'
 	@ ${TR} cmt '  X.P2 -> X.P1  OK'
@@ -85,7 +85,7 @@ test2:
 	@ ${TR} cmt '  Y.P3 -> X.P1  Error'
 	@ ${TR} cmt 
 
-	@ test ! `../../obj/archicheck rules1.txt -I dir1 | sort > output.2`
+	@ test ! `../../obj/acc rules1.txt -I dir1 | sort > output.2`
 	@ ${TR} assert true /usr/bin/sdiff "-s expected_output.2 output.2"
 
 	@ ${TR} end

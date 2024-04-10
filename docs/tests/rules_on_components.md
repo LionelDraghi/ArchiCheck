@@ -13,7 +13,7 @@ LB is a Layer over LC
 ```  
 
   Running :    
-  > archicheck rules1a.txt -I src  
+  > acc rules1a.txt -I src  
 
   Expected :  
 ```  
@@ -31,7 +31,7 @@ LC contains Interfaces.C and Ada
 ```  
 
   Running :    
-  > archicheck rules1b.txt -I src  
+  > acc rules1b.txt -I src  
 
   No more error/warning expected :  
 ```  
@@ -53,7 +53,7 @@ Env use is allowed
 ```  
 
   Running :    
-  > archicheck rules2.txt -I src  
+  > acc rules2.txt -I src  
 
   No more error/warning expected :  
 ```  
@@ -82,7 +82,7 @@ Z contains P1
 ```  
 
   Running :    
-  > archicheck rules3.txt -I src  
+  > acc rules3.txt -I src  
 
   No more error/warning expected :  
 
@@ -108,7 +108,7 @@ Interfaces.C use is forbidden
 ```  
 
   Running :    
-  > archicheck rules4.txt -I dir4  
+  > acc rules4.txt -I dir4  
 
   Error expected, as P1 is using a forbidden unit :  
 ```  
@@ -127,7 +127,7 @@ Z may use Interfaces.C
 ```  
 
   Running :    
-  > archicheck rules4.txt -I dir4  
+  > acc rules4.txt -I dir4  
 
   No more Error expected.  
 
@@ -151,7 +151,7 @@ My_Layer is a layer over Z
 ```  
 
   Running :    
-  > archicheck rules5.txt -I dir5  
+  > acc rules5.txt -I dir5  
 
     With:        Expected:  
     Y.P1 -> X.P1  OK  

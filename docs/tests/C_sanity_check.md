@@ -56,7 +56,7 @@ include/newton_method.h:
 
   When :  
 
-  > archicheck -ld -I include -I src   
+  > acc -ld -I include -I src   
 
   Expected :  
 

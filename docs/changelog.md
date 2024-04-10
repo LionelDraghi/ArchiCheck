@@ -9,12 +9,17 @@ and version numbering adheres to [Semantic Versioning](http://semver.org/spec/v2
   > - [Added] new rule `X, Y, Z are independent` created
   > - [Added] ArchiCheck is now an Alire crate
   > - [Changed] OpenToken src removed, and added as an Alire dependency
+  > - [Changed] The full help is no more output on each command line error, flooding the terminal is not helping!
+  > - [Changed] archicheck exec name shortened to `acc`!
+  > - [Added] Rules can be passed on command line thanks to `-ar` / `--append_rule` 
+  > - [Changed] switch to Ada 2022
+  
     
-
 - [0.5.8] - 2024-04-06
-  > - [Changed] The -lf / --list_files output is now sorted by language and then by file name
+  > - [Changed] The `-lf` / -`-list_files` output is now sorted by language and then by file name
   > - [Added] First C language "quick and dirty" implementation
-
+  > - [Added] [Draft doc](languages_concepts.md) on languages mapping to ArchiCheck concepts
+  
 - [0.5.7] - 2018-02-14
   > - [Added] `-Ir` option, equivalent to `-r -I`
   > - [Changed] no more reference to an external OpenToken lib, OpenToken sources are now integrated.

@@ -5,7 +5,7 @@
 
 ##  AdaControl code test suite / -lf test
 
-  > archicheck -lf -r -I adactl-1.19r10/src  
+  > acc -lf -r -I adactl-1.19r10/src  
 
   Expected (229 files) :  
 
@@ -24,7 +24,7 @@ AdaControl code test suite / -lf test [Successful](tests_status.md#successful)
 
 ##  AdaControl code test suite / -ld test
 
-  > archicheck -ld -r -I ./adactl-1.19r10/src | sort  
+  > acc -ld -r -I ./adactl-1.19r10/src | sort  
 
   1148 dependencies expected :  
 
@@ -57,7 +57,7 @@ AdaControl code test suite / -ld test [Successful](tests_status.md#successful)
 
 ##  AdaControl code test suite / rules test
 
-  > archicheck adactl.ac -r -I ./adactl-1.19r10/src  
+  > acc adactl.ac -r -I ./adactl-1.19r10/src  
 
   Rules :  
 

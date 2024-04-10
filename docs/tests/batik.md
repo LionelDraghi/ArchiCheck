@@ -5,7 +5,7 @@
 
 ##  Batik test suite / --list_file test
 
-  > archicheck -lf -Ir ./batik-1.9  
+  > acc -lf -Ir ./batik-1.9  
   Expected (1658 files) :  
 
 ```  
@@ -50,7 +50,7 @@ public class JSVG extends JFrame{
 ```  
 
 
-  > archicheck -ld -I dir2  
+  > acc -ld -I dir2  
 
   Expected :  
 
@@ -91,7 +91,7 @@ public interface NodeEventTarget extends EventTarget {
 ```  
 
 
-  > archicheck -ld -I dir3  
+  > acc -ld -I dir3  
 
   Expected :  
 
@@ -122,7 +122,7 @@ package org.apache.batik.dom.util;
 public class TriplyIndexedTable {
 ```  
 
-  > archicheck -ld -I dir4  
+  > acc -ld -I dir4  
 
   Expected :  
 
@@ -142,7 +142,7 @@ import org.w3c.dom.events.Event;
 public interface NodeEventTarget extends EventTarget {
 ```  
 
-  > archicheck -ld -I dir5  
+  > acc -ld -I dir5  
 
   Expected :  
 
@@ -219,7 +219,7 @@ import org.w3c.dom.svg.SVGSVGElement;
 public abstract class SVGAbstractTranscoder extends XMLAbstractTranscoder {
 ```  
 
-  > archicheck rules.B -q -I dir6  
+  > acc rules.B -q -I dir6  
   No output expected  
 
 Batik test suite / public abstract class [Successful](tests_status.md#successful)
@@ -247,7 +247,7 @@ Applications is a layer over Core_Modules
 ```  
 
   Run:  
-  > archicheck rules.7 -I dir7  
+  > acc rules.7 -I dir7  
 
   Expected:  
 ```  
@@ -259,7 +259,7 @@ Batik test suite / Let's add dependencies to Browser and Rasterizer into a Trans
 
 ##  Batik test suite / -ld test
 
-  > archicheck -ld -Ir ./batik-1.9 | sort  
+  > acc -ld -Ir ./batik-1.9 | sort  
 
   10717 dependencies expected :  
 

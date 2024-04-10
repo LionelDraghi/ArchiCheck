@@ -5,7 +5,7 @@
 
 ##  ZipAda code test suite / -lf test
 
-  > archicheck -lf -r -I zip-ada  
+  > acc -lf -r -I zip-ada  
 
   Expected (102 files) :  
 
@@ -24,7 +24,7 @@ ZipAda code test suite / -lf test [Successful](tests_status.md#successful)
 
 ##  ZipAda code test suite / -ld test
 
-  > archicheck -ld -r -I ./zip-ada  
+  > acc -ld -r -I ./zip-ada  
 
   336 dependencies expected :  
 
@@ -57,7 +57,7 @@ ZipAda code test suite / -ld test [Successful](tests_status.md#successful)
 
 ##  ZipAda code test suite / rules test
 
-  > archicheck zipadarules.txt -r -I ./zip-ada  
+  > acc zipadarules.txt -r -I ./zip-ada  
 
   Rules (not much to test...) :  
 

@@ -5,7 +5,7 @@
 
 ##  Spring Pet Clinic code test suite / -lf test
 
-  > archicheck -lf -r -I src1  
+  > acc -lf -r -I src1  
 
   Expected (36 files) :  
 
@@ -24,7 +24,7 @@ Spring Pet Clinic code test suite / -lf test [Successful](tests_status.md#succes
 
 ##  Spring Pet Clinic code test suite / -ld test
 
-  > archicheck -ld -r -I spring-petclinic-master  
+  > acc -ld -r -I spring-petclinic-master  
 
   90 dependencies expected :  
 
@@ -57,7 +57,7 @@ Spring Pet Clinic code test suite / -ld test [Successful](tests_status.md#succes
 
 ##  Spring Pet Clinic code test suite / rules test
 
-  > archicheck petclinic.ac -r -I ./src1  
+  > acc petclinic.ac -r -I ./src1  
 
 ```  
 java use is allowed
@@ -101,7 +101,7 @@ Spring Pet Clinic code test suite / rules test [Successful](tests_status.md#succ
 
 ##  Spring Pet Clinic code test suite / --list_non_covered
 
-  > archicheck petclinic.ac -lnc -r -I ./src1  
+  > acc petclinic.ac -lnc -r -I ./src1  
 
   Rules :  
 
@@ -147,7 +147,7 @@ Spring Pet Clinic code test suite / --list_non_covered [Successful](tests_status
 
 ##  Spring Pet Clinic code test suite / alternative rules test
 
-  > archicheck alternative.ac -r -I ./src1  
+  > acc alternative.ac -r -I ./src1  
 
 ```  
 java use is allowed
@@ -187,7 +187,7 @@ Spring Pet Clinic code test suite / alternative rules test [Successful](tests_st
 
   [](https://github.com/spring-petclinic/spring-framework-petclinic)  
 
-  > archicheck framework-petclinic.ac -r -I ./src2  
+  > acc framework-petclinic.ac -r -I ./src2  
 
 ```  
 -- This organisation in layer is described here : http://fr.slideshare.net/AntoineRey/spring-framework-petclinic-sample-application

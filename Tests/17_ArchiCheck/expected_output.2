@@ -31,6 +31,7 @@ Archicheck.Lang package body depends on Archicheck.Settings
 Archicheck.Lang package spec depends on Archicheck.Sources
 Archicheck.Main.Analyze_Cmd_Line procedure body depends on Ada.Command_Line
 Archicheck.Main.Analyze_Cmd_Line procedure body depends on Ada.Directories
+Archicheck.Main.Analyze_Cmd_Line procedure body depends on Ada.Text_IO
 Archicheck.Main.Analyze_Cmd_Line procedure body depends on Archicheck.IO
 Archicheck.Main.Analyze_Cmd_Line procedure body depends on Archicheck.Lang
 Archicheck.Main.Analyze_Cmd_Line procedure body depends on Archicheck.Settings
@@ -96,6 +97,7 @@ Archicheck.Rules.Parser package body depends on OpenToken.Token.Enumerated.Ident
 Archicheck.Rules.Parser package body depends on OpenToken.Token.Enumerated.List
 Archicheck.Rules.Parser package body depends on OpenToken.Token.Enumerated.Nonterminal
 Archicheck.Settings package body depends on Ada.Strings.Unbounded
+Archicheck.Settings package spec depends on Ada.Text_IO
 Archicheck.Settings package spec depends on Archicheck_Config
 Archicheck.Sources package body depends on Ada.Strings.Fixed
 Archicheck.Sources package body depends on Archicheck.IO
