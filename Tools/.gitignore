@@ -1,0 +1,16 @@
+create_pkg
+testrec
+obj/
+
+gmon.out
+
+.vscode/
+
+# Alire
+alire/
+src/Alire_config
+
+# GNAT Studio files
+.clang-format
+.clangd/
+*-loc.xml

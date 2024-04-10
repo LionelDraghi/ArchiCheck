@@ -25,6 +25,8 @@ test1:
 	@ ${TR} start "Help options" 
 	@ ${TR} cmt  								
 	@ ${TR} cmt "Test that the -h, --help or no command line will output :" 	
+	
+	@ ../../obj/acc -h > expected_help.txt
 	@ ${TR} cmt 
 	@ ${TR} cmt '```' 						
 	@ ../../obj/acc -h > expected_help.txt
@@ -101,6 +103,9 @@ test5:
 	@ ${TR} cmt "> acc -xzy"		
 	@ ${TR} cmt 
 	@ ${TR} cmt "Expecting:"		
+
+	@ echo "Error : Unknown rules file or unknown option -xzy"	>  expected_err5.txt
+
 	@ ${TR} cmt 
 	@ ${TR} cmt '```' 						
 	@ echo "Error : Unknown rules file or unknown option -xzy"	>  expected_err5.txt
@@ -319,8 +324,7 @@ test15:
 	@ ${TR} cmt 
 	@ ${TR} cmt "Expecting:"		
 	@ ${TR} cmt '```' 						
-	@ echo "Error : Rule expected after --append_rule"	>  expected_err15.txt
-	@ cat expected_err15.txt							>> ${MD}					
+	@ cat expected_err15.txt	>> testrec.md					
 	@ ${TR} cmt '```' 						 	
 	@ ${TR} cmt  							
 

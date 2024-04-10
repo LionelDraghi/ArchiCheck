@@ -40,7 +40,6 @@ release: build_release
 	@ echo "and -O3 option." 										>> docs/download.md
 	@ echo 	 														>> docs/download.md
 	@ echo '(May be necessary after download : `chmod +x acc`)'	    >> docs/download.md
-	@ echo '(May be necessary after download : `chmod +x acc`)'	    >> docs/download.md
 	@ echo 	 														>> docs/download.md
 	@ echo "Exe check :"											>> docs/download.md
 	@ echo "-----------"											>> docs/download.md
@@ -68,8 +67,6 @@ release: build_release
 	@ echo 	 														>> docs/download.md
 	@ cat release_tests.txt											>> docs/download.md
 	
-	@ cp -rp obj/acc docs/
-	@ cp -rp obj/acc ~/bin
 	@ cp -rp obj/acc docs/
 	@ cp -rp obj/acc ~/bin
 	@ rm release_tests.txt
@@ -107,7 +104,6 @@ tools:
 	@ $(MAKE) create_pkg --directory=Tools
 	@ $(MAKE) testrec    --directory=Tools
 
-check: obj/acc
 check: obj/acc
 	# depend on the exe, may be either build or build_release, test have to pass with both
 	@ echo Make check
@@ -246,11 +242,9 @@ cmd_line.md:
 	@ echo ""							>> docs/cmd_line.md
 	@ echo '```'						>> docs/cmd_line.md
 	@ echo "$ acc -h" 					>> docs/cmd_line.md
-	@ echo "$ acc -h" 					>> docs/cmd_line.md
 	@ echo '```'						>> docs/cmd_line.md
 	@ echo ""							>> docs/cmd_line.md
 	@ echo '```'						>> docs/cmd_line.md
-	@ obj/acc -h 						>> docs/cmd_line.md
 	@ obj/acc -h 						>> docs/cmd_line.md
 	@ echo '```'						>> docs/cmd_line.md
 	@ echo ""							>> docs/cmd_line.md
@@ -259,11 +253,9 @@ cmd_line.md:
 	@ echo ""							>> docs/cmd_line.md
 	@ echo '```'						>> docs/cmd_line.md
 	@ echo "$ acc --version"			>> docs/cmd_line.md
-	@ echo "$ acc --version"			>> docs/cmd_line.md
 	@ echo '```'						>> docs/cmd_line.md
 	@ echo ""							>> docs/cmd_line.md
 	@ echo '```'						>> docs/cmd_line.md
-	@ obj/acc --version					>> docs/cmd_line.md
 	@ obj/acc --version					>> docs/cmd_line.md
 	@ echo '```'						>> docs/cmd_line.md
 	@ echo ""							>> docs/cmd_line.md

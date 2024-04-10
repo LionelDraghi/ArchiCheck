@@ -4,11 +4,6 @@ hugo/
 obj/
 lib/
 
-# Should be in a separate crate
-Tools/create_pkg
-Tools/testrec
-Tools/obj/
-
 # Some of the docs file are generated (Fixme: better organisation)
 docs/tests.png
 docs/sloc.png
@@ -26,8 +21,6 @@ gmon.out
 # Alire
 alire/
 src/Alire_config
-Tests/alire/
-Tests/src/Alire_config
 
 # GNAT Studio files
 .clang-format

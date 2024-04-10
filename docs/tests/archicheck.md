@@ -26,9 +26,9 @@ ArchiCheck code test suite / -lf test [Successful](archicheck.md#archicheck-code
 
 ##  ArchiCheck code test suite / -ld test
 
-  > acc -ld -I ./src | sort  
+  > archicheck -ld -I ./src | sort  
 
-  115 dependencies expected :  
+  114 dependencies expected :  
 
 ```  
 Archicheck.IO package body depends on Ada.Text_IO
@@ -59,7 +59,7 @@ ArchiCheck code test suite / -ld test [Successful](archicheck.md#archicheck-code
 
 ##  ArchiCheck code test suite / rules test
 
-  > acc archicheck.ac -I ./src  
+  > archicheck archicheck.ac -I ./src  
 
   Rules :  
 
@@ -98,7 +98,7 @@ ArchiCheck code test suite / rules test [Successful](archicheck.md#archicheck-co
 
 ##  ArchiCheck code test suite / --list_non_covered
 
-  > acc archicheck.ac -lnc -I ./src  
+  > archicheck archicheck.ac -lnc -I ./src  
 
   Rules :  
 
