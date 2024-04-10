@@ -27,15 +27,19 @@ procedure Archicheck.Rules.Check_Unrelated_Rules_Units is
       Put_Debug_Line ("Matching " & (+Unit) & "...");
       for D of Dependency_List loop
          if D.Source.Kind in Compilation_Unit then
+            Put_Debug_Line ("Is_A_Child (" & (+D.Source.Name)
+                            & ", Parent => " & (+Unit));
             if Is_A_Child (D.Source.Name, Parent => Unit) then
-               Put_Debug_Line ("Match_A_Comp_Unit " & (+Unit)
-                               & " return True");
+               --  Put_Debug_Line ("Match_A_Comp_Unit " & (+Unit)
+               --                  & " return True");
                return True;
             end if;
             for T of D.Targets loop
+               Put_Debug_Line ("Is_A_Child (" & (+T.To_Unit)
+                               & ", Parent => " & (+Unit));
                if Is_A_Child (T.To_Unit, Parent => Unit) then
-                  Put_Debug_Line ("Match_A_Comp_Unit " & (+Unit)
-                                  & " return True");
+                  --  Put_Debug_Line ("Match_A_Comp_Unit " & (+Unit)
+                  --                  & " return True");
                   return True;
                end if;
             end loop;
@@ -56,7 +60,7 @@ procedure Archicheck.Rules.Check_Unrelated_Rules_Units is
    end Put_Warning_Msg;
 
    -- --------------------------------------------------------------------------
-   -- Fixme: Uggly solution to manage a unique item list
+   -- Fixme: Ugly solution to manage a unique item list
    function Hash_Case_Insensitive
      (Key : Unit_Name) return Ada.Containers.Hash_Type is
      (Ada.Strings.Hash_Case_Insensitive (+Key));

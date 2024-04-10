@@ -133,7 +133,7 @@ package body Testrec.Current_State is
    procedure Clean is
    begin
       Ada.Directories.Delete_File (Settings.State_File_Name);
-      Ada.Directories.Delete_File (Settings.Log_File_Name);
+      Ada.Directories.Delete_File (Name (Settings.Log_File));
    end Clean;
 
    -- ----------------------------------------------------------------------

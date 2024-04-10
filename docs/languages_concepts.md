@@ -1,6 +1,16 @@
+<!-- omit from toc -->
 # Components and visibility matching concepts in languages
 
-## Modules
+- [1. Modules](#1-modules)
+- [2. Archicheck](#2-archicheck)
+- [3. C](#3-c)
+  - [3.1. Limitations](#31-limitations)
+- [4. Ada](#4-ada)
+  - [4.1. Renaming](#41-renaming)
+- [5. Java](#5-java)
+
+
+## 1. Modules
 
 From a design point of view, a [Module](https://en.wikipedia.org/wiki/Modular_programming) is a small component that encapsulate code and data to perform focused on one task.
 
@@ -15,7 +25,7 @@ Note that the time as gone, and the nineties temptation of considering modules a
 Most languages provide mechanisms to implement those three features.
 Here after, will be discussed what ArchiCheck consider as a component or a visibility relationship in each languages, and also when needed the matching of compilation units, files and modules.
 
-## Archicheck
+## 2. Archicheck
 
 Let's start with Archicheck :
 
@@ -30,14 +40,14 @@ Let's start with Archicheck :
   Archicheck offers the possibility to explicitly declare such a component that is not defined in the code.
   It is then called a virtual component.
 
-## C
+## 3. C
 
 > The closest thing C has to a module is a source (.c) file. We can encapsulate functions and data in a source file to form the implementation part of a module. A corresponding header (.h) file forms the interface to the module.  
 (https://www.embedded.com/modular-programming-in-c/)
 
 Similarly, the closest thing to a visibility specification is the include preprocessor directive.
 
-## Limitations
+### 3.1. Limitations
 - Archicheck has no [preprocessor](https://en.wikipedia.org/wiki/C_preprocessor), and do not support conditional compilation, meaning that 
   ```
   #ifdef MATRIX
@@ -54,9 +64,62 @@ Similarly, the closest thing to a visibility specification is the include prepro
 This directive is not supported in Archicheck.
 
 
-## Ada
+## 4. Ada
 
-## Java
+Archicheck build the Component hierarchy based by interpreting the names : remember that Archicheck don’t do a semantical analysis, it just does the bare minimum lexical analysis to catch components and dependencies.
+
+### 4.1. Renaming
+In Ada, there is a possibility to rename a package miming a child package.
+For example :
+
+```
+package OS.Disk_Driver renames Disk_Driver;
+```
+
+But this does not transform Disk_Driver in a real child package : it won’t gain the visibility on OS that a real child has, and it cannot be extended with a new child :
+
+```
+package OS.Disk_Driver.SSD is
+```
+
+Is illegal.
+
+ArchiCheck ignore that Ada rule, will store `Disk_Driver` as a child of OS, `SSD` as `Disk_Driver` child.
+Telling that this is illegal is the compiler's job.
+
+For the same reason, ArchiCheck, take into account private packages as normal packages.
+
+Considering :
+
+```
+package API is …
+
+private package API.Utilities is…
+```
+ 
+One could write a rule :
+
+```
+X may use API.Utilities
+```
+
+It’s not possible, but Archicheck is not going to warn the user. Once again, this is the compiler responsibility.
+The good news is that if X try to use API.Utilities, it won’t compile.
+
+Similarly, limited with and private with are considered as normal with :
+for Archicheck : `limited with P;` = `limited private with P;` = `private with P;` = `with P;`
+
+I did not notice any pathological use of Ada package that breaks ArchiCheck behavior till now.
+
+ 
+
+ 
+
+ 
+
+ 
+
+## 5. Java
 
 [Here is a tutorial on Java packages](https://docs.oracle.com/javase/tutorial/java/package/packages.html)
 

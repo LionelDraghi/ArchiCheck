@@ -32,7 +32,7 @@ package body Archicheck.Units is
    procedure Put_Debug_Line
      (Msg    : in String  := "";
       Debug  : in Boolean := Settings.Debug_Mode; -- change to True to debug
-      Prefix : in String  := "Units") renames Archicheck.IO.Put_Debug_Line;
+      Prefix : in String  := "Units ### ") renames Archicheck.IO.Put_Debug_Line;
 
    -- --------------------------------------------------------------------------
    function "+" (Name : Unit_Name) return String is
@@ -208,18 +208,44 @@ package body Archicheck.Units is
       --    Debug  : in Boolean := True;
       --    Prefix : in String  := "Is_A_Child")
       --    renames Archicheck.IO.Put_Debug_Line;
-
+      P_Last_Char            : constant Character := P (P'Length);
+      
    begin
       if Ada.Strings.Equal_Case_Insensitive (C, P) then
          -- The Unit is the component
          Put_Debug_Line ("Unit " & C & " = " & P);
          return True;
-
+         -- P = "P4"
+         -- C = "P4"
+         
       elsif C'Length > P'Length and then
-        (Ada.Strings.Equal_Case_Insensitive
-           (Head (C, Count => P'Length), P) and C (P'Length + 1) = '.')
+        (Ada.Strings.Equal_Case_Insensitive (Left => Head (C, Count => P'Length), 
+                                             Right => P) 
+         and C (P'Length + 1) = '.')
       then
-         -- The Unit is a child pkg of the component
+         -- P = "P4"
+         -- C = "P4.XXX"
+         Put_Debug_Line ("Unit " & C & " is a child of " & P);
+         return True;
+
+      elsif P_Last_Char = '*' and then C'Length = P'Length - 1 and then
+        (Ada.Strings.Equal_Case_Insensitive (Left => C, 
+                                             Right => Head (P, Count => P'Length - 1))) 
+      then
+         -- P = "P4*"
+         -- C = "P4"
+         Put_Debug_Line ("Unit " & C & " is a child of " & P);
+         return True;
+
+      elsif C'Length > P'Length 
+        and then P_Last_Char = '*' 
+        and then C (P'Length) = '.' 
+        and then (Ada.Strings.Equal_Case_Insensitive 
+                  (Left => Head (C, Count => P'Length - 1), 
+                   Right => Head (P, Count => P'Length - 1))) 
+      then
+         -- P = "P4*"
+         -- C = "P4.XXX"
          Put_Debug_Line ("Unit " & C & " is a child of " & P);
          return True;
 

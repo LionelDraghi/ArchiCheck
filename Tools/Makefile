@@ -1,12 +1,12 @@
-all: create_pkg testrec check_suite check_test run_test check_clean doc
+all: create_pkg testrec check_suite check_test run_test check_output_file check_clean doc
 
 TR=./testrec
 
 create_pkg:
-	gprbuild -q -Pcreate_pkg.gpr
+	gprbuild -P create_pkg.gpr
 
 testrec:
-	gprbuild -q -Ptestrec.gpr
+	alr build --release
 
 check_suite: ${TR}
 	${TR} clean
@@ -91,6 +91,22 @@ run_test: ${TR}
 	test ! `sdiff -sB state.ref state.11 > diff.11`
 	sdiff -sB diff.11 expected.11
 
+check_output_file: ${TR}
+	rm .testrec
+	${TR} -o output.md state > state.ref
+
+	${TR} -o output.md create Suite_X
+	${TR} -o output.md create Suite_Y
+	${TR} -o output.md start Test_Z
+	${TR} -o output.md assert true  /bin/ls "-lt" > /dev/null
+	${TR} -o output.md assert false cmd ""
+	${TR} -o output.md end
+	${TR} -o output.md state > state.12a
+	sdiff -sB expected.12a state.12a
+
+	${TR} -o output.md clean
+	${TR} -o output.md state > state.12b
+	sdiff -sB state.ref state.12b
 
 check_clean: ${TR}
 	rm .testrec
@@ -104,13 +120,13 @@ check_clean: ${TR}
 	${TR} end
 
 	${TR} clean
-	${TR} state > state.12
-	sdiff -sB state.ref state.12
+	${TR} state > state.13
+	sdiff -sB state.ref state.13
 
 doc:
 	# cp tools.md ../docs/tests/
 
 .PHONY : clean
 clean:
-	- ${RM} obj/* .testrec state.? state.?? testrec.md diff.? diff.?? file? state.ref
+	- ${RM} testrec create_pkg obj/* .testrec output.md state.? state.?? testrec.md diff.? diff.?? file? state.ref
 

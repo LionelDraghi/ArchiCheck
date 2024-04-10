@@ -1,0 +1,26 @@
+Testrec current state :
+
+[Overall_State]
+   Suite_Count= 0
+   Failed_Test_Count= 0
+   Successful_Test_Count= 0
+   Empty_Test_Count= 0
+   Failed_Assertion_Count= 0
+   Successful_Assertion_Count= 0
+
+[Current_Suite_State]
+   Current_Suite_Name= 
+   Failed_Test_Count= 0
+   Successful_Test_Count= 0
+   Empty_Test_Count= 0
+   Failed_Assertion_Count= 0
+   Successful_Assertion_Count= 0
+
+[Current_Test_State]
+   Current_Test_Name= 
+   Failed_Assertion_Count= 0
+   Successful_Assertion_Count= 0
+   Current_Test_Status= NO_TEST_IN_PROGRESS
+   Current_Test_Result= EMPTY
+
+

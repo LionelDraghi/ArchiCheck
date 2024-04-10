@@ -16,10 +16,15 @@ procedure Create_Pkg is
 
    -- the Create_Pkg utility is used to create dummy Ada packages for ArchiCheck tests
 
+   Version : constant String := "v1.1";
+
    -- -------------------------------------------------------------------------
    procedure Put_Usage is
    begin
-      Put_Line ("usage : Create_Pkg pkg_name spec|body [-in Output_Dir] [-with withed_pkg]");
+      Put_Line ("Create_Pkg " & Version & " usage :" );  
+      New_Line;
+      Put_Line ("Create_Pkg pkg_name spec|body [-in Output_Dir] [-with withed_pkg]");
+      New_Line;
       Put_Line ("   by default, create only a specification, in the current directory");
       Put_Line ("   -with shall be at the end of the line");
    end Put_Usage;
@@ -49,8 +54,6 @@ procedure Create_Pkg is
 
    Unit_Name : Unbounded_String;
    Dir_Name  : Unbounded_String;
-
-   Version : constant String := "v1.1";
 
    -- -------------------------------------------------------------------------
    procedure Create_File is

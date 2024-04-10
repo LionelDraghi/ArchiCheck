@@ -40,26 +40,27 @@ release: build_release
 	@ echo "and -O3 option." 										>> docs/download.md
 	@ echo 	 														>> docs/download.md
 	@ echo '(May be necessary after download : `chmod +x acc`)'	    >> docs/download.md
+	@ echo '(May be necessary after download : `chmod +x acc`)'	    >> docs/download.md
 	@ echo 	 														>> docs/download.md
 	@ echo "Exe check :"											>> docs/download.md
 	@ echo "-----------"											>> docs/download.md
 	@ echo 	 														>> docs/download.md
-	@ echo "> date -r acc --iso-8601=seconds" 				>> docs/download.md
+	@ echo "> date -r acc --iso-8601=seconds" 						>> docs/download.md
 	@ echo 	 														>> docs/download.md
 	@ echo '```' 													>> docs/download.md
-	@ date -r obj/acc --iso-8601=seconds 					>> docs/download.md
+	@ date -r obj/acc --iso-8601=seconds 							>> docs/download.md
 	@ echo '```' 													>> docs/download.md
 	@ echo 	 														>> docs/download.md
-	@ echo "> readelf -d acc | grep 'NEEDED'" 				>> docs/download.md
+	@ echo "> readelf -d acc | grep 'NEEDED'" 						>> docs/download.md
 	@ echo 	 														>> docs/download.md
 	@ echo '```' 													>> docs/download.md
-	@ readelf -d obj/acc | grep 'NEEDED'						>> docs/download.md
+	@ readelf -d obj/acc | grep 'NEEDED'							>> docs/download.md
 	@ echo '```' 													>> docs/download.md
 	@ echo 	 														>> docs/download.md
-	@ echo "> acc --version"				 					>> docs/download.md
+	@ echo "> acc --version"				 						>> docs/download.md
 	@ echo 	 														>> docs/download.md
 	@ echo '```' 													>> docs/download.md
-	@ obj/acc --version				 						>> docs/download.md
+	@ obj/acc --version				 								>> docs/download.md
 	@ echo '```' 													>> docs/download.md
 	@ echo 	 														>> docs/download.md
 	@ echo "Tests status on this exe :"								>> docs/download.md
@@ -69,21 +70,23 @@ release: build_release
 	
 	@ cp -rp obj/acc docs/
 	@ cp -rp obj/acc ~/bin
+	@ cp -rp obj/acc docs/
+	@ cp -rp obj/acc ~/bin
 	@ rm release_tests.txt
 
 build: 
 	@ echo Make debug build
 	@ - mkdir -p obj lib
 
-	## @ alr gnatcov instrument --no-subprojects -Parchicheck.gpr --level=stmt
-	@ alr build -- -s -Xmode=debug 
-	## --src-subdirs=gnatcov-instr --implicit-with=gnatcov_rts.gpr 
+	@ # alr gnatcov instrument --no-subprojects --level=stmt --dump-trigger=atexit --projects archicheck.gpr
+	@ # alr build -- -q -s -Xmode=debug --src-subdirs=gnatcov-instr --implicit-with=gnatcov_rts_full
+	alr build --development 
 	@ # -q : quiet
 	@ # -s : recompile if compiler switches have changed
 
 .PHONY : build_release
 build_release:
-	alr build -- -s -Xmode=release
+	alr build --release
 	# -q : quiet
 	# -s : recompile if compiler switches have changed
 
@@ -105,9 +108,10 @@ tools:
 	@ $(MAKE) testrec    --directory=Tools
 
 check: obj/acc
+check: obj/acc
 	# depend on the exe, may be either build or build_release, test have to pass with both
 	@ echo Make check
-	@ - mkdir -p Tools/obj 
+	##@ - mkdir -p Tools/obj 
 
 	@ echo - Initializing coverage data before run
 	# lcov --quiet --capture --initial --directory obj -o obj/coverage.info --ignore-errors source
@@ -189,46 +193,46 @@ dashboard: Tests/tests_count.txt
 		-png -o docs/generated_img/tests.png
 
 	>  docs/dashboard.md
-	@ echo "Dashboard"				>> docs/dashboard.md
-	@ echo "========="				>> docs/dashboard.md
-	@ echo 							>> docs/dashboard.md
-	@ echo "Version"				>> docs/dashboard.md
-	@ echo "-------"				>> docs/dashboard.md
-	@ echo "> acc --version"	>> docs/dashboard.md
-	@ echo 	 						>> docs/dashboard.md
-	@ echo '```' 					>> docs/dashboard.md
-	@ obj/acc --version 						>> docs/dashboard.md
-	@ echo '```' 									>> docs/dashboard.md
-	@ echo 	 										>> docs/dashboard.md
-	@ echo "> date -r acc --iso-8601=seconds" 	>> docs/dashboard.md
+	@ echo "Dashboard"								>> docs/dashboard.md
+	@ echo "========="								>> docs/dashboard.md
+	@ echo 											>> docs/dashboard.md
+	@ echo "Version"								>> docs/dashboard.md
+	@ echo "-------"								>> docs/dashboard.md
+	@ echo "> acc --version"						>> docs/dashboard.md
 	@ echo 	 										>> docs/dashboard.md
 	@ echo '```' 									>> docs/dashboard.md
-	@ date -r obj/acc --iso-8601=seconds 	>> docs/dashboard.md
+	@ obj/acc --version 							>> docs/dashboard.md
 	@ echo '```' 									>> docs/dashboard.md
 	@ echo 	 										>> docs/dashboard.md
-	@ echo "Test results"			>> docs/dashboard.md
-	@ echo "------------"			>> docs/dashboard.md
-	@ echo '```'			 		>> docs/dashboard.md
-	@ cat Tests/tests_count.txt		>> docs/dashboard.md
-	@ echo '```'			 		>> docs/dashboard.md
-	@ echo "![](img/tests.png)"		>> docs/dashboard.md
-	@ echo 							>> docs/dashboard.md
-	@ echo "Coverage"				>> docs/dashboard.md
-	@ echo "--------"				>> docs/dashboard.md
-	@ echo 							>> docs/dashboard.md
-	@ echo '```'			 		>> docs/dashboard.md
-	#### @ cat cov_sum.txt				>> docs/dashboard.md
-	@ echo '```'			 		>> docs/dashboard.md
-	@ echo 							>> docs/dashboard.md
-	@ cat docs/coverage_summary.md	>> docs/dashboard.md
-	@ echo 							>> docs/dashboard.md
+	@ echo "> date -r acc --iso-8601=seconds" 		>> docs/dashboard.md
+	@ echo 	 										>> docs/dashboard.md
+	@ echo '```' 									>> docs/dashboard.md
+	@ date -r obj/acc --iso-8601=seconds 			>> docs/dashboard.md
+	@ echo '```' 									>> docs/dashboard.md
+	@ echo 	 										>> docs/dashboard.md
+	@ echo "Test results"							>> docs/dashboard.md
+	@ echo "------------"							>> docs/dashboard.md
+	@ echo '```'			 						>> docs/dashboard.md
+	@ cat Tests/tests_count.txt						>> docs/dashboard.md
+	@ echo '```'			 						>> docs/dashboard.md
+	@ echo "![](generated_img/tests.png)"			>> docs/dashboard.md
+	@ echo 											>> docs/dashboard.md
+	@ echo "Coverage"								>> docs/dashboard.md
+	@ echo "--------"								>> docs/dashboard.md
+	@ echo 											>> docs/dashboard.md
+	@ echo '```'			 						>> docs/dashboard.md
+	#### @ cat cov_sum.txt							>> docs/dashboard.md
+	@ echo '```'			 						>> docs/dashboard.md
+	@ echo 											>> docs/dashboard.md
+	@ cat docs/coverage_summary.md					>> docs/dashboard.md
+	@ echo 											>> docs/dashboard.md
 	@ echo '[**Coverage details in the sources**](http://lionel.draghi.free.fr/Archicheck/lcov/home/lionel/Proj/Archicheck/src/index-sort-f.html)'	>> docs/dashboard.md
-	@ echo 							>> docs/dashboard.md
+	@ echo 											>> docs/dashboard.md
 
 	# badge making:
-	@ wget -q "https://generated_img.shields.io/badge/Version-`./obj/acc --version`-blue.svg" -O docs/generated_img/version.svg
-	@ wget -q "https://generated_img.shields.io/badge/Tests_OK-`cat Tests/tests_count.txt |sed -n "s/Successful  //p"`-green.svg" -O docs/generated_img/tests_ok.svg
-	@ wget -q "https://generated_img.shields.io/badge/Tests_KO-`cat Tests/tests_count.txt |sed -n "s/Failed      //p"`-red.svg" -O docs/generated_img/tests_ko.svg
+	@ wget -q "https://img.shields.io/badge/Version-`./obj/acc --version`-blue.svg" -O docs/generated_img/version.svg
+	@ wget -q "https://img.shields.io/badge/Tests_OK-`cat Tests/tests_count.txt |sed -n "s/Successful  //p"`-green.svg" -O docs/generated_img/tests_ok.svg
+	@ wget -q "https://img.shields.io/badge/Tests_KO-`cat Tests/tests_count.txt |sed -n "s/Failed      //p"`-red.svg" -O docs/generated_img/tests_ko.svg
 
 .PHONY : cmd_line.md
 cmd_line.md:
@@ -242,9 +246,11 @@ cmd_line.md:
 	@ echo ""							>> docs/cmd_line.md
 	@ echo '```'						>> docs/cmd_line.md
 	@ echo "$ acc -h" 					>> docs/cmd_line.md
+	@ echo "$ acc -h" 					>> docs/cmd_line.md
 	@ echo '```'						>> docs/cmd_line.md
 	@ echo ""							>> docs/cmd_line.md
 	@ echo '```'						>> docs/cmd_line.md
+	@ obj/acc -h 						>> docs/cmd_line.md
 	@ obj/acc -h 						>> docs/cmd_line.md
 	@ echo '```'						>> docs/cmd_line.md
 	@ echo ""							>> docs/cmd_line.md
@@ -253,9 +259,11 @@ cmd_line.md:
 	@ echo ""							>> docs/cmd_line.md
 	@ echo '```'						>> docs/cmd_line.md
 	@ echo "$ acc --version"			>> docs/cmd_line.md
+	@ echo "$ acc --version"			>> docs/cmd_line.md
 	@ echo '```'						>> docs/cmd_line.md
 	@ echo ""							>> docs/cmd_line.md
 	@ echo '```'						>> docs/cmd_line.md
+	@ obj/acc --version					>> docs/cmd_line.md
 	@ obj/acc --version					>> docs/cmd_line.md
 	@ echo '```'						>> docs/cmd_line.md
 	@ echo ""							>> docs/cmd_line.md
@@ -272,7 +280,7 @@ doc: dashboard cmd_line.md
 	@ echo 'Location | Text'             	>> docs/fixme.md
 	@ echo '---------|-----'             	>> docs/fixme.md
 	@ cat /tmp/fixme.md                     >> docs/fixme.md
-	@ rm /tmp/fixme.md
+	@ rm  /tmp/fixme.md
 	@ rgrep -ni              "Fixme" src/*     | sed "s/:/|/2"	>> docs/fixme.md
 	@ grep -ni --no-messages "Fixme" Tests/*/* | sed "s/:/|/2"	>> docs/fixme.md
 
@@ -282,11 +290,8 @@ doc: dashboard cmd_line.md
 .PHONY : clean
 clean:
 	@ echo Make clean
-	@ ## - gnat clean -q -Parchicheck.gpr
+	@ alr clean
 	@ - ${RM} -rf obj/* docs/lcov/* tmp.txt *.lst *.dat cov_sum.txt gmon.out gh-md-toc docs/generated_img/*
 	@ - $(MAKE) --directory=Tests clean
 	@ - $(MAKE) --directory=Tools clean
 	
-
-    
-    

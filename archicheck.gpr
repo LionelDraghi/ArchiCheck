@@ -6,14 +6,16 @@
 -- Public License Versions 3, refer to the COPYING file.
 -- -----------------------------------------------------------------------------
 
+with "list_image";
 with "opentoken";
 
 project Archicheck is
 
-   type Mode_Type is ("debug", "release");
-   Mode : Mode_Type := external ("mode", "debug");
+   type Mode_Type is ("development", "release");
+   Mode : Mode_Type := external ("mode", "development");
+   -- development is the default alr mode
 
-   for Source_Dirs use ("src", "src/Alire_config");
+   for Source_Dirs use ("src/", "src/Alire_config/");
    for Object_Dir use "obj";
    for Create_Missing_Dirs use "True";
    for Main use ("archicheck-main.adb");
@@ -27,6 +29,14 @@ project Archicheck is
       for Executable ("archicheck-main.adb") use "acc"; -- "archicheck";
       for Default_Switches ("ada") use ("-j2", "-g", "-m");
    end Builder;
+
+   package Coverage is
+      for Ignored_Source_Files use ("*main*.ad[sb]"); 
+      -- bug with toolchain.use.gnat=gnat_native=13.2.2 
+      -- the generated instrumented code doesn't compile
+      -- archicheck-main.adb:36:97: error: stub cannot appear in an inner scope
+      -- ...
+   end Coverage;
 
    package Compiler is
       Common_Switches := ("-gnat2022");
@@ -64,7 +74,7 @@ project Archicheck is
       -- x : Check extra parentheses.
 
       case Mode is
-         when "debug"   =>
+         when "development"   =>
             for Switches ("ada") use Common_Debug_Switches;
             -- -pg : profiling
 
@@ -82,7 +92,7 @@ project Archicheck is
 
    package Binder is
       case Mode is
-         when "debug"   => for Switches ("ada") use ("-Es");
+         when "development"   => for Switches ("ada") use ("-Es");
             -- -Es : store symbolic tracebacks
          when "release" => for Switches ("ada") use ("-static");
             -- -static : link against a static GNAT run time.
@@ -91,7 +101,7 @@ project Archicheck is
 
    package Linker is
       case Mode is
-         when "debug"   => for Switches ("ada") use ("-g", "--coverage", "-pg");
+         when "development"   => for Switches ("ada") use ("-g", "--coverage", "-pg");
             -- pg : profiling
          when "release" =>  for Switches ("ada") use ("-flto");
             -- -flto : link time optimization

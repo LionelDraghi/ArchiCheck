@@ -62,6 +62,8 @@ package body Archicheck.Rules.Parser is
    -- Step 1: Creating an Enumeration of Token IDs
    -- --------------------------------------------------------------------------
 
+   Prefix : constant String := "Rules.Parser === ";
+   
    -- The list of tokens, without non-terminals in recursive descent.
    type Token_Ids is
      (-- Non reporting tokens (not used in generating an LALR grammar) ---------
@@ -87,8 +89,9 @@ package body Archicheck.Rules.Parser is
       Allowed_Id,
 
       -- Misc
-      Comma_Id, -- ','
-      Dot_Id, -- '.'
+      Comma_Id,     -- ','
+      Dot_Id,       -- '.'
+      Star_Id,      -- '*'
       Semicolon_Id, -- ';'
       EoF_Id,
       --  Identifier must be after keywords, so they are recognized instead
@@ -100,6 +103,13 @@ package body Archicheck.Rules.Parser is
       Rule_Id,
       Unit_Id,
       Unit_List_Id,
+      Component_Decla_Id,
+      Independent_Components_Decla_Id,
+      Layer_Decla_Id,
+      Use_Decla_Id,
+      Restricted_Use_Decla_Id,
+      Forbidden_Use_Decla_Id,
+      Allowed_Used_Decla_Id
       Component_Decla_Id,
       Independent_Components_Decla_Id,
       Layer_Decla_Id,
@@ -155,6 +165,7 @@ package body Archicheck.Rules.Parser is
    Contains_T    : constant Master_Token.Class := Master_Token.Get (Contains_Id);
    Comma_T       : constant Master_Token.Class := Master_Token.Get (Comma_Id);
    Dot_T         : constant Master_Token.Class := Master_Token.Get (Dot_Id);
+   Star_T        : constant Master_Token.Class := Master_Token.Get (Star_Id);
    Identifier_T  : constant Master_Token.Class := Master_Token.Get (Identifier_Id);
    Independent_T : constant Master_Token.Class := Master_Token.Get (Independent_Id);
    Is_T          : constant Master_Token.Class := Master_Token.Get (Is_Id);
@@ -181,12 +192,25 @@ package body Archicheck.Rules.Parser is
    Rules_File                   : constant Nonterminal.Class := Nonterminal.Get (Rules_File_Id);
    Unit                         : constant Nonterminal.Class := Nonterminal.Get (Unit_Id);
    Unit_List                    : constant Nonterminal.Class := Nonterminal.Get (Unit_List_Id);
+   Use_Decla                    : constant Nonterminal.Class := Nonterminal.Get (Use_Decla_Id);
+   Restricted_Use_Decla         : constant Nonterminal.Class := Nonterminal.Get (Restricted_Use_Decla_Id);
+   Forbidden_Use_Decla          : constant Nonterminal.Class := Nonterminal.Get (Forbidden_Use_Decla_Id);
+   Allowed_Use_Decla            : constant Nonterminal.Class := Nonterminal.Get (Allowed_Used_Decla_Id);
+   Layer_Decla                  : constant Nonterminal.Class := Nonterminal.Get (Layer_Decla_Id);
+   Component_Decla              : constant Nonterminal.Class := Nonterminal.Get (Component_Decla_Id);
+   Independent_Components_Decla : constant Nonterminal.Class := Nonterminal.Get (Independent_Components_Decla_Id);
+   Rule                         : constant Nonterminal.Class := Nonterminal.Get (Rule_Id);
+   Rule_List                    : constant Nonterminal.Class := Nonterminal.Get (Rule_List_Id);
+   Rules_File                   : constant Nonterminal.Class := Nonterminal.Get (Rules_File_Id);
+   Unit                         : constant Nonterminal.Class := Nonterminal.Get (Unit_Id);
+   Unit_List                    : constant Nonterminal.Class := Nonterminal.Get (Unit_List_Id);
 
 
    -- Step 4: Map the Terminal Token ID's to their recognizers and tokens
    -- --------------------------------------------------------------------------
 
    Syntax : constant Tokenizer.Syntax :=
+              [Whitespace_Id    => Tokenizer.Get (OpenToken.Recognizer.Character_Set.Get (OpenToken.Recognizer.Character_Set.Standard_Whitespace)),
               [Whitespace_Id    => Tokenizer.Get (OpenToken.Recognizer.Character_Set.Get (OpenToken.Recognizer.Character_Set.Standard_Whitespace)),
                --
                A_Id             => Tokenizer.Get (OpenToken.Recognizer.Keyword.Get ("a")),
@@ -209,6 +233,7 @@ package body Archicheck.Rules.Parser is
                Shell_Comment_Id => Tokenizer.Get (OpenToken.Recognizer.Line_Comment.Get ("#",  Reportable => False)),
                Comma_Id         => Tokenizer.Get (OpenToken.Recognizer.Separator.Get (",")),
                Dot_Id           => Tokenizer.Get (OpenToken.Recognizer.Separator.Get (".")),
+               Star_Id          => Tokenizer.Get (OpenToken.Recognizer.Separator.Get ("*")),
                Semicolon_Id     => Tokenizer.Get (OpenToken.Recognizer.Separator.Get (";")),
 
                EoF_Id           => Tokenizer.Get (OpenToken.Recognizer.End_Of_File.Get),
@@ -221,6 +246,7 @@ package body Archicheck.Rules.Parser is
                   New_Token  => Identifiers.Get (Identifier_Id))
 
                -- EoL_Id        => Tokenizer.Get (OpenToken.Recognizer.Separator.Get ((1 => OpenToken.EOL_Character))),
+              ];
               ];
 
    -- Step 5: Define a Lexical Analyzer
@@ -244,12 +270,19 @@ package body Archicheck.Rules.Parser is
       To_ID     : in  Master_Token.Token_ID);
 
    -- --------------------------------------------------------------------------
-   procedure Add_To_Unit_Name
+   procedure Add_Dot_Identifier
      (New_Token : out Nonterminal.Class;
       Source    : in  Token_List.Instance'Class;
       To_ID     : in  Master_Token.Token_ID);
 
    -- --------------------------------------------------------------------------
+   procedure Add_Final_Star
+     (New_Token : out Nonterminal.Class;
+      Source    : in  Token_List.Instance'Class;
+      To_ID     : in  Master_Token.Token_ID);
+
+   -- --------------------------------------------------------------------------
+   procedure Store_Component_Decla
    procedure Store_Component_Decla
      (New_Token : out Nonterminal.Class;
       Source    : in  Token_List.Instance'Class;
@@ -257,17 +290,20 @@ package body Archicheck.Rules.Parser is
 
    -- --------------------------------------------------------------------------
    procedure Store_Layer_Decla
+   procedure Store_Layer_Decla
      (New_Token : out Nonterminal.Class;
       Source    : in  Token_List.Instance'Class;
       To_ID     : in  Master_Token.Token_ID);
 
    -- --------------------------------------------------------------------------
    procedure Store_Use_Decla
+   procedure Store_Use_Decla
      (New_Token : out Nonterminal.Class;
       Source    : in  Token_List.Instance'Class;
       To_ID     : in  Master_Token.Token_ID);
 
    -- --------------------------------------------------------------------------
+   procedure Store_Restricted_Use_Decla
    procedure Store_Restricted_Use_Decla
      (New_Token : out Nonterminal.Class;
       Source    : in  Token_List.Instance'Class;
@@ -280,6 +316,7 @@ package body Archicheck.Rules.Parser is
       To_ID     : in  Master_Token.Token_ID);
 
    -- --------------------------------------------------------------------------
+   procedure Add_Forbidden_Unit
    procedure Add_Forbidden_Unit
      (New_Token : out Nonterminal.Class;
       Source    : in  Token_List.Instance'Class;
@@ -304,6 +341,11 @@ package body Archicheck.Rules.Parser is
    -- Restricted_Use_Decla  -> only Component1 may use component2
    -- Use_Decla             -> Component1 uses Component2
    -- Rule                        -> Independent_Components_Decla | Component_Decla | Layer_Decla | Use_Decla | Restricted_Use_Decla
+   -- Component_Decla       -> Component contains Unit_List                 Insert [Component, Unit_List] in Component_List
+   -- Layer_Decla           -> Layer is a layer over Layer                  Insert [Layer, Layer]         in Layer_List
+   -- Restricted_Use_Decla  -> only Component1 may use component2
+   -- Use_Decla             -> Component1 uses Component2
+   -- Rule                        -> Independent_Components_Decla | Component_Decla | Layer_Decla | Use_Decla | Restricted_Use_Decla
 
    Grammar : constant Production_List.Instance :=
                Rules_File                  <= Rule_List & EoF_T              and
@@ -319,7 +361,21 @@ package body Archicheck.Rules.Parser is
                Rule                        <= Allowed_Use_Decla              and
                Rule                        <= Component_Decla                and
                Rule                        <= Independent_Components_Decla   and
+               Rule                        <= Use_Decla                      and
+               Rule                        <= Restricted_Use_Decla           and
+               Rule                        <= Layer_Decla                    and
+               Rule                        <= Forbidden_Use_Decla            and
+               Rule                        <= Allowed_Use_Decla              and
+               Rule                        <= Component_Decla                and
+               Rule                        <= Independent_Components_Decla   and
 
+               Independent_Components_Decla <= Unit_List & Are_T & Independent_T      + Store_Independent_Components'Access and
+               Component_Decla       <= Unit & Contains_T & Unit_List                 + Store_Component_Decla'Access        and
+               Layer_Decla           <= Unit & Is_T & A_T & Layer_T & Over_T & Unit   + Store_Layer_Decla'Access            and
+               Use_Decla             <= Unit & May_T & Use_T & Unit_List              + Store_Use_Decla'Access              and
+               Restricted_Use_Decla  <= Only_T & Unit & May_T & Use_T & Unit_List     + Store_Restricted_Use_Decla'Access   and
+               Forbidden_Use_Decla   <= Unit & Use_T & Is_T & Forbidden_T             + Add_Forbidden_Unit'Access           and
+               Allowed_Use_Decla     <= Unit & Use_T & Is_T & Allowed_T               + Add_Allowed_Unit'Access             and
                Independent_Components_Decla <= Unit_List & Are_T & Independent_T      + Store_Independent_Components'Access and
                Component_Decla       <= Unit & Contains_T & Unit_List                 + Store_Component_Decla'Access        and
                Layer_Decla           <= Unit & Is_T & A_T & Layer_T & Over_T & Unit   + Store_Layer_Decla'Access            and
@@ -332,8 +388,11 @@ package body Archicheck.Rules.Parser is
                Unit_List                   <= Unit & And_T   & Unit_List     and
                Unit_List                   <= Unit                           and
 
-               Unit                        <= Unit & Dot_T & Identifier_T                   + Add_To_Unit_Name'Access       and
-               Unit                        <= Identifier_T                                  + Initialize_Unit_Name'Access;
+               Unit                        <= Unit & Dot_T & Identifier_T             + Add_Dot_Identifier'Access     and
+               -- Unit                        <= Unit & Dot_T & Star_T                   + Add_Dot_Identifier'Access     and
+               Unit                        <= Unit & Star_T                           + Add_Final_Star'Access and
+               -- Unit                        <= Star_T                                  + Initialize_Unit_Name'Access and
+               Unit                        <= Identifier_T                            + Initialize_Unit_Name'Access;
 
 
    -- Step 7: Generating a parser
@@ -350,9 +409,9 @@ package body Archicheck.Rules.Parser is
    -- To simplify the OpenToken mess, and avoid to create new classes,
    -- Unit_List are stored here, at a global level.
    -- A maximum of two Unit_List is involved in each rule :
-   -- unit1 and unit2 may use unit3 and unit4
-   -- ===============         ===============
-   --    Left list              Right list
+   -- unit1 and unit2 may use unit3, unit4 and unit5
+   -- ===============         ======================
+   --    Left list                  Right list
 
    -- --------------------------------------------------------------------------
    procedure Reset_Unit_Names is
@@ -376,7 +435,22 @@ package body Archicheck.Rules.Parser is
      (Location_Image (Current_Location)) with Inline;
 
    -- --------------------------------------------------------------------------
+   Context : Sources.Parsing_Context;
+
+   -- --------------------------------------------------------------------------
+   function Current_Location return Sources.Location is
+     (File    => +Settings.Rules_File_Name,
+      Context => Context,
+      Line    => Rules_File_Parser.Line,
+      Column  => 0) with Inline;
+
+   -- --------------------------------------------------------------------------
+   function Location_Image return String is
+     (Location_Image (Current_Location)) with Inline;
+
+   -- --------------------------------------------------------------------------
    -- Procedure: Initialize_Unit_Name
+   --    Process Identifier_T or Identifier_T + Star_T
    -- --------------------------------------------------------------------------
    procedure Initialize_Unit_Name (New_Token : out Nonterminal.Class;
                                    Source    : in  Token_List.Instance'Class;
@@ -390,10 +464,11 @@ package body Archicheck.Rules.Parser is
       Component_Name : constant Unit_Name
         := +(To_String (Identifiers.Instance
              (Token_List.Token_Handle (Left).all).Identifier));
-      Dep : constant Units.Dependency_Target :=
-                         (To_Unit  => Component_Name,
-                          Location => Current_Location);
+      Dep : constant Units.Dependency_Target := (To_Unit  => Component_Name,
+                                                 Location => Current_Location);
    begin
+      Archicheck.IO.Put_Line (Prefix & "Initialize_Unit_Name >" & (+Component_Name) & "<",
+                              Level => Archicheck.IO.Verbose);
       if Left_List.Is_Empty then
          Left_List.Append (Dep);
          -- IO.Put_Line (Units.Location_Image (Dep)
@@ -405,15 +480,14 @@ package body Archicheck.Rules.Parser is
          --              & (+Dep.To_Unit) & " added to Right list",
          --              Level => Debug);
       end if;
-
    end Initialize_Unit_Name;
 
    -- --------------------------------------------------------------------------
-   -- Procedure: Add_To_Unit_Name
+   -- Procedure: Add_Dot_Identifier
    -- --------------------------------------------------------------------------
-   procedure Add_To_Unit_Name (New_Token : out Nonterminal.Class;
-                               Source    : in  Token_List.Instance'Class;
-                               To_ID     : in  Master_Token.Token_ID)
+   procedure Add_Dot_Identifier (New_Token : out Nonterminal.Class;
+                                 Source    : in  Token_List.Instance'Class;
+                                 To_ID     : in  Master_Token.Token_ID)
    is
       pragma Unreferenced (New_Token, To_ID);
       Right : Token_List.List_Iterator := Token_List.Initial_Iterator (Source);
@@ -437,24 +511,66 @@ package body Archicheck.Rules.Parser is
          Component_Name : constant String := To_String
            (Identifiers.Instance
               (Token_List.Token_Handle (Right).all).Identifier);
+         use IO;
       begin
+         Put_Line (Prefix & "Add_Dot_Identifier >." & (Component_Name) & "<",
+                   Level => Verbose);
          if Right_List.Is_Empty then
-            -- Put_Line (Prefix & "Unit_Name_A = " & (+Unit_Name_A));
             Update_Last (Left_List, Component_Name);
 
          else
-            -- Put_Line (Prefix & "Unit_Name_B = " & (+Unit_Name_B));
             Update_Last (Right_List, Component_Name);
 
          end if;
 
       end;
 
-   end Add_To_Unit_Name;
+   end Add_Dot_Identifier;
+
+   -- --------------------------------------------------------------------------
+   -- Procedure: Add_Final_Star
+   -- --------------------------------------------------------------------------
+   procedure Add_Final_Star (New_Token : out Nonterminal.Class;
+                             Source    : in  Token_List.Instance'Class;
+                             To_ID     : in  Master_Token.Token_ID)
+   is
+      pragma Unreferenced (New_Token, To_ID);
+      Right : Token_List.List_Iterator := Token_List.Initial_Iterator (Source);
+
+      -- -----------------------------------------------------------------------
+      procedure Update_Last (List : in out Units.Dependency_Targets.List) is
+         Current : constant Units.Dependency_Target := List.Last_Element;
+      begin
+         List.Replace_Element
+           (List.Last, (To_Unit  => Current.To_Unit & '*',
+                        Location => Current_Location));
+      end Update_Last;
+
+   begin
+      Token_List.Next_Token (Right); -- move "Right" over "*"
+
+      if Right_List.Is_Empty then
+         Archicheck.IO.Put_Line 
+           (Item => Prefix & "Add_Final_Star >" & 
+              To_String (Left_List.Last_Element.To_Unit) & "*<",
+            Level => Archicheck.IO.Verbose);
+         Update_Last (Left_List);
+
+      else
+         Archicheck.IO.Put_Line (Prefix & "Add_Final_Star >" & 
+                                   To_String (Right_List.Last_Element.To_Unit) & "*<",
+                                 Level => Archicheck.IO.Verbose);
+         Update_Last (Right_List);
+
+      end if;
+
+   end Add_Final_Star;
 
    -- -------------------------------------------------------------------------
    -- Procedure: Store_Component_Decla
+   -- Procedure: Store_Component_Decla
    -- -------------------------------------------------------------------------
+   procedure Store_Component_Decla
    procedure Store_Component_Decla
      (New_Token : out Nonterminal.Class;
       Source    : in  Token_List.Instance'Class;
@@ -464,24 +580,29 @@ package body Archicheck.Rules.Parser is
 
       Component_Name : constant Unit_Name := Left_List.First_Element.To_Unit;
       
+      
    begin
       if Settings.List_Rules then
+         IO.Put_Line (Location_Image
          IO.Put_Line (Location_Image
                       & "Component " & (+Component_Name) & " contains unit "
                       & Units.Unit_List_Image (Right_List),
                       Level => IO.Quiet);
          -- Fixme: put_line to be moved in rules, or in units
+         -- Fixme: put_line to be moved in rules, or in units
       end if;
-      Units.Add_Component
-        (Component => (Name => Component_Name,
-                       Kind => Units.Component),
-         Targets   => Right_List);
+      Units.Add_Component (Component => (Name => Component_Name,
+                                         Kind => Units.Component),
+                           Targets   => Right_List);
       Reset_Unit_Names;
+   end Store_Component_Decla;
    end Store_Component_Decla;
 
    -- --------------------------------------------------------------------------
    -- Procedure: Store_Layer_Decla
+   -- Procedure: Store_Layer_Decla
    -- --------------------------------------------------------------------------
+   procedure Store_Layer_Decla (New_Token : out Nonterminal.Class;
    procedure Store_Layer_Decla (New_Token : out Nonterminal.Class;
                                       Source    : in  Token_List.Instance'Class;
                                       To_ID     : in  Master_Token.Token_ID)
@@ -499,10 +620,13 @@ package body Archicheck.Rules.Parser is
       Reset_Unit_Names;
 
    end Store_Layer_Decla;
+   end Store_Layer_Decla;
 
    -- --------------------------------------------------------------------------
    -- Procedure: Store_Use_Decla
+   -- Procedure: Store_Use_Decla
    -- --------------------------------------------------------------------------
+   procedure Store_Use_Decla (New_Token : out Nonterminal.Class;
    procedure Store_Use_Decla (New_Token : out Nonterminal.Class;
                                     Source    : in  Token_List.Instance'Class;
                                     To_ID     : in  Master_Token.Token_ID)
@@ -522,10 +646,13 @@ package body Archicheck.Rules.Parser is
       Reset_Unit_Names;
 
    end Store_Use_Decla;
+   end Store_Use_Decla;
 
    -- --------------------------------------------------------------------------
    -- Procedure: Store_Restricted_Use_Decla
+   -- Procedure: Store_Restricted_Use_Decla
    -- --------------------------------------------------------------------------
+   procedure Store_Restricted_Use_Decla
    procedure Store_Restricted_Use_Decla
      (New_Token : out Nonterminal.Class;
       Source    : in  Token_List.Instance'Class;
@@ -545,6 +672,7 @@ package body Archicheck.Rules.Parser is
 
       Reset_Unit_Names;
 
+   end Store_Restricted_Use_Decla;
    end Store_Restricted_Use_Decla;
 
    -- --------------------------------------------------------------------------
@@ -566,6 +694,7 @@ package body Archicheck.Rules.Parser is
 
    -- --------------------------------------------------------------------------
    procedure Add_Forbidden_Unit (New_Token : out Nonterminal.Class;
+   procedure Add_Forbidden_Unit (New_Token : out Nonterminal.Class;
                                  Source    : in  Token_List.Instance'Class;
                                  To_ID     : in  Master_Token.Token_ID)
    is
@@ -579,6 +708,7 @@ package body Archicheck.Rules.Parser is
                  Location     => Current_Location));
       Reset_Unit_Names;
 
+   end Add_Forbidden_Unit;
    end Add_Forbidden_Unit;
 
    -- --------------------------------------------------------------------------
@@ -637,10 +767,21 @@ package body Archicheck.Rules.Parser is
             IO.Put_Error (Ada.Exceptions.Exception_Information (Error));
       end Parse;
 
+      procedure Parse is 
+      begin
+         Analyzer.Reset;
+         Analyzer.Set_Text_Feeder (OpenToken.Text_Feeder.Text_IO.Create (Ada.Text_IO.Current_Input));
+         LALR_Parser.Parse (Rules_File_Parser);
+      exception
+         when Error : others =>
+            IO.Put_Error (Location_Image & "parse exception");
+            IO.Put_Error (Ada.Exceptions.Exception_Information (Error));
+      end Parse;
+
    begin
-      if Settings.Debug_Mode then
-         OpenToken.Trace_Parse := 1;  -- value > 0 : debug level
-      end if;
+      --  if Settings.Debug_Mode then
+      --     OpenToken.Trace_Parse := 1;  -- value > 0 : debug level
+      --  end if;
 
       -- Analyze first the rules file
       Context := Sources.In_File;
@@ -649,7 +790,18 @@ package body Archicheck.Rules.Parser is
             Name => +Rules_File);
       Set_Input (Input_File);
       Parse;
+      Parse;
       Close (Input_File);
+
+      -- and then command line rules
+      if Is_Open (Settings.Cmd_Line_Rules_File) then
+         Context := In_Command_Line;
+         Reset (Settings.Cmd_Line_Rules_File,
+                Mode => In_File);
+         Set_Input (Settings.Cmd_Line_Rules_File);
+         Parse;
+         Close (Settings.Cmd_Line_Rules_File);
+      end if;
 
       -- and then command line rules
       if Is_Open (Settings.Cmd_Line_Rules_File) then

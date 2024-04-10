@@ -9,10 +9,7 @@ licenses    = "GPL-3.0-or-later"
 website     = "https://github.com/LionelDraghi/ArchiCheck"
 tags        = ["code", "architecture", "checker", "static-analysis"]
 
-executables = ["archicheck"]
-
-[[depends-on]]
-gnatcov = "^22.0.1"
+executables = ["acc"]
 
 [configuration]
 output_dir   = "src/Alire_config"
@@ -20,7 +17,11 @@ generate_C   = false
 generate_gpr = false
 
 [[pins]]
-opentoken = { path = "../opentoken" } 
+opentoken  = { path = "../opentoken" } 
+list_image = { path = "../list_image" } 
 
 [[depends-on]]
-ini_files = "^10.0.0"
+gnatcov = "^22.0.1"
+opentoken = "*"
+list_image = "*"
+

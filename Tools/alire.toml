@@ -1,0 +1,19 @@
+name        = "testrec"
+description = "Lionel's weird test tool"
+version     = "1.1.0"
+
+authors     = ["Lionel Draghi"]
+maintainers = ["Lionel Draghi <lionel.draghi@free.fr>"]
+maintainers-logins = ["LionelDraghi"]
+licenses    = "Apache-2.0"
+website     = ""
+tags        = ["test"]
+
+executables = ["testrec", "create_pkg"]
+
+[configuration]
+output_dir   = "src/Alire_config"
+generate_C   = false
+
+[[depends-on]]
+ini_files = "^10.0.0"

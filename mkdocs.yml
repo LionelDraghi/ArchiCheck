@@ -23,10 +23,13 @@ nav:
 
 - Documentation:
   - why.md
+  - acc_concepts.md
   - rules.md
   - languages_concepts.md
   # Fixme: - rules_quick_ref.md
   - cmd_line.md
+  - design_overview.md
+  - tests_overview.md
   - building.md
   - download.md
   
