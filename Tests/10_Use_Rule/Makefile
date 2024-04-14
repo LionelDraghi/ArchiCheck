@@ -320,7 +320,7 @@ test9:
 	@ ${TR} cmt "rules.9 contains :"
 	@ ${TR} cmt 
 	@ ${TR} cmt '```'
-	@ cat rules.9 >> testrec.md
+	@ cat rules.9 >> ${MD}
 	@ ${TR} cmt 
 	@ ${TR} cmt '```'
 	@ ${TR} cmt 
@@ -331,7 +331,7 @@ test9:
 	@ ${TR} cmt "Expected"
 	@ ${TR} cmt 
 	@ ${TR} cmt '```'
-	@ cat expected_output.9a	>> testrec.md
+	@ cat expected_output.9a	>> ${MD}
 	@ ${TR} cmt '```'
 	@ ${TR} cmt 
 	@ ${TR} cmt '> acc -lr -I dir9 -ar "P2 may use Bus" --append_rule "P3 and P4 are independent" rules.9'
@@ -339,7 +339,7 @@ test9:
 	@ ${TR} cmt "Expected"
 	@ ${TR} cmt 
 	@ ${TR} cmt '```'
-	@ cat expected_output.9c	>> testrec.md
+	@ cat expected_output.9c	>> ${MD}
 	@ ${TR} cmt '```'
 	@ ${TR} cmt 
 	

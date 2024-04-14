@@ -2,7 +2,7 @@
 
 ## Successful
 
-   86 tests OK
+   90 tests OK
 
   - [Layer rules test suite / Sanity test]()
   - [Layer rules test suite / Batik project architecture]()
@@ -34,6 +34,7 @@
   - [Use rules test suite / Combining Allowed and Forbidden]()
   - [Use rules test suite / X may use Unit List rules]()
   - [Use rules test suite / only X may use Unit List rules]()
+  - [Use rules test suite / Appending rules]()
   - [Rules vs sources coverage test suite / Warnings on units appearing in rules file and not related to any source]()
   - [Rules vs sources coverage test suite / Non covered sources]()
   - [Rules vs sources coverage test suite / Case insensitivity of Is_A_Component function (non reg)]()
@@ -73,7 +74,7 @@
   - [Command line test suite / Help options]()
   - [Command line test suite / Version option]()
   - [Command line test suite / -I option without src dir]()
-  - [Command line test suite / -I option with an unknow dir]()
+  - [Command line test suite / -I option with an unknown dir]()
   - [Command line test suite / unknown -xyz option]()
   - [Command line test suite / -I option with... nothing to do]()
   - [Command line test suite / -lr option without rules file]()
@@ -83,6 +84,7 @@
   - [Command line test suite / src found, but nothing to do whith it]()
   - [Command line test suite / rules file found, but nothing to do whith it]()
   - [Command line test suite / template creation (-ct and --create_template)]()
+  - [Command line test suite / -ar without rule]()
   - [Spring Pet Clinic code test suite / -lf test]()
   - [Spring Pet Clinic code test suite / -ld test]()
   - [Spring Pet Clinic code test suite / rules test]()

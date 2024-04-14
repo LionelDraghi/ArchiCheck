@@ -324,7 +324,8 @@ test15:
 	@ ${TR} cmt 
 	@ ${TR} cmt "Expecting:"		
 	@ ${TR} cmt '```' 						
-	@ cat expected_err15.txt	>> testrec.md					
+	@ echo "Error : Rule expected after --append_rule"	>  expected_err15.txt
+	@ cat expected_err15.txt							>> ${MD}					
 	@ ${TR} cmt '```' 						 	
 	@ ${TR} cmt  							
 

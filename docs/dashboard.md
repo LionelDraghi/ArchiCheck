@@ -4,17 +4,15 @@ Dashboard
 Version
 -------
 > acc --version
-> acc --version
 
 ```
 6.0.0
 ```
 
 > date -r acc --iso-8601=seconds
-> date -r acc --iso-8601=seconds
 
 ```
-2024-04-14T13:30:09+02:00
+2024-04-14T14:29:21+02:00
 ```
 
 Test results
