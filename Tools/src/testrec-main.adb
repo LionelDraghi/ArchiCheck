@@ -42,8 +42,6 @@ procedure Testrec.Main is
         & " / " & Current_State.Test.Test_Name;
       To_Dash_Map : constant Ada.Strings.Maps.Character_Mapping
         := Ada.Strings.Maps.To_Mapping (From => " ", To => "-");
-      CR : constant Character_Ranges := (1 => (Low => '!', High => ','),
-                                         2 => (Low => '.', High => '`'));
       Banned : constant Character_Set :=
         To_Set (Ranges => (1 => (Low => '!', High => ','),
                            2 => (Low => '.', High => '`')));
@@ -306,15 +304,6 @@ procedure Testrec.Main is
              Success      => Spawn_Success);
       Success := Expected = Spawn_Success;
 
-      -- -- Version 2 : return code needed:
-      --        Spawn (Program_Name           => Prog,
-      --               Args                   => Argument_String_To_List (Opts).all,
-      --               Output_File_Descriptor => Standout,
-      --               Return_Code            => Return_Code,
-      --               Err_To_Out             => True);
-      --        Success := Expected = (Return_Code = 0);
-      --  Ada.Text_IO.Put_Line ("Success = " & Boolean'Image (Success) & ", Return code = " & Integer'Image (Return_Code));
-
       -- State File:
       Current_State.Assert (Success);
 
@@ -326,18 +315,6 @@ procedure Testrec.Main is
          Put_Line (Indent & "- Asserting that """ & Prog & " " & Opts & """ return " & Boolean'Image (Expected) & " : " & "Failed", Verbose);
 
       end if;
-
-      --        -- Log file:
-      --        declare
-      --           use Ada.Text_IO;
-      --           Common_Text : constant String := Indent & "- Asserting that """ & Prog & " " & Opts & """ return " & Boolean'Image (Expected);
-      --        begin
-      --           if Success then
-      --              Put_Line (Log_File, Item => Common_Text & " : OK");
-      --           else
-      --              Put_Line (Log_File, Item => "*" & Common_Text & " : Failed*");
-      --           end if;
-      --        end;
 
    end Assert;
 

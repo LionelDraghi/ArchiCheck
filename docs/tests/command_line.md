@@ -72,7 +72,7 @@ Command line test suite / Help options [Successful](command_line.md#command-line
   Test that the --version will put :  
 
 ```  
-0.5.8
+6.0.0
 ```  
 
 
@@ -450,7 +450,7 @@ Java.IO use is allowed                     -- Allowed use
 
 -- More extensive explanations : http://lionel.draghi.free.fr/Archicheck/rules/
 -- 
--- File generated with ArchiCheck 0.5.8
+-- File generated with ArchiCheck 6.0.0
 ```  
 
   When running once more :  

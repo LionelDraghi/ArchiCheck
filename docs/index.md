@@ -1,21 +1,21 @@
+<!-- omit from toc -->
 [ArchiCheck](http://lionel.draghi.free.fr/Archicheck/index.html)
 ================================================================
 
 ![](generated_img/version.svg) ![](generated_img/tests_ok.svg) ![](generated_img/tests_ko.svg) [![CII Best Practices](https://bestpractices.coreinfrastructure.org/projects/1625/badge)](https://bestpractices.coreinfrastructure.org/projects/1625) [![Alire](https://img.shields.io/endpoint?url=https://alire.ada.dev/badges/archicheck.json)](https://alire.ada.dev/crates/archicheck.html)
 
 Contents:
-- [ArchiCheck](#archicheck)
-  - [Overview](#overview)
-  - [Get it!](#get-it)
-  - [Run it!](#run-it)
-  - [Helpful hints](#helpful-hints)
-  - [Further reading](#further-reading)
+- [Overview](#overview)
+- [Get it!](#get-it)
+- [Run it!](#run-it)
+- [Helpful hints](#helpful-hints)
+- [Further reading](#further-reading)
 
 ---------------------------------------------------------------------
 
 ## Overview
 
-Simple structural aspect of the software architecture, metaphore like _My software is a layered system_, can not be fully translated at programming languages level. Even in languages like Ada, powerfull regarding description of the software structure, there is a semantic loss.
+Simple structural aspect of the software architecture, metaphor like *My software is a layered system*, can not be fully translated at programming languages level. Even in languages like Ada, powerful regarding description of the software structure, there is a semantic loss.
 
 ![The code doesn't tell the whole story!](semantic_gap.png)
 
@@ -45,7 +45,7 @@ Archicheck needs :
 - a bunch of sources : give the directories with one or more `-I` options;
 - an architecture description, called a [`rules file`](rules.md) : a simple text file describing your architecture.
 
-Let's consider the following file `My_Architecture.ac`, that describes a simple layered architecture :
+Let's consider the following `My_Architecture.ac` file, that describes a simple layered architecture :
 
 ```
 Presentation_Layer contains pkg_1, pkg_2
@@ -55,7 +55,7 @@ Presentation_Layer is a layer over Application_Layer
 ```
 
 Run ArchiCheck that way:  
-> _archicheck -I src My_Architecture.txt_  
+`archicheck -I src My_Architecture.txt`  
 
 It will check that the code comply with your architecture.
 
@@ -65,17 +65,18 @@ For example, here, it will check that pkg_3 or pkg_4 (in the lower layer) are no
 
 ## Helpful hints
 
-- `archicheck --create_template` will create a `template.ac` file,
-embedding explanations on rules file syntax. 
-Rename it and edit it!
-- [`archicheck -h` for a complete list of options](cmd_line.md)
+- `archicheck --create_template` will create an example rules file named `template.ac`, with embedded explanations.  
+Rename it and edit it, this is a good start point.
+
+
+- `archicheck -h` for a [complete list of options](cmd_line.md)
 
 
 ---------------------------------------------------------------------
 
 ## Further reading
 
-- [Languages concepts related to Components / Modules / Visibily](languages_concepts.md)
+- [Languages concepts related to Components / Modules / Visibily](acc_concepts.md)
 - [More on rules and rules files](rules.md)
 - [More on the project genesis](why.md)
-- [ArchiCheck command line](cmd_line.md)
+
