@@ -1,5 +1,5 @@
 -- -----------------------------------------------------------------------------
--- ArchiCheck, the software architecture compliance verifier
+-- Acc, the software architecture compliance verifier
 -- Copyright (C) 2005 to 2018 - Lionel Draghi
 -- This program is free software;
 -- you can redistribute it and/or modify it under the terms of the GNU General

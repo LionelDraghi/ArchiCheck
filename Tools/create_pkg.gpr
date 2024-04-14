@@ -46,7 +46,7 @@ project Create_Pkg is
          when "debug"   =>
             for Switches ("ada") use Common_Debug_Switches;
 
-            -- coverage only for archicheck src files :
+            -- coverage only for acc src files :
             for Switches ("archicheck*") use Common_Debug_Switches & "--coverage";
             -- --coverage = -fprofile-arcs and -ftest-coverage
 

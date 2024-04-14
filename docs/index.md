@@ -28,7 +28,7 @@ Archicheck is a simple [free software](copying.md) tool that :
 1. ease simple architecture description.  
    > It's really as simple as: _Gtk is a layer over Gdk_.
 2. enforce code compliance with that description.  
-   > Put archicheck in your test suite, and let it be a vigilant teacher of your architecture over time.
+   > Put acc in your test suite, and let it be a vigilant teacher of your architecture over time.
 
 ---------------------------------------------------------------------
 
@@ -55,7 +55,7 @@ Presentation_Layer is a layer over Application_Layer
 ```
 
 Run ArchiCheck that way:  
-`archicheck -I src My_Architecture.txt`  
+`acc -I src My_Architecture.txt`  
 
 It will check that the code comply with your architecture.
 
@@ -65,11 +65,11 @@ For example, here, it will check that pkg_3 or pkg_4 (in the lower layer) are no
 
 ## Helpful hints
 
-- `archicheck --create_template` will create an example rules file named `template.ac`, with embedded explanations.  
+- `acc --create_template` will create an example rules file named `template.ac`, with embedded explanations.  
 Rename it and edit it, this is a good start point.
 
 
-- `archicheck -h` for a [complete list of options](cmd_line.md)
+- `acc -h` for a [complete list of options](cmd_line.md)
 
 
 ---------------------------------------------------------------------

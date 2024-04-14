@@ -22,7 +22,7 @@ test1:
 
 	@ ls src/*.ad? | sort > expected_output.1
 
-	@ CMD="archicheck -lf -I src "
+	@ CMD="acc -lf -I src "
 
 	@ ${TR} cmt 'Executed:'
 	@ ${TR} cmt 

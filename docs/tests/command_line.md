@@ -3,7 +3,7 @@
 
 
 
- This test check that illegal command lines cause archicheck to  
+ This test check that illegal command lines cause acc to  
  exit with a non null return code.  
  - Note that normal use is overly tested in other tests,  
    so here mainly error situations are tested.  
@@ -257,7 +257,7 @@ Command line test suite / -lr option without rules file [Successful](command_lin
 Warning : Cannot list files, no sources found to analyze
 ```  
 
-  archicheck return 1 if -We or --Warnings=error  
+  acc return 1 if -We or --Warnings=error  
 
 Command line test suite / Legal line, but no src file in the given (existing) directory [Successful](command_line.md#command-line-test-suite--legal-line-but-no-src-file-in-the-given-existing-directory)
 

@@ -28,7 +28,7 @@ Needed external software : gnat gcc Ada compiler.
  > [!NOTE] : libopentoken6.1-dev is no more needed. 
  > To ease building on non Debian platform, I integrated OpenToken sources.
 
-archicheck exe will be in the `Obj` directory.
+acc exe will be in the `Obj` directory.
 
 To run ArchiCheck tests : `make check`
 > Warning : tested on a Linux platform only

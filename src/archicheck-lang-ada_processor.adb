@@ -1,5 +1,5 @@
 -- -----------------------------------------------------------------------------
--- ArchiCheck, the software architecture compliance verifier
+-- Acc, the software architecture compliance verifier
 -- Copyright (C) Lionel Draghi
 -- This program is free software;
 -- you can redistribute it and/or modify it under the terms of the GNU General
@@ -396,7 +396,7 @@ package body Archicheck.Lang.Ada_Processor is
                -- On the other hand, GtkAda analysis drop from 8s to 0.7s when
                -- uncommenting this line.
                -- Checked with :
-               -- > time ../../obj/archicheck -lf -I gtkada
+               -- > time ../../obj/acc -lf -I gtkada
 
                when Procedure_T | Function_T =>
                Process_Subroutine;

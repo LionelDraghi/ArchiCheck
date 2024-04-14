@@ -32,7 +32,7 @@ Execution is typically :
 1. at the beginning of the Makefile, `testrec create` is called to start a new test suite.
    NB : this is a convention, each Makefile run a single test suite.
 2. Then, for each test, `testrec start` is called to start the test (and name it).
-3. During the test, `testrec assert` is called at least once, generally to check that the output of archicheck execution is equal to the expected output.
+3. During the test, `testrec assert` is called at least once, generally to check that the output of `acc` execution is equal to the expected output.
 4. Finally, `testrec end` is called. `testrec` will then output the test result on standard output.
 
 The test result may be : 

@@ -1,5 +1,5 @@
 -- -----------------------------------------------------------------------------
--- ArchiCheck, the software architecture compliance verifier
+-- Acc, the software architecture compliance verifier
 -- Copyright (C) Lionel Draghi
 -- This program is free software;
 -- you can redistribute it and/or modify it under the terms of the GNU General
@@ -216,7 +216,7 @@ package body Archicheck.Lang.Java_Processor is
                -- All the top-level non-public types will be package private.
                --
                -- Processing private classes is by definition of no interest
-               -- for ArchiCheck, so there is no problem in exiting here.
+               -- for Acc, so there is no problem in exiting here.
                --
                -- On the other hand, it is possible to import the public
                -- nested classes of an enclosing class.

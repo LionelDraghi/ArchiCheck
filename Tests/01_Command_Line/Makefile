@@ -13,7 +13,7 @@ header:
 	@ ${TR} create "Command line test suite"
 
 	@ ${TR} cmt  								
-	@ ${TR} cmt "This test check that illegal command lines cause archicheck to"	
+	@ ${TR} cmt "This test check that illegal command lines cause acc to"	
 	@ ${TR} cmt "exit with a non null return code." 				
 	@ ${TR} cmt "- Note that normal use is overly tested in other tests," 		
 	@ ${TR} cmt "  so here mainly error situations are tested."			
@@ -184,7 +184,7 @@ test9:
 	@ ../../obj/acc -lf -I dir9 	> err9.txt
 	@ ${TR} assert true /usr/bin/sdiff "-s expected_err9.txt err9.txt"
 
-	@ ${TR} cmt "archicheck return 1 if -We or --Warnings=error"		
+	@ ${TR} cmt "acc return 1 if -We or --Warnings=error"		
 	@ test ! `../../obj/acc -We -lf -I dir9 	> err9.txt 2>&1`
 	@ ${TR} assert true /usr/bin/sdiff "-s expected_err9.txt err9.txt"
 	@ test ! `../../obj/acc --Warnings=error -lf -I dir9 	> err9.txt 2>&1`

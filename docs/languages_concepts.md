@@ -5,9 +5,21 @@ Languages by alphabetical order, with a limitations list at the end.
 
 ## 1. Ada
 
-Archicheck build the Component hierarchy based by interpreting the names : remember that Archicheck don’t do a semantical analysis, it just does the bare minimum lexical analysis to catch components and dependencies.
+### Multiple compilation units per files
+
+`Acc` was first able to process multiple compilation unit per files, but parsing whole file is a generally a loss of time. 
+Exiting when the parser hit the compilation unit declaration is OK, as the decencies are already parsed, and we have now the unit name.
+Unless you ave multiple compilation units in the file.
+
+When I introduced this optimization (exiting before end of file), GtkAda analysis drop from 8s to 0.7s.
+
+As it's a common good practice in Ada world to have only one compilation unit per file, and not only for GNAT users, that it was worth to have this limitation.
 
 ### Renaming
+
+> [!NOTE] 
+Remember that `Acc` don’t do a semantical analysis, it just does the bare minimum lexical analysis to catch components and dependencies. Acc build the Component hierarchy by interpreting the names. 
+
 In Ada, there is a possibility to rename a package miming a child package.
 For example :
 
@@ -23,10 +35,10 @@ package OS.Disk_Driver.SSD is
 
 Is illegal.
 
-ArchiCheck ignore that Ada rule, will store `Disk_Driver` as a child of OS, `SSD` as `Disk_Driver` child.
+Acc ignore that Ada rule, will store `Disk_Driver` as a child of OS, `SSD` as `Disk_Driver` child.
 Telling that this is illegal is the compiler's job.
 
-For the same reason, ArchiCheck, take into account private packages as normal packages.
+For the same reason, Acc, take into account private packages as normal packages.
 
 Considering :
 
@@ -42,13 +54,13 @@ One could write a rule :
 X may use API.Utilities
 ```
 
-It’s not possible, but Archicheck is not going to warn the user. Once again, this is the compiler responsibility.
+It’s not possible, but Acc is not going to warn the user. Once again, this is the compiler responsibility.
 The good news is that if X try to use API.Utilities, it won’t compile.
 
 Similarly, limited with and private with are considered as normal with :
-for Archicheck : `limited with P;` = `limited private with P;` = `private with P;` = `with P;`
+for Acc : `limited with P;` = `limited private with P;` = `private with P;` = `with P;`
 
-I did not notice any pathological use of Ada package that breaks ArchiCheck behavior till now.
+I did not notice any pathological use of Ada package that breaks Acc behavior till now.
 
  
 ## 2. C
@@ -104,7 +116,7 @@ every class stands in its own source file.
  All the top-level non-public types will be package private.
 
  Processing private classes is by definition of no interest
- for ArchiCheck, so there is no problem in exiting here.
+ for Acc, so there is no problem in exiting here.
 
  On the other hand, it is possible to import the public
  nested classes of an enclosing class.
@@ -116,12 +128,16 @@ every class stands in its own source file.
 
 ## 5. Limitations Overview
 
+### Ada
+
+- only one compilation unit per file is taken into account
+
 ### C
 
 - `import` directive
   
   There is no consensus on the non standard `#import` directive, that seems [inherited from Objective-C](https://stackoverflow.com/questions/39280248/what-is-the-difference-between-import-and-include-in-c).
-  This directive is **not** supported in Archicheck.
+  This directive is **not** supported in Acc.
 
 ### Java
 

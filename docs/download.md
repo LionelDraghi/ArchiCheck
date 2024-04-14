@@ -25,20 +25,20 @@ and -O3 option.
 Exe check :
 -----------
 
-> date -r archicheck --iso-8601=seconds
+> date -r acc --iso-8601=seconds
 
 ```
 2024-04-09T14:16:49+02:00
 ```
 
-> readelf -d archicheck | grep 'NEEDED'
+> readelf -d acc | grep 'NEEDED'
 
 ```
  0x0000000000000001 (NEEDED)             Bibliothèque partagée : [libc.so.6]
  0x0000000000000001 (NEEDED)             Bibliothèque partagée : [ld-linux-x86-64.so.2]
 ```
 
-> archicheck --version
+> acc --version
 
 ```
 0.5.8

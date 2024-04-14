@@ -1,4 +1,4 @@
-name        = "archicheck"
+name        = "acc"
 description = "architecture description language and code checker"
 version     = "6.0.0"
 
