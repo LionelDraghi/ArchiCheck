@@ -1,14 +1,6 @@
 <!-- omit from toc -->
 # Components and visibility matching concepts in languages
 
-- [1. Introduction](#1-introduction)
-- [2. Compilation Units](#2-compilation-units)
-- [3. `Acc` Architectural Description Language](#3-acc-architectural-description-language)
-- [4. Components](#4-components)
-- [5. Visibility](#5-visibility)
-- [6. Banned](#6-banned)
-
-
 ## 1. Introduction
 
 `Acc` is manipulating concepts that are heavily used and overloaded, within both the architect and the coding language worlds.
@@ -92,9 +84,10 @@ Sometimes, a directory gathering source code files materialize the component nam
 ## 5. Visibility
 
 
-## 6. Banned 
+## 6. Banned Vocabulary
 
-- [Module](https://en.wikipedia.org/wiki/Modular_programming) : module are from a design point considered as small `Components`, but may be a language concept also (synonym to Ada package, for example).
+- [Module](https://en.wikipedia.org/wiki/Modular_programming) 
+  Module are considered from a designer point of vue as small `Components`. Module are also a language concept also (synonym to Ada package, for example).
   Archicheck make no difference between Modules and Components. Both are composable. If A contains B and C, Archicheck is not concerned in your decision to call A a component, B and C modules, or to call them all modules or components.
   As it was felt more general, and less linked to specific programming languages, Archicheck uses the word `component`.
 

@@ -5,7 +5,7 @@ pragma Style_Checks (Off);
 package Archicheck_Config is
    pragma Pure;
 
-   Crate_Version : constant String := "0.5.8";
+   Crate_Version : constant String := "6.0.0";
    Crate_Name : constant String := "archicheck";
 
    Alire_Host_OS : constant String := "linux";

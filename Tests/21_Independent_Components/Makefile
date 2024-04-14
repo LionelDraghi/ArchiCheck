@@ -1,15 +1,17 @@
 all: clean check doc
 
 CREATE_PKG=../../Tools/create_pkg
-TR=../../Tools/testrec
+MD=independent_components.md
+TR=../../Tools/testrec -o ${MD} 
 
-## .PHONY : clean
+.PHONY : clean
 
 check: ../../obj/acc header test1 test2
 
 header:
 	@ #---------------------------------------------------------------------
 	@ ${TR} clean
+	@ ${TR} create "Independent Component test suite"
 
 test1: clean
 	@ #---------------------------------------------------------------------
@@ -35,7 +37,7 @@ test1: clean
 	@ echo "X and Y are independent"		>> rules1.txt
 
 	@ ${TR} cmt '```'
-	@ cat rules1.txt >> testrec.md
+	@ cat rules1.txt >> ${MD}
 	@ ${TR} cmt '```'
 	@ ${TR} cmt 
 	@ ${TR} cmt 'Running :  '
@@ -70,7 +72,7 @@ test2:
 	@ ${TR} cmt 	 
 
 	@ ${TR} cmt '```'
-	@ cat rules1.txt >> testrec.md
+	@ cat rules1.txt >> ${MD}
 	@ ${TR} cmt '```'
 	@ ${TR} cmt 
 	@ ${TR} cmt 'Running :  '
@@ -96,5 +98,6 @@ clean:
 	@ - ${TR} clean
 
 doc:
-	@ cp testrec.md ../../docs/tests/independent_components.md
+	@ cp ${MD} ../../docs/tests/${MD}
+	
 

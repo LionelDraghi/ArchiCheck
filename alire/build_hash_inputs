@@ -1,3 +1,5 @@
+dependency:list_image=2.0.0-dev=b98cbe61bf1dbafb5fffb2250c8d98f0033008de3b1ad6e8b35c4d0b09574cdc
+dependency:opentoken=6.0.3-dev=907c83f24522dc83c2478e886cb883670b394a3e4ce484027c8bc117eedd3682
 external:ARCHICHECK_LIBRARY_TYPE=default
 external:LIBRARY_TYPE=default
 profile:archicheck=DEVELOPMENT

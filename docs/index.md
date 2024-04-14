@@ -1,7 +1,7 @@
 [ArchiCheck](http://lionel.draghi.free.fr/Archicheck/index.html)
 ================================================================
 
-![](img/version.svg) ![](img/tests_ok.svg) ![](img/tests_ko.svg) [![CII Best Practices](https://bestpractices.coreinfrastructure.org/projects/1625/badge)](https://bestpractices.coreinfrastructure.org/projects/1625) [![Alire](https://img.shields.io/endpoint?url=https://alire.ada.dev/badges/archicheck.json)](https://alire.ada.dev/crates/archicheck.html)
+![](generated_img/version.svg) ![](generated_img/tests_ok.svg) ![](generated_img/tests_ko.svg) [![CII Best Practices](https://bestpractices.coreinfrastructure.org/projects/1625/badge)](https://bestpractices.coreinfrastructure.org/projects/1625) [![Alire](https://img.shields.io/endpoint?url=https://alire.ada.dev/badges/archicheck.json)](https://alire.ada.dev/crates/archicheck.html)
 
 Contents:
 - [ArchiCheck](#archicheck)

@@ -37,7 +37,7 @@ LC contains Interfaces.C and Ada
 ```  
 ```  
 
-Component processing in rules unit test / Layer component [Successful](tests_status.md#successful)
+Component processing in rules unit test / Layer component [Successful](rules_on_components.md#component-processing-in-rules-unit-test--layer-component)
 
 ##  Component processing in rules unit test / Env component allowed
 
@@ -59,7 +59,7 @@ Env use is allowed
 ```  
 ```  
 
-Component processing in rules unit test / Env component allowed [Successful](tests_status.md#successful)
+Component processing in rules unit test / Env component allowed [Successful](rules_on_components.md#component-processing-in-rules-unit-test--env-component-allowed)
 
 ##  Component processing in rules unit test / Trying to include a unit in more components
 
@@ -94,7 +94,7 @@ Error : rules3.txt:25: P1 already in X (cf. rules3.txt:3: ), can't be added to Y
 Error : rules3.txt:26: P1 already in X (cf. rules3.txt:3: ), can't be added to Z
 ```  
 
-Component processing in rules unit test / Trying to include a unit in more components [Successful](tests_status.md#successful)
+Component processing in rules unit test / Trying to include a unit in more components [Successful](rules_on_components.md#component-processing-in-rules-unit-test--trying-to-include-a-unit-in-more-components)
 
 ##  Component processing in rules unit test / Test on Components embedding components embedding components...
 
@@ -131,7 +131,7 @@ Z may use Interfaces.C
 
   No more Error expected.  
 
-Component processing in rules unit test / Test on Components embedding components embedding components... [Successful](tests_status.md#successful)
+Component processing in rules unit test / Test on Components embedding components embedding components... [Successful](rules_on_components.md#component-processing-in-rules-unit-test--test-on-components-embedding-components-embedding-components)
 
 ##  Component processing in rules unit test / Test A B C example posted on fr.comp.lang.ada...
 
@@ -162,4 +162,4 @@ My_Layer is a layer over Z
     V    -> Y.P1  OK  
 
 
-Component processing in rules unit test / Test A B C example posted on fr.comp.lang.ada... [Successful](tests_status.md#successful)
+Component processing in rules unit test / Test A B C example posted on fr.comp.lang.ada... [Successful](rules_on_components.md#component-processing-in-rules-unit-test--test-a-b-c-example-posted-on-frcomplangada)

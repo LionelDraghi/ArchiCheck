@@ -1,7 +1,8 @@
 all: check doc
 
 CREATE_PKG=../../Tools/create_pkg
-TR=../../Tools/testrec
+MD=ada_units.md
+TR=../../Tools/testrec -o ${MD} 
 
 .PHONY : clean
 
@@ -50,7 +51,7 @@ test1:
 	@ ${TR} cmt "Expected :"
 	@ ${TR} cmt 
 	@ ${TR} cmt '```'
-	@ cat expected_output.1 >> testrec.md
+	@ cat expected_output.1 >> ${MD}
 	@ ${TR} cmt '```'
 	@ ${TR} cmt 
 
@@ -66,5 +67,5 @@ clean:
 	@ - ${TR} clean
 
 doc:
-	@ cp testrec.md ../../docs/tests/ada_units.md
+	@ cp ${MD} ../../docs/tests/${MD}
 

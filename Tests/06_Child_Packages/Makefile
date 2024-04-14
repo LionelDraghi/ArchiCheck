@@ -1,7 +1,8 @@
 all: check doc
 
 CREATE_PKG=../../Tools/create_pkg
-TR=../../Tools/testrec
+MD=child_packages.md
+TR=../../Tools/testrec -o ${MD} 
 
 .PHONY : clean
 
@@ -27,7 +28,7 @@ header:
 	@ ${TR} cmt "is simplified in :"
 	@ ${TR} cmt 
 	@ ${TR} cmt '```'
-	@ cat rules.txt			>> testrec.md						
+	@ cat rules.txt			>> ${MD}						
 	@ ${TR} cmt '```'
 	@ ${TR} cmt 
 	@ ${TR} cmt "and packages GUI.P1, GUI.P2, DB.P3 and DB.P4 are created."
@@ -44,7 +45,7 @@ test1:
 	@ ${TR} cmt "![](cp1.png)"
 	@ ${TR} cmt 
 	@ ${TR} cmt '```'
-	@ cat rules.txt >> testrec.md
+	@ cat rules.txt >> ${MD}
 	@ ${TR} cmt '```'
 	@ ${TR} cmt 
 
@@ -71,7 +72,7 @@ test2:
 	@ ${TR} cmt "Expected output :"
 	@ ${TR} cmt 
 	@ ${TR} cmt '```'
-	@ cat expected_output.2 >> testrec.md
+	@ cat expected_output.2 >> ${MD}
 	@ ${TR} cmt '```'
 	@ ${TR} cmt 
 
@@ -95,7 +96,7 @@ test3:
 	@ ${TR} cmt "Expected output :"
 	@ ${TR} cmt 
 	@ ${TR} cmt '```'
-	@ cat expected_output.3 >> testrec.md
+	@ cat expected_output.3 >> ${MD}
 	@ ${TR} cmt '```'
 	@ ${TR} cmt 
 
@@ -119,7 +120,7 @@ test4:
 	@ ${TR} cmt "Expected output :"
 	@ ${TR} cmt 
 	@ ${TR} cmt '```'
-	@ cat expected_output.4 >> testrec.md
+	@ cat expected_output.4 >> ${MD}
 	@ ${TR} cmt '```'
 	@ ${TR} cmt 
 
@@ -176,5 +177,5 @@ clean:
 	@ ${TR} clean
 
 doc:
-	@ cp testrec.md 	../../docs/tests/child_packages.md
+	@ cp ${MD} ../../docs/tests/${MD}
 	@ cp cp?.png 	../../docs/tests/

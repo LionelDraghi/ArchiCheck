@@ -5,7 +5,8 @@ all: check doc
 check: ../../obj/acc header test1 test2
 
 CREATE_PKG=../../Tools/create_pkg
-TR=../../Tools/testrec
+MD=source_list.md
+TR=../../Tools/testrec -o ${MD} 
 
 header:
 	@ #---------------------------------------------------------------------
@@ -30,7 +31,7 @@ test1: ../../obj/acc
 	@ ${TR} cmt "should put:"
 
 	@ ${TR} cmt '```'
-	@ cat expected_file_list.1 >> testrec.md
+	@ cat expected_file_list.1 >> ${MD}
 	@ ${TR} cmt '```'
 	@ ${TR} cmt ""
 
@@ -62,7 +63,7 @@ test2: ../../obj/acc
 	@ ${TR} cmt "should put:"
 
 	@ ${TR} cmt '```'
-	@ cat expected_file_list.2 >> testrec.md
+	@ cat expected_file_list.2 >> ${MD}
 	@ ${TR} cmt '```'
 	@ ${TR} cmt ""
 
@@ -81,4 +82,5 @@ clean:
 	@ ${TR} clean
 
 doc:
-	@ cp testrec.md ../../docs/tests/source_list.md
+	@ cp ${MD} ../../docs/tests/${MD}
+

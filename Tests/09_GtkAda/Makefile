@@ -1,6 +1,7 @@
 all: check doc
 
-TR=../../Tools/testrec
+MD=gtkada.md
+TR=../../Tools/testrec -o ${MD} 
 
 .PHONY : clean
 
@@ -25,9 +26,9 @@ test1:
 	@ ${TR} cmt 
 	@ ${TR} cmt "> find gtkada-master -name ""*.ad[sb]"" | sort"							
 	@ ${TR} cmt '```'
-	@ head -n 3 expected_output.1 >> testrec.md
-	@ echo '...'					>> testrec.md
-	@ tail -n 3 expected_output.1 >> testrec.md
+	@ head -n 3 expected_output.1 >> ${MD}
+	@ echo '...'					>> ${MD}
+	@ tail -n 3 expected_output.1 >> ${MD}
 	@ ${TR} cmt '```'
 	@ ${TR} cmt 
 	@ find gtkada-master -name "*.ad[sb]"	| sort > expected_output.1
@@ -46,9 +47,9 @@ test2:
 	@ ${TR} cmt "`cat expected_output.2 | wc -l` dependencies expected :"
 	@ ${TR} cmt 
 	@ ${TR} cmt '```'
-	@ head -n 10 expected_output.2 >> testrec.md
-	@ echo '...'				  	 >> testrec.md
-	@ tail -n 10 expected_output.2 >> testrec.md
+	@ head -n 10 expected_output.2 >> ${MD}
+	@ echo '...'				  	 >> ${MD}
+	@ tail -n 10 expected_output.2 >> ${MD}
 	@ ${TR} cmt '```'
 	@ ${TR} cmt
 
@@ -66,14 +67,14 @@ test3:
 	@ ${TR} cmt "Checking those rules over GtkAda:"							
 	@ ${TR} cmt 
 	@ ${TR} cmt '```'							
-	@ cat GtkAda.ac		>> testrec.md						
+	@ cat GtkAda.ac		>> 						${MD}
 	@ ${TR} cmt '```'
 	@ ${TR} cmt 
 
 	@ ${TR} cmt "Expected output:"			
 	@ ${TR} cmt 
 	@ ${TR} cmt '```'							
-	@ cat expected_output.3		>> testrec.md						
+	@ cat expected_output.3		>> 	${MD}					
 	@ ${TR} cmt '```'
 	@ ${TR} cmt 
 								
@@ -90,14 +91,14 @@ test4:
 	@ ${TR} cmt "Checking those rules over GtkAda:"							
 	@ ${TR} cmt 
 	@ ${TR} cmt '```'							
-	@ cat GtkAda2.ac		>> testrec.md						
+	@ cat GtkAda2.ac		>> 	${MD}					
 	@ ${TR} cmt '```'
 	@ ${TR} cmt 
 
 	@ ${TR} cmt "Expected output:"			
 	@ ${TR} cmt 
 	@ ${TR} cmt '```'							
-	@ cat expected_output.4		>> testrec.md						
+	@ cat expected_output.4		>> 	${MD}					
 	@ ${TR} cmt '```'
 	@ ${TR} cmt 
 								
@@ -113,5 +114,5 @@ clean:
 	@ ${TR} clean
 
 doc:
-	@ cp testrec.md 	../../docs/tests/gtkada.md
+	@ cp ${MD} ../../docs/tests/${MD}
 	@ cp gtk.png	../../docs/tests/

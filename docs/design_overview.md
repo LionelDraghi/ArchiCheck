@@ -1,3 +1,4 @@
+<!-- omit from toc -->
 # Design Overview
 
 Main ArchiCheck components are :

@@ -20,7 +20,7 @@ src1/src/test/java/org/springframework/samples/petclinic/vet/VetTests.java
 ```  
 
 
-Spring Pet Clinic code test suite / -lf test [Successful](tests_status.md#successful)
+Spring Pet Clinic code test suite / -lf test [Successful](petclinic.md#spring-pet-clinic-code-test-suite---lf-test)
 
 ##  Spring Pet Clinic code test suite / -ld test
 
@@ -53,7 +53,7 @@ org.springframework.samples.petclinic.visit.VisitRepository interface depends on
 ```  
 
 
-Spring Pet Clinic code test suite / -ld test [Successful](tests_status.md#successful)
+Spring Pet Clinic code test suite / -ld test [Successful](petclinic.md#spring-pet-clinic-code-test-suite---ld-test)
 
 ##  Spring Pet Clinic code test suite / rules test
 
@@ -97,7 +97,7 @@ Domain       is a layer over Infrastructure
   No error expected  
 
 
-Spring Pet Clinic code test suite / rules test [Successful](tests_status.md#successful)
+Spring Pet Clinic code test suite / rules test [Successful](petclinic.md#spring-pet-clinic-code-test-suite--rules-test)
 
 ##  Spring Pet Clinic code test suite / --list_non_covered
 
@@ -143,7 +143,7 @@ Domain       is a layer over Infrastructure
   No error expected  
 
 
-Spring Pet Clinic code test suite / --list_non_covered [Successful](tests_status.md#successful)
+Spring Pet Clinic code test suite / --list_non_covered [Successful](petclinic.md#spring-pet-clinic-code-test-suite----listnoncovered)
 
 ##  Spring Pet Clinic code test suite / alternative rules test
 
@@ -180,7 +180,7 @@ Org.SpringFramework may use System
   No error expected  
 
 
-Spring Pet Clinic code test suite / alternative rules test [Successful](tests_status.md#successful)
+Spring Pet Clinic code test suite / alternative rules test [Successful](petclinic.md#spring-pet-clinic-code-test-suite--alternative-rules-test)
 
 ##  Spring Pet Clinic code test suite / Layered version of petclinic test
 
@@ -234,4 +234,4 @@ org.springframework.transaction use is allowed
   No error expected  
 
 
-Spring Pet Clinic code test suite / Layered version of petclinic test [Successful](tests_status.md#successful)
+Spring Pet Clinic code test suite / Layered version of petclinic test [Successful](petclinic.md#spring-pet-clinic-code-test-suite--layered-version-of-petclinic-test)

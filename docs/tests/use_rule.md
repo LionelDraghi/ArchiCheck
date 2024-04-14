@@ -15,7 +15,7 @@ only Component_B may use Interfaces
 ```  
 
 
-Use rules test suite / May_Use rule, code compliant, no output expected [Successful](tests_status.md#successful)
+Use rules test suite / May_Use rule, code compliant, no output expected [Successful](use_rule.md#use-rules-test-suite--mayuse-rule-code-compliant-no-output-expected)
 
 ##  Use rules test suite / Using a unit from a non allowed unit
 
@@ -29,7 +29,7 @@ Error : dir2/p1.adb:1: Only Component_B is allowed to use Interfaces, P1 is not
 ```  
 
 
-Use rules test suite / Using a unit from a non allowed unit [Successful](tests_status.md#successful)
+Use rules test suite / Using a unit from a non allowed unit [Successful](use_rule.md#use-rules-test-suite--using-a-unit-from-a-non-allowed-unit)
 
 ##  Use rules test suite / Forbidden use test
 
@@ -45,7 +45,7 @@ Error : dir3/p2.adb:1: P4 use is forbidden
 ```  
 
 
-Use rules test suite / Forbidden use test [Successful](tests_status.md#successful)
+Use rules test suite / Forbidden use test [Successful](use_rule.md#use-rules-test-suite--forbidden-use-test)
 
 ##  Use rules test suite / Allowing use of an environnement package
 
@@ -79,7 +79,7 @@ Containers use is allowed
   No error expected.  
 
 
-Use rules test suite / Allowing use of an environnement package [Successful](tests_status.md#successful)
+Use rules test suite / Allowing use of an environnement package [Successful](use_rule.md#use-rules-test-suite--allowing-use-of-an-environnement-package)
 
 ##  Use rules test suite / Cumulative only ... may use X rules
 
@@ -116,7 +116,7 @@ Error : dir5/p3.ads:1: Only P1, P2 and P4 are allowed to use Interfaces.C, P3 is
 ```  
 
 
-Use rules test suite / Cumulative only ... may use X rules [Successful](tests_status.md#successful)
+Use rules test suite / Cumulative only ... may use X rules [Successful](use_rule.md#use-rules-test-suite--cumulative-only--may-use-x-rules)
 
 ##  Use rules test suite / Unit_List may use ... rules
 
@@ -139,7 +139,7 @@ Error : dir5/p3.ads:1: Only P1, P2 and P4 are allowed to use Interfaces.C, P3 is
 
   ** Not yet implemented **  
 
-Use rules test suite / Unit_List may use ... rules [Empty](tests_status.md#empty)
+Use rules test suite / Unit_List may use ... rules [Empty](use_rule.md#use-rules-test-suite--unitlist-may-use--rules)
 
 ##  Use rules test suite / Combining Allowed and Forbidden
 
@@ -173,7 +173,7 @@ Interfaces.C use is forbidden
 
   Expected :  
 
-Use rules test suite / Combining Allowed and Forbidden [Successful](tests_status.md#successful)
+Use rules test suite / Combining Allowed and Forbidden [Successful](use_rule.md#use-rules-test-suite--combining-allowed-and-forbidden)
 
 ##  Use rules test suite / X may use Unit List rules
 
@@ -197,7 +197,7 @@ Error : dir7/p2.ads:1: P1 may use P2, so P2 shall not use P1
 ```  
 
 
-Use rules test suite / X may use Unit List rules [Successful](tests_status.md#successful)
+Use rules test suite / X may use Unit List rules [Successful](use_rule.md#use-rules-test-suite--x-may-use-unit-list-rules)
 
 ##  Use rules test suite / only X may use Unit List rules
 
@@ -221,7 +221,7 @@ Error : dir8/p4.ads:2: Only P1 is allowed to use P3, P4 is not
 ```  
 
 
-Use rules test suite / only X may use Unit List rules [Successful](tests_status.md#successful)
+Use rules test suite / only X may use Unit List rules [Successful](use_rule.md#use-rules-test-suite--only-x-may-use-unit-list-rules)
 
 ##  Use rules test suite / Appending rules
 
@@ -257,4 +257,4 @@ Cmd line: P2 may use Bus
 Cmd line: P3 and P4 are independent```  
 
 
-Use rules test suite / Appending rules [Successful](tests_status.md#successful)
+Use rules test suite / Appending rules [Successful](use_rule.md#use-rules-test-suite--appending-rules)

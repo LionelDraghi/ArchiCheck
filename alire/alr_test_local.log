@@ -1,5 +1,33 @@
 Spawning: alr -d -n build --release
-Note: Building archicheck=0.1.0-dev/archicheck.gpr...
-gprbuild: "archicheck" up to date
-Success: Build finished successfully in 0.32 seconds.
+Note: Building list_image=2.0.0-dev/list_image.gpr...
+Compile
+   [Ada]          list_image.adb
+Note: Building archicheck=0.5.8/archicheck.gpr...
+Compile
+   [Ada]          archicheck-main.adb
+   [Ada]          archicheck-io.adb
+   [Ada]          archicheck-lang.adb
+   [Ada]          archicheck-rules.adb
+   [Ada]          archicheck-rules-check.adb
+   [Ada]          archicheck-rules-check_unrelated_rules_units.adb
+   [Ada]          archicheck-rules-dump_unrelated_compilation_units.adb
+   [Ada]          archicheck-rules-parser.adb
+   [Ada]          archicheck-settings.adb
+   [Ada]          archicheck-sources.adb
+   [Ada]          archicheck-units.adb
+   [Ada]          archicheck-lang-ada_processor.adb
+   [Ada]          archicheck-lang-c_processor.adb
+   [Ada]          archicheck-lang-java_processor.adb
+   [Ada]          archicheck_config.ads
+   [Ada]          list_image.adb
+archicheck-rules-parser.adb:120:04: warning: in instantiation at opentoken-token-enumerated.adb:52 [-gnatw_a]
+archicheck-rules-parser.adb:120:04: warning: use of an anonymous access type allocator [-gnatw_a]
+archicheck-rules-parser.adb:125:04: warning: in instantiation at opentoken-token-enumerated-nonterminal.adb:39 [-gnatw_a]
+archicheck-rules-parser.adb:125:04: warning: use of an anonymous access type allocator [-gnatw_a]
+Bind
+   [gprbind]      archicheck-main.bexch
+   [Ada]          archicheck-main.ali
+Link
+   [link]         archicheck-main.adb
+Success: Build finished successfully in 3.70 seconds.
 Found declared GPR file: archicheck.gpr

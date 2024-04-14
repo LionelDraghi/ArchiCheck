@@ -1,7 +1,8 @@
 all: check doc example
 
 CREATE_PKG=../../Tools/create_pkg
-TR=../../Tools/testrec
+MD=C_sanity_check.md
+TR=../../Tools/testrec -o ${MD} 
 
 .PHONY : clean
 
@@ -40,13 +41,13 @@ test1:
 	@ ${TR} cmt "Sources :"
 	@ ${TR} cmt 
 	@ ${TR} cmt '```'
-	@ ls -1 src	>> testrec.md
+	@ ls -1 src	>> ${MD}
 	@ ${TR} cmt '```'
 	@ ${TR} cmt 
 	@ ${TR} cmt "Includes :"
 	@ ${TR} cmt 
 	@ ${TR} cmt '```'
-	@ ls -1 include	>> testrec.md
+	@ ls -1 include	>> ${MD}
 	@ ${TR} cmt '```'
 	@ ${TR} cmt 
 	@ ${TR} cmt "When :"
@@ -56,13 +57,12 @@ test1:
 	@ ${TR} cmt "Expected :"
 	@ ${TR} cmt 
 	@ ${TR} cmt '```'
-	@ cat expected_output.1	>> testrec.md
+	@ cat expected_output.1	>> ${MD}
 	@ ${TR} cmt '```'
 	@ ${TR} cmt 
 
 	@ ../../obj/acc -lf -I include -I src > output.1
 	@ ${TR} assert true /usr/bin/sdiff "-sbB expected_output.1 output.1"
-
 
 	@ ${TR} end
 
@@ -75,7 +75,7 @@ test2:
 	@ ${TR} cmt "obj/*.d files :"
 	@ ${TR} cmt 
 	@ ${TR} cmt '```'
-	@ cat obj/*.d	>> testrec.md
+	@ cat obj/*.d	>> ${MD}
 	@ ${TR} cmt '```'
 	@ ${TR} cmt 
 	@ ${TR} cmt "When :"
@@ -85,13 +85,12 @@ test2:
 	@ ${TR} cmt "Expected :"
 	@ ${TR} cmt 
 	@ ${TR} cmt '```'
-	@ cat expected_output.2	>> testrec.md
+	@ cat expected_output.2	>> ${MD}
 	@ ${TR} cmt '```'
 	@ ${TR} cmt 
 
 	@ ../../obj/acc -ld -I include -I src | sort > output.2
 	@ ${TR} assert true /usr/bin/sdiff "-sbB expected_output.2 output.2"
-
 
 	@ ${TR} end
 
@@ -101,5 +100,6 @@ clean:
 	@ - ${TR} clean
 
 doc:
-	@ cp testrec.md ../../docs/tests/C_sanity_check.md
+	@ cp ${MD} ../../docs/tests/${MD}
+	
 

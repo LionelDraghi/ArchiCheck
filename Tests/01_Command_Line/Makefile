@@ -1,6 +1,7 @@
 all: check doc
 
-TR=../../Tools/testrec
+MD=command_line.md
+TR=../../Tools/testrec -o ${MD} 
 
 .PHONY : clean
 
@@ -24,11 +25,10 @@ test1:
 	@ ${TR} start "Help options" 
 	@ ${TR} cmt  								
 	@ ${TR} cmt "Test that the -h, --help or no command line will output :" 	
-	
-	@ ../../obj/acc -h > expected_help.txt
 	@ ${TR} cmt 
 	@ ${TR} cmt '```' 						
-	@ cat expected_help.txt >> testrec.md
+	@ ../../obj/acc -h > expected_help.txt
+	@ cat expected_help.txt >> ${MD}
 	@ ${TR} cmt '```' 						
 	@ ${TR} cmt 
 
@@ -46,8 +46,8 @@ test2:
 	@ ${TR} cmt "Test that the --version will put :" 			
 	@ ${TR} cmt 
 	@ ${TR} cmt '```' 						
-	@ echo "0.5.8"	            > expected_version.txt
-	@ cat expected_version.txt >> testrec.md					
+	@ echo "6.0.0"	            > expected_version.txt
+	@ cat expected_version.txt >> ${MD}					
 	@ ${TR} cmt '```' 						
 	@ ${TR} cmt 
 
@@ -63,12 +63,10 @@ test3:
 	@ ${TR} cmt "> acc -I"		
 	@ ${TR} cmt 
 	@ ${TR} cmt "Expecting:"		
-
-	@ echo "Error : Sources directory expected after -I"	>  expected_err3.txt
-
 	@ ${TR} cmt 
 	@ ${TR} cmt '```' 						
-	@ cat expected_err3.txt	>> testrec.md					
+	@ echo "Error : Sources directory expected after -I"	>  expected_err3.txt
+	@ cat expected_err3.txt									>> ${MD}					
 	@ ${TR} cmt '```' 						 	
 	@ ${TR} cmt  							
 
@@ -84,12 +82,10 @@ test4:
 	@ ${TR} cmt "> acc -I qsdqjh"		
 	@ ${TR} cmt 
 	@ ${TR} cmt "Expecting:"		
-
-	@ echo "Error : No qsdqjh directory"	>  expected_err4.txt
-
 	@ ${TR} cmt
 	@ ${TR} cmt '```'
-	@ cat expected_err4.txt	>> testrec.md					
+	@ echo "Error : No qsdqjh directory"	>  expected_err4.txt
+	@ cat expected_err4.txt					>> ${MD}					
 	@ ${TR} cmt '```'
 	@ ${TR} cmt 							
 
@@ -105,12 +101,10 @@ test5:
 	@ ${TR} cmt "> acc -xzy"		
 	@ ${TR} cmt 
 	@ ${TR} cmt "Expecting:"		
-
-	@ echo "Error : Unknown rules file or unknown option -xzy"	>  expected_err5.txt
-
 	@ ${TR} cmt 
 	@ ${TR} cmt '```' 						
-	@ cat expected_err5.txt	>> testrec.md					
+	@ echo "Error : Unknown rules file or unknown option -xzy"	>  expected_err5.txt
+	@ cat expected_err5.txt										>> ${MD}					
 	@ ${TR} cmt '```' 						 	
 	@ ${TR} cmt  							
 
@@ -129,13 +123,11 @@ test6:
 	@ ${TR} cmt "> acc -I dir6  "		
 	@ ${TR} cmt 
 	@ ${TR} cmt "Expecting:"		
-
 	@ echo "Error : Nothing to do with those sources"	>  expected_err6.txt
-	@ cat expected_help.txt 				>> expected_err6.txt
-
+	@ cat expected_help.txt 							>> expected_err6.txt
 	@ ${TR} cmt 
 	@ ${TR} cmt '```' 						
-	@ cat expected_err6.txt	>> testrec.md					
+	@ cat expected_err6.txt	>> ${MD}					
 	@ ${TR} cmt '```' 
 	@ ${TR} cmt 
 
@@ -155,13 +147,11 @@ test8:
 	@ ${TR} cmt "> acc -lr"		
 	@ ${TR} cmt 
 	@ ${TR} cmt "Expecting:"		
-
-	@ echo "Error : No rules file given"		>  expected_err8.txt
+	@ echo "Error : No rules file given"	>  expected_err8.txt
 	@ cat expected_help.txt 				>> expected_err8.txt
-
 	@ ${TR} cmt 
 	@ ${TR} cmt '```' 						
-	@ cat expected_err8.txt	>> testrec.md					
+	@ cat expected_err8.txt	>> ${MD}					
 	@ ${TR} cmt '```' 						 	
 	@ ${TR} cmt  							
 
@@ -178,12 +168,10 @@ test9:
 	@ ${TR} cmt "> acc -lf -I dir9  "		
 	@ ${TR} cmt 
 	@ ${TR} cmt "Expecting:"		
-
-	@ echo "Warning : Cannot list files, no sources found to analyze"		>  expected_err9.txt	
-
 	@ ${TR} cmt 
 	@ ${TR} cmt '```' 						
-	@ cat expected_err9.txt	>> testrec.md					
+	@ echo "Warning : Cannot list files, no sources found to analyze"	>  expected_err9.txt	
+	@ cat expected_err9.txt												>> ${MD}					
 	@ ${TR} cmt '```' 						 	
 	@ ${TR} cmt 
  							
@@ -208,12 +196,10 @@ test10:
 	@ ${TR} cmt "> acc rules.txt -I src.adb  "		
 	@ ${TR} cmt 
 	@ ${TR} cmt "Expecting:"		
-
-	@ echo "Error : src.adb is not a directory"		>  expected_err10.txt	
-
 	@ ${TR} cmt 
 	@ ${TR} cmt '```' 						
-	@ cat expected_err10.txt	>> testrec.md					
+	@ echo "Error : src.adb is not a directory"	>  expected_err10.txt	
+	@ cat expected_err10.txt					>> ${MD}					
 	@ ${TR} cmt '```' 						 	
 	@ ${TR} cmt  							
 
@@ -234,12 +220,10 @@ test11:
 	@ ${TR} cmt "> acc rules.txt -ld -I dir11"		
 	@ ${TR} cmt 
 	@ ${TR} cmt "Expecting:"		
-
-	@ echo "Warning : Cannot list dependencies, no sources found"	>  expected_err11.txt
-
 	@ ${TR} cmt 
 	@ ${TR} cmt '```' 						
-	@ cat expected_err11.txt	>> testrec.md					
+	@ echo "Warning : Cannot list dependencies, no sources found"	>  expected_err11.txt
+	@ cat expected_err11.txt										>> ${MD}					
 	@ ${TR} cmt '```' 						 	
 	@ ${TR} cmt  							
 
@@ -259,13 +243,11 @@ test12:
 	@ ${TR} cmt "> acc -I dir12  "		
 	@ ${TR} cmt 
 	@ ${TR} cmt "Expecting:"		
-
-	@ echo "Error : Nothing to do with those sources"		>  expected_err12.txt
-	@ cat expected_help.txt 					>> expected_err12.txt
-
 	@ ${TR} cmt 
 	@ ${TR} cmt '```' 						
-	@ cat expected_err12.txt	>> testrec.md					
+	@ echo "Error : Nothing to do with those sources"	>  expected_err12.txt
+	@ cat expected_help.txt 							>> expected_err12.txt
+	@ cat expected_err12.txt							>> ${MD}					
 	@ ${TR} cmt '```' 						 	
 	@ ${TR} cmt  
 							
@@ -283,13 +265,11 @@ test13:
 	@ ${TR} cmt "> acc rules.txt"		
 	@ ${TR} cmt 
 	@ ${TR} cmt "Expecting:"		
-
-	@ echo "Error : Nothing to do with this rules file"	>  expected_err13.txt
-	@ cat expected_help.txt 					>> expected_err13.txt
-	
 	@ ${TR} cmt 
 	@ ${TR} cmt '```' 						
-	@ cat expected_err13.txt	>> testrec.md					
+	@ echo "Error : Nothing to do with this rules file"	>  expected_err13.txt
+	@ cat expected_help.txt 					        >> expected_err13.txt
+	@ cat expected_err13.txt							>> ${MD}					
 	@ ${TR} cmt '```' 						 	
 	@ ${TR} cmt  
 							
@@ -306,20 +286,21 @@ test14:
 	@ ${TR} cmt 
 	@ ${TR} cmt "Expecting file template.ac:"		
 	@ ${TR} cmt 
-	@ ${TR} cmt '```' 						
-	@ cat expected_template.ac	>> testrec.md					
+	@ ${TR} cmt '```'
+	@ cat expected_template.ac	>> ${MD}
 	@ ${TR} cmt '```' 						 	
 	@ ${TR} cmt  
 
-	@ - rm  template.ac	
+	@ - ${RM} template.ac	
 	@ ../../obj/acc -ct
 	@ ${TR} assert true /usr/bin/sdiff "-s expected_template.ac template.ac"
 
-	@ ${TR} cmt "When running:"		
+	@ ${TR} cmt "When running once more :"		
 	@ ${TR} cmt "> acc --create_template"		
 	@ ${TR} cmt "Expecting error:"		
 	@ ${TR} cmt '```'
-	@ cat expected_err14.txt	>> testrec.md					
+	@ echo "Error : File template.ac already exists"	>  expected_err14.txt
+	@ cat expected_err14.txt							>> ${MD}					
 	@ ${TR} cmt '```' 						 	
 	@ ${TR} cmt  
 
@@ -338,7 +319,8 @@ test15:
 	@ ${TR} cmt 
 	@ ${TR} cmt "Expecting:"		
 	@ ${TR} cmt '```' 						
-	@ cat expected_err15.txt	>> testrec.md					
+	@ echo "Error : Rule expected after --append_rule"	>  expected_err15.txt
+	@ cat expected_err15.txt							>> ${MD}					
 	@ ${TR} cmt '```' 						 	
 	@ ${TR} cmt  							
 
@@ -354,4 +336,4 @@ clean:
 	@ ${TR} clean
 
 doc:
-	@ cp testrec.md ../../docs/tests/command_line.md
+	@ cp ${MD} ../../docs/tests/${MD}

@@ -46,7 +46,7 @@ Warning : test1.ac:7: P4 do not match any compilation unit
 ```  
 
 
-Rules vs sources coverage test suite / Warnings on units appearing in rules file and not related to any source [Successful](tests_status.md#successful)
+Rules vs sources coverage test suite / Warnings on units appearing in rules file and not related to any source [Successful](rules_src_coverage.md#rules-vs-sources-coverage-test-suite--warnings-on-units-appearing-in-rules-file-and-not-related-to-any-source)
 
 ##  Rules vs sources coverage test suite / Non covered sources
 
@@ -106,7 +106,7 @@ Y.P1
 ```  
 
 
-Rules vs sources coverage test suite / Non covered sources [Successful](tests_status.md#successful)
+Rules vs sources coverage test suite / Non covered sources [Successful](rules_src_coverage.md#rules-vs-sources-coverage-test-suite--non-covered-sources)
 
 ##  Rules vs sources coverage test suite / Case insensitivity of Is_A_Component function (non reg)
 
@@ -136,4 +136,4 @@ Warning : test3.ac:8: Model do not match any compilation unit
 ```  
 
 
-Rules vs sources coverage test suite / Case insensitivity of Is_A_Component function (non reg) [Successful](tests_status.md#successful)
+Rules vs sources coverage test suite / Case insensitivity of Is_A_Component function (non reg) [Successful](rules_src_coverage.md#rules-vs-sources-coverage-test-suite--case-insensitivity-of-isacomponent-function-non-reg)

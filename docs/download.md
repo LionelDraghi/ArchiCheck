@@ -1,3 +1,4 @@
+<!-- omit from toc -->
 Download
 ========
 

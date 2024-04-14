@@ -1,3 +1,4 @@
+<!-- omit from toc -->
 # Tests Overview
 
 The global intent is to have tests documenting the software behavior. Test execution result in a global count of passed/failed/empty tests, and in a text output in Markdown format, integrated in this documentation.

@@ -2,7 +2,7 @@
 
 ## Successful
 
-   88 tests OK
+   90 tests OK
 
   - [Layer rules test suite / Sanity test]()
   - [Layer rules test suite / Batik project architecture]()
@@ -54,6 +54,8 @@
   - [GtkAda test suite / Unit Identification]()
   - [GtkAda test suite / A realistic GtkAda description file]()
   - [GtkAda test suite / Another realistic GtkAda description file]()
+  - [Globbing Character test suite / rules test]()
+  - [Globbing Character test suite / illegal use of Interfaces from Application_Layer]()
   - [Precedence rules unit test / Declaration of a component already existing in code]()
   - [Precedence rules unit test / Alowing a child of forbidden unit]()
   - [Component processing in rules unit test / Layer component]()
@@ -100,9 +102,7 @@
 
 ## Empty
 
-   4 empty tests
+   2 empty tests
 
   - [Use rules test suite / Unit_List may use ... rules]()
-  - [Globbing Character test suite / rules test]()
-  - [Globbing Character test suite / illegal use of Interfaces from Application_Layer]()
   - [Rules file syntax test suite / Punctuation and syntaxic sugar]()

@@ -49,4 +49,4 @@ Util.New_Page package spec depends on Interfaces.C
 ```  
 
 
-Ada units test suite / Ada compilation units unit test [Successful](tests_status.md#successful)
+Ada units test suite / Ada compilation units unit test [Successful](ada_units.md#ada-units-test-suite--ada-compilation-units-unit-test)

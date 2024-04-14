@@ -12,17 +12,17 @@ Version
 > date -r acc --iso-8601=seconds
 
 ```
-2024-04-09T19:45:02+02:00
+2024-04-14T04:10:19+02:00
 ```
 
 Test results
 ------------
 ```
-Successful  87
+Successful  90
 Failed      0
-Empty       4
+Empty       2
 ```
-![](img/tests.png)
+![](generated_img/tests.png)
 
 Coverage
 --------

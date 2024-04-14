@@ -1,7 +1,8 @@
 all: check doc
 
 CREATE_PKG=../../Tools/create_pkg
-TR=../../Tools/testrec
+MD=layer_rule.md
+TR=../../Tools/testrec -o ${MD} 
 
 .PHONY : clean
 
@@ -26,7 +27,7 @@ test1:
 	@ ${TR} cmt '![](lr1.png)'
 	@ ${TR} cmt
 	@ ${TR} cmt '```'
-	@ cat rules.1 >> testrec.md
+	@ cat rules.1 >> ${MD}
 	@ ${TR} cmt '```'
 	@ ${TR} cmt
 
@@ -60,7 +61,7 @@ Batik:
 	@ ${TR} cmt "Described by this rules file :"
 	@ ${TR} cmt
 	@ ${TR} cmt '```'
-	@ cat rules.B >> testrec.md
+	@ cat rules.B >> ${MD}
 	@ ${TR} cmt '```'
 	@ ${TR} cmt
 
@@ -88,13 +89,13 @@ test2:
 	@ ${TR} cmt "![](lr2.png)"
 	@ ${TR} cmt
 	@ ${TR} cmt '```'
-	@ cat rules.2 >> testrec.md
+	@ cat rules.2 >> ${MD}
 	@ ${TR} cmt '```'
 	@ ${TR} cmt
 	@ ${TR} cmt "Expected output :"
 	@ ${TR} cmt
 	@ ${TR} cmt '```'
-	@ cat expected_output.2 >> testrec.md
+	@ cat expected_output.2 >> ${MD}
 	@ ${TR} cmt '```'
 	@ ${TR} cmt
 
@@ -119,13 +120,13 @@ test3:
 	@ ${TR} cmt "![](lr3.png)"
 	@ ${TR} cmt
 	@ ${TR} cmt '```'
-	@ cat rules.1 >> testrec.md
+	@ cat rules.1 >> ${MD}
 	@ ${TR} cmt '```'
 	@ ${TR} cmt
 	@ ${TR} cmt "Expected output :"
 	@ ${TR} cmt
 	@ ${TR} cmt '```'
-	@ cat expected_output.3 >> testrec.md
+	@ cat expected_output.3 >> ${MD}
 	@ ${TR} cmt '```'
 	@ ${TR} cmt
 
@@ -148,13 +149,13 @@ test4:
 	@ ${TR} cmt "![](lr4.png)"
 	@ ${TR} cmt
 	@ ${TR} cmt '```'
-	@ cat rules.1 >> testrec.md
+	@ cat rules.1 >> ${MD}
 	@ ${TR} cmt '```'
 	@ ${TR} cmt
 	@ ${TR} cmt "Expected output :"
 	@ ${TR} cmt
 	@ ${TR} cmt '```'
-	@ cat expected_output.4 >> testrec.md
+	@ cat expected_output.4 >> ${MD}
 	@ ${TR} cmt '```'
 	@ ${TR} cmt
 
@@ -168,6 +169,6 @@ clean:
 	@ ${TR} clean
 
 doc:
-	@ cp testrec.md 	../../docs/tests/layer_rule.md
+	@ cp ${MD} ../../docs/tests/${MD}
 	@ cp lr?.png 	../../docs/tests/
 	@ cp batik.png 	../../docs/tests/

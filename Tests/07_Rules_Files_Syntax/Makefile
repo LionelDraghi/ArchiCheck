@@ -2,7 +2,8 @@ all: check doc
 
 .PHONY : clean
 
-TR=../../Tools/testrec
+MD=rules_files_syntax.md
+TR=../../Tools/testrec -o ${MD} 
 
 check: ../../obj/acc header test1 test2 test3 test4
 
@@ -24,7 +25,7 @@ test1:
 	@ ${TR} cmt "Test: Reference file"						
 	@ ${TR} cmt
 	@ ${TR} cmt '```'							
-	@ cat expected_lc1.txt >> testrec.md						
+	@ cat expected_lc1.txt >> ${MD}						
 	@ ${TR} cmt '```'								
 	@ ${TR} cmt
 	@ ${TR} cmt "> acc --list_rules expected_lc1.txt"				
@@ -32,7 +33,7 @@ test1:
 	@ ${TR} cmt "The reference result is :"					
 	@ ${TR} cmt
 	@ ${TR} cmt '```'							
-	@ cat reference_lc.txt	>> testrec.md						
+	@ cat reference_lc.txt	>> ${MD}						
 	@ ${TR} cmt '```'								
 	@ ${TR} cmt
 
@@ -46,7 +47,7 @@ test2:
 	@ ${TR} start "Casing"
 	@ ${TR} cmt
 	@ ${TR} cmt '```'							
-	@ cat rules2.txt >> testrec.md							
+	@ cat rules2.txt >> ${MD}							
 	@ ${TR} cmt '```'								
 	@ ${TR} cmt
 
@@ -60,7 +61,7 @@ test3:
 	@ ${TR} start "Spacing and comments"	
 	@ ${TR} cmt
 	@ ${TR} cmt '```'							
-	@ cat rules3.txt	>> testrec.md						
+	@ cat rules3.txt	>> ${MD}						
 	@ ${TR} cmt '```'								
 	@ ${TR} cmt
 
@@ -76,7 +77,7 @@ test4:
 	@ ${TR} cmt "Almost natural english written rules file!"                     
 	@ ${TR} cmt
 	@ ${TR} cmt '```'							
-	@ cat rules4.txt	>> testrec.md						
+	@ cat rules4.txt	>> ${MD}						
 	@ ${TR} cmt '```'								
 	@ ${TR} cmt
 
@@ -90,4 +91,4 @@ clean:
 	@ ${TR} clean
 
 doc:
-	@ cp testrec.md ../../docs/tests/rules_files_syntax.md
+	@ cp ${MD} ../../docs/tests/${MD}

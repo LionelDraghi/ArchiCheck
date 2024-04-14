@@ -24,7 +24,7 @@ X and Y are independent
    V    -> Y     OK  
 
 
-Test Independent Components [Successful](tests_status.md#successful)
+Test Independent Components [Successful](independent_components.md#--test-independent-components)
 
 ##  Test broken Independent Components rule
 
@@ -52,4 +52,4 @@ X and Y are independent
    Y.P3 -> X.P1  Error  
 
 
-Test broken Independent Components rule [Successful](tests_status.md#successful)
+Test broken Independent Components rule [Successful](independent_components.md#--test-broken-independent-components-rule)

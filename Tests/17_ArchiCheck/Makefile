@@ -1,7 +1,8 @@
 all: check doc
 
 CREATE_PKG=../../Tools/create_pkg
-TR=../../Tools/testrec
+MD=archicheck.md
+TR=../../Tools/testrec -o ${MD} 
 
 .PHONY : clean
 
@@ -30,9 +31,9 @@ test1:
 	@ ${TR} cmt "Expected (`cat expected_output.1 | wc -l` files) :"
 	@ ${TR} cmt 
 	@ ${TR} cmt '```'
-	@ head -n 3 expected_output.1 >> testrec.md
-	@ echo '...'				  >> testrec.md
-	@ tail -n 3 expected_output.1 >> testrec.md
+	@ head -n 3 expected_output.1 >> ${MD}
+	@ echo '...'				  >> ${MD}
+	@ tail -n 3 expected_output.1 >> ${MD}
 	@ ${TR} cmt '```'
 	@ ${TR} cmt 
 
@@ -50,9 +51,9 @@ test2:
 	@ ${TR} cmt "`cat expected_output.2 | wc -l` dependencies expected :"
 	@ ${TR} cmt 
 	@ ${TR} cmt '```'
-	@ head -n 10 expected_output.2 >> testrec.md
-	@ echo '...'				   >> testrec.md
-	@ tail -n 10 expected_output.2 >> testrec.md
+	@ head -n 10 expected_output.2 >> ${MD}
+	@ echo '...'				   >> ${MD}
+	@ tail -n 10 expected_output.2 >> ${MD}
 	@ ${TR} cmt '```'
 	@ ${TR} cmt 
 
@@ -71,7 +72,7 @@ test3:
 	@ ${TR} cmt "Rules :"
 	@ ${TR} cmt 
 	@ ${TR} cmt '```'
-	@ cat archicheck.ac >> testrec.md
+	@ cat archicheck.ac >> ${MD}
 	@ ${TR} cmt '```'
 	@ ${TR} cmt 
 	@ ${TR} cmt "![ArchiCheck dependencies view](ac_view.png)"
@@ -94,7 +95,7 @@ test4:
 	@ ${TR} cmt "Rules :"
 	@ ${TR} cmt 
 	@ ${TR} cmt '```'
-	@ cat archicheck.ac >> testrec.md
+	@ cat archicheck.ac >> ${MD}
 	@ ${TR} cmt '```'
 	@ ${TR} cmt 
 	@ ${TR} cmt "![ArchiCheck dependencies view](ac_view.png)"
@@ -113,7 +114,7 @@ clean:
 
 doc:
 	@ deplo config=archicheck.deplo | dot -Tpng -oac_view.png
-	@ cp testrec.md ../../docs/tests/archicheck.md
+	@ cp ${MD} ../../docs/tests/${MD}
 	@ cp ac_view.png ../../docs/tests/
 
 

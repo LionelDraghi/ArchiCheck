@@ -20,7 +20,7 @@ zip-ada/zip_lib/zip_streams.ads
 ```  
 
 
-ZipAda code test suite / -lf test [Successful](tests_status.md#successful)
+ZipAda code test suite / -lf test [Successful](zipada.md#zipada-code-test-suite---lf-test)
 
 ##  ZipAda code test suite / -ld test
 
@@ -53,7 +53,7 @@ Zip_with_many_files procedure body depends on Zip_Streams
 ```  
 
 
-ZipAda code test suite / -ld test [Successful](tests_status.md#successful)
+ZipAda code test suite / -ld test [Successful](zipada.md#zipada-code-test-suite---ld-test)
 
 ##  ZipAda code test suite / rules test
 
@@ -69,4 +69,4 @@ UnZip may use Zip_Streams
   No error expected  
 
 
-ZipAda code test suite / rules test [Successful](tests_status.md#successful)
+ZipAda code test suite / rules test [Successful](zipada.md#zipada-code-test-suite--rules-test)

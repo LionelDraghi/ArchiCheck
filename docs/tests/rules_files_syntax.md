@@ -40,7 +40,7 @@ reference_rules.txt:20: Use of Ada allowed
 ```  
 
 
-Rules file syntax test suite / Reference file [Successful](tests_status.md#successful)
+Rules file syntax test suite / Reference file [Successful](rules_files_syntax.md#rules-file-syntax-test-suite--reference-file)
 
 ##  Rules file syntax test suite / Casing
 
@@ -69,7 +69,7 @@ Ada use is ALLOWED
 ```  
 
 
-Rules file syntax test suite / Casing [Successful](tests_status.md#successful)
+Rules file syntax test suite / Casing [Successful](rules_files_syntax.md#rules-file-syntax-test-suite--casing)
 
 ##  Rules file syntax test suite / Spacing and comments
 
@@ -95,7 +95,7 @@ GUI contains Glib
 ```  
 
 
-Rules file syntax test suite / Spacing and comments [Successful](tests_status.md#successful)
+Rules file syntax test suite / Spacing and comments [Successful](rules_files_syntax.md#rules-file-syntax-test-suite--spacing-and-comments)
 
 ##  Rules file syntax test suite / Punctuation and syntaxic sugar
 
@@ -111,4 +111,4 @@ GUI contains ATK GIO Gtk, Glib and Pango.
 ```  
 
 
-Rules file syntax test suite / Punctuation and syntaxic sugar [Empty](tests_status.md#empty)
+Rules file syntax test suite / Punctuation and syntaxic sugar [Empty](rules_files_syntax.md#rules-file-syntax-test-suite--punctuation-and-syntaxic-sugar)

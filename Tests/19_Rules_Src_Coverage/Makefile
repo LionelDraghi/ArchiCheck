@@ -1,7 +1,8 @@
 all: check doc
 
 CREATE_PKG=../../Tools/create_pkg
-TR=../../Tools/testrec
+MD=rules_src_coverage.md
+TR=../../Tools/testrec -o ${MD} 
 
 .PHONY : clean
 
@@ -24,13 +25,13 @@ test1:
 	@ ${TR} cmt "Sources (`ls -1 dir1`) :"
 	@ ${TR} cmt 
 	@ ${TR} cmt '```'
-	@ ls -1 dir1	>> testrec.md
+	@ ls -1 dir1	>> ${MD}
 	@ ${TR} cmt '```'
 	@ ${TR} cmt 
 	@ ${TR} cmt "Rules file :"
 	@ ${TR} cmt 
 	@ ${TR} cmt '```'
-	@ cat test1.ac	>> testrec.md
+	@ cat test1.ac	>> ${MD}
 	@ ${TR} cmt '```'
 	@ ${TR} cmt 
 	@ ${TR} cmt "When :"
@@ -40,7 +41,7 @@ test1:
 	@ ${TR} cmt "Expected :"
 	@ ${TR} cmt 
 	@ ${TR} cmt '```'
-	@ cat expected_output.1	>> testrec.md
+	@ cat expected_output.1	>> ${MD}
 	@ ${TR} cmt '```'
 	@ ${TR} cmt 
 
@@ -67,13 +68,13 @@ test2:
 	@ ${TR} cmt "Rules file :"
 	@ ${TR} cmt 
 	@ ${TR} cmt '```'
-	@ cat test1.ac	>> testrec.md
+	@ cat test1.ac	>> ${MD}
 	@ ${TR} cmt '```'
 	@ ${TR} cmt 
 	@ ${TR} cmt "Sources (`ls -1 dir2`) :"
 	@ ${TR} cmt 
 	@ ${TR} cmt '```'
-	@ ls -1 dir2	>> testrec.md
+	@ ls -1 dir2	>> ${MD}
 	@ ${TR} cmt '```'
 	@ ${TR} cmt 
 	@ ${TR} cmt "When :"
@@ -83,7 +84,7 @@ test2:
 	@ ${TR} cmt "Expected :"
 	@ ${TR} cmt 
 	@ ${TR} cmt '```'
-	@ cat expected_output.2	>> testrec.md
+	@ cat expected_output.2	>> ${MD}
 	@ ${TR} cmt '```'
 	@ ${TR} cmt 
 
@@ -103,7 +104,7 @@ test3:
 	@ ${TR} cmt "Rules file :"
 	@ ${TR} cmt 
 	@ ${TR} cmt '```'
-	@ cat test3.ac	>> testrec.md
+	@ cat test3.ac	>> ${MD}
 	@ ${TR} cmt '```'
 	@ ${TR} cmt 
 	@ ${TR} cmt "When :"
@@ -113,7 +114,7 @@ test3:
 	@ ${TR} cmt "Expected :"
 	@ ${TR} cmt 
 	@ ${TR} cmt '```'
-	@ cat expected_output.3	>> testrec.md
+	@ cat expected_output.3	>> ${MD}
 	@ ${TR} cmt '```'
 	@ ${TR} cmt 
 
@@ -127,5 +128,5 @@ clean:
 	@ - ${TR} clean
 
 doc:
-	@ cp testrec.md ../../docs/tests/rules_src_coverage.md
+	@ cp ${MD} ../../docs/tests/${MD}
 

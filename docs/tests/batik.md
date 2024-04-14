@@ -19,7 +19,7 @@
 ```  
 
 
-Batik test suite / --list_file test [Successful](tests_status.md#successful)
+Batik test suite / --list_file test [Successful](batik.md#batik-test-suite----listfile-test)
 
 ##  Batik test suite / public class
 
@@ -65,7 +65,7 @@ org.apache.batik.apps.jsvg.JSVG class depends on org.apache.batik.swing.svg.SVGU
 ```  
 
 
-Batik test suite / public class [Successful](tests_status.md#successful)
+Batik test suite / public class [Successful](batik.md#batik-test-suite--public-class)
 
 ##  Batik test suite / public interface class
 
@@ -104,7 +104,7 @@ org.apache.batik.dom.events.NodeEventTarget interface depends on org.w3c.dom.eve
 ```  
 
 
-Batik test suite / public interface class [Successful](tests_status.md#successful)
+Batik test suite / public interface class [Successful](batik.md#batik-test-suite--public-interface-class)
 
 ##  Batik test suite / no import
 
@@ -130,7 +130,7 @@ public class TriplyIndexedTable {
 ```  
 
 
-Batik test suite / no import [Successful](tests_status.md#successful)
+Batik test suite / no import [Successful](batik.md#batik-test-suite--no-import)
 
 ##  Batik test suite / no package
 
@@ -152,7 +152,7 @@ NodeEventTarget interface depends on org.w3c.dom.events.Event
 ```  
 
 
-Batik test suite / no package [Successful](tests_status.md#successful)
+Batik test suite / no package [Successful](batik.md#batik-test-suite--no-package)
 
 ##  Batik test suite / public abstract class
 
@@ -222,7 +222,7 @@ public abstract class SVGAbstractTranscoder extends XMLAbstractTranscoder {
   > acc rules.B -q -I dir6  
   No output expected  
 
-Batik test suite / public abstract class [Successful](tests_status.md#successful)
+Batik test suite / public abstract class [Successful](batik.md#batik-test-suite--public-abstract-class)
 
 ##  Batik test suite / Let's add dependencies to Browser and Rasterizer into a Transcoder class
 
@@ -255,7 +255,7 @@ Error : dir7/MyClass.java:4: org.apache.batik.transcoder.NodeEventTarget is in C
 ```  
 
 
-Batik test suite / Let's add dependencies to Browser and Rasterizer into a Transcoder class [Successful](tests_status.md#successful)
+Batik test suite / Let's add dependencies to Browser and Rasterizer into a Transcoder class [Successful](batik.md#batik-test-suite--lets-add-dependencies-to-browser-and-rasterizer-into-a-transcoder-class)
 
 ##  Batik test suite / -ld test
 
@@ -288,4 +288,4 @@ org.w3c.dom.events.UIEvent interface depends on org.w3c.dom.views.AbstractView
 ```  
 
 
-Batik test suite / -ld test [Successful](tests_status.md#successful)
+Batik test suite / -ld test [Successful](batik.md#batik-test-suite---ld-test)

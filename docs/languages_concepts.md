@@ -1,74 +1,13 @@
 <!-- omit from toc -->
 # Components and visibility matching concepts in languages
 
-- [1. Modules](#1-modules)
-- [2. Archicheck](#2-archicheck)
-- [3. C](#3-c)
-  - [3.1. Limitations](#31-limitations)
-- [4. Ada](#4-ada)
-  - [4.1. Renaming](#41-renaming)
-- [5. Java](#5-java)
+Languages by alphabetical order, with a limitations list at the end.
 
-
-## 1. Modules
-
-From a design point of view, a [Module](https://en.wikipedia.org/wiki/Modular_programming) is a small component that encapsulate code and data to perform focused on one task.
-
-A module :
-
-- exposes an interface
-- hides internal code and data on a "need to know" basis
-- may be be dependent of others modules
-
-Note that the time as gone, and the nineties temptation of considering modules as obsoletes and classes as being the future of (among other concepts) modules has vanished.
-
-Most languages provide mechanisms to implement those three features.
-Here after, will be discussed what ArchiCheck consider as a component or a visibility relationship in each languages, and also when needed the matching of compilation units, files and modules.
-
-## 2. Archicheck
-
-Let's start with Archicheck :
-
-- Modules and Components
-
-  Archicheck make no difference between both concepts. Both are composable. If A contains B and C, Archicheck is not concerned in your decision to call A a component, B and C modules, or to call them all modules or components.
-  As it was felt more general, and less linked to specific programming languages, Archicheck uses the word `component`.
-
-- Virtual components
-  
-  Components appearing in the architecture or design descriptions do not always materialize through the code. Sometimes, a directory gathering source code files materialize the component name (all Gdk sources are in the Gdk subdirectory), there is a naming convention (All Gdk file name or compilation unit start with Gdk).
-  Archicheck offers the possibility to explicitly declare such a component that is not defined in the code.
-  It is then called a virtual component.
-
-## 3. C
-
-> The closest thing C has to a module is a source (.c) file. We can encapsulate functions and data in a source file to form the implementation part of a module. A corresponding header (.h) file forms the interface to the module.  
-(https://www.embedded.com/modular-programming-in-c/)
-
-Similarly, the closest thing to a visibility specification is the include preprocessor directive.
-
-### 3.1. Limitations
-- Archicheck has no [preprocessor](https://en.wikipedia.org/wiki/C_preprocessor), and do not support conditional compilation, meaning that 
-  ```
-  #ifdef MATRIX
-  #include "matrix.h"
-  #else
-  #include "grid.h"
-  #endif
-  ```
-  will report dependence to both `matrix.h` and `grid.h`, whatever is the value of `MATRIX`.
-
-
-- There is no consensus on the non standard `#import directive`, that seems [inherited from Objective-C](https://stackoverflow.com/questions/39280248/what-is-the-difference-between-import-and-include-in-c).
-   
-This directive is not supported in Archicheck.
-
-
-## 4. Ada
+## 1. Ada
 
 Archicheck build the Component hierarchy based by interpreting the names : remember that Archicheck don’t do a semantical analysis, it just does the bare minimum lexical analysis to catch components and dependencies.
 
-### 4.1. Renaming
+### Renaming
 In Ada, there is a possibility to rename a package miming a child package.
 For example :
 
@@ -112,14 +51,48 @@ for Archicheck : `limited with P;` = `limited private with P;` = `private with P
 I did not notice any pathological use of Ada package that breaks ArchiCheck behavior till now.
 
  
+## 2. C
 
- 
+> The closest thing C has to a module is a source (.c) file. We can encapsulate functions and data in a source file to form the implementation part of a module. A corresponding header (.h) file forms the interface to the module.  
+(https://www.embedded.com/modular-programming-in-c/)
 
- 
+It's a convention to have interface in the `.h` file and implementation in the `.c` file.
+Both `x.h` and `x.c`, or just one of those files, constitute the `x` Compilation Unit for `Acc`. 
 
- 
+The closest thing to a visibility specification is the `include` preprocessor directive.
 
-## 5. Java
+> :Warning: 
+Note that `Acc` does not take into account [preprocessing](https://en.wikipedia.org/wiki/C_preprocessor) or macro expansion, that is the fact that what is compiled may be quite different from the source files. 
+
+In more precise words, according [to Wikipedia]https://en.wikipedia.org/wiki/Translation_unit_(programming) :
+
+> A C program consists of units called source files (or preprocessing files), which, in addition to source code, includes directives for the C preprocessor. A translation unit is the output of the C preprocessor – a source file after it has been preprocessed.
+
+> Preprocessing notably consists of expanding a source file to recursively replace all #include directives with the literal file declared in the directive (usually header files, but possibly other source files); the result of this step is a preprocessing translation unit. Further steps include macro expansion of #define directives, and conditional compilation of #ifdef directives, among others; this translates the preprocessing translation unit into a translation unit. From a translation unit, the compiler generates an object file, which can be further processed and linked (possibly with other object files) to form an executable program. 
+
+`Acc Compilation Units` do not directly matches `C translation units`, but `preprocessing files`.
+
+The only consequence I am aware of, is on conditional includes. In the case of :
+```C
+#ifdef LINUX
+#include "linux_if.h"
+#else
+#include "windows_if.h"
+#endif
+```
+
+`Acc` wil consider both as dependencies.
+This not true for both the Windows and the Linux exe, but this true from a sources point of view.
+I see no need to change that at that point.
+
+ ## 3. C++
+
+> [!NOTE] : C++ processing Not Yet Implemented
+
+C++ introduce some concepts over C, with the typical C++ complexity.
+Compilation units are generally called [Translation units](https://en.wikipedia.org/wiki/Translation_unit_(programming)).
+
+## 4. Java
 
 [Here is a tutorial on Java packages](https://docs.oracle.com/javase/tutorial/java/package/packages.html)
 
@@ -140,3 +113,19 @@ every class stands in its own source file.
  anyway, as it would be costly in time processing, and
  raise far more complex the lexer, I don't intend to
  change this code for now.
+
+## 5. Limitations Overview
+
+### C
+
+- `import` directive
+  
+  There is no consensus on the non standard `#import` directive, that seems [inherited from Objective-C](https://stackoverflow.com/questions/39280248/what-is-the-difference-between-import-and-include-in-c).
+  This directive is **not** supported in Archicheck.
+
+### Java
+
+- detection of visibility through Java fully qualified name ("import"
+  is not mandatory in Java to use classes) is **NOT** done at this stage.
+
+

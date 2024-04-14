@@ -15,12 +15,12 @@
 ```  
 Application_Layer contains P1, P2
 Support_Layer contains P3, P4
-only Support_Layer may use Interfaces.*
+only Support_Layer may use Interfaces*
 ```  
 
   No expected output (no error)  
 
-Globbing Character test suite / rules test [Empty](tests_status.md#empty)
+Globbing Character test suite / rules test [Successful](globbing_characters.md#globbing-character-test-suite--rules-test)
 
 ##  Globbing Character test suite / illegal use of Interfaces from Application_Layer
 
@@ -34,13 +34,13 @@ Globbing Character test suite / rules test [Empty](tests_status.md#empty)
 ```  
 Application_Layer contains P1, P2
 Support_Layer contains P3, P4
-only Support_Layer may use Interfaces.*
+only Support_Layer may use Interfaces*
 ```  
 
   Expected output :  
 
 ```  
-Error : P1 is not in Support_Layer layer, and so shall not use Interfaces.* packages
+Error : dir2/p1.ads:2: Only Support_Layer is allowed to use Interfaces*, P1 is not
 ```  
 
-Globbing Character test suite / illegal use of Interfaces from Application_Layer [Empty](tests_status.md#empty)
+Globbing Character test suite / illegal use of Interfaces from Application_Layer [Successful](globbing_characters.md#globbing-character-test-suite--illegal-use-of-interfaces-from-applicationlayer)

@@ -1,7 +1,8 @@
 all: check doc
 
 CREATE_PKG=../../Tools/create_pkg
-TR=../../Tools/testrec
+MD=rules_on_components.md
+TR=../../Tools/testrec -o ${MD} 
 
 ## .PHONY : clean
 
@@ -22,7 +23,7 @@ test1:
 	@ ${TR} cmt "Here is the rules file :"
 	@ ${TR} cmt 
 	@ ${TR} cmt '```'
-	@ cat rules1a.txt >> testrec.md
+	@ cat rules1a.txt >> ${MD}
 	@ ${TR} cmt '```'
 	@ ${TR} cmt 
 	@ ${TR} cmt 'Running :  '
@@ -30,7 +31,7 @@ test1:
 	@ ${TR} cmt 
 	@ ${TR} cmt "Expected :"
 	@ ${TR} cmt '```'
-	@ cat expected_output.1a >> testrec.md
+	@ cat expected_output.1a >> ${MD}
 	@ ${TR} cmt '```'
 	
 	@ ../../obj/acc rules1a.txt -I src > output.1a
@@ -39,7 +40,7 @@ test1:
 	@ ${TR} cmt "Let's now add faulty units in LC layer :"
 	@ ${TR} cmt 
 	@ ${TR} cmt '```'
-	@ cat rules1b.txt >> testrec.md
+	@ cat rules1b.txt >> ${MD}
 	@ ${TR} cmt '```'
 	@ ${TR} cmt 
 	@ ${TR} cmt 'Running :  '
@@ -47,7 +48,7 @@ test1:
 	@ ${TR} cmt 
 	@ ${TR} cmt "No more error/warning expected :"
 	@ ${TR} cmt '```'
-	@ cat expected_output.1b >> testrec.md
+	@ cat expected_output.1b >> ${MD}
 	@ ${TR} cmt '```'
 	
 	@ ${TR} end
@@ -59,7 +60,7 @@ test2:
 	@ ${TR} cmt "Let's add faulty units in an Env component, and allow Env use :"
 	@ ${TR} cmt 
 	@ ${TR} cmt '```'
-	@ cat rules2.txt >> testrec.md
+	@ cat rules2.txt >> ${MD}
 	@ ${TR} cmt '```'
 	@ ${TR} cmt 
 	@ ${TR} cmt 'Running :  '
@@ -67,7 +68,7 @@ test2:
 	@ ${TR} cmt 
 	@ ${TR} cmt "No more error/warning expected :"
 	@ ${TR} cmt '```'
-	@ cat expected_output.2 >> testrec.md
+	@ cat expected_output.2 >> ${MD}
 	@ ${TR} cmt '```'
 	
 	@ ../../obj/acc rules2.txt -I src > output.2
@@ -87,7 +88,7 @@ test3:
 	@ ${TR} cmt "P1 package is in X component, wha if I try to add it to another components?"
 	@ ${TR} cmt 
 	@ ${TR} cmt '```'
-	@ cat rules3.txt >> testrec.md
+	@ cat rules3.txt >> ${MD}
 	@ ${TR} cmt '```'
 	@ ${TR} cmt 
 	@ ${TR} cmt 'Running :  '
@@ -99,7 +100,7 @@ test3:
 	@ ${TR} cmt '> a strange OpenToken bug (I guess).'
 	@ ${TR} cmt 
 	@ ${TR} cmt '```'
-	@ cat expected_output.3 >> testrec.md
+	@ cat expected_output.3 >> ${MD}
 	@ ${TR} cmt '```'
 	
 	@ test ! `../../obj/acc rules3.txt -I src > output.3`
@@ -122,7 +123,7 @@ test4:
 
 	@ ${TR} cmt 
 	@ ${TR} cmt '```'
-	@ cat rules4.txt >> testrec.md
+	@ cat rules4.txt >> ${MD}
 	@ ${TR} cmt '```'
 	@ ${TR} cmt 
 	@ ${TR} cmt 'Running :  '
@@ -130,7 +131,7 @@ test4:
 	@ ${TR} cmt 
 	@ ${TR} cmt "Error expected, as P1 is using a forbidden unit :"
 	@ ${TR} cmt '```'
-	@ cat expected_output.4a >> testrec.md
+	@ cat expected_output.4a >> ${MD}
 	@ ${TR} cmt '```'
 	
 	@ test ! `../../obj/acc rules4.txt -I dir4 > output.4a`
@@ -142,7 +143,7 @@ test4:
 
 	@ ${TR} cmt 
 	@ ${TR} cmt '```'
-	@ cat rules4.txt >> testrec.md
+	@ cat rules4.txt >> ${MD}
 	@ ${TR} cmt '```'
 	@ ${TR} cmt 
 	@ ${TR} cmt 'Running :  '
@@ -180,7 +181,7 @@ test5:
 	@ ${TR} cmt 	 
 
 	@ ${TR} cmt '```'
-	@ cat rules5.txt >> testrec.md
+	@ cat rules5.txt >> ${MD}
 	@ ${TR} cmt '```'
 	@ ${TR} cmt 
 	@ ${TR} cmt 'Running :  '
@@ -206,5 +207,4 @@ clean:
 	@ - ${TR} clean
 
 doc:
-	@ cp testrec.md ../../docs/tests/rules_on_components.md
-
+	@ cp ${MD} ../../docs/tests/${MD}

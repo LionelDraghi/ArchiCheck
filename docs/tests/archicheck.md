@@ -9,26 +9,26 @@
 
   > acc -lf -I src  
 
-  Expected (36 files) :  
+  Expected (34 files) :  
 
 ```  
 src/archicheck.ads
 src/archicheck-io.adb
 src/archicheck-io.ads
 ...
+src/archicheck-sources.ads
+src/archicheck-units.adb
 src/archicheck-units.ads
-src/list_image.adb
-src/list_image.ads
 ```  
 
 
-ArchiCheck code test suite / -lf test [Successful](tests_status.md#successful)
+ArchiCheck code test suite / -lf test [Successful](archicheck.md#archicheck-code-test-suite---lf-test)
 
 ##  ArchiCheck code test suite / -ld test
 
   > acc -ld -I ./src | sort  
 
-  116 dependencies expected :  
+  115 dependencies expected :  
 
 ```  
 Archicheck.IO package body depends on Ada.Text_IO
@@ -42,6 +42,7 @@ Archicheck.Lang.Ada_Processor package body depends on Archicheck.Units
 Archicheck.Lang.Ada_Processor package body depends on OpenToken
 Archicheck.Lang.C_Processor package body depends on Ada.Exceptions
 ...
+Archicheck.Units package body depends on Ada.Strings.Fixed
 Archicheck.Units package body depends on Ada.Strings.Hash_Case_Insensitive
 Archicheck.Units package body depends on Archicheck.IO
 Archicheck.Units package body depends on Archicheck.Settings
@@ -51,11 +52,10 @@ Archicheck.Units package spec depends on Ada.Strings.Equal_Case_Insensitive
 Archicheck.Units package spec depends on Ada.Strings.Unbounded
 Archicheck.Units package spec depends on Archicheck.Sources
 Archicheck.Units package spec depends on List_Image
-List_Image package body depends on Ada.Strings.Unbounded
 ```  
 
 
-ArchiCheck code test suite / -ld test [Successful](tests_status.md#successful)
+ArchiCheck code test suite / -ld test [Successful](archicheck.md#archicheck-code-test-suite---ld-test)
 
 ##  ArchiCheck code test suite / rules test
 
@@ -94,7 +94,7 @@ List_Image          use is allowed
   No error expected  
 
 
-ArchiCheck code test suite / rules test [Successful](tests_status.md#successful)
+ArchiCheck code test suite / rules test [Successful](archicheck.md#archicheck-code-test-suite--rules-test)
 
 ##  ArchiCheck code test suite / --list_non_covered
 
@@ -133,4 +133,4 @@ List_Image          use is allowed
   No error expected  
 
 
-ArchiCheck code test suite / --list_non_covered [Successful](tests_status.md#successful)
+ArchiCheck code test suite / --list_non_covered [Successful](archicheck.md#archicheck-code-test-suite----listnoncovered)

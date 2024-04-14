@@ -23,7 +23,7 @@ gtkada-master/testgtk/test_rtree.adb
 ```  
 
 
-GtkAda test suite / File Identification [Successful](tests_status.md#successful)
+GtkAda test suite / File Identification [Successful](gtkada.md#gtkada-test-suite--file-identification)
 
 ##  GtkAda test suite / Unit Identification
 
@@ -57,7 +57,7 @@ View_Gl package spec depends on Gtk.Frame
 ```  
 
 
-GtkAda test suite / Unit Identification [Successful](tests_status.md#successful)
+GtkAda test suite / Unit Identification [Successful](gtkada.md#gtkada-test-suite--unit-identification)
 
 ##  GtkAda test suite / A realistic GtkAda description file
 
@@ -101,7 +101,7 @@ Error : gtkada-master/src/opengl/gtk-glarea.adb:26: GtkAda may use Gtk, so Gtk.G
 ```  
 
 
-GtkAda test suite / A realistic GtkAda description file [Successful](tests_status.md#successful)
+GtkAda test suite / A realistic GtkAda description file [Successful](gtkada.md#gtkada-test-suite--a-realistic-gtkada-description-file)
 
 ##  GtkAda test suite / Another realistic GtkAda description file
 
@@ -147,4 +147,4 @@ Error : gtkada-master/src/opengl/gtk-glarea.adb:26: GtkAda may use Gtk, so Gtk.G
 ```  
 
 
-GtkAda test suite / Another realistic GtkAda description file [Successful](tests_status.md#successful)
+GtkAda test suite / Another realistic GtkAda description file [Successful](gtkada.md#gtkada-test-suite--another-realistic-gtkada-description-file)

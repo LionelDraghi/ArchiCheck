@@ -1,3 +1,4 @@
+<!-- omit from toc -->
 # Changelog
 
 All notable changes to this project will be documented in this file.
@@ -5,7 +6,7 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.1.0/)
 and version numbering adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
-- [Unreleased]
+- [0.6.0] (actually means untagged)
   > - [Added] new rule `X, Y, Z are independent` created
   > - [Added] ArchiCheck is now an Alire crate
   > - [Changed] OpenToken src removed, and added as an Alire dependency
@@ -13,8 +14,9 @@ and version numbering adheres to [Semantic Versioning](http://semver.org/spec/v2
   > - [Changed] archicheck exec name shortened to `acc`!
   > - [Added] Rules can be passed on command line thanks to `-ar` / `--append_rule` 
   > - [Changed] switch to Ada 2022
+  > - [Added] `-o` option to testrec tool
+  > - [Added] First (limited) globbing character implementation
   
-    
 - [0.5.8] - 2024-04-06
   > - [Changed] The `-lf` / -`-list_files` output is now sorted by language and then by file name
   > - [Added] First C language "quick and dirty" implementation

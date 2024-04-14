@@ -64,7 +64,7 @@ http://lionel.draghi.free.fr/Archicheck/index.html
 ```  
 
 
-Command line test suite / Help options [Successful](tests_status.md#successful)
+Command line test suite / Help options [Successful](command_line.md#command-line-test-suite--help-options)
 
 ##  Command line test suite / Version option
 
@@ -76,7 +76,7 @@ Command line test suite / Help options [Successful](tests_status.md#successful)
 ```  
 
 
-Command line test suite / Version option [Successful](tests_status.md#successful)
+Command line test suite / Version option [Successful](command_line.md#command-line-test-suite--version-option)
 
 ##  Command line test suite / -I option without src dir
 
@@ -91,7 +91,7 @@ Error : Sources directory expected after -I
 ```  
 
 
-Command line test suite / -I option without src dir [Successful](tests_status.md#successful)
+Command line test suite / -I option without src dir [Successful](command_line.md#command-line-test-suite---i-option-without-src-dir)
 
 ##  Command line test suite / -I option with an unknown dir
 
@@ -106,7 +106,7 @@ Error : No qsdqjh directory
 ```  
 
 
-Command line test suite / -I option with an unknown dir [Successful](tests_status.md#successful)
+Command line test suite / -I option with an unknown dir [Successful](command_line.md#command-line-test-suite---i-option-with-an-unknown-dir)
 
 ##  Command line test suite / unknown -xyz option
 
@@ -121,7 +121,7 @@ Error : Unknown rules file or unknown option -xzy
 ```  
 
 
-Command line test suite / unknown -xyz option [Successful](tests_status.md#successful)
+Command line test suite / unknown -xyz option [Successful](command_line.md#command-line-test-suite--unknown--xyz-option)
 
 ##  Command line test suite / -I option with... nothing to do
 
@@ -183,7 +183,7 @@ http://lionel.draghi.free.fr/Archicheck/index.html
 ```  
 
 
-Command line test suite / -I option with... nothing to do [Successful](tests_status.md#successful)
+Command line test suite / -I option with... nothing to do [Successful](command_line.md#command-line-test-suite---i-option-with-nothing-to-do)
 
 ##  Command line test suite / -lr option without rules file
 
@@ -242,7 +242,7 @@ http://lionel.draghi.free.fr/Archicheck/index.html
 ```  
 
 
-Command line test suite / -lr option without rules file [Successful](tests_status.md#successful)
+Command line test suite / -lr option without rules file [Successful](command_line.md#command-line-test-suite---lr-option-without-rules-file)
 
 ##  Command line test suite / Legal line, but no src file in the given (existing) directory
 
@@ -259,7 +259,7 @@ Warning : Cannot list files, no sources found to analyze
 
   archicheck return 1 if -We or --Warnings=error  
 
-Command line test suite / Legal line, but no src file in the given (existing) directory [Successful](tests_status.md#successful)
+Command line test suite / Legal line, but no src file in the given (existing) directory [Successful](command_line.md#command-line-test-suite--legal-line-but-no-src-file-in-the-given-existing-directory)
 
 ##  Command line test suite / file given to -I, instead of a directory
 
@@ -275,7 +275,7 @@ Error : src.adb is not a directory
 ```  
 
 
-Command line test suite / file given to -I, instead of a directory [Successful](tests_status.md#successful)
+Command line test suite / file given to -I, instead of a directory [Successful](command_line.md#command-line-test-suite--file-given-to--i-instead-of-a-directory)
 
 ##  Command line test suite / -ld given, but no source found
 
@@ -294,7 +294,7 @@ Warning : Cannot list dependencies, no sources found
 ```  
 
 
-Command line test suite / -ld given, but no source found [Successful](tests_status.md#successful)
+Command line test suite / -ld given, but no source found [Successful](command_line.md#command-line-test-suite---ld-given-but-no-source-found)
 
 ##  Command line test suite / src found, but nothing to do whith it
 
@@ -355,7 +355,7 @@ http://lionel.draghi.free.fr/Archicheck/index.html
 ```  
 
 
-Command line test suite / src found, but nothing to do whith it [Successful](tests_status.md#successful)
+Command line test suite / src found, but nothing to do whith it [Successful](command_line.md#command-line-test-suite--src-found-but-nothing-to-do-whith-it)
 
 ##  Command line test suite / rules file found, but nothing to do whith it
 
@@ -414,7 +414,7 @@ http://lionel.draghi.free.fr/Archicheck/index.html
 ```  
 
 
-Command line test suite / rules file found, but nothing to do whith it [Successful](tests_status.md#successful)
+Command line test suite / rules file found, but nothing to do whith it [Successful](command_line.md#command-line-test-suite--rules-file-found-but-nothing-to-do-whith-it)
 
 ##  Command line test suite / template creation (-ct and --create_template)
 
@@ -453,7 +453,7 @@ Java.IO use is allowed                     -- Allowed use
 -- File generated with ArchiCheck 0.5.8
 ```  
 
-  When running:  
+  When running once more :  
   > acc --create_template  
   Expecting error:  
 ```  
@@ -461,7 +461,7 @@ Error : File template.ac already exists
 ```  
 
 
-Command line test suite / template creation (-ct and --create_template) [Successful](tests_status.md#successful)
+Command line test suite / template creation (-ct and --create_template) [Successful](command_line.md#command-line-test-suite--template-creation--ct-and---createtemplate)
 
 ##  Command line test suite / -ar without rule 
 
@@ -477,4 +477,4 @@ Error : Rule expected after --append_rule
 ```  
 
 
-Command line test suite / -ar without rule [Successful](tests_status.md#successful)
+Command line test suite / -ar without rule [Successful](command_line.md#command-line-test-suite---ar-without-rule)

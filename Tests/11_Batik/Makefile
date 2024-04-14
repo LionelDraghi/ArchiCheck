@@ -1,7 +1,8 @@
 all: check doc
 
 CREATE_PKG=../../Tools/create_pkg
-TR=../../Tools/testrec
+MD=batik.md
+TR=../../Tools/testrec -o ${MD} 
 
 .PHONY : clean header
 
@@ -24,9 +25,9 @@ test1:
 	@ ${TR} cmt "Expected (`cat expected_output.1 | wc -l` files) :"
 	@ ${TR} cmt 
 	@ ${TR} cmt '```'
-	@ head -n 3 expected_output.1 >> testrec.md
-	@ echo '...'					>> testrec.md
-	@ tail -n 3 expected_output.1 >> testrec.md
+	@ head -n 3 expected_output.1 >> ${MD}
+	@ echo '...'					>> ${MD}
+	@ tail -n 3 expected_output.1 >> ${MD}
 	@ ${TR} cmt '```'
 	@ ${TR} cmt 
 
@@ -45,7 +46,7 @@ test2:
 
 	@ ${TR} cmt 
 	@ ${TR} cmt '```'
-	@ sed -n '/package /,/public class/p' dir2/JSVG.java >> testrec.md
+	@ sed -n '/package /,/public class/p' dir2/JSVG.java >> ${MD}
 	@ ${TR} cmt '```'
 	@ ${TR} cmt 
 
@@ -55,7 +56,7 @@ test2:
 	@ ${TR} cmt "Expected :"
 	@ ${TR} cmt 
 	@ ${TR} cmt '```'
-	@ cat expected_output.2 >> testrec.md
+	@ cat expected_output.2 >> ${MD}
 	@ ${TR} cmt '```'
 	@ ${TR} cmt 
 
@@ -73,7 +74,7 @@ test3:
 
 	@ ${TR} cmt 
 	@ ${TR} cmt '```'
-	@ sed -n '/package /,/public interface/p' dir3/NodeEventTarget.java >> testrec.md
+	@ sed -n '/package /,/public interface/p' dir3/NodeEventTarget.java >> ${MD}
 	@ ${TR} cmt '```'
 	@ ${TR} cmt 
 
@@ -83,7 +84,7 @@ test3:
 	@ ${TR} cmt "Expected :"
 	@ ${TR} cmt 
 	@ ${TR} cmt '```'
-	@ cat expected_output.3 >> testrec.md
+	@ cat expected_output.3 >> ${MD}
 	@ ${TR} cmt '```'
 	@ ${TR} cmt 
 
@@ -101,7 +102,7 @@ test4:
 
 	@ ${TR} cmt 
 	@ ${TR} cmt '```'
-	@ sed -n '/package /,/public class/p' dir4/TriplyIndexedTable.java >> testrec.md
+	@ sed -n '/package /,/public class/p' dir4/TriplyIndexedTable.java >> ${MD}
 	@ ${TR} cmt '```'
 	@ ${TR} cmt 
 
@@ -110,7 +111,7 @@ test4:
 	@ ${TR} cmt "Expected :"
 	@ ${TR} cmt 
 	@ ${TR} cmt '```'
-	@ cat expected_output.4 >> testrec.md
+	@ cat expected_output.4 >> ${MD}
 	@ ${TR} cmt '```'
 	@ ${TR} cmt 
 
@@ -134,7 +135,7 @@ test5:
 
 	@ ${TR} cmt 
 	@ ${TR} cmt '```'
-	@ sed -n '1,/public interface/p' dir5/MyClass.java >> testrec.md
+	@ sed -n '1,/public interface/p' dir5/MyClass.java >> ${MD}
 	@ ${TR} cmt '```'
 	@ ${TR} cmt 
 
@@ -143,7 +144,7 @@ test5:
 	@ ${TR} cmt "Expected :"
 	@ ${TR} cmt 
 	@ ${TR} cmt '```'
-	@ cat expected_output.5 >> testrec.md
+	@ cat expected_output.5 >> ${MD}
 	@ ${TR} cmt '```'
 	@ ${TR} cmt 
 
@@ -163,7 +164,7 @@ test6:
 	@ ${TR} cmt "This class is in transcoder, and uses Bridge and GVT, and that's OK"
 	@ ${TR} cmt 
 	@ ${TR} cmt '```'
-	@ sed -n '/package /,/public abstract class/p' dir6/SVGAbstractTranscoder.java >> testrec.md
+	@ sed -n '/package /,/public abstract class/p' dir6/SVGAbstractTranscoder.java >> ${MD}
 	@ ${TR} cmt '```'
 	@ ${TR} cmt 
 
@@ -193,13 +194,13 @@ test7:
 
 	@ ${TR} cmt 
 	@ ${TR} cmt '```'
-	@ cat dir7/MyClass.java >> testrec.md
+	@ cat dir7/MyClass.java >> ${MD}
 	@ ${TR} cmt '```'
 	@ ${TR} cmt 
 
 	@ ${TR} cmt 'Rules:'
 	@ ${TR} cmt '```'
-	@ cat rules.7 >> testrec.md
+	@ cat rules.7 >> ${MD}
 	@ ${TR} cmt '```'
 	@ ${TR} cmt 
 
@@ -208,7 +209,7 @@ test7:
 	@ ${TR} cmt 
 	@ ${TR} cmt 'Expected:'
 	@ ${TR} cmt '```'
-	@ cat expected_output.7 >> testrec.md
+	@ cat expected_output.7 >> ${MD}
 	@ ${TR} cmt '```'
 	@ ${TR} cmt 
 
@@ -226,9 +227,9 @@ test8:
 	@ ${TR} cmt "`cat expected_output.8 | wc -l` dependencies expected :"
 	@ ${TR} cmt 
 	@ ${TR} cmt '```'
-	@ head -n 10 expected_output.8 >> testrec.md
-	@ echo '...'				  	 >> testrec.md
-	@ tail -n 10 expected_output.8 >> testrec.md
+	@ head -n 10 expected_output.8 	>> ${MD}
+	@ echo '...'				  	>> ${MD}
+	@ tail -n 10 expected_output.8 	>> ${MD}
 	@ ${TR} cmt '```'
 	@ ${TR} cmt 
 
@@ -242,4 +243,4 @@ clean:
 	@ - ${TR} clean
 
 doc:
-	@ cp testrec.md ../../docs/tests/batik.md
+	@ cp ${MD} ../../docs/tests/${MD}

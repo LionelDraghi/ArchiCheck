@@ -20,7 +20,7 @@ adactl-1.19r10/src/utilities.ads
 ```  
 
 
-AdaControl code test suite / -lf test [Successful](tests_status.md#successful)
+AdaControl code test suite / -lf test [Successful](adactl.md#adacontrol-code-test-suite---lf-test)
 
 ##  AdaControl code test suite / -ld test
 
@@ -53,7 +53,7 @@ Utilities package spec depends on Asis
 ```  
 
 
-AdaControl code test suite / -ld test [Successful](tests_status.md#successful)
+AdaControl code test suite / -ld test [Successful](adactl.md#adacontrol-code-test-suite---ld-test)
 
 ##  AdaControl code test suite / rules test
 
@@ -82,4 +82,4 @@ Adactl_Options may use Framework.Variables.Shared_Types
   No error expected  
 
 
-AdaControl code test suite / rules test [Successful](tests_status.md#successful)
+AdaControl code test suite / rules test [Successful](adactl.md#adacontrol-code-test-suite--rules-test)

@@ -1,7 +1,8 @@
 all: check doc
 
 CREATE_PKG=../../Tools/create_pkg
-TR=../../Tools/testrec
+MD=petclinic.md
+TR=../../Tools/testrec -o ${MD} 
 
 .PHONY : clean
 
@@ -29,9 +30,9 @@ test1:
 	@ ${TR} cmt "Expected (`cat expected_output.1 | wc -l` files) :"
 	@ ${TR} cmt 
 	@ ${TR} cmt '```'
-	@ head -n 3 expected_output.1 >> testrec.md
-	@ echo '...'					>> testrec.md
-	@ tail -n 3 expected_output.1 >> testrec.md
+	@ head -n 3 expected_output.1 	>> ${MD}
+	@ echo '...'					>> ${MD}
+	@ tail -n 3 expected_output.1	>> ${MD}
 	@ ${TR} cmt '```'
 	@ ${TR} cmt 
 
@@ -49,9 +50,9 @@ test2:
 	@ ${TR} cmt "`cat expected_output.2 | wc -l` dependencies expected :"
 	@ ${TR} cmt 
 	@ ${TR} cmt '```'
-	@ head -n 10 expected_output.2 >> testrec.md
-	@ echo '...'				  	 >> testrec.md
-	@ tail -n 10 expected_output.2 >> testrec.md
+	@ head -n 10 expected_output.2 >> ${MD}
+	@ echo '...'				  	 >> ${MD}
+	@ tail -n 10 expected_output.2 >> ${MD}
 	@ ${TR} cmt '```'
 	@ ${TR} cmt 
 
@@ -67,7 +68,7 @@ test3:
 	@ ${TR} cmt "> acc petclinic.ac -r -I ./src1"
 	@ ${TR} cmt 
 	@ ${TR} cmt '```'
-	@ cat petclinic.ac >> testrec.md
+	@ cat petclinic.ac >> ${MD}
 	@ ${TR} cmt '```'
 	@ ${TR} cmt 
 	@ ${TR} cmt "No error expected"
@@ -88,7 +89,7 @@ test4:
 	@ ${TR} cmt "Rules :"
 	@ ${TR} cmt 
 	@ ${TR} cmt '```'
-	@ cat petclinic.ac >> testrec.md
+	@ cat petclinic.ac >> ${MD}
 	@ ${TR} cmt '```'
 	@ ${TR} cmt 
 	@ ${TR} cmt "No error expected"
@@ -106,7 +107,7 @@ test5:
 	@ ${TR} cmt "> acc alternative.ac -r -I ./src1"
 	@ ${TR} cmt 
 	@ ${TR} cmt '```'
-	@ cat alternative.ac >> testrec.md
+	@ cat alternative.ac >> ${MD}
 	@ ${TR} cmt '```'
 	@ ${TR} cmt 
 	@ ${TR} cmt "No error expected"
@@ -128,7 +129,7 @@ test6:
 	@ ${TR} cmt "> acc framework-petclinic.ac -r -I ./src2"
 	@ ${TR} cmt 
 	@ ${TR} cmt '```'
-	@ cat framework-petclinic.ac >> testrec.md
+	@ cat framework-petclinic.ac >> ${MD}
 	@ ${TR} cmt '```'
 	@ ${TR} cmt 
 	@ ${TR} cmt "No error expected"
@@ -145,5 +146,5 @@ clean:
 	@ - ${TR} clean
 
 doc:
-	@ cp testrec.md ../../docs/tests/petclinic.md
+	@ cp ${MD} ../../docs/tests/${MD}
 

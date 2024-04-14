@@ -1,7 +1,8 @@
 all: check doc
 
 CREATE_PKG=../../Tools/create_pkg
-TR=../../Tools/testrec
+MD=precedences_rules.md
+TR=../../Tools/testrec -o ${MD} 
 
 ## .PHONY : clean
 
@@ -22,7 +23,7 @@ test1:
 	@ ${TR} cmt "Here is the rules file :"
 	@ ${TR} cmt 
 	@ ${TR} cmt '```'
-	@ cat rules1.txt >> testrec.md
+	@ cat rules1.txt >> ${MD}
 	@ ${TR} cmt '```'
 	@ ${TR} cmt 
 	@ ${TR} cmt 'But there is already a package named LC.'
@@ -32,7 +33,7 @@ test1:
 	@ ${TR} cmt 
 	@ ${TR} cmt "Expected :"
 	@ ${TR} cmt '```'
-	@ cat expected_output.1 >> testrec.md
+	@ cat expected_output.1 >> ${MD}
 	@ ${TR} cmt '```'
 	
 	@ test ! `../../obj/acc rules1.txt -I src > output.1`
@@ -47,7 +48,7 @@ test2:
 	@ ${TR} cmt "Let's forbid Interfaces and allow Interfaces.C"
 	@ ${TR} cmt 
 	@ ${TR} cmt '```'
-	@ cat rules2.txt >> testrec.md
+	@ cat rules2.txt >> ${MD}
 	@ ${TR} cmt '```'
 	@ ${TR} cmt 
 	@ ${TR} cmt 'Running :  '
@@ -55,7 +56,7 @@ test2:
 	@ ${TR} cmt 
 	@ ${TR} cmt "Expected :"
 	@ ${TR} cmt '```'
-	@ cat expected_output.2 >> testrec.md
+	@ cat expected_output.2 >> ${MD}
 	@ ${TR} cmt '```'
 	
 	@ test ! `../../obj/acc rules2.txt -I src > output.2`
@@ -69,5 +70,5 @@ clean:
 	@ - ${TR} clean
 
 doc:
-	@ cp testrec.md ../../docs/tests/precedences_rules.md
+	@ cp ${MD} ../../docs/tests/${MD}
 

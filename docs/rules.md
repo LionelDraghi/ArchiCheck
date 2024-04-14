@@ -1,3 +1,4 @@
+<!-- omit from toc -->
 Rules File
 ==========
 
@@ -5,20 +6,19 @@ Archicheck rules file uses a simple syntax to describe structural aspects of a s
 
 This file may contains :  
 
-- [Rules File](#rules-file)
-  - [Layer](#layer)
-  - [Use declaration](#use-declaration)
-  - [Components declaration](#components-declaration)
-  - [An example with layers and components](#an-example-with-layers-and-components)
-  - [Environnement packages](#environnement-packages)
-  - [Forbidden use](#forbidden-use)
-  - [Restricted use](#restricted-use)
-  - [Syntactic sugar](#syntactic-sugar)
-  - [Comments](#comments)
-  - [Reserved words](#reserved-words)
-  - [More complex and open issues](#more-complex-and-open-issues)
-    - [Adding virtual units to an existing one](#adding-virtual-units-to-an-existing-one)
-    - [Rules precedence](#rules-precedence)
+- [Layer](#layer)
+- [Use declaration](#use-declaration)
+- [Components declaration](#components-declaration)
+- [An example with layers and components](#an-example-with-layers-and-components)
+- [Environnement packages](#environnement-packages)
+- [Forbidden use](#forbidden-use)
+- [Restricted use](#restricted-use)
+- [Syntactic sugar](#syntactic-sugar)
+- [Comments](#comments)
+- [Reserved words](#reserved-words)
+- [More complex and open issues](#more-complex-and-open-issues)
+  - [Adding virtual units to an existing one](#adding-virtual-units-to-an-existing-one)
+  - [Rules precedence](#rules-precedence)
 
 Here is a first example :
 ```

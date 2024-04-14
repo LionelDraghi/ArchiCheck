@@ -30,12 +30,12 @@ check: ../obj/acc ../Tools/create_pkg ../Tools/testrec
 	@ $(MAKE) check --directory=20_C_Sanity_Tests
 	@ $(MAKE) check --directory=21_Independent_Components
 
+
 doc:
-	@ cat `find . -name testrec.md` > tmp.txt
+	@ cat `find . -name "*.md"` > tmp.txt
 	@ - grep '\[Successful\]'  tmp.txt > Successful.lst
 	@ - grep '\[Failed\]'      tmp.txt > Failed.lst
 	@ - grep '\[Empty\]'       tmp.txt > Empty.lst
-	@ rm tmp.txt
 
 	@ > tests_count.txt
 	@ echo "Successful " `cat Successful.lst | wc -l`	>> tests_count.txt
@@ -112,6 +112,6 @@ clean:
 	@ $(MAKE) clean --directory=20_C_Sanity_Tests
 	@ $(MAKE) clean --directory=21_Independent_Components
 	
-	@ - ${RM} tests_status.md *.lst short_tests_status.md tests_count.txt
+	@ - ${RM} tests_status.md *.lst short_tests_status.md tests_count.txt tmp.txt
 
 

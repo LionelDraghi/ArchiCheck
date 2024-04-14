@@ -2,7 +2,8 @@ all: check doc
 
 .PHONY : clean
 
-TR=../../Tools/testrec
+MD=component_list.md
+TR=../../Tools/testrec -o ${MD} 
 
 check: ../../obj/acc header test1 test2 test3 
 
@@ -22,13 +23,13 @@ test1:
 	@ ${TR} cmt "with file rules.1 :"
 	@ ${TR} cmt 
 	@ ${TR} cmt '```'
-	@ cat rules.1 >> testrec.md
+	@ cat rules.1 >> ${MD}
 	@ ${TR} cmt '```'
 	@ ${TR} cmt 
 	@ ${TR} cmt "should output :"
 	@ ${TR} cmt 
 	@ ${TR} cmt '```'
-	@ cat expected_component_list.1 >> testrec.md
+	@ cat expected_component_list.1 >> ${MD}
 	@ ${TR} cmt '```'
 	@ ${TR} cmt 
 
@@ -47,13 +48,13 @@ test2:
 	@ ${TR} cmt "with file rules.2 :"
 	@ ${TR} cmt 
 	@ ${TR} cmt '```'
-	@ cat rules.2 >> testrec.md
+	@ cat rules.2 >> ${MD}
 	@ ${TR} cmt '```'
 	@ ${TR} cmt 
 	@ ${TR} cmt "should output :"
 	@ ${TR} cmt 
 	@ ${TR} cmt '```'
-	@ cat expected_component_list.2 >> testrec.md
+	@ cat expected_component_list.2 >> ${MD}
 	@ ${TR} cmt '```'
 	@ ${TR} cmt 
 
@@ -72,13 +73,13 @@ test3:
 	@ ${TR} cmt "with file rules.3 :"
 	@ ${TR} cmt 
 	@ ${TR} cmt '```'
-	@ cat rules.3 >> testrec.md
+	@ cat rules.3 >> ${MD}
 	@ ${TR} cmt '```'
 	@ ${TR} cmt 
 	@ ${TR} cmt "should output :"
 	@ ${TR} cmt 
 	@ ${TR} cmt '```'
-	@ cat expected_component_list.3 >> testrec.md
+	@ cat expected_component_list.3 >> ${MD}
 	@ ${TR} cmt '```'
 	@ ${TR} cmt 
 
@@ -92,4 +93,4 @@ clean:
 	@ ${TR} clean
 
 doc:
-	@ cp testrec.md ../../docs/tests/component_list.md
+	@ cp ${MD} ../../docs/tests/${MD}

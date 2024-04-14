@@ -1,3 +1,4 @@
+<!-- omit from toc -->
 Building 
 ========
 
@@ -9,34 +10,35 @@ A Linux exe is available [here](download.md).
 Downloading sources :
 ---------------------
 
-  With `git`: `git clone https://github.com/LionelDraghi/ArchiCheck.git`
+With `git`: `git clone https://github.com/LionelDraghi/ArchiCheck.git`
 
-  An Archicheck directory will be created.
+An Archicheck directory will be created.
 
-  Otherwise, [go there to download a zip archive](https://github.com/LionelDraghi/ArchiCheck/archive/master.zip). 
+Otherwise, [go there to download a zip archive](https://github.com/LionelDraghi/ArchiCheck/archive/master.zip). 
 
 Building :
 ----------
 
-  To build ArchiCheck, just run `make build` in the root directory.
+To build ArchiCheck, just run `make build` in the root directory.
 
-  Needed external software : gnat gcc Ada compiler. 
+Needed external software : gnat gcc Ada compiler. 
   
-  > On Debian Linux family : `apt install gnat make`  
+> On Debian Linux family : `apt install gnat make`  
 
-  **NB : libopentoken6.1-dev is no more needed. To ease building on non Debian platform, I integrated OpenToken sources.**
+ > [!NOTE] : libopentoken6.1-dev is no more needed. 
+ > To ease building on non Debian platform, I integrated OpenToken sources.
 
-  archicheck exe will be in the `Obj` directory.
+archicheck exe will be in the `Obj` directory.
 
-  To run ArchiCheck tests : `make check`
-  > Warning : tested on a Linux platform only
+To run ArchiCheck tests : `make check`
+> Warning : tested on a Linux platform only
   
 Portability :
 -------------
 
-  Note that the Ada code should be pretty platform independant, but it is currently only tested on a Linux/Intel platform.
+Note that the Ada code should be pretty platform independent, but it is currently only tested on a Linux/Intel platform.
   
-  Makefiles are clearly not portable, and obviously need heavy refactoring to run on non Unix systems. 
+Makefiles are clearly not portable, and obviously need heavy refactoring to run on non Unix systems. 
 
 
 

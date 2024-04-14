@@ -1,7 +1,8 @@
 all: check doc
 
 CREATE_PKG=../../Tools/create_pkg
-TR=../../Tools/testrec
+MD=use_rule.md
+TR=../../Tools/testrec -o ${MD} 
 
 .PHONY : clean
 
@@ -25,7 +26,7 @@ test1:
 	@ ${TR} cmt "Code compliant with the rules, should be OK"
 	@ ${TR} cmt 
 	@ ${TR} cmt '```'
-	@ cat rules.1 >> testrec.md
+	@ cat rules.1 >> ${MD}
 	@ ${TR} cmt 
 	@ ${TR} cmt '```'
 	@ ${TR} cmt 
@@ -53,7 +54,7 @@ test2:
 	@ ${TR} cmt 'Expecting :'
 	@ ${TR} cmt 
 	@ ${TR} cmt '```'
-	@ cat expected_output.2 >> testrec.md
+	@ cat expected_output.2 >> ${MD}
 	@ ${TR} cmt '```'
 	@ ${TR} cmt 
 	
@@ -73,13 +74,13 @@ test3:
 
 	@ ${TR} cmt 
 	@ ${TR} cmt '```'
-	@ cat rules.3 		>> testrec.md
+	@ cat rules.3 		>> ${MD}
 	@ ${TR} cmt '```'
 	@ ${TR} cmt 
 	@ ${TR} cmt 'Expecting :'
 	@ ${TR} cmt 
 	@ ${TR} cmt '```'
-	@ cat expected_output.3	>> testrec.md
+	@ cat expected_output.3	>> ${MD}
 	@ ${TR} cmt '```'
 	@ ${TR} cmt 
 
@@ -104,13 +105,13 @@ test4:
 	@ ${TR} cmt 'Rules :'
 	@ ${TR} cmt 
 	@ ${TR} cmt '```'
-	@ cat rules.4 	      	>> testrec.md
+	@ cat rules.4 	      	>> ${MD}
 	@ ${TR} cmt '```'
 	@ ${TR} cmt 'Expecting :'
 	@ ${TR} cmt 
 	@ ${TR} cmt 
 	@ ${TR} cmt '```'
-	@ cat expected_output.4a	>> testrec.md
+	@ cat expected_output.4a	>> ${MD}
 	@ ${TR} cmt '```'
 	@ ${TR} cmt 
 	
@@ -124,7 +125,7 @@ test4:
 	@ ${TR} cmt 'Rules :'
 	@ ${TR} cmt 
 	@ ${TR} cmt '```'
-	@ cat rules.4 	      	>> testrec.md
+	@ cat rules.4 	      	>> ${MD}
 	@ ${TR} cmt '```'
 	@ ${TR} cmt 
 	@ ${TR} cmt 'No error expected.'
@@ -149,7 +150,7 @@ test5:
 	@ ${TR} cmt "rules5.txt contains :"
 	@ ${TR} cmt 
 	@ ${TR} cmt '```'
-	@ cat rules.5 >> testrec.md
+	@ cat rules.5 >> ${MD}
 	@ ${TR} cmt 
 	@ ${TR} cmt '```'
 	@ ${TR} cmt 
@@ -160,7 +161,7 @@ test5:
 	@ ${TR} cmt "Expected :"
 	@ ${TR} cmt 
 	@ ${TR} cmt '```'
-	@ cat expected_output.5	>> testrec.md
+	@ cat expected_output.5	>> ${MD}
 	@ ${TR} cmt '```'
 	@ ${TR} cmt 
 	
@@ -175,14 +176,14 @@ test5:
 	@ ${TR} cmt "Same test with :"
 	@ ${TR} cmt 
 	@ ${TR} cmt '```'
-	@ cat rules.5b >> testrec.md
+	@ cat rules.5b >> ${MD}
 	@ ${TR} cmt 
 	@ ${TR} cmt '```'
 	@ ${TR} cmt 
 	@ ${TR} cmt "Same output expected :"
 	@ ${TR} cmt 
 	@ ${TR} cmt '```'
-	@ cat expected_output.5	>> testrec.md
+	@ cat expected_output.5	>> ${MD}
 	@ ${TR} cmt '```'
 	@ ${TR} cmt 
 	
@@ -205,7 +206,7 @@ test6:
 	@ ${TR} cmt "rules6.txt contains :"
 	@ ${TR} cmt 
 	@ ${TR} cmt '```'
-	@ cat rules.6 >> testrec.md
+	@ cat rules.6 >> ${MD}
 	@ ${TR} cmt '```'
 	@ ${TR} cmt 
 	@ ${TR} cmt "When running :"
@@ -222,7 +223,7 @@ test6:
 	@ ${TR} cmt "rules6b.txt contains :"
 	@ ${TR} cmt 
 	@ ${TR} cmt '```'
-	@ cat rules.6b >> testrec.md
+	@ cat rules.6b >> ${MD}
 	@ ${TR} cmt 
 	@ ${TR} cmt '```'
 	@ ${TR} cmt 
@@ -250,7 +251,7 @@ test7:
 	@ ${TR} cmt "rules7.txt contains :"
 	@ ${TR} cmt 
 	@ ${TR} cmt '```'
-	@ cat rules.7 >> testrec.md
+	@ cat rules.7 >> ${MD}
 	@ ${TR} cmt 
 	@ ${TR} cmt '```'
 	@ ${TR} cmt 
@@ -261,7 +262,7 @@ test7:
 	@ ${TR} cmt "Expected"
 	@ ${TR} cmt 
 	@ ${TR} cmt '```'
-	@ cat expected_output.7	>> testrec.md
+	@ cat expected_output.7	>> ${MD}
 	@ ${TR} cmt '```'
 	@ ${TR} cmt 
 	
@@ -282,7 +283,7 @@ test8:
 	@ ${TR} cmt "rules8.txt contains :"
 	@ ${TR} cmt 
 	@ ${TR} cmt '```'
-	@ cat rules.8 >> testrec.md
+	@ cat rules.8 >> ${MD}
 	@ ${TR} cmt 
 	@ ${TR} cmt '```'
 	@ ${TR} cmt 
@@ -293,7 +294,7 @@ test8:
 	@ ${TR} cmt "Expected"
 	@ ${TR} cmt 
 	@ ${TR} cmt '```'
-	@ cat expected_output.8	>> testrec.md
+	@ cat expected_output.8	>> ${MD}
 	@ ${TR} cmt '```'
 	@ ${TR} cmt 
 	
@@ -319,7 +320,7 @@ test9:
 	@ ${TR} cmt "rules.9 contains :"
 	@ ${TR} cmt 
 	@ ${TR} cmt '```'
-	@ cat rules.9 >> testrec.md
+	@ cat rules.9 >> ${MD}
 	@ ${TR} cmt 
 	@ ${TR} cmt '```'
 	@ ${TR} cmt 
@@ -330,7 +331,7 @@ test9:
 	@ ${TR} cmt "Expected"
 	@ ${TR} cmt 
 	@ ${TR} cmt '```'
-	@ cat expected_output.9a	>> testrec.md
+	@ cat expected_output.9a	>> ${MD}
 	@ ${TR} cmt '```'
 	@ ${TR} cmt 
 	@ ${TR} cmt '> acc -lr -I dir9 -ar "P2 may use Bus" --append_rule "P3 and P4 are independent" rules.9'
@@ -338,7 +339,7 @@ test9:
 	@ ${TR} cmt "Expected"
 	@ ${TR} cmt 
 	@ ${TR} cmt '```'
-	@ cat expected_output.9c	>> testrec.md
+	@ cat expected_output.9c	>> ${MD}
 	@ ${TR} cmt '```'
 	@ ${TR} cmt 
 	
@@ -355,4 +356,4 @@ clean:
 	@ ${TR} clean
 
 doc:
-	@ cp testrec.md ../../docs/tests/use_rule.md
+	@ cp ${MD} ../../docs/tests/${MD}

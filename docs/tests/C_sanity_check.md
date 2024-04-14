@@ -36,7 +36,7 @@ src/square_root.c
 ```  
 
 
-C sanity test suite / .c and .h files list [Successful](tests_status.md#successful)
+C sanity test suite / .c and .h files list [Successful](C_sanity_check.md#c-sanity-test-suite--c-and-h-files-list)
 
 ##  C sanity test suite / dependencies list
 
@@ -67,4 +67,4 @@ square_root implementation depends on newton_method
 ```  
 
 
-C sanity test suite / dependencies list [Successful](tests_status.md#successful)
+C sanity test suite / dependencies list [Successful](C_sanity_check.md#c-sanity-test-suite--dependencies-list)

@@ -27,7 +27,7 @@ dir3/c-d.ads
 ```  
 
 
-File identification test suite / Non recursive file identification test [Successful](tests_status.md#successful)
+File identification test suite / Non recursive file identification test [Successful](source_list.md#file-identification-test-suite--non-recursive-file-identification-test)
 
 ##  File identification test suite / Mixt recursive and non-recursive file identification test
 
@@ -50,4 +50,4 @@ dirb/dirb1/c.ads
 ```  
 
 
-File identification test suite / Mixt recursive and non-recursive file identification test [Successful](tests_status.md#successful)
+File identification test suite / Mixt recursive and non-recursive file identification test [Successful](source_list.md#file-identification-test-suite--mixt-recursive-and-non-recursive-file-identification-test)
