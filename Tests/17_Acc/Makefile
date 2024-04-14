@@ -1,7 +1,7 @@
 all: check doc
 
 CREATE_PKG=../../Tools/create_pkg
-MD=archicheck.md
+MD=acc.md
 TR=../../Tools/testrec -o ${MD} 
 
 .PHONY : clean
@@ -12,7 +12,7 @@ check: ../../obj/acc header test1 test2 test3 test4
 header:
 	@ #---------------------------------------------------------------------
 	@ ${TR} clean
-	@ ${TR} create "ArchiCheck code test suite"
+	@ ${TR} create "Acc code test suite"
 	@ - mkdir -p ./src
 	@ cp -rp ../../src/*.ad? src
 	
@@ -75,7 +75,7 @@ test3:
 	@ cat archicheck.ac >> ${MD}
 	@ ${TR} cmt '```'
 	@ ${TR} cmt 
-	@ ${TR} cmt "![ArchiCheck dependencies view](ac_view.png)"
+	@ ${TR} cmt "![Acc dependencies view](ac_view.png)"
 	@ ${TR} cmt 
 	@ ${TR} cmt "No error expected"
 	@ ${TR} cmt 
@@ -98,7 +98,7 @@ test4:
 	@ cat archicheck.ac >> ${MD}
 	@ ${TR} cmt '```'
 	@ ${TR} cmt 
-	@ ${TR} cmt "![ArchiCheck dependencies view](ac_view.png)"
+	@ ${TR} cmt "![Acc dependencies view](ac_view.png)"
 	@ ${TR} cmt 
 	@ ${TR} cmt "No error expected"
 	@ ${TR} cmt 
@@ -113,7 +113,7 @@ clean:
 	@ - ${TR} clean
 
 doc:
-	@ deplo config=archicheck.deplo | dot -Tpng -oac_view.png
+	@ deplo config=acc.deplo | dot -Tpng -oac_view.png
 	@ cp ${MD} ../../docs/tests/${MD}
 	@ cp ac_view.png ../../docs/tests/
 

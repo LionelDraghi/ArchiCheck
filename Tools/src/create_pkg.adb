@@ -21,7 +21,7 @@ procedure Create_Pkg is
    -- -------------------------------------------------------------------------
    procedure Put_Usage is
    begin
-      Put_Line ("Create_Pkg " & Version & " usage :" );  
+      Put_Line ("Create_Pkg " & Version & " usage :");
       New_Line;
       Put_Line ("Create_Pkg pkg_name spec|body [-in Output_Dir] [-with withed_pkg]");
       New_Line;

@@ -46,7 +46,7 @@ Rules file syntax test suite / Reference file [Successful](rules_files_syntax.md
 
 
 ```  
--- Definitions from Grammar declaration in the Archicheck.Rules.Parser body
+-- Definitions from Grammar declaration in the Acc.Rules.Parser body
 
 -- 1. Component_Declaration, with a single Unit and a Unit_List
 App coNTains Main

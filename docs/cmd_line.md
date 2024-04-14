@@ -1,7 +1,7 @@
-Archicheck command line
+Acc command line
 =======================
 
-Archicheck command line
+Acc command line
 -----------------------
 
 ```
@@ -55,7 +55,7 @@ http://lionel.draghi.free.fr/Archicheck/index.html
 
 ```
 
-Archicheck current version
+Acc current version
 --------------------------
 
 ```

@@ -13,8 +13,6 @@ src/acc-rules-dump_unrelated_compilation_units.adb:17|   -- Fixme: Uggly solutio
 src/acc-rules-parser.adb:527|         -- Fixme: put_line to be moved in rules, or in units
 src/acc-rules.adb:115|      -- Fixme: ajouter une référence à la règle en param out
 src/acc-settings.ads:59|   -- Fixme: Not sure that case independence would be useful here
-src/acc.ads:22|-- Fixme: obsolete description!
-src/backup/archicheck-dependencies.ads:49|--        -- Fixme:
 Tests/09_GtkAda/Makefile:106|	@ # Fixme: -q is set to avoid warnings and focus on error till code is fixed
 Tests/10_Use_Rule/Makefile:192|	@ ## Fixme: @ test ! `../../obj/acc -I dir5 rules.5b > output.5b`
 Tests/15_Precedences_Rules/precedences_rules.md:40|-- Fixme: and what if declared the other way round?

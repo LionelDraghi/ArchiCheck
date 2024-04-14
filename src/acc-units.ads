@@ -51,7 +51,7 @@ private package Acc.Units is
    -- 1. compilation units, common to more languages, like Packages, or
    --    specific to a language, like Protected records for Ada;
    -- 2. virtual units, hereafter "Components", that is units declared in rules
-   --    files, thanks to the "contains" declaration.
+   --    files, thanks to the "contains" declaration for example.
    type Unit_Kind is (Package_K,
                       Procedure_K,
                       Function_K,
@@ -61,12 +61,12 @@ private package Acc.Units is
                       Interface_K,
                       Implementation,
                       Component,
-                      Unknown); --  with Default_Value => Unknown;
-   subtype Ada_Unit_Kind       is Unit_Kind range Package_K .. Interface_K;
+                      Unknown);
+   subtype Ada_Unit_Kind       is Unit_Kind range Package_K   .. Interface_K;
    subtype Ada_Subroutine_Kind is Unit_Kind range Procedure_K .. Function_K;
-   subtype Java_Unit_Kind      is Unit_Kind range Class_K .. Interface_K;
+   subtype Java_Unit_Kind      is Unit_Kind range Class_K     .. Interface_K;
    subtype C_Unit_Kind         is Unit_Kind range Interface_K .. Implementation;
-   subtype Compilation_Unit    is Unit_Kind range Package_K .. Implementation; -- Interface_K;
+   subtype Compilation_Unit    is Unit_Kind range Package_K   .. Implementation;
 
    -- --------------------------------------------------------------------------
    function Image (Kind : Unit_Kind) return String is
@@ -133,7 +133,7 @@ private package Acc.Units is
    -- --------------------------------------------------------------------------
    function Unit_Description (U : in Unit_Attributes) return String;
    -- Return a string describing the unit, depending on the language.
-   -- It can be for exemple "package body" for Ada or "interface" for Java.
+   -- It can be for example "package body" for Ada or "interface" for Java.
 
    -- --------------------------------------------------------------------------
    procedure Dump;

@@ -1,9 +1,9 @@
 
-# ArchiCheck code test suite
+# Acc code test suite
 
 
 
-##  ArchiCheck code test suite / -lf test
+##  Acc code test suite / -lf test
 
   Executed:  
 
@@ -22,9 +22,9 @@ src/acc-units.ads
 ```  
 
 
-ArchiCheck code test suite / -lf test [Successful](archicheck.md#archicheck-code-test-suite---lf-test)
+Acc code test suite / -lf test [Successful](acc.md#acc-code-test-suite---lf-test)
 
-##  ArchiCheck code test suite / -ld test
+##  Acc code test suite / -ld test
 
   > acc -ld -I ./src | sort  
 
@@ -55,9 +55,9 @@ Acc.Units package spec depends on List_Image
 ```  
 
 
-ArchiCheck code test suite / -ld test [Successful](archicheck.md#archicheck-code-test-suite---ld-test)
+Acc code test suite / -ld test [Successful](acc.md#acc-code-test-suite---ld-test)
 
-##  ArchiCheck code test suite / rules test
+##  Acc code test suite / rules test
 
   > acc archicheck.ac -I ./src  
 
@@ -89,14 +89,14 @@ Acc_Config   use is allowed
 List_Image   use is allowed
 ```  
 
-  ![ArchiCheck dependencies view](ac_view.png)  
+  ![Acc dependencies view](ac_view.png)  
 
   No error expected  
 
 
-ArchiCheck code test suite / rules test [Successful](archicheck.md#archicheck-code-test-suite--rules-test)
+Acc code test suite / rules test [Successful](acc.md#acc-code-test-suite--rules-test)
 
-##  ArchiCheck code test suite / --list_non_covered
+##  Acc code test suite / --list_non_covered
 
   > acc archicheck.ac -lnc -I ./src  
 
@@ -128,9 +128,9 @@ Acc_Config   use is allowed
 List_Image   use is allowed
 ```  
 
-  ![ArchiCheck dependencies view](ac_view.png)  
+  ![Acc dependencies view](ac_view.png)  
 
   No error expected  
 
 
-ArchiCheck code test suite / --list_non_covered [Successful](archicheck.md#archicheck-code-test-suite----listnoncovered)
+Acc code test suite / --list_non_covered [Successful](acc.md#acc-code-test-suite----listnoncovered)

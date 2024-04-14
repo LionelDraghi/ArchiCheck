@@ -24,7 +24,7 @@ check: ../obj/acc ../Tools/create_pkg ../Tools/testrec
 	@ $(MAKE) check --directory=14_Rules_On_Components
 	@ $(MAKE) check --directory=15_Precedences_Rules
 	@ $(MAKE) check --directory=16_AdaControl
-	@ $(MAKE) check --directory=17_ArchiCheck
+	@ $(MAKE) check --directory=17_Acc
 	@ $(MAKE) check --directory=18_Spring_PetClinic
 	@ $(MAKE) check --directory=19_Rules_Src_Coverage
 	@ $(MAKE) check --directory=20_C_Sanity_Tests
@@ -83,7 +83,7 @@ doc:
 	@ $(MAKE) doc --directory=14_Rules_On_Components
 	@ $(MAKE) doc --directory=15_Precedences_Rules
 	@ $(MAKE) doc --directory=16_AdaControl
-	@ $(MAKE) doc --directory=17_ArchiCheck
+	@ $(MAKE) doc --directory=17_Acc
 	@ $(MAKE) doc --directory=18_Spring_PetClinic
 	@ $(MAKE) doc --directory=19_Rules_Src_Coverage
 	@ $(MAKE) doc --directory=20_C_Sanity_Tests
@@ -106,7 +106,7 @@ clean:
 	@ $(MAKE) clean --directory=14_Rules_On_Components
 	@ $(MAKE) clean --directory=15_Precedences_Rules
 	@ $(MAKE) clean --directory=16_AdaControl
-	@ $(MAKE) clean --directory=17_ArchiCheck
+	@ $(MAKE) clean --directory=17_Acc
 	@ $(MAKE) clean --directory=18_Spring_PetClinic
 	@ $(MAKE) clean --directory=19_Rules_Src_Coverage
 	@ $(MAKE) clean --directory=20_C_Sanity_Tests
