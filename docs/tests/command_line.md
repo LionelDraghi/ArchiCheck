@@ -18,7 +18,7 @@
 
 ```  
 
-ArchiCheck normal use :
+Acc normal use :
    acc rules_file -Ir directory [-Ir directory]*
 
 General form :
@@ -72,7 +72,7 @@ Command line test suite / Help options [Successful](command_line.md#command-line
   Test that the --version will put :  
 
 ```  
-6.0.0
+0.6.0
 ```  
 
 
@@ -137,7 +137,7 @@ Command line test suite / unknown -xyz option [Successful](command_line.md#comma
 ```  
 Error : Nothing to do with those sources
 
-ArchiCheck normal use :
+Acc normal use :
    acc rules_file -Ir directory [-Ir directory]*
 
 General form :
@@ -196,7 +196,7 @@ Command line test suite / -I option with... nothing to do [Successful](command_l
 ```  
 Error : No rules file given
 
-ArchiCheck normal use :
+Acc normal use :
    acc rules_file -Ir directory [-Ir directory]*
 
 General form :
@@ -309,7 +309,7 @@ Command line test suite / -ld given, but no source found [Successful](command_li
 ```  
 Error : Nothing to do with those sources
 
-ArchiCheck normal use :
+Acc normal use :
    acc rules_file -Ir directory [-Ir directory]*
 
 General form :
@@ -368,7 +368,7 @@ Command line test suite / src found, but nothing to do whith it [Successful](com
 ```  
 Error : Nothing to do with this rules file
 
-ArchiCheck normal use :
+Acc normal use :
    acc rules_file -Ir directory [-Ir directory]*
 
 General form :
@@ -426,10 +426,10 @@ Command line test suite / rules file found, but nothing to do whith it [Successf
 
 ```  
 -- ------------------------
--- Template ArchiCheck file
+-- Template Acc file
 -- ------------------------
 
--- ArchiCheck files contain :
+-- Acc files contain :
 -- 1. Comments, prefixed by '--', '\\' or '#'
 
 -- 2. Component definitions, like: 
@@ -450,7 +450,7 @@ Java.IO use is allowed                     -- Allowed use
 
 -- More extensive explanations : http://lionel.draghi.free.fr/Archicheck/rules/
 -- 
--- File generated with ArchiCheck 6.0.0
+-- File generated with Acc 0.6.0
 ```  
 
   When running once more :  

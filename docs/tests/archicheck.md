@@ -12,13 +12,13 @@
   Expected (34 files) :  
 
 ```  
-src/archicheck.ads
-src/archicheck-io.adb
-src/archicheck-io.ads
+src/acc.ads
+src/acc-io.adb
+src/acc-io.ads
 ...
-src/archicheck-sources.ads
-src/archicheck-units.adb
-src/archicheck-units.ads
+src/acc-sources.ads
+src/acc-units.adb
+src/acc-units.ads
 ```  
 
 
@@ -31,27 +31,27 @@ ArchiCheck code test suite / -lf test [Successful](archicheck.md#archicheck-code
   115 dependencies expected :  
 
 ```  
-Archicheck.IO package body depends on Ada.Text_IO
-Archicheck.IO package spec depends on Archicheck.Settings
-Archicheck.Lang.Ada_Processor package body depends on Ada.Exceptions
-Archicheck.Lang.Ada_Processor package body depends on Ada_Lexer
-Archicheck.Lang.Ada_Processor package body depends on Ada.Text_IO
-Archicheck.Lang.Ada_Processor package body depends on Archicheck.IO
-Archicheck.Lang.Ada_Processor package body depends on Archicheck.Settings
-Archicheck.Lang.Ada_Processor package body depends on Archicheck.Units
-Archicheck.Lang.Ada_Processor package body depends on OpenToken
-Archicheck.Lang.C_Processor package body depends on Ada.Exceptions
+Acc.IO package body depends on Ada.Text_IO
+Acc.IO package spec depends on Acc.Settings
+Acc.Lang.Ada_Processor package body depends on Acc.IO
+Acc.Lang.Ada_Processor package body depends on Acc.Settings
+Acc.Lang.Ada_Processor package body depends on Acc.Units
+Acc.Lang.Ada_Processor package body depends on Ada.Exceptions
+Acc.Lang.Ada_Processor package body depends on Ada_Lexer
+Acc.Lang.Ada_Processor package body depends on Ada.Text_IO
+Acc.Lang.Ada_Processor package body depends on OpenToken
+Acc.Lang.C_Processor package body depends on Acc.IO
 ...
-Archicheck.Units package body depends on Ada.Strings.Fixed
-Archicheck.Units package body depends on Ada.Strings.Hash_Case_Insensitive
-Archicheck.Units package body depends on Archicheck.IO
-Archicheck.Units package body depends on Archicheck.Settings
-Archicheck.Units package spec depends on Ada.Containers.Doubly_Linked_Lists
-Archicheck.Units package spec depends on Ada.Containers.Indefinite_Hashed_Maps
-Archicheck.Units package spec depends on Ada.Strings.Equal_Case_Insensitive
-Archicheck.Units package spec depends on Ada.Strings.Unbounded
-Archicheck.Units package spec depends on Archicheck.Sources
-Archicheck.Units package spec depends on List_Image
+Acc.Units package body depends on Acc.IO
+Acc.Units package body depends on Acc.Settings
+Acc.Units package body depends on Ada.Strings.Fixed
+Acc.Units package body depends on Ada.Strings.Hash_Case_Insensitive
+Acc.Units package spec depends on Acc.Sources
+Acc.Units package spec depends on Ada.Containers.Doubly_Linked_Lists
+Acc.Units package spec depends on Ada.Containers.Indefinite_Hashed_Maps
+Acc.Units package spec depends on Ada.Strings.Equal_Case_Insensitive
+Acc.Units package spec depends on Ada.Strings.Unbounded
+Acc.Units package spec depends on List_Image
 ```  
 
 
@@ -64,29 +64,29 @@ ArchiCheck code test suite / -ld test [Successful](archicheck.md#archicheck-code
   Rules :  
 
 ```  
-only Archicheck.Main may use Archicheck.Rules
-Archicheck.Main      may use Archicheck.Lang
+only Acc.Main may use Acc.Rules
+Acc.Main      may use Acc.Lang
 
-Archicheck.Rules may use Archicheck.Lang
-Archicheck.Lang  may use Archicheck.Units
-Archicheck.Units may use Archicheck.Sources
+Acc.Rules may use Acc.Lang
+Acc.Lang  may use Acc.Units
+Acc.Units may use Acc.Sources
 
-only Archicheck.Main     may use Ada.Command_Line
+only Acc.Main may use Ada.Command_Line
 
-only Archicheck.Lang.Ada_Processor  may use Ada_Lexer 
-only Archicheck.Lang.Java_Processor may use Java_Lexer
+only Acc.Lang.Ada_Processor  may use Ada_Lexer 
+only Acc.Lang.Java_Processor may use Java_Lexer
 
-only Archicheck.Lang.Ada_Processor  may use OpenToken 
-only Archicheck.Lang.Java_Processor may use OpenToken
-only Archicheck.Rules.Parser        may use OpenToken
+only Acc.Lang.Ada_Processor  may use OpenToken 
+only Acc.Lang.Java_Processor may use OpenToken
+only Acc.Rules.Parser        may use OpenToken
 
 GNAT use is forbidden
 
-Ada                 use is allowed
-Archicheck.IO       use is allowed
-Archicheck.Settings use is allowed
-Archicheck_Config   use is allowed
-List_Image          use is allowed
+Ada          use is allowed
+Acc.IO       use is allowed
+Acc.Settings use is allowed
+Acc_Config   use is allowed
+List_Image   use is allowed
 ```  
 
   ![ArchiCheck dependencies view](ac_view.png)  
@@ -103,29 +103,29 @@ ArchiCheck code test suite / rules test [Successful](archicheck.md#archicheck-co
   Rules :  
 
 ```  
-only Archicheck.Main may use Archicheck.Rules
-Archicheck.Main      may use Archicheck.Lang
+only Acc.Main may use Acc.Rules
+Acc.Main      may use Acc.Lang
 
-Archicheck.Rules may use Archicheck.Lang
-Archicheck.Lang  may use Archicheck.Units
-Archicheck.Units may use Archicheck.Sources
+Acc.Rules may use Acc.Lang
+Acc.Lang  may use Acc.Units
+Acc.Units may use Acc.Sources
 
-only Archicheck.Main     may use Ada.Command_Line
+only Acc.Main may use Ada.Command_Line
 
-only Archicheck.Lang.Ada_Processor  may use Ada_Lexer 
-only Archicheck.Lang.Java_Processor may use Java_Lexer
+only Acc.Lang.Ada_Processor  may use Ada_Lexer 
+only Acc.Lang.Java_Processor may use Java_Lexer
 
-only Archicheck.Lang.Ada_Processor  may use OpenToken 
-only Archicheck.Lang.Java_Processor may use OpenToken
-only Archicheck.Rules.Parser        may use OpenToken
+only Acc.Lang.Ada_Processor  may use OpenToken 
+only Acc.Lang.Java_Processor may use OpenToken
+only Acc.Rules.Parser        may use OpenToken
 
 GNAT use is forbidden
 
-Ada                 use is allowed
-Archicheck.IO       use is allowed
-Archicheck.Settings use is allowed
-Archicheck_Config   use is allowed
-List_Image          use is allowed
+Ada          use is allowed
+Acc.IO       use is allowed
+Acc.Settings use is allowed
+Acc_Config   use is allowed
+List_Image   use is allowed
 ```  
 
   ![ArchiCheck dependencies view](ac_view.png)  

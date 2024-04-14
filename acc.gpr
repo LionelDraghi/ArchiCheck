@@ -9,7 +9,7 @@
 with "list_image";
 with "opentoken";
 
-project Archicheck is
+project Acc is
 
    type Mode_Type is ("development", "release");
    Mode : Mode_Type := external ("mode", "development");
@@ -18,7 +18,7 @@ project Archicheck is
    for Source_Dirs use ("src/", "src/Alire_config/");
    for Object_Dir use "obj";
    for Create_Missing_Dirs use "True";
-   for Main use ("archicheck-main.adb");
+   for Main use ("acc-main.adb");
 
    package Ide is
       -- for Documentation_Dir use "./html";
@@ -26,7 +26,7 @@ project Archicheck is
    end Ide;
 
    package Builder is
-      for Executable ("archicheck-main.adb") use "acc"; -- "archicheck";
+      for Executable ("acc-main.adb") use "acc"; -- "archicheck";
       for Default_Switches ("ada") use ("-j2", "-g", "-m");
    end Builder;
 
@@ -112,4 +112,4 @@ project Archicheck is
       for Switches ("ada") use ("-M100", "-l2", "-A1", "-A2", "-A3", "-A4");
    end Pretty_Printer;
 
-end Archicheck;
+end Acc;

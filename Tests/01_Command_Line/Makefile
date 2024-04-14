@@ -48,7 +48,7 @@ test2:
 	@ ${TR} cmt "Test that the --version will put :" 			
 	@ ${TR} cmt 
 	@ ${TR} cmt '```' 						
-	@ echo "6.0.0"	            > expected_version.txt
+	@ echo "0.6.0"	            > expected_version.txt
 	@ cat expected_version.txt >> ${MD}					
 	@ ${TR} cmt '```' 						
 	@ ${TR} cmt 
@@ -297,7 +297,7 @@ test14:
 	@ ${TR} cmt  
 
 	@ - ${RM} template.ac	
-	@ ../../obj/acc -ct
+	@ ../../obj/acc -ct	
 	@ ${TR} assert true /usr/bin/sdiff "-s expected_template.ac template.ac"
 
 	@ ${TR} cmt "When running once more :"		
@@ -309,7 +309,7 @@ test14:
 	@ ${TR} cmt '```' 						 	
 	@ ${TR} cmt  
 
-	@ test ! `../../obj/acc --create_template				 2>&1 > err14.txt`
+	@ test ! `../../obj/acc --create_template			2>&1 > err14.txt`
 	@ ${TR} assert true /usr/bin/sdiff "-s expected_err14.txt err14.txt"
   
 	@ ${TR} end

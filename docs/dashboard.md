@@ -6,13 +6,13 @@ Version
 > acc --version
 
 ```
-6.0.0
+0.6.0
 ```
 
 > date -r acc --iso-8601=seconds
 
 ```
-2024-04-14T15:52:54+02:00
+2024-04-14T16:37:18+02:00
 ```
 
 Test results

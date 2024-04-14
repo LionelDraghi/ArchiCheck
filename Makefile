@@ -234,10 +234,10 @@ dashboard: Tests/tests_count.txt
 cmd_line.md:
 	@ echo Make cmd_line.md
 	@ > docs/cmd_line.md
-	@ echo "Archicheck command line"	>> docs/cmd_line.md
+	@ echo "Acc command line"	>> docs/cmd_line.md
 	@ echo "======================="	>> docs/cmd_line.md
 	@ echo ""							>> docs/cmd_line.md
-	@ echo "Archicheck command line"	>> docs/cmd_line.md
+	@ echo "Acc command line"	>> docs/cmd_line.md
 	@ echo "-----------------------"	>> docs/cmd_line.md
 	@ echo ""							>> docs/cmd_line.md
 	@ echo '```'						>> docs/cmd_line.md
@@ -248,7 +248,7 @@ cmd_line.md:
 	@ obj/acc -h 						>> docs/cmd_line.md
 	@ echo '```'						>> docs/cmd_line.md
 	@ echo ""							>> docs/cmd_line.md
-	@ echo "Archicheck current version"	>> docs/cmd_line.md
+	@ echo "Acc current version"	>> docs/cmd_line.md
 	@ echo "--------------------------"	>> docs/cmd_line.md
 	@ echo ""							>> docs/cmd_line.md
 	@ echo '```'						>> docs/cmd_line.md

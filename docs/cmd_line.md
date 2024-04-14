@@ -10,7 +10,7 @@ acc -h
 
 ```
 
-ArchiCheck normal use :
+Acc normal use :
    acc rules_file -Ir directory [-Ir directory]*
 
 General form :
@@ -63,6 +63,6 @@ acc --version
 ```
 
 ```
-6.0.0
+0.6.0
 ```
 

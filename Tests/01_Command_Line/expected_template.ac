@@ -1,8 +1,8 @@
 -- ------------------------
--- Template ArchiCheck file
+-- Template Acc file
 -- ------------------------
 
--- ArchiCheck files contain :
+-- Acc files contain :
 -- 1. Comments, prefixed by '--', '\\' or '#'
 
 -- 2. Component definitions, like: 
@@ -23,4 +23,4 @@ Java.IO use is allowed                     -- Allowed use
 
 -- More extensive explanations : http://lionel.draghi.free.fr/Archicheck/rules/
 -- 
--- File generated with ArchiCheck 6.0.0
+-- File generated with Acc 0.6.0
