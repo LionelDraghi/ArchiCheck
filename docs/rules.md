@@ -112,6 +112,7 @@ Use the `allowed` syntax :
 ```
 Java.IO use is allowed
 ```
+> [!TIP]
 > Remember that `Java.IO` actually means `Java.IO` and `Java.IO.*`
 
 Forbidden use
@@ -141,6 +142,7 @@ Z may use P1
 --   only X, Y and Z may use P1
 -- that is not (yet) a legal Archicheck syntax
 ```
+
 Syntactic sugar
 --------------
 
@@ -216,7 +218,8 @@ Whatever the order of those two declarations, it should have this behavior :
 - all other `Interfaces` child are forbidden
 - and obviously `Interfaces` use is forbidden
 
-**Note that "allowed" as the precedence over "forbidden", meaning that if you 
+> [!IMPORTANT]
+> **Note that "allowed" as the precedence over "forbidden", meaning that if you 
 explicitly allow some unit, you can't forbid one of his child.**
 
 For example, if we invert the previous example : 
@@ -226,7 +229,7 @@ Interfaces.C use is forbidden
 ```
 the second line will be ignored.
 
-> As I am writing this (v0.5 january 2018), implementing a more logical behavior seem's complex.   
+> Implementing a more logical behavior seem's complex.   
 > But who knows, I may change my mind, so consider this as likely to change.  
 > Any comment on that feature is welcome. 
 

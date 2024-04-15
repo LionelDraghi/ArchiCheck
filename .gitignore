@@ -26,3 +26,7 @@ src/Alire_config
 .clang-format
 .clangd/
 *-loc.xml
+
+# Pijul
+.pijul/
+.ignore

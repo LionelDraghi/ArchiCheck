@@ -108,23 +108,29 @@ Compilation units are generally called [Translation units](https://en.wikipedia.
 
 [Here is a tutorial on Java packages](https://docs.oracle.com/javase/tutorial/java/package/packages.html)
 
+### Fully qualified name
 
- According to Java standards and common Java practices,
+> [!IMPORTANT]
+> Detection of visibility through Java fully qualified name is not done in that version 
+("import" is not mandatory in Java to use classes...)
+
+### Compilation Unit
+
+According to Java standards and common Java practices,
 every class stands in its own source file.
- However, it is possible to have multiple classes in a single
- file, provided that there is only one public.
- All the top-level non-public types will be package private.
+However, it is possible to have multiple classes in a single
+file, provided that there is only one public.
+All the top-level non-public types will be package private.
 
- Processing private classes is by definition of no interest
- for Acc, so there is no problem in exiting here.
+Processing private classes is by definition of no interest
+for Acc, so there is no problem in exiting here.
 
- On the other hand, it is possible to import the public
- nested classes of an enclosing class.
- sure what can be the consequences of processing such an
-, but not processing nested classes in this parser.
- anyway, as it would be costly in time processing, and
- raise far more complex the lexer, I don't intend to
- change this code for now.
+On the other hand, it is possible to import the public
+nested classes of an enclosing class.
+Not sure what can be the consequences of not processing nested classes in this parser.
+Anyway, as it would be costly in time processing, and
+raise far more complex the lexer, I don't intend to
+change this code for now.
 
 ## 5. Limitations Overview
 

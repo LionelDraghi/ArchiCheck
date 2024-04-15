@@ -19,7 +19,7 @@ Simple structural aspect of the software architecture, metaphor like *My softwar
 
 ![The code doesn't tell the whole story!](semantic_gap.png)
 
-Sooner or later, in large or complex developpement, someone will propose a patch adding an `ìmport` that compile fine, but is a complete violation of the architecture.
+Sooner or later, in large or complex development, someone will propose a patch adding an `import` that compile fine, but is a complete violation of the architecture.
 
 ![Architecture degradation over time](architecture_degradation.png)
 
@@ -76,7 +76,7 @@ Rename it and edit it, this is a good start point.
 
 ## Further reading
 
-- [Languages concepts related to Components / Modules / Visibily](acc_concepts.md)
+- [`Acc` fundamental concepts](acc_concepts.md)
 - [More on rules and rules files](rules.md)
-- [More on the project genesis](why.md)
+- [the project genesis](why.md)
 
