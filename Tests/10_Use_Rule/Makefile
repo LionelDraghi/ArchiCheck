@@ -189,8 +189,10 @@ test5:
 	
 	@ ${TR} cmt '** Not yet implemented **'
 
-	@ ## Fixme: @ test ! `../../obj/acc -I dir5 rules.5b > output.5b`
-	@ ## ${TR} assert true /usr/bin/sdiff "-sBW expected_output.5 output.5b"
+	@ ## Fixme: 
+	@ test ! `../../obj/acc -I dir5 rules.5b > output.5b`
+	@ ## 
+	@ ${TR} assert true /usr/bin/sdiff "-sBW expected_output.5 output.5b"
 
 	@ ${TR} end
 

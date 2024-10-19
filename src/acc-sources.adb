@@ -76,14 +76,15 @@ package body Acc.Sources is
    function Location_Image (Loc : in Location) return String is
       use Ada.Strings;
       use Ada.Strings.Fixed;
-      Trimed_File_Name : constant String := Trim (+Loc.File, Side => Both);
-      Trimed_Line    : constant String := Trim (Positive'Image (Loc.Line),
-                                                Side => Both);
-      Trimed_Column  : constant String := Trim (Integer'Image (Loc.Column),
-                                                Side => Both);
+      Trimed_File_Name : constant String := Trim (+Loc.File,
+                                                  Side => Both);
+      Trimed_Line      : constant String := Trim (Loc.Line'Image,
+                                                  Side => Both);
+      Trimed_Column    : constant String := Trim (Loc.Column'Image,
+                                                  Side => Both);
    begin
       case Loc.Context is
-         when In_File         => 
+         when In_File         =>
             if Loc.Column = 0 then
                return Trimed_File_Name & ":" & Trimed_Line & ": ";
             else

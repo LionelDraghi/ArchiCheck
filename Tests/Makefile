@@ -2,7 +2,7 @@ all: check doc
 
 .PHONY : clean
 
-# TESTS=01_Command_Line 02_Source_List 03_Dependency_List 04_Component_List 05_Layer_Rule 06_Child_Packages 07_Rules_Files_Syntax 08_Globbing_Characters 09_GtkAda 10_Use_Rule 11_Batik 12_ZipAda 13_Ada_Units 14_Rules_On_Components 15_Precedences_Rules 16_AdaControl
+# TESTS=01_Command_Line 02_Source_List 03_Dependency_List 04_Component_List 05_Layer_Rule 06_Child_Packages 07_Rules_Files_Syntax 08_Globbing_Characters 09_GtkAda 10_Use_Rule 11_Batik 12_ZipAda 13_Ada_Units 14_Rules_On_Components 15_Precedences_Rules 16_AdaControl 
 
 check: ../obj/acc ../Tools/create_pkg ../Tools/testrec
     # for TEST in $(TESTS); do \
@@ -29,7 +29,7 @@ check: ../obj/acc ../Tools/create_pkg ../Tools/testrec
 	@ $(MAKE) check --directory=19_Rules_Src_Coverage
 	@ $(MAKE) check --directory=20_C_Sanity_Tests
 	@ $(MAKE) check --directory=21_Independent_Components
-
+	@ $(MAKE) check --directory=22_Files_Components
 
 doc:
 	@ cat `find . -name "*.md"` > tmp.txt
@@ -88,6 +88,7 @@ doc:
 	@ $(MAKE) doc --directory=19_Rules_Src_Coverage
 	@ $(MAKE) doc --directory=20_C_Sanity_Tests
 	@ $(MAKE) doc --directory=21_Independent_Components
+	@ $(MAKE) doc --directory=22_Files_Components
 
 clean:
 	@ $(MAKE) clean --directory=01_Command_Line
@@ -111,7 +112,8 @@ clean:
 	@ $(MAKE) clean --directory=19_Rules_Src_Coverage
 	@ $(MAKE) clean --directory=20_C_Sanity_Tests
 	@ $(MAKE) clean --directory=21_Independent_Components
-	
+	@ $(MAKE) clean --directory=22_Files_Components
+
 	@ - ${RM} tests_status.md *.lst short_tests_status.md tests_count.txt tmp.txt
 
 

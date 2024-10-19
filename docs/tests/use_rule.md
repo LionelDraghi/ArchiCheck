@@ -94,9 +94,9 @@ only P2 may use Interfaces.C
 P4 may use Interfaces.C
 
 -- Note that the same error message will be output twice here, because checks
--- are done once per rule, and there are two lines "only ... may use P3".
--- As this situation (that is to have more than one "only" statement targetting
--- the same unit) is not coherent, I won't change the code and try to fix that.
+-- are done once per rule, and there is two lines "only ... may use P3".
+-- This situation (that is to have more than one "only" statement targeting
+-- the same unit) is not coherent, but I won't change the code and try to fix that.
 -- It will remain a "feature".
 --
 -- The future syntax "only P1 and P2 may use Interfaces.C" could be a solution.

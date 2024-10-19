@@ -19,7 +19,8 @@ project Acc is
    for Object_Dir use "obj";
    for Create_Missing_Dirs use "True";
    for Main use ("acc-main.adb");
-
+   for Exec_Dir use "obj/";
+   
    package Ide is
       -- for Documentation_Dir use "./html";
       for Vcs_Kind use "Git";

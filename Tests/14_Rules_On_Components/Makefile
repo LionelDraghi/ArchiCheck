@@ -85,7 +85,7 @@ test3:
 	@ ${CREATE_PKG} P3 -in src 
 	@ ${CREATE_PKG} P4 -in src 
 
-	@ ${TR} cmt "P1 package is in X component, wha if I try to add it to another components?"
+	@ ${TR} cmt "P1 package is in X component, what if I try to add it to another components?"
 	@ ${TR} cmt 
 	@ ${TR} cmt '```'
 	@ cat rules3.txt >> ${MD}

@@ -3,6 +3,7 @@ site/
 hugo/
 obj/
 lib/
+src/backup/src/
 
 # Some of the docs file are generated (Fixme: better organisation)
 docs/tests.png

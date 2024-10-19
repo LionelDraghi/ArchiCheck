@@ -6,7 +6,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.1.0/)
 and version numbering adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
-- [0.6.0] (actually means untagged)
+- [0.6.1] (actually means untagged)
+  > - [Changed] dropping OpenToken and returning to an hand written lexer for the rules file
+  > - [Added] component definition by file or directory name (close #1)
+
+- [0.6.0]
   > - [Added] new rule `X, Y, Z are independent` created
   > - [Added] ArchiCheck is now an Alire crate
   > - [Changed] OpenToken src removed, and added as an Alire dependency

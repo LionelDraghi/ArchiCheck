@@ -34,40 +34,16 @@ private package Acc.Sources is
    -- function "+" (Name : Unbounded_String) return File_Name;
 
    -- --------------------------------------------------------------------------
-   type Source is record
-      File : File_Name;
-      -- provision for "make like" analysis : Time_Tag : Ada.Calendar.Time;
-      Lang : Language;
-   end record;
-   package Source_Lists is new Ada.Containers.Doubly_Linked_Lists (Source);
-
-   -- --------------------------------------------------------------------------
-   -- Function: Get_List
-   -- --------------------------------------------------------------------------
-   function Get_List return Source_Lists.List;
-
-   -- --------------------------------------------------------------------------
-   -- Function: Add_Source
-   -- --------------------------------------------------------------------------
-   procedure Add_Source (Src : in Source);
-
-   -- --------------------------------------------------------------------------
-   -- Procedure: Sort_And_Dump_Sources
-   -- --------------------------------------------------------------------------
-   procedure Sort_And_Dump_Sources;
-
-   -- --------------------------------------------------------------------------
    type Parsing_Context is (In_File, In_Command_Line);
    type Location is record
       File    : File_Name;
-      Context : Parsing_Context; -- := In_File;
+      Context : Parsing_Context;
       Line    : Positive;
       Column  : Integer := 0;
    end record;
 
+   function Location_Image (Loc : in Location) return String;
    -- --------------------------------------------------------------------------
-   -- Function: Location_Image
-   --
    -- Purpose:
    --    This function return a source/line/column prefix to messages
    --    compatible with GNU Standard
@@ -77,14 +53,26 @@ private package Acc.Sources is
    --    if no column, or
    --       > sourcefile:lineno.column:
    --    otherwise.
-   --    
-   --    In the special case where the Lexer is parsing the command line, 
+   --
+   --    In the special case where the Lexer is parsing the command line,
    --    (Context set to Cmd_Line), the function return a constant
    --    "Cmd_Line :" string.
    --
    --    Note that there is a trailing space, so that the message can be
    --    appended directly.
    -- --------------------------------------------------------------------------
-   function Location_Image (Loc : in Location) return String;
+
+   -- --------------------------------------------------------------------------
+   type Source is record
+      File : File_Name;
+      -- provision for "make like" analysis : Time_Tag : Ada.Calendar.Time;
+      Lang : Language;
+   end record;
+   package Source_Lists is new Ada.Containers.Doubly_Linked_Lists (Source);
+
+   -- --------------------------------------------------------------------------
+   function Get_List return Source_Lists.List;
+   procedure Add_Source (Src : in Source);
+   procedure Sort_And_Dump_Sources;
 
 end Acc.Sources;

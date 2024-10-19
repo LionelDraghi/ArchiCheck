@@ -1,55 +1,59 @@
 
-##  Test Independent Components
+# Independent Component test suite
 
 
-   +---------+  +-----------+   
-   |    X    |  |     Y     |   
-   +---------+  +-----------+   
-   +------------------------+   
-   |          Bus           |   
-   +------------------------+   
 
-```  
-X and Y are independent
-```  
-
- Running :    
- > acc rules1.txt -I dir1  
-
-   With:        Expected:  
-   X.P2 -> X.P1  OK  
-   X.P2 -> Bus   OK  
-   Y    -> Bus   OK  
-   U    -> X.P2  OK  
-   V    -> Y     OK  
+##  Independent Component test suite / Test Independent Components
 
 
-Test Independent Components [Successful](independent_components.md#--test-independent-components)
-
-##  Test broken Independent Components rule
-
-
-   +---------+  +-----------+   
-   |    X    |  |     Y     |   
-   +---------+  +-----------+   
-   +------------------------+   
-   |          Bus           |   
-   +------------------------+   
+    +---------+  +-----------+   
+    |    X    |  |     Y     |   
+    +---------+  +-----------+   
+    +------------------------+   
+    |          Bus           |   
+    +------------------------+   
 
 ```  
 X and Y are independent
 ```  
 
- Running :    
- > acc rules1.txt -I dir1  
+  Running :    
+  > acc rules1.txt -I dir1  
 
-   With:        Expected:  
-   X.P2 -> X.P1  OK  
-   X.P2 -> Bus   OK  
-   Y    -> Bus   OK  
-   U    -> X.P2  OK  
-   V    -> Y     OK  
-   Y.P3 -> X.P1  Error  
+    With:        Expected:  
+    X.P2 -> X.P1  OK  
+    X.P2 -> Bus   OK  
+    Y    -> Bus   OK  
+    U    -> X.P2  OK  
+    V    -> Y     OK  
 
 
-Test broken Independent Components rule [Successful](independent_components.md#--test-broken-independent-components-rule)
+Independent Component test suite / Test Independent Components [Successful](independent_components.md#independent-component-test-suite--test-independent-components)
+
+##  Independent Component test suite / Test broken Independent Components rule
+
+
+    +---------+  +-----------+   
+    |    X    |  |     Y     |   
+    +---------+  +-----------+   
+    +------------------------+   
+    |          Bus           |   
+    +------------------------+   
+
+```  
+X and Y are independent
+```  
+
+  Running :    
+  > acc rules1.txt -I dir1  
+
+    With:        Expected:  
+    X.P2 -> X.P1  OK  
+    X.P2 -> Bus   OK  
+    Y    -> Bus   OK  
+    U    -> X.P2  OK  
+    V    -> Y     OK  
+    Y.P3 -> X.P1  Error  
+
+
+Independent Component test suite / Test broken Independent Components rule [Successful](independent_components.md#independent-component-test-suite--test-broken-independent-components-rule)

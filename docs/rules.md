@@ -140,7 +140,7 @@ only Y may use P1
 Z may use P1
 -- is equivalent to :
 --   only X, Y and Z may use P1
--- that is not (yet) a legal Archicheck syntax
+-- that is not (yet) a legal `Acc` syntax
 ```
 
 Syntactic sugar

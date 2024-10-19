@@ -63,7 +63,7 @@ package body Acc.Rules.Parser is
    -- --------------------------------------------------------------------------
 
    Prefix : constant String := "Rules.Parser === ";
-   
+
    -- The list of tokens, without non-terminals in recursive descent.
    type Token_Ids is
      (-- Non reporting tokens (not used in generating an LALR grammar) ---------
@@ -80,6 +80,7 @@ package body Acc.Rules.Parser is
       Contains_Id,
       Independent_Id,
       Is_Id,
+      Files_Id,
       Layer_Id,
       Only_Id,
       May_Id,
@@ -104,6 +105,7 @@ package body Acc.Rules.Parser is
       Unit_Id,
       Unit_List_Id,
       Component_Decla_Id,
+      Files_Decla_Id,
       Independent_Components_Decla_Id,
       Layer_Decla_Id,
       Use_Decla_Id,
@@ -158,6 +160,7 @@ package body Acc.Rules.Parser is
    Contains_T    : constant Master_Token.Class := Master_Token.Get (Contains_Id);
    Comma_T       : constant Master_Token.Class := Master_Token.Get (Comma_Id);
    Dot_T         : constant Master_Token.Class := Master_Token.Get (Dot_Id);
+   Files_T       : constant Master_Token.Class := Master_Token.Get (Files_Id);
    Star_T        : constant Master_Token.Class := Master_Token.Get (Star_Id);
    Identifier_T  : constant Master_Token.Class := Master_Token.Get (Identifier_Id);
    Independent_T : constant Master_Token.Class := Master_Token.Get (Independent_Id);
@@ -179,13 +182,13 @@ package body Acc.Rules.Parser is
    Allowed_Use_Decla            : constant Nonterminal.Class := Nonterminal.Get (Allowed_Used_Decla_Id);
    Layer_Decla                  : constant Nonterminal.Class := Nonterminal.Get (Layer_Decla_Id);
    Component_Decla              : constant Nonterminal.Class := Nonterminal.Get (Component_Decla_Id);
+   Files_Decla                  : constant Nonterminal.Class := Nonterminal.Get (Files_Decla_Id);
    Independent_Components_Decla : constant Nonterminal.Class := Nonterminal.Get (Independent_Components_Decla_Id);
    Rule                         : constant Nonterminal.Class := Nonterminal.Get (Rule_Id);
    Rule_List                    : constant Nonterminal.Class := Nonterminal.Get (Rule_List_Id);
    Rules_File                   : constant Nonterminal.Class := Nonterminal.Get (Rules_File_Id);
    Unit                         : constant Nonterminal.Class := Nonterminal.Get (Unit_Id);
    Unit_List                    : constant Nonterminal.Class := Nonterminal.Get (Unit_List_Id);
-
 
    -- Step 4: Map the Terminal Token ID's to their recognizers and tokens
    -- --------------------------------------------------------------------------
@@ -199,6 +202,7 @@ package body Acc.Rules.Parser is
                Contains_Id      => Tokenizer.Get (OpenToken.Recognizer.Keyword.Get ("contains")),
                Independent_Id   => Tokenizer.Get (OpenToken.Recognizer.Keyword.Get ("independent")),
                Is_Id            => Tokenizer.Get (OpenToken.Recognizer.Keyword.Get ("is")),
+               Files_Id         => Tokenizer.Get (OpenToken.Recognizer.Keyword.Get ("files")),
                Layer_Id         => Tokenizer.Get (OpenToken.Recognizer.Keyword.Get ("layer")),
                Only_Id          => Tokenizer.Get (OpenToken.Recognizer.Keyword.Get ("only")),
                May_Id           => Tokenizer.Get (OpenToken.Recognizer.Keyword.Get ("may")),
@@ -267,6 +271,12 @@ package body Acc.Rules.Parser is
       To_ID     : in  Master_Token.Token_ID);
 
    -- --------------------------------------------------------------------------
+   procedure Store_Files_Decla
+     (New_Token : out Nonterminal.Class;
+      Source    : in  Token_List.Instance'Class;
+      To_ID     : in  Master_Token.Token_ID);
+
+   -- --------------------------------------------------------------------------
    procedure Store_Layer_Decla
      (New_Token : out Nonterminal.Class;
       Source    : in  Token_List.Instance'Class;
@@ -302,6 +312,26 @@ package body Acc.Rules.Parser is
       Source    : in  Token_List.Instance'Class;
       To_ID     : in  Master_Token.Token_ID);
 
+   -- --------------------------------------------------------------------------
+   procedure Reset_Unit_Names
+     (New_Token : out Nonterminal.Class;
+      Source    : in  Token_List.Instance'Class;
+      To_ID     : in  Master_Token.Token_ID);
+      -- To simplify the OpenToken mess, and avoid to create new classes,
+      -- Unit_List are stored here, at a global level.
+      -- A maximum of two Unit_List is involved in each rule :
+      -- unit1 and unit2 may use unit3, unit4 and unit5
+      -- ===============         ======================
+      --    Left list                  Right list
+   procedure Switch_To_Left_List
+     (New_Token : out Nonterminal.Class;
+      Source    : in  Token_List.Instance'Class;
+      To_ID     : in  Master_Token.Token_ID);
+   procedure Switch_To_Right_List
+     (New_Token : out Nonterminal.Class;
+      Source    : in  Token_List.Instance'Class;
+      To_ID     : in  Master_Token.Token_ID);
+
 
    -- Grammar:
    -- --------------------------------------------------------------------------
@@ -317,37 +347,39 @@ package body Acc.Rules.Parser is
    -- Rule                        -> Independent_Components_Decla | Component_Decla | Layer_Decla | Use_Decla | Restricted_Use_Decla
 
    Grammar : constant Production_List.Instance :=
-               Rules_File                  <= Rule_List & EoF_T              and
+               Rules_File                   <= Rule_List & EoF_T              and
 
-               Rule_List                   <= Rule_List & Semicolon_T        and
-               Rule_List                   <= Rule_List & Rule               and
-               Rule_List                   <= Rule                           and
+               Rule_List                    <= Rule_List & Semicolon_T        and
+               Rule_List                    <= Rule_List & Rule               and
+               Rule_List                    <= Rule                           and
 
-               Rule                        <= Use_Decla                      and
-               Rule                        <= Restricted_Use_Decla           and
-               Rule                        <= Layer_Decla                    and
-               Rule                        <= Forbidden_Use_Decla            and
-               Rule                        <= Allowed_Use_Decla              and
-               Rule                        <= Component_Decla                and
-               Rule                        <= Independent_Components_Decla   and
+               Rule                         <= Use_Decla                      and
+               Rule                         <= Restricted_Use_Decla           + Reset_Unit_Names'Access and
+               Rule                         <= Layer_Decla                    and
+               Rule                         <= Forbidden_Use_Decla            and
+               Rule                         <= Allowed_Use_Decla              and
+               Rule                         <= Component_Decla                and
+               Rule                         <= Files_Decla                    and
+               Rule                         <= Independent_Components_Decla   and
 
-               Independent_Components_Decla <= Unit_List & Are_T & Independent_T      + Store_Independent_Components'Access and
-               Component_Decla       <= Unit & Contains_T & Unit_List                 + Store_Component_Decla'Access        and
-               Layer_Decla           <= Unit & Is_T & A_T & Layer_T & Over_T & Unit   + Store_Layer_Decla'Access            and
-               Use_Decla             <= Unit & May_T & Use_T & Unit_List              + Store_Use_Decla'Access              and
-               Restricted_Use_Decla  <= Only_T & Unit & May_T & Use_T & Unit_List     + Store_Restricted_Use_Decla'Access   and
-               Forbidden_Use_Decla   <= Unit & Use_T & Is_T & Forbidden_T             + Add_Forbidden_Unit'Access           and
-               Allowed_Use_Decla     <= Unit & Use_T & Is_T & Allowed_T               + Add_Allowed_Unit'Access             and
+               Independent_Components_Decla <= Unit_List & Are_T & Independent_T               + Store_Independent_Components'Access and
+               Component_Decla              <= Unit & Contains_T & Unit_List                   + Store_Component_Decla'Access        and
+               Files_Decla                  <= Unit & Contains_T & Files_T & Unit_List         + Store_Files_Decla'Access            and
+               Layer_Decla                  <= Unit & Is_T & A_T & Layer_T & Over_T & Unit     + Store_Layer_Decla'Access            and
+               Use_Decla                    <= Unit_List & May_T & Use_T & Unit_List           + Store_Use_Decla'Access              and
+               Restricted_Use_Decla         <= Only_T & Unit_List & May_T & Use_T & Unit_List  + Store_Restricted_Use_Decla'Access   and
+               Forbidden_Use_Decla          <= Unit_List & Use_T & Is_T & Forbidden_T          + Add_Forbidden_Unit'Access           and
+               Allowed_Use_Decla            <= Unit_List & Use_T & Is_T & Allowed_T            + Add_Allowed_Unit'Access             and
 
-               Unit_List                   <= Unit & Comma_T & Unit_List     and
-               Unit_List                   <= Unit & And_T   & Unit_List     and
-               Unit_List                   <= Unit                           and
+               Unit_List                    <= Unit & Comma_T & Unit_List              and
+               Unit_List                    <= Unit & And_T   & Unit_List              and
+               Unit_List                    <= Unit                                    and
 
-               Unit                        <= Unit & Dot_T & Identifier_T             + Add_Dot_Identifier'Access     and
+               Unit                         <= Unit & Dot_T & Identifier_T             + Add_Dot_Identifier'Access     and
                -- Unit                        <= Unit & Dot_T & Star_T                   + Add_Dot_Identifier'Access     and
-               Unit                        <= Unit & Star_T                           + Add_Final_Star'Access and
+               Unit                         <= Unit & Star_T                           + Add_Final_Star'Access and
                -- Unit                        <= Star_T                                  + Initialize_Unit_Name'Access and
-               Unit                        <= Identifier_T                            + Initialize_Unit_Name'Access;
+               Unit                         <= Identifier_T                            + Initialize_Unit_Name'Access;
 
 
    -- Step 7: Generating a parser
@@ -361,6 +393,8 @@ package body Acc.Rules.Parser is
    -- --------------------------------------------------------------------------
    Left_List  : Units.Dependency_Targets.List;
    Right_List : Units.Dependency_Targets.List;
+   Record_In_Left_List : Boolean := True;
+
    -- To simplify the OpenToken mess, and avoid to create new classes,
    -- Unit_List are stored here, at a global level.
    -- A maximum of two Unit_List is involved in each rule :
@@ -371,9 +405,42 @@ package body Acc.Rules.Parser is
    -- --------------------------------------------------------------------------
    procedure Reset_Unit_Names is
    begin
+      Acc.IO.Put_Line ("-> Reset_Unit_Names", Level => Acc.IO.Debug);
       Left_List.Clear;
       Right_List.Clear;
+      Record_In_Left_List := True;
    end Reset_Unit_Names;
+   procedure Reset_Unit_Names
+     (New_Token : out Nonterminal.Class;
+      Source    : in  Token_List.Instance'Class;
+      To_ID     : in  Master_Token.Token_ID) is
+   begin
+      Reset_Unit_Names;
+   end Reset_Unit_Names;
+
+   --
+   procedure Switch_To_Left_List
+     (New_Token : out Nonterminal.Class;
+      Source    : in  Token_List.Instance'Class;
+      To_ID     : in  Master_Token.Token_ID) is
+   begin
+      Acc.IO.Put_Line ("-> Switch_To_Left_List", Level => Acc.IO.Debug);
+      Record_In_Left_List := True;
+   end Switch_To_Left_List;
+
+   procedure Switch_To_Right_List is
+   begin
+      Acc.IO.Put_Line ("-> Switch_To_Right_List", Level => Acc.IO.Debug);
+      Record_In_Left_List := False;
+   end Switch_To_Right_List;
+   procedure Switch_To_Right_List
+     (New_Token : out Nonterminal.Class;
+      Source    : in  Token_List.Instance'Class;
+      To_ID     : in  Master_Token.Token_ID) is
+   begin
+      Switch_To_Right_List;
+   end Switch_To_Right_List;
+
 
    -- --------------------------------------------------------------------------
    Context : Sources.Parsing_Context;
@@ -405,22 +472,23 @@ package body Acc.Rules.Parser is
       Component_Name : constant Unit_Name
         := +(To_String (Identifiers.Instance
              (Token_List.Token_Handle (Left).all).Identifier));
-      Dep : constant Units.Dependency_Target := (To_Unit  => Component_Name,
-                                                 Location => Current_Location);
+      Dep            : constant Units.Dependency_Target := (To_Unit  => Component_Name,
+                                                            Location => Current_Location);
    begin
-      Acc.IO.Put_Line (Prefix & "Initialize_Unit_Name >" & (+Component_Name) & "<",
-                              Level => Acc.IO.Verbose);
-      if Left_List.Is_Empty then
+      Acc.IO.Put_Line ("-> Initialize_Unit_Name >" & (+Component_Name) & "<",
+                       Level => Acc.IO.Debug);
+
+      if Record_In_Left_List then
+         -- if Left_List.Is_Empty then
          Left_List.Append (Dep);
-         -- IO.Put_Line (Units.Location_Image (Dep)
-         --              & (+Dep.To_Unit) & " added to Left list",
-         --             Level => Debug);
+         IO.Put_Line (+Dep.To_Unit & " added to Left list",
+                      Level => Acc.IO.Debug);
       else
          Right_List.Append (Dep);
-         -- IO.Put_Line (Units.Location_Image (Dep)
-         --              & (+Dep.To_Unit) & " added to Right list",
-         --              Level => Debug);
+         IO.Put_Line (+Dep.To_Unit & " added to Right list",
+                      Level => Acc.IO.Debug);
       end if;
+      Switch_To_Right_List;
    end Initialize_Unit_Name;
 
    -- --------------------------------------------------------------------------
@@ -445,6 +513,8 @@ package body Acc.Rules.Parser is
       end Update_Last;
 
    begin
+      Acc.IO.Put_Line ("-> Add_Dot_Identifier",
+                       Level => Acc.IO.Debug);
       Token_List.Next_Token (Right); -- move "Right" over "."
       Token_List.Next_Token (Right); -- move "Right" over the next Identifier
 
@@ -454,8 +524,8 @@ package body Acc.Rules.Parser is
               (Token_List.Token_Handle (Right).all).Identifier);
          use IO;
       begin
-         Put_Line (Prefix & "Add_Dot_Identifier >." & (Component_Name) & "<",
-                   Level => Verbose);
+         Put_Line ("Add_Dot_Identifier >." & (Component_Name) & "<",
+                   Level => Debug);
          if Right_List.Is_Empty then
             Update_Last (Left_List, Component_Name);
 
@@ -488,27 +558,27 @@ package body Acc.Rules.Parser is
       end Update_Last;
 
    begin
+      Acc.IO.Put_Line ("-> Add_Final_Star",
+                       Level => Acc.IO.Debug);
       Token_List.Next_Token (Right); -- move "Right" over "*"
 
       if Right_List.Is_Empty then
-         Acc.IO.Put_Line 
-           (Item => Prefix & "Add_Final_Star >" & 
+         Acc.IO.Put_Line
+           (Item => Prefix & "Add_Final_Star >" &
               To_String (Left_List.Last_Element.To_Unit) & "*<",
-            Level => Acc.IO.Verbose);
+            Level => Acc.IO.Debug);
          Update_Last (Left_List);
 
       else
-         Acc.IO.Put_Line (Prefix & "Add_Final_Star >" & 
+         Acc.IO.Put_Line (Prefix & "Add_Final_Star >" &
                                    To_String (Right_List.Last_Element.To_Unit) & "*<",
-                                 Level => Acc.IO.Verbose);
+                                 Level => Acc.IO.Debug);
          Update_Last (Right_List);
 
       end if;
 
    end Add_Final_Star;
 
-   -- -------------------------------------------------------------------------
-   -- Procedure: Store_Component_Decla
    -- -------------------------------------------------------------------------
    procedure Store_Component_Decla
      (New_Token : out Nonterminal.Class;
@@ -519,7 +589,11 @@ package body Acc.Rules.Parser is
 
       Component_Name : constant Unit_Name := Left_List.First_Element.To_Unit;
    begin
+      Acc.IO.Put_Line ("-> Store_Component_Decla",
+                       Level => Acc.IO.Debug);
       if Settings.List_Rules then
+         --  IO.Put_Line (Units.Unit_List_Image (Left_List),
+         --               Level => IO.debug);
          IO.Put_Line (Location_Image
                       & "Component " & (+Component_Name) & " contains unit "
                       & Units.Unit_List_Image (Right_List),
@@ -531,6 +605,30 @@ package body Acc.Rules.Parser is
                            Targets   => Right_List);
       Reset_Unit_Names;
    end Store_Component_Decla;
+
+   -- -------------------------------------------------------------------------
+   procedure Store_Files_Decla
+     (New_Token : out Nonterminal.Class;
+      Source    : in  Token_List.Instance'Class;
+      To_ID     : in  Master_Token.Token_ID)
+   is
+      pragma Unreferenced (New_Token, Source, To_ID);
+
+      Component_Name : constant Unit_Name := Left_List.First_Element.To_Unit;
+   begin
+      Acc.IO.Put_Line ("-> Store_Files_Decla",
+                       Level => Acc.IO.Debug);
+      if Settings.List_Rules then
+         IO.Put_Line (Location_Image
+                      & "Component " & (+Component_Name) & " contains files "
+                      & Units.Unit_List_Image (Right_List),
+                      Level => IO.Quiet);
+      end if;
+      Units.Add_Component (Component => (Name => Component_Name,
+                                         Kind => Units.Component),
+                           Targets   => Right_List);
+      Reset_Unit_Names;
+   end Store_Files_Decla;
 
    -- --------------------------------------------------------------------------
    -- Procedure: Store_Layer_Decla
@@ -545,6 +643,8 @@ package body Acc.Rules.Parser is
       Used  : constant Unit_Name := Right_List.First_Element.To_Unit;
 
    begin
+      Acc.IO.Put_Line ("-> Store_Layer_Decla",
+                       Level => Acc.IO.Debug);
       Add_Rule ((Subject_Unit => Using,
                  Object_Unit  => Used,
                  Kind         => Layer_Over,
@@ -565,6 +665,8 @@ package body Acc.Rules.Parser is
       Using : constant Unit_Name := Left_List.First_Element.To_Unit;
 
    begin
+      Acc.IO.Put_Line ("-> Store_Use_Decla",
+                       Level => Acc.IO.Debug);
       for U of Right_List loop
          Add_Rule ((Subject_Unit => Using,
                     Object_Unit  => U.To_Unit,
@@ -589,6 +691,8 @@ package body Acc.Rules.Parser is
       Using : constant Unit_Name := Left_List.First_Element.To_Unit;
 
    begin
+      Acc.IO.Put_Line ("-> Store_Restricted_Use_Decla",
+                       Level => Acc.IO.Debug);
       for U of Right_List loop
          Add_Rule ((Subject_Unit => Using,
                     Object_Unit  => U.To_Unit,
@@ -610,6 +714,8 @@ package body Acc.Rules.Parser is
       Unit : constant Unit_Name := Left_List.First_Element.To_Unit;
 
    begin
+      Acc.IO.Put_Line ("-> Add_Allowed_Unit",
+                       Level => Acc.IO.Debug);
       Add_Rule ((Kind         => Allowed_Use,
                  Subject_Unit => Unit,
                  Location     => Current_Location));
@@ -627,6 +733,8 @@ package body Acc.Rules.Parser is
       Unit : constant Unit_Name := Left_List.First_Element.To_Unit;
 
    begin
+      Acc.IO.Put_Line ("-> Add_Forbidden_Unit",
+                       Level => Acc.IO.Debug);
       Add_Rule ((Kind         => Forbidden_Use,
                  Subject_Unit => Unit,
                  Location     => Current_Location));
@@ -635,7 +743,7 @@ package body Acc.Rules.Parser is
    end Add_Forbidden_Unit;
 
    -- --------------------------------------------------------------------------
-   procedure Store_Independent_Components 
+   procedure Store_Independent_Components
      (New_Token : out Nonterminal.Class;
       Source    : in  Token_List.Instance'Class;
       To_ID     : in  Master_Token.Token_ID)
@@ -647,12 +755,14 @@ package body Acc.Rules.Parser is
       I, J : Units.Dependency_Targets.Cursor;
 
    begin
+      Acc.IO.Put_Line ("-> Store_Independent_Components",
+                       Level => Acc.IO.Debug);
       -- For the "A, B, C are independent" rule, Left_List will contains A,
       -- and Right B, C, etc.
       -- So, lets merge both
       Right_List.Prepend (Left_List.First_Element);
       -- Put_Debug_Line ("Right_List = " & Right_List'Image);
-      -- To check the "A, B, C are independent" rule, we have 
+      -- To check the "A, B, C are independent" rule, we have
       -- to register all possible couple : AB, AC, BC
       I := Right_List.First;
       loop
@@ -679,7 +789,7 @@ package body Acc.Rules.Parser is
    procedure Parse (Rules_File : in File_Name) is
       use Ada.Text_IO;
 
-      procedure Parse is 
+      procedure Parse is
       begin
          Analyzer.Reset;
          Analyzer.Set_Text_Feeder (OpenToken.Text_Feeder.Text_IO.Create (Ada.Text_IO.Current_Input));
@@ -691,6 +801,8 @@ package body Acc.Rules.Parser is
       end Parse;
 
    begin
+      Acc.IO.Put_Line ("-> Parse " & (+Rules_File),
+                       Level => Acc.IO.Debug);
       --  if Settings.Debug_Mode then
       --     OpenToken.Trace_Parse := 1;  -- value > 0 : debug level
       --  end if;

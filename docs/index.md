@@ -2,7 +2,7 @@
 [ArchiCheck](http://lionel.draghi.free.fr/Archicheck/index.html)
 ================================================================
 
-![](generated_img/version.svg) ![](generated_img/tests_ok.svg) ![](generated_img/tests_ko.svg) [![CII Best Practices](https://bestpractices.coreinfrastructure.org/projects/1625/badge)](https://bestpractices.coreinfrastructure.org/projects/1625) [![Alire](https://img.shields.io/endpoint?url=https://alire.ada.dev/badges/archicheck.json)](https://alire.ada.dev/crates/archicheck.html)
+[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0) ![](generated_img/version.svg) ![](generated_img/tests_ok.svg) ![](generated_img/tests_ko.svg) [![CII Best Practices](https://bestpractices.coreinfrastructure.org/projects/1625/badge)](https://bestpractices.coreinfrastructure.org/projects/1625) [![Alire](https://img.shields.io/endpoint?url=https://alire.ada.dev/badges/archicheck.json)](https://alire.ada.dev/crates/archicheck.html)
 
 Contents:
 - [Overview](#overview)
@@ -10,6 +10,7 @@ Contents:
 - [Run it!](#run-it)
 - [Helpful hints](#helpful-hints)
 - [Further reading](#further-reading)
+- [Help and comments](#help-and-comments)
 
 ---------------------------------------------------------------------
 
@@ -80,3 +81,7 @@ Rename it and edit it, this is a good start point.
 - [More on rules and rules files](rules.md)
 - [the project genesis](why.md)
 
+---------------------------------------------------------------------
+## Help and comments
+
+- Discussions are welcome [here](https://github.com/LionelDraghi/ArchiCheck/discussions)

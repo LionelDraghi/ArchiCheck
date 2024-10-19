@@ -1,0 +1,2 @@
+AA contains files dir1
+BB contains files dir2

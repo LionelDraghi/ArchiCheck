@@ -1,0 +1,63 @@
+project Main is
+
+   for Source_Dirs use ("./");
+   for Object_Dir use "obj";
+   for Create_Missing_Dirs use "True";
+   for Main use ("main.adb");
+
+   package Builder is
+      -- for Executable ("acc-main.adb") use "acc"; -- "archicheck";
+      for Default_Switches ("ada") use ("-j2", "-g", "-m");
+   end Builder;
+
+   package Compiler is
+      Common_Switches := ("-gnat2022");
+      Common_Debug_Switches := Common_Switches &
+      ("-g", "-O0",  "-gnatQ", "-gnatf",
+       "-gnato", "-fstack-check", "-gnata",
+       "-gnateE", "-gnatVa", "-gnatwa", "-gnatyaefhiklnprtx");
+      -- "-gnateE", "-gnatVa", "-gnatwa", "-gnatW8", "-gnatyaefhiklnprtx");
+      -- -gnatQ   : Don't quit
+      -- -gnatf   : Full errors
+      -- -gnato   : Intermediate overflows to be handled in strict mode.
+      -- -fstack-check : stack checking
+      -- -gnata   : assertions
+      -- -gnateE  : extra infos in exception messages
+      -- -gnatVa  : all validity checks
+      -- -gnatwa  : activate most optional warning messages
+      -- -gnatW8  : UTF-8 encodings recognized (Char="≠" is easier to undestand than Char=["2260"])
+      --
+      -- Style checking :
+      -- a : Check attribute casing
+      -- removed b : Blanks not allowed at statement end
+      --         (Because of Markdown processing for comments : double
+      --          final blank is used in MD to force a newline)
+      -- e : Check end/exit labels
+      -- f : No form feeds or vertical tabs
+      -- h : No horizontal tabs
+      -- i : Check if-then layout
+      -- k : Check keyword casing
+      -- l : Check layout
+      -- n : Check casing of entities in Standard
+      -- p : Check pragma casing
+      -- r : Check references
+      -- t : Check token spacing
+      -- removed M100 : Set maximum line length
+      -- x : Check extra parentheses.
+
+                  for Switches ("ada") use Common_Debug_Switches;
+            -- -pg : profiling
+
+   end Compiler;
+
+   package Binder is
+    for Switches ("ada") use ("-Es");
+            -- -Es : store symbolic tracebacks
+   end Binder;
+
+   package Linker is
+       for Switches ("ada") use ("-g", "--coverage", "-pg");
+            -- pg : profiling
+   end Linker;
+
+end Main;

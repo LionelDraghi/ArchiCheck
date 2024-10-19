@@ -76,8 +76,8 @@ package body Acc.Units is
                when Ada_2012 => (if U.Implementation
                                    then Image (U.Kind) & " body"
                                    else Image (U.Kind) & " spec"),
-               when Java     => Image (U.Kind));
-                 
+                 when Java     => Image (U.Kind));
+
    end Unit_Description;
 
    -- --------------------------------------------------------------------------
@@ -209,7 +209,7 @@ package body Acc.Units is
       --    Prefix : in String  := "Is_A_Child")
       --    renames Acc.IO.Put_Debug_Line;
       P_Last_Char            : constant Character := P (P'Length);
-      
+
    begin
       if Ada.Strings.Equal_Case_Insensitive (C, P) then
          -- The Unit is the component
@@ -217,10 +217,10 @@ package body Acc.Units is
          return True;
          -- P = "P4"
          -- C = "P4"
-         
+
       elsif C'Length > P'Length and then
-        (Ada.Strings.Equal_Case_Insensitive (Left => Head (C, Count => P'Length), 
-                                             Right => P) 
+        (Ada.Strings.Equal_Case_Insensitive (Left => Head (C, Count => P'Length),
+                                             Right => P)
          and C (P'Length + 1) = '.')
       then
          -- P = "P4"
@@ -229,20 +229,20 @@ package body Acc.Units is
          return True;
 
       elsif P_Last_Char = '*' and then C'Length = P'Length - 1 and then
-        (Ada.Strings.Equal_Case_Insensitive (Left => C, 
-                                             Right => Head (P, Count => P'Length - 1))) 
+        (Ada.Strings.Equal_Case_Insensitive (Left => C,
+                                             Right => Head (P, Count => P'Length - 1)))
       then
          -- P = "P4*"
          -- C = "P4"
          Put_Debug_Line ("Unit " & C & " is a child of " & P);
          return True;
 
-      elsif C'Length > P'Length 
-        and then P_Last_Char = '*' 
-        and then C (P'Length) = '.' 
-        and then (Ada.Strings.Equal_Case_Insensitive 
-                  (Left => Head (C, Count => P'Length - 1), 
-                   Right => Head (P, Count => P'Length - 1))) 
+      elsif C'Length > P'Length
+        and then P_Last_Char = '*'
+        and then C (P'Length) = '.'
+        and then (Ada.Strings.Equal_Case_Insensitive
+                  (Left => Head (C, Count => P'Length - 1),
+                   Right => Head (P, Count => P'Length - 1)))
       then
          -- P = "P4*"
          -- C = "P4.XXX"
