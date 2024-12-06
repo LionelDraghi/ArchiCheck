@@ -13,7 +13,6 @@ header:
 	@ ${TR} clean
 	@ ${TR} create "Adding compilation units through files to a Component"
 
-
 test1: 
 	@ #---------------------------------------------------------------------
 	@ ${TR} start "Sources identification through rules file (no -I on command line)"
@@ -31,7 +30,7 @@ test1:
 	@ ${CREATE_PKG} B body -in dir2
 	@ ${CREATE_PKG} C spec -in dir2 -with B -with F
 
-	@ ../../obj/acc --list_dependencies | sort > output.1
+	@ ../../obj/acc -I dir1 --list_dependencies | sort > output.1
 	@ ${TR} assert true /usr/bin/sdiff "-sbB expected_output.1 output.1"
 
 	@ ${TR} end
@@ -54,7 +53,7 @@ test2:
 	@ echo "   null;"			>> dir2/c-d.adb
 	@ echo "end C . D ;"		>> dir2/c-d.adb
 
-	@ ${TR} cmt 'same test here, but `c-d.adb` if formated this way :'
+	@ ${TR} cmt 'same test here, but `c-d.adb` if formatted this way :'
 	@ ${TR} cmt 
 	@ ${TR} cmt '```'
 	@ cat dir2/c-d.adb 	>> ${MD}

@@ -3,7 +3,7 @@ all: create_pkg testrec check_suite check_test run_test check_output_file check_
 TR=./testrec
 
 create_pkg:
-	gprbuild -P create_pkg.gpr
+	alr build --release
 
 testrec:
 	alr build --release

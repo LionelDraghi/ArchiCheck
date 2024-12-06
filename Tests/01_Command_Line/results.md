@@ -1,6 +1,5 @@
-01_command_line.md:381: Warning : When step "When running once more `acc --create_template`  " appears to late, after a "Then"
 
-Running file "01_command_line.md"  
+## [01_command_line.md](01_command_line.md)  
 
   - [X] scenario [Help options](01_command_line.md) pass  
 
@@ -28,9 +27,12 @@ Running file "01_command_line.md"
 
   - [X] scenario [template creation (-ct and --create_template)](01_command_line.md) pass  
 
+  - [X] scenario [template creation when there's already one](01_command_line.md) pass  
+
   - [X] scenario [-ar without rule](01_command_line.md) pass  
 
-------------------------------------------------
-- Failed     tests =  0
-- Successful tests =  14
-- Empty      tests =  0
+
+------------------
+- Failed     =  0
+- Successful =  15
+- Empty      =  0

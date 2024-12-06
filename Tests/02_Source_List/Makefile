@@ -5,10 +5,11 @@ MD=02_source_list.md
 .PHONY : clean
 
 check: ../../obj/acc
-	@ bbt -ad ${MD} -o results.md
+	@ - ln -s ../../obj/acc .
+	@ bbt --cleanup ${MD} -o results.md
 
 clean:
-	@ - ${RM} *.out
+	@ - ${RM} *.out acc
 
 doc:
 	@ cp ${MD} ../../docs/tests/${MD}

@@ -16,11 +16,11 @@ output_dir   = "src/Alire_config"
 generate_C   = false
 generate_gpr = false
 
-[[pins]]
-opentoken  = { path = "../opentoken" } 
+## [[pins]]
+## opentoken  = { path = "../opentoken" } 
 
 [[depends-on]]
-gnatcov = "^22.0.1"
-opentoken = "*"
+gnatcov    = "^22.0.1"
+opentoken  = "*"
 list_image = "*"
-
+## bbt        = "*"

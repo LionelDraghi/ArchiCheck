@@ -11,8 +11,8 @@
 
 ## Scenario: Help options
 
-  - When I successfully run `acc -h`, 
-  - Then output is help_msg.txt
+  - When I successfully run `./acc -h`, 
+  - Then output is
 ```  
 Acc normal use :
    acc rules_file -Ir directory [-Ir directory]*
@@ -56,12 +56,11 @@ Rules file:
    A commented template.ac file will be created : rename it and edit it.
 
 http://lionel.draghi.free.fr/Archicheck/index.html
-
 ```  
 
 ## Scenario: Version option
 
-  - When I run `acc --version`
+  - When I run `./acc --version`
   - Then I get
 ```  
 0.6.0
@@ -69,7 +68,7 @@ http://lionel.draghi.free.fr/Archicheck/index.html
 
 ## Scenario: -I option without src dir
 
-  - When running `acc -I`,
+  - When running `./acc -I`,
   - Then I get
 ```  
 Error : Sources directory expected after -I
@@ -77,7 +76,7 @@ Error : Sources directory expected after -I
 
 ## Scenario: -I option with an unknown dir
 
-- When running `acc -I qsdqjh`  
+- When running `./acc -I qsdqjh`  
 - Then I get
 ```  
 Error : No qsdqjh directory
@@ -85,7 +84,7 @@ Error : No qsdqjh directory
 
 ## Scenario: unknown -xyz option
 
-- When running `acc -xzy`  
+- When running `./acc -xzy`  
 - Then I get 
 ```  
 Error : Unknown rules file or unknown option -xzy
@@ -101,7 +100,7 @@ Error : Unknown rules file or unknown option -xzy
 package body Src is
 end Src;
 ```
-- When I run `acc -I dir6`    
+- When I run `./acc -I dir6`    
 - Then I get 
 ```  
 Error : Nothing to do with those sources
@@ -153,7 +152,7 @@ http://lionel.draghi.free.fr/Archicheck/index.html
 
 ## Scenario: -lr option without rules file
 
-- When I run `acc -lr  `
+- When I run `./acc -lr  `
 - Then I get 
 ```  
 Error : No rules file given
@@ -206,7 +205,7 @@ http://lionel.draghi.free.fr/Archicheck/index.html
 ## Scenario: Legal line, but no src file in the given (existing) directory
 
 - Given the directory `dir9`
-- When I run `acc -lf -I dir9`  
+- When I run `./acc -lf -I dir9`  
 - Then I get `Warning : Cannot list files, no sources found to analyze`
 
 ## Scenario: file given to -I, instead of a directory
@@ -219,14 +218,14 @@ begin
    null;
 end;
 ```
-- When I run `acc rules.txt -I src.adb`
+- When I run `./acc rules.txt -I src.adb`
 - Then I get `Error : src.adb is not a directory`  
 
 ## Scenario: -ld given, but no source found
 
 - Given new file `rules.txt` containing `Interfaces use is forbidden`
 - Given new directory `dir11`
-- When I run `acc rules.txt -ld -I dir11`  
+- When I run `./acc rules.txt -ld -I dir11`  
 - Then I get 
 ```  
 Warning : Cannot list dependencies, no sources found
@@ -240,7 +239,7 @@ Warning : Cannot list dependencies, no sources found
 package body Src is
 end;
 ```
-- When I run `acc -I dir12`    
+- When I run `./acc -I dir12`    
 - Then I get 
 ```  
 Error : Nothing to do with those sources
@@ -292,7 +291,7 @@ http://lionel.draghi.free.fr/Archicheck/index.html
 
 ## Scenario: rules file found, but nothing to do with it
 
-- When I run `acc rules.txt  ` 
+- When I run `./acc rules.txt` 
 - Then I get 
 
 ```  
@@ -346,7 +345,7 @@ http://lionel.draghi.free.fr/Archicheck/index.html
 ## Scenario: template creation (-ct and --create_template)
 
 - Given there is no `template.ac` file
-- When I run `acc -ct  ` or `acc --create_template`
+- When I run `./acc -ct` or `./acc --create_template`
 - Then file `template.ac` is
 
 ```  
@@ -378,7 +377,10 @@ Java.IO use is allowed                     -- Allowed use
 -- File generated with Acc 0.6.0
 ```  
 
-- When running once more `acc --create_template`  
+## Scenario: template creation when there's already one
+
+- Given there is a `template.ac` file
+- When running once more `./acc --create_template`  
 - Then I get 
 ```  
 Error : File template.ac already exists
@@ -386,7 +388,7 @@ Error : File template.ac already exists
 
 ## Scenario: -ar without rule 
 
-- When I run `acc -ar  `  or  `acc --append_rule`  
+- When I run `./acc -ar`  or  `./acc --append_rule`  
 - Then I get 
 ```  
 Error : Rule expected after --append_rule

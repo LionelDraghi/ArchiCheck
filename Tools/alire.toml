@@ -9,6 +9,7 @@ licenses    = "Apache-2.0"
 website     = ""
 tags        = ["test"]
 
+project-files = ["testrec.gpr", "create_pkg.gpr"]
 executables = ["testrec", "create_pkg"]
 
 [configuration]

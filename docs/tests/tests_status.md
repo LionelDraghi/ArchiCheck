@@ -2,15 +2,13 @@
 
 ## Successful
 
-   90 tests OK
+   73 tests OK
 
   - [Layer rules test suite / Sanity test]()
   - [Layer rules test suite / Batik project architecture]()
   - [Layer rules test suite / Reverse dependency test]()
   - [Layer rules test suite / Layer bridging test]()
   - [Layer rules test suite / Using a package that is neither in the same layer, nor in the visible layer]()
-  - [Dependencies identification simple test suite / Simple test]()
-  - [Dependencies identification simple test suite / Source with weird formatted withed unit]()
   - [Test Independent Components]()
   - [Test broken Independent Components rule]()
   - [Child packages test suite / Rules OK test, no output expected]()
@@ -20,9 +18,6 @@
   - [Child packages test suite / Packages in the same layer may with themself]()
   - [Child packages test suite / GUI.P1 is a GUI child, GUIP1 is not a GUI child pkg]()
   - [Child packages test suite / Forbidding Interfaces but allowing Interfaces.C]()
-  - [Component definition rules test suite / One component list]()
-  - [Component definition rules test suite / GUI component contains 3 other components, declared one by one on the rules file]()
-  - [Component definition rules test suite / GUI component contains 3 other components, declared all in one line in the rules file]()
   - [C sanity test suite / .c and .h files list]()
   - [C sanity test suite / dependencies list]()
   - [Ada units test suite / Ada compilation units unit test]()
@@ -35,6 +30,10 @@
   - [Use rules test suite / X may use Unit List rules]()
   - [Use rules test suite / only X may use Unit List rules]()
   - [Use rules test suite / Appending rules]()
+  - [Dependencies identification simple test suite / Simple test]()
+  - [Dependencies identification simple test suite / Source with weird formatted withed unit]()
+  - [Adding compilation units through files to a Component / Sources identification through rules file (no -I on command line)]()
+  - [Adding compilation units through files to a Component / Source with weird formatted withed unit]()
   - [Rules vs sources coverage test suite / Warnings on units appearing in rules file and not related to any source]()
   - [Rules vs sources coverage test suite / Non covered sources]()
   - [Rules vs sources coverage test suite / Case insensitivity of Is_A_Component function (non reg)]()
@@ -66,25 +65,9 @@
   - [ZipAda code test suite / -lf test]()
   - [ZipAda code test suite / -ld test]()
   - [ZipAda code test suite / rules test]()
-  - [File identification test suite / Non recursive file identification test]()
-  - [File identification test suite / Mixt recursive and non-recursive file identification test]()
   - [Rules file syntax test suite / Reference file]()
   - [Rules file syntax test suite / Casing]()
   - [Rules file syntax test suite / Spacing and comments]()
-  - [Command line test suite / Help options]()
-  - [Command line test suite / Version option]()
-  - [Command line test suite / -I option without src dir]()
-  - [Command line test suite / -I option with an unknown dir]()
-  - [Command line test suite / unknown -xyz option]()
-  - [Command line test suite / -I option with... nothing to do]()
-  - [Command line test suite / -lr option without rules file]()
-  - [Command line test suite / Legal line, but no src file in the given (existing) directory]()
-  - [Command line test suite / file given to -I, instead of a directory]()
-  - [Command line test suite / -ld given, but no source found]()
-  - [Command line test suite / src found, but nothing to do whith it]()
-  - [Command line test suite / rules file found, but nothing to do whith it]()
-  - [Command line test suite / template creation (-ct and --create_template)]()
-  - [Command line test suite / -ar without rule]()
   - [Spring Pet Clinic code test suite / -lf test]()
   - [Spring Pet Clinic code test suite / -ld test]()
   - [Spring Pet Clinic code test suite / rules test]()
@@ -102,7 +85,6 @@
 
 ## Empty
 
-   2 empty tests
+   1 empty tests
 
-  - [Use rules test suite / Unit_List may use ... rules]()
   - [Rules file syntax test suite / Punctuation and syntaxic sugar]()

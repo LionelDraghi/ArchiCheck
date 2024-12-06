@@ -63,7 +63,7 @@ Component processing in rules unit test / Env component allowed [Successful](rul
 
 ##  Component processing in rules unit test / Trying to include a unit in more components
 
-  P1 package is in X component, wha if I try to add it to another components?  
+  P1 package is in X component, what if I try to add it to another components?  
 
 ```  
 -- Two simple components :

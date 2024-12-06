@@ -170,32 +170,6 @@ test5:
 
 	@ ${TR} end
 
-	@ #---------------------------------------------------------------------
-	@ ${TR} start "Unit_List may use ... rules"
-	@ ${TR} cmt 
-	@ ${TR} cmt "Same test with :"
-	@ ${TR} cmt 
-	@ ${TR} cmt '```'
-	@ cat rules.5b >> ${MD}
-	@ ${TR} cmt 
-	@ ${TR} cmt '```'
-	@ ${TR} cmt 
-	@ ${TR} cmt "Same output expected :"
-	@ ${TR} cmt 
-	@ ${TR} cmt '```'
-	@ cat expected_output.5	>> ${MD}
-	@ ${TR} cmt '```'
-	@ ${TR} cmt 
-	
-	@ ${TR} cmt '** Not yet implemented **'
-
-	@ ## Fixme: 
-	@ test ! `../../obj/acc -I dir5 rules.5b > output.5b`
-	@ ## 
-	@ ${TR} assert true /usr/bin/sdiff "-sBW expected_output.5 output.5b"
-
-	@ ${TR} end
-
 test6:
 	@ #---------------------------------------------------------------------
 	@ ${TR} start "Combining Allowed and Forbidden"

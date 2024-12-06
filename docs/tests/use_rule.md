@@ -118,29 +118,6 @@ Error : dir5/p3.ads:1: Only P1, P2 and P4 are allowed to use Interfaces.C, P3 is
 
 Use rules test suite / Cumulative only ... may use X rules [Successful](use_rule.md#use-rules-test-suite--cumulative-only--may-use-x-rules)
 
-##  Use rules test suite / Unit_List may use ... rules
-
-
-  Same test with :  
-
-```  
-only P1 and P2 may use Interfaces.C
-
-P4 may use Interfaces.C
-
-```  
-
-  Same output expected :  
-
-```  
-Error : dir5/p3.ads:1: Only P1, P2 and P4 are allowed to use Interfaces.C, P3 is not
-Error : dir5/p3.ads:1: Only P1, P2 and P4 are allowed to use Interfaces.C, P3 is not
-```  
-
-  ** Not yet implemented **  
-
-Use rules test suite / Unit_List may use ... rules [Empty](use_rule.md#use-rules-test-suite--unitlist-may-use--rules)
-
 ##  Use rules test suite / Combining Allowed and Forbidden
 
   P1 P2 and P3 are withing Interfaces, Interfaces.C and Interfaces.Java  
