@@ -14,7 +14,7 @@ ArchiCheck is distributed under GPL version 3, refer to the usual [COPYING file]
 Comments and issues are welcome [here](https://github.com/LionelDraghi/ArchiCheck/issues/new).
 
 **Ada:**  
-ArchiCheck is proudly written in [Ada](http://getadanow.com/).
+ArchiCheck is proudly written in [Ada](https://ada-lang.io/).
 
 **References and guidelines:**  
 ArchiCheck strives to be compliant with:  
