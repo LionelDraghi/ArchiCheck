@@ -59,7 +59,7 @@ P5 may use Framework
 
 ```
 - When I run `./acc -lnc test2.ac -I ./dir2`
-- Then output is
+- Then output is (unordered)
 ```
 Framework_Utilities
 Java

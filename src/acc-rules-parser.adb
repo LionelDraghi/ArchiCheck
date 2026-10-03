@@ -449,7 +449,7 @@ package body Acc.Rules.Parser is
    function Current_Location return Sources.Location is
      (File    => +Settings.Rules_File_Name,
       Context => Context,
-      Line    => Rules_File_Parser.Line,
+      Line    => Rules_File_Parser.Analyzer.Line,
       Column  => 0) with Inline;
 
    -- --------------------------------------------------------------------------

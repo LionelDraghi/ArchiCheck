@@ -13,7 +13,7 @@ Expected files:
 - Given there is no `batik-1.9` directory
 - Given I run `tar -xf 11_Batik/batik-src-1.9.tar.gz` Successfully
 - When I run `./acc -lf -Ir ./batik-1.9`
-- Then output matches file (unordered) 11_Batik/expected_output.1
+- Then I get file (unordered) `11_Batik/expected_output.1`
 
 ### Scenario: public class
 
@@ -40,7 +40,7 @@ dir2/JSVG.java:2: JSVG depends on Element
 - Given I run `mkdir -p dir2` Successfully
 - Given I run `cp ./batik-1.9/contrib/jsvg/JSVG.java dir2` Successfully
 - When I run `./acc -ld -I dir2`
-- Then output matches file 11_Batik/expected_output.2
+- Then I get file `11_Batik/expected_output.2`
 
 ### Scenario: public interface class
 
@@ -65,7 +65,7 @@ dir3/NodeEventTarget.java:1: NodeEventTarget depends on EventTarget
 - Given I run `mkdir -p dir3` Successfully
 - Given I run `cp ./batik-1.9/batik-dom/src/main/java/org/apache/batik/dom/events/NodeEventTarget.java dir3` Successfully
 - When I run `./acc -ld -I dir3`
-- Then output matches file 11_Batik/expected_output.3
+- Then I get file `11_Batik/expected_output.3`
 
 ### Scenario: no import
 
@@ -88,7 +88,7 @@ No dependencies
 - Given I run `mkdir -p dir4` Successfully
 - Given I run `cp ./batik-1.9/batik-dom/src/main/java/org/apache/batik/dom/util/TriplyIndexedTable.java dir4` Successfully
 - When I run `./acc -ld -I dir4`
-- Then output matches file 11_Batik/expected_output.4
+- Then I get file `11_Batik/expected_output.4`
 
 ### Scenario: no package
 
@@ -122,7 +122,7 @@ public interface NodeEventTarget extends EventTarget {
 }
 ```
 - When I run `./acc -ld -I dir5`
-- Then output matches file 11_Batik/expected_output.5
+- Then I get file `11_Batik/expected_output.5`
 
 ### Scenario: public abstract class
 
@@ -145,9 +145,9 @@ No output expected
 - Given I run `tar -xf 11_Batik/batik-src-1.9.tar.gz` Successfully
 - Given I run `mkdir -p dir6` Successfully
 - Given I run `cp ./batik-1.9/batik-transcoder/src/main/java/org/apache/batik/transcoder/SVGAbstractTranscoder.java dir6` Successfully
-- Given the file `11_Batik/rules.B`
+- Given there is a file `11_Batik/rules.B`
 - When I run `./acc 11_Batik/rules.B -q -I dir6`
-- Then output matches file 11_Batik/expected_output.6
+- Then I get file `11_Batik/expected_output.6`
 
 ### Scenario: Let's add dependencies to Browser and Rasterizer into a Transcoder class
 
@@ -165,12 +165,10 @@ public interface NodeEventTarget extends EventTarget {
 Rules:
 
 ```
-Applications      contains Browser and Rasterizer
-Core_Modules      contains Transcoder, GVT and Bridge
-Low_Level_Modules contains SVG_Generator
+Applications      contains org.apache.batik.apps.rasterizer
+Core_Modules      contains org.apache.batik.transcoder
 
 Applications is a layer over Core_Modules
-Core_Modules is a layer over Low_Level_Modules
 ```
 
 Run:
@@ -179,8 +177,7 @@ Run:
 Expected:
 
 ```
-Error : dir7/MyClass.java:3: Transcoder is neither in Core_Modules or Applications layer, and so shall not directly use Browser in the Applications layer
-Error : dir7/MyClass.java:4: Transcoder is neither in Core_Modules or Applications layer, and so shall not directly use Rasterizer in the Applications layer
+Error : dir7/MyClass.java:4: org.apache.batik.transcoder.NodeEventTarget is in Core_Modules layer, and so shall not use org.apache.batik.apps.Rasterizer in the upper Applications layer
 ```
 
 - Given there is no `dir7` directory
@@ -198,15 +195,13 @@ public interface NodeEventTarget extends EventTarget {
 ```
 - Given the file `rules.7`
 ```
-Applications      contains Browser and Rasterizer
-Core_Modules      contains Transcoder, GVT and Bridge
-Low_Level_Modules contains SVG_Generator
+Applications      contains org.apache.batik.apps.rasterizer
+Core_Modules      contains org.apache.batik.transcoder
 
 Applications is a layer over Core_Modules
-Core_Modules is a layer over Low_Level_Modules
 ```
 - When I run `./acc rules.7 -I dir7`
-- Then output matches file 11_Batik/expected_output.7
+- Then I get file `11_Batik/expected_output.7`
 
 ### Scenario: -ld test
 
@@ -215,4 +210,4 @@ Core_Modules is a layer over Low_Level_Modules
 - Given there is no `batik-1.9` directory
 - Given I run `tar -xf 11_Batik/batik-src-1.9.tar.gz` Successfully
 - When I run `./acc -ld -Ir ./batik-1.9`
-- Then output matches file (unordered) 11_Batik/expected_output.8
+- Then I get file (unordered) `11_Batik/expected_output.8`

@@ -1,5 +1,10 @@
 ## Feature: C sanity test suite
 
+### Background:
+
+- Given there is no `src` directory
+- Given there is no `include` directory
+
 ### Scenario: .c and .h files list
 
 - Given the directory `include`
@@ -111,7 +116,7 @@ float square_root(float x)
 }
 ```
 - When I run `./acc -ld -I include -I src`
-- Then output is
+- Then output is (unordered)
 ```
 main implementation depends on square_root
 main implementation depends on stdio

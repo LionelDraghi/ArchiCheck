@@ -379,7 +379,7 @@ Java.IO use is allowed                     -- Allowed use
 
 ## Scenario: template creation when there's already one
 
-- Given there is a `template.ac` file
+- Given I run `./acc -ct` Successfully
 - When running once more `./acc --create_template`  
 - Then I get 
 ```  

@@ -4,6 +4,7 @@
 
 - Given there is no `dir1` directory
 - Given there is no `dir2` directory
+- Given the new directory `dir1`
 - Given I run `./create_pkg B body -in dir2` Successfully
 - Given the file `dir1/a.ads`
 ```ada
@@ -24,7 +25,7 @@ package C is
 end C;
 ```
 - When I run `./acc -I dir1 --list_dependencies`
-- Then output is
+- Then output is (unordered)
 ```
 A package body depends on C
 A package spec depends on B
@@ -33,6 +34,7 @@ A package spec depends on B
 ### Scenario: Source with weird formatted withed unit
 
 - Given there is no `dir2` directory
+- Given the new directory `dir1`
 - Given I run `./create_pkg B body -in dir2` Successfully
 - Given the file `dir2/a.ads`
 ```ada
@@ -67,7 +69,7 @@ function C .D is
 end C . D ;
 ```
 - When I run `./acc -I dir2 --list_dependencies`
-- Then output is
+- Then output is (unordered)
 ```
 A package body depends on C
 A package spec depends on B

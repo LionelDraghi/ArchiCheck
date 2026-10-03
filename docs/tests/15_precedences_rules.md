@@ -4,13 +4,13 @@
 
 - Given there is no `src` directory
 - Given I run `./create_pkg LC.Z spec -in src` Successfully
-- Given the file `src/la-x.ads`
+- Given the new file `src/la-x.ads`
 ```ada
 with LB.Y;
 package LA.X is
 end LA.X;
 ```
-- Given the file `src/lb-y.ads`
+- Given the new file `src/lb-y.ads`
 ```ada
 with Ada.Containers,
      Interfaces.C,
@@ -42,13 +42,13 @@ Error : src/lb-y.ads:6: LB.Y is in LB layer, and so shall not use LA.X in the up
 
 - Given there is no `src` directory
 - Given I run `./create_pkg LC.Z spec -in src` Successfully
-- Given the file `src/la-x.ads`
+- Given the new file `src/la-x.ads`
 ```ada
 with LB.Y;
 package LA.X is
 end LA.X;
 ```
-- Given the file `src/lb-y.ads`
+- Given the new file `src/lb-y.ads`
 ```ada
 with Ada.Containers,
      Interfaces.C,

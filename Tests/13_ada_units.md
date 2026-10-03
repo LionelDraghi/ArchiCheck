@@ -4,21 +4,21 @@
 
 procedure Sub.Test has several separate units :
 
-- procedure renaming
-- generic package renaming
+  * procedure renaming
+  * generic package renaming
 
-- package body
-- package specification
-- generic package
+  * package body
+  * package specification
+  * generic package
 
-- child procedure
+  * child procedure
 
-- separate procedure
-- separate private procedure
-- separate package
-- separate function
-- separate task
-- separate protected
+  * separate procedure
+  * separate private procedure
+  * separate package
+  * separate function
+  * separate task
+  * separate protected
 
 > acc -ld -I 13_Ada_Units/src
 
@@ -46,6 +46,6 @@ Util.New_Page package spec depends on Interfaces.C
 ```
 
 - Given I run `gnat make -q sub-test -I13_Ada_Units/src -D13_Ada_Units/src` Successfully
-- Given the file `13_Ada_Units/expected_output.1`
+- Given there is a file `13_Ada_Units/expected_output.1`
 - When I run `./acc -ld -I 13_Ada_Units/src` Successfully
-- Then output matches file (unordered) 13_Ada_Units/expected_output.1
+- Then I get file (unordered) `13_Ada_Units/expected_output.1`

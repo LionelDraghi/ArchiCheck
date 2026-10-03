@@ -3,14 +3,9 @@
 ### Scenario: Layer component
 
 - Given there is no `src` directory
-- Given I run `./create_pkg LA.X spec -in src` Successfully
-- Given I run `./create_pkg LB.Y body -in src` Successfully
-- Given the file `src/lb-y.adb`
-```ada
-with Ada.Containers, Interfaces.C;
-package body LB.Y is
-end LB.Y;
-```
+- Given I run `./create_pkg LA.X spec -in src -with LB.Y` Successfully
+- Given I run `./create_pkg LB.Y body -in src -with Ada.Containers -with Interfaces.C` Successfully
+- Given I run `./create_pkg LC spec -in src` Successfully
 - Given the file `rules1a.txt`
 ```
 LA is a Layer over LB
@@ -24,14 +19,9 @@ Warning : src/lb-y.adb:2: LB.Y (in LB layer) uses Interfaces.C that is neither i
 ```
 
 - Given there is no `src` directory
-- Given I run `./create_pkg LA.X spec -in src` Successfully
-- Given I run `./create_pkg LB.Y body -in src` Successfully
-- Given the file `src/lb-y.adb`
-```ada
-with Ada.Containers, Interfaces.C;
-package body LB.Y is
-end LB.Y;
-```
+- Given I run `./create_pkg LA.X spec -in src -with LB.Y` Successfully
+- Given I run `./create_pkg LB.Y body -in src -with Ada.Containers -with Interfaces.C` Successfully
+- Given I run `./create_pkg LC spec -in src` Successfully
 - Given the file `rules1b.txt`
 ```
 LA is a Layer over LB
@@ -41,19 +31,14 @@ LC contains Interfaces.C and Ada
 
 ```
 - When I run `./acc rules1b.txt -I src`
-- Then output is empty
+- Then I get no output
 
 ### Scenario: Env component allowed
 
 - Given there is no `src` directory
-- Given I run `./create_pkg LA.X spec -in src` Successfully
-- Given I run `./create_pkg LB.Y body -in src` Successfully
-- Given the file `src/lb-y.adb`
-```ada
-with Ada.Containers, Interfaces.C;
-package body LB.Y is
-end LB.Y;
-```
+- Given I run `./create_pkg LA.X spec -in src -with LB.Y` Successfully
+- Given I run `./create_pkg LB.Y body -in src -with Ada.Containers -with Interfaces.C` Successfully
+- Given I run `./create_pkg LC spec -in src` Successfully
 - Given the file `rules2.txt`
 ```
 LA is a Layer over LB
@@ -63,7 +48,7 @@ Env contains Interfaces.C and Ada
 Env use is allowed
 ```
 - When I run `./acc rules2.txt -I src`
-- Then output is empty
+- Then I get no output
 
 ### Scenario: Trying to include a unit in more components
 
@@ -91,20 +76,14 @@ Z contains P1
 - When I run `./acc rules3.txt -I src`
 - Then output is
 ```
-Error : rules3.txt:25: P1 already in X (cf. rules3.txt:3: ), can't be added to Y
-Error : rules3.txt:26: P1 already in X (cf. rules3.txt:3: ), can't be added to Z
+Error : rules3.txt:13: P1 already in X (cf. rules3.txt:2: ), can't be added to Y
+Error : rules3.txt:13: P1 already in X (cf. rules3.txt:2: ), can't be added to Z
 ```
 
 ### Scenario: Test on Components embedding components embedding components...
 
 - Given there is no `dir4` directory
-- Given I run `./create_pkg P1 spec -in dir4` Successfully
-- Given the file `dir4/p1.ads`
-```ada
-with Ada.Containers, Interfaces.C;
-package P1 is
-end P1;
-```
+- Given I run `./create_pkg P1 spec -in dir4 -with Ada.Containers -with Interfaces.C` Successfully
 - Given the file `rules4.txt`
 ```
 X contains P1
@@ -119,7 +98,7 @@ Interfaces.C use is forbidden
 Error : dir4/p1.ads:2: Interfaces.C use is forbidden
 ```
 
-- Given the file `rules4.txt`
+- Given the new file `rules4.txt`
 ```
 X contains P1
 Y contains X
@@ -130,7 +109,7 @@ Interfaces.C use is forbidden
 Z may use Interfaces.C
 ```
 - When I run `./acc rules4.txt -I dir4`
-- Then output is empty
+- Then I get no output
 
 ### Scenario: Test A B C example posted on fr.comp.lang.ada...
 
@@ -142,31 +121,31 @@ Z may use Interfaces.C
 - Given I run `./create_pkg Z.P2 spec -in dir5` Successfully
 - Given I run `./create_pkg U spec -in dir5` Successfully
 - Given I run `./create_pkg V spec -in dir5` Successfully
-- Given the file `dir5/y-p1.ads`
+- Given the new file `dir5/y-p1.ads`
 ```ada
 with X.P1;
 package Y.P1 is
 end Y.P1;
 ```
-- Given the file `dir5/z-p1.ads`
+- Given the new file `dir5/z-p1.ads`
 ```ada
 with X;
 package Z.P1 is
 end Z.P1;
 ```
-- Given the file `dir5/z-p2.ads`
+- Given the new file `dir5/z-p2.ads`
 ```ada
 with Y.P2;
 package Z.P2 is
 end Z.P2;
 ```
-- Given the file `dir5/u.ads`
+- Given the new file `dir5/u.ads`
 ```ada
 with Z.P2;
 package U is
 end U;
 ```
-- Given the file `dir5/v.ads`
+- Given the new file `dir5/v.ads`
 ```ada
 with Y.P1;
 package V is
