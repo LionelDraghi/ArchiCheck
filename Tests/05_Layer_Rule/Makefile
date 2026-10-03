@@ -1,7 +1,7 @@
 all: check doc
 
 CREATE_PKG=../../Tools/create_pkg
-MD=layer_rule.md
+MD=05_layer_rule.md
 TR=../../Tools/testrec -o ${MD} 
 
 .PHONY : clean
@@ -84,7 +84,7 @@ test2:
 	@ ${CREATE_PKG} P4 spec  -in dir2 -with P5
 	@ ${CREATE_PKG} P5 spec  -in dir2
 
-	@ ${TR} cmt "Detection of a dependancy from a lower layer component to an upper layer component."
+	@ ${TR} cmt "Detection of a dependency from a lower layer component to an upper layer component."
 	@ ${TR} cmt
 	@ ${TR} cmt "![](lr2.png)"
 	@ ${TR} cmt
@@ -115,7 +115,7 @@ test3:
 	@ ${CREATE_PKG} P6 spec  -in dir3c
 	@ ${CREATE_PKG} P6 body  -in dir3c -with P4
 
-	@ ${TR} cmt "Detection of a dependancy link crossing a layer."
+	@ ${TR} cmt "Detection of a dependency link crossing a layer."
 	@ ${TR} cmt
 	@ ${TR} cmt "![](lr3.png)"
 	@ ${TR} cmt
@@ -144,7 +144,7 @@ test4:
 	@ ${CREATE_PKG} P4 spec  -in dir4
 	@ ${CREATE_PKG} P7 spec  -in dir4
 
-	@ ${TR} cmt "Detection of an undescribed dependancy to a component that is neither in the same layer, nor in the lower layer."
+	@ ${TR} cmt "Detection of an un-described dependency to a component that is neither in the same layer, nor in the lower layer."
 	@ ${TR} cmt
 	@ ${TR} cmt "![](lr4.png)"
 	@ ${TR} cmt

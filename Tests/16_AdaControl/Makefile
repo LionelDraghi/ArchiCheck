@@ -1,7 +1,7 @@
 all: check doc
 
 CREATE_PKG=../../Tools/create_pkg
-MD=adactl.md
+MD=16_adactl.md
 TR=../../Tools/testrec -o ${MD} 
 
 .PHONY : clean

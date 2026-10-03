@@ -1,7 +1,7 @@
 all: check doc example
 
 CREATE_PKG=../../Tools/create_pkg
-MD=C_sanity_check.md
+MD=20_C_sanity_check.md
 TR=../../Tools/testrec -o ${MD} 
 
 .PHONY : clean

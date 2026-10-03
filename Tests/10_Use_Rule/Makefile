@@ -1,7 +1,7 @@
 all: check doc
 
 CREATE_PKG=../../Tools/create_pkg
-MD=use_rule.md
+MD=10_use_rule.md
 TR=../../Tools/testrec -o ${MD} 
 
 .PHONY : clean
@@ -242,7 +242,7 @@ test7:
 	@ ${TR} cmt '```'
 	@ ${TR} cmt 
 	
-	@ test ! `../../obj/acc -I dir7 rules.7 > output.7`
+	@ test ! `../../obj/acc -I dir7 rules.7 | sort -r > output.7`
 	@ ${TR} assert true /usr/bin/sdiff "-sBW expected_output.7 output.7"
 
 	@ ${TR} end

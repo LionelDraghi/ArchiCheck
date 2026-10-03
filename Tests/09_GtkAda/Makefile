@@ -1,6 +1,6 @@
 all: check doc
 
-MD=gtkada.md
+MD=09_gtkada.md
 TR=../../Tools/testrec -o ${MD} 
 
 .PHONY : clean

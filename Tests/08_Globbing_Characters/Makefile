@@ -1,7 +1,7 @@
 all: check doc
 
 CREATE_PKG=../../Tools/create_pkg
-MD=globbing_characters.md
+MD=08_globbing_characters.md
 TR=../../Tools/testrec -o ${MD} 
 
 .PHONY : clean

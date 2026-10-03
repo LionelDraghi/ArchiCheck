@@ -1,7 +1,7 @@
 all: check doc
 
 CREATE_PKG=../../Tools/create_pkg
-MD=petclinic.md
+MD=18_petclinic.md
 TR=../../Tools/testrec -o ${MD} 
 
 .PHONY : clean

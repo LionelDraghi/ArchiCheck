@@ -1,7 +1,7 @@
 all: check doc
 
 CREATE_PKG=../../Tools/create_pkg
-MD=rules_src_coverage.md
+MD=19_rules_src_coverage.md
 TR=../../Tools/testrec -o ${MD} 
 
 .PHONY : clean

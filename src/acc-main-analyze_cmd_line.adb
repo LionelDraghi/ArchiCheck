@@ -120,7 +120,7 @@ procedure Analyze_Cmd_Line is
       use Acc.IO;
 
    begin
-      -- first, let's eliminate the normal situation :
+      -- First, let's eliminate the normal situation :
       -- there is a rules file, and there are sources to analyze
       if Settings.Rules_File_Name = "" or Sources.Get_List.Is_Empty then
 

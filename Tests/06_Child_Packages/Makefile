@@ -1,7 +1,7 @@
 all: check doc
 
 CREATE_PKG=../../Tools/create_pkg
-MD=child_packages.md
+MD=06_child_packages.md
 TR=../../Tools/testrec -o ${MD} 
 
 .PHONY : clean

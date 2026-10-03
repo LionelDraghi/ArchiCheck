@@ -36,20 +36,21 @@ nav:
 - Current Status:
   - dashboard.md
   - tests/tests_status.md
+  - tests/test_results.md
   - fixme.md
   - todo.md
   - Limitations and bugs: limitations.md
   - changelog.md
   - Tests:
     - Common tests:
-      - tests/command_line.md
-      - tests/source_list.md
-      - tests/dependency_list.md
-      - tests/component_list.md
-      - tests/layer_rule.md
-      - tests/child_packages.md
-      - tests/rules_files_syntax.md
-      - tests/globbing_characters.md
+      - tests/01_command_line.md
+      - tests/02_source_list.md
+      - tests/03_dependency_list.md
+      - tests/04_component_list.md
+      - tests/05_layer_rule.md
+      - tests/06_child_packages.md
+      - tests/07_rules_files_syntax.md
+      - tests/08_globbing_characters.md
       - tests/use_rule.md
       - tests/rules_on_components.md
       - tests/precedences_rules.md
@@ -60,7 +61,7 @@ nav:
       - tests/gtkada.md
       - tests/zipada.md
       - tests/adactl.md
-      - tests/archicheck.md
+      # tests/acc.md
 
     - Java tests:
       - tests/batik.md

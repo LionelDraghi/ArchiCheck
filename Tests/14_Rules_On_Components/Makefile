@@ -1,7 +1,7 @@
 all: check doc
 
 CREATE_PKG=../../Tools/create_pkg
-MD=rules_on_components.md
+MD=14_rules_on_components.md
 TR=../../Tools/testrec -o ${MD} 
 
 ## .PHONY : clean

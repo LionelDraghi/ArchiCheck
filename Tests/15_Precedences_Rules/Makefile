@@ -1,7 +1,7 @@
 all: check doc
 
 CREATE_PKG=../../Tools/create_pkg
-MD=precedences_rules.md
+MD=15_precedences_rules.md
 TR=../../Tools/testrec -o ${MD} 
 
 ## .PHONY : clean

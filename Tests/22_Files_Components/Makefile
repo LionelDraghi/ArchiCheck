@@ -1,7 +1,7 @@
 all: check doc
 
 CREATE_PKG=../../Tools/create_pkg
-MD=files_component.md
+MD=22_files_component.md
 TR=../../Tools/testrec -o ${MD} 
 
 .PHONY : clean

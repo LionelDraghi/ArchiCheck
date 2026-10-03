@@ -15,5 +15,6 @@ src/acc-rules.adb:115|      -- Fixme: ajouter une référence à la règle en pa
 src/acc-settings.ads:59|   -- Fixme: Not sure that case independence would be useful here
 src/backup/src/archicheck-dependencies.ads:49|--        -- Fixme:
 Tests/09_GtkAda/Makefile:106|	@ # Fixme: -q is set to avoid warnings and focus on error till code is fixed
+Tests/15_Precedences_Rules/15_precedences_rules.md:40|-- Fixme: and what if declared the other way round?
 Tests/15_Precedences_Rules/precedences_rules.md:40|-- Fixme: and what if declared the other way round?
 Tests/15_Precedences_Rules/rules2.txt:4|-- Fixme: and what if declared the other way round?

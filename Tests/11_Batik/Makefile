@@ -1,7 +1,7 @@
 all: check doc
 
 CREATE_PKG=../../Tools/create_pkg
-MD=batik.md
+MD=11_batik.md
 TR=../../Tools/testrec -o ${MD} 
 
 .PHONY : clean header

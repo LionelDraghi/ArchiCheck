@@ -5,17 +5,14 @@ all: check doc
 # TESTS=01_Command_Line 02_Source_List 03_Dependency_List 04_Component_List 05_Layer_Rule 06_Child_Packages 07_Rules_Files_Syntax 08_Globbing_Characters 09_GtkAda 10_Use_Rule 11_Batik 12_ZipAda 13_Ada_Units 14_Rules_On_Components 15_Precedences_Rules 16_AdaControl 
 
 check: ../obj/acc ../Tools/create_pkg ../Tools/testrec
+	@ - ln -s ../obj/acc .
+	@ - ln -s ../Tools/create_pkg .
+	@ bbt -c -k --yes --exclude @WIP -o ../docs/tests/test_results.md *.md
+
     # for TEST in $(TESTS); do \
     #     $(MAKE) check $$TEST; \
     # done
-	@ $(MAKE) check --directory=01_Command_Line
-	@ $(MAKE) check --directory=02_Source_List
-	@ $(MAKE) check --directory=03_Dependency_List
-	@ $(MAKE) check --directory=04_Component_List
-	@ $(MAKE) check --directory=05_Layer_Rule
-	@ $(MAKE) check --directory=06_Child_Packages
-	@ $(MAKE) check --directory=07_Rules_Files_Syntax
-	@ $(MAKE) check --directory=08_Globbing_Characters
+	
 	@ $(MAKE) check --directory=09_GtkAda
 	@ $(MAKE) check --directory=10_Use_Rule
 	@ $(MAKE) check --directory=11_Batik
@@ -67,14 +64,6 @@ doc:
 
 	@ mv tests_status.md ../docs/tests
 
-	@ $(MAKE) doc --directory=01_Command_Line
-	@ $(MAKE) doc --directory=02_Source_List
-	@ $(MAKE) doc --directory=03_Dependency_List
-	@ $(MAKE) doc --directory=04_Component_List
-	@ $(MAKE) doc --directory=05_Layer_Rule
-	@ $(MAKE) doc --directory=06_Child_Packages
-	@ $(MAKE) doc --directory=07_Rules_Files_Syntax
-	@ $(MAKE) doc --directory=08_Globbing_Characters
 	@ $(MAKE) doc --directory=09_GtkAda
 	@ $(MAKE) doc --directory=10_Use_Rule
 	@ $(MAKE) doc --directory=11_Batik
@@ -91,14 +80,9 @@ doc:
 	@ $(MAKE) doc --directory=22_Files_Components
 
 clean:
-	@ $(MAKE) clean --directory=01_Command_Line
-	@ $(MAKE) clean --directory=02_Source_List
-	@ $(MAKE) clean --directory=03_Dependency_List
-	@ $(MAKE) clean --directory=04_Component_List
-	@ $(MAKE) clean --directory=05_Layer_Rule
-	@ $(MAKE) clean --directory=06_Child_Packages
-	@ $(MAKE) clean --directory=07_Rules_Files_Syntax
-	@ $(MAKE) clean --directory=08_Globbing_Characters
+	@ - ${RM} tests_status.md *.lst short_tests_status.md tests_count.txt tmp.txt acc create_pkg template.ac 
+	@ - ${RM} -rf dir? dir3?
+
 	@ $(MAKE) clean --directory=09_GtkAda
 	@ $(MAKE) clean --directory=10_Use_Rule
 	@ $(MAKE) clean --directory=11_Batik
@@ -114,6 +98,5 @@ clean:
 	@ $(MAKE) clean --directory=21_Independent_Components
 	@ $(MAKE) clean --directory=22_Files_Components
 
-	@ - ${RM} tests_status.md *.lst short_tests_status.md tests_count.txt tmp.txt
 
 

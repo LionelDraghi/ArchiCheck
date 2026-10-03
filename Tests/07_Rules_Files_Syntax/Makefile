@@ -2,7 +2,7 @@ all: check doc
 
 .PHONY : clean
 
-MD=rules_files_syntax.md
+MD=07_rules_files_syntax.md
 TR=../../Tools/testrec -o ${MD} 
 
 check: ../../obj/acc header test1 test2 test3 test4
@@ -82,7 +82,7 @@ test4:
 	@ ${TR} cmt
 
 	@ #### ../../obj/acc -lr rules4.txt  > lc4.txt
-	@ #### pas encore mur pour ce test (bug du blanc comme spéparateur) !!	@ ${TR} assert true /usr/bin/sdiff "-s lc4.txt expected_lc4.txt"
+	@ #### pas encore mur pour ce test (bug du blanc comme séparateur) !!	@ ${TR} assert true /usr/bin/sdiff "-s lc4.txt expected_lc4.txt"
 
 	@ ${TR} end
 

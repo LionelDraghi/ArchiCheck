@@ -1,7 +1,7 @@
 all: check doc
 
 CREATE_PKG=../../Tools/create_pkg
-MD=zipada.md
+MD=12_zipada.md
 TR=../../Tools/testrec -o ${MD} 
 
 .PHONY : clean
