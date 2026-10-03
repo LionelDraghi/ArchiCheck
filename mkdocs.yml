@@ -51,24 +51,26 @@ nav:
       - tests/06_child_packages.md
       - tests/07_rules_files_syntax.md
       - tests/08_globbing_characters.md
-      - tests/use_rule.md
-      - tests/rules_on_components.md
-      - tests/precedences_rules.md
-      - tests/rules_src_coverage.md
+      - tests/10_use_rule.md
+      - tests/14_rules_on_components.md
+      - tests/15_precedences_rules.md
+      - tests/19_rules_src_coverage.md
+      - tests/21_independent_components.md
+      - tests/22_files_component.md
 
     - Ada tests:
-      - tests/ada_units.md
-      - tests/gtkada.md
-      - tests/zipada.md
-      - tests/adactl.md
-      # tests/acc.md
+      - tests/09_gtkada.md
+      - tests/12_zipada.md
+      - tests/13_ada_units.md
+      - tests/16_adactl.md
+      - tests/17_acc.md
 
     - Java tests:
-      - tests/batik.md
-      - tests/petclinic.md
+      - tests/11_batik.md
+      - tests/18_petclinic.md
   
     - C tests:
-      - tests/C_sanity_check.md
+      - tests/20_C_sanity_check.md
 
 - About: 
   - about.md

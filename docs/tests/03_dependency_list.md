@@ -36,7 +36,7 @@ procedure C.D is
 end C.D;
 ```
 
-- When I run `acc -I dir1 --list_dependencies`
+- When I run `./acc -I dir1 --list_dependencies`
 
 - Then the output is (unordered) 
 ```  

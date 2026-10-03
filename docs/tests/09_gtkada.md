@@ -1,9 +1,21 @@
 
-# GtkAda test suite
+## Feature: GtkAda test suite
 
+### Background:
+- Given there is no dir `gtkada-master`
+- Given the new executable file `script.sh`
+~~~
+rm -rf gtkada-master
+unzip -q gtkada-master.zip
+# remove C files to avoid interaction in that test
+rm `find gtkada-master -name ""*.[ch]""`
+~~~
 
+- When I run `./script.sh`
+- And  I run `unzip -q gtkada-master.zip`
+- And I run `rm `find gtkada-master -name ""*.[ch]""``
 
-##  GtkAda test suite / File Identification
+### Scenario: File Identification
 
   Checking that  
 
@@ -25,7 +37,7 @@ gtkada-master/testgtk/test_rtree.adb
 
 GtkAda test suite / File Identification [Successful](09_gtkada.md#gtkada-test-suite--file-identification)
 
-##  GtkAda test suite / Unit Identification
+### Scenario: Unit Identification
 
 
   > acc -ld -r -I gtkada-master | sort  
@@ -59,10 +71,10 @@ View_Gl package spec depends on Gtk.Frame
 
 GtkAda test suite / Unit Identification [Successful](09_gtkada.md#gtkada-test-suite--unit-identification)
 
-##  GtkAda test suite / A realistic GtkAda description file
+### Scenario: A realistic GtkAda description file
 
 
-  ![](gtk.png)  
+  ![](09_gtkada/gtk.png)  
 
   Checking those rules over GtkAda:  
 
@@ -103,7 +115,7 @@ Error : gtkada-master/src/opengl/gtk-glarea.adb:26: GtkAda may use Gtk, so Gtk.G
 
 GtkAda test suite / A realistic GtkAda description file [Successful](09_gtkada.md#gtkada-test-suite--a-realistic-gtkada-description-file)
 
-##  GtkAda test suite / Another realistic GtkAda description file
+### Scenario: Another realistic GtkAda description file
 
 
   Checking those rules over GtkAda:  
@@ -147,4 +159,3 @@ Error : gtkada-master/src/opengl/gtk-glarea.adb:26: GtkAda may use Gtk, so Gtk.G
 ```  
 
 
-GtkAda test suite / Another realistic GtkAda description file [Successful](09_gtkada.md#gtkada-test-suite--another-realistic-gtkada-description-file)

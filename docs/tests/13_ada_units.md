@@ -1,33 +1,30 @@
+## Feature: Ada units test suite
 
-# Ada units test suite
+### Scenario: Ada compilation units unit test
 
+procedure Sub.Test has several separate units :
 
+- procedure renaming
+- generic package renaming
 
-##  Ada units test suite / Ada compilation units unit test
+- package body
+- package specification
+- generic package
 
-  procedure Sub.Test has several separate units :  
+- child procedure
 
-  - procedure renaming  
-  - generic package renaming  
+- separate procedure
+- separate private procedure
+- separate package
+- separate function
+- separate task
+- separate protected
 
-  - package body  
-  - package specification  
-  - generic package  
+> acc -ld -I 13_Ada_Units/src
 
-  - child procedure  
+Expected :
 
-  - separate procedure  
-  - separate private procedure  
-  - separate package  
-  - separate function  
-  - separate task  
-  - separate protected  
-
-  > acc -ld -I src  
-
-  Expected :  
-
-```  
+```
 Enum_IO package spec depends on Ada.Text_IO.Enumeration_IO
 New_Page procedure spec depends on Text_IO_New_Page
 Rational_Io package spec depends on A4
@@ -46,7 +43,9 @@ Sub.Test.Ressource protected body depends on A6
 Sub.Test.Server task body depends on A7
 Sub.Tools package spec depends on A2
 Util.New_Page package spec depends on Interfaces.C
-```  
+```
 
-
-Ada units test suite / Ada compilation units unit test [Successful](13_ada_units.md#ada-units-test-suite--ada-compilation-units-unit-test)
+- Given I run `gnat make -q sub-test -I13_Ada_Units/src -D13_Ada_Units/src` Successfully
+- Given the file `13_Ada_Units/expected_output.1`
+- When I run `./acc -ld -I 13_Ada_Units/src | sort` Successfully
+- Then output matches file 13_Ada_Units/expected_output.1

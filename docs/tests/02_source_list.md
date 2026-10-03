@@ -1,12 +1,19 @@
-# Feature: --list_files option and sources finding feature
+## Feature: --list_files option and sources finding feature
 
-## Scenario: Non recursive file identification test
+### Background:
+- Given there is no dir `dir1` 
+- Given there is no dir `dir2` 
+- Given there is no dir `dir3` 
+- Given there is no dir `dira` 
+- Given there is no dir `dirb` 
+
+### Scenario: Non recursive file identification test
 
 A list of directory to explore is given to acc with the `-I` option.
 
-- Given the `./dir1/` dir
-- Given the `./dir2/` dir
-- Given the `./dir3/` dir
+- Given the new `./dir1/` dir
+- Given the new `./dir2/` dir
+- Given the new `./dir3/` dir
 
 - Given the file `./dir3/c-d.ads`
 ```ada
@@ -34,7 +41,7 @@ package body B is
 end;
 ```    
 
-- When I run `../../obj/acc -I dir1 -I dir2 -I dir3 --list_files`  
+- When I run `./acc -I dir1 -I dir2 -I dir3 --list_files`  
 
 - Then the output is 
 ```  
@@ -45,7 +52,7 @@ dir3/c-d.ads
 dir3/c.ads
 ```  
 
-## Scenario: Recursive file identification test
+### Scenario: Recursive file identification test
 
 When used, `-Ir` cause the following directory to be explored recursively.
 
@@ -83,7 +90,7 @@ package C.D is
 end;
 ```    
 
-- When I run `../../obj/acc -I dira -Ir dirb --list_files`  
+- When I run `./acc -I dira -Ir dirb --list_files`  
 
 - Then the output is 
 ```  

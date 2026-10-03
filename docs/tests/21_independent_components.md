@@ -1,55 +1,84 @@
+## Feature: Independent Component test suite
 
-##  Test Independent Components
+This test suite validates the independent components functionality.
 
+### Scenario: Test Independent Components
 
-   +---------+  +-----------+   
-   |    X    |  |     Y     |   
-   +---------+  +-----------+   
-   +------------------------+   
-   |          Bus           |   
-   +------------------------+   
-
-```  
+- Given there is no `dir1` directory
+- Given I run `./create_pkg X.P1 spec -in dir1` Successfully
+- Given I run `./create_pkg Bus spec -in dir1` Successfully
+- Given the file `dir1/x-p2.ads`
+```ada
+with X.P1, Bus;
+package X.P2 is
+end X.P2;
+```
+- Given the file `dir1/y.ads`
+```ada
+with Bus;
+package Y is
+end Y;
+```
+- Given the file `dir1/u.ads`
+```ada
+with X.P2;
+package U is
+end U;
+```
+- Given the file `dir1/v.ads`
+```ada
+with Y;
+package V is
+end V;
+```
+- Given the file `rules1.txt`
+```
 X and Y are independent
-```  
+```
+- When I run `./acc rules1.txt -I dir1`
+- Then output is empty
 
- Running :    
- > acc rules1.txt -I dir1  
+### Scenario: Test broken Independent Components rule
 
-   With:        Expected:  
-   X.P2 -> X.P1  OK  
-   X.P2 -> Bus   OK  
-   Y    -> Bus   OK  
-   U    -> X.P2  OK  
-   V    -> Y     OK  
-
-
-Test Independent Components [Successful](21_independent_components.md#--test-independent-components)
-
-##  Test broken Independent Components rule
-
-
-   +---------+  +-----------+   
-   |    X    |  |     Y     |   
-   +---------+  +-----------+   
-   +------------------------+   
-   |          Bus           |   
-   +------------------------+   
-
-```  
+- Given there is no `dir1` directory
+- Given I run `./create_pkg X.P1 spec -in dir1` Successfully
+- Given I run `./create_pkg Bus spec -in dir1` Successfully
+- Given the file `dir1/x-p2.ads`
+```ada
+with X.P1, Bus;
+package X.P2 is
+end X.P2;
+```
+- Given the file `dir1/y.ads`
+```ada
+with Bus;
+package Y is
+end Y;
+```
+- Given the file `dir1/y-p3.ads`
+```ada
+with X.P1;
+package Y.P3 is
+end Y.P3;
+```
+- Given the file `dir1/u.ads`
+```ada
+with X.P2;
+package U is
+end U;
+```
+- Given the file `dir1/v.ads`
+```ada
+with Y;
+package V is
+end V;
+```
+- Given the file `rules1.txt`
+```
 X and Y are independent
-```  
-
- Running :    
- > acc rules1.txt -I dir1  
-
-   With:        Expected:  
-   X.P2 -> X.P1  OK  
-   X.P2 -> Bus   OK  
-   Y    -> Bus   OK  
-   U    -> X.P2  OK  
-   V    -> Y     OK  
-   Y.P3 -> X.P1  Error  
-
-
-Test broken Independent Components rule [Successful](21_independent_components.md#--test-broken-independent-components-rule)
+```
+- When I run `./acc rules1.txt -I dir1`
+- Then output is
+```
+Error : dir1/y-p3.ads:1: X and Y must be independent
+```

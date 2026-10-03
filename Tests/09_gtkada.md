@@ -74,7 +74,7 @@ GtkAda test suite / Unit Identification [Successful](09_gtkada.md#gtkada-test-su
 ### Scenario: A realistic GtkAda description file
 
 
-  ![](gtk.png)  
+  ![](09_gtkada/gtk.png)  
 
   Checking those rules over GtkAda:  
 

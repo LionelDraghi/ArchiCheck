@@ -71,7 +71,7 @@ Pango may use Glib
 Gdk   may use Cairo
 -- etc.
 ```
-A more complete GtkAda possible rules file is available in tests, [here](tests/gtkada.md).
+A more complete GtkAda possible rules file is available in tests, [here](tests/09_gtkada.md).
 
 Components declaration
 ----------------------

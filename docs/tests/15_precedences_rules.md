@@ -1,52 +1,75 @@
+## Feature: Precedence rules test suite
 
-# Precedence rules unit test
+### Scenario: Declaration of a component already existing in code
 
-
-
-##  Precedence rules unit test / Declaration of a component already existing in code
-
-  Here is the rules file :  
-
-```  
+- Given there is no `src` directory
+- Given I run `./create_pkg LC.Z spec -in src` Successfully
+- Given the file `src/la-x.ads`
+```ada
+with LB.Y;
+package LA.X is
+end LA.X;
+```
+- Given the file `src/lb-y.ads`
+```ada
+with Ada.Containers,
+     Interfaces.C,
+     Interfaces,
+     Interfaces.Java,
+     LC.Z,
+     LA.X,
+     LB.U;
+package LB.Y is
+end LB.Y;
+```
+- Given the file `rules1.txt`
+```
 LA is a Layer over LB
 LB is a Layer over LC
 
 LC contains Interfaces.C and Ada
 
-```  
-
-  But there is already a package named LC.  
-
-  When running :    
-  > acc rules1.txt -I src  
-
-  Expected :  
-```  
+```
+- When I run `./acc rules1.txt -I src`
+- Then output is
+```
 Warning : src/lb-y.ads:3: LB.Y (in LB layer) uses Interfaces that is neither in the same layer, nor in the lower LC layer
 Warning : src/lb-y.ads:4: LB.Y (in LB layer) uses Interfaces.Java that is neither in the same layer, nor in the lower LC layer
 Error : src/lb-y.ads:6: LB.Y is in LB layer, and so shall not use LA.X in the upper LA layer
-```  
+```
 
-Precedence rules unit test / Declaration of a component already existing in code [Successful](15_precedences_rules.md#precedence-rules-unit-test--declaration-of-a-component-already-existing-in-code)
+### Scenario: Alowing a child of forbidden unit
 
-##  Precedence rules unit test / Alowing a child of forbidden unit
-
-  Let's forbid Interfaces and allow Interfaces.C  
-
-```  
+- Given there is no `src` directory
+- Given I run `./create_pkg LC.Z spec -in src` Successfully
+- Given the file `src/la-x.ads`
+```ada
+with LB.Y;
+package LA.X is
+end LA.X;
+```
+- Given the file `src/lb-y.ads`
+```ada
+with Ada.Containers,
+     Interfaces.C,
+     Interfaces,
+     Interfaces.Java,
+     LC.Z,
+     LA.X,
+     LB.U;
+package LB.Y is
+end LB.Y;
+```
+- Given the file `rules2.txt`
+```
 Interfaces   use is forbidden
 Interfaces.C use is allowed
 
 -- Fixme: and what if declared the other way round?
-```  
-
-  Running :    
-  > acc rules2.txt -I src  
-
-  Expected :  
-```  
+```
+- When I run `./acc rules2.txt -I src`
+- Then output is
+```
 Error : src/lb-y.ads:3: Interfaces use is forbidden
 Error : src/lb-y.ads:4: Interfaces.Java use is forbidden
-```  
-
-Precedence rules unit test / Alowing a child of forbidden unit [Successful](15_precedences_rules.md#precedence-rules-unit-test--alowing-a-child-of-forbidden-unit)
+```

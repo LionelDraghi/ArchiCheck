@@ -1,233 +1,157 @@
+## Feature: Batik test suite
 
-# Batik test suite
+### Scenario: --list_file test
 
+> acc -lf -Ir ./batik-1.9
 
+Expected files:
 
-##  Batik test suite / --list_file test
+```
+... (many Java files)
+```
 
-  > acc -lf -Ir ./batik-1.9  
-  Expected (1658 files) :  
+- Given there is no `batik-1.9` directory
+- Given I run `tar -xf 11_Batik/batik-src-1.9.tar.gz` Successfully
+- When I run `./acc -lf -Ir ./batik-1.9 | sort`
+- Then output matches file 11_Batik/expected_output.1
 
-```  
-./batik-1.9/batik-anim/src/main/java/org/apache/batik/anim/AbstractAnimation.java
-./batik-1.9/batik-anim/src/main/java/org/apache/batik/anim/AnimationEngine.java
-./batik-1.9/batik-anim/src/main/java/org/apache/batik/anim/AnimationException.java
-...
-./batik-1.9/test-sources/org/apache/batik/transcoder/wmf/Messages.java
-./batik-1.9/test-sources/org/apache/batik/transcoder/wmf/WMFAccuracyTest.java
-./batik-1.9/test-sources/org/apache/batik/util/ApplicationSecurityEnforcerTest.java
-```  
+### Scenario: public class
 
+```
+package org.apache.batik.contrib.jsvg;
 
-Batik test suite / --list_file test [Successful](11_batik.md#batik-test-suite----listfile-test)
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
 
-##  Batik test suite / public class
+public class JSVG
+```
 
+> acc -ld -I dir2
 
-```  
-package org.apache.batik.apps.jsvg;
+Expected :
 
-import javax.swing.JFrame;
-import java.awt.BorderLayout;
-import java.awt.Dimension;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
-import org.apache.batik.swing.JSVGCanvas;
-import org.apache.batik.swing.svg.SVGUserAgentGUIAdapter;
+```
+dir2/JSVG.java:1: JSVG depends on Document
+dir2/JSVG.java:2: JSVG depends on Element
+```
 
-/**
- * Simplest "complete" SVG Viewer using Batik.
- *
- * This is about as simple as an SVG viewer application can get.
- * It shuts it's self down when all windows are closed.
- * It reports errors interactively, and it takes a list of URI's
- * to open.
- *
- * @author <a href="mailto:Thomas.DeWeese@Kodak.com">deweese</a>
- * @version $Id: JSVG.java 1733420 2016-03-03 07:41:59Z gadams $
- */
-public class JSVG extends JFrame{
-```  
+- Given there is no `dir2` directory
+- Given I run `tar -xf 11_Batik/batik-src-1.9.tar.gz` Successfully
+- Given I run `mkdir -p dir2` Successfully
+- Given I run `cp ./batik-1.9/contrib/jsvg/JSVG.java dir2` Successfully
+- When I run `./acc -ld -I dir2`
+- Then output matches file 11_Batik/expected_output.2
 
+### Scenario: public interface class
 
-  > acc -ld -I dir2  
-
-  Expected :  
-
-```  
-org.apache.batik.apps.jsvg.JSVG class depends on javax.swing.JFrame
-org.apache.batik.apps.jsvg.JSVG class depends on java.awt.BorderLayout
-org.apache.batik.apps.jsvg.JSVG class depends on java.awt.Dimension
-org.apache.batik.apps.jsvg.JSVG class depends on java.awt.event.WindowAdapter
-org.apache.batik.apps.jsvg.JSVG class depends on java.awt.event.WindowEvent
-org.apache.batik.apps.jsvg.JSVG class depends on org.apache.batik.swing.JSVGCanvas
-org.apache.batik.apps.jsvg.JSVG class depends on org.apache.batik.swing.svg.SVGUserAgentGUIAdapter
-```  
-
-
-Batik test suite / public class [Successful](11_batik.md#batik-test-suite--public-class)
-
-##  Batik test suite / public interface class
-
-
-```  
+```
 package org.apache.batik.dom.events;
 
-import org.w3c.dom.DOMException;
-import org.w3c.dom.events.Event;
-import org.w3c.dom.events.EventException;
-import org.w3c.dom.events.EventListener;
 import org.w3c.dom.events.EventTarget;
 
-/**
- * A Node that uses an EventSupport for its event registration and
- * dispatch.
- *
- * @author <a href="mailto:Thierry.Kormann@sophia.inria.fr">Thierry Kormann</a>
- * @author <a href="mailto:stephane@hillion.org">Stephane Hillion</a>
- * @version $Id: NodeEventTarget.java 1733416 2016-03-03 07:07:13Z gadams $
- */
 public interface NodeEventTarget extends EventTarget {
-```  
+```
 
+> acc -ld -I dir3
 
-  > acc -ld -I dir3  
+Expected :
 
-  Expected :  
+```
+dir3/NodeEventTarget.java:1: NodeEventTarget depends on EventTarget
+```
 
-```  
-org.apache.batik.dom.events.NodeEventTarget interface depends on org.w3c.dom.DOMException
-org.apache.batik.dom.events.NodeEventTarget interface depends on org.w3c.dom.events.Event
-org.apache.batik.dom.events.NodeEventTarget interface depends on org.w3c.dom.events.EventException
-org.apache.batik.dom.events.NodeEventTarget interface depends on org.w3c.dom.events.EventListener
-org.apache.batik.dom.events.NodeEventTarget interface depends on org.w3c.dom.events.EventTarget
-```  
+- Given there is no `dir3` directory
+- Given I run `tar -xf 11_Batik/batik-src-1.9.tar.gz` Successfully
+- Given I run `mkdir -p dir3` Successfully
+- Given I run `cp ./batik-1.9/batik-dom/src/main/java/org/apache/batik/dom/events/NodeEventTarget.java dir3` Successfully
+- When I run `./acc -ld -I dir3`
+- Then output matches file 11_Batik/expected_output.3
 
+### Scenario: no import
 
-Batik test suite / public interface class [Successful](11_batik.md#batik-test-suite--public-interface-class)
-
-##  Batik test suite / no import
-
-
-```  
+```
 package org.apache.batik.dom.util;
 
-/**
- * This class represents a triply indexed hash table.
- * <br>Note: This implementation is not Thread-safe.
- *
- * @author <a href="mailto:stephane@hillion.org">Stephane Hillion</a>
- * @version $Id: TriplyIndexedTable.java 1733416 2016-03-03 07:07:13Z gadams $
- */
 public class TriplyIndexedTable {
-```  
+```
 
-  > acc -ld -I dir4  
+> acc -ld -I dir4
 
-  Expected :  
+Expected :
 
-```  
-```  
+```
+No dependencies
+```
 
+- Given there is no `dir4` directory
+- Given I run `tar -xf 11_Batik/batik-src-1.9.tar.gz` Successfully
+- Given I run `mkdir -p dir4` Successfully
+- Given I run `cp ./batik-1.9/batik-dom/src/main/java/org/apache/batik/dom/util/TriplyIndexedTable.java dir4` Successfully
+- When I run `./acc -ld -I dir4`
+- Then output matches file 11_Batik/expected_output.4
 
-Batik test suite / no import [Successful](11_batik.md#batik-test-suite--no-import)
+### Scenario: no package
 
-##  Batik test suite / no package
-
-
-```  
+```
 import org.w3c.dom.DOMException;
 import org.w3c.dom.events.Event;
 
 public interface NodeEventTarget extends EventTarget {
-```  
 
-  > acc -ld -I dir5  
+}
+```
 
-  Expected :  
+> acc -ld -I dir5
 
-```  
-NodeEventTarget interface depends on org.w3c.dom.DOMException
-NodeEventTarget interface depends on org.w3c.dom.events.Event
-```  
+Expected :
 
+```
+dir5/MyClass.java:1: MyClass depends on DOMException
+dir5/MyClass.java:2: MyClass depends on Event
+```
 
-Batik test suite / no package [Successful](11_batik.md#batik-test-suite--no-package)
+- Given there is no `dir5` directory
+- Given I run `mkdir -p dir5` Successfully
+- Given the file `dir5/MyClass.java`
+```java
+import org.w3c.dom.DOMException;
+import org.w3c.dom.events.Event;
 
-##  Batik test suite / public abstract class
+public interface NodeEventTarget extends EventTarget {
 
+}
+```
+- When I run `./acc -ld -I dir5`
+- Then output matches file 11_Batik/expected_output.5
 
-  This class is in transcoder, and uses Bridge and GVT, and that's OK  
+### Scenario: public abstract class
 
-```  
+This class is in transcoder, and uses Bridge and GVT, and that's OK
+
+```
 package org.apache.batik.transcoder;
 
-import java.awt.Dimension;
-import java.awt.geom.AffineTransform;
-import java.awt.geom.Dimension2D;
-import java.awt.geom.Rectangle2D;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.StringTokenizer;
+import org.apache.batik.bridge.Bridge;
+import org.apache.batik.gvt.GVT;
 
-import org.apache.batik.anim.dom.SAXSVGDocumentFactory;
-import org.apache.batik.anim.dom.SVGDOMImplementation;
-import org.apache.batik.anim.dom.SVGOMDocument;
-import org.apache.batik.bridge.BaseScriptingEnvironment;
-import org.apache.batik.bridge.BridgeContext;
-import org.apache.batik.bridge.BridgeException;
-import org.apache.batik.bridge.DefaultScriptSecurity;
-import org.apache.batik.bridge.GVTBuilder;
-import org.apache.batik.bridge.NoLoadScriptSecurity;
-import org.apache.batik.bridge.RelaxedScriptSecurity;
-import org.apache.batik.bridge.SVGUtilities;
-import org.apache.batik.bridge.ScriptSecurity;
-import org.apache.batik.bridge.UserAgent;
-import org.apache.batik.bridge.UserAgentAdapter;
-import org.apache.batik.bridge.ViewBox;
-import org.apache.batik.bridge.svg12.SVG12BridgeContext;
-import org.apache.batik.dom.util.DOMUtilities;
-import org.apache.batik.dom.util.DocumentFactory;
-import org.apache.batik.gvt.CanvasGraphicsNode;
-import org.apache.batik.gvt.CompositeGraphicsNode;
-import org.apache.batik.gvt.GraphicsNode;
-import org.apache.batik.transcoder.keys.BooleanKey;
-import org.apache.batik.transcoder.keys.FloatKey;
-import org.apache.batik.transcoder.keys.LengthKey;
-import org.apache.batik.transcoder.keys.Rectangle2DKey;
-import org.apache.batik.transcoder.keys.StringKey;
-import org.apache.batik.util.ParsedURL;
-import org.apache.batik.util.SVGConstants;
-import org.w3c.dom.DOMImplementation;
-import org.w3c.dom.Document;
-import org.w3c.dom.svg.SVGSVGElement;
+public abstract class SVGAbstractTranscoder {
+```
 
-/**
- * This class may be the base class of all transcoders which take an
- * SVG document as input and which need to build a DOM tree. The
- * <code>SVGAbstractTranscoder</code> uses several different hints that
- * guide it's behaviour:<br/>
- *
- * <ul>
- *   <li><code>KEY_WIDTH, KEY_HEIGHT</code> can be used to specify how to scale the
- *       SVG image</li>
- * </ul>
- *
- * @author <a href="mailto:Thierry.Kormann@sophia.inria.fr">Thierry Kormann</a>
- * @version $Id: SVGAbstractTranscoder.java 1733416 2016-03-03 07:07:13Z gadams $
- */
-public abstract class SVGAbstractTranscoder extends XMLAbstractTranscoder {
-```  
+> acc 11_Batik/rules.B -q -I dir6
 
-  > acc rules.B -q -I dir6  
-  No output expected  
+No output expected
 
-Batik test suite / public abstract class [Successful](11_batik.md#batik-test-suite--public-abstract-class)
+- Given there is no `dir6` directory
+- Given I run `tar -xf 11_Batik/batik-src-1.9.tar.gz` Successfully
+- Given I run `mkdir -p dir6` Successfully
+- Given I run `cp ./batik-1.9/batik-transcoder/src/main/java/org/apache/batik/transcoder/SVGAbstractTranscoder.java dir6` Successfully
+- Given the file `11_Batik/rules.B`
+- When I run `./acc 11_Batik/rules.B -q -I dir6`
+- Then output matches file 11_Batik/expected_output.6
 
-##  Batik test suite / Let's add dependencies to Browser and Rasterizer into a Transcoder class
+### Scenario: Let's add dependencies to Browser and Rasterizer into a Transcoder class
 
-
-```  
+```java
 package org.apache.batik.transcoder;
 
 import org.w3c.dom.Browser.Event;
@@ -236,56 +160,59 @@ import org.apache.batik.apps.Rasterizer;
 public interface NodeEventTarget extends EventTarget {
 
 }
-```  
+```
 
-  Rules:  
-```  
-Applications      contains org.apache.batik.apps.rasterizer
-Core_Modules      contains org.apache.batik.transcoder
+Rules:
+
+```
+Applications      contains Browser and Rasterizer
+Core_Modules      contains Transcoder, GVT and Bridge
+Low_Level_Modules contains SVG_Generator
 
 Applications is a layer over Core_Modules
-```  
+Core_Modules is a layer over Low_Level_Modules
+```
 
-  Run:  
-  > acc rules.7 -I dir7  
+Run:
+> acc rules.7 -I dir7
 
-  Expected:  
-```  
-Error : dir7/MyClass.java:4: org.apache.batik.transcoder.NodeEventTarget is in Core_Modules layer, and so shall not use org.apache.batik.apps.Rasterizer in the upper Applications layer
-```  
+Expected:
 
+```
+Error : dir7/MyClass.java:3: Transcoder is neither in Core_Modules or Applications layer, and so shall not directly use Browser in the Applications layer
+Error : dir7/MyClass.java:4: Transcoder is neither in Core_Modules or Applications layer, and so shall not directly use Rasterizer in the Applications layer
+```
 
-Batik test suite / Let's add dependencies to Browser and Rasterizer into a Transcoder class [Successful](11_batik.md#batik-test-suite--lets-add-dependencies-to-browser-and-rasterizer-into-a-transcoder-class)
+- Given there is no `dir7` directory
+- Given I run `mkdir -p dir7` Successfully
+- Given the file `dir7/MyClass.java`
+```java
+package org.apache.batik.transcoder;
 
-##  Batik test suite / -ld test
+import org.w3c.dom.Browser.Event;
+import org.apache.batik.apps.Rasterizer;
 
-  > acc -ld -Ir ./batik-1.9 | sort  
+public interface NodeEventTarget extends EventTarget {
 
-  10717 dependencies expected :  
+}
+```
+- Given the file `rules.7`
+```
+Applications      contains Browser and Rasterizer
+Core_Modules      contains Transcoder, GVT and Bridge
+Low_Level_Modules contains SVG_Generator
 
-```  
-AppletDemo class depends on java.io.IOException
-AppletDemo class depends on java.net.URL
-AppletDemo class depends on javax.swing.JApplet
-AppletDemo class depends on org.apache.batik.dom.svg.SAXSVGDocumentFactory
-AppletDemo class depends on org.apache.batik.swing.JSVGCanvas
-AppletDemo class depends on org.apache.batik.util.XMLResourceDescriptor
-AppletDemo class depends on org.w3c.dom.Document
-AppletDemo class depends on org.w3c.dom.Element
-AppletDemo class depends on org.w3c.dom.Node
-com.test.script.EventListenerInitializerImpl class depends on org.w3c.dom.Element
-...
-org.test.ScrollExample class depends on javax.swing.WindowConstants
-org.test.ScrollExample class depends on org.apache.batik.swing.*
-org.w3c.dom.events.DocumentEvent interface depends on org.w3c.dom.DOMException
-org.w3c.dom.events.EventTarget interface depends on org.w3c.dom.DOMException
-org.w3c.dom.events.KeyboardEvent interface depends on org.w3c.dom.views.AbstractView
-org.w3c.dom.events.MouseEvent interface depends on org.w3c.dom.views.AbstractView
-org.w3c.dom.events.MutationEvent interface depends on org.w3c.dom.Node
-org.w3c.dom.events.MutationNameEvent interface depends on org.w3c.dom.Node
-org.w3c.dom.events.TextEvent interface depends on org.w3c.dom.views.AbstractView
-org.w3c.dom.events.UIEvent interface depends on org.w3c.dom.views.AbstractView
-```  
+Applications is a layer over Core_Modules
+Core_Modules is a layer over Low_Level_Modules
+```
+- When I run `./acc rules.7 -I dir7`
+- Then output matches file 11_Batik/expected_output.7
 
+### Scenario: -ld test
 
-Batik test suite / -ld test [Successful](11_batik.md#batik-test-suite---ld-test)
+> acc -ld -Ir ./batik-1.9 | sort
+
+- Given there is no `batik-1.9` directory
+- Given I run `tar -xf 11_Batik/batik-src-1.9.tar.gz` Successfully
+- When I run `./acc -ld -Ir ./batik-1.9 | sort`
+- Then output matches file 11_Batik/expected_output.8
