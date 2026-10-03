@@ -2,101 +2,24 @@ all: check doc
 
 .PHONY : clean
 
-# TESTS=01_Command_Line 02_Source_List 03_Dependency_List 04_Component_List 05_Layer_Rule 06_Child_Packages 07_Rules_Files_Syntax 08_Globbing_Characters 09_GtkAda 10_Use_Rule 11_Batik 12_ZipAda 13_Ada_Units 14_Rules_On_Components 15_Precedences_Rules 16_AdaControl 
+# All test suites are described in the flat [0-9][0-9]_*.md bbt files,
+# and run from this directory by a single bbt invocation.
+# Bulk test data stays in the Tests/NN_* directories and is referenced
+# from the .md files with its directory prefix.
 
-check: ../obj/acc ../Tools/create_pkg ../Tools/testrec
+check: ../obj/acc ../Tools/create_pkg
 	@ - ln -s ../obj/acc .
 	@ - ln -s ../Tools/create_pkg .
-	@ bbt -c -k --yes --exclude @WIP -o ../docs/tests/test_results.md *.md
-
-    # for TEST in $(TESTS); do \
-    #     $(MAKE) check $$TEST; \
-    # done
-	
-	@ $(MAKE) check --directory=09_GtkAda
-	@ $(MAKE) check --directory=10_Use_Rule
-	@ $(MAKE) check --directory=11_Batik
-	@ $(MAKE) check --directory=12_ZipAda
-	@ $(MAKE) check --directory=13_Ada_Units
-	@ $(MAKE) check --directory=14_Rules_On_Components
-	@ $(MAKE) check --directory=15_Precedences_Rules
-	@ $(MAKE) check --directory=16_AdaControl
-	@ $(MAKE) check --directory=17_Acc
-	@ $(MAKE) check --directory=18_Spring_PetClinic
-	@ $(MAKE) check --directory=19_Rules_Src_Coverage
-	@ $(MAKE) check --directory=20_C_Sanity_Tests
-	@ $(MAKE) check --directory=21_Independent_Components
-	@ $(MAKE) check --directory=22_Files_Components
+	@ bbt -c -k --yes --exclude @WIP -o ../docs/tests/test_results.md [0-9][0-9]_*.md
 
 doc:
-	@ cat `find . -name "*.md"` > tmp.txt
-	@ - grep '\[Successful\]'  tmp.txt > Successful.lst
-	@ - grep '\[Failed\]'      tmp.txt > Failed.lst
-	@ - grep '\[Empty\]'       tmp.txt > Empty.lst
-
-	@ > tests_count.txt
-	@ echo "Successful " `cat Successful.lst | wc -l`	>> tests_count.txt
-	@ echo "Failed     " `cat Failed.lst     | wc -l`	>> tests_count.txt
-	@ echo "Empty      " `cat Empty.lst      | wc -l`	>> tests_count.txt
-
-	@ >  tests_status.md
-	@ echo '# Tests Status'	                               	  >> tests_status.md
-	@ echo ""                                                 >> tests_status.md
-	@ echo '## Successful'	                               	  >> tests_status.md
-	@ echo ""                                                 >> tests_status.md
-	@ echo "   "`cat Successful.lst | wc -l`" tests OK"       >> tests_status.md
-	@ echo ""                                                 >> tests_status.md
-	@ sed "s/^ */  - \[/;s/ \[Successful\].*/\]\(\)/" Successful.lst	>> tests_status.md
-
-	@ echo ""                                                 >> tests_status.md
-	@ echo '## Failed'                                   	  >> tests_status.md
-	@ echo ""                                                 >> tests_status.md
-	@ echo "   "`cat Failed.lst | wc -l`" tests failed"       >> tests_status.md
-	@ echo ""                                                 >> tests_status.md
-	@ sed "s/^** /  - \[/;s/ \[Failed\].*/\]\(\)/" Failed.lst >> tests_status.md
-
-	@ echo ""                                                 >> tests_status.md
-	@ echo '## Empty'                                      	  >> tests_status.md
-	@ echo ""                                                 >> tests_status.md
-	@ echo "   "`cat Empty.lst | wc -l`" empty tests"         >> tests_status.md
-	@ echo ""                                                 >> tests_status.md
-	@ sed "s/^ */  - \[/;s/ \[Empty\].*/\]\(\)/" Empty.lst	  >> tests_status.md
-
-	@ mv tests_status.md ../docs/tests
-
-	@ $(MAKE) doc --directory=09_GtkAda
-	@ $(MAKE) doc --directory=10_Use_Rule
-	@ $(MAKE) doc --directory=11_Batik
-	@ $(MAKE) doc --directory=12_ZipAda
-	@ $(MAKE) doc --directory=13_Ada_Units
-	@ $(MAKE) doc --directory=14_Rules_On_Components
-	@ $(MAKE) doc --directory=15_Precedences_Rules
-	@ $(MAKE) doc --directory=16_AdaControl
-	@ $(MAKE) doc --directory=17_Acc
-	@ $(MAKE) doc --directory=18_Spring_PetClinic
-	@ $(MAKE) doc --directory=19_Rules_Src_Coverage
-	@ $(MAKE) doc --directory=20_C_Sanity_Tests
-	@ $(MAKE) doc --directory=21_Independent_Components
-	@ $(MAKE) doc --directory=22_Files_Components
+	@ for md in [0-9][0-9]_*.md; do cp $$md ../docs/tests/$$md; done
 
 clean:
-	@ - ${RM} tests_status.md *.lst short_tests_status.md tests_count.txt tmp.txt acc create_pkg template.ac 
-	@ - ${RM} -rf dir? dir3?
-
-	@ $(MAKE) clean --directory=09_GtkAda
-	@ $(MAKE) clean --directory=10_Use_Rule
-	@ $(MAKE) clean --directory=11_Batik
-	@ $(MAKE) clean --directory=12_ZipAda
-	@ $(MAKE) clean --directory=13_Ada_Units
-	@ $(MAKE) clean --directory=14_Rules_On_Components
-	@ $(MAKE) clean --directory=15_Precedences_Rules
-	@ $(MAKE) clean --directory=16_AdaControl
-	@ $(MAKE) clean --directory=17_Acc
-	@ $(MAKE) clean --directory=18_Spring_PetClinic
-	@ $(MAKE) clean --directory=19_Rules_Src_Coverage
-	@ $(MAKE) clean --directory=20_C_Sanity_Tests
-	@ $(MAKE) clean --directory=21_Independent_Components
-	@ $(MAKE) clean --directory=22_Files_Components
-
-
-
+	@ - ${RM} acc create_pkg template.ac test_results.md
+	@ - ${RM} *.o *.ali sub-test
+	@ - ${RM} 13_Ada_Units/src/*.o 13_Ada_Units/src/*.ali 13_Ada_Units/src/sub-test
+	@ - ${RM} -rf dir? dir3? src src1 src2 include zip-ada gtkada-master \
+	           adactl-1.19r10 batik-1.9 spring-petclinic-master \
+	           spring-framework-petclinic-master
+	@ find . -name gmon.out -delete

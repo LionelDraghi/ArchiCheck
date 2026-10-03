@@ -1,7 +1,0 @@
-X contains P1
-Y contains X
-Z contains Y
-
-Interfaces.C use is forbidden
-
-Z may use Interfaces.C

@@ -2,18 +2,9 @@
 ## Feature: GtkAda test suite
 
 ### Background:
-- Given there is no dir `gtkada-master`
-- Given the new executable file `script.sh`
-~~~
-rm -rf gtkada-master
-unzip -q gtkada-master.zip
-# remove C files to avoid interaction in that test
-rm `find gtkada-master -name ""*.[ch]""`
-~~~
 
-- When I run `./script.sh`
-- And  I run `unzip -q gtkada-master.zip`
-- And I run `rm `find gtkada-master -name ""*.[ch]""``
+- Given there is no dir `gtkada-master`
+- Given I run `unzip -q 09_GtkAda/gtkada-master.zip` Successfully
 
 ### Scenario: File Identification
 
@@ -23,7 +14,7 @@ rm `find gtkada-master -name ""*.[ch]""`
 
   is identifying the same 862 files (once sorted) than  
 
-  > find gtkada-master -name *.ad[sb] | sort  
+  > find gtkada-master -name "*.ad[sb]" | sort  
 ```  
 gtkada-master/src/cairo.adb
 gtkada-master/src/cairo.ads
@@ -34,8 +25,9 @@ gtkada-master/testgtk/testgtk.adb
 gtkada-master/testgtk/test_rtree.adb
 ```  
 
-
-GtkAda test suite / File Identification [Successful](09_gtkada.md#gtkada-test-suite--file-identification)
+- Given I run `find gtkada-master -name "*.ad[sb]" | sort` Successfully
+- When I run `./acc -q -lf -r -I gtkada-master | sed "s/.*gtkada-master/gtkada-master/" | sort` Successfully
+- Then output matches file 09_GtkAda/expected_output.1
 
 ### Scenario: Unit Identification
 
@@ -68,8 +60,9 @@ Trackball package body depends on Ada.Numerics.Aux
 View_Gl package spec depends on Gtk.Frame
 ```  
 
-
-GtkAda test suite / Unit Identification [Successful](09_gtkada.md#gtkada-test-suite--unit-identification)
+- Given I run `rm $(find gtkada-master -name "*.[ch]")` Successfully
+- When I run `./acc -ld -r -I gtkada-master | sort` Successfully
+- Then output matches file 09_GtkAda/expected_output.2
 
 ### Scenario: A realistic GtkAda description file
 
@@ -112,8 +105,9 @@ Error : gtkada-master/src/gdk-dnd.ads:30: Gtk may use Gdk, so Gdk.Dnd shall not 
 Error : gtkada-master/src/opengl/gtk-glarea.adb:26: GtkAda may use Gtk, so Gtk.GLArea shall not use Gtkada.Handlers
 ```  
 
-
-GtkAda test suite / A realistic GtkAda description file [Successful](09_gtkada.md#gtkada-test-suite--a-realistic-gtkada-description-file)
+- Given the file `09_GtkAda/GtkAda.ac`
+- When I run `./acc 09_GtkAda/GtkAda.ac -r -I gtkada-master | sort` Successfully
+- Then output matches file 09_GtkAda/expected_output.3
 
 ### Scenario: Another realistic GtkAda description file
 
@@ -158,4 +152,6 @@ Error : gtkada-master/src/gdk-dnd.ads:30: Gtk may use Utilities, so Gdk.Dnd shal
 Error : gtkada-master/src/opengl/gtk-glarea.adb:26: GtkAda may use Gtk, so Gtk.GLArea shall not use Gtkada.Handlers
 ```  
 
-
+- Given the file `09_GtkAda/GtkAda2.ac`
+- When I run `./acc 09_GtkAda/GtkAda2.ac -q -r -I gtkada-master | sort` Successfully
+- Then output matches file 09_GtkAda/expected_output.4
