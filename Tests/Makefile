@@ -18,7 +18,7 @@ doc:
 	@ echo "Failed     `grep -c 'fail' ../docs/tests/test_results.md`" >> tests_count.txt
 
 clean:
-	@ - ${RM} acc create_pkg template.ac test_results.md tests_count.txt
+	@ - ${RM} acc create_pkg template.ac test_results.md
 	@ - ${RM} *.o *.ali sub-test
 	@ - ${RM} 13_Ada_Units/src/*.o 13_Ada_Units/src/*.ali 13_Ada_Units/src/sub-test
 	@ - ${RM} -rf dir? dir3? src src1 src2 include zip-ada gtkada-master \

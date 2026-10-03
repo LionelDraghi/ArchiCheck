@@ -35,16 +35,16 @@ Ada use is allowed
 
 - then I get
 ```  
-rules1.txt:5: Component App contains unit Main
-rules1.txt:8: Component GUI contains unit Gtk, Glib and Pango
-rules1.txt:11: Layer Gtk is over layer GLib
-rules1.txt:12: Pango may use GLib
-rules1.txt:15: Gtk may use GLib
-rules1.txt:15: Gtk may use Interfaces.C
-rules1.txt:16: Only GLib may use Interfaces.C
-rules1.txt:19: Only Gio may use Interfaces.C
-rules1.txt:19: Only Gio may use System
-rules1.txt:22: Use of System is forbidden
+rules1.txt:4: Component App contains unit Main
+rules1.txt:5: Component GUI contains unit Gtk, Glib and Pango
+rules1.txt:8: Layer Gtk is over layer GLib
+rules1.txt:11: Pango may use GLib
+rules1.txt:12: Gtk may use GLib
+rules1.txt:12: Gtk may use Interfaces.C
+rules1.txt:15: Only GLib may use Interfaces.C
+rules1.txt:16: Only Gio may use Interfaces.C
+rules1.txt:16: Only Gio may use System
+rules1.txt:19: Use of System is forbidden
 rules1.txt:22: Use of Ada allowed 
 ```  
 
@@ -78,12 +78,12 @@ Ada use is ALLOWED
 
 - then I get
 ```  
-rules2.txt:5: Component App contains unit Main
-rules2.txt:8: Component GUI contains unit Gtk, Glib and Pango
-rules2.txt:11: Layer Gtk is over layer GLib
-rules2.txt:14: Pango may use GLib
-rules2.txt:17: Only GLib may use Interfaces.C
-rules2.txt:20: Use of System is forbidden
+rules2.txt:4: Component App contains unit Main
+rules2.txt:5: Component GUI contains unit Gtk, Glib and Pango
+rules2.txt:8: Layer Gtk is over layer GLib
+rules2.txt:11: Pango may use GLib
+rules2.txt:14: Only GLib may use Interfaces.C
+rules2.txt:17: Use of System is forbidden
 rules2.txt:20: Use of Ada allowed 
 ```  
 
@@ -114,9 +114,9 @@ GUI contains Glib
 
 - then I get
 ```  
-rules3.txt:9: Component App contains unit Main
-rules3.txt:11: Component GUI contains unit Gtk
-rules3.txt:17: Component GUI contains unit Glib
+rules3.txt:4: Component App contains unit Main
+rules3.txt:9: Component GUI contains unit Gtk
+rules3.txt:11: Component GUI contains unit Glib
 ```  
 
 ### Scenario: Punctuation and syntaxic sugar @WIP

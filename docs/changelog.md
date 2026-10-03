@@ -9,6 +9,10 @@ and version numbering adheres to [Semantic Versioning](http://semver.org/spec/v2
 - [0.6.1] (actually means untagged)
   > - [Changed] dropping OpenToken and returning to an hand written lexer for the rules file
   > - [Added] component definition by file or directory name (close #1)
+  > - [Fixed] line numbers in rules file related messages were wrong (off by one, sometimes more),
+  >   pointing to the following statement: the line is now captured at the first unit
+  >   of each statement, instead of using the analyzer position that already read
+  >   the next token
 
 - [0.6.0]
   > - [Added] new rule `X, Y, Z are independent` created

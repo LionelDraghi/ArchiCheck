@@ -31,9 +31,9 @@ GUI contains Pango
 
 - Then I get 
 ```  
-rules.2:2: Component App contains unit Main
-rules.2:3: Component GUI contains unit Gtk
-rules.2:4: Component GUI contains unit Glib
+rules.2:1: Component App contains unit Main
+rules.2:2: Component GUI contains unit Gtk
+rules.2:3: Component GUI contains unit Glib
 rules.2:4: Component GUI contains unit Pango
 ```  
 
@@ -49,6 +49,6 @@ GUI contains Gtk and Glib and Pango
 
 - Then I get 
 ```  
-rules.3:2: Component App contains unit Main
+rules.3:1: Component App contains unit Main
 rules.3:2: Component GUI contains unit Gtk, Glib and Pango
 ```  

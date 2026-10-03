@@ -76,7 +76,7 @@ Z contains P1
 - When I run `./acc rules3.txt -I src`
 - Then output is
 ```
-Error : rules3.txt:13: P1 already in X (cf. rules3.txt:2: ), can't be added to Y
+Error : rules3.txt:12: P1 already in X (cf. rules3.txt:2: ), can't be added to Y
 Error : rules3.txt:13: P1 already in X (cf. rules3.txt:2: ), can't be added to Z
 ```
 

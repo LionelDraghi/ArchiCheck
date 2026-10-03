@@ -25,8 +25,8 @@ P5 may use Framework
 - When I run `./acc test1.ac -I ./dir1`
 - Then output is
 ```
-Warning : test1.ac:4: P3 do not match any compilation unit
-Warning : test1.ac:7: P4 do not match any compilation unit
+Warning : test1.ac:1: P3 do not match any compilation unit
+Warning : test1.ac:4: P4 do not match any compilation unit
 ```
 
 ### Scenario: Non covered sources
@@ -85,7 +85,7 @@ Org.SpringFramework may use Model, system
 - When I run `./acc test3.ac -I dir3`
 - Then output is
 ```
-Warning : test3.ac:8: Org.SpringFramework do not match any compilation unit
-Warning : test3.ac:5: org.springframework.samples.petclinic.system.WelcomeController do not match any compilation unit
-Warning : test3.ac:8: Model do not match any compilation unit
+Warning : test3.ac:5: Org.SpringFramework do not match any compilation unit
+Warning : test3.ac:3: org.springframework.samples.petclinic.system.WelcomeController do not match any compilation unit
+Warning : test3.ac:5: Model do not match any compilation unit
 ```

@@ -445,6 +445,13 @@ package body Acc.Rules.Parser is
    -- --------------------------------------------------------------------------
    Context : Sources.Parsing_Context;
 
+   -- Line of the current statement in the rules file, set when the first
+   -- unit of the statement is reduced. At action time, the analyzer has
+   -- already read the lookahead token, so Analyzer.Line may already point
+   -- to the following statement: using it directly was introducing
+   -- off-by-one line numbers in messages.
+   Statement_Line : Natural := 1;
+
    -- --------------------------------------------------------------------------
    function Current_Location return Sources.Location is
      (File    => +Settings.Rules_File_Name,
@@ -455,6 +462,17 @@ package body Acc.Rules.Parser is
    -- --------------------------------------------------------------------------
    function Location_Image return String is
      (Location_Image (Current_Location)) with Inline;
+
+   -- --------------------------------------------------------------------------
+   function Statement_Location return Sources.Location is
+     (File    => +Settings.Rules_File_Name,
+      Context => Context,
+      Line    => Statement_Line,
+      Column  => 0) with Inline;
+
+   -- --------------------------------------------------------------------------
+   function Statement_Location_Image return String is
+     (Location_Image (Statement_Location)) with Inline;
 
    -- --------------------------------------------------------------------------
    -- Procedure: Initialize_Unit_Name
@@ -472,11 +490,18 @@ package body Acc.Rules.Parser is
       Component_Name : constant Unit_Name
         := +(To_String (Identifiers.Instance
              (Token_List.Token_Handle (Left).all).Identifier));
-      Dep            : constant Units.Dependency_Target := (To_Unit  => Component_Name,
-                                                            Location => Current_Location);
+      Dep            : Units.Dependency_Target;
    begin
       Acc.IO.Put_Line ("-> Initialize_Unit_Name >" & (+Component_Name) & "<",
                        Level => Acc.IO.Debug);
+
+      if Left_List.Is_Empty and then Right_List.Is_Empty then
+         -- First unit of a new statement: the lookahead token (contains,
+         -- may use, is a layer, ...) is still on the statement line.
+         Statement_Line := Rules_File_Parser.Analyzer.Line;
+      end if;
+      Dep := (To_Unit  => Component_Name,
+              Location => Statement_Location);
 
       if Record_In_Left_List then
          -- if Left_List.Is_Empty then
@@ -509,7 +534,7 @@ package body Acc.Rules.Parser is
       begin
          List.Replace_Element
            (List.Last, (To_Unit  => Current.To_Unit & "." & Name,
-                        Location => Current_Location));
+                        Location => Statement_Location));
       end Update_Last;
 
    begin
@@ -554,7 +579,7 @@ package body Acc.Rules.Parser is
       begin
          List.Replace_Element
            (List.Last, (To_Unit  => Current.To_Unit & '*',
-                        Location => Current_Location));
+                        Location => Statement_Location));
       end Update_Last;
 
    begin
@@ -594,7 +619,7 @@ package body Acc.Rules.Parser is
       if Settings.List_Rules then
          --  IO.Put_Line (Units.Unit_List_Image (Left_List),
          --               Level => IO.debug);
-         IO.Put_Line (Location_Image
+         IO.Put_Line (Statement_Location_Image
                       & "Component " & (+Component_Name) & " contains unit "
                       & Units.Unit_List_Image (Right_List),
                       Level => IO.Quiet);
@@ -619,7 +644,7 @@ package body Acc.Rules.Parser is
       Acc.IO.Put_Line ("-> Store_Files_Decla",
                        Level => Acc.IO.Debug);
       if Settings.List_Rules then
-         IO.Put_Line (Location_Image
+         IO.Put_Line (Statement_Location_Image
                       & "Component " & (+Component_Name) & " contains files "
                       & Units.Unit_List_Image (Right_List),
                       Level => IO.Quiet);
@@ -648,7 +673,7 @@ package body Acc.Rules.Parser is
       Add_Rule ((Subject_Unit => Using,
                  Object_Unit  => Used,
                  Kind         => Layer_Over,
-                 Location     => Current_Location));
+                 Location     => Statement_Location));
       Reset_Unit_Names;
 
    end Store_Layer_Decla;
@@ -671,7 +696,7 @@ package body Acc.Rules.Parser is
          Add_Rule ((Subject_Unit => Using,
                     Object_Unit  => U.To_Unit,
                     Kind         => May_Use,
-                    Location     => Current_Location));
+                    Location     => Statement_Location));
       end loop;
 
       Reset_Unit_Names;
@@ -697,7 +722,7 @@ package body Acc.Rules.Parser is
          Add_Rule ((Subject_Unit => Using,
                     Object_Unit  => U.To_Unit,
                     Kind         => Exclusive_Use,
-                    Location     => Current_Location));
+                    Location     => Statement_Location));
       end loop;
 
       Reset_Unit_Names;
@@ -718,7 +743,7 @@ package body Acc.Rules.Parser is
                        Level => Acc.IO.Debug);
       Add_Rule ((Kind         => Allowed_Use,
                  Subject_Unit => Unit,
-                 Location     => Current_Location));
+                 Location     => Statement_Location));
       Reset_Unit_Names;
 
    end Add_Allowed_Unit;
@@ -737,7 +762,7 @@ package body Acc.Rules.Parser is
                        Level => Acc.IO.Debug);
       Add_Rule ((Kind         => Forbidden_Use,
                  Subject_Unit => Unit,
-                 Location     => Current_Location));
+                 Location     => Statement_Location));
       Reset_Unit_Names;
 
    end Add_Forbidden_Unit;
@@ -772,7 +797,7 @@ package body Acc.Rules.Parser is
             Add_Rule ((Subject_Unit => Right_List (I).To_Unit,
                        Object_Unit  => Right_List (J).To_Unit,
                        Kind         => Are_Independent,
-                       Location     => Current_Location));
+                       Location     => Statement_Location));
             exit when J = Right_List.Last;
             Next (J);
          end loop;

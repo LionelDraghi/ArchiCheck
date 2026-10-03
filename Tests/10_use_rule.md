@@ -235,7 +235,7 @@ Layer_B contains P3 and P4
 - When I run `./acc -lr -I dir9 -ar "only P1 may use IO" rules.9`
 - Then output is
 ```
-rules.9:2: Component Layer_A contains unit P1 and P2
+rules.9:1: Component Layer_A contains unit P1 and P2
 rules.9:2: Component Layer_B contains unit P3 and P4
 Cmd line: Only P1 may use IO
 ```
@@ -248,7 +248,7 @@ Layer_B contains P3 and P4
 - When I run `./acc -lr -I dir9 -ar "P2 may use Bus" --append_rule "P3 and P4 are independent" rules.9`
 - Then output is
 ```
-rules.9:2: Component Layer_A contains unit P1 and P2
+rules.9:1: Component Layer_A contains unit P1 and P2
 rules.9:2: Component Layer_B contains unit P3 and P4
 Cmd line: P2 may use Bus
 Cmd line: P3 and P4 are independent
