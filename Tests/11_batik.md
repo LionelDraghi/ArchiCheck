@@ -12,8 +12,8 @@ Expected files:
 
 - Given there is no `batik-1.9` directory
 - Given I run `tar -xf 11_Batik/batik-src-1.9.tar.gz` Successfully
-- When I run `./acc -lf -Ir ./batik-1.9 | sort`
-- Then output matches file 11_Batik/expected_output.1
+- When I run `./acc -lf -Ir ./batik-1.9`
+- Then output matches file (unordered) 11_Batik/expected_output.1
 
 ### Scenario: public class
 
@@ -210,9 +210,9 @@ Core_Modules is a layer over Low_Level_Modules
 
 ### Scenario: -ld test
 
-> acc -ld -Ir ./batik-1.9 | sort
+> acc -ld -Ir ./batik-1.9
 
 - Given there is no `batik-1.9` directory
 - Given I run `tar -xf 11_Batik/batik-src-1.9.tar.gz` Successfully
-- When I run `./acc -ld -Ir ./batik-1.9 | sort`
-- Then output matches file 11_Batik/expected_output.8
+- When I run `./acc -ld -Ir ./batik-1.9`
+- Then output matches file (unordered) 11_Batik/expected_output.8

@@ -47,5 +47,5 @@ Util.New_Page package spec depends on Interfaces.C
 
 - Given I run `gnat make -q sub-test -I13_Ada_Units/src -D13_Ada_Units/src` Successfully
 - Given the file `13_Ada_Units/expected_output.1`
-- When I run `./acc -ld -I 13_Ada_Units/src | sort` Successfully
-- Then output matches file 13_Ada_Units/expected_output.1
+- When I run `./acc -ld -I 13_Ada_Units/src` Successfully
+- Then output matches file (unordered) 13_Ada_Units/expected_output.1

@@ -5,16 +5,16 @@
 - Given there is no `src` directory
 - Given I run `unzip -q -o 17_Acc/src.zip` Successfully
 - Given the file `17_Acc/expected_output.1`
-- When I run `./acc -lf -I src | sort` Successfully
-- Then output matches file 17_Acc/expected_output.1
+- When I run `./acc -lf -I src` Successfully
+- Then output matches file (unordered) 17_Acc/expected_output.1
 
 ### Scenario: -ld test
 
 - Given there is no `src` directory
 - Given I run `unzip -q -o 17_Acc/src.zip` Successfully
 - Given the file `17_Acc/expected_output.2`
-- When I run `./acc -ld -I ./src | sort` Successfully
-- Then output matches file 17_Acc/expected_output.2
+- When I run `./acc -ld -I ./src` Successfully
+- Then output matches file (unordered) 17_Acc/expected_output.2
 
 ### Scenario: rules test
 

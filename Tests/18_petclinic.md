@@ -15,8 +15,8 @@
 - Given I run `unzip -q -o 18_Spring_PetClinic/spring-petclinic-master.zip` Successfully
 - Given I run `mv spring-petclinic-master src1` Successfully
 - Given the file `18_Spring_PetClinic/expected_output.2`
-- When I run `./acc -ld -r -I ./src1 | sort` Successfully
-- Then output matches file 18_Spring_PetClinic/expected_output.2
+- When I run `./acc -ld -r -I ./src1` Successfully
+- Then output matches file (unordered) 18_Spring_PetClinic/expected_output.2
 
 ### Scenario: rules test
 

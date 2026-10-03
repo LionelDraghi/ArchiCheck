@@ -226,7 +226,7 @@ Interfaces.C use is allowed
 
 When running :
 
-> acc -I dir6 rules.6 | sort
+> acc -I dir6 rules.6
 
 Expected :
 
@@ -244,8 +244,8 @@ Error : dir6/p3.ads:2: Interfaces.Java use is forbidden
 Interfaces use is forbidden
 Interfaces.C use is allowed
 ```
-- When I run `./acc -I dir6 rules.6 | sort`
-- Then output is
+- When I run `./acc -I dir6 rules.6`
+- Then output is (unordered)
 ```
 Error : dir6/p1.ads:2: Interfaces use is forbidden
 Error : dir6/p3.ads:2: Interfaces.Java use is forbidden

@@ -14,8 +14,8 @@
 - Given there is no `zip-ada` directory
 - Given I run `unzip -q -o 12_ZipAda/zipada53.zip` Successfully
 - Given the file `12_ZipAda/expected_output.2`
-- When I run `./acc -ld -r -I ./zip-ada | sort` Successfully
-- Then output matches file 12_ZipAda/expected_output.2
+- When I run `./acc -ld -r -I ./zip-ada` Successfully
+- Then output matches file (unordered) 12_ZipAda/expected_output.2
 
 ### Scenario: rules test
 

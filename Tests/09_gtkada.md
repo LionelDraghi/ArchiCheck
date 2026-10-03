@@ -12,9 +12,9 @@
 
   > acc -q -lf -r -I gtkada-master  
 
-  is identifying the same 862 files (once sorted) than  
+  is identifying the same 862 files than  
 
-  > find gtkada-master -name "*.ad[sb]" | sort  
+  > find gtkada-master -name "*.ad[sb]"  
 ```  
 gtkada-master/src/cairo.adb
 gtkada-master/src/cairo.ads
@@ -25,14 +25,14 @@ gtkada-master/testgtk/testgtk.adb
 gtkada-master/testgtk/test_rtree.adb
 ```  
 
-- Given I run `find gtkada-master -name "*.ad[sb]" | sort` Successfully
-- When I run `./acc -q -lf -r -I gtkada-master | sed "s/.*gtkada-master/gtkada-master/" | sort` Successfully
-- Then output matches file 09_GtkAda/expected_output.1
+- Given I run `find gtkada-master -name "*.ad[sb]"` Successfully
+- When I run `./acc -q -lf -r -I gtkada-master | sed "s/.*gtkada-master/gtkada-master/"` Successfully
+- Then output matches file (unordered) 09_GtkAda/expected_output.1
 
 ### Scenario: Unit Identification
 
 
-  > acc -ld -r -I gtkada-master | sort  
+  > acc -ld -r -I gtkada-master  
 
   4785 dependencies expected :  
 
@@ -61,8 +61,8 @@ View_Gl package spec depends on Gtk.Frame
 ```  
 
 - Given I run `rm $(find gtkada-master -name "*.[ch]")` Successfully
-- When I run `./acc -ld -r -I gtkada-master | sort` Successfully
-- Then output matches file 09_GtkAda/expected_output.2
+- When I run `./acc -ld -r -I gtkada-master` Successfully
+- Then output matches file (unordered) 09_GtkAda/expected_output.2
 
 ### Scenario: A realistic GtkAda description file
 
@@ -106,8 +106,8 @@ Error : gtkada-master/src/opengl/gtk-glarea.adb:26: GtkAda may use Gtk, so Gtk.G
 ```  
 
 - Given the file `09_GtkAda/GtkAda.ac`
-- When I run `./acc 09_GtkAda/GtkAda.ac -r -I gtkada-master | sort` Successfully
-- Then output matches file 09_GtkAda/expected_output.3
+- When I run `./acc 09_GtkAda/GtkAda.ac -r -I gtkada-master` Successfully
+- Then output matches file (unordered) 09_GtkAda/expected_output.3
 
 ### Scenario: Another realistic GtkAda description file
 
@@ -153,5 +153,5 @@ Error : gtkada-master/src/opengl/gtk-glarea.adb:26: GtkAda may use Gtk, so Gtk.G
 ```  
 
 - Given the file `09_GtkAda/GtkAda2.ac`
-- When I run `./acc 09_GtkAda/GtkAda2.ac -q -r -I gtkada-master | sort` Successfully
-- Then output matches file 09_GtkAda/expected_output.4
+- When I run `./acc 09_GtkAda/GtkAda2.ac -q -r -I gtkada-master` Successfully
+- Then output matches file (unordered) 09_GtkAda/expected_output.4
