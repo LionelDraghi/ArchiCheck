@@ -50,6 +50,6 @@
 - Given there is no `src2` directory
 - Given I run `unzip -q -o 18_Spring_PetClinic/spring-framework-petclinic-master.zip` Successfully
 - Given I run `mv spring-framework-petclinic-master src2` Successfully
-- Given the file `framework-18_Spring_PetClinic/petclinic.ac`
-- When I run `./acc framework-18_Spring_PetClinic/petclinic.ac -r -I ./src2` Successfully
+- Given the file `18_Spring_PetClinic/framework-petclinic.ac`
+- When I run `./acc 18_Spring_PetClinic/framework-petclinic.ac -r -I ./src2` Successfully
 - Then output matches file 18_Spring_PetClinic/expected_output.6
