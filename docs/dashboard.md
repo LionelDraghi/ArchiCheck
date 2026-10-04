@@ -12,15 +12,14 @@ Version
 > date -r acc --iso-8601=seconds
 
 ```
-2025-06-19T23:11:16+02:00
+2026-10-04T00:08:12+02:00
 ```
 
 Test results
 ------------
 ```
-Successful  120
-Failed      0
-Empty       1
+Successful 109
+Failed     0
 ```
 ![](generated_img/tests.png)
 

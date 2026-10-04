@@ -119,12 +119,16 @@ package body Acc.Rules.Parser is
    -- Step 2: Instantiate Your Token Packages
    -- --------------------------------------------------------------------------
 
+   -- The following instantiations raise warnings coming from the OpenToken
+   -- generics, not from ArchiCheck code.
+   pragma Warnings (Off, "use of an anonymous access type allocator");
    package Master_Token is new OpenToken.Token.Enumerated
      (Token_Ids, First_Terminal, Last_Terminal, Token_Ids'Image);
    package Tokenizer is new Master_Token.Analyzer;
 
    package Token_List is new Master_Token.List;
    package Nonterminal is new Master_Token.Nonterminal (Token_List);
+   pragma Warnings (On, "use of an anonymous access type allocator");
    package Identifiers is new Master_Token.Identifier;
 
    package Production is new OpenToken.Production (Master_Token,
@@ -317,12 +321,10 @@ package body Acc.Rules.Parser is
      (New_Token : out Nonterminal.Class;
       Source    : in  Token_List.Instance'Class;
       To_ID     : in  Master_Token.Token_ID);
-      -- To simplify the OpenToken mess, and avoid to create new classes,
-      -- Unit_List are stored here, at a global level.
-      -- A maximum of two Unit_List is involved in each rule :
-      -- unit1 and unit2 may use unit3, unit4 and unit5
-      -- ===============         ======================
-      --    Left list                  Right list
+   -- The two following actions are not referenced by the grammar yet,
+   -- and kept for future rules.
+   pragma Warnings (Off, """Switch_To_Left_List"" is not referenced");
+   pragma Warnings (Off, """Switch_To_Right_List"" is not referenced");
    procedure Switch_To_Left_List
      (New_Token : out Nonterminal.Class;
       Source    : in  Token_List.Instance'Class;
@@ -331,6 +333,8 @@ package body Acc.Rules.Parser is
      (New_Token : out Nonterminal.Class;
       Source    : in  Token_List.Instance'Class;
       To_ID     : in  Master_Token.Token_ID);
+   pragma Warnings (On, """Switch_To_Left_List"" is not referenced");
+   pragma Warnings (On, """Switch_To_Right_List"" is not referenced");
 
 
    -- Grammar:
@@ -414,6 +418,7 @@ package body Acc.Rules.Parser is
      (New_Token : out Nonterminal.Class;
       Source    : in  Token_List.Instance'Class;
       To_ID     : in  Master_Token.Token_ID) is
+      pragma Unreferenced (New_Token, Source, To_ID);
    begin
       Reset_Unit_Names;
    end Reset_Unit_Names;
@@ -423,6 +428,7 @@ package body Acc.Rules.Parser is
      (New_Token : out Nonterminal.Class;
       Source    : in  Token_List.Instance'Class;
       To_ID     : in  Master_Token.Token_ID) is
+      pragma Unreferenced (New_Token, Source, To_ID);
    begin
       Acc.IO.Put_Line ("-> Switch_To_Left_List", Level => Acc.IO.Debug);
       Record_In_Left_List := True;
@@ -437,6 +443,7 @@ package body Acc.Rules.Parser is
      (New_Token : out Nonterminal.Class;
       Source    : in  Token_List.Instance'Class;
       To_ID     : in  Master_Token.Token_ID) is
+      pragma Unreferenced (New_Token, Source, To_ID);
    begin
       Switch_To_Right_List;
    end Switch_To_Right_List;

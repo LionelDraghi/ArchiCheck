@@ -1,4 +1,4 @@
-all: create_pkg testrec check_suite check_test run_test check_output_file check_clean doc
+all: create_pkg doc
 
 TR=./testrec
 

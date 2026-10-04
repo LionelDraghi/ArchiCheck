@@ -38,7 +38,8 @@
    - [X] scenario   [-lr option without rules file](01_command_line.md) pass  
 
    ### Scenario: [Legal line, but no src file in the given (existing) directory](01_command_line.md): 
-   - OK : Given the directory `dir9`  
+   - OK : Given there is no `dir9` directory  
+   - OK : Given the new directory `dir9`  
    - OK : When I run `./acc -lf -I dir9`    
    - OK : Then I get `Warning : Cannot list files, no sources found to analyze`  
    - [X] scenario   [Legal line, but no src file in the given (existing) directory](01_command_line.md) pass  

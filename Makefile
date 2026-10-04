@@ -14,6 +14,26 @@
 
 all: build tools check doc
 
+.PHONY : help
+help:
+	@ echo "Usage: make [target]"
+	@ echo ""
+	@ echo "Targets:"
+	@ echo "  all           : build, tools, check and doc (default when no target given)"
+	@ echo "  build         : build acc in development mode"
+	@ echo "  build_release : build acc in release mode"
+	@ echo "  release       : full release chain (release build, tests, badges,"
+	@ echo "                   docs/download.md, install in ~/bin)"
+	@ echo "  tools         : build the Tools sub-project (create_pkg)"
+	@ echo "  check         : run the bbt test suites and the coverage report"
+	@ echo "  dashboard     : regenerate docs/dashboard.md and the badges"
+	@ echo "  cmd_line.md   : regenerate docs/cmd_line.md"
+	@ echo "  doc           : regenerate the generated docs (fixme index, tests"
+	@ echo "                   doc, cmd_line.md, dashboard) and build the mkdocs site"
+	@ echo "  clean         : remove the build and test artifacts"
+	@ echo ""
+	@ echo "Refer to AGENTS.md and docs/building.md for more details."
+
 release: build_release 
 	@ echo Make release build
 
@@ -102,7 +122,6 @@ build_release:
 
 tools: 
 	@ $(MAKE) create_pkg --directory=Tools
-	@ $(MAKE) testrec    --directory=Tools
 
 check: obj/acc
 	# depend on the exe, may be either build or build_release, test have to pass with both

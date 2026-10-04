@@ -229,8 +229,8 @@ package body Acc.Units is
          return True;
 
       elsif P_Last_Char = '*' and then C'Length = P'Length - 1 and then
-        (Ada.Strings.Equal_Case_Insensitive (Left => C,
-                                             Right => Head (P, Count => P'Length - 1)))
+        Ada.Strings.Equal_Case_Insensitive (Left => C,
+                                            Right => Head (P, Count => P'Length - 1))
       then
          -- P = "P4*"
          -- C = "P4"
@@ -240,9 +240,9 @@ package body Acc.Units is
       elsif C'Length > P'Length
         and then P_Last_Char = '*'
         and then C (P'Length) = '.'
-        and then (Ada.Strings.Equal_Case_Insensitive
-                  (Left => Head (C, Count => P'Length - 1),
-                   Right => Head (P, Count => P'Length - 1)))
+        and then Ada.Strings.Equal_Case_Insensitive
+          (Left => Head (C, Count => P'Length - 1),
+           Right => Head (P, Count => P'Length - 1))
       then
          -- P = "P4*"
          -- C = "P4.XXX"

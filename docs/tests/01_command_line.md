@@ -204,7 +204,7 @@ http://lionel.draghi.free.fr/Archicheck/index.html
 
 ## Scenario: Legal line, but no src file in the given (existing) directory
 
-- Given the directory `dir9`
+- Given the new directory `dir9`
 - When I run `./acc -lf -I dir9`  
 - Then I get `Warning : Cannot list files, no sources found to analyze`
 
