@@ -232,7 +232,7 @@ Error : dir8/p4.ads:2: Only P1 is allowed to use P3, P4 is not
 Layer_A contains P1 and P2
 Layer_B contains P3 and P4
 ```
-- When I run `./acc -lr -I dir9 -ar "only P1 may use IO" rules.9`
+- When I run `./acc -lr -I dir9 -ar "only P1 may use IO" rules.9` or `./acc -lr -I dir9 --append_rule "only P1 may use IO" rules.9`
 - Then output is
 ```
 rules.9:1: Component Layer_A contains unit P1 and P2

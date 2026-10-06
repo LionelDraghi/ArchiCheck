@@ -6,6 +6,9 @@
    so here mainly error situations are tested.  
  * Note also that quiet and verbose mode (-q / -v) are also tested  
    in other tests.
+ * Note that all diagnostics, errors as well as warnings, are put on the  
+   standard output, and that the exit code is checked in each scenario :  
+   1 on error, 0 on warning, and 1 on warning when -We is set.
 
 
 
@@ -61,10 +64,7 @@ http://lionel.draghi.free.fr/Archicheck/index.html
 ## Scenario: Version option
 
   - When I run `./acc --version`
-  - Then I get
-```  
-0.6.0
-```  
+  - Then the output matches `0\.[0-9]+\.[0-9]+.*`
 
 ## Scenario: -I option without src dir
 
@@ -73,6 +73,8 @@ http://lionel.draghi.free.fr/Archicheck/index.html
 ```  
 Error : Sources directory expected after -I
 ```  
+  - Then the exit code is `1`
+  - And there is no error output
 
 ## Scenario: -I option with an unknown dir
 
@@ -81,6 +83,8 @@ Error : Sources directory expected after -I
 ```  
 Error : No qsdqjh directory
 ```  
+- Then the exit code is `1`
+- And there is no error output
 
 ## Scenario: unknown -xyz option
 
@@ -89,6 +93,8 @@ Error : No qsdqjh directory
 ```  
 Error : Unknown rules file or unknown option -xzy
 ```  
+- Then the exit code is `1`
+- And there is no error output
 
 ## Scenario: -I option with... nothing to do
 
@@ -101,112 +107,47 @@ package body Src is
 end Src;
 ```
 - When I run `./acc -I dir6`    
-- Then I get 
-```  
+- Then the output contains
+```
 Error : Nothing to do with those sources
 
 Acc normal use :
    acc rules_file -Ir directory [-Ir directory]*
-
-General form :
-   acc [Options]* [Queries] [-ar | --append_rule 'some rule']* [rules_file] [-I[r] directory]*
-
-   -I  src : looks for sources in src dir
-   -Ir src : looks for sources in src dir and subdirs
-
-Rules :
-   Rules may be in a text file, or directly in the command line prefixed with -ar
-   When both are provided, rules in command line are appended to rules in the file
-
-Options :
-   -r  | --recursive      : all following -I are recursive
-   -We | --Warnings=error : treat warnings as errors
-   -v  | --verbose
-   -q  | --quiet          : no message unless error. Warning are also ignored.
-         --version        : acc version
-   -h  | --help           : this message
-
-Queries :
-   -lf  | --list_files        : list analyzed sources files
-   -ld  | --list_dependencies : list identified units and dependencies in analyzed sources files
-   -lr  | --list_rules        : list rules in a rules file
-   -lnc | --list_non_covered  : list compilation units not involved in rules file
-   -ct  | --create_template   : create a commented example of rules file
-   If any, only one of the queries is performed
-   and the full analysis on sources is not done.
-
-Use examples:
-   acc rules.txt -Ir src
-   acc -lf -Ir src
-   acc -lr rules.txt
-   acc -ar 'Java.IO use is forbidden' -Ir src
-
-Rules file:
-   To start a new rules file, run:
-   acc -ct
-   A commented template.ac file will be created : rename it and edit it.
-
-http://lionel.draghi.free.fr/Archicheck/index.html
-
-```  
+```
+- Then the exit code is `1`
+- And there is no error output
 
 ## Scenario: -lr option without rules file
 
 - When I run `./acc -lr  `
-- Then I get 
-```  
+- Then the output contains
+```
 Error : No rules file given
 
 Acc normal use :
    acc rules_file -Ir directory [-Ir directory]*
+```
+- Then the exit code is `1`
+- And there is no error output
 
-General form :
-   acc [Options]* [Queries] [-ar | --append_rule 'some rule']* [rules_file] [-I[r] directory]*
-
-   -I  src : looks for sources in src dir
-   -Ir src : looks for sources in src dir and subdirs
-
-Rules :
-   Rules may be in a text file, or directly in the command line prefixed with -ar
-   When both are provided, rules in command line are appended to rules in the file
-
-Options :
-   -r  | --recursive      : all following -I are recursive
-   -We | --Warnings=error : treat warnings as errors
-   -v  | --verbose
-   -q  | --quiet          : no message unless error. Warning are also ignored.
-         --version        : acc version
-   -h  | --help           : this message
-
-Queries :
-   -lf  | --list_files        : list analyzed sources files
-   -ld  | --list_dependencies : list identified units and dependencies in analyzed sources files
-   -lr  | --list_rules        : list rules in a rules file
-   -lnc | --list_non_covered  : list compilation units not involved in rules file
-   -ct  | --create_template   : create a commented example of rules file
-   If any, only one of the queries is performed
-   and the full analysis on sources is not done.
-
-Use examples:
-   acc rules.txt -Ir src
-   acc -lf -Ir src
-   acc -lr rules.txt
-   acc -ar 'Java.IO use is forbidden' -Ir src
-
-Rules file:
-   To start a new rules file, run:
-   acc -ct
-   A commented template.ac file will be created : rename it and edit it.
-
-http://lionel.draghi.free.fr/Archicheck/index.html
-
-```  
 
 ## Scenario: Legal line, but no src file in the given (existing) directory
 
 - Given the new directory `dir9`
 - When I run `./acc -lf -I dir9`  
 - Then I get `Warning : Cannot list files, no sources found to analyze`
+- Then the exit code is `0`
+- And there is no error output
+
+## Scenario: warnings are treated as errors when -We or --Warnings=error is set
+
+The message is unchanged, but the exit code is now non null.
+
+- Given the new directory `dir9`
+- When I run `./acc -lf -We -I dir9` or `./acc -lf --Warnings=error -I dir9`
+- Then I get `Warning : Cannot list files, no sources found to analyze`
+- Then the exit code is `1`
+- And there is no error output
 
 ## Scenario: file given to -I, instead of a directory
 
@@ -220,6 +161,8 @@ end;
 ```
 - When I run `./acc rules.txt -I src.adb`
 - Then I get `Error : src.adb is not a directory`  
+- Then the exit code is `1`
+- And there is no error output
 
 ## Scenario: -ld given, but no source found
 
@@ -230,6 +173,8 @@ end;
 ```  
 Warning : Cannot list dependencies, no sources found
 ```  
+- Then the exit code is `0`
+- And there is no error output
 
 ## Scenario: src found, but nothing to do with it
 
@@ -240,107 +185,29 @@ package body Src is
 end;
 ```
 - When I run `./acc -I dir12`    
-- Then I get 
-```  
+- Then the output contains
+```
 Error : Nothing to do with those sources
 
 Acc normal use :
    acc rules_file -Ir directory [-Ir directory]*
+```
+- Then the exit code is `1`
+- And there is no error output
 
-General form :
-   acc [Options]* [Queries] [-ar | --append_rule 'some rule']* [rules_file] [-I[r] directory]*
-
-   -I  src : looks for sources in src dir
-   -Ir src : looks for sources in src dir and subdirs
-
-Rules :
-   Rules may be in a text file, or directly in the command line prefixed with -ar
-   When both are provided, rules in command line are appended to rules in the file
-
-Options :
-   -r  | --recursive      : all following -I are recursive
-   -We | --Warnings=error : treat warnings as errors
-   -v  | --verbose
-   -q  | --quiet          : no message unless error. Warning are also ignored.
-         --version        : acc version
-   -h  | --help           : this message
-
-Queries :
-   -lf  | --list_files        : list analyzed sources files
-   -ld  | --list_dependencies : list identified units and dependencies in analyzed sources files
-   -lr  | --list_rules        : list rules in a rules file
-   -lnc | --list_non_covered  : list compilation units not involved in rules file
-   -ct  | --create_template   : create a commented example of rules file
-   If any, only one of the queries is performed
-   and the full analysis on sources is not done.
-
-Use examples:
-   acc rules.txt -Ir src
-   acc -lf -Ir src
-   acc -lr rules.txt
-   acc -ar 'Java.IO use is forbidden' -Ir src
-
-Rules file:
-   To start a new rules file, run:
-   acc -ct
-   A commented template.ac file will be created : rename it and edit it.
-
-http://lionel.draghi.free.fr/Archicheck/index.html
-
-```  
 
 ## Scenario: rules file found, but nothing to do with it
 
 - When I run `./acc rules.txt` 
-- Then I get 
-
-```  
+- Then the output contains
+```
 Error : Nothing to do with this rules file
 
 Acc normal use :
    acc rules_file -Ir directory [-Ir directory]*
-
-General form :
-   acc [Options]* [Queries] [-ar | --append_rule 'some rule']* [rules_file] [-I[r] directory]*
-
-   -I  src : looks for sources in src dir
-   -Ir src : looks for sources in src dir and subdirs
-
-Rules :
-   Rules may be in a text file, or directly in the command line prefixed with -ar
-   When both are provided, rules in command line are appended to rules in the file
-
-Options :
-   -r  | --recursive      : all following -I are recursive
-   -We | --Warnings=error : treat warnings as errors
-   -v  | --verbose
-   -q  | --quiet          : no message unless error. Warning are also ignored.
-         --version        : acc version
-   -h  | --help           : this message
-
-Queries :
-   -lf  | --list_files        : list analyzed sources files
-   -ld  | --list_dependencies : list identified units and dependencies in analyzed sources files
-   -lr  | --list_rules        : list rules in a rules file
-   -lnc | --list_non_covered  : list compilation units not involved in rules file
-   -ct  | --create_template   : create a commented example of rules file
-   If any, only one of the queries is performed
-   and the full analysis on sources is not done.
-
-Use examples:
-   acc rules.txt -Ir src
-   acc -lf -Ir src
-   acc -lr rules.txt
-   acc -ar 'Java.IO use is forbidden' -Ir src
-
-Rules file:
-   To start a new rules file, run:
-   acc -ct
-   A commented template.ac file will be created : rename it and edit it.
-
-http://lionel.draghi.free.fr/Archicheck/index.html
-
-```  
+```
+- Then the exit code is `1`
+- And there is no error output
 
 ## Scenario: template creation (-ct and --create_template)
 
@@ -385,6 +252,8 @@ Java.IO use is allowed                     -- Allowed use
 ```  
 Error : File template.ac already exists
 ```  
+- Then the exit code is `1`
+- And there is no error output
 
 ## Scenario: -ar without rule 
 
@@ -393,3 +262,5 @@ Error : File template.ac already exists
 ```  
 Error : Rule expected after --append_rule
 ```  
+- Then the exit code is `1`
+- And there is no error output

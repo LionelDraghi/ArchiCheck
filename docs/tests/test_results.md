@@ -7,41 +7,52 @@
 
    ### Scenario: [Version option](01_command_line.md): 
    - OK : When I run `./acc --version`  
-   - OK : Then I get  
+   - OK : Then the output matches `0\.[0-9]+\.[0-9]+.*`  
    - [X] scenario   [Version option](01_command_line.md) pass  
 
    ### Scenario: [-I option without src dir](01_command_line.md): 
    - OK : When running `./acc -I`,  
    - OK : Then I get  
+   - OK : Then the exit code is `1`  
+   - OK : And there is no error output  
    - [X] scenario   [-I option without src dir](01_command_line.md) pass  
 
    ### Scenario: [-I option with an unknown dir](01_command_line.md): 
    - OK : When running `./acc -I qsdqjh`    
    - OK : Then I get  
+   - OK : Then the exit code is `1`  
+   - OK : And there is no error output  
    - [X] scenario   [-I option with an unknown dir](01_command_line.md) pass  
 
    ### Scenario: [unknown -xyz option](01_command_line.md): 
    - OK : When running `./acc -xzy`    
    - OK : Then I get   
+   - OK : Then the exit code is `1`  
+   - OK : And there is no error output  
    - [X] scenario   [unknown -xyz option](01_command_line.md) pass  
 
    ### Scenario: [-I option with... nothing to do](01_command_line.md): 
    - OK : Given the directory `dir6`      
    - OK : Given the file `dir6/src.adb`  
    - OK : When I run `./acc -I dir6`      
-   - OK : Then I get   
+   - OK : Then the output contains  
+   - OK : Then the exit code is `1`  
+   - OK : And there is no error output  
    - [X] scenario   [-I option with... nothing to do](01_command_line.md) pass  
 
    ### Scenario: [-lr option without rules file](01_command_line.md): 
    - OK : When I run `./acc -lr  `  
-   - OK : Then I get   
+   - OK : Then the output contains  
+   - OK : Then the exit code is `1`  
+   - OK : And there is no error output  
    - [X] scenario   [-lr option without rules file](01_command_line.md) pass  
 
    ### Scenario: [Legal line, but no src file in the given (existing) directory](01_command_line.md): 
-   - OK : Given there is no `dir9` directory  
    - OK : Given the new directory `dir9`  
    - OK : When I run `./acc -lf -I dir9`    
    - OK : Then I get `Warning : Cannot list files, no sources found to analyze`  
+   - OK : Then the exit code is `0`  
+   - OK : And there is no error output  
    - [X] scenario   [Legal line, but no src file in the given (existing) directory](01_command_line.md) pass  
 
    ### Scenario: [file given to -I, instead of a directory](01_command_line.md): 
@@ -49,6 +60,8 @@
    - OK : Given file `src.adb`  
    - OK : When I run `./acc rules.txt -I src.adb`  
    - OK : Then I get `Error : src.adb is not a directory`    
+   - OK : Then the exit code is `1`  
+   - OK : And there is no error output  
    - [X] scenario   [file given to -I, instead of a directory](01_command_line.md) pass  
 
    ### Scenario: [-ld given, but no source found](01_command_line.md): 
@@ -56,30 +69,56 @@
    - OK : Given new directory `dir11`  
    - OK : When I run `./acc rules.txt -ld -I dir11`    
    - OK : Then I get   
+   - OK : Then the exit code is `0`  
+   - OK : And there is no error output  
    - [X] scenario   [-ld given, but no source found](01_command_line.md) pass  
 
    ### Scenario: [src found, but nothing to do with it](01_command_line.md): 
    - OK : Given directory `dir12`  
    - OK : Given file `dir12/src.adb`  
    - OK : When I run `./acc -I dir12`      
-   - OK : Then I get   
+   - OK : Then the output contains  
+   - OK : Then the exit code is `1`  
+   - OK : And there is no error output  
    - [X] scenario   [src found, but nothing to do with it](01_command_line.md) pass  
 
    ### Scenario: [rules file found, but nothing to do with it](01_command_line.md): 
    - OK : When I run `./acc rules.txt`   
-   - OK : Then I get   
+   - OK : Then the output contains  
+   - OK : Then the exit code is `1`  
+   - OK : And there is no error output  
    - [X] scenario   [rules file found, but nothing to do with it](01_command_line.md) pass  
 
    ### Scenario: [template creation when there's already one](01_command_line.md): 
    - OK : Given I run `./acc -ct` Successfully  
    - OK : When running once more `./acc --create_template`    
    - OK : Then I get   
+   - OK : Then the exit code is `1`  
+   - OK : And there is no error output  
    - [X] scenario   [template creation when there's already one](01_command_line.md) pass  
 
    ### Scenario: [-ar without rule](01_command_line.md): 
    - OK : When I run `./acc -ar`  or  `./acc --append_rule`    
    - OK : Then I get   
+   - OK : Then the exit code is `1`  
+   - OK : And there is no error output  
    - [X] scenario   [-ar without rule](01_command_line.md) pass  
+
+   ### Scenario: [warnings are treated as errors when -We or --Warnings=error is set 1/2](01_command_line.md): 
+   - OK : Given the new directory `dir9`  
+   - OK : When I run `./acc -lf -We -I dir9`  
+   - OK : Then I get `Warning : Cannot list files, no sources found to analyze`  
+   - OK : Then the exit code is `1`  
+   - OK : And there is no error output  
+   - [X] scenario   [warnings are treated as errors when -We or --Warnings=error is set 1/2](01_command_line.md) pass  
+
+   ### Scenario: [warnings are treated as errors when -We or --Warnings=error is set 2/2](01_command_line.md): 
+   - OK : Given the new directory `dir9`  
+   - OK : When I run `./acc -lf --Warnings=error -I dir9`  
+   - OK : Then I get `Warning : Cannot list files, no sources found to analyze`  
+   - OK : Then the exit code is `1`  
+   - OK : And there is no error output  
+   - [X] scenario   [warnings are treated as errors when -We or --Warnings=error is set 2/2](01_command_line.md) pass  
 
    ### Scenario: [template creation (-ct and --create_template) 1/2](01_command_line.md): 
    - OK : Given there is no `template.ac` file  
@@ -100,11 +139,45 @@
    - OK : Given there is no dir `dir1`   
    - OK : Given there is no dir `dir2`   
    - OK : Given there is no dir `dir3`   
-   - OK : Given there is no dir `dira`   
-   - OK : Given there is no dir `dirb`   
    - [X] background [](02_source_list.md) pass  
 
-   ### Scenario: [Non recursive file identification test](02_source_list.md): 
+   ### Scenario: [Recursive file identification test](02_source_list.md): 
+   - OK : Given the `./dira/dira1/` dir  
+   - OK : Given the `./dirb/dirb1/` dir  
+   - OK : Given the file `./dira/a.ads`  
+   - OK : And   the file `./dirb/b.ads`      
+   - OK : And   the file `./dirb/dirb1/c.ads`      
+   - OK : And   the file `./dira/dira1/c-d.ads`      
+   - OK : When I run `./acc -I dira -Ir dirb --list_files`    
+   - OK : Then the output is   
+   - [X] scenario   [Recursive file identification test](02_source_list.md) pass  
+
+   ### Background: [](02_source_list.md): 
+   - OK : Given there is no dir `dir1`   
+   - OK : Given there is no dir `dir2`   
+   - OK : Given there is no dir `dir3`   
+   - [X] background [](02_source_list.md) pass  
+
+   ### Scenario: [Non recursive file identification test 1/2](02_source_list.md): 
+   - OK : Given the new `./dir1/` dir  
+   - OK : Given the new `./dir2/` dir  
+   - OK : Given the new `./dir3/` dir  
+   - OK : Given the file `./dir3/c-d.ads`  
+   - OK : And   the file `./dir3/c.ads`      
+   - OK : And   the file `./dir1/a.ads`      
+   - OK : And   the file `./dir1/a.adb`      
+   - OK : And   the file `./dir2/b.ads`      
+   - OK : When I run `./acc -I dir1 -I dir2 -I dir3 -lf`    
+   - OK : Then the output is   
+   - [X] scenario   [Non recursive file identification test 1/2](02_source_list.md) pass  
+
+   ### Background: [](02_source_list.md): 
+   - OK : Given there is no dir `dir1`   
+   - OK : Given there is no dir `dir2`   
+   - OK : Given there is no dir `dir3`   
+   - [X] background [](02_source_list.md) pass  
+
+   ### Scenario: [Non recursive file identification test 2/2](02_source_list.md): 
    - OK : Given the new `./dir1/` dir  
    - OK : Given the new `./dir2/` dir  
    - OK : Given the new `./dir3/` dir  
@@ -115,28 +188,7 @@
    - OK : And   the file `./dir2/b.ads`      
    - OK : When I run `./acc -I dir1 -I dir2 -I dir3 --list_files`    
    - OK : Then the output is   
-   - [X] scenario   [Non recursive file identification test](02_source_list.md) pass  
-
-   ### Background: [](02_source_list.md): 
-   - OK : Given there is no dir `dir1`   
-   - OK : Given there is no dir `dir2`   
-   - OK : Given there is no dir `dir3`   
-   - OK : Given there is no dir `dira`   
-   - OK : Given there is no dir `dirb`   
-   - [X] background [](02_source_list.md) pass  
-
-   ### Scenario: [Recursive file identification test](02_source_list.md): 
-   - OK : Given the `./dira/` dir  
-   - OK : Given the `./dirb/` dir  
-   - OK : Given the `./dira/dira1/` dir  
-   - OK : Given the `./dirb/dirb1/` dir  
-   - OK : Given the file `./dira/a.ads`  
-   - OK : And   the file `./dirb/b.ads`      
-   - OK : And   the file `./dirb/dirb1/c.ads`      
-   - OK : And   the file `./dira/dira1/c-d.ads`      
-   - OK : When I run `./acc -I dira -Ir dirb --list_files`    
-   - OK : Then the output is   
-   - [X] scenario   [Recursive file identification test](02_source_list.md) pass  
+   - [X] scenario   [Non recursive file identification test 2/2](02_source_list.md) pass  
 
 
 # Document: [03_dependency_list.md](03_dependency_list.md)  
@@ -199,19 +251,6 @@
    - OK : And  I get no error  
    - [X] scenario   [Sanity test, the Batik project architecture](05_layer_rule.md) pass  
 
-   ### Scenario: [Base normal situation](05_layer_rule.md): 
-   - OK : Given the file `rules.1`  
-   - OK : Given the `./dir1/` dir  
-   - OK : When I run `./create_pkg P1 spec  -in dir1 -with P2`  
-   - OK : When I run `./create_pkg P2 spec  -in dir1 -with P3`  
-   - OK : When I run `./create_pkg P2 body  -in dir1 -with P4`  
-   - OK : When I run `./create_pkg P3 spec  -in dir1`  
-   - OK : When I run `./create_pkg P4 spec  -in dir1`  
-   - OK : When I run `./acc -q -I dir1 rules.1`  
-   - OK : Then I get no output  
-   - OK : And  I get no error  
-   - [X] scenario   [Base normal situation](05_layer_rule.md) pass  
-
    ### Scenario: [Illegal upward dependency](05_layer_rule.md): 
    - OK : Given the file `rules.2`  
    - OK : When I run `./create_pkg P1 spec  -in dir2 -with P2`  
@@ -246,6 +285,32 @@
    - OK : When I run `./acc -I dir4 rules.4`  
    - OK : Then I get  
    - [X] scenario   [Using a package that is neither in the same layer, nor in the visible layer](05_layer_rule.md) pass  
+
+   ### Scenario: [Base normal situation 1/2](05_layer_rule.md): 
+   - OK : Given the file `rules.1`  
+   - OK : Given the `./dir1/` dir  
+   - OK : When I run `./create_pkg P1 spec  -in dir1 -with P2`  
+   - OK : When I run `./create_pkg P2 spec  -in dir1 -with P3`  
+   - OK : When I run `./create_pkg P2 body  -in dir1 -with P4`  
+   - OK : When I run `./create_pkg P3 spec  -in dir1`  
+   - OK : When I run `./create_pkg P4 spec  -in dir1`  
+   - OK : When I run `./acc -q -I dir1 rules.1`  
+   - OK : Then I get no output  
+   - OK : And  I get no error  
+   - [X] scenario   [Base normal situation 1/2](05_layer_rule.md) pass  
+
+   ### Scenario: [Base normal situation 2/2](05_layer_rule.md): 
+   - OK : Given the file `rules.1`  
+   - OK : Given the `./dir1/` dir  
+   - OK : When I run `./create_pkg P1 spec  -in dir1 -with P2`  
+   - OK : When I run `./create_pkg P2 spec  -in dir1 -with P3`  
+   - OK : When I run `./create_pkg P2 body  -in dir1 -with P4`  
+   - OK : When I run `./create_pkg P3 spec  -in dir1`  
+   - OK : When I run `./create_pkg P4 spec  -in dir1`  
+   - OK : When I run `./acc --quiet -I dir1 rules.1`  
+   - OK : Then I get no output  
+   - OK : And  I get no error  
+   - [X] scenario   [Base normal situation 2/2](05_layer_rule.md) pass  
 
 
 # Document: [06_child_packages.md](06_child_packages.md)  
@@ -352,12 +417,6 @@
 
 # Document: [07_rules_files_syntax.md](07_rules_files_syntax.md)  
   ## Feature: Rules file syntax test suite  
-   ### Scenario: [Reference file](07_rules_files_syntax.md): 
-   - OK : Given the file `rules1.txt`  
-   - OK : When I run `./acc --list_rules rules1.txt`    
-   - OK : then I get  
-   - [X] scenario   [Reference file](07_rules_files_syntax.md) pass  
-
    ### Scenario: [Casing](07_rules_files_syntax.md): 
    - OK : Given the file `rules2.txt`  
    - OK : When I run `./acc -lr rules2.txt`    
@@ -369,6 +428,18 @@
    - OK : When I run `./acc -lr rules3.txt`    
    - OK : then I get  
    - [X] scenario   [Spacing and comments](07_rules_files_syntax.md) pass  
+
+   ### Scenario: [Reference file 1/2](07_rules_files_syntax.md): 
+   - OK : Given the file `rules1.txt`  
+   - OK : When I run `./acc -lr rules1.txt`    
+   - OK : then I get  
+   - [X] scenario   [Reference file 1/2](07_rules_files_syntax.md) pass  
+
+   ### Scenario: [Reference file 2/2](07_rules_files_syntax.md): 
+   - OK : Given the file `rules1.txt`  
+   - OK : When I run `./acc --list_rules rules1.txt`    
+   - OK : then I get  
+   - [X] scenario   [Reference file 2/2](07_rules_files_syntax.md) pass  
 
 
 # Document: [08_globbing_characters.md](08_globbing_characters.md)  
@@ -543,7 +614,7 @@
    - OK : Then output is  
    - [X] scenario   [only X may use Unit List rules](10_use_rule.md) pass  
 
-   ### Scenario: [Appending rules](10_use_rule.md): 
+   ### Scenario: [Appending rules 1/2](10_use_rule.md): 
    - OK : Given there is no `dir9` directory  
    - OK : Given I run `./create_pkg P1 spec -in dir9` Successfully  
    - OK : Given I run `./create_pkg P2 spec -in dir9 -with P2` Successfully  
@@ -557,7 +628,23 @@
    - OK : Given the new file `rules.9`  
    - OK : When I run `./acc -lr -I dir9 -ar "P2 may use Bus" --append_rule "P3 and P4 are independent" rules.9`  
    - OK : Then output is  
-   - [X] scenario   [Appending rules](10_use_rule.md) pass  
+   - [X] scenario   [Appending rules 1/2](10_use_rule.md) pass  
+
+   ### Scenario: [Appending rules 2/2](10_use_rule.md): 
+   - OK : Given there is no `dir9` directory  
+   - OK : Given I run `./create_pkg P1 spec -in dir9` Successfully  
+   - OK : Given I run `./create_pkg P2 spec -in dir9 -with P2` Successfully  
+   - OK : Given I run `./create_pkg P3 spec -in dir9 -with P2 -with P3` Successfully  
+   - OK : Given I run `./create_pkg P4 spec -in dir9 -with P2 -with P3` Successfully  
+   - OK : Given I run `./create_pkg Bus spec -in dir9` Successfully  
+   - OK : Given I run `./create_pkg IO spec -in dir9` Successfully  
+   - OK : Given the file `rules.9`  
+   - OK : When I run `./acc -lr -I dir9 --append_rule "only P1 may use IO" rules.9`  
+   - OK : Then output is  
+   - OK : Given the new file `rules.9`  
+   - OK : When I run `./acc -lr -I dir9 -ar "P2 may use Bus" --append_rule "P3 and P4 are independent" rules.9`  
+   - OK : Then output is  
+   - [X] scenario   [Appending rules 2/2](10_use_rule.md) pass  
 
 
 # Document: [11_batik.md](11_batik.md)  
@@ -570,44 +657,39 @@
    - [X] scenario   [--list_file test](11_batik.md) pass  
 
    ### Scenario: [public class](11_batik.md): 
-   - OK : Given there is no `dir2` directory  
+   - OK : Given the new directory `dir2`  
    - OK : Given I run `tar -xf 11_Batik/batik-src-1.9.tar.gz` Successfully  
-   - OK : Given I run `mkdir -p dir2` Successfully  
    - OK : Given I run `cp ./batik-1.9/contrib/jsvg/JSVG.java dir2` Successfully  
    - OK : When I run `./acc -ld -I dir2`  
    - OK : Then I get file `11_Batik/expected_output.2`  
    - [X] scenario   [public class](11_batik.md) pass  
 
    ### Scenario: [public interface class](11_batik.md): 
-   - OK : Given there is no `dir3` directory  
+   - OK : Given the new directory `dir3`  
    - OK : Given I run `tar -xf 11_Batik/batik-src-1.9.tar.gz` Successfully  
-   - OK : Given I run `mkdir -p dir3` Successfully  
    - OK : Given I run `cp ./batik-1.9/batik-dom/src/main/java/org/apache/batik/dom/events/NodeEventTarget.java dir3` Successfully  
    - OK : When I run `./acc -ld -I dir3`  
    - OK : Then I get file `11_Batik/expected_output.3`  
    - [X] scenario   [public interface class](11_batik.md) pass  
 
    ### Scenario: [no import](11_batik.md): 
-   - OK : Given there is no `dir4` directory  
+   - OK : Given the new directory `dir4`  
    - OK : Given I run `tar -xf 11_Batik/batik-src-1.9.tar.gz` Successfully  
-   - OK : Given I run `mkdir -p dir4` Successfully  
    - OK : Given I run `cp ./batik-1.9/batik-dom/src/main/java/org/apache/batik/dom/util/TriplyIndexedTable.java dir4` Successfully  
    - OK : When I run `./acc -ld -I dir4`  
    - OK : Then I get file `11_Batik/expected_output.4`  
    - [X] scenario   [no import](11_batik.md) pass  
 
    ### Scenario: [no package](11_batik.md): 
-   - OK : Given there is no `dir5` directory  
-   - OK : Given I run `mkdir -p dir5` Successfully  
+   - OK : Given the new directory `dir5`  
    - OK : Given the file `dir5/MyClass.java`  
    - OK : When I run `./acc -ld -I dir5`  
    - OK : Then I get file `11_Batik/expected_output.5`  
    - [X] scenario   [no package](11_batik.md) pass  
 
    ### Scenario: [public abstract class](11_batik.md): 
-   - OK : Given there is no `dir6` directory  
+   - OK : Given the new directory `dir6`  
    - OK : Given I run `tar -xf 11_Batik/batik-src-1.9.tar.gz` Successfully  
-   - OK : Given I run `mkdir -p dir6` Successfully  
    - OK : Given I run `cp ./batik-1.9/batik-transcoder/src/main/java/org/apache/batik/transcoder/SVGAbstractTranscoder.java dir6` Successfully  
    - OK : Given there is a file `11_Batik/rules.B`  
    - OK : When I run `./acc 11_Batik/rules.B -q -I dir6`  
@@ -615,8 +697,7 @@
    - [X] scenario   [public abstract class](11_batik.md) pass  
 
    ### Scenario: [Let's add dependencies to Browser and Rasterizer into a Transcoder class](11_batik.md): 
-   - OK : Given there is no `dir7` directory  
-   - OK : Given I run `mkdir -p dir7` Successfully  
+   - OK : Given the new directory `dir7`  
    - OK : Given the file `dir7/MyClass.java`  
    - OK : Given the file `rules.7`  
    - OK : When I run `./acc rules.7 -I dir7`  
@@ -633,15 +714,6 @@
 
 # Document: [12_zipada.md](12_zipada.md)  
   ## Feature: ZipAda code test suite  
-   ### Scenario: [-lf test](12_zipada.md): 
-   - OK : Given there is no `zip-ada` directory  
-   - OK : Given I run `unzip -q -o 12_ZipAda/zipada53.zip` Successfully  
-   - OK : Given there is a file `12_ZipAda/expected_output.1`  
-   - OK : Given there is a file `12_ZipAda/zipadarules.txt`  
-   - OK : When I run `./acc -lf -r -I zip-ada` Successfully  
-   - OK : Then I get file `12_ZipAda/expected_output.1`  
-   - [X] scenario   [-lf test](12_zipada.md) pass  
-
    ### Scenario: [-ld test](12_zipada.md): 
    - OK : Given there is no `zip-ada` directory  
    - OK : Given I run `unzip -q -o 12_ZipAda/zipada53.zip` Successfully  
@@ -657,6 +729,24 @@
    - OK : When I run `./acc 12_ZipAda/zipadarules.txt -r -I ./zip-ada` Successfully  
    - OK : Then I get no output  
    - [X] scenario   [rules test](12_zipada.md) pass  
+
+   ### Scenario: [-lf test 1/2](12_zipada.md): 
+   - OK : Given there is no `zip-ada` directory  
+   - OK : Given I run `unzip -q -o 12_ZipAda/zipada53.zip` Successfully  
+   - OK : Given there is a file `12_ZipAda/expected_output.1`  
+   - OK : Given there is a file `12_ZipAda/zipadarules.txt`  
+   - OK : When I successfully run `./acc -lf -r -I zip-ada`  
+   - OK : Then I get file `12_ZipAda/expected_output.1`  
+   - [X] scenario   [-lf test 1/2](12_zipada.md) pass  
+
+   ### Scenario: [-lf test 2/2](12_zipada.md): 
+   - OK : Given there is no `zip-ada` directory  
+   - OK : Given I run `unzip -q -o 12_ZipAda/zipada53.zip` Successfully  
+   - OK : Given there is a file `12_ZipAda/expected_output.1`  
+   - OK : Given there is a file `12_ZipAda/zipadarules.txt`  
+   - OK : When I successfully run `./acc -lf --recursive -I zip-ada`  
+   - OK : Then I get file `12_ZipAda/expected_output.1`  
+   - [X] scenario   [-lf test 2/2](12_zipada.md) pass  
 
 
 # Document: [13_ada_units.md](13_ada_units.md)  
@@ -896,7 +986,15 @@
    - OK : Then output is  
    - [X] scenario   [Warnings on units appearing in rules file and not related to any source](19_rules_src_coverage.md) pass  
 
-   ### Scenario: [Non covered sources](19_rules_src_coverage.md): 
+   ### Scenario: [Case insensitivity of Is_A_Component function (non reg)](19_rules_src_coverage.md): 
+   - OK : Given there is no `dir3` directory  
+   - OK : Given I run `./create_pkg P1 spec -in dir3` Successfully  
+   - OK : Given the file `test3.ac`  
+   - OK : When I run `./acc test3.ac -I dir3`  
+   - OK : Then output is  
+   - [X] scenario   [Case insensitivity of Is_A_Component function (non reg)](19_rules_src_coverage.md) pass  
+
+   ### Scenario: [Non covered sources 1/2](19_rules_src_coverage.md): 
    - OK : Given there is no `dir2` directory  
    - OK : Given I run `./create_pkg P2 spec -in dir2` Successfully  
    - OK : Given I run `./create_pkg P3 spec -in dir2` Successfully  
@@ -911,15 +1009,24 @@
    - OK : Given the file `test2.ac`  
    - OK : When I run `./acc -lnc test2.ac -I ./dir2`  
    - OK : Then output is (unordered)  
-   - [X] scenario   [Non covered sources](19_rules_src_coverage.md) pass  
+   - [X] scenario   [Non covered sources 1/2](19_rules_src_coverage.md) pass  
 
-   ### Scenario: [Case insensitivity of Is_A_Component function (non reg)](19_rules_src_coverage.md): 
-   - OK : Given there is no `dir3` directory  
-   - OK : Given I run `./create_pkg P1 spec -in dir3` Successfully  
-   - OK : Given the file `test3.ac`  
-   - OK : When I run `./acc test3.ac -I dir3`  
-   - OK : Then output is  
-   - [X] scenario   [Case insensitivity of Is_A_Component function (non reg)](19_rules_src_coverage.md) pass  
+   ### Scenario: [Non covered sources 2/2](19_rules_src_coverage.md): 
+   - OK : Given there is no `dir2` directory  
+   - OK : Given I run `./create_pkg P2 spec -in dir2` Successfully  
+   - OK : Given I run `./create_pkg P3 spec -in dir2` Successfully  
+   - OK : Given I run `./create_pkg P4 spec -in dir2` Successfully  
+   - OK : Given I run `./create_pkg P5 spec -in dir2` Successfully  
+   - OK : Given I run `./create_pkg P1.X spec -in dir2` Successfully  
+   - OK : Given I run `./create_pkg Y.P1 spec -in dir2` Successfully  
+   - OK : Given I run `./create_pkg Framework.Utilities spec -in dir2` Successfully  
+   - OK : Given I run `./create_pkg Framework_Utilities spec -in dir2` Successfully  
+   - OK : Given I run `./create_pkg Java.Awt spec -in dir2` Successfully  
+   - OK : Given I run `./create_pkg Java spec -in dir2` Successfully  
+   - OK : Given the file `test2.ac`  
+   - OK : When I run `./acc --list_non_covered test2.ac -I ./dir2`  
+   - OK : Then output is (unordered)  
+   - [X] scenario   [Non covered sources 2/2](19_rules_src_coverage.md) pass  
 
 
 # Document: [20_C_sanity_check.md](20_C_sanity_check.md)  
@@ -991,18 +1098,6 @@
 
 # Document: [22_files_component.md](22_files_component.md)  
   ## Feature: Adding compilation units through files to a Component  
-   ### Scenario: [Sources identification through rules file (no -I on command line)](22_files_component.md): 
-   - OK : Given there is no `dir1` directory  
-   - OK : Given there is no `dir2` directory  
-   - OK : Given the new directory `dir1`  
-   - OK : Given I run `./create_pkg B body -in dir2` Successfully  
-   - OK : Given the file `dir1/a.ads`  
-   - OK : Given the file `dir1/a.adb`  
-   - OK : Given the file `dir2/c.ads`  
-   - OK : When I run `./acc -I dir1 --list_dependencies`  
-   - OK : Then output is (unordered)  
-   - [X] scenario   [Sources identification through rules file (no -I on command line)](22_files_component.md) pass  
-
    ### Scenario: [Source with weird formatted withed unit](22_files_component.md): 
    - OK : Given there is no `dir2` directory  
    - OK : Given the new directory `dir1`  
@@ -1016,13 +1111,37 @@
    - OK : Then output is (unordered)  
    - [X] scenario   [Source with weird formatted withed unit](22_files_component.md) pass  
 
+   ### Scenario: [Sources identification through rules file (no -I on command line) 1/2](22_files_component.md): 
+   - OK : Given there is no `dir1` directory  
+   - OK : Given there is no `dir2` directory  
+   - OK : Given the new directory `dir1`  
+   - OK : Given I run `./create_pkg B body -in dir2` Successfully  
+   - OK : Given the file `dir1/a.ads`  
+   - OK : Given the file `dir1/a.adb`  
+   - OK : Given the file `dir2/c.ads`  
+   - OK : When I run `./acc -I dir1 -ld`  
+   - OK : Then output is (unordered)  
+   - [X] scenario   [Sources identification through rules file (no -I on command line) 1/2](22_files_component.md) pass  
 
-## Summary : **Success**, 94 scenarios OK
+   ### Scenario: [Sources identification through rules file (no -I on command line) 2/2](22_files_component.md): 
+   - OK : Given there is no `dir1` directory  
+   - OK : Given there is no `dir2` directory  
+   - OK : Given the new directory `dir1`  
+   - OK : Given I run `./create_pkg B body -in dir2` Successfully  
+   - OK : Given the file `dir1/a.ads`  
+   - OK : Given the file `dir1/a.adb`  
+   - OK : Given the file `dir2/c.ads`  
+   - OK : When I run `./acc -I dir1 --list_dependencies`  
+   - OK : Then output is (unordered)  
+   - [X] scenario   [Sources identification through rules file (no -I on command line) 2/2](22_files_component.md) pass  
+
+
+## Summary : **Success**, 103 scenarios OK
 
 | Status     | Count |
 |------------|-------|
 | Failed     | 0     |
-| Successful | 94    |
+| Successful | 103   |
 | Empty      | 0     |
 | Not Run    | 1     |
 

@@ -58,7 +58,7 @@ P5 may use Framework
 -- as it's a Component.
 
 ```
-- When I run `./acc -lnc test2.ac -I ./dir2`
+- When I run `./acc -lnc test2.ac -I ./dir2` or `./acc --list_non_covered test2.ac -I ./dir2`
 - Then output is (unordered)
 ```
 Framework_Utilities

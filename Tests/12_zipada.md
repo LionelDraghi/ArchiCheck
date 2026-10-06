@@ -6,7 +6,7 @@
 - Given I run `unzip -q -o 12_ZipAda/zipada53.zip` Successfully
 - Given there is a file `12_ZipAda/expected_output.1`
 - Given there is a file `12_ZipAda/zipadarules.txt`
-- When I run `./acc -lf -r -I zip-ada` Successfully
+- When I successfully run `./acc -lf -r -I zip-ada` or `./acc -lf --recursive -I zip-ada`
 - Then I get file `12_ZipAda/expected_output.1`
 
 ### Scenario: -ld test

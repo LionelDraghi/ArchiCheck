@@ -31,7 +31,7 @@ System use is forbidden
 Ada use is allowed
 ~~~
 
-- When I run `./acc --list_rules rules1.txt`  
+- When I run `./acc -lr rules1.txt` or `./acc --list_rules rules1.txt`  
 
 - then I get
 ```  

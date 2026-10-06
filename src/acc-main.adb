@@ -36,6 +36,18 @@ procedure Acc.Main is
    procedure Create_Template  is separate;
    procedure Analyze_Cmd_Line is separate;
 
+   -- --------------------------------------------------------------------------
+   --  Set_Exit_Status sets the exit status according to IO.Some_Error,
+   --  so that all quitting paths leave with a coherent exit status.
+   procedure Set_Exit_Status is
+   begin
+      if IO.Some_Error then
+         Ada.Command_Line.Set_Exit_Status (Ada.Command_Line.Failure);
+      else
+         Ada.Command_Line.Set_Exit_Status (Ada.Command_Line.Success);
+      end if;
+   end Set_Exit_Status;
+
 begin
    -- language specific processor plugin:
    Lang.Initialize;
@@ -45,13 +57,14 @@ begin
 
    if IO.Some_Error then
       -- Some error occurs during command line analysis, stop here.
-      Ada.Command_Line.Set_Exit_Status (Ada.Command_Line.Failure);
+      Set_Exit_Status;
       return;
    end if;
 
    -- 2. Create template rules file
    if Settings.Create_Template then
       Main.Create_Template;
+      Set_Exit_Status;
       return;
    end if;
 
@@ -59,6 +72,7 @@ begin
    -- -----------------------------------------------------------------------
    if Settings.List_Files then
       Sources.Sort_And_Dump_Sources;
+      Set_Exit_Status;
       return;
    end if;
 
@@ -67,6 +81,7 @@ begin
 
    if Settings.List_Dependencies then
       Units.Dump;
+      Set_Exit_Status;
       return;
    end if;
 
@@ -82,7 +97,7 @@ begin
       end if;
 
       if IO.Some_Error then
-         Ada.Command_Line.Set_Exit_Status (Ada.Command_Line.Failure);
+         Set_Exit_Status;
          return;
 
       elsif Settings.List_Rules then
@@ -93,6 +108,7 @@ begin
          -- the rules file parsing.
          -- (This is why there is no Rules.Dump procedure).
          --
+         Set_Exit_Status;
          return;
 
       elsif Settings.List_Non_Covered then
@@ -110,11 +126,6 @@ begin
 
    end if;
 
-   if IO.Some_Error then
-      Ada.Command_Line.Set_Exit_Status (Ada.Command_Line.Failure);
-      return;
-   end if;
-
-   Ada.Command_Line.Set_Exit_Status (Ada.Command_Line.Success);
+   Set_Exit_Status;
 
 end Acc.Main;

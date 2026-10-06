@@ -13,6 +13,7 @@ and version numbering adheres to [Semantic Versioning](http://semver.org/spec/v2
   >   pointing to the following statement: the line is now captured at the first unit
   >   of each statement, instead of using the analyzer position that already read
   >   the next token
+  > - [Fixed] acc -ct now returns a non null exit code when the template file already exists
 
 - [0.6.0]
   > - [Added] new rule `X, Y, Z are independent` created

@@ -81,7 +81,7 @@ columns 3
 - When I run `./create_pkg P3 spec  -in dir1`
 - When I run `./create_pkg P4 spec  -in dir1`
   
-- When I run `./acc -q -I dir1 rules.1`
+- When I run `./acc -q -I dir1 rules.1` or `./acc --quiet -I dir1 rules.1`
 
 Code being compliant with rules file, no output expected:  
 - Then I get no output

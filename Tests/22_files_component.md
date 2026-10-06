@@ -24,7 +24,7 @@ with B, F;
 package C is
 end C;
 ```
-- When I run `./acc -I dir1 --list_dependencies`
+- When I run `./acc -I dir1 -ld` or `./acc -I dir1 --list_dependencies`
 - Then output is (unordered)
 ```
 A package body depends on C

@@ -4,8 +4,6 @@
 - Given there is no dir `dir1` 
 - Given there is no dir `dir2` 
 - Given there is no dir `dir3` 
-- Given there is no dir `dira` 
-- Given there is no dir `dirb` 
 
 ### Scenario: Non recursive file identification test
 
@@ -41,7 +39,7 @@ package body B is
 end;
 ```    
 
-- When I run `./acc -I dir1 -I dir2 -I dir3 --list_files`  
+- When I run `./acc -I dir1 -I dir2 -I dir3 -lf` or `./acc -I dir1 -I dir2 -I dir3 --list_files`  
 
 - Then the output is 
 ```  
@@ -55,12 +53,6 @@ dir3/c.ads
 ### Scenario: Recursive file identification test
 
 When used, `-Ir` cause the following directory to be explored recursively.
-
-- Given the `./dira/` dir
-- Given the `./dirb/` dir
-  
-Those first dir creation are only needed because yet bbt is only recording the creation of the leaf (dira1) and not the creation of intermediate dir (dira). As a consequence, the --cleanup let `dira` behind.  
-[Issue #3](https://github.com/LionelDraghi/bbt/issues/3)
 
 - Given the `./dira/dira1/` dir
 - Given the `./dirb/dirb1/` dir
