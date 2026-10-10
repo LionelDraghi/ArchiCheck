@@ -29,7 +29,6 @@ ArchiCheck strives to be compliant with:
 - [OpenToken](http://stephe-leake.org/ada/opentoken.html)
 - [GNAT & GPS](http://libre.adacore.com/tools/gps/)
 - [Rolf Ebert & Gautier de Montmollin for IniFile](https://sourceforge.net/projects/ini-files/)
-- [mkdocs](http://www.mkdocs.org/)
 - [git](https://git-scm.com/) and [github](https://github.com/)
 
 and (No more used, but still highly recommendable):

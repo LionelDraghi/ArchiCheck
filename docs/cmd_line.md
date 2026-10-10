@@ -51,7 +51,7 @@ Rules file:
    acc -ct
    A commented template.ac file will be created : rename it and edit it.
 
-http://lionel.draghi.free.fr/Archicheck/index.html
+https://github.com/LionelDraghi/ArchiCheck
 
 ```
 
@@ -63,6 +63,6 @@ acc --version
 ```
 
 ```
-0.6.0
+0.6.1
 ```
 

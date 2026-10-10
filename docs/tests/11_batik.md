@@ -11,9 +11,9 @@ Expected files:
 ```
 
 - Given there is no `batik-1.9` directory
-- Given I run `tar -xf 11_Batik/batik-src-1.9.tar.gz` Successfully
+- Given I run `tar -xf ../docs/tests/11_batik/batik-src-1.9.tar.gz` Successfully
 - When I run `./acc -lf -Ir ./batik-1.9`
-- Then I get file (unordered) `11_Batik/expected_output.1`
+- Then I get file (unordered) `../docs/tests/11_batik/expected_output.1`
 
 ### Scenario: public class
 
@@ -36,10 +36,10 @@ dir2/JSVG.java:2: JSVG depends on Element
 ```
 
 - Given the new directory `dir2`
-- Given I run `tar -xf 11_Batik/batik-src-1.9.tar.gz` Successfully
+- Given I run `tar -xf ../docs/tests/11_batik/batik-src-1.9.tar.gz` Successfully
 - Given I run `cp ./batik-1.9/contrib/jsvg/JSVG.java dir2` Successfully
 - When I run `./acc -ld -I dir2`
-- Then I get file `11_Batik/expected_output.2`
+- Then I get file `../docs/tests/11_batik/expected_output.2`
 
 ### Scenario: public interface class
 
@@ -60,10 +60,10 @@ dir3/NodeEventTarget.java:1: NodeEventTarget depends on EventTarget
 ```
 
 - Given the new directory `dir3`
-- Given I run `tar -xf 11_Batik/batik-src-1.9.tar.gz` Successfully
+- Given I run `tar -xf ../docs/tests/11_batik/batik-src-1.9.tar.gz` Successfully
 - Given I run `cp ./batik-1.9/batik-dom/src/main/java/org/apache/batik/dom/events/NodeEventTarget.java dir3` Successfully
 - When I run `./acc -ld -I dir3`
-- Then I get file `11_Batik/expected_output.3`
+- Then I get file `../docs/tests/11_batik/expected_output.3`
 
 ### Scenario: no import
 
@@ -82,10 +82,10 @@ No dependencies
 ```
 
 - Given the new directory `dir4`
-- Given I run `tar -xf 11_Batik/batik-src-1.9.tar.gz` Successfully
+- Given I run `tar -xf ../docs/tests/11_batik/batik-src-1.9.tar.gz` Successfully
 - Given I run `cp ./batik-1.9/batik-dom/src/main/java/org/apache/batik/dom/util/TriplyIndexedTable.java dir4` Successfully
 - When I run `./acc -ld -I dir4`
-- Then I get file `11_Batik/expected_output.4`
+- Then I get file `../docs/tests/11_batik/expected_output.4`
 
 ### Scenario: no package
 
@@ -118,7 +118,7 @@ public interface NodeEventTarget extends EventTarget {
 }
 ```
 - When I run `./acc -ld -I dir5`
-- Then I get file `11_Batik/expected_output.5`
+- Then I get file `../docs/tests/11_batik/expected_output.5`
 
 ### Scenario: public abstract class
 
@@ -133,16 +133,16 @@ import org.apache.batik.gvt.GVT;
 public abstract class SVGAbstractTranscoder {
 ```
 
-> acc 11_Batik/rules.B -q -I dir6
+> acc ../docs/tests/11_batik/rules.B -q -I dir6
 
 No output expected
 
 - Given the new directory `dir6`
-- Given I run `tar -xf 11_Batik/batik-src-1.9.tar.gz` Successfully
+- Given I run `tar -xf ../docs/tests/11_batik/batik-src-1.9.tar.gz` Successfully
 - Given I run `cp ./batik-1.9/batik-transcoder/src/main/java/org/apache/batik/transcoder/SVGAbstractTranscoder.java dir6` Successfully
-- Given there is a file `11_Batik/rules.B`
-- When I run `./acc 11_Batik/rules.B -q -I dir6`
-- Then I get file `11_Batik/expected_output.6`
+- Given there is a file `../docs/tests/11_batik/rules.B`
+- When I run `./acc ../docs/tests/11_batik/rules.B -q -I dir6`
+- Then I get file `../docs/tests/11_batik/expected_output.6`
 
 ### Scenario: Let's add dependencies to Browser and Rasterizer into a Transcoder class
 
@@ -195,13 +195,13 @@ Core_Modules      contains org.apache.batik.transcoder
 Applications is a layer over Core_Modules
 ```
 - When I run `./acc rules.7 -I dir7`
-- Then I get file `11_Batik/expected_output.7`
+- Then I get file `../docs/tests/11_batik/expected_output.7`
 
 ### Scenario: -ld test
 
 > acc -ld -Ir ./batik-1.9
 
 - Given there is no `batik-1.9` directory
-- Given I run `tar -xf 11_Batik/batik-src-1.9.tar.gz` Successfully
+- Given I run `tar -xf ../docs/tests/11_batik/batik-src-1.9.tar.gz` Successfully
 - When I run `./acc -ld -Ir ./batik-1.9`
-- Then I get file (unordered) `11_Batik/expected_output.8`
+- Then I get file (unordered) `../docs/tests/11_batik/expected_output.8`

@@ -470,49 +470,49 @@
   ## Feature: GtkAda test suite  
    ### Background: [](09_gtkada.md): 
    - OK : Given there is no dir `gtkada-master`  
-   - OK : Given I run `unzip -q 09_GtkAda/gtkada-master.zip` Successfully  
+   - OK : Given I run `unzip -q ../docs/tests/09_gtkada/gtkada-master.zip` Successfully  
    - OK : Given I run `find gtkada-master -name "*.[ch]" -delete` Successfully  
    - [X] background [](09_gtkada.md) pass  
 
    ### Scenario: [File Identification](09_gtkada.md): 
    - OK : Given I run `find gtkada-master -name "*.ad[sb]"` Successfully  
    - OK : When I run `./acc -q -lf -r -I gtkada-master` Successfully  
-   - OK : Then I get file (unordered) `09_GtkAda/expected_output.1`  
+   - OK : Then I get file (unordered) `../docs/tests/09_gtkada/expected_output.1`  
    - [X] scenario   [File Identification](09_gtkada.md) pass  
 
    ### Background: [](09_gtkada.md): 
    - OK : Given there is no dir `gtkada-master`  
-   - OK : Given I run `unzip -q 09_GtkAda/gtkada-master.zip` Successfully  
+   - OK : Given I run `unzip -q ../docs/tests/09_gtkada/gtkada-master.zip` Successfully  
    - OK : Given I run `find gtkada-master -name "*.[ch]" -delete` Successfully  
    - [X] background [](09_gtkada.md) pass  
 
    ### Scenario: [Unit Identification](09_gtkada.md): 
    - OK : When I run `./acc -ld -r -I gtkada-master` Successfully  
-   - OK : Then I get file (unordered) `09_GtkAda/expected_output.2`  
+   - OK : Then I get file (unordered) `../docs/tests/09_gtkada/expected_output.2`  
    - [X] scenario   [Unit Identification](09_gtkada.md) pass  
 
    ### Background: [](09_gtkada.md): 
    - OK : Given there is no dir `gtkada-master`  
-   - OK : Given I run `unzip -q 09_GtkAda/gtkada-master.zip` Successfully  
+   - OK : Given I run `unzip -q ../docs/tests/09_gtkada/gtkada-master.zip` Successfully  
    - OK : Given I run `find gtkada-master -name "*.[ch]" -delete` Successfully  
    - [X] background [](09_gtkada.md) pass  
 
    ### Scenario: [A realistic GtkAda description file](09_gtkada.md): 
-   - OK : Given there is a file `09_GtkAda/GtkAda.ac`  
-   - OK : When I run `./acc 09_GtkAda/GtkAda.ac -r -I gtkada-master` Successfully  
-   - OK : Then I get file (unordered) `09_GtkAda/expected_output.3`  
+   - OK : Given there is a file `../docs/tests/09_gtkada/GtkAda.ac`  
+   - OK : When I run `./acc ../docs/tests/09_gtkada/GtkAda.ac -r -I gtkada-master` Successfully  
+   - OK : Then I get file (unordered) `../docs/tests/09_gtkada/expected_output.3`  
    - [X] scenario   [A realistic GtkAda description file](09_gtkada.md) pass  
 
    ### Background: [](09_gtkada.md): 
    - OK : Given there is no dir `gtkada-master`  
-   - OK : Given I run `unzip -q 09_GtkAda/gtkada-master.zip` Successfully  
+   - OK : Given I run `unzip -q ../docs/tests/09_gtkada/gtkada-master.zip` Successfully  
    - OK : Given I run `find gtkada-master -name "*.[ch]" -delete` Successfully  
    - [X] background [](09_gtkada.md) pass  
 
    ### Scenario: [Another realistic GtkAda description file](09_gtkada.md): 
-   - OK : Given there is a file `09_GtkAda/GtkAda2.ac`  
-   - OK : When I run `./acc 09_GtkAda/GtkAda2.ac -q -r -I gtkada-master` Successfully  
-   - OK : Then I get file (unordered) `09_GtkAda/expected_output.4`  
+   - OK : Given there is a file `../docs/tests/09_gtkada/GtkAda2.ac`  
+   - OK : When I run `./acc ../docs/tests/09_gtkada/GtkAda2.ac -q -r -I gtkada-master` Successfully  
+   - OK : Then I get file (unordered) `../docs/tests/09_gtkada/expected_output.4`  
    - [X] scenario   [Another realistic GtkAda description file](09_gtkada.md) pass  
 
 
@@ -651,49 +651,49 @@
   ## Feature: Batik test suite  
    ### Scenario: [--list_file test](11_batik.md): 
    - OK : Given there is no `batik-1.9` directory  
-   - OK : Given I run `tar -xf 11_Batik/batik-src-1.9.tar.gz` Successfully  
+   - OK : Given I run `tar -xf ../docs/tests/11_batik/batik-src-1.9.tar.gz` Successfully  
    - OK : When I run `./acc -lf -Ir ./batik-1.9`  
-   - OK : Then I get file (unordered) `11_Batik/expected_output.1`  
+   - OK : Then I get file (unordered) `../docs/tests/11_batik/expected_output.1`  
    - [X] scenario   [--list_file test](11_batik.md) pass  
 
    ### Scenario: [public class](11_batik.md): 
    - OK : Given the new directory `dir2`  
-   - OK : Given I run `tar -xf 11_Batik/batik-src-1.9.tar.gz` Successfully  
+   - OK : Given I run `tar -xf ../docs/tests/11_batik/batik-src-1.9.tar.gz` Successfully  
    - OK : Given I run `cp ./batik-1.9/contrib/jsvg/JSVG.java dir2` Successfully  
    - OK : When I run `./acc -ld -I dir2`  
-   - OK : Then I get file `11_Batik/expected_output.2`  
+   - OK : Then I get file `../docs/tests/11_batik/expected_output.2`  
    - [X] scenario   [public class](11_batik.md) pass  
 
    ### Scenario: [public interface class](11_batik.md): 
    - OK : Given the new directory `dir3`  
-   - OK : Given I run `tar -xf 11_Batik/batik-src-1.9.tar.gz` Successfully  
+   - OK : Given I run `tar -xf ../docs/tests/11_batik/batik-src-1.9.tar.gz` Successfully  
    - OK : Given I run `cp ./batik-1.9/batik-dom/src/main/java/org/apache/batik/dom/events/NodeEventTarget.java dir3` Successfully  
    - OK : When I run `./acc -ld -I dir3`  
-   - OK : Then I get file `11_Batik/expected_output.3`  
+   - OK : Then I get file `../docs/tests/11_batik/expected_output.3`  
    - [X] scenario   [public interface class](11_batik.md) pass  
 
    ### Scenario: [no import](11_batik.md): 
    - OK : Given the new directory `dir4`  
-   - OK : Given I run `tar -xf 11_Batik/batik-src-1.9.tar.gz` Successfully  
+   - OK : Given I run `tar -xf ../docs/tests/11_batik/batik-src-1.9.tar.gz` Successfully  
    - OK : Given I run `cp ./batik-1.9/batik-dom/src/main/java/org/apache/batik/dom/util/TriplyIndexedTable.java dir4` Successfully  
    - OK : When I run `./acc -ld -I dir4`  
-   - OK : Then I get file `11_Batik/expected_output.4`  
+   - OK : Then I get file `../docs/tests/11_batik/expected_output.4`  
    - [X] scenario   [no import](11_batik.md) pass  
 
    ### Scenario: [no package](11_batik.md): 
    - OK : Given the new directory `dir5`  
    - OK : Given the file `dir5/MyClass.java`  
    - OK : When I run `./acc -ld -I dir5`  
-   - OK : Then I get file `11_Batik/expected_output.5`  
+   - OK : Then I get file `../docs/tests/11_batik/expected_output.5`  
    - [X] scenario   [no package](11_batik.md) pass  
 
    ### Scenario: [public abstract class](11_batik.md): 
    - OK : Given the new directory `dir6`  
-   - OK : Given I run `tar -xf 11_Batik/batik-src-1.9.tar.gz` Successfully  
+   - OK : Given I run `tar -xf ../docs/tests/11_batik/batik-src-1.9.tar.gz` Successfully  
    - OK : Given I run `cp ./batik-1.9/batik-transcoder/src/main/java/org/apache/batik/transcoder/SVGAbstractTranscoder.java dir6` Successfully  
-   - OK : Given there is a file `11_Batik/rules.B`  
-   - OK : When I run `./acc 11_Batik/rules.B -q -I dir6`  
-   - OK : Then I get file `11_Batik/expected_output.6`  
+   - OK : Given there is a file `../docs/tests/11_batik/rules.B`  
+   - OK : When I run `./acc ../docs/tests/11_batik/rules.B -q -I dir6`  
+   - OK : Then I get file `../docs/tests/11_batik/expected_output.6`  
    - [X] scenario   [public abstract class](11_batik.md) pass  
 
    ### Scenario: [Let's add dependencies to Browser and Rasterizer into a Transcoder class](11_batik.md): 
@@ -701,14 +701,14 @@
    - OK : Given the file `dir7/MyClass.java`  
    - OK : Given the file `rules.7`  
    - OK : When I run `./acc rules.7 -I dir7`  
-   - OK : Then I get file `11_Batik/expected_output.7`  
+   - OK : Then I get file `../docs/tests/11_batik/expected_output.7`  
    - [X] scenario   [Let's add dependencies to Browser and Rasterizer into a Transcoder class](11_batik.md) pass  
 
    ### Scenario: [-ld test](11_batik.md): 
    - OK : Given there is no `batik-1.9` directory  
-   - OK : Given I run `tar -xf 11_Batik/batik-src-1.9.tar.gz` Successfully  
+   - OK : Given I run `tar -xf ../docs/tests/11_batik/batik-src-1.9.tar.gz` Successfully  
    - OK : When I run `./acc -ld -Ir ./batik-1.9`  
-   - OK : Then I get file (unordered) `11_Batik/expected_output.8`  
+   - OK : Then I get file (unordered) `../docs/tests/11_batik/expected_output.8`  
    - [X] scenario   [-ld test](11_batik.md) pass  
 
 
@@ -716,46 +716,46 @@
   ## Feature: ZipAda code test suite  
    ### Scenario: [-ld test](12_zipada.md): 
    - OK : Given there is no `zip-ada` directory  
-   - OK : Given I run `unzip -q -o 12_ZipAda/zipada53.zip` Successfully  
-   - OK : Given there is a file `12_ZipAda/expected_output.2`  
+   - OK : Given I run `unzip -q -o ../docs/tests/12_zipada/zipada53.zip` Successfully  
+   - OK : Given there is a file `../docs/tests/12_zipada/expected_output.2`  
    - OK : When I run `./acc -ld -r -I ./zip-ada` Successfully  
-   - OK : Then I get file (unordered) `12_ZipAda/expected_output.2`  
+   - OK : Then I get file (unordered) `../docs/tests/12_zipada/expected_output.2`  
    - [X] scenario   [-ld test](12_zipada.md) pass  
 
    ### Scenario: [rules test](12_zipada.md): 
    - OK : Given there is no `zip-ada` directory  
-   - OK : Given I run `unzip -q -o 12_ZipAda/zipada53.zip` Successfully  
-   - OK : Given there is a file `12_ZipAda/zipadarules.txt`  
-   - OK : When I run `./acc 12_ZipAda/zipadarules.txt -r -I ./zip-ada` Successfully  
+   - OK : Given I run `unzip -q -o ../docs/tests/12_zipada/zipada53.zip` Successfully  
+   - OK : Given there is a file `../docs/tests/12_zipada/zipadarules.txt`  
+   - OK : When I run `./acc ../docs/tests/12_zipada/zipadarules.txt -r -I ./zip-ada` Successfully  
    - OK : Then I get no output  
    - [X] scenario   [rules test](12_zipada.md) pass  
 
    ### Scenario: [-lf test 1/2](12_zipada.md): 
    - OK : Given there is no `zip-ada` directory  
-   - OK : Given I run `unzip -q -o 12_ZipAda/zipada53.zip` Successfully  
-   - OK : Given there is a file `12_ZipAda/expected_output.1`  
-   - OK : Given there is a file `12_ZipAda/zipadarules.txt`  
+   - OK : Given I run `unzip -q -o ../docs/tests/12_zipada/zipada53.zip` Successfully  
+   - OK : Given there is a file `../docs/tests/12_zipada/expected_output.1`  
+   - OK : Given there is a file `../docs/tests/12_zipada/zipadarules.txt`  
    - OK : When I successfully run `./acc -lf -r -I zip-ada`  
-   - OK : Then I get file `12_ZipAda/expected_output.1`  
+   - OK : Then I get file `../docs/tests/12_zipada/expected_output.1`  
    - [X] scenario   [-lf test 1/2](12_zipada.md) pass  
 
    ### Scenario: [-lf test 2/2](12_zipada.md): 
    - OK : Given there is no `zip-ada` directory  
-   - OK : Given I run `unzip -q -o 12_ZipAda/zipada53.zip` Successfully  
-   - OK : Given there is a file `12_ZipAda/expected_output.1`  
-   - OK : Given there is a file `12_ZipAda/zipadarules.txt`  
+   - OK : Given I run `unzip -q -o ../docs/tests/12_zipada/zipada53.zip` Successfully  
+   - OK : Given there is a file `../docs/tests/12_zipada/expected_output.1`  
+   - OK : Given there is a file `../docs/tests/12_zipada/zipadarules.txt`  
    - OK : When I successfully run `./acc -lf --recursive -I zip-ada`  
-   - OK : Then I get file `12_ZipAda/expected_output.1`  
+   - OK : Then I get file `../docs/tests/12_zipada/expected_output.1`  
    - [X] scenario   [-lf test 2/2](12_zipada.md) pass  
 
 
 # Document: [13_ada_units.md](13_ada_units.md)  
   ## Feature: Ada units test suite  
    ### Scenario: [Ada compilation units unit test](13_ada_units.md): 
-   - OK : Given I run `gnat make -q sub-test -I13_Ada_Units/src -D13_Ada_Units/src` Successfully  
-   - OK : Given there is a file `13_Ada_Units/expected_output.1`  
-   - OK : When I run `./acc -ld -I 13_Ada_Units/src` Successfully  
-   - OK : Then I get file (unordered) `13_Ada_Units/expected_output.1`  
+   - OK : Given I run `gcc -c -gnatc -I../docs/tests/13_ada_units/src ../docs/tests/13_ada_units/src/rational_numbers.adb ../docs/tests/13_ada_units/src/rational_numbers-reduce.adb ../docs/tests/13_ada_units/src/sub-put.adb ../docs/tests/13_ada_units/src/sub-test.adb ../docs/tests/13_ada_units/src/sub-test-get.adb ../docs/tests/13_ada_units/src/sub-test-put.adb ../docs/tests/13_ada_units/src/sub-test-ressource.adb ../docs/tests/13_ada_units/src/sub-test-server.adb ../docs/tests/13_ada_units/src/text_io_new_page.adb` Successfully  
+   - OK : Given there is a file `../docs/tests/13_ada_units/expected_output.1`  
+   - OK : When I run `./acc -ld -I ../docs/tests/13_ada_units/src` Successfully  
+   - OK : Then I get file (unordered) `../docs/tests/13_ada_units/expected_output.1`  
    - [X] scenario   [Ada compilation units unit test](13_ada_units.md) pass  
 
 
@@ -857,26 +857,26 @@
   ## Feature: AdaControl code test suite  
    ### Scenario: [-lf test](16_adactl.md): 
    - OK : Given there is no `adactl-1.19r10` directory  
-   - OK : Given I run `tar zxf 16_AdaControl/adactl-1.19r10-src.tgz` Successfully  
-   - OK : Given there is a file `16_AdaControl/expected_output.1`  
+   - OK : Given I run `tar zxf ../docs/tests/16_adactl/adactl-1.19r10-src.tgz` Successfully  
+   - OK : Given there is a file `../docs/tests/16_adactl/expected_output.1`  
    - OK : When I run `./acc -lf -r -I adactl-1.19r10/src` Successfully  
-   - OK : Then I get file (unordered) `16_AdaControl/expected_output.1`  
+   - OK : Then I get file (unordered) `../docs/tests/16_adactl/expected_output.1`  
    - [X] scenario   [-lf test](16_adactl.md) pass  
 
    ### Scenario: [-ld test](16_adactl.md): 
    - OK : Given there is no `adactl-1.19r10` directory  
-   - OK : Given I run `tar zxf 16_AdaControl/adactl-1.19r10-src.tgz` Successfully  
-   - OK : Given there is a file `16_AdaControl/expected_output.2`  
+   - OK : Given I run `tar zxf ../docs/tests/16_adactl/adactl-1.19r10-src.tgz` Successfully  
+   - OK : Given there is a file `../docs/tests/16_adactl/expected_output.2`  
    - OK : When I run `./acc -ld -r -I ./adactl-1.19r10/src` Successfully  
-   - OK : Then I get file (unordered) `16_AdaControl/expected_output.2`  
+   - OK : Then I get file (unordered) `../docs/tests/16_adactl/expected_output.2`  
    - [X] scenario   [-ld test](16_adactl.md) pass  
 
    ### Scenario: [rules test](16_adactl.md): 
    - OK : Given there is no `adactl-1.19r10` directory  
-   - OK : Given I run `tar zxf 16_AdaControl/adactl-1.19r10-src.tgz` Successfully  
-   - OK : Given there is a file `16_AdaControl/adactl.ac`  
-   - OK : When I run `./acc 16_AdaControl/adactl.ac -r -I ./adactl-1.19r10/src` Successfully  
-   - OK : Then I get file `16_AdaControl/expected_output.3`  
+   - OK : Given I run `tar zxf ../docs/tests/16_adactl/adactl-1.19r10-src.tgz` Successfully  
+   - OK : Given there is a file `../docs/tests/16_adactl/adactl.ac`  
+   - OK : When I run `./acc ../docs/tests/16_adactl/adactl.ac -r -I ./adactl-1.19r10/src` Successfully  
+   - OK : Then I get file `../docs/tests/16_adactl/expected_output.3`  
    - [X] scenario   [rules test](16_adactl.md) pass  
 
 
@@ -884,36 +884,36 @@
   ## Feature: Acc code test suite  
    ### Scenario: [-lf test](17_acc.md): 
    - OK : Given there is no `src` directory  
-   - OK : Given I run `unzip -q -o 17_Acc/src.zip -d src` Successfully  
-   - OK : Given there is a file `17_Acc/expected_output.1`  
+   - OK : Given I run `unzip -q -o ../docs/tests/17_acc/src.zip -d src` Successfully  
+   - OK : Given there is a file `../docs/tests/17_acc/expected_output.1`  
    - OK : When I run `./acc -lf -I src` Successfully  
-   - OK : Then I get file (unordered) `17_Acc/expected_output.1`  
+   - OK : Then I get file (unordered) `../docs/tests/17_acc/expected_output.1`  
    - [X] scenario   [-lf test](17_acc.md) pass  
 
    ### Scenario: [-ld test](17_acc.md): 
    - OK : Given there is no `src` directory  
-   - OK : Given I run `unzip -q -o 17_Acc/src.zip -d src` Successfully  
-   - OK : Given there is a file `17_Acc/expected_output.2`  
+   - OK : Given I run `unzip -q -o ../docs/tests/17_acc/src.zip -d src` Successfully  
+   - OK : Given there is a file `../docs/tests/17_acc/expected_output.2`  
    - OK : When I run `./acc -ld -I ./src` Successfully  
-   - OK : Then I get file (unordered) `17_Acc/expected_output.2`  
+   - OK : Then I get file (unordered) `../docs/tests/17_acc/expected_output.2`  
    - [X] scenario   [-ld test](17_acc.md) pass  
 
    ### Scenario: [rules test](17_acc.md): 
    - OK : Given there is no `src` directory  
-   - OK : Given I run `unzip -q -o 17_Acc/src.zip -d src` Successfully  
-   - OK : Given there is a file `17_Acc/archicheck.ac`  
-   - OK : Given there is a file `17_Acc/expected_output.3`  
-   - OK : When I run `./acc 17_Acc/archicheck.ac -I ./src` Successfully  
-   - OK : Then I get file `17_Acc/expected_output.3`  
+   - OK : Given I run `unzip -q -o ../docs/tests/17_acc/src.zip -d src` Successfully  
+   - OK : Given there is a file `../docs/tests/17_acc/archicheck.ac`  
+   - OK : Given there is a file `../docs/tests/17_acc/expected_output.3`  
+   - OK : When I run `./acc ../docs/tests/17_acc/archicheck.ac -I ./src` Successfully  
+   - OK : Then I get file `../docs/tests/17_acc/expected_output.3`  
    - [X] scenario   [rules test](17_acc.md) pass  
 
    ### Scenario: [--list_non_covered](17_acc.md): 
    - OK : Given there is no `src` directory  
-   - OK : Given I run `unzip -q -o 17_Acc/src.zip -d src` Successfully  
-   - OK : Given there is a file `17_Acc/archicheck.ac`  
-   - OK : Given there is a file `17_Acc/expected_output.4`  
-   - OK : When I run `./acc 17_Acc/archicheck.ac -lnc -I ./src` Successfully  
-   - OK : Then I get file `17_Acc/expected_output.4`  
+   - OK : Given I run `unzip -q -o ../docs/tests/17_acc/src.zip -d src` Successfully  
+   - OK : Given there is a file `../docs/tests/17_acc/archicheck.ac`  
+   - OK : Given there is a file `../docs/tests/17_acc/expected_output.4`  
+   - OK : When I run `./acc ../docs/tests/17_acc/archicheck.ac -lnc -I ./src` Successfully  
+   - OK : Then I get file `../docs/tests/17_acc/expected_output.4`  
    - [X] scenario   [--list_non_covered](17_acc.md) pass  
 
 
@@ -921,56 +921,56 @@
   ## Feature: Spring Pet Clinic code test suite  
    ### Scenario: [-lf test](18_petclinic.md): 
    - OK : Given there is no `src1` directory  
-   - OK : Given I run `unzip -q -o 18_Spring_PetClinic/spring-petclinic-master.zip` Successfully  
+   - OK : Given I run `unzip -q -o ../docs/tests/18_petclinic/spring-petclinic-master.zip` Successfully  
    - OK : Given I run `mv spring-petclinic-master src1` Successfully  
-   - OK : Given there is a file `18_Spring_PetClinic/expected_output.1`  
+   - OK : Given there is a file `../docs/tests/18_petclinic/expected_output.1`  
    - OK : When I run `./acc -lf -r -I src1` Successfully  
-   - OK : Then I get file `18_Spring_PetClinic/expected_output.1`  
+   - OK : Then I get file `../docs/tests/18_petclinic/expected_output.1`  
    - [X] scenario   [-lf test](18_petclinic.md) pass  
 
    ### Scenario: [-ld test](18_petclinic.md): 
    - OK : Given there is no `src1` directory  
-   - OK : Given I run `unzip -q -o 18_Spring_PetClinic/spring-petclinic-master.zip` Successfully  
+   - OK : Given I run `unzip -q -o ../docs/tests/18_petclinic/spring-petclinic-master.zip` Successfully  
    - OK : Given I run `mv spring-petclinic-master src1` Successfully  
-   - OK : Given there is a file `18_Spring_PetClinic/expected_output.2`  
+   - OK : Given there is a file `../docs/tests/18_petclinic/expected_output.2`  
    - OK : When I run `./acc -ld -r -I ./src1` Successfully  
-   - OK : Then I get file (unordered) `18_Spring_PetClinic/expected_output.2`  
+   - OK : Then I get file (unordered) `../docs/tests/18_petclinic/expected_output.2`  
    - [X] scenario   [-ld test](18_petclinic.md) pass  
 
    ### Scenario: [rules test](18_petclinic.md): 
    - OK : Given there is no `src1` directory  
-   - OK : Given I run `unzip -q -o 18_Spring_PetClinic/spring-petclinic-master.zip` Successfully  
+   - OK : Given I run `unzip -q -o ../docs/tests/18_petclinic/spring-petclinic-master.zip` Successfully  
    - OK : Given I run `mv spring-petclinic-master src1` Successfully  
-   - OK : Given there is a file `18_Spring_PetClinic/petclinic.ac`  
-   - OK : When I run `./acc 18_Spring_PetClinic/petclinic.ac -r -I ./src1` Successfully  
-   - OK : Then I get file `18_Spring_PetClinic/expected_output.3`  
+   - OK : Given there is a file `../docs/tests/18_petclinic/petclinic.ac`  
+   - OK : When I run `./acc ../docs/tests/18_petclinic/petclinic.ac -r -I ./src1` Successfully  
+   - OK : Then I get file `../docs/tests/18_petclinic/expected_output.3`  
    - [X] scenario   [rules test](18_petclinic.md) pass  
 
    ### Scenario: [--list_non_covered](18_petclinic.md): 
    - OK : Given there is no `src1` directory  
-   - OK : Given I run `unzip -q -o 18_Spring_PetClinic/spring-petclinic-master.zip` Successfully  
+   - OK : Given I run `unzip -q -o ../docs/tests/18_petclinic/spring-petclinic-master.zip` Successfully  
    - OK : Given I run `mv spring-petclinic-master src1` Successfully  
-   - OK : Given there is a file `18_Spring_PetClinic/petclinic.ac`  
-   - OK : When I run `./acc 18_Spring_PetClinic/petclinic.ac -lnc -r -I ./src1` Successfully  
-   - OK : Then I get file `18_Spring_PetClinic/expected_output.4`  
+   - OK : Given there is a file `../docs/tests/18_petclinic/petclinic.ac`  
+   - OK : When I run `./acc ../docs/tests/18_petclinic/petclinic.ac -lnc -r -I ./src1` Successfully  
+   - OK : Then I get file `../docs/tests/18_petclinic/expected_output.4`  
    - [X] scenario   [--list_non_covered](18_petclinic.md) pass  
 
    ### Scenario: [alternative rules test](18_petclinic.md): 
    - OK : Given there is no `src1` directory  
-   - OK : Given I run `unzip -q -o 18_Spring_PetClinic/spring-petclinic-master.zip` Successfully  
+   - OK : Given I run `unzip -q -o ../docs/tests/18_petclinic/spring-petclinic-master.zip` Successfully  
    - OK : Given I run `mv spring-petclinic-master src1` Successfully  
-   - OK : Given there is a file `18_Spring_PetClinic/alternative.ac`  
-   - OK : When I run `./acc 18_Spring_PetClinic/alternative.ac -r -I ./src1` Successfully  
-   - OK : Then I get file `18_Spring_PetClinic/expected_output.5`  
+   - OK : Given there is a file `../docs/tests/18_petclinic/alternative.ac`  
+   - OK : When I run `./acc ../docs/tests/18_petclinic/alternative.ac -r -I ./src1` Successfully  
+   - OK : Then I get file `../docs/tests/18_petclinic/expected_output.5`  
    - [X] scenario   [alternative rules test](18_petclinic.md) pass  
 
    ### Scenario: [Layered version of petclinic test](18_petclinic.md): 
    - OK : Given there is no `src2` directory  
-   - OK : Given I run `unzip -q -o 18_Spring_PetClinic/spring-framework-petclinic-master.zip` Successfully  
+   - OK : Given I run `unzip -q -o ../docs/tests/18_petclinic/spring-framework-petclinic-master.zip` Successfully  
    - OK : Given I run `mv spring-framework-petclinic-master src2` Successfully  
-   - OK : Given there is a file `18_Spring_PetClinic/framework-petclinic.ac`  
-   - OK : When I run `./acc 18_Spring_PetClinic/framework-petclinic.ac -r -I ./src2` Successfully  
-   - OK : Then I get file `18_Spring_PetClinic/expected_output.6`  
+   - OK : Given there is a file `../docs/tests/18_petclinic/framework-petclinic.ac`  
+   - OK : When I run `./acc ../docs/tests/18_petclinic/framework-petclinic.ac -r -I ./src2` Successfully  
+   - OK : Then I get file `../docs/tests/18_petclinic/expected_output.6`  
    - [X] scenario   [Layered version of petclinic test](18_petclinic.md) pass  
 
 

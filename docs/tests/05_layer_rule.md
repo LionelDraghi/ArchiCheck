@@ -11,7 +11,7 @@
 
 Given this (old) architecture diagram of the Apache Batik Project (available [here](https://xmlgraphics.apache.org/batik/using/architecture.html)).  
 
-![](05_layer_rule/batik.png)  
+![](../docs/tests/05_layer_rule/batik.png)  
 
 It is described by this rules file :  
 

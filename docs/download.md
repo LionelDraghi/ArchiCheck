@@ -1,8 +1,7 @@
-<!-- omit from toc -->
 Download
 ========
 
-[Download Linux exe](http://lionel.draghi.free.fr/Archicheck/archicheck)
+[Download Linux exe](https://github.com/LionelDraghi/ArchiCheck/releases)
 
 build on :
 ----------
@@ -10,17 +9,16 @@ build on :
 > uname -orm
 
 ```
-6.6.15-amd64 x86_64 GNU/Linux
+7.2.9+deb14-amd64 x86_64 GNU/Linux
 ```
 
 > gnat --version | head -1
 
 ```
-GNAT 13.2.0
 ```
 and -O3 option.
 
-(May be necessary after download : `chmod +x archicheck`)
+(May be necessary after download : `chmod +x acc`)
 
 Exe check :
 -----------
@@ -28,7 +26,7 @@ Exe check :
 > date -r acc --iso-8601=seconds
 
 ```
-2024-04-09T14:16:49+02:00
+2026-10-10T16:47:35+02:00
 ```
 
 > readelf -d acc | grep 'NEEDED'
@@ -41,14 +39,15 @@ Exe check :
 > acc --version
 
 ```
-0.5.8
+0.6.1
 ```
 
 Tests status on this exe :
 --------------------------
 
-Run 2024-04-09T14:16:58+02:00
+Run 2026-10-10T16:48:17+02:00
 
-- Successful  86
-- Failed      0
-- Empty       4
+- Failed 0
+- Successful 103
+- Empty 0
+- Not Run 1

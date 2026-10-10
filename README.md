@@ -1,8 +1,8 @@
 <!-- omit from toc -->
-[ArchiCheck](http://lionel.draghi.free.fr/Archicheck/index.html)
+[ArchiCheck](https://github.com/LionelDraghi/ArchiCheck)
 ================================================================
 
-[![image](https://img.shields.io/badge/-inside-blue?logo=ada&logoColor=white&labelColor=grey&logoSize=auto)](https://ada-lang.io/) [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0) ![](generated_img/version.svg) ![](generated_img/tests_ok.svg) ![](generated_img/tests_ko.svg) [![CII Best Practices](https://bestpractices.coreinfrastructure.org/projects/1625/badge)](https://bestpractices.coreinfrastructure.org/projects/1625) [![Alire](https://img.shields.io/endpoint?url=https://alire.ada.dev/badges/archicheck.json)](https://alire.ada.dev/crates/archicheck.html)
+[![image](https://img.shields.io/badge/-inside-blue?logo=ada&logoColor=white&labelColor=grey&logoSize=auto)](https://ada-lang.io/) [![License](https://img.shields.io/badge/License-GPL%20v3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0) ![](docs/generated_img/version.svg) ![](docs/generated_img/tests_ok.svg) ![](docs/generated_img/tests_ko.svg) [![CII Best Practices](https://bestpractices.coreinfrastructure.org/projects/1625/badge)](https://bestpractices.coreinfrastructure.org/projects/1625) [![Alire](https://img.shields.io/endpoint?url=https://alire.ada.dev/badges/archicheck.json)](https://alire.ada.dev/crates/archicheck.html)
 
 Contents:
 - [Overview](#overview)
@@ -18,13 +18,13 @@ Contents:
 
 Simple structural aspect of the software architecture, metaphor like *My software is a layered system*, can not be fully translated at programming languages level. Even in languages like Ada, powerful regarding description of the software structure, there is a semantic loss.
 
-![The code doesn't tell the whole story!](semantic_gap.png)
+![The code doesn't tell the whole story!](docs/semantic_gap.png)
 
 Sooner or later, in large or complex development, someone will propose a patch adding an `import` that compile fine, but is a complete violation of the architecture.
 
-![Architecture degradation over time](architecture_degradation.png)
+![Architecture degradation over time](docs/architecture_degradation.png)
 
-Archicheck is a simple [free software](copying.md) tool that :
+Archicheck is a simple [free software](COPYING) tool that :
 
 1. ease simple architecture description.  
    > It's really as simple as: _Gtk is a layer over Gdk_.
@@ -35,7 +35,7 @@ Archicheck is a simple [free software](copying.md) tool that :
 
 ## Get it!
 
-[Source or exe download](building.md)
+[Source or exe download](docs/building.md)
 
 ---------------------------------------------------------------------
 
@@ -44,7 +44,7 @@ Archicheck is a simple [free software](copying.md) tool that :
 Archicheck needs :
 
 - a bunch of sources : give the directories with one or more `-I` options;
-- an architecture description, called a [`rules file`](rules.md) : a simple text file describing your architecture.
+- an architecture description, called a [`rules file`](docs/rules.md) : a simple text file describing your architecture.
 
 Let's consider the following `My_Architecture.ac` file, that describes a simple layered architecture :
 
@@ -70,16 +70,16 @@ For example, here, it will check that pkg_3 or pkg_4 (in the lower layer) are no
 Rename it and edit it, this is a good start point.
 
 
-- `acc -h` for a [complete list of options](cmd_line.md)
+- `acc -h` for a [complete list of options](docs/cmd_line.md)
 
 
 ---------------------------------------------------------------------
 
 ## Further reading
 
-- [`Acc` fundamental concepts](acc_concepts.md)
-- [More on rules and rules files](rules.md)
-- [the project genesis](why.md)
+- [`Acc` fundamental concepts](docs/acc_concepts.md)
+- [More on rules and rules files](docs/rules.md)
+- [the project genesis](docs/why.md)
 
 ---------------------------------------------------------------------
 ## Help and comments

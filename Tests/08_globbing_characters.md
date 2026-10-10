@@ -4,7 +4,7 @@
 
   Testing this dependencies :  
 
-  ![](08_globbing_characters/gc1.png)  
+  ![](../docs/tests/08_globbing_characters/gc1.png)  
 
   against this rules file :
 
@@ -29,7 +29,7 @@ only Support_Layer may use Interfaces*
 
   Testing this dependencies :  
 
-  ![](08_globbing_characters/gc2.png)  
+  ![](../docs/tests/08_globbing_characters/gc2.png)  
 
   against this rules file :  
 

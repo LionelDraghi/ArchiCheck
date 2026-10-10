@@ -33,7 +33,6 @@ Java specifics
 Development environment
 -----------------------
 
-- update NaturalDocs with markdown and mkdocs in the greetings
 - decide for file casing!
 - Implement a git connected version id in the source and helper
 - Have the tests OS agnostics (test depending on the path of Ada file analyzed, that fail if runned on Windows)
@@ -51,6 +50,12 @@ Documentation
 - Complete the 2004 slides! :-)
 - build a pdf doc based on the md files.
 - insert in the doc a tab describing for each language what is checked, and what is not.
+- migrate the architecture diagrams embedded in the test suites (batik.png,
+  cp1-4.png, gc1-2.png, gtk.png) from Dia PNG exports to mermaid diagrams,
+  rendered natively by GitHub; the `.dia` sources are not in the repository
+  anymore, and the images do not render in place in `Tests/` : see
+  `Tests/05_layer_rule.md`, whose `![](05_layer_rule/batik.png)` only
+  resolves from the `docs/tests/` copies.
 
 
 Done

@@ -1,17 +1,10 @@
 # Directories with generated files
-site/
-hugo/
 obj/
 lib/
 src/backup/src/
 
 # Some of the docs file are generated (Fixme: better organisation)
-docs/tests.png
-docs/sloc.png
-docs/lcov
 docs/archicheck
-docs/version.svg
-docs/tests_ok.svg
 
 archicheck
 

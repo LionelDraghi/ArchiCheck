@@ -58,7 +58,7 @@ Rules file:
    acc -ct
    A commented template.ac file will be created : rename it and edit it.
 
-http://lionel.draghi.free.fr/Archicheck/index.html
+https://github.com/LionelDraghi/ArchiCheck
 ```  
 
 ## Scenario: Version option
@@ -239,9 +239,9 @@ Java.IO use is allowed                     -- Allowed use
 --    Note that wildcard are not yet implemented, but
 --    Java.IO means Java.IO and Java.IO.*
 
--- More extensive explanations : http://lionel.draghi.free.fr/Archicheck/rules/
+-- More extensive explanations : https://github.com/LionelDraghi/ArchiCheck/blob/main/docs/rules.md
 -- 
--- File generated with Acc 0.6.0
+-- File generated with Acc 0.6.1
 ```  
 
 ## Scenario: template creation when there's already one

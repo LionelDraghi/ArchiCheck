@@ -56,6 +56,6 @@ begin
    Put_Line ("   acc -ct");
    Put_Line ("   A commented template.ac file will be created : rename it and edit it.");
    New_Line;
-   Put_Line ("http://lionel.draghi.free.fr/Archicheck/index.html");
+   Put_Line ("https://github.com/LionelDraghi/ArchiCheck");
    New_Line;
 end Put_Help;

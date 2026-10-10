@@ -31,14 +31,6 @@ project Acc is
       for Default_Switches ("ada") use ("-j2", "-g", "-m");
    end Builder;
 
-   package Coverage is
-      for Ignored_Source_Files use ("*main*.ad[sb]"); 
-      -- bug with toolchain.use.gnat=gnat_native=13.2.2 
-      -- the generated instrumented code doesn't compile
-      -- archicheck-main.adb:36:97: error: stub cannot appear in an inner scope
-      -- ...
-   end Coverage;
-
    package Compiler is
       Common_Switches := ("-gnat2022");
       Common_Debug_Switches := Common_Switches &
@@ -79,10 +71,6 @@ project Acc is
             for Switches ("ada") use Common_Debug_Switches;
             -- -pg : profiling
 
-            -- coverage only for acc src files :
-            for Switches ("archicheck*") use Common_Debug_Switches; -- & "--coverage";
-            -- --coverage = -fprofile-arcs and -ftest-coverage
-
          when "release" =>
             for Switches ("ada") use Common_Switches & ("-O3", "-flto");
             -- -flto : link time optimization
@@ -102,7 +90,7 @@ project Acc is
 
    package Linker is
       case Mode is
-         when "development"   => for Switches ("ada") use ("-g", "--coverage", "-pg");
+         when "development"   => for Switches ("ada") use ("-g", "-pg");
             -- pg : profiling
          when "release" =>  for Switches ("ada") use ("-flto");
             -- -flto : link time optimization

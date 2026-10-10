@@ -4,7 +4,7 @@
 ### Background:
 
 - Given there is no dir `gtkada-master`
-- Given I run `unzip -q 09_GtkAda/gtkada-master.zip` Successfully
+- Given I run `unzip -q ../docs/tests/09_gtkada/gtkada-master.zip` Successfully
 - Given I run `find gtkada-master -name "*.[ch]" -delete` Successfully
 
 ### Scenario: File Identification
@@ -28,7 +28,7 @@ gtkada-master/testgtk/test_rtree.adb
 
 - Given I run `find gtkada-master -name "*.ad[sb]"` Successfully
 - When I run `./acc -q -lf -r -I gtkada-master` Successfully
-- Then I get file (unordered) `09_GtkAda/expected_output.1`
+- Then I get file (unordered) `../docs/tests/09_gtkada/expected_output.1`
 
 ### Scenario: Unit Identification
 
@@ -62,12 +62,12 @@ View_Gl package spec depends on Gtk.Frame
 ```  
 
 - When I run `./acc -ld -r -I gtkada-master` Successfully
-- Then I get file (unordered) `09_GtkAda/expected_output.2`
+- Then I get file (unordered) `../docs/tests/09_gtkada/expected_output.2`
 
 ### Scenario: A realistic GtkAda description file
 
 
-  ![](09_gtkada/gtk.png)  
+  ![](../docs/tests/09_gtkada/gtk.png)  
 
   Checking those rules over GtkAda:  
 
@@ -105,9 +105,9 @@ Error : gtkada-master/src/gdk-dnd.ads:30: Gtk may use Gdk, so Gdk.Dnd shall not 
 Error : gtkada-master/src/opengl/gtk-glarea.adb:26: GtkAda may use Gtk, so Gtk.GLArea shall not use Gtkada.Handlers
 ```  
 
-- Given there is a file `09_GtkAda/GtkAda.ac`
-- When I run `./acc 09_GtkAda/GtkAda.ac -r -I gtkada-master` Successfully
-- Then I get file (unordered) `09_GtkAda/expected_output.3`
+- Given there is a file `../docs/tests/09_gtkada/GtkAda.ac`
+- When I run `./acc ../docs/tests/09_gtkada/GtkAda.ac -r -I gtkada-master` Successfully
+- Then I get file (unordered) `../docs/tests/09_gtkada/expected_output.3`
 
 ### Scenario: Another realistic GtkAda description file
 
@@ -152,6 +152,6 @@ Error : gtkada-master/src/gdk-dnd.ads:30: Gtk may use Utilities, so Gdk.Dnd shal
 Error : gtkada-master/src/opengl/gtk-glarea.adb:26: GtkAda may use Gtk, so Gtk.GLArea shall not use Gtkada.Handlers
 ```  
 
-- Given there is a file `09_GtkAda/GtkAda2.ac`
-- When I run `./acc 09_GtkAda/GtkAda2.ac -q -r -I gtkada-master` Successfully
-- Then I get file (unordered) `09_GtkAda/expected_output.4`
+- Given there is a file `../docs/tests/09_gtkada/GtkAda2.ac`
+- When I run `./acc ../docs/tests/09_gtkada/GtkAda2.ac -q -r -I gtkada-master` Successfully
+- Then I get file (unordered) `../docs/tests/09_gtkada/expected_output.4`

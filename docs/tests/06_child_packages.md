@@ -27,7 +27,7 @@ GUI is a layer over DB
 
 ### Scenario: Rules OK test, no output expected
 
-![](06_child_packages/cp1.png)  
+![](../docs/tests/06_child_packages/cp1.png)  
 
 - When I run `./create_pkg GuI.P1 spec  -in dir1 -with GUI.P2`
 - When I run `./create_pkg GUI.P2 spec  -in dir1 -with DB.p3 -with DB.P4`
@@ -41,7 +41,7 @@ GUI is a layer over DB
 ### Scenario: Reverse dependency test
 
 Detection of a dependency from a lower layer component to an upper layer component.  
-![](06_child_packages/cp2.png)  
+![](../docs/tests/06_child_packages/cp2.png)  
 
 - When I run `./create_pkg GUI.P1 spec  -in dir2 -with GUI.P2`
 - When I run `./create_pkg GUI.P2 spec  -in dir2 -with DB.P3 -with DB.P4`
@@ -60,7 +60,7 @@ Error : dir2/db-p4.adb:1: DB.P4 is in DB layer, and so shall not use GUI.P5 in t
 ### Scenario: Layer bridging test
 
 Detection of a dependency link crossing a layer.  
-![](06_child_packages/cp3.png)  
+![](../docs/tests/06_child_packages/cp3.png)  
 
 - When I run `./create_pkg GUI.P1 spec  -in dir3 -with GUI.P2`
 - When I run `./create_pkg GUI.P2 spec  -in dir3 -with DB.P3 -with DB.P4`
@@ -79,7 +79,7 @@ Warning : dir3/p6.ads:1: P6 is neither in GUI or DB layer, and so shall not dire
 
 Detection of an undescribed dependency to a component that is neither in the same layer, nor in the lower layer.  
 
-![](06_child_packages/cp4.png)  
+![](../docs/tests/06_child_packages/cp4.png)  
 
 - When I run `./create_pkg GUI.P1 spec  -in dir4 -with GUI.P2`
 - When I run `./create_pkg GUI.P2 spec  -in dir4 -with DB.P3 -with DB.P4 -with P7`

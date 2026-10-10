@@ -46,10 +46,6 @@ project Create_Pkg is
          when "debug"   =>
             for Switches ("ada") use Common_Debug_Switches;
 
-            -- coverage only for acc src files :
-            for Switches ("archicheck*") use Common_Debug_Switches & "--coverage";
-            -- --coverage = -fprofile-arcs and -ftest-coverage
-
          when "release" =>
             for Switches ("ada") use Common_Switches & ("-O3", "-flto");
             -- -flto : link time optimization
@@ -60,8 +56,7 @@ project Create_Pkg is
 
    package Linker is
       case Mode is
-         when "debug"   => for Switches ("ada") use ("-g", "-lgcov");
-            -- lgcov = -fprofile-arcs for coverage
+         when "debug"   => for Switches ("ada") use ("-g");
          when "release" =>  for Switches ("ada") use ("-flto");
             -- -flto : link time optimization
       end case;

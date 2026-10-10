@@ -6,7 +6,10 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.1.0/)
 and version numbering adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
-- [0.6.1] (actually means untagged)
+- [0.6.1] - 2026-10-10
+  > - [Changed] test suites migrated to bbt: the tests are now plain Markdown
+  >   documentation of the behavior, run by bbt (no more test scripts)
+  > - [Changed] acc home page, and the documentation links in the help and in the generated template, now point to the GitHub repository
   > - [Changed] dropping OpenToken and returning to an hand written lexer for the rules file
   > - [Added] component definition by file or directory name (close #1)
   > - [Fixed] line numbers in rules file related messages were wrong (off by one, sometimes more),

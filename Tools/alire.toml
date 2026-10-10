@@ -1,20 +1,17 @@
-name        = "testrec"
-description = "Lionel's weird test tool"
+name        = "create_pkg"
+description = "test data generator for the ArchiCheck test suites"
 version     = "1.1.0"
 
 authors     = ["Lionel Draghi"]
 maintainers = ["Lionel Draghi <lionel.draghi@free.fr>"]
 maintainers-logins = ["LionelDraghi"]
-licenses    = "Apache-2.0"
+licenses    = "GPL-3.0-or-later"
 website     = ""
 tags        = ["test"]
 
-project-files = ["testrec.gpr", "create_pkg.gpr"]
-executables = ["testrec", "create_pkg"]
+project-files = ["create_pkg.gpr"]
+executables = ["create_pkg"]
 
 [configuration]
 output_dir   = "src/Alire_config"
 generate_C   = false
-
-[[depends-on]]
-ini_files = "^10.0.0"
