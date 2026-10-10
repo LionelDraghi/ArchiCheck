@@ -1,6 +1,6 @@
 name        = "acc"
 description = "architecture description language and code checker"
-version     = "0.6.1"
+version     = "0.6.2-dev"
 
 authors     = ["Lionel Draghi"]
 maintainers = ["Lionel Draghi <lionel.draghi@free.fr>"]

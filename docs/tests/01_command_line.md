@@ -241,7 +241,7 @@ Java.IO use is allowed                     -- Allowed use
 
 -- More extensive explanations : https://github.com/LionelDraghi/ArchiCheck/blob/main/docs/rules.md
 -- 
--- File generated with Acc 0.6.1
+-- File generated with Acc 0.6.2-dev
 ```  
 
 ## Scenario: template creation when there's already one
