@@ -77,11 +77,18 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-alire-
 
-      - name: Install bbt
-        # bbt, from the Alire community index, runs the test suites;
-        # it is installed in ~/.local/bin, already in the runner PATH.
+      - name: Build bbt
+        # The bbt on the Alire community index cannot be used: its latest
+        # release is 0.4.1, and when that version cannot be selected
+        # (gnat >= 15 constraint), the resolution falls back to ancient
+        # versions that do not build with a current GNAT. Build bbt from
+        # the repository, at a pinned tag, and put it on the PATH
+        # ($GITHUB_PATH is the binary dir: bbt builds at its root).
         shell: bash
-        run: alr --non-interactive install bbt
+        run: |
+          git clone --depth 1 --branch 0.5.0 https://github.com/LionelDraghi/bbt /tmp/bbt
+          cd /tmp/bbt && alr --non-interactive build --release
+          echo "/tmp/bbt" >> $GITHUB_PATH
 
       - name: Run build and checks
         # The doc target is not run here: it uses wget and rgrep, that are
