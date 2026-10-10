@@ -1,0 +1,99 @@
+name: Build and test
+
+on:                    # Run the workflow for each of the following events:
+  push:                # - The main branch is pushed or updated.
+    branches:
+      - master
+    paths: &trigger_paths
+      - 'src/**'
+      - 'lib/**'
+      - 'Tests/**'
+      - 'Tools/**'
+      - '.github/workflows/**'
+      - 'Makefile'
+      - 'alire.toml'
+
+  pull_request:        # - A pull-request is opened or updated.
+    paths: *trigger_paths
+
+  workflow_dispatch:   # - A manual run of the workflow is requested from the GitHub web interface.
+
+  release:
+    types: [created]   # - A release is created.
+
+concurrency:
+  # A new push cancels the run still in flight.
+  group: build-and-test-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  main:
+    strategy:
+      fail-fast: false # Don't stop all the workflows when one of them fails.
+
+      # acc is declared available on all platforms (alire.toml has no
+      # [available] restriction), so the community index builds and
+      # tests it on Linux, macOS and Windows: the CI must cover the
+      # three platforms, and they must all be green before any
+      # `alr publish` (cf. docs/dev/release_procedure.md, section 1).
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
+    runs-on: ${{ matrix.os }}
+
+    steps:
+      # Check-out the repository
+      - uses: actions/checkout@v4
+
+      # Install and setup Alire package manager
+      - uses: alire-project/setup-alire@v5
+        with:
+          # Same version as the local development environment.
+          version: 2.1.1
+
+      - name: Relocate the Alire cache on Windows
+        # The alr GNAT runtime copies files through a 256-character path
+        # buffer: with the default cache under %LOCALAPPDATA%\alire\cache,
+        # a deep build dir exceeds it and `alr build` fails with
+        # "Could not sync build dir"
+        # (cf. https://github.com/alire-project/alire/issues/1762).
+        # A short cache root keeps every path under the limit.
+        if: runner.os == 'Windows'
+        run: alr settings --global --set cache.dir C:\alr-cache
+
+      - name: Cache Alire dependencies
+        uses: actions/cache@v4
+        with:
+          # On Linux, alire data is in ~/.cache/alire and ~/.local/share/alire;
+          # on Windows runners (runneradmin user), it is in %LOCALAPPDATA%\alire.
+          # On Windows, the cache itself is relocated to C:\alr-cache
+          # (cf. the relocation step above), and %LOCALAPPDATA%\alire keeps
+          # only the settings and indexes.
+          path: |
+            ~/.cache/alire
+            ~/.local/share/alire
+            ~/AppData/Local/alire
+            C:/alr-cache
+          key: ${{ runner.os }}-alire-${{ hashFiles('alire.toml') }}
+          restore-keys: |
+            ${{ runner.os }}-alire-
+
+      - name: Install bbt
+        # bbt, from the Alire community index, runs the test suites;
+        # it is installed in ~/.local/bin, already in the runner PATH.
+        shell: bash
+        run: alr --non-interactive install bbt
+
+      - name: Run build and checks
+        # The doc target is not run here: it uses wget and rgrep, that are
+        # not available on all the runners; the generated docs are part
+        # of the repository state, committed with the changes.
+        run: make -k build tools check
+
+      - name: Save summary
+        if: always()
+        shell: bash
+        run: sed -n '/## Summary/,$p' docs/tests/test_results.md >> ${GITHUB_STEP_SUMMARY} || echo "no results available"
+
+      # Contrary to bbt, the tests results and badges are not published
+      # by the CI: they are part of the repository state, committed with
+      # the changes.

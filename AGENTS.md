@@ -39,6 +39,10 @@ This file is the entry point for coding agents working on ArchiCheck, the
 - `make release` is the full release chain (release build, tests, badges,
   docs/download.md, install in ~/bin); do not run it unless explicitly asked
 - `make clean` removes the build and test artefacts
+- The GitHub Actions workflows (`.github/workflows/`) build and test
+  acc on Linux, macOS and Windows at each push, and upload an AppImage
+  to the rolling `latest` GitHub release. The tests results and badges
+  are not published by the CI: they are part of the repository state.
 
 ## Task triage
 

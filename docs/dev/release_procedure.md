@@ -31,8 +31,22 @@ Before starting the release procedure, verify that:
 - the tests pass in both debug mode (`make build`) and release mode
   (`make build_release`).
 
-There is currently no continuous integration on this repository: the local
-full validation of both modes is the reference.
+There is a continuous integration on this repository
+(`.github/workflows/build-test.yml`): it builds acc and runs the test
+suites on Linux, macOS and Windows at each push. The latest GitHub
+Actions checks must have succeeded on the three platforms before
+starting a release.
+
+`alr publish` exposes the crate to the community index tests: Alire builds
+the crate and runs its test action on **every platform where the crate is
+declared available**. `alire.toml` currently declares no `[available]`
+restriction, so the crate is built and tested on Linux, macOS and Windows,
+the three platforms covered by the CI: do not publish until the build and
+the tests pass on all of them. A crate published while a platform build or
+test fails is published broken (this is how acc was once published with
+its three platform compilations failing). If a platform cannot be
+validated, restrict the `[available]` section of `alire.toml` to the
+validated platforms first, and get the owner's approval for that change.
 
 Do not start a release from a dirty or partially generated repository state.
 
@@ -197,14 +211,16 @@ generated files, then commit and push as described in
 
 ## 7. Validate the release commit
 
-Without continuous integration, the local validation performed in the
-previous section is the reference: verify that the pushed commit is exactly
-the locally validated one.
+After pushing, verify that the GitHub Actions checks of that commit have
+succeeded on Linux, macOS and Windows.
 
-```sh
-git status
-git log -1
-```
+Do not create or push the release tag while a required check:
+
+- is pending;
+- has failed;
+- has been cancelled;
+- was run against a different commit: the pushed release commit must
+  be exactly the locally validated one.
 
 If a correction is required, return to the development workflow, implement and
 validate the fix, then restart the release procedure from a clean state.
@@ -262,7 +278,11 @@ Before publication, verify that:
 - the generated `Crate_Version` contains the same version;
 - the Git tag is available remotely;
 - the GitHub release is published;
-- the local repository is clean.
+- the local repository is clean;
+- the crate builds and its tests pass on every platform where Alire
+  will build and test it: Linux, macOS and Windows, since `alire.toml`
+  declares no availability restriction; the GitHub Actions checks must
+  be green on the three platforms (cf. section 1).
 
 The publication command is:
 
