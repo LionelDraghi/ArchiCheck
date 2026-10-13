@@ -6,7 +6,7 @@
 - Given I run `unzip -q -o ../docs/tests/17_acc/src.zip -d src` Successfully
 - Given there is a file `../docs/tests/17_acc/expected_output.1`
 - When I run `./acc -lf -I src` Successfully
-- Then I get file (unordered) `../docs/tests/17_acc/expected_output.1`
+- Then I get file `../docs/tests/17_acc/expected_output.1` (ignoring order)
 
 ### Scenario: -ld test
 
@@ -14,7 +14,7 @@
 - Given I run `unzip -q -o ../docs/tests/17_acc/src.zip -d src` Successfully
 - Given there is a file `../docs/tests/17_acc/expected_output.2`
 - When I run `./acc -ld -I ./src` Successfully
-- Then I get file (unordered) `../docs/tests/17_acc/expected_output.2`
+- Then I get file `../docs/tests/17_acc/expected_output.2` (ignoring order)
 
 ### Scenario: rules test
 

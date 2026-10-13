@@ -164,7 +164,7 @@ Interfaces   use is forbidden
 Interfaces.C use is allowed
 ```
 - When I run `./acc -I dir6 rules.6`
-- Then output is (unordered)
+- Then output is (ignoring order)
 ```
 Error : dir6/p1.ads:1: Interfaces use is forbidden
 Error : dir6/p3.ads:1: Interfaces.Java use is forbidden
@@ -194,7 +194,7 @@ P1 withing P2, P3, P4
 P1 may use P2 and P3
 ```
 - When I run `./acc -I dir7 rules.7`
-- Then output is (unordered)
+- Then output is (ignoring order)
 ```
 Error : dir7/p2.ads:1: P1 may use P2, so P2 shall not use P1
 Error : dir7/p3.ads:1: P1 may use P3, so P3 shall not use P1

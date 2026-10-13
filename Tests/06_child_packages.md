@@ -117,7 +117,7 @@ Interfaces.C use is allowed
 
 - When I run `./acc -I dir6 rules.txt`
  
-- Then I get (unordered)
+- Then I get (ignoring order)
 ```  
 Warning : dir6/dbp2.ads:1: DBP2 is neither in GUI or DB layer, and so shall not directly use DB.P1 in the DB layer
 Warning : dir6/guip2.ads:1: GUIP2 is neither in GUI or DB layer, and so shall not directly use DB.P1 in the DB layer
@@ -139,7 +139,7 @@ Interfaces.C use is allowed
 
 - When I run `./acc -I dir7 rules7.txt`
 
-- Then I get (unordered)
+- Then I get (ignoring order)
 ```  
 Error : dir7/p3.ads:1: Interfaces.Java use is forbidden
 Error : dir7/p1.ads:1: Interfaces use is forbidden

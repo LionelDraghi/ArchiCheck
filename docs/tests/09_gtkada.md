@@ -28,7 +28,7 @@ gtkada-master/testgtk/test_rtree.adb
 
 - Given I run `find gtkada-master -name "*.ad[sb]"` Successfully
 - When I run `./acc -q -lf -r -I gtkada-master` Successfully
-- Then I get file (unordered) `../docs/tests/09_gtkada/expected_output.1`
+- Then I get file `../docs/tests/09_gtkada/expected_output.1` (ignoring order)
 
 ### Scenario: Unit Identification
 
@@ -62,7 +62,7 @@ View_Gl package spec depends on Gtk.Frame
 ```  
 
 - When I run `./acc -ld -r -I gtkada-master` Successfully
-- Then I get file (unordered) `../docs/tests/09_gtkada/expected_output.2`
+- Then I get file `../docs/tests/09_gtkada/expected_output.2` (ignoring order)
 
 ### Scenario: A realistic GtkAda description file
 
@@ -107,7 +107,7 @@ Error : gtkada-master/src/opengl/gtk-glarea.adb:26: GtkAda may use Gtk, so Gtk.G
 
 - Given there is a file `../docs/tests/09_gtkada/GtkAda.ac`
 - When I run `./acc ../docs/tests/09_gtkada/GtkAda.ac -r -I gtkada-master` Successfully
-- Then I get file (unordered) `../docs/tests/09_gtkada/expected_output.3`
+- Then I get file `../docs/tests/09_gtkada/expected_output.3` (ignoring order)
 
 ### Scenario: Another realistic GtkAda description file
 
@@ -154,4 +154,4 @@ Error : gtkada-master/src/opengl/gtk-glarea.adb:26: GtkAda may use Gtk, so Gtk.G
 
 - Given there is a file `../docs/tests/09_gtkada/GtkAda2.ac`
 - When I run `./acc ../docs/tests/09_gtkada/GtkAda2.ac -q -r -I gtkada-master` Successfully
-- Then I get file (unordered) `../docs/tests/09_gtkada/expected_output.4`
+- Then I get file `../docs/tests/09_gtkada/expected_output.4` (ignoring order)

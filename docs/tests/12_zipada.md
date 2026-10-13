@@ -15,7 +15,7 @@
 - Given I run `unzip -q -o ../docs/tests/12_zipada/zipada53.zip` Successfully
 - Given there is a file `../docs/tests/12_zipada/expected_output.2`
 - When I run `./acc -ld -r -I ./zip-ada` Successfully
-- Then I get file (unordered) `../docs/tests/12_zipada/expected_output.2`
+- Then I get file `../docs/tests/12_zipada/expected_output.2` (ignoring order)
 
 ### Scenario: rules test
 

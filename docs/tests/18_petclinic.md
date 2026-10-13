@@ -16,7 +16,7 @@
 - Given I run `mv spring-petclinic-master src1` Successfully
 - Given there is a file `../docs/tests/18_petclinic/expected_output.2`
 - When I run `./acc -ld -r -I ./src1` Successfully
-- Then I get file (unordered) `../docs/tests/18_petclinic/expected_output.2`
+- Then I get file `../docs/tests/18_petclinic/expected_output.2` (ignoring order)
 
 ### Scenario: rules test
 

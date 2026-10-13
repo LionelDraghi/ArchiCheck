@@ -13,7 +13,7 @@ Expected files:
 - Given there is no `batik-1.9` directory
 - Given I run `tar -xf ../docs/tests/11_batik/batik-src-1.9.tar.gz` Successfully
 - When I run `./acc -lf -Ir ./batik-1.9`
-- Then I get file (unordered) `../docs/tests/11_batik/expected_output.1`
+- Then I get file `../docs/tests/11_batik/expected_output.1` (ignoring order)
 
 ### Scenario: public class
 
@@ -204,4 +204,4 @@ Applications is a layer over Core_Modules
 - Given there is no `batik-1.9` directory
 - Given I run `tar -xf ../docs/tests/11_batik/batik-src-1.9.tar.gz` Successfully
 - When I run `./acc -ld -Ir ./batik-1.9`
-- Then I get file (unordered) `../docs/tests/11_batik/expected_output.8`
+- Then I get file `../docs/tests/11_batik/expected_output.8` (ignoring order)

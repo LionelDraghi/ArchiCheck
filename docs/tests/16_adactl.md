@@ -6,7 +6,7 @@
 - Given I run `tar zxf ../docs/tests/16_adactl/adactl-1.19r10-src.tgz` Successfully
 - Given there is a file `../docs/tests/16_adactl/expected_output.1`
 - When I run `./acc -lf -r -I adactl-1.19r10/src` Successfully
-- Then I get file (unordered) `../docs/tests/16_adactl/expected_output.1`
+- Then I get file `../docs/tests/16_adactl/expected_output.1` (ignoring order)
 
 ### Scenario: -ld test
 
@@ -14,7 +14,7 @@
 - Given I run `tar zxf ../docs/tests/16_adactl/adactl-1.19r10-src.tgz` Successfully
 - Given there is a file `../docs/tests/16_adactl/expected_output.2`
 - When I run `./acc -ld -r -I ./adactl-1.19r10/src` Successfully
-- Then I get file (unordered) `../docs/tests/16_adactl/expected_output.2`
+- Then I get file `../docs/tests/16_adactl/expected_output.2` (ignoring order)
 
 ### Scenario: rules test
 

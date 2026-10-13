@@ -25,7 +25,7 @@ package C is
 end C;
 ```
 - When I run `./acc -I dir1 -ld` or `./acc -I dir1 --list_dependencies`
-- Then output is (unordered)
+- Then output is (ignoring order)
 ```
 A package body depends on C
 A package spec depends on B
@@ -69,7 +69,7 @@ function C .D is
 end C . D ;
 ```
 - When I run `./acc -I dir2 --list_dependencies`
-- Then output is (unordered)
+- Then output is (ignoring order)
 ```
 A package body depends on C
 A package spec depends on B

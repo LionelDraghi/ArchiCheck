@@ -10,7 +10,7 @@ all: check doc
 check: ../obj/acc ../Tools/create_pkg
 	@ - ln -s ../obj/acc .
 	@ - ln -s ../Tools/create_pkg .
-	@ bbt -c -k -sb --yes --exclude @WIP -o ../docs/tests/test_results.md [0-9][0-9]_*.md
+	@ bbt -c -k --yes --exclude @WIP --index ../docs/tests/test_results.md [0-9][0-9]_*.md
 
 doc:
 	@ for md in [0-9][0-9]_*.md; do cp $$md ../docs/tests/$$md; done

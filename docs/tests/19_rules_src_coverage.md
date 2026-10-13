@@ -59,7 +59,7 @@ P5 may use Framework
 
 ```
 - When I run `./acc -lnc test2.ac -I ./dir2` or `./acc --list_non_covered test2.ac -I ./dir2`
-- Then output is (unordered)
+- Then output is (ignoring order)
 ```
 Framework_Utilities
 Java

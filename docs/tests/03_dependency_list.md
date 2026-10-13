@@ -38,7 +38,7 @@ end C.D;
 
 - When I run `./acc -I dir1 --list_dependencies`
 
-- Then the output is (unordered) 
+- Then the output is (ignoring order) 
 ```  
 A package body depends on C 
 A package spec depends on B 
@@ -63,7 +63,7 @@ end C . D ;
 
 - When I run `./acc -I dir1 --list_dependencies`
 
-- Then the output is (unordered)
+- Then the output is (ignoring order)
 ```  
 A package body depends on C 
 A package spec depends on B 

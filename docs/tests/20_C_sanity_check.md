@@ -116,7 +116,7 @@ float square_root(float x)
 }
 ```
 - When I run `./acc -ld -I include -I src`
-- Then output is (unordered)
+- Then output is (ignoring order)
 ```
 main implementation depends on square_root
 main implementation depends on stdio

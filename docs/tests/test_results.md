@@ -201,13 +201,13 @@
    - OK : And   the file `./dir1/c.ads`      
    - OK : And   the file `./dir1/c-d.adb`      
    - OK : When I run `./acc -I dir1 --list_dependencies`  
-   - OK : Then the output is (unordered)   
+   - OK : Then the output is (ignoring order)   
    - [X] scenario   [Simple test](03_dependency_list.md) pass  
 
    ### Scenario: [Source with weird formatted withed unit](03_dependency_list.md): 
    - OK : Given the new file `./dir1/c-d.adb`      
    - OK : When I run `./acc -I dir1 --list_dependencies`  
-   - OK : Then the output is (unordered)  
+   - OK : Then the output is (ignoring order)  
    - [X] scenario   [Source with weird formatted withed unit](03_dependency_list.md) pass  
 
 
@@ -396,7 +396,7 @@
    - OK : When I run `./create_pkg DB.P1  spec  -in dir6`  
    - OK : When I run `./create_pkg DBP2   spec  -in dir6 -with DB.P1`  
    - OK : When I run `./acc -I dir6 rules.txt`  
-   - OK : Then I get (unordered)  
+   - OK : Then I get (ignoring order)  
    - [X] scenario   [GUI.P1 is a GUI child, GUIP1 is not a GUI child pkg](06_child_packages.md) pass  
 
    ### Background: [](06_child_packages.md): 
@@ -411,7 +411,7 @@
    - OK : When I run `./create_pkg P2           spec -in dir7 -with Interfaces.C`  
    - OK : When I run `./create_pkg P3           spec -in dir7 -with Interfaces.Java`  
    - OK : When I run `./acc -I dir7 rules7.txt`  
-   - OK : Then I get (unordered)  
+   - OK : Then I get (ignoring order)  
    - [X] scenario   [Forbidding Interfaces but allowing Interfaces.C](06_child_packages.md) pass  
 
 
@@ -477,7 +477,7 @@
    ### Scenario: [File Identification](09_gtkada.md): 
    - OK : Given I run `find gtkada-master -name "*.ad[sb]"` Successfully  
    - OK : When I run `./acc -q -lf -r -I gtkada-master` Successfully  
-   - OK : Then I get file (unordered) `../docs/tests/09_gtkada/expected_output.1`  
+   - OK : Then I get file `../docs/tests/09_gtkada/expected_output.1` (ignoring order)  
    - [X] scenario   [File Identification](09_gtkada.md) pass  
 
    ### Background: [](09_gtkada.md): 
@@ -488,7 +488,7 @@
 
    ### Scenario: [Unit Identification](09_gtkada.md): 
    - OK : When I run `./acc -ld -r -I gtkada-master` Successfully  
-   - OK : Then I get file (unordered) `../docs/tests/09_gtkada/expected_output.2`  
+   - OK : Then I get file `../docs/tests/09_gtkada/expected_output.2` (ignoring order)  
    - [X] scenario   [Unit Identification](09_gtkada.md) pass  
 
    ### Background: [](09_gtkada.md): 
@@ -500,7 +500,7 @@
    ### Scenario: [A realistic GtkAda description file](09_gtkada.md): 
    - OK : Given there is a file `../docs/tests/09_gtkada/GtkAda.ac`  
    - OK : When I run `./acc ../docs/tests/09_gtkada/GtkAda.ac -r -I gtkada-master` Successfully  
-   - OK : Then I get file (unordered) `../docs/tests/09_gtkada/expected_output.3`  
+   - OK : Then I get file `../docs/tests/09_gtkada/expected_output.3` (ignoring order)  
    - [X] scenario   [A realistic GtkAda description file](09_gtkada.md) pass  
 
    ### Background: [](09_gtkada.md): 
@@ -512,7 +512,7 @@
    ### Scenario: [Another realistic GtkAda description file](09_gtkada.md): 
    - OK : Given there is a file `../docs/tests/09_gtkada/GtkAda2.ac`  
    - OK : When I run `./acc ../docs/tests/09_gtkada/GtkAda2.ac -q -r -I gtkada-master` Successfully  
-   - OK : Then I get file (unordered) `../docs/tests/09_gtkada/expected_output.4`  
+   - OK : Then I get file `../docs/tests/09_gtkada/expected_output.4` (ignoring order)  
    - [X] scenario   [Another realistic GtkAda description file](09_gtkada.md) pass  
 
 
@@ -588,7 +588,7 @@
    - OK : Given I run `./create_pkg P3 spec -in dir6 -with Interfaces.Java` Successfully  
    - OK : Given the file `rules.6`  
    - OK : When I run `./acc -I dir6 rules.6`  
-   - OK : Then output is (unordered)  
+   - OK : Then output is (ignoring order)  
    - OK : Given the new file `rules.6b`  
    - OK : When I run `./acc -I dir6 rules.6b`  
    - OK : Then I get no output  
@@ -602,7 +602,7 @@
    - OK : Given I run `./create_pkg P4 spec -in dir7 -with P1` Successfully  
    - OK : Given the file `rules.7`  
    - OK : When I run `./acc -I dir7 rules.7`  
-   - OK : Then output is (unordered)  
+   - OK : Then output is (ignoring order)  
    - [X] scenario   [X may use Unit List rules](10_use_rule.md) pass  
 
    ### Scenario: [only X may use Unit List rules](10_use_rule.md): 
@@ -653,7 +653,7 @@
    - OK : Given there is no `batik-1.9` directory  
    - OK : Given I run `tar -xf ../docs/tests/11_batik/batik-src-1.9.tar.gz` Successfully  
    - OK : When I run `./acc -lf -Ir ./batik-1.9`  
-   - OK : Then I get file (unordered) `../docs/tests/11_batik/expected_output.1`  
+   - OK : Then I get file `../docs/tests/11_batik/expected_output.1` (ignoring order)  
    - [X] scenario   [--list_file test](11_batik.md) pass  
 
    ### Scenario: [public class](11_batik.md): 
@@ -708,7 +708,7 @@
    - OK : Given there is no `batik-1.9` directory  
    - OK : Given I run `tar -xf ../docs/tests/11_batik/batik-src-1.9.tar.gz` Successfully  
    - OK : When I run `./acc -ld -Ir ./batik-1.9`  
-   - OK : Then I get file (unordered) `../docs/tests/11_batik/expected_output.8`  
+   - OK : Then I get file `../docs/tests/11_batik/expected_output.8` (ignoring order)  
    - [X] scenario   [-ld test](11_batik.md) pass  
 
 
@@ -719,7 +719,7 @@
    - OK : Given I run `unzip -q -o ../docs/tests/12_zipada/zipada53.zip` Successfully  
    - OK : Given there is a file `../docs/tests/12_zipada/expected_output.2`  
    - OK : When I run `./acc -ld -r -I ./zip-ada` Successfully  
-   - OK : Then I get file (unordered) `../docs/tests/12_zipada/expected_output.2`  
+   - OK : Then I get file `../docs/tests/12_zipada/expected_output.2` (ignoring order)  
    - [X] scenario   [-ld test](12_zipada.md) pass  
 
    ### Scenario: [rules test](12_zipada.md): 
@@ -755,7 +755,7 @@
    - OK : Given I run `gcc -c -gnatc -I../docs/tests/13_ada_units/src ../docs/tests/13_ada_units/src/rational_numbers.adb ../docs/tests/13_ada_units/src/rational_numbers-reduce.adb ../docs/tests/13_ada_units/src/sub-put.adb ../docs/tests/13_ada_units/src/sub-test.adb ../docs/tests/13_ada_units/src/sub-test-get.adb ../docs/tests/13_ada_units/src/sub-test-put.adb ../docs/tests/13_ada_units/src/sub-test-ressource.adb ../docs/tests/13_ada_units/src/sub-test-server.adb ../docs/tests/13_ada_units/src/text_io_new_page.adb` Successfully  
    - OK : Given there is a file `../docs/tests/13_ada_units/expected_output.1`  
    - OK : When I run `./acc -ld -I ../docs/tests/13_ada_units/src` Successfully  
-   - OK : Then I get file (unordered) `../docs/tests/13_ada_units/expected_output.1`  
+   - OK : Then I get file `../docs/tests/13_ada_units/expected_output.1` (ignoring order)  
    - [X] scenario   [Ada compilation units unit test](13_ada_units.md) pass  
 
 
@@ -860,7 +860,7 @@
    - OK : Given I run `tar zxf ../docs/tests/16_adactl/adactl-1.19r10-src.tgz` Successfully  
    - OK : Given there is a file `../docs/tests/16_adactl/expected_output.1`  
    - OK : When I run `./acc -lf -r -I adactl-1.19r10/src` Successfully  
-   - OK : Then I get file (unordered) `../docs/tests/16_adactl/expected_output.1`  
+   - OK : Then I get file `../docs/tests/16_adactl/expected_output.1` (ignoring order)  
    - [X] scenario   [-lf test](16_adactl.md) pass  
 
    ### Scenario: [-ld test](16_adactl.md): 
@@ -868,7 +868,7 @@
    - OK : Given I run `tar zxf ../docs/tests/16_adactl/adactl-1.19r10-src.tgz` Successfully  
    - OK : Given there is a file `../docs/tests/16_adactl/expected_output.2`  
    - OK : When I run `./acc -ld -r -I ./adactl-1.19r10/src` Successfully  
-   - OK : Then I get file (unordered) `../docs/tests/16_adactl/expected_output.2`  
+   - OK : Then I get file `../docs/tests/16_adactl/expected_output.2` (ignoring order)  
    - [X] scenario   [-ld test](16_adactl.md) pass  
 
    ### Scenario: [rules test](16_adactl.md): 
@@ -887,7 +887,7 @@
    - OK : Given I run `unzip -q -o ../docs/tests/17_acc/src.zip -d src` Successfully  
    - OK : Given there is a file `../docs/tests/17_acc/expected_output.1`  
    - OK : When I run `./acc -lf -I src` Successfully  
-   - OK : Then I get file (unordered) `../docs/tests/17_acc/expected_output.1`  
+   - OK : Then I get file `../docs/tests/17_acc/expected_output.1` (ignoring order)  
    - [X] scenario   [-lf test](17_acc.md) pass  
 
    ### Scenario: [-ld test](17_acc.md): 
@@ -895,7 +895,7 @@
    - OK : Given I run `unzip -q -o ../docs/tests/17_acc/src.zip -d src` Successfully  
    - OK : Given there is a file `../docs/tests/17_acc/expected_output.2`  
    - OK : When I run `./acc -ld -I ./src` Successfully  
-   - OK : Then I get file (unordered) `../docs/tests/17_acc/expected_output.2`  
+   - OK : Then I get file `../docs/tests/17_acc/expected_output.2` (ignoring order)  
    - [X] scenario   [-ld test](17_acc.md) pass  
 
    ### Scenario: [rules test](17_acc.md): 
@@ -934,7 +934,7 @@
    - OK : Given I run `mv spring-petclinic-master src1` Successfully  
    - OK : Given there is a file `../docs/tests/18_petclinic/expected_output.2`  
    - OK : When I run `./acc -ld -r -I ./src1` Successfully  
-   - OK : Then I get file (unordered) `../docs/tests/18_petclinic/expected_output.2`  
+   - OK : Then I get file `../docs/tests/18_petclinic/expected_output.2` (ignoring order)  
    - [X] scenario   [-ld test](18_petclinic.md) pass  
 
    ### Scenario: [rules test](18_petclinic.md): 
@@ -1008,7 +1008,7 @@
    - OK : Given I run `./create_pkg Java spec -in dir2` Successfully  
    - OK : Given the file `test2.ac`  
    - OK : When I run `./acc -lnc test2.ac -I ./dir2`  
-   - OK : Then output is (unordered)  
+   - OK : Then output is (ignoring order)  
    - [X] scenario   [Non covered sources 1/2](19_rules_src_coverage.md) pass  
 
    ### Scenario: [Non covered sources 2/2](19_rules_src_coverage.md): 
@@ -1025,7 +1025,7 @@
    - OK : Given I run `./create_pkg Java spec -in dir2` Successfully  
    - OK : Given the file `test2.ac`  
    - OK : When I run `./acc --list_non_covered test2.ac -I ./dir2`  
-   - OK : Then output is (unordered)  
+   - OK : Then output is (ignoring order)  
    - [X] scenario   [Non covered sources 2/2](19_rules_src_coverage.md) pass  
 
 
@@ -1062,7 +1062,7 @@
    - OK : Given the file `src/newton_method.c`  
    - OK : Given the file `src/square_root.c`  
    - OK : When I run `./acc -ld -I include -I src`  
-   - OK : Then output is (unordered)  
+   - OK : Then output is (ignoring order)  
    - [X] scenario   [dependencies list](20_C_sanity_check.md) pass  
 
 
@@ -1108,7 +1108,7 @@
    - OK : Given the file `dir2/c.ads`  
    - OK : Given the file `dir2/c-d.adb`  
    - OK : When I run `./acc -I dir2 --list_dependencies`  
-   - OK : Then output is (unordered)  
+   - OK : Then output is (ignoring order)  
    - [X] scenario   [Source with weird formatted withed unit](22_files_component.md) pass  
 
    ### Scenario: [Sources identification through rules file (no -I on command line) 1/2](22_files_component.md): 
@@ -1120,7 +1120,7 @@
    - OK : Given the file `dir1/a.adb`  
    - OK : Given the file `dir2/c.ads`  
    - OK : When I run `./acc -I dir1 -ld`  
-   - OK : Then output is (unordered)  
+   - OK : Then output is (ignoring order)  
    - [X] scenario   [Sources identification through rules file (no -I on command line) 1/2](22_files_component.md) pass  
 
    ### Scenario: [Sources identification through rules file (no -I on command line) 2/2](22_files_component.md): 
@@ -1132,7 +1132,7 @@
    - OK : Given the file `dir1/a.adb`  
    - OK : Given the file `dir2/c.ads`  
    - OK : When I run `./acc -I dir1 --list_dependencies`  
-   - OK : Then output is (unordered)  
+   - OK : Then output is (ignoring order)  
    - [X] scenario   [Sources identification through rules file (no -I on command line) 2/2](22_files_component.md) pass  
 
 
