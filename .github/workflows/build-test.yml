@@ -37,7 +37,16 @@ jobs:
       # three platforms, and they must all be green before any
       # `alr publish` (cf. docs/dev/release_procedure.md, section 1).
       matrix:
-        os: [ubuntu-latest, windows-latest, macos-latest]
+        # macos-15, not macos-latest: the macOS 26 (Tahoe) image ships
+        # Command Line Tools 26.6, whose SDK .tbd stubs list the arm64e.x1
+        # targets; the linker bundled with every GNAT FSF toolchain (15.x
+        # and 16.x alike) rejects them and every link fails with
+        # "malformed file libSystem.tbd" and undefined libc symbols
+        # (cf. https://github.com/alire-project/GNAT-FSF-builds/issues/112).
+        # This is what breaks the test_list_image link in the pinned
+        # list_image crate when bbt is built. Switch back to macos-latest
+        # once the toolchain linker is fixed.
+        os: [ubuntu-latest, windows-latest, macos-15]
     runs-on: ${{ matrix.os }}
 
     steps:
