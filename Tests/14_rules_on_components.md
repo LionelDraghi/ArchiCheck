@@ -158,7 +158,7 @@ My_Layer contains X and Y
 My_Layer is a layer over Z
 ```
 - When I run `./acc rules5.txt -I dir5`
-- Then output is
+- Then output is (ignoring order)
 ```
 Error : dir5/z-p1.ads:1: Z.P1 is in Z layer, and so shall not use X in the upper My_Layer layer
 Error : dir5/z-p2.ads:1: Z.P2 is in Z layer, and so shall not use Y.P2 in the upper My_Layer layer
