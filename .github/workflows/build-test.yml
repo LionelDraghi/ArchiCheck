@@ -93,6 +93,19 @@ jobs:
           cd /tmp/bbt && alr --non-interactive build --release
           echo "/tmp/bbt" >> $GITHUB_PATH
 
+      - name: Clone the pinned sibling crates
+        # alire.toml pins bbt and opentoken to sibling directories
+        # (../bbt, ../opentoken) during development. Clone them next to
+        # the acc checkout so that the pins resolve; `alr build` then
+        # builds them as regular dependencies.
+        # NB: opentoken master provides the LALR_Parser generic child,
+        # required because GNAT 16 cannot instantiate
+        # OpenToken.Production.Parser.LALR.Parser (name resolution bug).
+        shell: bash
+        run: |
+          git clone --depth 1 --branch master https://github.com/LionelDraghi/org.opentoken-6.0c ../opentoken
+          git clone --depth 1 --branch main https://github.com/LionelDraghi/bbt ../bbt
+
       - name: Run build and checks
         # The doc target is not run here: it uses wget and rgrep, that are
         # not available on all the runners; the generated docs are part
