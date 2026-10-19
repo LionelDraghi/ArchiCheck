@@ -35,6 +35,17 @@ jobs:
     steps:
        - name: Checkout
          uses: actions/checkout@v2
+       - name: Clone the pinned sibling crates
+         # alire.toml pins bbt, opentoken and list_image to sibling
+         # directories (../bbt, ../opentoken, ../list_image) during
+         # development, and alr2appimage-action runs `alr build` in the
+         # local workspace: clone them next to the acc checkout so that
+         # the pins resolve (same clones as in build-test.yml).
+         shell: bash
+         run: |
+           git clone --depth 1 --branch master https://github.com/LionelDraghi/org.opentoken-6.0c ../opentoken
+           git clone --depth 1 --branch main https://github.com/LionelDraghi/bbt ../bbt
+           git clone --depth 1 https://github.com/LionelDraghi/List_Image ../list_image
        - name: alr2appimage-action
          uses: mgrojo/alr2appimage-action@main
          with:
