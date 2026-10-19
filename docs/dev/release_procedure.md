@@ -280,12 +280,12 @@ Before publication, verify that:
 - the Git tag is available remotely;
 - the GitHub release is published;
 - the local repository is clean;
-- `alire.toml` pins nothing to a local path: during development, `bbt` or
-  `opentoken` for example may be pinned to sibling directories; before the release commit,
-  remove the `[[pins]]` entries and rely on the index dependencies, then
-  verify that `grep "path =" alire.toml` returns nothing; a crate published
-  with a local pin is broken for its users; if a pin carries a fix not yet
-  available in the index, release that crate first;
+- `alire.toml` pins nothing to a local path: during development, `bbt`,
+  `opentoken` and `list_image` are pinned to sibling directories; before the
+  release commit, remove the `[[pins]]` entries and rely on the index
+  dependencies, then verify that `grep "path =" alire.toml` returns nothing;
+  a crate published with a local pin is broken for its users; if a pin
+  carries a fix not yet available in the index, release that crate first;
 - the crate builds and its tests pass on every platform where Alire
   will build and test it: Linux, macOS and Windows, since `alire.toml`
   declares no availability restriction; the GitHub Actions checks must

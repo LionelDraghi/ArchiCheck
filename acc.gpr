@@ -6,17 +6,18 @@
 -- Public License Versions 3, refer to the COPYING file.
 -- -----------------------------------------------------------------------------
 
-with "list_image";
-with "opentoken";
+with "src/Alire_config/acc_config.gpr";
 
 project Acc is
 
-   type Mode_Type is ("development", "release");
-   Mode : Mode_Type := external ("mode", "development");
-   -- development is the default alr mode
-
+   --  The build profile comes from Alire (cf. [build-profiles] in alire.toml
+   --  and alr build --development|--validation|--release): development,
+   --  validation or release. Objects are kept separate per profile,
+   --  like in the bbt project; the exe always lands in obj/acc.
+   --  The dependency projects (list_image, opentoken) are withed
+   --  transitively through the generated acc_config.gpr.
    for Source_Dirs use ("src/", "src/Alire_config/");
-   for Object_Dir use "obj";
+   for Object_Dir use "obj/" & Acc_Config.Build_Profile;
    for Create_Missing_Dirs use "True";
    for Main use ("acc-main.adb");
    for Exec_Dir use "obj/";
@@ -32,21 +33,24 @@ project Acc is
    end Builder;
 
    package Compiler is
-      Common_Switches := ("-gnat2022");
-      Common_Debug_Switches := Common_Switches &
-      ("-g", "-O0",  "-gnatQ", "-gnatf",
-       "-gnato", "-fstack-check", "-gnata",
-       "-gnateE", "-gnatVa", "-gnatwa", "-gnatyaefhiklnprtx");
-      -- "-gnateE", "-gnatVa", "-gnatwa", "-gnatW8", "-gnatyaefhiklnprtx");
+      --  The profile is selected by Alire (Acc_Config.Build_Profile, cf.
+      --  [build-profiles] in alire.toml and alr build
+      --  --development|--validation|--release), but the switches are
+      --  acc's own: the acc style checking list below is the reference,
+      --  and replaces the Alire default style set.
+      --  The validation profile mirrors the Alire validation semantics:
+      --  assertions, all validity checks, all warnings, and warnings,
+      --  including style ones, are errors (-gnatwe).
+      Common_Switches := ("-gnat2022",
+                          "-gnatQ", "-gnatf",
+                          "-gnato", "-fstack-check",
+                          "-gnateE",
+                          "-gnatyaefhiklnprtx");
       -- -gnatQ   : Don't quit
       -- -gnatf   : Full errors
       -- -gnato   : Intermediate overflows to be handled in strict mode.
       -- -fstack-check : stack checking
-      -- -gnata   : assertions
       -- -gnateE  : extra infos in exception messages
-      -- -gnatVa  : all validity checks
-      -- -gnatwa  : activate most optional warning messages
-      -- -gnatW8  : UTF-8 encodings recognized (Char="≠" is easier to undestand than Char=["2260"])
       --
       -- Style checking :
       -- a : Check attribute casing
@@ -66,12 +70,18 @@ project Acc is
       -- removed M100 : Set maximum line length
       -- x : Check extra parentheses.
 
-      case Mode is
-         when "development"   =>
-            for Switches ("ada") use Common_Debug_Switches;
+      case Acc_Config.Build_Profile is
+         when "development" =>
+            for Switches ("ada") use Common_Switches &
+               ("-g", "-O0", "-gnata", "-gnatVa", "-gnatwa");
+            -- -gnata : assertions (not in the Alire development profile)
             -- -pg : profiling
 
-         when "release" =>
+         when "validation" =>
+            for Switches ("ada") use Common_Switches &
+               ("-g", "-gnata", "-gnatVa", "-gnatwa", "-gnatwe");
+
+         when others =>
             for Switches ("ada") use Common_Switches & ("-O3", "-flto");
             -- -flto : link time optimization
 
@@ -80,19 +90,20 @@ project Acc is
    end Compiler;
 
    package Binder is
-      case Mode is
-         when "development"   => for Switches ("ada") use ("-Es");
-            -- -Es : store symbolic tracebacks
+      case Acc_Config.Build_Profile is
          when "release" => for Switches ("ada") use ("-static");
             -- -static : link against a static GNAT run time.
+         when others => for Switches ("ada") use ("-Es");
+            -- -Es : store symbolic tracebacks
       end case;
    end Binder;
 
    package Linker is
-      case Mode is
-         when "development"   => for Switches ("ada") use ("-g", "-pg");
+      case Acc_Config.Build_Profile is
+         when "development" => for Switches ("ada") use ("-g", "-pg");
             -- pg : profiling
-         when "release" =>  for Switches ("ada") use ("-flto");
+         when "validation"  => for Switches ("ada") use ("-g");
+         when others        => for Switches ("ada") use ("-flto");
             -- -flto : link time optimization
       end case;
    end Linker;

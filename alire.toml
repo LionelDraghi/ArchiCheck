@@ -14,7 +14,10 @@ executables = ["acc"]
 [configuration]
 output_dir   = "src/Alire_config"
 generate_C   = false
-generate_gpr = false
+generate_gpr = true
+
+[build-profiles]
+acc = "validation"
 
 [[depends-on]]
 list_image = "*"
@@ -23,4 +26,5 @@ bbt        = ">=0.6.0"  # because of the use of --cleanup=full in the Makefile
 
 [[pins]]
 bbt        = { path = "../bbt" } 
-opentoken  = { path = "../opentoken" } 
+opentoken  = { path = "../opentoken" }
+list_image = { path = "../list_image" }

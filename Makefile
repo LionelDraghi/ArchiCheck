@@ -24,7 +24,7 @@ help:
 	@ echo ""
 	@ echo "Targets:"
 	@ echo "  all           : build, tools, check and doc (default when no target given)"
-	@ echo "  build         : build acc in development mode"
+	@ echo "  build         : build acc in validation mode"
 	@ echo "  build_release : build acc in release mode"
 	@ echo "  release       : full release chain (release build, tests, badges,"
 	@ echo "                   docs/download.md, install in ~/bin)"
@@ -94,17 +94,17 @@ release: build_release
 	@ rm release_tests.txt
 
 build: 
-	@ echo Make debug build
+	@ echo Make validation build
 	@ - mkdir -p obj lib
 
-	alr build --development 
+	alr build --validation 
 	@ # -q : quiet
 	@ # -s : recompile if compiler switches have changed
 
 # The check target depends on the obj/acc file, that may come from either
-# build or build_release: build it (in development mode) only when missing.
+# build or build_release: build it (in validation mode) only when missing.
 obj/acc:
-	@ echo No obj/acc found, making a development build
+	@ echo No obj/acc found, making a validation build
 	@ $(MAKE) build
 
 .PHONY : build_release

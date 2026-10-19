@@ -201,7 +201,6 @@ package body Acc.Units is
    is
       C : constant String := +Child;
       P : constant String := +Parent;
-      use Ada.Strings;
       use Ada.Strings.Fixed;
       -- procedure Put_Debug_Line
       --   (Msg    : in String  := "";
