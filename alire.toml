@@ -19,6 +19,12 @@ generate_gpr = true
 [build-profiles]
 acc = "validation"
 
+[gpr-set-externals]
+# opentoken_lib.gpr takes the library kind from the LIBTYPE external,
+# dynamic by default; static makes the exe self-contained (no
+# libopentoken.so to find at run time, e.g. by the AppImage deployment)
+LIBTYPE = "static"
+
 [[depends-on]]
 list_image = "*"
 opentoken  = "*"
