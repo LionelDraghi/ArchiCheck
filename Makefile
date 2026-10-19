@@ -9,6 +9,14 @@
 
 .SILENT:
 
+# On Windows the executables carry an .exe suffix: the same
+# test, check and clean targets apply, with the suffix appended
+ifeq ($(OS), Windows_NT)
+	EXE_SUFFIX := .exe
+else
+	EXE_SUFFIX :=
+endif
+
 # Tests counts, extracted from the bbt consolidated results summary table
 TESTS_COUNT  = grep -E '^\| (Successful|Failed) ' docs/tests/test_results.md | sed 's/|//g;s/^ *//;s/ *$$//;s/  */ /g'
 TESTS_STATUS = grep -E '^\| (Failed|Successful|Empty|Not Run)' docs/tests/test_results.md | sed 's/|//g;s/^ *//;s/ *$$//;s/  */ /g'
@@ -103,7 +111,7 @@ build:
 
 # The check target depends on the obj/acc file, that may come from either
 # build or build_release: build it (in validation mode) only when missing.
-obj/acc:
+obj/acc$(EXE_SUFFIX):
 	@ echo No obj/acc found, making a validation build
 	@ $(MAKE) build
 
@@ -128,7 +136,7 @@ build_release:
 tools: 
 	@ $(MAKE) create_pkg --directory=Tools
 
-check: obj/acc tools
+check: obj/acc$(EXE_SUFFIX) tools
 	# depend on the exe, may be either build or build_release, test have to pass with both
 	@ echo Make check
 	##@ - mkdir -p Tools/obj 
