@@ -10,15 +10,15 @@ all: check doc
 check: ../obj/acc ../Tools/create_pkg
 	@ - ln -s ../obj/acc .
 	@ - ln -s ../Tools/create_pkg .
-	@ bbt -c -k --yes --exclude @WIP --index ../docs/tests/test_results.md [0-9][0-9]_*.md
+	@ bbt --cleanup=full -k --yes --exclude @WIP --index ../docs/tests/test_results.md [0-9][0-9]_*.md
 
 doc:
 	@ for md in [0-9][0-9]_*.md; do cp $$md ../docs/tests/$$md; done
 
 clean:
 	@ - ${RM} acc create_pkg template.ac test_results.md
-	@ - ${RM} *.o *.ali sub-test src.adb test?.ac rules*
-	@ - ${RM} -rf dir? dir3? dir?? src src1 src2 include zip-ada gtkada-master \
-	           adactl-1.19r10 batik-1.9 spring-petclinic-master \
-	           spring-framework-petclinic-master
+#	@ - ${RM} *.o *.ali sub-test src.adb test?.ac rules*
+#	@ - ${RM} -rf dir? dir3? dir?? src src1 src2 include zip-ada gtkada-master \
+#	           adactl-1.19r10 batik-1.9 spring-petclinic-master \
+#	           spring-framework-petclinic-master
 	@ find . -name gmon.out -delete
