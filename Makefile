@@ -26,7 +26,7 @@ TESTS_STATUS = grep -E '^\| (Failed|Successful|Empty|Not Run)' docs/tests/test_r
 
 all: build tools check doc
 
-.PHONY : help
+.PHONY : help tools
 help:
 	@ echo "Usage: make [target]"
 	@ echo ""
