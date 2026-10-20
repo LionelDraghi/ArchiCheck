@@ -16,7 +16,7 @@ project Acc is
    --  like in the bbt project; the exe always lands in obj/acc.
    --  The dependency projects (list_image, opentoken) are withed
    --  transitively through the generated acc_config.gpr.
-   for Source_Dirs use ("src/", "src/Alire_config/");
+   for Source_Dirs use ("src/", "src/Alire_config/", "src/opentoken");
    for Object_Dir use "obj/" & Acc_Config.Build_Profile;
    for Create_Missing_Dirs use "True";
    for Main use ("acc-main.adb");
