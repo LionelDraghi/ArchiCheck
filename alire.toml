@@ -27,10 +27,8 @@ LIBTYPE = "static"
 
 [[depends-on]]
 list_image = "*"
-opentoken  = "*"
-bbt        = ">=0.6.0"  # because of the use of --cleanup=full in the Makefile
+# opentoken  = "*"
+# bbt        = ">=0.6.0"  # because of the use of --cleanup=full in the Makefile
 
 [[pins]]
-bbt        = { path = "../bbt" } 
-opentoken  = { path = "../opentoken" }
-list_image = { path = "../list_image" }
+# bbt        = { path = "../bbt" } 
