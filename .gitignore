@@ -24,3 +24,5 @@ src/Alire_config
 # Pijul
 .pijul/
 .ignore
+# Local bug report dossier (GNAT 16.1), not for publication
+gnat16-bug-report.md
