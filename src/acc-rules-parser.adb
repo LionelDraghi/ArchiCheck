@@ -29,7 +29,7 @@ with OpenToken.Recognizer.Line_Comment;
 with OpenToken.Recognizer.Keyword;
 with OpenToken.Production.List;
 with OpenToken.Production.Parser.LALR.Generator;
-with OpenToken.Production.Parser.LALR.Parser;
+with OpenToken.Production.Parser.LALR.LALR_Parser;
 with OpenToken.Production.Parser.LALR.Parser_Lists;
 with OpenToken.Recognizer.End_Of_File;
 with OpenToken.Token.Enumerated.List;
@@ -148,7 +148,7 @@ package body Acc.Rules.Parser is
 
    First_Parser_Label : constant := 1;
    package Parser_Lists is new LALRs.Parser_Lists (First_Parser_Label);
-   package LALR_Parser is new LALRs.Parser (First_Parser_Label,
+   package LALR_Parser is new LALRs.LALR_Parser (First_Parser_Label,
                                             Parser_Lists);
    Token_Image_Width : constant Integer := Token_Ids'Width;
    package LALR_Generator is new LALRs.Generator (Token_Image_Width,

@@ -12,6 +12,10 @@ gmon.out
 
 .vscode/
 
+# Tests symlinks to the built binaries (created by make check)
+/Tests/acc
+/Tests/create_pkg
+
 # Alire
 alire/
 src/Alire_config

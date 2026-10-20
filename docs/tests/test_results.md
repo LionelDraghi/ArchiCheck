@@ -826,7 +826,7 @@
    - OK : Given the new file `dir5/v.ads`  
    - OK : Given the file `rules5.txt`  
    - OK : When I run `./acc rules5.txt -I dir5`  
-   - OK : Then output is  
+   - OK : Then output is (ignoring order)  
    - [X] scenario   [Test A B C example posted on fr.comp.lang.ada...](14_rules_on_components.md) pass  
 
 

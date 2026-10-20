@@ -14,12 +14,23 @@ executables = ["acc"]
 [configuration]
 output_dir   = "src/Alire_config"
 generate_C   = false
-generate_gpr = false
+generate_gpr = true
 
-## [[pins]]
-## opentoken  = { path = "../opentoken" } 
+[build-profiles]
+acc = "validation"
+
+[gpr-set-externals]
+# opentoken_lib.gpr takes the library kind from the LIBTYPE external,
+# dynamic by default; static makes the exe self-contained (no
+# libopentoken.so to find at run time, e.g. by the AppImage deployment)
+LIBTYPE = "static"
 
 [[depends-on]]
-opentoken  = "*"
 list_image = "*"
-## bbt        = "*"
+opentoken  = "*"
+bbt        = ">=0.6.0"  # because of the use of --cleanup=full in the Makefile
+
+[[pins]]
+bbt        = { path = "../bbt" } 
+opentoken  = { path = "../opentoken" }
+list_image = { path = "../list_image" }

@@ -9,6 +9,14 @@
 
 .SILENT:
 
+# On Windows the executables carry an .exe suffix: the same
+# test, check and clean targets apply, with the suffix appended
+ifeq ($(OS), Windows_NT)
+	EXE_SUFFIX := .exe
+else
+	EXE_SUFFIX :=
+endif
+
 # Tests counts, extracted from the bbt consolidated results summary table
 TESTS_COUNT  = grep -E '^\| (Successful|Failed) ' docs/tests/test_results.md | sed 's/|//g;s/^ *//;s/ *$$//;s/  */ /g'
 TESTS_STATUS = grep -E '^\| (Failed|Successful|Empty|Not Run)' docs/tests/test_results.md | sed 's/|//g;s/^ *//;s/ *$$//;s/  */ /g'
@@ -18,13 +26,13 @@ TESTS_STATUS = grep -E '^\| (Failed|Successful|Empty|Not Run)' docs/tests/test_r
 
 all: build tools check doc
 
-.PHONY : help
+.PHONY : help tools
 help:
 	@ echo "Usage: make [target]"
 	@ echo ""
 	@ echo "Targets:"
 	@ echo "  all           : build, tools, check and doc (default when no target given)"
-	@ echo "  build         : build acc in development mode"
+	@ echo "  build         : build acc in validation mode"
 	@ echo "  build_release : build acc in release mode"
 	@ echo "  release       : full release chain (release build, tests, badges,"
 	@ echo "                   docs/download.md, install in ~/bin)"
@@ -94,17 +102,17 @@ release: build_release
 	@ rm release_tests.txt
 
 build: 
-	@ echo Make debug build
+	@ echo Make validation build
 	@ - mkdir -p obj lib
 
-	alr build --development 
+	alr build --validation 
 	@ # -q : quiet
 	@ # -s : recompile if compiler switches have changed
 
 # The check target depends on the obj/acc file, that may come from either
-# build or build_release: build it (in development mode) only when missing.
-obj/acc:
-	@ echo No obj/acc found, making a development build
+# build or build_release: build it (in validation mode) only when missing.
+obj/acc$(EXE_SUFFIX):
+	@ echo No obj/acc found, making a validation build
 	@ $(MAKE) build
 
 .PHONY : build_release
@@ -128,7 +136,7 @@ build_release:
 tools: 
 	@ $(MAKE) create_pkg --directory=Tools
 
-check: obj/acc tools
+check: obj/acc$(EXE_SUFFIX) tools
 	# depend on the exe, may be either build or build_release, test have to pass with both
 	@ echo Make check
 	##@ - mkdir -p Tools/obj 

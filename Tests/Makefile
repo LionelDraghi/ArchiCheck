@@ -1,3 +1,15 @@
+# On Windows the executables carry an .exe suffix, and ln -s silently
+# falls back on a timestamp-preserving copy: an explicit cp is more
+# honest, and sets a fresh mtime at each refresh, so that the staleness
+# is observable
+ifeq ($(OS), Windows_NT)
+	EXE_SUFFIX := .exe
+	REFRESH := cp -f
+else
+	EXE_SUFFIX :=
+	REFRESH := ln -fs
+endif
+
 all: check doc
 
 .PHONY : clean
@@ -7,18 +19,18 @@ all: check doc
 # Bulk test data stays in the Tests/NN_* directories and is referenced
 # from the .md files with its directory prefix.
 
-check: ../obj/acc ../Tools/create_pkg
-	@ - ln -s ../obj/acc .
-	@ - ln -s ../Tools/create_pkg .
-	@ bbt -c -k --yes --exclude @WIP --index ../docs/tests/test_results.md [0-9][0-9]_*.md
+check: ../obj/acc$(EXE_SUFFIX) ../Tools/create_pkg$(EXE_SUFFIX)
+	@ - $(REFRESH) ../obj/acc$(EXE_SUFFIX) acc$(EXE_SUFFIX)
+	@ - $(REFRESH) ../Tools/create_pkg$(EXE_SUFFIX) create_pkg$(EXE_SUFFIX)
+	@ bbt --cleanup=full -k --yes --exclude @WIP --index ../docs/tests/test_results.md [0-9][0-9]_*.md
 
 doc:
 	@ for md in [0-9][0-9]_*.md; do cp $$md ../docs/tests/$$md; done
 
 clean:
-	@ - ${RM} acc create_pkg template.ac test_results.md
-	@ - ${RM} *.o *.ali sub-test src.adb test?.ac rules*
-	@ - ${RM} -rf dir? dir3? dir?? src src1 src2 include zip-ada gtkada-master \
-	           adactl-1.19r10 batik-1.9 spring-petclinic-master \
-	           spring-framework-petclinic-master
+	@ - ${RM} acc$(EXE_SUFFIX) create_pkg$(EXE_SUFFIX) template.ac test_results.md
+#	@ - ${RM} *.o *.ali sub-test src.adb test?.ac rules*
+#	@ - ${RM} -rf dir? dir3? dir?? src src1 src2 include zip-ada gtkada-master \
+#	           adactl-1.19r10 batik-1.9 spring-petclinic-master \
+#	           spring-framework-petclinic-master
 	@ find . -name gmon.out -delete

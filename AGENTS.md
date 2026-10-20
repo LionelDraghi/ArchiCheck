@@ -28,7 +28,9 @@ This file is the entry point for coding agents working on ArchiCheck, the
 
 ## Build pointers
 
-- `make build` builds `acc` in debug mode (`alr build --development`) in obj/
+- `make build` builds `acc` in validation mode (`alr build --validation`);
+  warnings, including style ones, are errors; objects in obj/validation,
+  exe in obj/acc
 - `make build_release` builds `acc` in release mode (`alr build --release`);
   the tests must pass in both modes
 - `make tools` builds the Tools/ sub-project (create_pkg)
