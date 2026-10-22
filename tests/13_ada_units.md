@@ -20,7 +20,7 @@ procedure Sub.Test has several separate units :
   * separate task
   * separate protected
 
-> acc -ld -I ../docs/tests/13_ada_units/src
+> acc -ld -I ../docs/tests_results/13_ada_units/src
 
 Expected :
 
@@ -45,7 +45,7 @@ Sub.Tools package spec depends on A2
 Util.New_Page package spec depends on Interfaces.C
 ```
 
-- Given I run `gcc -c -gnatc -I../docs/tests/13_ada_units/src ../docs/tests/13_ada_units/src/rational_numbers.adb ../docs/tests/13_ada_units/src/rational_numbers-reduce.adb ../docs/tests/13_ada_units/src/sub-put.adb ../docs/tests/13_ada_units/src/sub-test.adb ../docs/tests/13_ada_units/src/sub-test-get.adb ../docs/tests/13_ada_units/src/sub-test-put.adb ../docs/tests/13_ada_units/src/sub-test-ressource.adb ../docs/tests/13_ada_units/src/sub-test-server.adb ../docs/tests/13_ada_units/src/text_io_new_page.adb` Successfully
-- Given there is a file `../docs/tests/13_ada_units/expected_output.1`
-- When I run `./acc -ld -I ../docs/tests/13_ada_units/src` Successfully
-- Then I get file `../docs/tests/13_ada_units/expected_output.1` (ignoring order)
+- Given I run `gcc -c -gnatc -I../docs/tests_results/13_ada_units/src ../docs/tests_results/13_ada_units/src/rational_numbers.adb ../docs/tests_results/13_ada_units/src/rational_numbers-reduce.adb ../docs/tests_results/13_ada_units/src/sub-put.adb ../docs/tests_results/13_ada_units/src/sub-test.adb ../docs/tests_results/13_ada_units/src/sub-test-get.adb ../docs/tests_results/13_ada_units/src/sub-test-put.adb ../docs/tests_results/13_ada_units/src/sub-test-ressource.adb ../docs/tests_results/13_ada_units/src/sub-test-server.adb ../docs/tests_results/13_ada_units/src/text_io_new_page.adb` Successfully
+- Given there is a file `../docs/tests_results/13_ada_units/expected_output.1`
+- When I run `./acc -ld -I ../docs/tests_results/13_ada_units/src` Successfully
+- Then I get file `../docs/tests_results/13_ada_units/expected_output.1` (ignoring order)

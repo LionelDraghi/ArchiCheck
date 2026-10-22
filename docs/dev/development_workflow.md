@@ -22,32 +22,32 @@ make check
 To run a single suite:
 
 ```sh
-cd Tests && bbt -c -k --yes --exclude @WIP <NN_suite.md>
+cd tests && bbt -c -k --yes --exclude @WIP <NN_suite.md>
 ```
 
 To run all tests:
 
 ```sh
-cd Tests && make check
+cd tests && make check
 ```
 
-All test suites are described in the flat `Tests/[0-9][0-9]_*.md` bbt files,
+All test suites are described in the flat `tests/[0-9][0-9]_*.md` bbt files,
 and run from this directory by a single bbt invocation. Bulk test data stays
-in the `docs/tests/<suite>` directories, next to the suite pages, and is
-referenced from the `.md` files with its `../docs/tests/<suite>/` prefix.
+in the `docs/tests_results/<suite>` directories, next to the suite pages, and is
+referenced from the `.md` files with its `../docs/tests_results/<suite>/` prefix.
 
 When running tests:
 
 - `--exclude @WIP` skips the work-in-progress tests; never remove them from
   the run to make it pass;
-- `Tests/acc` and `Tests/create_pkg` are symlinks made by the test makefile;
+- `tests/acc` and `tests/create_pkg` are symlinks made by the test makefile;
   if they are missing, just run the tests makefile, do not copy binaries.
 
 Run the relevant tests throughout development. Fix failures before continuing.
 
 ## 2. Feature and error-message changes
 
-The test suites in `Tests/` are the specification. Follow a TDD-first approach
+The test suites in `tests/` are the specification. Follow a TDD-first approach
 when changing a feature or an error-message format.
 
 Error messages and rules file syntax are stabilized by the suites
@@ -79,17 +79,18 @@ machine or on the locale: no hard version number (use a regexp or a fixed
 behavior), and set the environment variable LC_ALL to C when a tool message is
 checked.
 
-Fixme comments in src/, docs/ and Tests/ are indexed in `docs/fixme.md` by
+Fixme comments in src/, docs/ and tests/ are indexed in
+`docs/dev/fixme_index.md` by
 `make doc`; add one rather than leaving an untracked TODO in the code.
 
 ## 3. Generated documentation
 
-The test results are written by `make check` to `docs/tests/test_results.md`,
-and the suite files are copied to `docs/tests/` by `make doc`. If a suite is
-changed, both the `Tests/NN_*.md` file and `docs/tests/` must stay consistent:
+The test results are written by `make check` to `docs/tests_results/test_results.md`,
+and the suite files are copied to `docs/tests_results/` by `make doc`. If a suite is
+changed, both the `tests/NN_*.md` file and `docs/tests_results/` must stay consistent:
 
 ```sh
-cd Tests && make doc
+cd tests && make doc
 ```
 
 After changing the version or the command line help, regenerate the generated
@@ -110,7 +111,7 @@ to date, including where applicable:
 - documentation;
 - changelog;
 - Fixme comments and index;
-- generated documentation (cmd_line.md, badges, docs/tests/).
+- generated documentation (cmd_line.md, badges, docs/tests_results/).
 
 Review the modified sources critically:
 
@@ -143,7 +144,7 @@ unwanted test artefacts, generated temporary outputs, debug traces, editor
 files, compiler outputs or unrelated files.
 
 Check the file system directly, not only with `git status`. Git-ignored files
-(obj/, *.o, *.ali, the Tests/acc and Tests/create_pkg symlinks, test dirs
+(obj/, *.o, *.ali, the tests/acc and tests/create_pkg symlinks, test dirs
 rebuilt by the scenarios such as dir?, src, zip-ada...) remain invisible to
 Git.
 
@@ -224,7 +225,7 @@ git add <approved files>
 ```
 
 The staged state must include the whole generated state: test results,
-badges, docs/tests/, docs/cmd_line.md, docs/fixme.md...
+badges, docs/tests_results/, docs/cmd_line.md, docs/dev/fixme_index.md...
 
 Do not commit in the middle of the generation chain: committing after the
 tests alone can freeze inconsistent artefacts, such as a badge still
@@ -293,5 +294,5 @@ a design-discussion entry is welcome when it helps understanding.
 Record an undecided feature idea or a pending work item in:
 
 ```text
-docs/todo.md
+docs/TDL.md
 ```

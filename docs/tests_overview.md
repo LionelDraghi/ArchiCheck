@@ -5,9 +5,9 @@ The global intent is to have just documentation of the behavior, and to have bbt
 
 Tests are at exe level, with no unit testing at this stage. 
 
-Test suites are defined in the flat `Tests/[0-9][0-9]_*.md` files, using the [bbt](https://github.com/LionelDraghi/bbt) Gherkin-like grammar (`Feature`, `Scenario`, `Given`, `When`, `Then`). 
+Test suites are defined in the flat `tests/[0-9][0-9]_*.md` files, using the [bbt](https://github.com/LionelDraghi/bbt) Gherkin-like grammar (`Feature`, `Scenario`, `Given`, `When`, `Then`). 
 
-Bulk test data (sources, rules files, third-party software extracts) stays in the `docs/tests/<suite>` directories, next to the suite pages, and is referenced from the flat files with its `../docs/tests/<suite>/` prefix. All test execution is driven by a single central `Tests/Makefile`; the test data is documentation, `Tests/` is only the place of execution.
+Bulk test data (sources, rules files, third-party software extracts) stays in the `docs/tests_results/<suite>` directories, next to the suite pages, and is referenced from the flat files with its `../docs/tests_results/<suite>/` prefix. All test execution is driven by a single central `tests/Makefile`; the test data is documentation, `tests/` is only the place of execution.
 
 A test typically documents (order may vary):
 
@@ -18,9 +18,9 @@ A test typically documents (order may vary):
 
 Execution is typically :
 
-1. the `Tests/acc` and `Tests/create_pkg` symlinks are created (or refreshed) toward the built binaries; never copy binaries in the tests directory;
+1. the `tests/acc` and `tests/create_pkg` symlinks are created (or refreshed) toward the built binaries; never copy binaries in the tests directory;
 2. then a single `bbt` invocation runs all the suites, with the `--exclude @WIP` option skipping the work-in-progress scenarios;
-3. bbt writes the consolidated results to `docs/tests/test_results.md`;
-4. the `doc` target copies the flat suite files to `docs/tests/`, where they are directly browsable on GitHub.
+3. bbt writes the consolidated results to `docs/tests_results/test_results.md`;
+4. the `doc` target copies the flat suite files to `docs/tests_results/`, where they are directly browsable on GitHub.
 
 So, to run a specific suite : `cd Tests && bbt -c -k --yes --exclude @WIP <NN_suite.md>`, and to run them all : `cd Tests && make check`.

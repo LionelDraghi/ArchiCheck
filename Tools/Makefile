@@ -7,6 +7,15 @@ endif
 
 all: create_pkg
 
+.PHONY : help
+help:
+	@ echo "Usage: make [target]"
+	@ echo ""
+	@ echo "Targets:"
+	@ echo "  all         : create_pkg (default when no target given)"
+	@ echo "  create_pkg  : build create_pkg in release mode"
+	@ echo "  clean       : remove the binary and the objects"
+
 create_pkg:
 	alr build --release
 

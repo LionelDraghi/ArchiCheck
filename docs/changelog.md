@@ -1,10 +1,9 @@
 <!-- omit from toc -->
 # Changelog
 
-All notable changes to this project will be documented in this file.
-
-The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.1.0/)
-and version numbering adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
+All notable changes **from a user perspective** to this project will be documented in this file.  
+The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.1.0/), (guidelines at the bottom of the page).  
+Version numbering adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 - [0.6.2] (actually means untagged)
   > - [Added] continuous integration: GitHub Actions build and test acc
@@ -86,3 +85,22 @@ and version numbering adheres to [Semantic Versioning](http://semver.org/spec/v2
 - june 2017     : first public release, mockup code 
 - 2005 - 2017   : glacial period!
 - 2004 - 2005   : initial code and announce on comp.lang.ada, [in this thread](http://groups.google.com/group/comp.lang.ada/browse_thread/thread/4a195a443fce793e/41bb2cb527464bab?q=comp.lang.ada+example+of+layered+software#41bb2cb527464bab).
+
+---
+
+[Keep a Changelog](http://keepachangelog.com/en/1.1.0/) Guiding Principles
+  - Changelogs are for humans, not machines.
+  - There should be an entry for every single version.
+  - The same types of changes should be grouped.
+  - Versions and sections should be linkable.
+  - The latest version comes first.
+  - The release date of each version is displayed.
+  - Mention whether you follow Semantic Versioning.
+
+Types of changes
+  - Added for new features.
+  - Changed for changes in existing functionality.
+  - Deprecated for soon-to-be removed features.
+  - Removed for now removed features.
+  - Fixed for any bug fixes.
+  - Security in case of vulnerabilities.

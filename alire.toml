@@ -26,9 +26,4 @@ acc = "validation"
 LIBTYPE = "static"
 
 [[depends-on]]
-list_image = "*"
-# opentoken  = "*"
-# bbt        = ">=0.6.0"  # because of the use of --cleanup=full in the Makefile
-
-[[pins]]
-# bbt        = { path = "../bbt" } 
+bbt = ">=0.6.0"  # because of the use of --cleanup=full in the Makefile

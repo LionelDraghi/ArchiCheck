@@ -13,8 +13,8 @@ gmon.out
 .vscode/
 
 # Tests symlinks to the built binaries (created by make check)
-/Tests/acc
-/Tests/create_pkg
+/tests/acc
+/tests/create_pkg
 
 # Alire
 alire/
@@ -28,5 +28,8 @@ src/Alire_config
 # Pijul
 .pijul/
 .ignore
+
 # Local bug report dossier (GNAT 16.1), not for publication
 gnat16-bug-report.md
+
+.serena/

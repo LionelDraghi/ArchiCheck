@@ -18,7 +18,7 @@ with a reference to its replacement.
 | Subject                                                            | Status                                       | References                                     |
 |--------------------------------------------------------------------|----------------------------------------------|------------------------------------------------|
 | D1. Rules file parsing: dropping OpenToken | Arbitrated (2026), implementation in progress | [changelog.md](../changelog.md), `src/acc-rules-parser.ads` |
-| D2. Test tooling: bbt replaces testrec | Arbitrated (2026-10), implemented            | `Tests/`                            |
+| D2. Test tooling: bbt replaces testrec | Arbitrated (2026-10), implemented            | `tests/`                            |
 | D3. Suite 13 source sanity check | Arbitrated (2026-10), implemented            | [13_ada_units.md](../tests/13_ada_units.md)    |
 
 The table is sorted by status: the entries under discussion first.
@@ -55,10 +55,10 @@ suite files.
 The previous home-made tool, testrec, was rejected for the default chain,
 then completely removed from the repository (sources, project file and
 self-test data): the suites are plain Markdown files, run by a single bbt
-invocation from Tests/, with bulk test data in the docs/tests/<suite>
+invocation from tests/, with bulk test data in the docs/tests/<suite>
 directories.
 
-Milestones: tests migration to bbt and central Tests/Makefile, bbt suite
+Milestones: tests migration to bbt and central tests/Makefile, bbt suite
 fixed to actual bbt grammar and fully passing, testrec retired from the
 build chain (commit `c894f15`), modernization with bbt 0.4 features (commit
 `b4086e4`).

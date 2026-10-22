@@ -18,23 +18,23 @@ else
 endif
 
 # Tests counts, extracted from the bbt consolidated results summary table
-TESTS_COUNT  = grep -E '^\| (Successful|Failed) ' docs/tests/test_results.md | sed 's/|//g;s/^ *//;s/ *$$//;s/  */ /g'
-TESTS_STATUS = grep -E '^\| (Failed|Successful|Empty|Not Run)' docs/tests/test_results.md | sed 's/|//g;s/^ *//;s/ *$$//;s/  */ /g'
+TESTS_COUNT  = grep -E '^\| (Successful|Failed) ' docs/tests_results/test_results.md | sed 's/|//g;s/^ *//;s/ *$$//;s/  */ /g'
+TESTS_STATUS = grep -E '^\| (Failed|Successful|Empty|Not Run)' docs/tests_results/test_results.md | sed 's/|//g;s/^ *//;s/ *$$//;s/  */ /g'
 
 ## mkfile := $(abspath $(lastword $(MAKEFILE_LIST)))
 ## rootdir := $(dir $(patsubst %/,%,$(dir $(mkfile))))
 
-all: build tools check doc
+all: build check doc
 
 .PHONY : help tools
 help:
 	@ echo "Usage: make [target]"
 	@ echo ""
 	@ echo "Targets:"
-	@ echo "  all           : build, tools, check and doc (default when no target given)"
+	@ echo "  all           : build, check and doc (default when no target given)"
 	@ echo "  build         : build acc in validation mode"
 	@ echo "  build_release : build acc in release mode"
-	@ echo "  release       : full release chain (release build, tests, badges,"
+	@ echo "  release       : full release chain (release build, tests,"
 	@ echo "                   docs/download.md, install in ~/bin)"
 	@ echo "  tools         : build the Tools sub-project (create_pkg)"
 	@ echo "  check         : run the bbt test suites"
@@ -122,8 +122,8 @@ build_release:
 	# -s : recompile if compiler switches have changed
 
 	@ echo - Running tests :
-	@ ## $(MAKE) --ignore-errors --directory=Tests
-	@ $(MAKE) --directory=Tests
+	@ ## $(MAKE) --ignore-errors --directory=tests
+	@ $(MAKE) --directory=tests
 
 	@ echo "Run "`date --iso-8601=seconds` 	>  release_tests.txt
 	@ echo									>> release_tests.txt
@@ -142,8 +142,8 @@ check: obj/acc$(EXE_SUFFIX) tools
 	##@ - mkdir -p Tools/obj 
 
 	@ echo - Running tests :
-	## $(MAKE) --ignore-errors --directory=Tests
-	$(MAKE) --directory=Tests
+	## $(MAKE) --ignore-errors --directory=tests
+	$(MAKE) --directory=tests
 
 	echo
 	@ echo - Tests summary :
@@ -151,13 +151,13 @@ check: obj/acc$(EXE_SUFFIX) tools
 
 
 .PHONY : badges
-badges: docs/tests/test_results.md
+badges: docs/tests_results/test_results.md
 	@ echo Make badges
 
 	# badge making:
 	@ wget -q "https://img.shields.io/badge/Version-`./obj/acc --version`-blue.svg" -O docs/generated_img/version.svg
-	@ wget -q "https://img.shields.io/badge/Tests_OK-`grep '| Successful' docs/tests/test_results.md | grep -o '[0-9]\+'`-green.svg" -O docs/generated_img/tests_ok.svg
-	@ wget -q "https://img.shields.io/badge/Tests_KO-`grep '| Failed' docs/tests/test_results.md | grep -o '[0-9]\+'`-red.svg" -O docs/generated_img/tests_ko.svg
+	@ wget -q "https://img.shields.io/badge/Tests_OK-`grep '| Successful' docs/tests_results/test_results.md | grep -o '[0-9]\+'`-green.svg" -O docs/generated_img/tests_ok.svg
+	@ wget -q "https://img.shields.io/badge/Tests_KO-`grep '| Failed' docs/tests_results/test_results.md | grep -o '[0-9]\+'`-red.svg" -O docs/generated_img/tests_ko.svg
 
 .PHONY : cmd_line.md
 cmd_line.md:
@@ -192,24 +192,24 @@ cmd_line.md:
 doc: badges cmd_line.md
 	@ echo Make Doc
 	
-	@ >  docs/fixme.md
+	@ >  docs/dev/fixme_index.md
 	@ rgrep -ni "Fixme:" docs/*.md | sed "s/:/|/2"	>> /tmp/fixme.md
 
-	@ echo 'Fixme in current version:'		>> docs/fixme.md
-	@ echo '-------------------------'		>> docs/fixme.md
-	@ echo                            		>> docs/fixme.md
-	@ echo 'Location | Text'             	>> docs/fixme.md
-	@ echo '---------|-----'             	>> docs/fixme.md
-	@ cat /tmp/fixme.md                     >> docs/fixme.md
+	@ echo 'Fixme in current version:'		>> docs/dev/fixme_index.md
+	@ echo '-------------------------'		>> docs/dev/fixme_index.md
+	@ echo                            		>> docs/dev/fixme_index.md
+	@ echo 'Location | Text'             	>> docs/dev/fixme_index.md
+	@ echo '---------|-----'             	>> docs/dev/fixme_index.md
+	@ cat /tmp/fixme.md                     >> docs/dev/fixme_index.md
 	@ rm  /tmp/fixme.md
-	@ rgrep -ni              "Fixme:" src/*     | sed "s/:/|/2"	>> docs/fixme.md
-	@ grep -ni --no-messages "Fixme:" Tests/*/* | sed "s/:/|/2"	>> docs/fixme.md
+	@ rgrep -ni              "Fixme:" src/*     | sed "s/:/|/2"	>> docs/dev/fixme_index.md
+	@ grep -ni --no-messages "Fixme:" tests/*/* | sed "s/:/|/2"	>> docs/dev/fixme_index.md
 
 .PHONY : clean
 clean:
 	@ echo Make clean
 	@ alr clean
 	@ - ${RM} -rf obj/* tmp.txt *.lst *.dat gmon.out *.md.out gh-md-toc
-	@ - $(MAKE) --directory=Tests clean
+	@ - $(MAKE) --directory=tests clean
 	@ - $(MAKE) --directory=Tools clean
 	
