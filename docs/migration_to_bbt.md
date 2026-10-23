@@ -1,5 +1,4 @@
-<!-- omit from toc -->
-# Migration to bbt
+# Migration to bbt <!-- omit from toc -->
 
 This page gives the objective balance sheet of the test suites migration:
 line counts of Makefiles, input files and expected files, before and after.

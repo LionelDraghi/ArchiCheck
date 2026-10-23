@@ -1,5 +1,4 @@
-<!-- omit from toc -->
-# Release procedure
+# Release procedure <!-- omit from toc -->
 
 The release procedure is common to all Lionel's Ada projects and lives
 in [the reference repository on GitHub](https://github.com/LionelDraghi/ada-project-template/blob/main/release_procedure.md).

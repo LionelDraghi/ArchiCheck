@@ -14,3 +14,14 @@ src/acc-rules-parser.adb:633|         -- Fixme: put_line to be moved in rules, o
 src/acc-rules.adb:115|      -- Fixme: ajouter une référence à la règle en param out
 src/acc-settings.ads:59|   -- Fixme: Not sure that case independence would be useful here
 src/backup/src/archicheck-dependencies.ads:49|--        -- Fixme:
+src/opentoken/opentoken-production-parser-lalr-lalr_parser.adb:325|            --  FIXME: free everything
+src/opentoken/opentoken-production-parser-lalr-lalr_parser.adb:337|               --  FIXME: merge expecting from all active parsers
+src/opentoken/opentoken-production-parser-lalr-lalr_parser.adb:340|               --  FIXME: free everything
+src/opentoken/opentoken-production-parser-lalr-parser.adb:325|            --  FIXME: free everything
+src/opentoken/opentoken-production-parser-lalr-parser.adb:337|               --  FIXME: merge expecting from all active parsers
+src/opentoken/opentoken-production-parser-lalr-parser.adb:340|               --  FIXME: free everything
+src/opentoken/opentoken-production-parser-lalr-parser_lists.adb:115|            Token => null), -- Token is free'd after being passed to user action. FIXME: say what?
+src/opentoken/opentoken-text_feeder-counted_gnat_os_lib.adb:63|         --  FIXME: what if a line end sequence crosses Text'last?
+src/opentoken/opentoken-token-enumerated-analyzer.adb:102|         --  FIXME: more space in buffer'first .. head! test end of
+src/opentoken/opentoken-token-enumerated-analyzer.ads:282|      Buffer                 : String (1 .. Max_Buffer_Size); --  FIXME: allow reallocate in Reset
+src/opentoken/opentoken.ads:62|   --  FIXME: currently only used in recognizers.string (directly), keyword, separator (via Buffers)

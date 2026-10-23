@@ -1,5 +1,4 @@
-<!-- omit from toc -->
-# Development workflow
+# Development workflow <!-- omit from toc -->
 
 This document describes the workflow for normal development tasks on ArchiCheck.
 
@@ -33,8 +32,8 @@ cd tests && make check
 
 All test suites are described in the flat `tests/[0-9][0-9]_*.md` bbt files,
 and run from this directory by a single bbt invocation. Bulk test data stays
-in the `docs/tests_results/<suite>` directories, next to the suite pages, and is
-referenced from the `.md` files with its `../docs/tests_results/<suite>/` prefix.
+in the `docs/features/<suite>` directories, next to the suite pages, and is
+referenced from the `.md` files with its `../docs/features/<suite>/` prefix.
 
 When running tests:
 
@@ -86,8 +85,8 @@ Fixme comments in src/, docs/ and tests/ are indexed in
 ## 3. Generated documentation
 
 The test results are written by `make check` to `docs/tests_results/test_results.md`,
-and the suite files are copied to `docs/tests_results/` by `make doc`. If a suite is
-changed, both the `tests/NN_*.md` file and `docs/tests_results/` must stay consistent:
+while the suite files themselves live in `docs/features/` and are the single
+source of truth: never edit the `docs/tests_results/` copies.
 
 ```sh
 cd tests && make doc

@@ -1,5 +1,4 @@
-<!-- omit from toc -->
-Building 
+Building  <!-- omit from toc -->
 ========
 
 Downloading a Linux exe :

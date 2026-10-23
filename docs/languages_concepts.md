@@ -1,5 +1,4 @@
-<!-- omit from toc -->
-# Components and visibility matching concepts in languages
+# Components and visibility matching concepts in languages <!-- omit from toc -->
 
 Languages by alphabetical order, with a limitations list at the end.
 

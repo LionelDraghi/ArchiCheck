@@ -1,0 +1,96 @@
+# Feature: Rules vs sources coverage test suite <!-- omit from toc -->
+
+- [Scenario: Warnings on units appearing in rules file and not related to any source](#scenario-warnings-on-units-appearing-in-rules-file-and-not-related-to-any-source)
+- [Scenario: Non covered sources](#scenario-non-covered-sources)
+- [Scenario: Case insensitivity of Is\_A\_Component function (non reg)](#scenario-case-insensitivity-of-is_a_component-function-non-reg)
+
+
+## Scenario: Warnings on units appearing in rules file and not related to any source
+
+- Given there is no `dir1` directory
+- And I run `./create_pkg P1 spec -in dir1` Successfully
+- And I run `./create_pkg P2 spec -in dir1` Successfully
+- And I run `./create_pkg P5 spec -in dir1` Successfully
+- And the file `test1.ac`
+```
+Framework contains P1, P2 and P3
+-- no P3 src, should raise a warning
+
+P4 may use P1 
+-- no P4 src, should raise a warning
+
+Java.IO use is forbidden
+-- no Java.IO sources, but should not raise a warning
+
+P5 may use Framework
+-- Framework match no sources, but should not raise warning
+-- as it's a Component.
+
+```
+- When I run `./acc test1.ac -I ./dir1`
+- Then output is
+```
+Warning : test1.ac:1: P3 do not match any compilation unit
+Warning : test1.ac:4: P4 do not match any compilation unit
+```
+
+## Scenario: Non covered sources
+
+- Given there is no `dir2` directory
+- And I run `./create_pkg P2 spec -in dir2` Successfully
+- And I run `./create_pkg P3 spec -in dir2` Successfully
+- And I run `./create_pkg P4 spec -in dir2` Successfully
+- And I run `./create_pkg P5 spec -in dir2` Successfully
+- And I run `./create_pkg P1.X spec -in dir2` Successfully
+- And I run `./create_pkg Y.P1 spec -in dir2` Successfully
+- And I run `./create_pkg Framework.Utilities spec -in dir2` Successfully
+- And I run `./create_pkg Framework_Utilities spec -in dir2` Successfully
+- And I run `./create_pkg Java.Awt spec -in dir2` Successfully
+- And I run `./create_pkg Java spec -in dir2` Successfully
+- And the file `test2.ac`
+```
+Framework contains P1, P2 and P3
+-- no P3 src, should raise a warning
+
+P4 may use P1 
+-- no P4 src, should raise a warning
+
+Java.IO use is forbidden
+-- no Java.IO sources, but should not raise a warning
+
+P5 may use Framework
+-- Framework match no sources, but should not raise warning
+-- as it's a Component.
+
+```
+- When I run `./acc -lnc test2.ac -I ./dir2` or `./acc --list_non_covered test2.ac -I ./dir2`
+- Then output is (ignoring order)
+```
+Framework_Utilities
+Java
+Java.Awt
+Y.P1
+```
+
+## Scenario: Case insensitivity of Is_A_Component function (non reg)
+
+- Given there is no `dir3` directory
+- And I run `./create_pkg P1 spec -in dir3` Successfully
+- And the file `test3.ac`
+```
+-- Check correction of a bug due to case sensitivity of Unit_Name default "="
+
+SYSTEM contains org.springframework.samples.petclinic.system.WelcomeController
+
+Org.SpringFramework may use Model, system
+-- Model is not a component => Warning because of no Matching sources
+-- system is a component    => no warning expected system should be identified as
+--                             the component declared in uppercase.
+```
+- When I run `./acc test3.ac -I dir3`
+- Then output is
+```
+Warning : test3.ac:5: Org.SpringFramework do not match any compilation unit
+Warning : test3.ac:3: org.springframework.samples.petclinic.system.WelcomeController do not match any compilation unit
+Warning : test3.ac:5: Model do not match any compilation unit
+```

@@ -1,5 +1,4 @@
-<!-- omit from toc -->
-# Design discussions
+# Design discussions <!-- omit from toc -->
 
 - D1. Rules file parsing: dropping OpenToken
 - D2. Test tooling: bbt replaces testrec
@@ -19,7 +18,7 @@ with a reference to its replacement.
 |--------------------------------------------------------------------|----------------------------------------------|------------------------------------------------|
 | D1. Rules file parsing: dropping OpenToken | Arbitrated (2026), implementation in progress | [changelog.md](../changelog.md), `src/acc-rules-parser.ads` |
 | D2. Test tooling: bbt replaces testrec | Arbitrated (2026-10), implemented            | `tests/`                            |
-| D3. Suite 13 source sanity check | Arbitrated (2026-10), implemented            | [13_ada_units.md](../tests/13_ada_units.md)    |
+| D3. Suite 13 source sanity check | Arbitrated (2026-10), implemented            | [13_ada_units.md](../features/13_ada_units.md)    |
 
 The table is sorted by status: the entries under discussion first.
 
@@ -68,7 +67,7 @@ build chain (commit `c894f15`), modernization with bbt 0.4 features (commit
 Status: arbitrated (October 2026), implemented
 
 The purpose of the compilation step in the
-[13_ada_units](../tests/13_ada_units.md) suite is only to verify that the
+[13_ada_units](../features/13_ada_units.md) suite is only to verify that the
 test sources compile; the tested behavior is the dependency list produced by
 acc, not the build.
 

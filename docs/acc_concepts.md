@@ -1,5 +1,4 @@
-<!-- omit from toc -->
-# **Fundamentals `Acc` concepts**
+# **Fundamentals `Acc` concepts** <!-- omit from toc -->
 
 - [1. Introduction](#1-introduction)
 - [2. Compilation Units](#2-compilation-units)

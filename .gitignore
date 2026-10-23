@@ -16,6 +16,13 @@ gmon.out
 /tests/acc
 /tests/create_pkg
 
+# Test runtime artifacts (created by the bbt suites)
+/tests/dir*/
+/tests/batik-1.9/
+/tests/rules.*
+/tests/*.md.out
+/tests/template.ac
+
 # Alire
 alire/
 src/Alire_config

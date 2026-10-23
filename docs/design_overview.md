@@ -1,5 +1,4 @@
-<!-- omit from toc -->
-# Design Overview
+# Design Overview <!-- omit from toc -->
 
 Main ArchiCheck components are :
 
@@ -15,7 +14,7 @@ Main ArchiCheck components are :
 
 - **ArchiCheck.Sources** stores the list of sources found during directories analysis, and defines the location types and services to print this location according to GNU convention;
 
-![A view on dependencies](tests/ac_view.png)
+![A view on dependencies](features/ac_view.png)
 
 ArchiCheck was designed to process multiple languages, and ArchiCheck vocabulary (Units, Component, Sources, etc.) is as much as possible language agnostic.
 Never the less, semantic is different in languages regarding those aspects, and this is an interesting exploration perspective for the ArchiCheck project.  

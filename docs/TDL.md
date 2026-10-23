@@ -1,5 +1,4 @@
-<!-- omit from toc -->
-ArchiCheck task and decision list
+ArchiCheck task and decision list <!-- omit from toc -->
 =================================
 
 This file records undecided feature ideas and pending work items
@@ -13,7 +12,7 @@ in [limitations.md](limitations.md).
 - **complete the globbing characters support**  
   The first implementation (0.6.0) only accepts a trailing `*`, as in
   `only Support_Layer may use Interfaces*`
-  (cf. the [globbing test suite](../tests/08_globbing_characters.md)).
+  (cf. the [globbing test suite](../features/08_globbing_characters.md)).
   Generalizing the position of the `*` would allow rules such as
   `only *.Porting_Kit can use X`.
 
@@ -51,8 +50,8 @@ in [limitations.md](limitations.md).
   The diagrams embedded in the test suites (batik.png, cp1-4.png,
   gc1-2.png, gtk.png) are Dia PNG exports whose `.dia` sources are
   not in the repository anymore; the scenarios reference the
-  generated copies in `docs/tests_results/`. Mermaid diagrams would
+  generated copies in `docs/features/`. Mermaid diagrams would
   be rendered natively by GitHub
-  (cf. [05_layer_rule](../tests/05_layer_rule.md)).
+  (cf. [05_layer_rule](../features/05_layer_rule.md)).
 
 - **Build a PDF documentation based on the md files**

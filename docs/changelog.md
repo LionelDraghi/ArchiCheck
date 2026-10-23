@@ -1,5 +1,4 @@
-<!-- omit from toc -->
-# Changelog
+# Changelog <!-- omit from toc -->
 
 All notable changes **from a user perspective** to this project will be documented in this file.  
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.1.0/), (guidelines at the bottom of the page).  

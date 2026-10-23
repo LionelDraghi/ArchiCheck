@@ -1,5 +1,4 @@
-<!-- omit from toc -->
-# Contributing
+# Contributing <!-- omit from toc -->
 
 Comments and issues are welcome [here](https://github.com/LionelDraghi/ArchiCheck/issues/new).  
 Feel free to suggest whatever improvement.

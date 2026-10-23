@@ -1,5 +1,4 @@
-<!-- omit from toc -->
-Rules File
+Rules File <!-- omit from toc -->
 ==========
 
 Archicheck rules file uses a simple syntax to describe structural aspects of a software architecture.
