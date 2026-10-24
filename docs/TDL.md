@@ -9,6 +9,16 @@ in [limitations.md](limitations.md).
 
 ## High priority
 
+- **Allow specifying a component that contains all units from a folder**  
+  Requested in
+  [issue #4](https://github.com/LionelDraghi/ArchiCheck/issues/4):
+  `Layer_A contains directory path/to/dir`, where the folder holds
+  several Ada packages. Useful when the layering is already expressed
+  by the file system hierarchy, saving rules file maintenance.
+  The empty test suite `22_files_component.md` was reserving this
+  slot: it has been removed, its scenarios being already covered by
+  [03_dependency_list](features/03_dependency_list.md).
+
 - **complete the globbing characters support**  
   The first implementation (0.6.0) only accepts a trailing `*`, as in
   `only Support_Layer may use Interfaces*`
@@ -40,11 +50,6 @@ in [limitations.md](limitations.md).
 - **Ada: `use type` processing**  
   A `use type` clause implies a dependency on the package of the
   type, on the same grounds as a `with` clause.
-
-- **Move the bbt scenario suites to `docs/features/`**  
-  `docs/features/` is the standard scenario location of the
-  ada-project-template tree, already followed by bbt and smk;
-  `tests/` would remain the run directory only.
 
 - **Migrate the test architecture diagrams to mermaid**  
   The diagrams embedded in the test suites (batik.png, cp1-4.png,
