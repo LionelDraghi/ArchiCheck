@@ -16,6 +16,9 @@ gmon.out
 /tests/acc
 /tests/create_pkg
 
+# Shields.io badge URL written by the bbt run (created by make check)
+/tests/badge.url
+
 # Alire
 alire/
 src/Alire_config
