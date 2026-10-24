@@ -35,10 +35,10 @@ check: ../obj/acc$(EXE_SUFFIX) ../Tools/create_pkg$(EXE_SUFFIX)
 	@ - $(REFRESH) ../Tools/create_pkg$(EXE_SUFFIX) create_pkg$(EXE_SUFFIX)
 	@ bbt --cleanup=full -k --yes --exclude @WIP ../docs/features/[0-9][0-9]_*.md
 
+# The tests directory holds nothing tracked but the Makefile: clean
+# removes every runtime artifact left by the bbt suites (extracted
+# third-party sources, create_pkg dirs, rules files, links...)
 clean:
-	@ - ${RM} acc$(EXE_SUFFIX) create_pkg$(EXE_SUFFIX) template.ac test_results.md
-#	@ - ${RM} *.o *.ali sub-test src.adb test?.ac rules*
-#	@ - ${RM} -rf dir? dir3? dir?? src src1 src2 include zip-ada gtkada-master \
-#	           adactl-1.19r10 batik-1.9 spring-petclinic-master \
-#	           spring-framework-petclinic-master
+	@ - ${RM} acc$(EXE_SUFFIX) create_pkg$(EXE_SUFFIX)
+	@ find . -mindepth 1 -maxdepth 1 ! -name Makefile -exec ${RM} -rf {} +
 	@ find . -name gmon.out -delete
